@@ -1,0 +1,136 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+  --bg: #ececea;
+  --ink: #111111;
+  --frost: rgba(255, 255, 255, 0.84);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  background: var(--bg);
+  color: var(--ink);
+}
+
+body {
+  font-family: var(--font-ndot55), sans-serif;
+  line-height: 1.2;
+  text-rendering: optimizeLegibility;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.frost-panel {
+  background: var(--frost);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  box-shadow: 0 16px 40px rgba(6, 6, 6, 0.2);
+}
+
+.dot-mesh-background {
+  background-image: radial-gradient(circle, rgba(17, 17, 17, 0.2) 0.9px, transparent 1px);
+  background-size: 42px 42px;
+  background-position: 16px 22px;
+}
+
+.dot-mesh-background-dark {
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.72) 0.85px, transparent 1px);
+  background-size: 60px 60px;
+  background-position: 24px 28px;
+}
+
+.soft-stage-surface {
+  background:
+    radial-gradient(circle at top, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.4) 42%, rgba(229, 229, 226, 0.78) 100%);
+}
+
+.product-stage-surface {
+  background:
+    radial-gradient(circle at 50% 16%, rgba(255, 255, 255, 0.94), rgba(255, 255, 255, 0.32) 46%, rgba(222, 222, 218, 0.86) 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55);
+}
+
+.dot-logo {
+  font-family: var(--font-ndot55-caps), sans-serif;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+}
+
+.dot-heading {
+  font-family: var(--font-ndot55-caps), sans-serif;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.collection-product-name {
+  font-family: var(--font-ntype82), serif;
+}
+
+.hero-overlay {
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.44) 0%,
+    rgba(0, 0, 0, 0.18) 24%,
+    rgba(0, 0, 0, 0.06) 48%,
+    rgba(0, 0, 0, 0.08) 100%
+  );
+}
+
+.dot-grid-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  pointer-events: none;
+  opacity: 0.95;
+  mix-blend-mode: difference;
+  background-image: radial-gradient(circle, rgb(255 255 255) 0.85px, transparent 1.05px);
+  background-size: 142px 142px;
+  background-position: 38px 34px;
+}
+
+@keyframes order-success-pop {
+  0% {
+    transform: scale(0.72);
+    opacity: 0;
+  }
+  70% {
+    transform: scale(1.08);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes order-success-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.order-success-icon {
+  animation: order-success-pop 420ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.order-success-check {
+  stroke-dasharray: 44;
+  stroke-dashoffset: 44;
+  animation: order-success-draw 460ms 220ms ease-out forwards;
+}

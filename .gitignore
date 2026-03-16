@@ -1,0 +1,13 @@
+.next
+*.log
+.env.local
+.env.*.local
+node_modules
+.git
+.DS_Store
+*.pem
+.vscode
+.idea
+dist
+build
+coverage
