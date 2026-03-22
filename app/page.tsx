@@ -40,8 +40,7 @@ function ProductShowcaseStage({
 }) {
   const imageHeightClass = size === 'large' ? 'h-[280px] sm:h-[360px] lg:h-[460px]' : 'h-[220px] sm:h-[280px] lg:h-[340px]'
   const panelPaddingClass = size === 'large' ? 'p-8' : 'p-6'
-
-  return (
+  const stageBody = (
     <div className={`relative flex min-h-[360px] items-center justify-center overflow-hidden ${panelPaddingClass}`}>
       <div className="absolute left-2 top-2 text-[10px] uppercase tracking-[0.22em] text-black/62">
         {eyebrow}
@@ -60,7 +59,7 @@ function ProductShowcaseStage({
             alt={product.name}
             fill
             sizes="(max-width: 1024px) 80vw, 40vw"
-            className="object-contain"
+            className="object-contain transition-transform duration-500 ease-out group-hover:scale-[1.02]"
           />
         </div>
       ) : (
@@ -69,6 +68,20 @@ function ProductShowcaseStage({
         </div>
       )}
     </div>
+  )
+
+  if (!product?.href) {
+    return stageBody
+  }
+
+  return (
+    <Link
+      href={product.href}
+      aria-label={`View ${product.name}`}
+      className="group block rounded-[28px] transition-opacity hover:opacity-90"
+    >
+      {stageBody}
+    </Link>
   )
 }
 
@@ -86,7 +99,7 @@ function CategorySection({
     <section key={section.slug} className="overflow-hidden border-t border-black/10 px-4 py-12 md:px-8 md:py-16">
       <div className="relative mx-auto max-w-screen-2xl">
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1.05fr)_minmax(340px,0.95fr)] lg:items-center">
-          <div className="max-w-2xl">
+          <div className="relative z-10 max-w-2xl">
             <p className="text-[10px] uppercase tracking-[0.32em] text-black/42">
               {String(index + 1).padStart(2, '0')} / {section.title}
             </p>
@@ -96,7 +109,7 @@ function CategorySection({
             </p>
 
             {section.childCollections && section.childCollections.length > 0 ? (
-              <div className="mt-6 flex flex-wrap gap-2">
+              <div className="relative z-10 mt-6 flex flex-wrap gap-2">
                 {section.childCollections.map((child) => (
                   <Link
                     key={child.slug}
@@ -109,7 +122,7 @@ function CategorySection({
               </div>
             ) : null}
 
-            <div className="mt-8 flex flex-wrap items-center gap-3">
+            <div className="relative z-10 mt-8 flex flex-wrap items-center gap-3">
               <Link
                 href={section.href}
                 className="inline-flex h-11 items-center justify-center rounded-full bg-black px-5 text-[11px] uppercase tracking-[0.24em] text-white transition-opacity hover:opacity-85"
@@ -162,7 +175,7 @@ export default async function Home() {
         {heroSection && featuredProduct ? (
           <section className="relative overflow-hidden border-b border-black/10 px-4 pb-10 pt-6 md:px-8 md:pb-14 md:pt-10">
             <div className="relative mx-auto grid max-w-screen-2xl gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(360px,560px)] lg:items-center">
-              <div className="max-w-3xl pt-6">
+              <div className="relative z-10 max-w-3xl pt-6">
                 <p className="text-[11px] uppercase tracking-[0.34em] text-black/56">Nothing Pakistan</p>
                 <h1 className="collection-product-name mt-5 text-5xl leading-[0.92] sm:text-6xl lg:text-7xl">
                   Nothing Pakistan phones, audio and accessories
@@ -172,7 +185,7 @@ export default async function Home() {
                   and audio devices in Pakistan. The homepage follows your real Supabase structure and keeps only product imagery.
                 </p>
 
-                <div className="mt-8 flex flex-wrap items-center gap-3">
+                <div className="relative z-10 mt-8 flex flex-wrap items-center gap-3">
                   <Link
                     href={heroSection.href}
                     className="inline-flex h-11 items-center justify-center rounded-full bg-black px-5 text-[11px] uppercase tracking-[0.24em] text-white transition-opacity hover:opacity-85"
@@ -185,15 +198,9 @@ export default async function Home() {
                   >
                     Shop All
                   </Link>
-                  <Link
-                    href="/cart"
-                    className="inline-flex h-11 items-center justify-center rounded-full border border-black/15 px-5 text-[11px] uppercase tracking-[0.24em] text-black transition-colors hover:bg-black hover:text-white"
-                  >
-                    Open Cart
-                  </Link>
                 </div>
 
-                <div className="mt-10 flex flex-wrap gap-3">
+                <div className="relative z-10 mt-10 flex flex-wrap gap-3">
                   {sectionNavigation.map((item) => (
                     <Link
                       key={item.slug}

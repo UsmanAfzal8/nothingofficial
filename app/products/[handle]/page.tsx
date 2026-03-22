@@ -1,15 +1,29 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
+import localFont from 'next/font/local'
 import { notFound, redirect } from 'next/navigation'
-import { AddToCartButton } from '@/components/AddToCartButton'
+import type { ReactNode } from 'react'
 import { NothingFooter } from '@/components/NothingFooter'
 import { NothingHeader } from '@/components/NothingHeader'
 import { SeoStructuredData } from '@/components/SeoStructuredData'
-import { getProductDetailByHandle } from '@/lib/data/catalog-repository'
+import {
+  getCollectionBySlug,
+  getMobileAccessoryGroupsByHandle,
+  getProductDetailByHandle,
+} from '@/lib/data/catalog-repository'
 import { siteBrandName, siteKeywords } from '@/lib/data/site-content'
-import type { ProductDetail, ProductDetailFaq, ProductDetailMedia, ProductDetailRelatedItem, ProductDetailReview } from '@/lib/models/product-detail'
+import type { Product } from '@/lib/models/catalog'
+import type { ProductDetail, ProductDetailFaq, ProductDetailMedia, ProductDetailReview } from '@/lib/models/product-detail'
 import { buildAbsoluteUrl, buildBreadcrumbStructuredData, buildSeoKeywords, toSeoHandle } from '@/lib/utils/seo'
+
+const detailFont = localFont({
+  src: [
+    { path: '../../../fonts/Inter-Regular.ttf', weight: '400', style: 'normal' },
+    { path: '../../../fonts/Inter-Medium.otf', weight: '500', style: 'normal' },
+  ],
+  display: 'swap',
+})
 
 type ProductDetailPageProps = {
   params: {
@@ -30,41 +44,18 @@ function uniqueStrings(values: Array<string | null | undefined>): string[] {
   return output
 }
 
-function buildProductMedia(productDetail: ProductDetail) {
-  const heroBackground = productDetail.gallery[0]?.url ?? productDetail.heroImages[0] ?? productDetail.ogImage ?? productDetail.primaryImage ?? null
-  const centerImage = productDetail.primaryImage ?? productDetail.gallery[0]?.url ?? productDetail.ogImage ?? heroBackground
-  const overviewImage =
-    productDetail.gallery[1]?.url ?? productDetail.gallery[0]?.url ?? productDetail.ogImage ?? productDetail.primaryImage ?? heroBackground
-
-  return {
-    heroBackground,
-    centerImage,
-    overviewImage,
-  }
-}
-
-function buildGalleryCards(productDetail: ProductDetail): ProductDetailMedia[] {
+function buildDisplayGallery(productDetail: ProductDetail): ProductDetailMedia[] {
   if (productDetail.gallery.length > 0) {
-    return productDetail.gallery.slice(0, 6)
+    return productDetail.gallery.slice(0, 5)
   }
 
-  const media = uniqueStrings([productDetail.primaryImage, productDetail.ogImage, ...productDetail.heroImages])
-
-  return media.slice(0, 6).map((image, index) => ({
-    id: `media-fallback-${index + 1}`,
-    url: image,
+  return uniqueStrings([productDetail.primaryImage, productDetail.ogImage, ...productDetail.heroImages]).slice(0, 5).map((url, index) => ({
+    id: `fallback-media-${index + 1}`,
+    url,
     alt: productDetail.name,
-    title: productDetail.variants[index]?.label ?? productDetail.name,
-    caption: productDetail.collections[index]?.title ?? productDetail.entityType,
+    title: productDetail.name,
+    caption: productDetail.collections[0]?.title ?? productDetail.brandName,
   }))
-}
-
-function buildRatingLabel(rating: number | null): string | null {
-  if (typeof rating !== 'number' || Number.isNaN(rating)) {
-    return null
-  }
-
-  return `${rating}/5`
 }
 
 function buildFaqStructuredData(faqs: ProductDetailFaq[]) {
@@ -156,170 +147,326 @@ function buildProductStructuredData(productDetail: ProductDetail) {
   )
 }
 
-function ProductSummaryCard({
-  productDetail,
-  canonicalHandle,
-}: {
-  productDetail: ProductDetail
-  canonicalHandle: string
-}) {
-  const widgetTexts = productDetail.widgets.slice(0, 3).map((item) => item.text)
-  const thumbnailImage = productDetail.ogImage ?? productDetail.primaryImage
-  const collectionLabel = productDetail.collections[0]?.title ?? (productDetail.entityType === 'mobile' ? 'Phones' : 'Catalog')
+function buildRecommendedProducts(productGroups: Product[][], currentHandle: string) {
+  const seen = new Set<string>()
+  const output: Product[] = []
 
+  for (const products of productGroups) {
+    for (const product of products) {
+      if (product.handle === currentHandle || seen.has(product.handle)) {
+        continue
+      }
+
+      seen.add(product.handle)
+      output.push(product)
+
+      if (output.length === 8) {
+        return output
+      }
+    }
+  }
+
+  return output
+}
+
+function SectionCard({ title, children }: { title: string; children: ReactNode }) {
   return (
-    <div className="rounded-[26px] border border-white/70 bg-[rgba(255,255,255,0.92)] p-3 shadow-[0_28px_80px_rgba(17,17,17,0.12)] backdrop-blur-xl">
-      <div className="grid grid-cols-[1fr,76px] items-start gap-3 md:grid-cols-[1fr,88px]">
-        <div>
-          <p className="text-[10px] uppercase tracking-[0.28em] text-black/38">{collectionLabel}</p>
-          <h2 className="collection-product-name mt-1 text-[1.9rem] leading-[0.95] md:text-[2.2rem]">{productDetail.name}</h2>
-          {productDetail.priceLabel ? (
-            <p className="mt-3 text-[11px] uppercase tracking-[0.24em] text-black/55">{productDetail.priceLabel}</p>
-          ) : null}
-        </div>
-
-        {thumbnailImage ? (
-          <div className="rounded-[18px] border border-black/10 bg-[#f1f1ef] p-2">
-            <div className="relative h-14 w-full md:h-16">
-              <Image src={thumbnailImage} alt={productDetail.name} fill sizes="88px" className="object-contain" />
-            </div>
-          </div>
-        ) : null}
-      </div>
-
-      {widgetTexts.length > 0 ? (
-        <ul className="mt-4 space-y-2">
-          {widgetTexts.map((text) => (
-            <li
-              key={text}
-              className="flex items-center gap-2 rounded-full border border-black/10 bg-[#f6f6f4] px-3 py-2 text-[10px] uppercase tracking-[0.16em] text-black/60"
-            >
-              <span className="inline-block h-1.5 w-1.5 rounded-full bg-black/55" />
-              <span>{text}</span>
-            </li>
-          ))}
-        </ul>
-      ) : null}
-
-      {productDetail.variants[0] ? (
-        <div className="mt-3 rounded-full border border-black/10 bg-[#efefec] px-3 py-2 text-center text-[10px] uppercase tracking-[0.26em] text-black/58">
-          {productDetail.variants[0].label}
-        </div>
-      ) : null}
-
-      <div className="mt-3 flex flex-wrap gap-2">
-        {productDetail.collections.slice(0, 4).map((collection) => (
-          <Link
-            key={collection.slug}
-            href={`/collections/${collection.slug}`}
-            className="rounded-full border border-black/10 bg-white px-2.5 py-1 text-[9px] uppercase tracking-[0.22em] text-black/52 transition-opacity hover:opacity-70"
-          >
-            {collection.title}
-          </Link>
-        ))}
-      </div>
-
-      <div className="mt-4 grid gap-2">
-        <Link
-          href={`/order/${canonicalHandle}`}
-          className="inline-flex h-11 items-center justify-center rounded-xl bg-black px-3 text-[10px] uppercase tracking-[0.24em] text-white transition-opacity hover:opacity-85"
-        >
-          {productDetail.priceLabel ? `${productDetail.priceLabel} • Take Order` : 'Take Order'}
-        </Link>
-        <AddToCartButton
-          item={{
-            handle: canonicalHandle,
-            name: productDetail.name,
-            image: productDetail.primaryImage ?? productDetail.ogImage,
-            price: productDetail.price ?? null,
-            priceLabel: productDetail.priceLabel ?? null,
-            subtitle: collectionLabel,
-            entityType: productDetail.entityType,
-          }}
-        />
-        {productDetail.collections[0] ? (
-          <Link
-            href={`/collections/${productDetail.collections[0].slug}`}
-            className="text-center text-[10px] uppercase tracking-[0.22em] text-black/48 transition-opacity hover:opacity-75"
-          >
-            View Collection
-          </Link>
-        ) : null}
-      </div>
-    </div>
+    <section className="rounded-[28px] border border-slate-200 bg-white p-5 shadow-[0_10px_30px_rgba(15,23,42,0.05)] sm:p-7">
+      <h2 className="text-[1.35rem] font-medium tracking-[-0.02em] text-slate-900 sm:text-[1.55rem]">{title}</h2>
+      <div className="mt-5">{children}</div>
+    </section>
   )
 }
 
-function GalleryCardPanel({ media }: { media: ProductDetailMedia }) {
+function DetailAccordion({
+  title,
+  children,
+  defaultOpen = false,
+}: {
+  title: string
+  children: ReactNode
+  defaultOpen?: boolean
+}) {
   return (
-    <article className="rounded-[24px] border border-white/75 bg-[rgba(255,255,255,0.88)] p-2 shadow-[0_20px_60px_rgba(17,17,17,0.08)] backdrop-blur-xl">
-      <div className="relative overflow-hidden rounded-[18px] border border-black/6 bg-[#f3f3f1] p-2">
-        <div className="dot-mesh-background absolute inset-0 opacity-30" />
-        <div className="relative h-24 w-full md:h-28">
-          <Image src={media.url} alt={media.alt} fill sizes="(max-width: 768px) 50vw, 16vw" className="object-contain" />
-        </div>
-      </div>
+    <details
+      open={defaultOpen}
+      className="rounded-[20px] border border-slate-200 bg-slate-50 px-4 py-4 shadow-[0_8px_22px_rgba(15,23,42,0.03)]"
+    >
+      <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-sm font-medium text-slate-900">
+        <span>{title}</span>
+        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-slate-200 bg-white text-base text-slate-500">
+          +
+        </span>
+      </summary>
+      <div className="pt-3 text-sm leading-6 text-slate-600">{children}</div>
+    </details>
+  )
+}
 
-      <div className="px-1 pb-1 pt-2">
-        {media.colorName || media.caption ? (
-          <p className="text-[9px] uppercase tracking-[0.22em] text-black/28 md:text-[10px]">
-            {media.colorName || media.caption}
-          </p>
+function ReviewCard({ review }: { review: ProductDetailReview }) {
+  return (
+    <article className="rounded-[22px] border border-slate-200 bg-slate-50 p-5">
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <p className="text-sm font-medium text-slate-900">{review.userName}</p>
+          {review.createdAt ? <p className="mt-1 text-xs text-slate-500">{review.createdAt}</p> : null}
+        </div>
+        {typeof review.rating === 'number' ? (
+          <span className="rounded-full bg-white px-3 py-1 text-xs font-medium text-slate-700">{review.rating}/5</span>
         ) : null}
-        <h3 className="collection-product-name mt-1 text-[1.05rem] leading-tight text-black/92 md:text-[1.2rem]">
-          {media.title || media.caption || media.colorName || 'Gallery image'}
-        </h3>
       </div>
+      <p className="mt-4 text-sm leading-6 text-slate-600">{review.comment || 'No written review provided.'}</p>
     </article>
   )
 }
 
-function RelatedMobileCard({ mobile }: { mobile: ProductDetailRelatedItem }) {
+function RecommendationCard({ product }: { product: Product }) {
   return (
-    <Link
-      href={`/products/${mobile.slug}`}
-      className="rounded-[24px] border border-white/75 bg-[rgba(255,255,255,0.9)] p-3 shadow-[0_20px_50px_rgba(17,17,17,0.06)] transition-transform hover:-translate-y-0.5"
-    >
-      <div className="relative overflow-hidden rounded-[18px] border border-black/8 bg-[#f3f3f1] p-3">
-        <div className="dot-mesh-background absolute inset-0 opacity-25" />
-        {mobile.image ? (
-          <div className="relative h-32 w-full">
-            <Image src={mobile.image} alt={mobile.name} fill sizes="(max-width: 768px) 70vw, 20vw" className="object-contain" />
+    <Link href={product.href} className="group block text-center">
+      <div className="mx-auto w-full max-w-[220px]">
+        {product.image ? (
+          <div className="relative aspect-square w-full">
+            <Image
+              src={product.image}
+              alt={product.name}
+              fill
+              sizes="(max-width: 768px) 44vw, (max-width: 1200px) 28vw, 18vw"
+              className="object-contain object-center transition-transform duration-300 group-hover:scale-[1.03]"
+            />
           </div>
         ) : (
-          <div className="relative flex h-32 items-center justify-center text-[10px] uppercase tracking-[0.24em] text-black/30">
+          <div className="flex aspect-square w-full items-center justify-center text-sm text-slate-400">
             No image
           </div>
         )}
       </div>
 
-      <div className="px-1 pb-1 pt-3">
-        <p className="text-[9px] uppercase tracking-[0.22em] text-black/30">{mobile.subtitle || 'Linked mobile'}</p>
-        <h3 className="collection-product-name mt-1 text-[1.15rem] leading-tight text-black/92">{mobile.name}</h3>
-        {mobile.priceLabel ? <p className="mt-2 text-[10px] uppercase tracking-[0.22em] text-black/55">{mobile.priceLabel}</p> : null}
+      <div className="mt-5">
+        <h3 className="text-[1.05rem] leading-[1.15] tracking-[-0.02em] text-slate-900 sm:text-[1.18rem]">{product.name}</h3>
+        {product.priceLabel ? <p className="mt-2 text-sm text-slate-500">{product.priceLabel}</p> : null}
       </div>
     </Link>
   )
 }
 
-function ReviewPanel({ review }: { review: ProductDetailReview }) {
-  const ratingLabel = buildRatingLabel(review.rating)
+function WhatsAppIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path
+        d="M12 3.2C7.14 3.2 3.2 7.14 3.2 12C3.2 13.73 3.7 15.41 4.65 16.86L3.6 20.4L7.24 19.38C8.63 20.26 10.23 20.8 12 20.8C16.86 20.8 20.8 16.86 20.8 12C20.8 7.14 16.86 3.2 12 3.2Z"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M9.08 8.82C8.78 8.82 8.52 8.97 8.37 9.23C8.05 9.76 7.94 10.4 8.1 10.99C8.42 12.15 9.21 13.29 10.28 14.35C11.35 15.42 12.49 16.21 13.65 16.53C14.24 16.69 14.88 16.58 15.41 16.27C15.68 16.11 15.83 15.85 15.83 15.54V14.72C15.83 14.48 15.67 14.27 15.44 14.2L13.7 13.68C13.5 13.62 13.28 13.68 13.13 13.84L12.61 14.39C12.53 14.47 12.41 14.5 12.3 14.47C11.64 14.24 10.56 13.38 10.18 12.69C10.12 12.59 10.14 12.46 10.22 12.38L10.77 11.87C10.93 11.71 10.99 11.49 10.93 11.29L10.41 9.55C10.34 9.31 10.13 9.15 9.89 9.15H9.08V8.82Z"
+        fill="currentColor"
+      />
+    </svg>
+  )
+}
+
+function PhoneAccessoryTile({ product }: { product: Product }) {
+  return (
+    <Link href={product.href} className="group block">
+      <article className="flex h-full flex-col">
+        <div className="relative aspect-[4/5] overflow-hidden">
+          {product.image ? (
+            <Image
+              src={product.image}
+              alt={product.name}
+              fill
+              sizes="(max-width: 768px) 48vw, 24vw"
+              className="object-contain object-center transition-transform duration-300 group-hover:scale-[1.03]"
+            />
+          ) : (
+            <div className="flex h-full items-center justify-center text-[10px] uppercase tracking-[0.22em] text-slate-400">
+              No image
+            </div>
+          )}
+        </div>
+
+        <div className="mt-3 text-center">
+          <h3 className="text-[0.98rem] leading-[1.12] tracking-[-0.015em] text-slate-900 sm:text-[1.04rem]">{product.name}</h3>
+          {product.priceLabel ? <p className="mt-1 text-[11px] text-slate-500">{product.priceLabel}</p> : null}
+        </div>
+      </article>
+    </Link>
+  )
+}
+
+function PhoneAccessoriesHero({
+  productDetail,
+  gallery,
+  mainImage,
+  intro,
+}: {
+  productDetail: ProductDetail
+  gallery: ProductDetailMedia[]
+  mainImage: string | null
+  intro: string | null
+}) {
+  const labels = [...new Set([productDetail.variants[0]?.label, ...productDetail.widgets.map((item) => item.text)].filter(Boolean))].slice(0, 4)
 
   return (
-    <article className="rounded-[24px] border border-black/10 bg-[#f8f8f6] px-5 py-4 shadow-[0_14px_28px_rgba(17,17,17,0.04)]">
-      <div className="flex items-start justify-between gap-4">
+    <section className="rounded-[30px] border border-slate-200 bg-white p-4 shadow-[0_18px_40px_rgba(15,23,42,0.06)] sm:p-6 lg:p-8">
+      <div className="grid gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(320px,0.95fr)] lg:items-start">
         <div>
-          <p className="text-[10px] uppercase tracking-[0.24em] text-black/40">{review.userName}</p>
-          {review.createdAt ? <p className="mt-2 text-[10px] uppercase tracking-[0.18em] text-black/28">{review.createdAt}</p> : null}
-        </div>
-        {ratingLabel ? (
-          <div className="rounded-full border border-black/10 bg-white px-3 py-1 text-[10px] uppercase tracking-[0.22em] text-black/58">
-            {ratingLabel}
+          <div className="rounded-[26px] border border-slate-200 bg-[#f8fafc] p-5 sm:p-7">
+            {mainImage ? (
+              <div className="relative h-[300px] w-full sm:h-[420px] lg:h-[540px]">
+                <Image
+                  src={mainImage}
+                  alt={productDetail.name}
+                  fill
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 56vw"
+                  className="object-contain"
+                />
+              </div>
+            ) : (
+              <div className="flex h-[300px] items-center justify-center rounded-[18px] border border-dashed border-slate-300 text-sm text-slate-400 sm:h-[420px] lg:h-[540px]">
+                No image available
+              </div>
+            )}
           </div>
-        ) : null}
+
+          {gallery.length > 1 ? (
+            <div className="mt-4 flex gap-3 overflow-x-auto pb-1">
+              {gallery.map((media, index) => (
+                <div
+                  key={media.id}
+                  className={`rounded-[18px] border p-3 ${index === 0 ? 'border-slate-900 bg-slate-50' : 'border-slate-200 bg-white'}`}
+                >
+                  <div className="relative h-20 w-20 sm:h-24 sm:w-24">
+                    <Image src={media.url} alt={media.alt} fill sizes="96px" className="object-contain" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : null}
+        </div>
+
+        <div className="lg:sticky lg:top-28">
+          <p className="text-sm font-medium uppercase tracking-[0.16em] text-slate-500">Phone Accessories</p>
+          <h1 className="mt-3 text-[2rem] font-medium leading-tight tracking-[-0.03em] text-slate-900 sm:text-[2.6rem]">
+            {productDetail.name}
+          </h1>
+
+          <p className="mt-4 rounded-[22px] border border-sky-100 bg-sky-50 px-4 py-4 text-sm leading-6 text-sky-900">
+            We do not sell this phone here. This page only shows the chargers, protectors, earbuds, and other accessories linked to it.
+          </p>
+
+          {intro ? <p className="mt-5 text-base leading-7 text-slate-600">{intro}</p> : null}
+
+          {labels.length > 0 ? (
+            <div className="mt-5 flex flex-wrap gap-2">
+              {labels.map((label) => (
+                <span key={label} className="rounded-full border border-slate-200 bg-white px-3 py-2 text-xs font-medium text-slate-600">
+                  {label}
+                </span>
+              ))}
+            </div>
+          ) : null}
+        </div>
       </div>
-      {review.comment ? <p className="mt-4 text-sm leading-6 text-black/68">{review.comment}</p> : null}
-    </article>
+    </section>
+  )
+}
+
+function PrimaryCatalogPanel({
+  productDetail,
+  canonicalHandle,
+  collectionLabel,
+  gallery,
+  mainImage,
+  intro,
+}: {
+  productDetail: ProductDetail
+  canonicalHandle: string
+  collectionLabel: string
+  gallery: ProductDetailMedia[]
+  mainImage: string | null
+  intro: string | null
+}) {
+  return (
+    <section className="rounded-[30px] border border-slate-200 bg-white p-4 shadow-[0_18px_40px_rgba(15,23,42,0.06)] sm:p-6 lg:p-8">
+      <div className="grid gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(320px,0.95fr)] lg:items-start">
+        <div>
+          <div className="rounded-[26px] border border-slate-200 bg-[#f8fafc] p-5 sm:p-7">
+            {mainImage ? (
+              <div className="relative h-[300px] w-full sm:h-[420px] lg:h-[540px]">
+                <Image
+                  src={mainImage}
+                  alt={productDetail.name}
+                  fill
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 56vw"
+                  className="object-contain"
+                />
+              </div>
+            ) : (
+              <div className="flex h-[300px] items-center justify-center rounded-[18px] border border-dashed border-slate-300 text-sm text-slate-400 sm:h-[420px] lg:h-[540px]">
+                No image available
+              </div>
+            )}
+          </div>
+
+          {gallery.length > 1 ? (
+            <div className="mt-4 flex gap-3 overflow-x-auto pb-1">
+              {gallery.map((media, index) => (
+                <div
+                  key={media.id}
+                  className={`rounded-[18px] border p-3 ${index === 0 ? 'border-slate-900 bg-slate-50' : 'border-slate-200 bg-white'}`}
+                >
+                  <div className="relative h-20 w-20 sm:h-24 sm:w-24">
+                    <Image src={media.url} alt={media.alt} fill sizes="96px" className="object-contain" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : null}
+        </div>
+
+        <div className="lg:sticky lg:top-28">
+          <p className="text-sm font-medium text-slate-500">{productDetail.brandName || collectionLabel}</p>
+          <h1 className="mt-2 text-[2rem] font-medium leading-tight tracking-[-0.03em] text-slate-900 sm:text-[2.6rem]">
+            {productDetail.name}
+          </h1>
+
+          {intro ? <p className="mt-4 text-base leading-7 text-slate-600">{intro}</p> : null}
+
+          <div className="mt-6 rounded-[24px] border border-slate-200 bg-slate-50 p-5">
+            <div className="flex flex-wrap items-start justify-between gap-4">
+              <div>
+                <p className="text-sm text-slate-500">Price</p>
+                <p className="mt-2 text-[1.9rem] font-medium leading-none tracking-[-0.03em] text-slate-900">
+                  {productDetail.priceLabel || 'Contact for price'}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-6 grid gap-3 sm:grid-cols-2">
+            <Link
+              href={`/order/${canonicalHandle}`}
+              className="inline-flex h-12 items-center justify-center rounded-[16px] bg-slate-900 px-5 text-sm font-medium text-white transition-colors hover:bg-slate-800"
+            >
+              Buy Now
+            </Link>
+            <Link
+              href="https://wa.me/923424476070"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex h-12 items-center justify-center gap-2 rounded-[16px] border border-[#b7f0cb] bg-[#e9fff1] px-5 text-sm font-medium text-[#118a45] transition-colors hover:bg-[#dcffea]"
+            >
+              <WhatsAppIcon />
+              <span>Contact on WhatsApp</span>
+            </Link>
+          </div>
+        </div>
+      </div>
+    </section>
   )
 }
 
@@ -389,238 +536,174 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
     redirect(`/products/${canonicalHandle}`)
   }
 
-  const { heroBackground, centerImage, overviewImage } = buildProductMedia(productDetail)
-  const galleryCards = buildGalleryCards(productDetail)
-  const columnSplitIndex = Math.ceil(galleryCards.length / 2)
-  const leftGalleryCards = galleryCards.slice(0, columnSplitIndex)
-  const rightGalleryCards = galleryCards.slice(columnSplitIndex)
+  const gallery = buildDisplayGallery(productDetail)
+  const mainImage = gallery[0]?.url ?? null
+  const detailParagraphs = uniqueStrings([productDetail.summary, productDetail.description])
+  const breadcrumbItems = buildProductBreadcrumbs(productDetail)
+  const collectionLabel = productDetail.collections[0]?.title ?? (productDetail.entityType === 'mobile' ? 'Phones' : 'Catalog')
+
+  if (productDetail.entityType === 'mobile') {
+    const mobileAccessoryGroups = await getMobileAccessoryGroupsByHandle(canonicalHandle)
+
+    return (
+      <div className={`${detailFont.className} min-h-screen bg-[#f5f7fb] text-slate-900`}>
+        <SeoStructuredData data={buildProductStructuredData(productDetail)} />
+        <NothingHeader />
+
+        <main className="mx-auto max-w-[1360px] px-4 pb-16 pt-24 sm:px-6 lg:px-8 lg:pt-28">
+          <nav aria-label="Breadcrumb" className="mb-5 flex flex-wrap items-center gap-2 text-sm text-slate-500">
+            {breadcrumbItems.map((item, index) =>
+              index === breadcrumbItems.length - 1 ? (
+                <span key={item.href} className="text-slate-700">
+                  {item.label}
+                </span>
+              ) : (
+                <div key={item.href} className="flex items-center gap-2">
+                  <Link href={item.href} className="transition-colors hover:text-slate-900">
+                    {item.label}
+                  </Link>
+                  <span>/</span>
+                </div>
+              ),
+            )}
+          </nav>
+
+          <PhoneAccessoriesHero
+            productDetail={productDetail}
+            gallery={gallery}
+            mainImage={mainImage}
+            intro={detailParagraphs[0] ?? null}
+          />
+
+          <div className="mt-6 grid gap-6">
+            {mobileAccessoryGroups.length > 0 ? (
+              mobileAccessoryGroups.map((group) => (
+                <SectionCard key={group.id} title={group.title}>
+                  <div className="grid grid-cols-2 gap-x-4 gap-y-8">
+                    {group.products.map((product) => (
+                      <PhoneAccessoryTile
+                        key={product.id}
+                        product={product}
+                      />
+                    ))}
+                  </div>
+                </SectionCard>
+              ))
+            ) : (
+              <SectionCard title="Related Accessories">
+                <p className="text-sm leading-6 text-slate-600">
+                  No linked protectors, chargers, or earbuds were found for this phone in the mobile-product connection table yet.
+                </p>
+              </SectionCard>
+            )}
+          </div>
+        </main>
+
+        <NothingFooter />
+      </div>
+    )
+  }
+
   const faqs = productDetail.faqs ?? []
   const reviews = productDetail.reviews ?? []
-  const specs = productDetail.specs ?? []
-  const relatedMobiles = productDetail.relatedMobiles ?? []
-  const breadcrumbItems = buildProductBreadcrumbs(productDetail)
+  const primaryCollectionSlug = productDetail.collections[0]?.slug ?? null
+  const [primaryCollection, fallbackCollection] = await Promise.all([
+    primaryCollectionSlug ? getCollectionBySlug(primaryCollectionSlug) : Promise.resolve(null),
+    primaryCollectionSlug === 'shop-all' ? Promise.resolve(null) : getCollectionBySlug('shop-all'),
+  ])
+  const recommendations = buildRecommendedProducts(
+    [primaryCollection?.products ?? [], fallbackCollection?.products ?? []],
+    canonicalHandle,
+  )
 
   return (
-    <div className="min-h-screen overflow-x-hidden bg-[#ececea] text-[#111]">
+    <div className={`${detailFont.className} min-h-screen bg-[#f5f7fb] text-slate-900`}>
       <SeoStructuredData data={buildProductStructuredData(productDetail)} />
       <NothingHeader />
 
-      <main className="pt-20">
-        <section className="relative overflow-hidden bg-[#ececea]">
-          <div className="dot-mesh-background absolute inset-0 opacity-45" />
+      <main className="mx-auto max-w-[1360px] px-4 pb-16 pt-24 sm:px-6 lg:px-8 lg:pt-28">
+        <nav aria-label="Breadcrumb" className="mb-5 flex flex-wrap items-center gap-2 text-sm text-slate-500">
+          {breadcrumbItems.map((item, index) =>
+            index === breadcrumbItems.length - 1 ? (
+              <span key={item.href} className="text-slate-700">
+                {item.label}
+              </span>
+            ) : (
+              <div key={item.href} className="flex items-center gap-2">
+                <Link href={item.href} className="transition-colors hover:text-slate-900">
+                  {item.label}
+                </Link>
+                <span>/</span>
+              </div>
+            ),
+          )}
+        </nav>
 
-          <div className="relative mx-auto max-w-screen-2xl px-4 pb-12 pt-24 md:px-8 md:pb-20 md:pt-28">
-            <nav aria-label="Breadcrumb" className="mb-6 flex flex-wrap items-center gap-2 text-[10px] uppercase tracking-[0.22em] text-black/45">
-              {breadcrumbItems.map((item, index) =>
-                index === breadcrumbItems.length - 1 ? (
-                  <span key={item.href}>{item.label}</span>
-                ) : (
-                  <div key={item.href} className="flex items-center gap-2">
-                    <Link href={item.href} className="transition-opacity hover:opacity-65">
-                      {item.label}
-                    </Link>
-                    <span>/</span>
-                  </div>
-                ),
+        <PrimaryCatalogPanel
+          productDetail={productDetail}
+          canonicalHandle={canonicalHandle}
+          collectionLabel={collectionLabel}
+          gallery={gallery}
+          mainImage={mainImage}
+          intro={detailParagraphs[0] ?? null}
+        />
+
+        <div className="mt-6 grid gap-6">
+          <SectionCard title="Product Details">
+            <div className="space-y-4 text-sm leading-7 text-slate-600">
+              {detailParagraphs.length > 0 ? (
+                detailParagraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)
+              ) : (
+                <p>Product details will be added soon.</p>
               )}
-            </nav>
-
-            <div className="grid gap-4 lg:grid-cols-[minmax(220px,1fr)_minmax(0,1.45fr)_minmax(220px,1fr)] lg:items-center">
-              <div className="hidden gap-4 lg:grid">
-                {leftGalleryCards.map((media) => (
-                  <GalleryCardPanel key={media.id} media={media} />
-                ))}
-              </div>
-
-              <div className="relative flex min-h-[360px] items-center justify-center overflow-hidden rounded-[32px] border border-white/70 bg-[linear-gradient(180deg,rgba(255,255,255,0.82),rgba(240,240,237,0.9))] px-4 py-8 shadow-[0_35px_90px_rgba(17,17,17,0.08)] sm:min-h-[440px] md:px-8 md:py-12 lg:min-h-[560px]">
-                <div className="dot-mesh-background absolute inset-0 opacity-30" />
-                {heroBackground ? (
-                  <Image
-                    src={heroBackground}
-                    alt={productDetail.name}
-                    fill
-                    sizes="100vw"
-                    className="object-cover opacity-[0.08]"
-                  />
-                ) : null}
-                {centerImage ? (
-                  <div className="relative h-[250px] w-full max-w-[82vw] sm:h-[320px] md:h-[420px] lg:h-[470px]">
-                    <Image
-                      src={centerImage}
-                      alt={productDetail.name}
-                      fill
-                      sizes="(max-width: 1024px) 82vw, 40vw"
-                      className="object-contain drop-shadow-[0_26px_60px_rgba(0,0,0,0.2)]"
-                    />
-                  </div>
-                ) : (
-                  <div className="relative flex h-[320px] w-full max-w-[520px] items-center justify-center rounded-[28px] border border-dashed border-black/10 bg-white/50 text-[11px] uppercase tracking-[0.24em] text-black/35">
-                    No image available
-                  </div>
-                )}
-              </div>
-
-              <div className="hidden gap-4 lg:grid">
-                {rightGalleryCards.map((media) => (
-                  <GalleryCardPanel key={media.id} media={media} />
-                ))}
-              </div>
             </div>
+          </SectionCard>
 
-            {galleryCards.length > 0 ? (
-              <section className="mt-5 lg:hidden">
-                <div className="flex snap-x gap-3 overflow-x-auto pb-1">
-                  {galleryCards.map((media) => (
-                    <div key={`mobile-${media.id}`} className="w-[210px] shrink-0 snap-start">
-                      <GalleryCardPanel media={media} />
-                    </div>
-                  ))}
-                </div>
-              </section>
-            ) : null}
-          </div>
-        </section>
-
-        <section className="relative overflow-hidden bg-[#dfe0dd] px-4 py-10 md:px-8 md:py-16">
-          <div className="dot-mesh-background absolute inset-0 opacity-35" />
-
-          <div className="relative mx-auto grid max-w-screen-2xl gap-6 lg:grid-cols-[minmax(0,1.3fr)_420px]">
-            <div className="relative overflow-hidden rounded-[34px] border border-white/70 bg-[linear-gradient(180deg,rgba(255,255,255,0.84),rgba(237,237,234,0.92))] px-4 pb-10 pt-10 shadow-[0_32px_90px_rgba(17,17,17,0.08)] sm:px-8 md:px-10 md:pb-14 md:pt-14">
-              <div className="dot-mesh-background absolute inset-0 opacity-32" />
-              {overviewImage ? (
-                <div className="relative mx-auto h-[280px] w-full max-w-[720px] sm:h-[360px] md:mt-6 md:h-[470px]">
-                  <Image
-                    src={overviewImage}
-                    alt={`${productDetail.name} overview`}
-                    fill
-                    sizes="(max-width: 1024px) 90vw, 50vw"
-                    className="object-contain drop-shadow-[0_22px_48px_rgba(0,0,0,0.18)]"
-                  />
-                </div>
-              ) : null}
-
-              <div className="relative mt-8 max-w-3xl">
-                <p className="text-[10px] uppercase tracking-[0.28em] text-black/38">
-                  {productDetail.entityType === 'mobile' ? 'Mobile Detail' : 'Product Detail'}
-                </p>
-                <h1 className="collection-product-name mt-3 text-4xl leading-tight md:text-5xl">{productDetail.name}</h1>
-                {productDetail.summary ? <p className="mt-4 text-base text-black/70">{productDetail.summary}</p> : null}
-                {productDetail.description ? <p className="mt-4 text-sm leading-6 text-black/65 md:text-base">{productDetail.description}</p> : null}
-              </div>
+          <SectionCard title="Delivery & Returns">
+            <div className="space-y-3">
+              <DetailAccordion title="Shipping Information">
+                Delivery time and shipping charges depend on your city and order size. The support team confirms the final delivery details during checkout.
+              </DetailAccordion>
+              <DetailAccordion title="Returns & Exchanges">
+                If the item arrives damaged, incorrect, or defective, contact support as soon as possible so the team can review a replacement or return request.
+              </DetailAccordion>
             </div>
+          </SectionCard>
 
-            <div className="lg:sticky lg:top-28 lg:self-start">
-              <ProductSummaryCard productDetail={productDetail} canonicalHandle={canonicalHandle} />
-            </div>
-          </div>
-        </section>
-
-        {specs.length > 0 || productDetail.gallery.length > 0 ? (
-          <section className="px-4 pb-6 pt-4 md:px-8 md:pb-10">
-            <div className="mx-auto grid max-w-screen-2xl gap-6 lg:grid-cols-[380px_minmax(0,1fr)]">
-              {specs.length > 0 ? (
-                <div className="rounded-[30px] border border-black/10 bg-white/75 p-6 shadow-[0_22px_50px_rgba(17,17,17,0.05)] backdrop-blur-xl md:p-7">
-                  <p className="text-[10px] uppercase tracking-[0.28em] text-black/42">Live Specs</p>
-                  <h2 className="collection-product-name mt-3 text-3xl md:text-[2.2rem]">Pulled from Supabase</h2>
-
-                  <div className="mt-7 space-y-3">
-                    {specs.map((spec) => (
-                      <div key={spec.id} className="rounded-[20px] border border-black/8 bg-[#f8f8f6] px-4 py-3">
-                        <p className="text-[9px] uppercase tracking-[0.22em] text-black/34">{spec.label}</p>
-                        <p className="mt-2 text-sm leading-6 text-black/76">{spec.value}</p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              ) : null}
-
-              {productDetail.gallery.length > 0 ? (
-                <div className="rounded-[30px] border border-black/10 bg-white/75 p-6 shadow-[0_22px_50px_rgba(17,17,17,0.05)] backdrop-blur-xl md:p-7">
-                  <p className="text-[10px] uppercase tracking-[0.28em] text-black/42">Gallery</p>
-                  <h2 className="collection-product-name mt-3 text-3xl md:text-[2.2rem]">Images from the live catalog</h2>
-
-                  <div className="mt-7 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-                    {productDetail.gallery.map((media) => (
-                      <article key={media.id} className="rounded-[22px] border border-black/8 bg-[#f8f8f6] p-3">
-                        <div className="relative overflow-hidden rounded-[16px] border border-black/6 bg-[#f1f1ef] p-3">
-                          <div className="dot-mesh-background absolute inset-0 opacity-25" />
-                          <div className="relative h-36 w-full">
-                            <Image
-                              src={media.url}
-                              alt={media.alt}
-                              fill
-                              sizes="(max-width: 768px) 80vw, (max-width: 1280px) 32vw, 20vw"
-                              className="object-contain"
-                            />
-                          </div>
-                        </div>
-                        <div className="px-1 pb-1 pt-3">
-                          <p className="text-[9px] uppercase tracking-[0.22em] text-black/30">
-                            {media.colorName || media.caption || media.slug || 'Supabase image'}
-                          </p>
-                          <h3 className="collection-product-name mt-1 text-[1.08rem] leading-tight text-black/92">
-                            {media.title || media.caption || productDetail.name}
-                          </h3>
-                          {media.caption && media.title !== media.caption ? (
-                            <p className="mt-2 text-sm leading-6 text-black/62">{media.caption}</p>
-                          ) : null}
-                        </div>
-                      </article>
-                    ))}
-                  </div>
-                </div>
-              ) : null}
-            </div>
-          </section>
-        ) : null}
-
-        {relatedMobiles.length > 0 ? (
-          <section className="px-4 pb-6 pt-4 md:px-8 md:pb-10">
-            <div className="mx-auto max-w-screen-2xl rounded-[34px] border border-black/10 bg-white/72 p-6 shadow-[0_24px_60px_rgba(17,17,17,0.06)] backdrop-blur-xl md:p-8">
-              <p className="text-[10px] uppercase tracking-[0.28em] text-black/42">Compatible Mobiles</p>
-              <h2 className="collection-product-name mt-3 text-3xl md:text-4xl">Linked devices from Supabase</h2>
-
-              <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-                {relatedMobiles.map((mobile) => (
-                  <RelatedMobileCard key={mobile.id} mobile={mobile} />
-                ))}
-              </div>
-            </div>
-          </section>
-        ) : null}
-
-        {reviews.length > 0 ? (
-          <section className="px-4 pb-6 pt-4 md:px-8 md:pb-10">
-            <div className="mx-auto max-w-screen-2xl rounded-[34px] border border-black/10 bg-white/72 p-6 shadow-[0_24px_60px_rgba(17,17,17,0.06)] backdrop-blur-xl md:p-8">
-              <p className="text-[10px] uppercase tracking-[0.28em] text-black/42">Reviews</p>
-              <h2 className="collection-product-name mt-3 text-3xl md:text-4xl">What customers have posted</h2>
-
-              <div className="mt-8 grid gap-4 lg:grid-cols-2 xl:grid-cols-3">
+          <SectionCard title="Reviews">
+            {reviews.length > 0 ? (
+              <div className="grid gap-4 lg:grid-cols-2">
                 {reviews.map((review) => (
-                  <ReviewPanel key={review.id} review={review} />
+                  <ReviewCard key={review.id} review={review} />
                 ))}
               </div>
-            </div>
-          </section>
-        ) : null}
+            ) : (
+              <p className="text-sm leading-6 text-slate-600">No reviews yet.</p>
+            )}
+          </SectionCard>
 
-        {faqs.length > 0 ? (
-          <section className="px-4 pb-16 pt-4 md:px-8 md:pb-24">
-            <div className="mx-auto max-w-screen-2xl rounded-[34px] border border-black/10 bg-white/70 p-6 shadow-[0_24px_60px_rgba(17,17,17,0.06)] backdrop-blur-xl md:p-8">
-              <p className="text-[10px] uppercase tracking-[0.28em] text-black/42">FAQs</p>
-              <h2 className="collection-product-name mt-3 text-3xl md:text-4xl">Questions from the live catalog</h2>
-
-              <div className="mt-8 grid gap-4 lg:grid-cols-2">
-                {faqs.map((faq) => (
-                  <details
-                    key={faq.id}
-                    className="rounded-[24px] border border-black/10 bg-[#f8f8f6] px-5 py-4 shadow-[0_14px_28px_rgba(17,17,17,0.04)]"
-                  >
-                    <summary className="cursor-pointer list-none text-sm font-medium text-black/90">{faq.question}</summary>
-                    <p className="mt-3 text-sm leading-6 text-black/68">{faq.answer}</p>
-                  </details>
+          <SectionCard title="Product FAQs">
+            {faqs.length > 0 ? (
+              <div className="space-y-3">
+                {faqs.map((faq, index) => (
+                  <DetailAccordion key={faq.id} title={faq.question} defaultOpen={index === 0}>
+                    {faq.answer}
+                  </DetailAccordion>
                 ))}
               </div>
+            ) : (
+              <p className="text-sm leading-6 text-slate-600">No FAQs yet.</p>
+            )}
+          </SectionCard>
+        </div>
+
+        {recommendations.length > 0 ? (
+          <section className="mt-10">
+            <h2 className="text-[1.7rem] font-medium tracking-[-0.03em] text-slate-900">You may also like</h2>
+            <div className="mt-8 grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-3 xl:grid-cols-5 xl:gap-x-8 xl:gap-y-12">
+              {recommendations.map((product) => (
+                <RecommendationCard key={product.id} product={product} />
+              ))}
             </div>
           </section>
         ) : null}

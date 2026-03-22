@@ -50,6 +50,12 @@ export type SitemapProductEntry = {
   updatedAt: string | null
 }
 
+export type MobileAccessoryGroup = {
+  id: 'protectors' | 'chargers' | 'earbuds' | 'accessories'
+  title: string
+  products: Product[]
+}
+
 type CatalogSnapshot = {
   products: SupabaseProductRow[]
   mobiles: SupabaseMobileRow[]
@@ -66,6 +72,7 @@ type CatalogSnapshot = {
   mobileIdsByCategoryId: Map<number, number[]>
   categoryIdsByMobileId: Map<number, number[]>
   mobileIdsByProductId: Map<number, number[]>
+  productIdsByMobileId: Map<number, number[]>
   imagesByEntryKey: Map<string, SupabaseImageRow[]>
   faqsByEntryKey: Map<string, SupabaseFaqRow[]>
   reviewsByProductId: Map<number, SupabaseReviewRow[]>
@@ -87,6 +94,7 @@ const EMPTY_SNAPSHOT: CatalogSnapshot = {
   mobileIdsByCategoryId: new Map(),
   categoryIdsByMobileId: new Map(),
   mobileIdsByProductId: new Map(),
+  productIdsByMobileId: new Map(),
   imagesByEntryKey: new Map(),
   faqsByEntryKey: new Map(),
   reviewsByProductId: new Map(),
@@ -335,6 +343,7 @@ async function readCatalogSnapshotFromSupabase(): Promise<CatalogSnapshot> {
   const mobileIdsByCategoryId = new Map<number, number[]>()
   const categoryIdsByMobileId = new Map<number, number[]>()
   const mobileIdsByProductId = new Map<number, number[]>()
+  const productIdsByMobileId = new Map<number, number[]>()
   const reviewsByProductId = new Map<number, SupabaseReviewRow[]>()
 
   for (const relation of categoryRelations) {
@@ -364,6 +373,10 @@ async function readCatalogSnapshotFromSupabase(): Promise<CatalogSnapshot> {
     const mobileIds = mobileIdsByProductId.get(relation.product_id) ?? []
     mobileIds.push(relation.mobile_id)
     mobileIdsByProductId.set(relation.product_id, mobileIds)
+
+    const productIds = productIdsByMobileId.get(relation.mobile_id) ?? []
+    productIds.push(relation.product_id)
+    productIdsByMobileId.set(relation.mobile_id, productIds)
   }
 
   for (const review of reviews) {
@@ -389,6 +402,7 @@ async function readCatalogSnapshotFromSupabase(): Promise<CatalogSnapshot> {
     mobileIdsByCategoryId,
     categoryIdsByMobileId,
     mobileIdsByProductId,
+    productIdsByMobileId,
     imagesByEntryKey: groupByEntry(images as Array<SupabaseImageRow & { related_type: StoreRelatedType }>),
     faqsByEntryKey: groupByEntry(faqs as Array<SupabaseFaqRow & { related_type: StoreRelatedType }>),
     reviewsByProductId,
@@ -763,6 +777,46 @@ function buildRelatedMobiles(snapshot: CatalogSnapshot, productId: number): Prod
     priceLabel: mobile.priceLabel,
     subtitle: mobile.subtitle,
   }))
+}
+
+function buildMobileAccessoryGroups(snapshot: CatalogSnapshot, mobileId: number): MobileAccessoryGroup[] {
+  const productIds = snapshot.productIdsByMobileId.get(mobileId) ?? []
+  const linkedProducts = uniqueById(
+    productIds
+      .map((productId) => snapshot.products.find((product) => product.id === productId))
+      .filter((product): product is SupabaseProductRow => Boolean(product)),
+  )
+
+  const groupedProducts = linkedProducts.map((product) => ({
+    product,
+    card: buildProductCard(product, snapshot),
+  }))
+
+  const protectors = groupedProducts
+    .filter(({ product }) => product.product_type === 'protector')
+    .map(({ card }) => card)
+    .sort((left, right) => left.name.localeCompare(right.name))
+  const chargers = groupedProducts
+    .filter(({ product }) => product.product_type === 'charger' || product.product_type === 'data_cable')
+    .map(({ card }) => card)
+    .sort((left, right) => left.name.localeCompare(right.name))
+  const earbuds = groupedProducts
+    .filter(({ product }) => product.product_type === 'earbuds')
+    .map(({ card }) => card)
+    .sort((left, right) => left.name.localeCompare(right.name))
+  const accessories = groupedProducts
+    .filter(({ product }) => !product.product_type)
+    .map(({ card }) => card)
+    .sort((left, right) => left.name.localeCompare(right.name))
+
+  const groups: MobileAccessoryGroup[] = [
+    { id: 'protectors', title: 'Related Protectors', products: protectors },
+    { id: 'chargers', title: 'Related Chargers', products: chargers },
+    { id: 'earbuds', title: 'Related Earbuds', products: earbuds },
+    { id: 'accessories', title: 'Other Accessories', products: accessories },
+  ]
+
+  return groups.filter((group) => group.products.length > 0)
 }
 
 function buildProductDetailFromProduct(product: SupabaseProductRow, snapshot: CatalogSnapshot): ProductDetail {
@@ -1161,6 +1215,17 @@ export async function getProductDetailByHandle(handle: string): Promise<ProductD
   }
 
   return null
+}
+
+export async function getMobileAccessoryGroupsByHandle(handle: string): Promise<MobileAccessoryGroup[]> {
+  const snapshot = await getCatalogSnapshot()
+  const mobile = snapshot.mobiles.find((item) => item.slug === handle)
+
+  if (!mobile) {
+    return []
+  }
+
+  return buildMobileAccessoryGroups(snapshot, mobile.id)
 }
 
 export async function getSupportHeroImage(): Promise<SupportHeroImage> {

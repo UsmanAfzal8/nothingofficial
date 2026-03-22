@@ -42,12 +42,12 @@ export default async function OrderPage({ searchParams }: OrderPageProps) {
   }
 
   return (
-    <div className="min-h-screen overflow-x-hidden bg-[#ececea] text-[#111]">
+    <div className="min-h-screen overflow-x-hidden bg-[#f5f7fb] text-slate-900">
       <NothingHeader />
 
-      <main className="pt-20">
-        <section className="px-4 pb-16 pt-4 md:px-8 md:pb-24">
-          <div className="mx-auto w-full max-w-screen-2xl">
+      <main className="pt-20 lg:pt-24">
+        <section className="px-4 pb-16 pt-6 md:px-8 md:pb-24">
+          <div className="mx-auto w-full max-w-[1200px]">
             <OrderForm product={null} backLink={{ href: '/collections/shop-all', label: 'Browse Products' }} />
           </div>
         </section>
