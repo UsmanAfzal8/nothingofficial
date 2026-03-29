@@ -6,8 +6,17 @@ import { NothingFooter } from '@/components/NothingFooter'
 import { NothingHeader } from '@/components/NothingHeader'
 import { SeoStructuredData } from '@/components/SeoStructuredData'
 import { getHomePageData } from '@/lib/data/catalog-repository'
-import { buildOrganizationStructuredData, buildWebsiteStructuredData, siteKeywords, siteSeoTitle } from '@/lib/data/site-content'
+import {
+  buildOrganizationStructuredData,
+  buildWebsiteStructuredData,
+  homeSeoFaqs,
+  homeSeoHighlights,
+  siteTrustLinks,
+  siteKeywords,
+  siteSeoTitle,
+} from '@/lib/data/site-content'
 import type { HomePageSection, Product } from '@/lib/models/catalog'
+import { buildAbsoluteUrl, buildFaqStructuredData } from '@/lib/utils/seo'
 
 export const revalidate = 900
 export const metadata: Metadata = {
@@ -15,15 +24,30 @@ export const metadata: Metadata = {
     absolute: siteSeoTitle,
   },
   description:
-    'Shop Nothing Pakistan for Nothing phones, audio products, CMF devices, and Nothing accessories in Pakistan through category-led live catalog pages.',
+    'Browse Nothing Pakistan for Nothing phone models, Nothing chargers, CMF devices, earbuds, protectors, and accessories in Pakistan through category-led live catalog pages.',
   keywords: [
     ...siteKeywords,
+    'Nothing phone accessories Pakistan',
     'Nothing Pakistan accessories',
+    'Nothing Pakistan chargers',
     'Nothing Pakistan phones',
     'Nothing audio Pakistan',
   ],
   alternates: {
-    canonical: '/',
+    canonical: buildAbsoluteUrl('/'),
+  },
+  openGraph: {
+    title: siteSeoTitle,
+    description:
+      'Browse Nothing Pakistan for Nothing phone models, Nothing chargers, CMF devices, earbuds, protectors, and accessories in Pakistan through category-led live catalog pages.',
+    url: buildAbsoluteUrl('/'),
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary',
+    title: siteSeoTitle,
+    description:
+      'Browse Nothing Pakistan for Nothing phone models, Nothing chargers, CMF devices, earbuds, protectors, and accessories in Pakistan through category-led live catalog pages.',
   },
 }
 
@@ -105,7 +129,7 @@ function CategorySection({
             </p>
             <h2 className="collection-product-name mt-4 text-4xl leading-[0.96] sm:text-5xl">{section.title}</h2>
             <p className="mt-4 max-w-xl font-sans text-[15px] leading-7 tracking-normal text-black/90 sm:text-base">
-              {section.description || `Live products loaded from the ${section.title} collection in Supabase.`}
+              {section.description || `Browse ${section.title} with live product pages, pricing, and ordering support in Pakistan.`}
             </p>
 
             {section.childCollections && section.childCollections.length > 0 ? (
@@ -165,10 +189,16 @@ function CategorySection({
 export default async function Home() {
   const { sections, sectionNavigation, featuredProduct } = await getHomePageData()
   const heroSection = sections[0] ?? null
+  const homeStructuredData: Record<string, unknown>[] = [buildOrganizationStructuredData(), buildWebsiteStructuredData()]
+  const homeFaqStructuredData = buildFaqStructuredData([...homeSeoFaqs])
+
+  if (homeFaqStructuredData) {
+    homeStructuredData.push(homeFaqStructuredData)
+  }
 
   return (
     <div className="relative min-h-screen overflow-x-hidden bg-white text-[#111]">
-      <SeoStructuredData data={[buildOrganizationStructuredData(), buildWebsiteStructuredData()]} />
+      <SeoStructuredData data={homeStructuredData} />
       <NothingHeader />
 
       <main className="pt-20">
@@ -178,11 +208,11 @@ export default async function Home() {
               <div className="relative z-10 max-w-3xl pt-6">
                 <p className="text-[11px] uppercase tracking-[0.34em] text-black/56">Nothing Pakistan</p>
                 <h1 className="collection-product-name mt-5 text-5xl leading-[0.92] sm:text-6xl lg:text-7xl">
-                  Nothing Pakistan phones, audio and accessories
+                  Nothing Pakistan chargers, phones and accessories
                 </h1>
                 <p className="mt-5 max-w-2xl font-sans text-[15px] leading-7 tracking-normal text-black/90 sm:text-base">
-                  Shop Nothing Pakistan through live category pages for Nothing phones, Nothing accessories, CMF products,
-                  and audio devices in Pakistan. The homepage follows your real Supabase structure and keeps only product imagery.
+                  Browse Nothing phone models and shop compatible Nothing chargers, data cables, protectors, earbuds, CMF
+                  products, and accessories in Pakistan through focused catalog pages and support-ready store content.
                 </p>
 
                 <div className="relative z-10 mt-8 flex flex-wrap items-center gap-3">
@@ -191,6 +221,12 @@ export default async function Home() {
                     className="inline-flex h-11 items-center justify-center rounded-full bg-black px-5 text-[11px] uppercase tracking-[0.24em] text-white transition-opacity hover:opacity-85"
                   >
                     Explore {heroSection.title}
+                  </Link>
+                  <Link
+                    href="/collections/chargers"
+                    className="inline-flex h-11 items-center justify-center rounded-full border border-black/15 px-5 text-[11px] uppercase tracking-[0.24em] text-black transition-colors hover:bg-black hover:text-white"
+                  >
+                    Shop Chargers
                   </Link>
                   <Link
                     href="/collections/shop-all"
@@ -226,10 +262,10 @@ export default async function Home() {
         ) : (
           <section className="mx-auto flex min-h-[70vh] max-w-3xl items-center justify-center px-4 pt-24 text-center">
             <div>
-              <p className="text-[11px] uppercase tracking-[0.34em] text-black/45">Supabase Catalog</p>
+              <p className="text-[11px] uppercase tracking-[0.34em] text-black/45">Live Catalog</p>
               <h1 className="collection-product-name mt-4 text-4xl sm:text-5xl">No live items found</h1>
               <p className="mt-4 font-sans text-[15px] leading-7 tracking-normal text-black/90">
-                Connect your category relations and product tables and this homepage will populate automatically.
+                Add products and category links to publish the homepage sections for phones, chargers, accessories, and other Nothing Pakistan pages.
               </p>
             </div>
           </section>
@@ -238,6 +274,86 @@ export default async function Home() {
         {sections.map((section, index) => (
           <CategorySection key={section.slug} section={section} index={index} />
         ))}
+
+        <section className="border-t border-black/10 px-4 py-12 md:px-8 md:py-16">
+          <div className="mx-auto max-w-screen-2xl">
+            <div className="max-w-3xl">
+              <p className="text-[10px] uppercase tracking-[0.3em] text-black/42">Store Guide</p>
+              <h2 className="collection-product-name mt-4 text-4xl leading-[0.96] sm:text-5xl">
+                Search-friendly pages for Nothing Pakistan shoppers
+              </h2>
+              <p className="mt-4 max-w-2xl font-sans text-[15px] leading-7 tracking-normal text-black/90 sm:text-base">
+                These landing pages make it easier to discover Nothing chargers, compatible phone accessories, and the
+                support routes that help customers trust the site.
+              </p>
+            </div>
+
+            <div className="mt-8 grid gap-4 lg:grid-cols-3">
+              {homeSeoHighlights.map((item) => (
+                <article key={item.title} className="rounded-[28px] border border-black/10 bg-[#f8f8f4] p-6">
+                  <p className="text-[10px] uppercase tracking-[0.22em] text-black/42">{item.title}</p>
+                  <p className="mt-4 font-sans text-sm leading-7 text-black/72">{item.description}</p>
+                  <Link
+                    href={item.href}
+                    className="mt-6 inline-flex h-11 items-center justify-center rounded-full bg-black px-5 text-[10px] uppercase tracking-[0.24em] text-white transition-opacity hover:opacity-85"
+                  >
+                    {item.label}
+                  </Link>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="border-t border-black/10 px-4 py-12 md:px-8 md:py-16">
+          <div className="mx-auto max-w-screen-2xl">
+            <div className="max-w-3xl">
+              <p className="text-[10px] uppercase tracking-[0.3em] text-black/42">Order & Support</p>
+              <h2 className="collection-product-name mt-4 text-4xl leading-[0.96] sm:text-5xl">
+                Trust routes connected to the catalog
+              </h2>
+              <p className="mt-4 max-w-2xl font-sans text-[15px] leading-7 tracking-normal text-black/90 sm:text-base">
+                These pages help search engines and shoppers find support, contact, delivery, return, and ordering
+                information from the same Nothing Pakistan domain.
+              </p>
+            </div>
+
+            <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-5">
+              {siteTrustLinks.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="rounded-[28px] border border-black/10 bg-[#f8f8f4] p-6 transition-colors hover:bg-black hover:text-white"
+                >
+                  <p className="text-[10px] uppercase tracking-[0.22em] text-black/42 transition-colors hover:text-white">{item.title}</p>
+                  <p className="mt-4 font-sans text-sm leading-7 text-black/72 transition-colors hover:text-white">
+                    {item.description}
+                  </p>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="border-t border-black/10 px-4 py-12 md:px-8 md:py-16">
+          <div className="mx-auto max-w-screen-2xl">
+            <p className="text-[10px] uppercase tracking-[0.3em] text-black/42">Popular Questions</p>
+            <h2 className="collection-product-name mt-4 text-4xl leading-[0.96] sm:text-5xl">
+              What people look for on Nothing Pakistan
+            </h2>
+
+            <div className="mt-8 border-t border-black/10">
+              {homeSeoFaqs.map((item) => (
+                <details key={item.question} className="border-b border-black/10 py-5">
+                  <summary className="cursor-pointer list-none text-sm leading-6 text-black/84 md:text-base">
+                    {item.question}
+                  </summary>
+                  <p className="mt-4 max-w-3xl font-sans text-sm leading-7 text-black/68">{item.answer}</p>
+                </details>
+              ))}
+            </div>
+          </div>
+        </section>
       </main>
 
       <NothingFooter />

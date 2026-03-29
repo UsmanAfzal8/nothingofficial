@@ -1,8 +1,19 @@
 import type { MetadataRoute } from 'next'
-import { getSiteOrigin } from '@/lib/utils/seo'
+import { buildAbsoluteUrl, getSiteOrigin, shouldIndexSite } from '@/lib/utils/seo'
 
 export default function robots(): MetadataRoute.Robots {
   const baseUrl = getSiteOrigin()
+
+  if (!shouldIndexSite()) {
+    return {
+      rules: [
+        {
+          userAgent: '*',
+          disallow: '/',
+        },
+      ],
+    }
+  }
 
   return {
     rules: [
@@ -12,7 +23,7 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ['/api/', '/dashboard'],
       },
     ],
-    sitemap: `${baseUrl.replace(/\/+$/g, '')}/sitemap.xml`,
+    sitemap: buildAbsoluteUrl('/sitemap.xml'),
     host: baseUrl,
   }
 }

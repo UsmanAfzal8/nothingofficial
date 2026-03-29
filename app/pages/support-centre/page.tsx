@@ -1,10 +1,12 @@
 import type { Metadata } from 'next'
 import { NothingFooter } from '@/components/NothingFooter'
 import { NothingHeader } from '@/components/NothingHeader'
+import { SeoStructuredData } from '@/components/SeoStructuredData'
 import { SupportCentreContent } from '@/components/SupportCentreContent'
 import { getSupportHeroImage } from '@/lib/data/catalog-repository'
+import { supportFaqs } from '@/lib/data/support-centre'
 import { siteBrandName, siteKeywords } from '@/lib/data/site-content'
-import { buildAbsoluteUrl, buildSeoKeywords } from '@/lib/utils/seo'
+import { buildAbsoluteUrl, buildBreadcrumbStructuredData, buildFaqStructuredData, buildSeoKeywords } from '@/lib/utils/seo'
 
 export const metadata: Metadata = {
   title: {
@@ -33,9 +35,23 @@ export const metadata: Metadata = {
 
 export default async function SupportCentrePage() {
   const heroImage = await getSupportHeroImage()
+  const supportFaqStructuredData = buildFaqStructuredData(
+    supportFaqs.map((item) => ({
+      question: item.question,
+      answer: item.answer,
+    })),
+  )
+  const supportStructuredData = [
+    buildBreadcrumbStructuredData([
+      { label: 'Home', href: '/' },
+      { label: 'Support Centre', href: '/pages/support-centre' },
+    ]),
+    ...(supportFaqStructuredData ? [supportFaqStructuredData] : []),
+  ]
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-[#f4f4f0] text-[#111]">
+      <SeoStructuredData data={supportStructuredData} />
       <NothingHeader />
 
       <main className="px-4 pb-16 pt-24 md:pb-24">

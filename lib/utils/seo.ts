@@ -1,3 +1,7 @@
+import type { Metadata } from 'next'
+
+export const PRODUCTION_SITE_ORIGIN = 'https://www.nothingshop.pk'
+
 function normalizeSiteOrigin(value: string | null | undefined): string | null {
   if (!value) {
     return null
@@ -23,24 +27,64 @@ function normalizeSiteOrigin(value: string | null | undefined): string | null {
   }
 }
 
+function isLocalOrigin(value: string): boolean {
+  try {
+    const parsedUrl = new URL(value)
+
+    return (
+      parsedUrl.protocol === 'http:' &&
+      (parsedUrl.hostname === 'localhost' || parsedUrl.hostname === '127.0.0.1')
+    )
+  } catch {
+    return false
+  }
+}
+
+export function isPreviewDeployment(): boolean {
+  return process.env.VERCEL_ENV?.toLowerCase() === 'preview'
+}
+
+export function shouldIndexSite(): boolean {
+  if (isPreviewDeployment()) {
+    return false
+  }
+
+  return process.env.NODE_ENV === 'production'
+}
+
 export function getSiteOrigin(): string {
   const siteUrlCandidates = [
     process.env.NEXT_PUBLIC_APP_URL,
     process.env.NEXT_PUBLIC_SITE_URL,
     process.env.SITE_URL,
-    process.env.VERCEL_PROJECT_PRODUCTION_URL,
-    process.env.VERCEL_URL,
   ]
 
   for (const candidate of siteUrlCandidates) {
     const normalizedValue = normalizeSiteOrigin(candidate)
 
-    if (normalizedValue) {
+    if (normalizedValue && isLocalOrigin(normalizedValue)) {
       return normalizedValue
     }
   }
 
-  return 'http://localhost:3000'
+  return PRODUCTION_SITE_ORIGIN
+}
+
+export function buildRobotsMetadata(options: { index?: boolean; follow?: boolean } = {}): NonNullable<Metadata['robots']> {
+  const allowIndexing = shouldIndexSite() && (options.index ?? true)
+  const follow = allowIndexing && (options.follow ?? true)
+
+  return {
+    index: allowIndexing,
+    follow,
+    googleBot: {
+      index: allowIndexing,
+      follow,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+      'max-video-preview': -1,
+    },
+  }
 }
 
 export function toSeoHandle(rawValue: string): string {
@@ -66,6 +110,11 @@ export function buildAbsoluteUrl(pathname: string): string {
 export type SeoBreadcrumbItem = {
   label: string
   href: string
+}
+
+export type SeoFaqItem = {
+  question: string
+  answer: string
 }
 
 export function buildSeoKeywords(...groups: Array<Array<string | null | undefined>>): string[] {
@@ -107,6 +156,25 @@ export function buildBreadcrumbStructuredData(items: SeoBreadcrumbItem[]) {
       position: index + 1,
       name: item.label,
       item: buildAbsoluteUrl(item.href),
+    })),
+  }
+}
+
+export function buildFaqStructuredData(items: SeoFaqItem[]) {
+  if (items.length === 0) {
+    return null
+  }
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: items.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.answer,
+      },
     })),
   }
 }

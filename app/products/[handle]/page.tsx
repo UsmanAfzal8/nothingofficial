@@ -8,6 +8,7 @@ import { NothingFooter } from '@/components/NothingFooter'
 import { NothingHeader } from '@/components/NothingHeader'
 import { SeoStructuredData } from '@/components/SeoStructuredData'
 import {
+  getAllProductHandles,
   getCollectionBySlug,
   getMobileAccessoryGroupsByHandle,
   getProductDetailByHandle,
@@ -15,7 +16,7 @@ import {
 import { siteBrandName, siteKeywords } from '@/lib/data/site-content'
 import type { Product } from '@/lib/models/catalog'
 import type { ProductDetail, ProductDetailFaq, ProductDetailMedia, ProductDetailReview } from '@/lib/models/product-detail'
-import { buildAbsoluteUrl, buildBreadcrumbStructuredData, buildSeoKeywords, toSeoHandle } from '@/lib/utils/seo'
+import { buildAbsoluteUrl, buildBreadcrumbStructuredData, buildFaqStructuredData, buildRobotsMetadata, buildSeoKeywords, toSeoHandle } from '@/lib/utils/seo'
 
 const detailFont = localFont({
   src: [
@@ -58,37 +59,91 @@ function buildDisplayGallery(productDetail: ProductDetail): ProductDetailMedia[]
   }))
 }
 
-function buildFaqStructuredData(faqs: ProductDetailFaq[]) {
-  if (faqs.length === 0) {
-    return null
-  }
-
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: faqs.map((faq) => ({
-      '@type': 'Question',
-      name: faq.question,
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: faq.answer,
-      },
-    })),
-  }
-}
-
 function buildProductBreadcrumbs(productDetail: ProductDetail) {
   return [...productDetail.breadcrumbItems, { label: productDetail.name, href: `/products/${toSeoHandle(productDetail.handle)}` }]
 }
 
-function buildProductStructuredData(productDetail: ProductDetail) {
+function buildProductSeoTitle(productDetail: ProductDetail) {
+  if (productDetail.pageTitle && productDetail.pageTitle !== productDetail.name) {
+    return productDetail.pageTitle
+  }
+
+  if (productDetail.entityType === 'mobile') {
+    return `${productDetail.name} Accessories in Pakistan | ${siteBrandName}`
+  }
+
+  return `${productDetail.name} Price in Pakistan | ${siteBrandName}`
+}
+
+function buildProductSeoDescription(productDetail: ProductDetail) {
+  if (productDetail.metaDescription) {
+    return productDetail.metaDescription
+  }
+
+  if (productDetail.entityType === 'mobile') {
+    return `Browse chargers, protectors, earbuds, and related accessories for ${productDetail.name} in Pakistan through ${siteBrandName}.`
+  }
+
+  return (
+    productDetail.summary ||
+    productDetail.description ||
+    `Shop ${productDetail.name} in Pakistan with pricing, product details, and ordering support from ${siteBrandName}.`
+  )
+}
+
+function buildProductStructuredData(productDetail: ProductDetail, relatedProducts: Product[] = []) {
   const images = uniqueStrings(productDetail.gallery.map((item) => item.url))
-  const faqStructuredData = buildFaqStructuredData(productDetail.faqs ?? [])
+  const faqStructuredData = buildFaqStructuredData(
+    (productDetail.faqs ?? []).map((faq: ProductDetailFaq) => ({
+      question: faq.question,
+      answer: faq.answer,
+    })),
+  )
+
+  if (productDetail.entityType === 'mobile') {
+    const itemList = relatedProducts.slice(0, 12).map((product, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      url: buildAbsoluteUrl(product.href),
+      name: product.name,
+    }))
+
+    const mobileEntries: Array<Record<string, unknown> | null> = [
+      {
+        '@context': 'https://schema.org',
+        '@type': 'CollectionPage',
+        name: `${productDetail.name} accessories`,
+        description: buildProductSeoDescription(productDetail),
+        url: productDetail.canonicalUrl,
+        image: images,
+        about: {
+          '@type': 'Product',
+          name: productDetail.name,
+          brand: {
+            '@type': 'Brand',
+            name: productDetail.brandName,
+          },
+        },
+        mainEntity:
+          itemList.length > 0
+            ? {
+                '@type': 'ItemList',
+                itemListElement: itemList,
+              }
+            : undefined,
+      },
+      buildBreadcrumbStructuredData(buildProductBreadcrumbs(productDetail)),
+      faqStructuredData,
+    ]
+
+    return mobileEntries.filter((entry): entry is Record<string, unknown> => Boolean(entry))
+  }
+
   const productSchema: Record<string, unknown> = {
     '@context': 'https://schema.org',
     '@type': 'Product',
     name: productDetail.name,
-    description: productDetail.metaDescription || productDetail.summary || productDetail.description || productDetail.name,
+    description: buildProductSeoDescription(productDetail),
     image: images,
     sku: productDetail.handle,
     url: productDetail.canonicalUrl,
@@ -142,9 +197,13 @@ function buildProductStructuredData(productDetail: ProductDetail) {
     }))
   }
 
-  return [productSchema, buildBreadcrumbStructuredData(buildProductBreadcrumbs(productDetail)), faqStructuredData].filter(
-    (entry): entry is Record<string, unknown> => Boolean(entry),
-  )
+  const productEntries: Array<Record<string, unknown> | null> = [
+    productSchema,
+    buildBreadcrumbStructuredData(buildProductBreadcrumbs(productDetail)),
+    faqStructuredData,
+  ]
+
+  return productEntries.filter((entry): entry is Record<string, unknown> => Boolean(entry))
 }
 
 function buildRecommendedProducts(productGroups: Product[][], currentHandle: string) {
@@ -472,6 +531,12 @@ function PrimaryCatalogPanel({
 
 export const revalidate = 900
 
+export async function generateStaticParams() {
+  const handles = await getAllProductHandles()
+
+  return handles.map((handle) => ({ handle }))
+}
+
 export async function generateMetadata({ params }: ProductDetailPageProps): Promise<Metadata> {
   const requestedHandle = toSeoHandle(params.handle)
   const productDetail = await getProductDetailByHandle(requestedHandle)
@@ -482,9 +547,8 @@ export async function generateMetadata({ params }: ProductDetailPageProps): Prom
     }
   }
 
-  const description =
-    productDetail.metaDescription || productDetail.summary || productDetail.description || `Detailed view for ${productDetail.name}.`
-  const title = productDetail.pageTitle
+  const description = buildProductSeoDescription(productDetail)
+  const title = buildProductSeoTitle(productDetail)
   const keywords = buildSeoKeywords(
     siteKeywords,
     [
@@ -492,6 +556,7 @@ export async function generateMetadata({ params }: ProductDetailPageProps): Prom
       `${productDetail.name} price in Pakistan`,
       `${productDetail.brandName} ${productDetail.name}`,
       `${productDetail.name} ${siteBrandName}`,
+      productDetail.entityType === 'mobile' ? `${productDetail.name} accessories Pakistan` : null,
     ],
     productDetail.collections.map((collection) => collection.title),
     productDetail.collections.map((collection) => `${collection.title} Pakistan`),
@@ -519,6 +584,7 @@ export async function generateMetadata({ params }: ProductDetailPageProps): Prom
       description,
       images: productDetail.ogImage ? [productDetail.ogImage] : undefined,
     },
+    robots: buildRobotsMetadata(),
   }
 }
 
@@ -538,16 +604,17 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
 
   const gallery = buildDisplayGallery(productDetail)
   const mainImage = gallery[0]?.url ?? null
-  const detailParagraphs = uniqueStrings([productDetail.summary, productDetail.description])
+  const detailParagraphs = uniqueStrings([productDetail.summary, buildProductSeoDescription(productDetail), productDetail.description])
   const breadcrumbItems = buildProductBreadcrumbs(productDetail)
   const collectionLabel = productDetail.collections[0]?.title ?? (productDetail.entityType === 'mobile' ? 'Phones' : 'Catalog')
 
   if (productDetail.entityType === 'mobile') {
     const mobileAccessoryGroups = await getMobileAccessoryGroupsByHandle(canonicalHandle)
+    const relatedAccessoryProducts = mobileAccessoryGroups.flatMap((group) => group.products)
 
     return (
       <div className={`${detailFont.className} min-h-screen bg-[#f5f7fb] text-slate-900`}>
-        <SeoStructuredData data={buildProductStructuredData(productDetail)} />
+        <SeoStructuredData data={buildProductStructuredData(productDetail, relatedAccessoryProducts)} />
         <NothingHeader />
 
         <main className="mx-auto max-w-[1360px] px-4 pb-16 pt-24 sm:px-6 lg:px-8 lg:pt-28">

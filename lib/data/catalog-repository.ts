@@ -40,6 +40,8 @@ export type SitemapCollectionEntry = {
   description: string | null
   image: string | null
   updatedAt: string | null
+  itemCount: number
+  depth: number
 }
 
 export type SitemapProductEntry = {
@@ -48,6 +50,11 @@ export type SitemapProductEntry = {
   description: string | null
   image: string | null
   updatedAt: string | null
+  entityType: 'product' | 'mobile'
+  productType: ProductType | null
+  stockQuantity: number | null
+  linkedItemCount: number
+  collectionSlugs: string[]
 }
 
 export type MobileAccessoryGroup = {
@@ -61,6 +68,7 @@ type CatalogSnapshot = {
   mobiles: SupabaseMobileRow[]
   categories: SupabaseCategoryRow[]
   categoryRelations: SupabaseCategoryRelationRow[]
+  productMobiles: SupabaseProductMobileRow[]
   images: SupabaseImageRow[]
   faqs: SupabaseFaqRow[]
   reviews: SupabaseReviewRow[]
@@ -83,6 +91,7 @@ const EMPTY_SNAPSHOT: CatalogSnapshot = {
   mobiles: [],
   categories: [],
   categoryRelations: [],
+  productMobiles: [],
   images: [],
   faqs: [],
   reviews: [],
@@ -100,14 +109,47 @@ const EMPTY_SNAPSHOT: CatalogSnapshot = {
   reviewsByProductId: new Map(),
 }
 
-const VIRTUAL_COLLECTIONS = {
+type VirtualCollectionConfig = {
+  title: string
+  metaTitle: string
+  description: string
+  productTypes?: readonly ProductType[]
+}
+
+const PRIMARY_VIRTUAL_COLLECTION_SLUGS = ['shop-all', 'phones'] as const
+const ACCESSORY_VIRTUAL_COLLECTION_SLUGS = ['chargers', 'protectors', 'earbuds'] as const
+const ALL_VIRTUAL_COLLECTION_SLUGS = [...PRIMARY_VIRTUAL_COLLECTION_SLUGS, ...ACCESSORY_VIRTUAL_COLLECTION_SLUGS] as const
+
+type VirtualCollectionSlug = (typeof ALL_VIRTUAL_COLLECTION_SLUGS)[number]
+
+const VIRTUAL_COLLECTIONS: Record<VirtualCollectionSlug, VirtualCollectionConfig> = {
   'shop-all': {
     title: 'Shop all',
-    description: 'Browse every live product and phone from Supabase.',
+    metaTitle: 'Nothing Pakistan Shop All | Chargers, Accessories and CMF',
+    description: 'Browse the full Nothing Pakistan catalog for chargers, earbuds, protectors, CMF devices, and other compatible accessories.',
   },
   phones: {
-    title: 'Phones',
-    description: 'Browse the live mobile catalog from Supabase.',
+    title: 'Phone models',
+    metaTitle: 'Nothing Phone Models in Pakistan | Compatible Accessories | Nothing Pakistan',
+    description: 'Browse Nothing phone model pages and jump into compatible chargers, protectors, earbuds, and support routes in Pakistan.',
+  },
+  chargers: {
+    title: 'Chargers',
+    metaTitle: 'Nothing Chargers in Pakistan | Nothing Pakistan',
+    description: 'Shop Nothing chargers and charging cables in Pakistan with live product pages, pricing, and ordering support.',
+    productTypes: ['charger', 'data_cable'],
+  },
+  protectors: {
+    title: 'Protectors',
+    metaTitle: 'Nothing Protectors in Pakistan | Nothing Pakistan',
+    description: 'Browse screen protectors and protective accessories for Nothing devices in Pakistan.',
+    productTypes: ['protector'],
+  },
+  earbuds: {
+    title: 'Earbuds',
+    metaTitle: 'Nothing Earbuds in Pakistan | Nothing Pakistan',
+    description: 'Browse Nothing earbuds and audio accessories in Pakistan with live catalog pages and ordering support.',
+    productTypes: ['earbuds'],
   },
 } as const
 
@@ -391,6 +433,7 @@ async function readCatalogSnapshotFromSupabase(): Promise<CatalogSnapshot> {
     mobiles,
     categories,
     categoryRelations,
+    productMobiles,
     images,
     faqs,
     reviews,
@@ -446,6 +489,47 @@ function getDescendantCategoryIds(snapshot: CatalogSnapshot, categoryId: number)
   return children.flatMap((child) => [child.id, ...getDescendantCategoryIds(snapshot, child.id)])
 }
 
+function getCategoryTreeIds(snapshot: CatalogSnapshot, categoryId: number): number[] {
+  return [categoryId, ...getDescendantCategoryIds(snapshot, categoryId)]
+}
+
+function getCategoryDepth(snapshot: CatalogSnapshot, category: SupabaseCategoryRow): number {
+  let depth = 0
+  let currentParentId = category.parent_id
+
+  while (currentParentId) {
+    depth += 1
+    currentParentId = snapshot.categoriesById.get(currentParentId)?.parent_id ?? null
+  }
+
+  return depth
+}
+
+function getCatalogCardsForCategoryIds(snapshot: CatalogSnapshot, categoryIds: number[]): Product[] {
+  const productIds = [...new Set(categoryIds.flatMap((categoryId) => snapshot.productIdsByCategoryId.get(categoryId) ?? []))]
+  const mobileIds = [...new Set(categoryIds.flatMap((categoryId) => snapshot.mobileIdsByCategoryId.get(categoryId) ?? []))]
+  const productCards = productIds
+    .map((productId) => snapshot.products.find((product) => product.id === productId))
+    .filter((product): product is SupabaseProductRow => Boolean(product))
+    .map((product) => buildProductCard(product, snapshot))
+  const mobileCards = mobileIds
+    .map((mobileId) => snapshot.mobilesById.get(mobileId))
+    .filter((mobile): mobile is SupabaseMobileRow => Boolean(mobile))
+    .map((mobile) => buildMobileCard(mobile, snapshot))
+
+  return sortCatalogCards([...productCards, ...mobileCards])
+}
+
+function getCategoryRelationTimestamps(
+  snapshot: CatalogSnapshot,
+  relatedType: 'product' | 'mobile',
+  relatedId: number,
+): Array<string | null> {
+  return snapshot.categoryRelations
+    .filter((relation) => relation.related_type === relatedType && relation.related_id === relatedId)
+    .map((relation) => relation.updated_at || relation.created_at)
+}
+
 function buildNavigationItem(category: SupabaseCategoryRow, snapshot: CatalogSnapshot): NavigationItem {
   return {
     label: category.name,
@@ -471,6 +555,14 @@ function buildVirtualNavigationItem(
     parentSlug,
     children: [],
   }
+}
+
+function isVirtualCollectionSlug(slug: string): slug is VirtualCollectionSlug {
+  return ALL_VIRTUAL_COLLECTION_SLUGS.includes(slug as VirtualCollectionSlug)
+}
+
+function getVirtualCollectionDepth(slug: VirtualCollectionSlug): number {
+  return slug === 'shop-all' || slug === 'phones' ? 0 : 1
 }
 
 function getProductImages(snapshot: CatalogSnapshot, productId: number): SupabaseImageRow[] {
@@ -928,6 +1020,59 @@ async function getAllCatalogProducts(): Promise<Product[]> {
   return sortCatalogCards([...mobileCards, ...productCards])
 }
 
+function getVirtualCollectionProducts(slug: VirtualCollectionSlug, snapshot: CatalogSnapshot): Product[] {
+  if (slug === 'shop-all') {
+    const mobileCards = snapshot.mobiles.map((mobile) => buildMobileCard(mobile, snapshot))
+    const productCards = snapshot.products.map((product) => buildProductCard(product, snapshot))
+
+    return sortCatalogCards([...mobileCards, ...productCards])
+  }
+
+  if (slug === 'phones') {
+    return sortCatalogCards(snapshot.mobiles.map((mobile) => buildMobileCard(mobile, snapshot)))
+  }
+
+  const productTypes = VIRTUAL_COLLECTIONS[slug].productTypes ?? []
+
+  return sortCatalogCards(
+    snapshot.products
+      .filter((product) => product.product_type && productTypes.includes(product.product_type))
+      .map((product) => buildProductCard(product, snapshot)),
+  )
+}
+
+function getVirtualCollectionUpdatedAt(slug: VirtualCollectionSlug, snapshot: CatalogSnapshot, products: Product[]): string | null {
+  if (slug === 'phones') {
+    return getLatestTimestamp(snapshot.mobiles.map((mobile) => mobile.updated_at))
+  }
+
+  if (slug === 'shop-all') {
+    return getLatestTimestamp([...snapshot.products.map((product) => product.updated_at), ...snapshot.mobiles.map((mobile) => mobile.updated_at)])
+  }
+
+  return getCollectionUpdatedAt(products, null)
+}
+
+function buildVirtualCollection(slug: VirtualCollectionSlug, snapshot: CatalogSnapshot): Collection {
+  const config = VIRTUAL_COLLECTIONS[slug]
+  const products = getVirtualCollectionProducts(slug, snapshot)
+
+  return {
+    slug,
+    title: config.title,
+    metaTitle: config.metaTitle,
+    metaDescription: config.description,
+    description: config.description,
+    sourceUrl: buildAbsoluteUrl(`/collections/${slug}`),
+    heroImage: getCollectionHeroImage(products),
+    updatedAt: getVirtualCollectionUpdatedAt(slug, snapshot, products),
+    products,
+    parentCollection: null,
+    childCollections: [],
+    siblingCollections: [],
+  }
+}
+
 function buildHomePageSection(
   slug: string,
   title: string,
@@ -958,7 +1103,7 @@ export async function getHomePageData(): Promise<HomePageData> {
   const sections: HomePageSection[] = []
   const sectionNavigation: NavigationItem[] = []
 
-  const phoneProducts = sortHomeShowcaseCards(snapshot.mobiles.map((mobile) => buildMobileCard(mobile, snapshot)))
+  const phoneProducts = sortHomeShowcaseCards(getVirtualCollectionProducts('phones', snapshot))
   const phoneSection = buildHomePageSection(
     'phones',
     VIRTUAL_COLLECTIONS.phones.title,
@@ -974,15 +1119,24 @@ export async function getHomePageData(): Promise<HomePageData> {
     )
   }
 
-  for (const category of getTopLevelCategories(snapshot)) {
-    const descendantCategoryIds = getDescendantCategoryIds(snapshot, category.id)
-    const categoryIdsToRead = [category.id, ...descendantCategoryIds]
-    const productIds = [...new Set(categoryIdsToRead.flatMap((categoryId) => snapshot.productIdsByCategoryId.get(categoryId) ?? []))]
-    const products = productIds
-      .map((productId) => snapshot.products.find((product) => product.id === productId))
-      .filter((product): product is SupabaseProductRow => Boolean(product))
-      .map((product) => buildProductCard(product, snapshot))
+  const chargerProducts = sortHomeShowcaseCards(getVirtualCollectionProducts('chargers', snapshot))
+  const chargerSection = buildHomePageSection(
+    'chargers',
+    VIRTUAL_COLLECTIONS.chargers.title,
+    VIRTUAL_COLLECTIONS.chargers.description,
+    '/collections/chargers',
+    chargerProducts,
+  )
 
+  if (chargerSection) {
+    sections.push(chargerSection)
+    sectionNavigation.push(
+      buildVirtualNavigationItem('chargers', VIRTUAL_COLLECTIONS.chargers.title, VIRTUAL_COLLECTIONS.chargers.description, 'accessories'),
+    )
+  }
+
+  for (const category of getTopLevelCategories(snapshot)) {
+    const products = getCatalogCardsForCategoryIds(snapshot, getCategoryTreeIds(snapshot, category.id))
     const childCollections = getChildCategories(snapshot, category.id).map((child) => buildNavigationItem(child, snapshot))
     const section = buildHomePageSection(
       category.slug,
@@ -1015,6 +1169,7 @@ export async function getNavigationMenuItems(): Promise<NavigationItem[]> {
   return [
     buildVirtualNavigationItem('shop-all', VIRTUAL_COLLECTIONS['shop-all'].title, VIRTUAL_COLLECTIONS['shop-all'].description),
     buildVirtualNavigationItem('phones', VIRTUAL_COLLECTIONS.phones.title, VIRTUAL_COLLECTIONS.phones.description),
+    buildVirtualNavigationItem('chargers', VIRTUAL_COLLECTIONS.chargers.title, VIRTUAL_COLLECTIONS.chargers.description, 'accessories'),
     ...topLevelCategories.map((category) => buildNavigationItem(category, snapshot)),
   ]
 }
@@ -1027,7 +1182,7 @@ export async function getHomeHeroItems(limit = 6): Promise<Product[]> {
 export async function getAllCollectionSlugs(): Promise<string[]> {
   const snapshot = await getCatalogSnapshot()
 
-  return ['shop-all', 'phones', ...snapshot.categories.map((category) => category.slug)]
+  return [...ALL_VIRTUAL_COLLECTION_SLUGS, ...snapshot.categories.map((category) => category.slug)]
 }
 
 export async function getAllProductHandles(): Promise<string[]> {
@@ -1046,34 +1201,27 @@ function getCollectionUpdatedAt(products: Product[], fallbackValue: string | nul
 
 export async function getCollectionSitemapEntries(): Promise<SitemapCollectionEntry[]> {
   const snapshot = await getCatalogSnapshot()
-  const allCatalogProducts = await getAllCatalogProducts()
-  const phoneProducts = sortCatalogCards(snapshot.mobiles.map((mobile) => buildMobileCard(mobile, snapshot)))
+  const entries: SitemapCollectionEntry[] = ALL_VIRTUAL_COLLECTION_SLUGS.map((slug) => {
+    const config = VIRTUAL_COLLECTIONS[slug]
+    const products = getVirtualCollectionProducts(slug, snapshot)
 
-  const entries: SitemapCollectionEntry[] = [
-    {
-      slug: 'shop-all',
-      title: VIRTUAL_COLLECTIONS['shop-all'].title,
-      description: VIRTUAL_COLLECTIONS['shop-all'].description,
-      image: getCollectionHeroImage(allCatalogProducts),
-      updatedAt: getLatestTimestamp([...snapshot.products.map((product) => product.updated_at), ...snapshot.mobiles.map((mobile) => mobile.updated_at)]),
-    },
-    {
-      slug: 'phones',
-      title: VIRTUAL_COLLECTIONS.phones.title,
-      description: VIRTUAL_COLLECTIONS.phones.description,
-      image: getCollectionHeroImage(phoneProducts),
-      updatedAt: getLatestTimestamp(snapshot.mobiles.map((mobile) => mobile.updated_at)),
-    },
-  ]
+    return {
+      slug,
+      title: config.title,
+      description: config.description,
+      image: getCollectionHeroImage(products),
+      updatedAt: getVirtualCollectionUpdatedAt(slug, snapshot, products),
+      itemCount: products.length,
+      depth: getVirtualCollectionDepth(slug),
+    }
+  }).filter((entry) => Boolean(entry.image || entry.updatedAt))
 
   for (const category of snapshot.categories) {
-    const descendantCategoryIds = getDescendantCategoryIds(snapshot, category.id)
-    const categoryIdsToRead = [category.id, ...descendantCategoryIds]
-    const productIds = [...new Set(categoryIdsToRead.flatMap((categoryId) => snapshot.productIdsByCategoryId.get(categoryId) ?? []))]
-    const products = productIds
-      .map((productId) => snapshot.products.find((product) => product.id === productId))
-      .filter((product): product is SupabaseProductRow => Boolean(product))
-      .map((product) => buildProductCard(product, snapshot))
+    const categoryTreeIds = getCategoryTreeIds(snapshot, category.id)
+    const products = getCatalogCardsForCategoryIds(snapshot, categoryTreeIds)
+    const relationTimestamps = snapshot.categoryRelations
+      .filter((relation) => categoryTreeIds.includes(relation.category_id))
+      .map((relation) => relation.updated_at || relation.created_at)
 
     if (products.length === 0) {
       continue
@@ -1084,7 +1232,9 @@ export async function getCollectionSitemapEntries(): Promise<SitemapCollectionEn
       title: category.name,
       description: category.meta_description,
       image: getCollectionHeroImage(products),
-      updatedAt: getCollectionUpdatedAt(products, category.updated_at),
+      updatedAt: getLatestTimestamp([category.updated_at, ...relationTimestamps, ...products.map((product) => product.updatedAt)]),
+      itemCount: products.length,
+      depth: getCategoryDepth(snapshot, category),
     })
   }
 
@@ -1096,25 +1246,69 @@ export async function getProductSitemapEntries(): Promise<SitemapProductEntry[]>
 
   const productEntries = snapshot.products.map((product) => {
     const images = getProductImages(snapshot, product.id)
+    const faqs = getProductFaqs(snapshot, product.id)
+    const reviews = snapshot.reviewsByProductId.get(product.id) ?? []
+    const linkedMobileIds = snapshot.mobileIdsByProductId.get(product.id) ?? []
+    const linkedMobilesUpdatedAt = linkedMobileIds
+      .map((mobileId) => snapshot.mobilesById.get(mobileId)?.updated_at ?? null)
+      .filter((value): value is string => Boolean(value))
+    const productMobileTimestamps = snapshot.productMobiles
+      .filter((relation) => relation.product_id === product.id)
+      .map((relation) => relation.created_at)
+    const categories = getProductCategories(snapshot, product.id)
 
     return {
       handle: product.slug,
       title: product.meta_title || product.name,
       description: product.meta_description || product.short_description || product.description,
       image: images[0]?.url ?? null,
-      updatedAt: getLatestTimestamp([product.updated_at, ...images.map((image) => image.updated_at)]),
+      updatedAt: getLatestTimestamp([
+        product.updated_at,
+        ...images.map((image) => image.updated_at),
+        ...faqs.map((faq) => faq.updated_at || faq.created_at),
+        ...reviews.map((review) => review.updated_at || review.created_at),
+        ...getCategoryRelationTimestamps(snapshot, 'product', product.id),
+        ...productMobileTimestamps,
+        ...linkedMobilesUpdatedAt,
+      ]),
+      entityType: 'product' as const,
+      productType: product.product_type,
+      stockQuantity: product.stock_quantity,
+      linkedItemCount: linkedMobileIds.length,
+      collectionSlugs: categories.map((category) => category.slug),
     }
   })
 
   const mobileEntries = snapshot.mobiles.map((mobile) => {
     const images = getMobileImages(snapshot, mobile.id)
+    const faqs = getMobileFaqs(snapshot, mobile.id)
+    const linkedProductIds = snapshot.productIdsByMobileId.get(mobile.id) ?? []
+    const linkedProducts = linkedProductIds
+      .map((productId) => snapshot.products.find((product) => product.id === productId))
+      .filter((product): product is SupabaseProductRow => Boolean(product))
+    const productMobileTimestamps = snapshot.productMobiles
+      .filter((relation) => relation.mobile_id === mobile.id)
+      .map((relation) => relation.created_at)
+    const categories = getMobileCategories(snapshot, mobile.id)
 
     return {
       handle: mobile.slug,
       title: mobile.meta_title || mobile.name,
       description: mobile.meta_description || mobile.description,
       image: images[0]?.url ?? null,
-      updatedAt: getLatestTimestamp([mobile.updated_at, ...images.map((image) => image.updated_at)]),
+      updatedAt: getLatestTimestamp([
+        mobile.updated_at,
+        ...images.map((image) => image.updated_at),
+        ...faqs.map((faq) => faq.updated_at || faq.created_at),
+        ...getCategoryRelationTimestamps(snapshot, 'mobile', mobile.id),
+        ...productMobileTimestamps,
+        ...linkedProducts.map((product) => product.updated_at),
+      ]),
+      entityType: 'mobile' as const,
+      productType: null,
+      stockQuantity: null,
+      linkedItemCount: linkedProducts.length,
+      collectionSlugs: categories.map((category) => category.slug),
     }
   })
 
@@ -1124,42 +1318,8 @@ export async function getProductSitemapEntries(): Promise<SitemapProductEntry[]>
 export async function getCollectionBySlug(slug: string): Promise<Collection | null> {
   const snapshot = await getCatalogSnapshot()
 
-  if (slug === 'shop-all') {
-    const products = await getAllCatalogProducts()
-
-    return {
-      slug,
-      title: VIRTUAL_COLLECTIONS['shop-all'].title,
-      metaTitle: null,
-      metaDescription: VIRTUAL_COLLECTIONS['shop-all'].description,
-      description: VIRTUAL_COLLECTIONS['shop-all'].description,
-      sourceUrl: buildAbsoluteUrl('/collections/shop-all'),
-      heroImage: getCollectionHeroImage(products),
-      updatedAt: getLatestTimestamp([...snapshot.products.map((product) => product.updated_at), ...snapshot.mobiles.map((mobile) => mobile.updated_at)]),
-      products,
-      parentCollection: null,
-      childCollections: [],
-      siblingCollections: [],
-    }
-  }
-
-  if (slug === 'phones') {
-    const products = sortCatalogCards(snapshot.mobiles.map((mobile) => buildMobileCard(mobile, snapshot)))
-
-    return {
-      slug,
-      title: VIRTUAL_COLLECTIONS.phones.title,
-      metaTitle: null,
-      metaDescription: VIRTUAL_COLLECTIONS.phones.description,
-      description: VIRTUAL_COLLECTIONS.phones.description,
-      sourceUrl: buildAbsoluteUrl('/collections/phones'),
-      heroImage: getCollectionHeroImage(products),
-      updatedAt: getLatestTimestamp(snapshot.mobiles.map((mobile) => mobile.updated_at)),
-      products,
-      parentCollection: null,
-      childCollections: [],
-      siblingCollections: [],
-    }
+  if (isVirtualCollectionSlug(slug)) {
+    return buildVirtualCollection(slug, snapshot)
   }
 
   const category = snapshot.categories.find((item) => item.slug === slug)
@@ -1168,13 +1328,11 @@ export async function getCollectionBySlug(slug: string): Promise<Collection | nu
     return null
   }
 
-  const descendantCategoryIds = getDescendantCategoryIds(snapshot, category.id)
-  const categoryIdsToRead = [category.id, ...descendantCategoryIds]
-  const productIds = [...new Set(categoryIdsToRead.flatMap((categoryId) => snapshot.productIdsByCategoryId.get(categoryId) ?? []))]
-  const products = productIds
-    .map((productId) => snapshot.products.find((product) => product.id === productId))
-    .filter((product): product is SupabaseProductRow => Boolean(product))
-    .map((product) => buildProductCard(product, snapshot))
+  const categoryTreeIds = getCategoryTreeIds(snapshot, category.id)
+  const products = getCatalogCardsForCategoryIds(snapshot, categoryTreeIds)
+  const relationTimestamps = snapshot.categoryRelations
+    .filter((relation) => categoryTreeIds.includes(relation.category_id))
+    .map((relation) => relation.updated_at || relation.created_at)
 
   const parentCategory = category.parent_id ? snapshot.categoriesById.get(category.parent_id) ?? null : null
   const childCollections = getChildCategories(snapshot, category.id).map((child) => buildNavigationItem(child, snapshot))
@@ -1192,8 +1350,8 @@ export async function getCollectionBySlug(slug: string): Promise<Collection | nu
     description: category.meta_description,
     sourceUrl: buildAbsoluteUrl(`/collections/${category.slug}`),
     heroImage: getCollectionHeroImage(products),
-    updatedAt: getCollectionUpdatedAt(products, category.updated_at),
-    products: sortCatalogCards(products),
+    updatedAt: getLatestTimestamp([category.updated_at, ...relationTimestamps, ...products.map((product) => product.updatedAt)]),
+    products,
     parentCollection: parentCategory ? buildNavigationItem(parentCategory, snapshot) : null,
     childCollections,
     siblingCollections,

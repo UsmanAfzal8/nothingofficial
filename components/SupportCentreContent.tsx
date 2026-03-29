@@ -138,7 +138,7 @@ export function SupportCentreContent({ heroImageUrl, heroImageAlt }: SupportCent
       </section>
 
       <section className="grid gap-4 pb-4 lg:grid-cols-3">
-        <div className="rounded-[28px] border border-black/10 bg-white p-6">
+        <div className="rounded-[28px] border border-black/10 bg-white p-6" id="contact-us">
           <p className="dot-heading text-[10px] tracking-[0.24em] text-black/42">Support</p>
           <h3 className="mt-4 text-[1.7rem] leading-[0.96] tracking-[-0.04em] text-black">Need direct help?</h3>
           <p className="mt-4 text-sm leading-7 text-black/62">Use the contact page if you need store information, after-sales help, or buying guidance.</p>

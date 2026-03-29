@@ -2,8 +2,9 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { NothingFooter } from '@/components/NothingFooter'
 import { NothingHeader } from '@/components/NothingHeader'
-import { socialLinks, siteBrandName, siteKeywords } from '@/lib/data/site-content'
-import { buildAbsoluteUrl, buildSeoKeywords } from '@/lib/utils/seo'
+import { SeoStructuredData } from '@/components/SeoStructuredData'
+import { buildContactPageStructuredData, socialLinks, siteBrandName, siteKeywords } from '@/lib/data/site-content'
+import { buildAbsoluteUrl, buildBreadcrumbStructuredData, buildSeoKeywords } from '@/lib/utils/seo'
 
 export const metadata: Metadata = {
   title: {
@@ -52,8 +53,17 @@ const contactOptions = [
 ]
 
 export default function ContactUsPage() {
+  const contactStructuredData = [
+    buildContactPageStructuredData(),
+    buildBreadcrumbStructuredData([
+      { label: 'Home', href: '/' },
+      { label: 'Contact Us', href: '/pages/contact-us' },
+    ]),
+  ]
+
   return (
     <div className="min-h-screen overflow-x-hidden bg-[#f4f4f0] text-[#111]">
+      <SeoStructuredData data={contactStructuredData} />
       <NothingHeader />
 
       <main className="pt-20">

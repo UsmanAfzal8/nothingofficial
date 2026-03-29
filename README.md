@@ -26,8 +26,9 @@ npm install
 cp .env.local.example .env.local
 ```
 
-4. Update `.env.local` with your Supabase credentials:
+4. Update `.env.local` with your production site URL and Supabase credentials:
 ```
+NEXT_PUBLIC_SITE_URL=https://www.nothingshop.pk
 SUPABASE_URL=your_supabase_url
 SUPABASE_ANON_KEY=your_supabase_anon_key
 SUPABASE_SERVICE_ROLE_KEY=your_service_role_key

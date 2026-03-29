@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import localFont from 'next/font/local'
 import { CartProvider } from '@/components/CartProvider'
 import { siteBrandName, siteDescription, siteKeywords, siteSeoTitle } from '@/lib/data/site-content'
-import { getSiteOrigin } from '@/lib/utils/seo'
+import { buildRobotsMetadata, getSiteOrigin } from '@/lib/utils/seo'
 import './globals.css'
 
 const ndot55 = localFont({
@@ -57,17 +57,7 @@ export const metadata: Metadata = {
     title: siteSeoTitle,
     description: siteDescription,
   },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-      'max-video-preview': -1,
-    },
-  },
+  robots: buildRobotsMetadata(),
 }
 
 export default function RootLayout({

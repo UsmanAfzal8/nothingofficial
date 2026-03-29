@@ -5,10 +5,10 @@ import { CatalogProductTile } from '@/components/CatalogProductTile'
 import { NothingFooter } from '@/components/NothingFooter'
 import { NothingHeader } from '@/components/NothingHeader'
 import { SeoStructuredData } from '@/components/SeoStructuredData'
-import { getCollectionBySlug } from '@/lib/data/catalog-repository'
-import { siteBrandName, siteKeywords } from '@/lib/data/site-content'
+import { getAllCollectionSlugs, getCollectionBySlug } from '@/lib/data/catalog-repository'
+import { collectionSeoFaqs, siteBrandName, siteKeywords, siteTrustLinks } from '@/lib/data/site-content'
 import type { Collection, NavigationItem } from '@/lib/models/catalog'
-import { buildAbsoluteUrl, buildBreadcrumbStructuredData, buildSeoKeywords } from '@/lib/utils/seo'
+import { buildAbsoluteUrl, buildBreadcrumbStructuredData, buildFaqStructuredData, buildRobotsMetadata, buildSeoKeywords } from '@/lib/utils/seo'
 
 type CollectionPageProps = {
   params: {
@@ -17,7 +17,60 @@ type CollectionPageProps = {
 }
 
 export const revalidate = 900
-const SHOP_STYLE_SLUGS = new Set(['shop-all', 'phones', 'offers', 'audio', 'watches', 'accessories', 'cmf'])
+const SHOP_STYLE_SLUGS = new Set(['shop-all', 'phones', 'chargers', 'protectors', 'earbuds', 'offers', 'audio', 'watches', 'accessories', 'cmf'])
+const ACCESSORY_SEO_LINKS = [
+  { slug: 'chargers', label: 'Chargers', href: '/collections/chargers' },
+  { slug: 'protectors', label: 'Protectors', href: '/collections/protectors' },
+  { slug: 'earbuds', label: 'Earbuds', href: '/collections/earbuds' },
+] as const
+const COLLECTION_SUPPORT_SLUGS = new Set(['shop-all', 'phones', 'chargers', 'accessories', 'protectors', 'phone-protectors', 'earbuds', 'cmf'])
+
+function buildCollectionSeoDescription(collection: Collection) {
+  if (collection.metaDescription) {
+    return collection.metaDescription
+  }
+
+  switch (collection.slug) {
+    case 'shop-all':
+      return 'Browse the full Nothing Pakistan catalog for chargers, earbuds, protectors, CMF devices, and other compatible accessories.'
+    case 'phones':
+      return 'Browse Nothing phone model pages and jump into compatible chargers, protectors, earbuds, and support routes in Pakistan.'
+    case 'chargers':
+      return 'Shop Nothing chargers and charging cables in Pakistan with live product pages, pricing, and ordering support.'
+    case 'protectors':
+      return 'Browse screen protectors and protective accessories for Nothing devices in Pakistan.'
+    case 'earbuds':
+      return 'Browse Nothing earbuds and audio accessories in Pakistan with live catalog pages and ordering support.'
+    case 'accessories':
+      return 'Browse Nothing accessories in Pakistan including chargers, protectors, earbuds, and everyday add-ons for Nothing devices.'
+    default:
+      return collection.description || `Browse ${collection.title} from ${siteBrandName} with live product pages, pricing, and ordering support in Pakistan.`
+  }
+}
+
+function buildCollectionQuickLinks(collection: Collection) {
+  if (collection.slug === 'shop-all') {
+    return [
+      { label: 'Phone models', href: '/collections/phones' },
+      { label: 'Chargers', href: '/collections/chargers' },
+      { label: 'Contact us', href: '/pages/contact-us' },
+    ]
+  }
+
+  if (collection.slug === 'phones') {
+    return [
+      { label: 'Chargers', href: '/collections/chargers' },
+      { label: 'Protectors', href: '/collections/protectors' },
+      { label: 'Earbuds', href: '/collections/earbuds' },
+    ]
+  }
+
+  if (collection.slug === 'accessories' || ACCESSORY_SEO_LINKS.some((item) => item.slug === collection.slug)) {
+    return [...ACCESSORY_SEO_LINKS.filter((item) => item.slug !== collection.slug)]
+  }
+
+  return []
+}
 
 function buildCollectionBreadcrumbs(collection: Collection) {
   return [
@@ -30,13 +83,14 @@ function buildCollectionBreadcrumbs(collection: Collection) {
 function buildCollectionStructuredData(collection: Collection) {
   const breadcrumbItems = buildCollectionBreadcrumbs(collection)
   const topProducts = collection.products.slice(0, 12)
+  const faqStructuredData = buildFaqStructuredData(collectionSeoFaqs[collection.slug] ?? [])
 
-  return [
+  const structuredData: Record<string, unknown>[] = [
     {
       '@context': 'https://schema.org',
       '@type': 'CollectionPage',
       name: collection.metaTitle || collection.title,
-      description: collection.metaDescription || collection.description || `${collection.title} collection at ${siteBrandName}.`,
+      description: buildCollectionSeoDescription(collection),
       url: buildAbsoluteUrl(`/collections/${collection.slug}`),
       image: collection.heroImage ? [collection.heroImage] : undefined,
       mainEntity: {
@@ -51,6 +105,12 @@ function buildCollectionStructuredData(collection: Collection) {
     },
     buildBreadcrumbStructuredData(breadcrumbItems),
   ]
+
+  if (faqStructuredData) {
+    structuredData.push(faqStructuredData)
+  }
+
+  return structuredData
 }
 
 export async function generateMetadata({ params }: CollectionPageProps): Promise<Metadata> {
@@ -62,11 +122,8 @@ export async function generateMetadata({ params }: CollectionPageProps): Promise
     }
   }
 
-  const description = collection.metaDescription || collection.description || `Browse the live ${collection.title} catalog from Supabase.`
-  const title =
-    collection.slug === 'shop-all'
-      ? 'All products | Nothing | PK'
-      : collection.metaTitle || `${collection.title} Price in Pakistan | ${siteBrandName}`
+  const description = buildCollectionSeoDescription(collection)
+  const title = collection.metaTitle || `${collection.title} in Pakistan | ${siteBrandName}`
   const hasProducts = collection.products.length > 0
   const keywords = buildSeoKeywords(
     siteKeywords,
@@ -103,11 +160,14 @@ export async function generateMetadata({ params }: CollectionPageProps): Promise
       description,
       images: collection.heroImage ? [collection.heroImage] : undefined,
     },
-    robots: {
-      index: hasProducts,
-      follow: true,
-    },
+    robots: buildRobotsMetadata({ index: hasProducts }),
   }
+}
+
+export async function generateStaticParams() {
+  const slugs = await getAllCollectionSlugs()
+
+  return slugs.map((slug) => ({ slug }))
 }
 
 export default async function CollectionPage({ params }: CollectionPageProps) {
@@ -131,6 +191,10 @@ export default async function CollectionPage({ params }: CollectionPageProps) {
   const isShopStyleCollection = SHOP_STYLE_SLUGS.has(collection.slug)
   const isAccessoriesCollection = collection.slug === 'accessories'
   const isAccessoriesChild = collection.parentCollection?.slug === 'accessories'
+  const seoDescription = buildCollectionSeoDescription(collection)
+  const quickLinks = buildCollectionQuickLinks(collection)
+  const collectionFaqEntries = collectionSeoFaqs[collection.slug] ?? []
+  const shouldShowTrustLinks = COLLECTION_SUPPORT_SLUGS.has(collection.slug)
 
   const accessoriesLinks: NavigationItem[] =
     isAccessoriesCollection || isAccessoriesChild
@@ -168,16 +232,45 @@ export default async function CollectionPage({ params }: CollectionPageProps) {
 
             {isShopStyleCollection ? (
               <div className="flex items-center justify-center py-2 sm:py-4">
-                <h1 className="dot-heading text-center text-[2.15rem] leading-[0.95] tracking-[0.2em] text-black sm:text-[2.9rem] lg:text-[3.45rem]">
-                  {collection.slug === 'shop-all' ? 'All products' : collection.title}
-                </h1>
+                <div className="max-w-4xl text-center">
+                  <h1 className="dot-heading text-center text-[2.15rem] leading-[0.95] tracking-[0.2em] text-black sm:text-[2.9rem] lg:text-[3.45rem]">
+                    {collection.slug === 'shop-all' ? 'All products' : collection.title}
+                  </h1>
+                  <p className="mx-auto mt-4 max-w-3xl text-sm leading-7 text-black/62 md:text-base">{seoDescription}</p>
+                  {quickLinks.length > 0 ? (
+                    <div className="mt-5 flex flex-wrap items-center justify-center gap-2">
+                      {quickLinks.map((item) => (
+                        <Link
+                          key={item.href}
+                          href={item.href}
+                          className="rounded-full border border-black/12 bg-white px-4 py-2 text-[10px] uppercase tracking-[0.2em] text-black/58 transition-colors hover:bg-black hover:text-white"
+                        >
+                          {item.label}
+                        </Link>
+                      ))}
+                    </div>
+                  ) : null}
+                </div>
               </div>
             ) : (
               <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
                 <div className="max-w-3xl">
                   <p className="mb-3 text-[10px] uppercase tracking-[0.34em] text-black/45 md:text-xs">Catalog Collection</p>
                   <h1 className="text-4xl leading-[0.95] tracking-[-0.04em] text-black md:text-6xl">{collection.title}</h1>
-                  {collection.description ? <p className="mt-4 max-w-2xl text-sm leading-6 text-black/62 md:text-base">{collection.description}</p> : null}
+                  <p className="mt-4 max-w-2xl text-sm leading-6 text-black/62 md:text-base">{seoDescription}</p>
+                  {quickLinks.length > 0 ? (
+                    <div className="mt-5 flex flex-wrap gap-2">
+                      {quickLinks.map((item) => (
+                        <Link
+                          key={item.href}
+                          href={item.href}
+                          className="rounded-full border border-black/10 bg-white px-4 py-2 text-[10px] uppercase tracking-[0.2em] text-black/56 transition-colors hover:bg-black hover:text-white"
+                        >
+                          {item.label}
+                        </Link>
+                      ))}
+                    </div>
+                  ) : null}
                 </div>
 
                 {collection.products.length > 0 ? (
@@ -253,9 +346,58 @@ export default async function CollectionPage({ params }: CollectionPageProps) {
             <div className="mt-10 rounded-[32px] border border-black/10 bg-white px-6 py-16 text-center shadow-[0_20px_55px_rgba(17,17,17,0.04)]">
               <p className="text-[10px] uppercase tracking-[0.3em] text-black/45">Live Catalog</p>
               <h2 className="collection-product-name mt-4 text-3xl">No items found</h2>
-              <p className="mt-3 text-sm text-black/65">This collection is connected to Supabase, but there are no rows to show yet.</p>
+              <p className="mt-3 text-sm text-black/65">This page is ready for search indexing, but there are no live products in this collection yet.</p>
             </div>
           )}
+
+          {collectionFaqEntries.length > 0 || shouldShowTrustLinks ? (
+            <div className="mt-12 grid gap-6 lg:grid-cols-[minmax(0,1.15fr)_360px]">
+              {collectionFaqEntries.length > 0 ? (
+                <section className="rounded-[32px] border border-black/10 bg-white p-6 shadow-[0_20px_55px_rgba(17,17,17,0.04)] md:p-8">
+                  <p className="text-[10px] uppercase tracking-[0.3em] text-black/42">Collection Answers</p>
+                  <h2 className="collection-product-name mt-4 text-3xl leading-[0.96] sm:text-4xl">
+                    Direct answers for {collection.title}
+                  </h2>
+
+                  <div className="mt-8 border-t border-black/10">
+                    {collectionFaqEntries.map((item) => (
+                      <details key={item.question} className="border-b border-black/10 py-5">
+                        <summary className="cursor-pointer list-none text-sm leading-6 text-black/84 md:text-base">
+                          {item.question}
+                        </summary>
+                        <p className="mt-4 max-w-3xl text-sm leading-7 text-black/68">{item.answer}</p>
+                      </details>
+                    ))}
+                  </div>
+                </section>
+              ) : null}
+
+              {shouldShowTrustLinks ? (
+                <aside className="rounded-[32px] border border-black/10 bg-[#f8f8f4] p-6 shadow-[0_20px_55px_rgba(17,17,17,0.04)] md:p-8">
+                  <p className="text-[10px] uppercase tracking-[0.3em] text-black/42">Support Routes</p>
+                  <h2 className="collection-product-name mt-4 text-3xl leading-[0.96] sm:text-4xl">
+                    Need help before ordering?
+                  </h2>
+                  <div className="mt-6 space-y-3">
+                    {siteTrustLinks.map((item) => (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        className="block rounded-[22px] border border-black/10 bg-white px-4 py-4 transition-colors hover:bg-black hover:text-white"
+                      >
+                        <p className="text-[10px] uppercase tracking-[0.2em] text-black/46 transition-colors hover:text-white">
+                          {item.title}
+                        </p>
+                        <p className="mt-2 text-sm leading-6 text-black/68 transition-colors hover:text-white">
+                          {item.description}
+                        </p>
+                      </Link>
+                    ))}
+                  </div>
+                </aside>
+              ) : null}
+            </div>
+          ) : null}
         </section>
       </main>
 
