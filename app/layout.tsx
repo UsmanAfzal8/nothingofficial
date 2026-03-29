@@ -57,6 +57,9 @@ export const metadata: Metadata = {
     title: siteSeoTitle,
     description: siteDescription,
   },
+  verification: {
+    google: 'aBctbeJ3EWEN3ioFRE7v7Wa-GoTECJ2LCPoCyTSlxhg',
+  },
   robots: buildRobotsMetadata(),
 }
 
