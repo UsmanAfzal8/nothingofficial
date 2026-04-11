@@ -1,0 +1,38 @@
+[
+  {
+    "name": "Offers",
+    "slug": "offers"
+  },
+  {
+    "name": "Audio",
+    "slug": "audio"
+  },
+  {
+    "name": "Watches",
+    "slug": "watches"
+  },
+  {
+    "name": "Accessories",
+    "slug": "accessories"
+  },
+  {
+    "name": "CMF",
+    "slug": "cmf"
+  },
+  {
+    "name": "Chargers",
+    "slug": "chargers"
+  },
+  {
+    "name": "Cables",
+    "slug": "cables"
+  },
+  {
+    "name": "Phone Cases",
+    "slug": "phone-cases"
+  },
+  {
+    "name": "Phone Protectors",
+    "slug": "phone-protectors"
+  }
+]

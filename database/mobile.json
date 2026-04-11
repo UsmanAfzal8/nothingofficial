@@ -1,0 +1,54 @@
+[
+  {
+    "name": "Phone (4a)",
+    "slug": "phone-4a"
+  },
+  {
+    "name": "Phone (3)",
+    "slug": "phone-3"
+  },
+  {
+    "name": "Phone (3a) Lite",
+    "slug": "phone-3a-lite"
+  },
+  {
+    "name": "Phone (3a) Pro",
+    "slug": "phone-3a-pro"
+  },
+  {
+    "name": "Phone (3a)",
+    "slug": "phone-3a"
+  },
+  {
+    "name": "Phone (3a) Community Edition",
+    "slug": "phone-3a-community-edition"
+  },
+  {
+    "name": "CMF Phone 2 Pro",
+    "slug": "cmf-phone-2-pro"
+  },
+  {
+    "name": "Phone (2a)",
+    "slug": "phone-2a"
+  },
+  {
+    "name": "CMF Phone 1",
+    "slug": "cmf-phone-1"
+  },
+  {
+    "name": "Nothing 4a Pro",
+    "slug": "nothing-4a-pro"
+  },
+  {
+    "name": "Phone (2a) Plus",
+    "slug": "phone-2a-plus"
+  },
+  {
+    "name": "Phone (2)",
+    "slug": "phone-2"
+  },
+  {
+    "name": "Phone (1)",
+    "slug": "phone-1"
+  }
+]

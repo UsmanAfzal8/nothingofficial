@@ -262,6 +262,10 @@ function uniqueById<T extends { id: number }>(rows: T[]): T[] {
   return values
 }
 
+function getSortPriorityValue(item: Product): number {
+  return typeof item.sortPriority === 'number' ? item.sortPriority : Number.POSITIVE_INFINITY
+}
+
 function sortCatalogCards(items: Product[]): Product[] {
   return items.slice().sort((left, right) => {
     const leftKind = left.kind === 'mobile' ? 0 : 1
@@ -269,6 +273,13 @@ function sortCatalogCards(items: Product[]): Product[] {
 
     if (leftKind !== rightKind) {
       return leftKind - rightKind
+    }
+
+    const leftPriority = getSortPriorityValue(left)
+    const rightPriority = getSortPriorityValue(right)
+
+    if (leftPriority !== rightPriority) {
+      return leftPriority - rightPriority
     }
 
     return left.name.localeCompare(right.name)
@@ -282,6 +293,13 @@ function sortHomeShowcaseCards(items: Product[]): Product[] {
 
     if (leftKind !== rightKind) {
       return leftKind - rightKind
+    }
+
+    const leftPriority = getSortPriorityValue(left)
+    const rightPriority = getSortPriorityValue(right)
+
+    if (leftPriority !== rightPriority) {
+      return leftPriority - rightPriority
     }
 
     const leftPrice = typeof left.price === 'number' ? left.price : -1
@@ -321,7 +339,8 @@ async function readCatalogSnapshotFromSupabase(): Promise<CatalogSnapshot> {
       .order('name', { ascending: true }),
     supabase
       .from('mobiles')
-      .select('id, name, slug, description, meta_title, meta_description, release_date, created_at, updated_at, Price')
+      .select('id, name, slug, description, meta_title, meta_description, piority, release_date, created_at, updated_at, Price')
+      .order('piority', { ascending: true, nullsFirst: false })
       .order('name', { ascending: true }),
     supabase
       .from('categories')
@@ -662,6 +681,7 @@ function buildMobileCard(mobile: SupabaseMobileRow, snapshot: CatalogSnapshot): 
     price: mobile.Price,
     priceLabel: formatPrice(mobile.Price),
     kind: 'mobile',
+    sortPriority: mobile.piority,
     subtitle: 'Phone',
     updatedAt: mobile.updated_at,
   }
@@ -1022,10 +1042,9 @@ async function getAllCatalogProducts(): Promise<Product[]> {
 
 function getVirtualCollectionProducts(slug: VirtualCollectionSlug, snapshot: CatalogSnapshot): Product[] {
   if (slug === 'shop-all') {
-    const mobileCards = snapshot.mobiles.map((mobile) => buildMobileCard(mobile, snapshot))
     const productCards = snapshot.products.map((product) => buildProductCard(product, snapshot))
 
-    return sortCatalogCards([...mobileCards, ...productCards])
+    return sortCatalogCards(productCards)
   }
 
   if (slug === 'phones') {
@@ -1047,7 +1066,7 @@ function getVirtualCollectionUpdatedAt(slug: VirtualCollectionSlug, snapshot: Ca
   }
 
   if (slug === 'shop-all') {
-    return getLatestTimestamp([...snapshot.products.map((product) => product.updated_at), ...snapshot.mobiles.map((mobile) => mobile.updated_at)])
+    return getLatestTimestamp(snapshot.products.map((product) => product.updated_at))
   }
 
   return getCollectionUpdatedAt(products, null)

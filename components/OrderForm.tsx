@@ -169,7 +169,36 @@ export function OrderForm({ product, backLink }: OrderFormProps) {
   const secondaryLink: OrderFormLink =
     cartItems.length > 0
       ? { href: '/cart', label: isCartCheckout ? 'Back to Cart' : `View Cart (${cartItems.length})` }
-      : { href: '/collections/shop-all', label: 'Shop Products' }
+    : { href: '/collections/shop-all', label: 'Shop Products' }
+
+  if (!product && !isCartCheckout) {
+    return (
+      <section className="mx-auto max-w-2xl rounded-[28px] border border-slate-200 bg-white px-6 py-12 text-center shadow-[0_18px_40px_rgba(15,23,42,0.06)] sm:px-10">
+        <p className="text-sm font-medium text-slate-500">Order request</p>
+        <h1 className="mt-3 text-3xl font-semibold tracking-[-0.03em] text-slate-900 sm:text-4xl">Choose a product first</h1>
+        <p className="mx-auto mt-4 max-w-lg text-sm leading-7 text-slate-600 sm:text-base">
+          The standalone order page is only shown when a product is selected. Browse the catalog, open a product page, and then continue to order.
+        </p>
+
+        <div className="mt-8 flex flex-wrap justify-center gap-3">
+          <Link
+            href="/collections/shop-all"
+            className="inline-flex h-12 items-center justify-center rounded-[16px] bg-slate-900 px-6 text-sm font-medium text-white transition-colors hover:bg-slate-800"
+          >
+            Browse Products
+          </Link>
+          {backLink ? (
+            <Link
+              href={backLink.href}
+              className="inline-flex h-12 items-center justify-center rounded-[16px] border border-slate-200 bg-white px-6 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-50"
+            >
+              {backLink.label}
+            </Link>
+          ) : null}
+        </div>
+      </section>
+    )
+  }
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -189,16 +218,7 @@ export function OrderForm({ product, backLink }: OrderFormProps) {
               unitPrice: item.price ?? 0,
               currency: 'PKR',
             }))
-          : [
-              {
-                productHandle: null,
-                productName: 'General Product Order',
-                imageUrl: null,
-                quantity: 1,
-                unitPrice: 0,
-                currency: 'PKR',
-              },
-            ]
+          : []
 
       const response = await fetch('/api/orders', {
         method: 'POST',
@@ -394,7 +414,7 @@ export function OrderForm({ product, backLink }: OrderFormProps) {
           ) : null}
 
           <div className="mt-6 space-y-3">
-            {checkoutItems.length > 0 ? (
+          {checkoutItems.length > 0 ? (
               checkoutItems.map((item) => {
                 const itemTotal = typeof item.price === 'number' ? item.price * item.quantity : null
 
@@ -414,12 +434,7 @@ export function OrderForm({ product, backLink }: OrderFormProps) {
                   </div>
                 )
               })
-            ) : (
-              <div className="rounded-[18px] border border-slate-200 bg-slate-50 p-4">
-                <h3 className="text-base font-medium text-slate-900">General order</h3>
-                <p className="mt-2 text-sm leading-6 text-slate-600">No specific product was selected. We will confirm the details by phone.</p>
-              </div>
-            )}
+            ) : null}
           </div>
 
           <div className="mt-6 rounded-[18px] border border-slate-200 bg-slate-50 p-4">

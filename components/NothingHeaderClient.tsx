@@ -1,37 +1,16 @@
 'use client'
 
+import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { useCart } from '@/components/CartProvider'
 import type { NavigationItem } from '@/lib/models/catalog'
+import cartIcon from '@/assets/icons/cart.svg'
+import menuIcon from '@/assets/icons/menu.svg'
 
 type NothingHeaderClientProps = {
   menuItems: NavigationItem[]
-}
-
-function DotMenuIcon() {
-  const xPositions = [3, 5, 7, 9, 11, 13]
-
-  return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-      {xPositions.map((x) => (
-        <circle key={`top-${x}`} cx={x} cy={3} r={1} fill="currentColor" />
-      ))}
-      {xPositions.map((x) => (
-        <circle key={`bottom-${x}`} cx={x} cy={13} r={1} fill="currentColor" />
-      ))}
-    </svg>
-  )
-}
-
-function CartIcon() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-      <path d="M5 5.25H13.1L12.45 12.75H5.55L5 5.25Z" stroke="currentColor" strokeWidth="1.2" />
-      <path d="M6.75 6.25V4.9C6.75 3.66 7.76 2.65 9 2.65C10.24 2.65 11.25 3.66 11.25 4.9V6.25" stroke="currentColor" strokeWidth="1.2" />
-    </svg>
-  )
 }
 
 export function NothingHeaderClient({ menuItems }: NothingHeaderClientProps) {
@@ -73,7 +52,7 @@ export function NothingHeaderClient({ menuItems }: NothingHeaderClientProps) {
                 className="flex h-12 items-center justify-center text-[#111] transition-opacity hover:opacity-70"
                 aria-label="Open menu"
               >
-                <DotMenuIcon />
+                <Image src={menuIcon} alt="" aria-hidden="true" className="h-[18px] w-[18px]" />
               </button>
 
               <Link href="/" className="flex h-12 items-center justify-center">
@@ -85,14 +64,12 @@ export function NothingHeaderClient({ menuItems }: NothingHeaderClientProps) {
                 className="relative flex h-12 items-center justify-center text-[#111] transition-opacity hover:opacity-70"
                 aria-label={itemCount > 0 ? `Open cart with ${itemCount} items` : 'Open cart'}
               >
-                <CartIcon />
+                <Image src={cartIcon} alt="" aria-hidden="true" className="h-[20px] w-[20px]" />
                 {itemCount > 0 ? (
                   <span className="absolute right-5 top-2 inline-flex min-w-5 items-center justify-center rounded-full bg-black px-1.5 py-0.5 text-[9px] tracking-[0.18em] text-white">
                     {cartCountLabel}
                   </span>
-                ) : (
-                  <span className="absolute bottom-3 h-1.5 w-1.5 rounded-full bg-[#111]" />
-                )}
+                ) : null}
               </Link>
             </nav>
           </div>

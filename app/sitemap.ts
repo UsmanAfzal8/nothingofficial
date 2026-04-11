@@ -1,113 +1,162 @@
+import { statSync } from 'node:fs'
+import { join } from 'node:path'
 import type { MetadataRoute } from 'next'
-import { getCollectionSitemapEntries, getProductSitemapEntries } from '@/lib/data/catalog-repository'
+import categories from '@/database/categories.json'
+import mobileProducts from '@/database/mobile.json'
+import storeProducts from '@/database/prodcuts.json'
 import { allPolicies } from '@/lib/data/policies'
-import { buildAbsoluteUrl, getLastModifiedDate, shouldIndexSite } from '@/lib/utils/seo'
+import { buildAbsoluteUrl, isPreviewDeployment } from '@/lib/utils/seo'
 
-function clampPriority(value: number, minimum = 0.2, maximum = 1) {
-  return Math.max(minimum, Math.min(maximum, Number(value.toFixed(2))))
+type SitemapItem = MetadataRoute.Sitemap[number]
+type SourceItem = {
+  name: string
+  slug: string
 }
 
-function buildCollectionPriority(entry: Awaited<ReturnType<typeof getCollectionSitemapEntries>>[number]) {
-  if (entry.slug === 'shop-all') {
-    return 0.95
-  }
-
-  if (entry.slug === 'phones') {
-    return 0.93
-  }
-
-  if (entry.slug === 'chargers') {
-    return 0.9
-  }
-
-  const basePriority = entry.depth === 0 ? 0.8 : 0.68
-  const sizeBoost = Math.min(entry.itemCount, 24) * 0.008
-
-  return clampPriority(basePriority + sizeBoost, 0.55, 0.92)
+type RouteConfig = {
+  slug: string
+  priority: number
+  changeFrequency: SitemapItem['changeFrequency']
 }
 
-function buildCollectionChangeFrequency(entry: Awaited<ReturnType<typeof getCollectionSitemapEntries>>[number]): MetadataRoute.Sitemap[number]['changeFrequency'] {
-  if (entry.slug === 'shop-all' || entry.slug === 'phones' || entry.itemCount >= 12) {
-    return 'daily'
-  }
+const categoriesSource = categories as SourceItem[]
+const mobileSource = mobileProducts as SourceItem[]
 
-  return entry.depth === 0 ? 'weekly' : 'monthly'
+const collectionSourceFiles = {
+  virtual: getFileModifiedTime('categories.json'),
+  categories: getFileModifiedTime('categories.json'),
+  products: getFileModifiedTime('prodcuts.json'),
+  mobiles: getFileModifiedTime('mobile.json'),
 }
 
-function buildProductPriority(entry: Awaited<ReturnType<typeof getProductSitemapEntries>>[number]) {
-  let priority = entry.entityType === 'mobile' ? 0.86 : 0.76
+const fixedCollectionRoutes: RouteConfig[] = [
+  { slug: 'shop-all', priority: 1, changeFrequency: 'daily' },
+  { slug: 'phones', priority: 0.98, changeFrequency: 'daily' },
+  { slug: 'chargers', priority: 0.95, changeFrequency: 'weekly' },
+  { slug: 'protectors', priority: 0.92, changeFrequency: 'weekly' },
+  { slug: 'earbuds', priority: 0.92, changeFrequency: 'weekly' },
+]
 
-  if (entry.productType === 'charger') {
-    priority += 0.1
-  } else if (entry.productType === 'earbuds') {
-    priority += 0.07
-  } else if (entry.productType === 'protector') {
-    priority += 0.05
-  }
-
-  if (typeof entry.stockQuantity === 'number' && entry.stockQuantity <= 0) {
-    priority -= 0.08
-  }
-
-  if (entry.collectionSlugs.includes('chargers')) {
-    priority += 0.02
-  }
-
-  priority += Math.min(entry.linkedItemCount, 12) * 0.006
-
-  return clampPriority(priority, 0.6, 0.92)
+const categoryRouteConfigs: Record<string, Omit<RouteConfig, 'slug'>> = {
+  offers: { priority: 0.9, changeFrequency: 'daily' },
+  audio: { priority: 0.86, changeFrequency: 'weekly' },
+  watches: { priority: 0.74, changeFrequency: 'monthly' },
+  accessories: { priority: 0.88, changeFrequency: 'weekly' },
+  cmf: { priority: 0.87, changeFrequency: 'weekly' },
+  chargers: { priority: 0.95, changeFrequency: 'weekly' },
+  cables: { priority: 0.8, changeFrequency: 'monthly' },
+  'phone-cases': { priority: 0.79, changeFrequency: 'monthly' },
+  'phone-protectors': { priority: 0.82, changeFrequency: 'monthly' },
 }
 
-function buildProductChangeFrequency(entry: Awaited<ReturnType<typeof getProductSitemapEntries>>[number]): MetadataRoute.Sitemap[number]['changeFrequency'] {
-  if (entry.entityType === 'mobile' || entry.productType === 'charger') {
-    return 'weekly'
+function getFileModifiedTime(fileName: string): Date {
+  try {
+    return statSync(join(process.cwd(), 'database', fileName)).mtime
+  } catch {
+    return new Date()
   }
-
-  return 'monthly'
 }
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  if (!shouldIndexSite()) {
+function buildRoute(slug: string, lastModified: Date, priority: number, changeFrequency: SitemapItem['changeFrequency']): SitemapItem {
+  return {
+    url: buildAbsoluteUrl(`/collections/${slug}`),
+    lastModified,
+    priority,
+    changeFrequency,
+  }
+}
+
+function uniqueRoutes(routes: SitemapItem[]): SitemapItem[] {
+  const seen = new Set<string>()
+  const output: SitemapItem[] = []
+
+  for (const route of routes) {
+    if (seen.has(route.url)) {
+      continue
+    }
+
+    seen.add(route.url)
+    output.push(route)
+  }
+
+  return output
+}
+
+function buildCollectionRoutes(): SitemapItem[] {
+  const routes: SitemapItem[] = fixedCollectionRoutes.map((route) =>
+    buildRoute(route.slug, collectionSourceFiles.virtual, route.priority, route.changeFrequency),
+  )
+
+  for (const category of categoriesSource) {
+    const config = categoryRouteConfigs[category.slug] ?? { priority: 0.76, changeFrequency: 'monthly' }
+
+    routes.push(buildRoute(category.slug, collectionSourceFiles.categories, config.priority, config.changeFrequency))
+  }
+
+  return uniqueRoutes(routes)
+}
+
+function buildProductRoute(slug: string, lastModified: Date, priority: number, changeFrequency: SitemapItem['changeFrequency']): SitemapItem {
+  return {
+    url: buildAbsoluteUrl(`/products/${slug}`),
+    lastModified,
+    priority,
+    changeFrequency,
+  }
+}
+
+function buildProductRoutes(): SitemapItem[] {
+  const routes: SitemapItem[] = []
+  const seen = new Set<string>()
+
+  for (const product of storeProducts) {
+    if (seen.has(product.slug)) {
+      continue
+    }
+
+    seen.add(product.slug)
+    routes.push(buildProductRoute(product.slug, collectionSourceFiles.products, 0.74, 'monthly'))
+  }
+
+  for (const mobile of mobileSource) {
+    if (seen.has(mobile.slug)) {
+      continue
+    }
+
+    seen.add(mobile.slug)
+    routes.push(buildProductRoute(mobile.slug, collectionSourceFiles.mobiles, 0.86, 'weekly'))
+  }
+
+  return routes
+}
+
+export default function sitemap(): MetadataRoute.Sitemap {
+  if (isPreviewDeployment()) {
     return []
   }
 
-  const [collectionEntries, productEntries] = await Promise.all([getCollectionSitemapEntries(), getProductSitemapEntries()])
-  const catalogLastModified =
-    [...collectionEntries, ...productEntries]
-      .map((entry) => getLastModifiedDate(entry.updatedAt))
-      .filter((entry): entry is Date => Boolean(entry))
-      .sort((left, right) => right.getTime() - left.getTime())[0] ?? new Date()
+  const latestSourceModified = [collectionSourceFiles.virtual, collectionSourceFiles.categories, collectionSourceFiles.products, collectionSourceFiles.mobiles]
+    .sort((left, right) => right.getTime() - left.getTime())[0]
 
   const staticRoutes: MetadataRoute.Sitemap = [
-    { url: buildAbsoluteUrl('/'), lastModified: catalogLastModified, changeFrequency: 'daily', priority: 1 },
-    { url: buildAbsoluteUrl('/pages/about'), lastModified: catalogLastModified, changeFrequency: 'monthly', priority: 0.72 },
-    { url: buildAbsoluteUrl('/pages/contact-us'), lastModified: catalogLastModified, changeFrequency: 'monthly', priority: 0.76 },
-    { url: buildAbsoluteUrl('/pages/support-centre'), lastModified: catalogLastModified, changeFrequency: 'weekly', priority: 0.82 },
-    { url: buildAbsoluteUrl('/pages/newsletter'), lastModified: catalogLastModified, changeFrequency: 'monthly', priority: 0.64 },
+    { url: buildAbsoluteUrl('/'), lastModified: latestSourceModified, changeFrequency: 'daily', priority: 1 },
+    { url: buildAbsoluteUrl('/pages/about'), lastModified: latestSourceModified, changeFrequency: 'monthly', priority: 0.72 },
+    { url: buildAbsoluteUrl('/pages/contact-us'), lastModified: latestSourceModified, changeFrequency: 'monthly', priority: 0.76 },
+    { url: buildAbsoluteUrl('/pages/support-centre'), lastModified: latestSourceModified, changeFrequency: 'weekly', priority: 0.82 },
+    { url: buildAbsoluteUrl('/pages/newsletter'), lastModified: latestSourceModified, changeFrequency: 'monthly', priority: 0.64 },
   ]
 
   const policyRoutes: MetadataRoute.Sitemap = allPolicies.map((policy) => ({
     url: buildAbsoluteUrl(`/pages/policies/${policy.slug}`),
-    lastModified: catalogLastModified,
+    lastModified: latestSourceModified,
     changeFrequency: 'monthly',
     priority: 0.65,
   }))
 
-  const collectionRoutes: MetadataRoute.Sitemap = collectionEntries.map((entry) => ({
-    url: buildAbsoluteUrl(`/collections/${entry.slug}`),
-    lastModified: getLastModifiedDate(entry.updatedAt) ?? catalogLastModified,
-    changeFrequency: buildCollectionChangeFrequency(entry),
-    priority: buildCollectionPriority(entry),
-    images: entry.image ? [entry.image] : undefined,
-  }))
-
-  const productRoutes: MetadataRoute.Sitemap = productEntries.map((entry) => ({
-    url: buildAbsoluteUrl(`/products/${entry.handle}`),
-    lastModified: getLastModifiedDate(entry.updatedAt) ?? catalogLastModified,
-    changeFrequency: buildProductChangeFrequency(entry),
-    priority: buildProductPriority(entry),
-    images: entry.image ? [entry.image] : undefined,
-  }))
-
-  return [...staticRoutes, ...policyRoutes, ...collectionRoutes, ...productRoutes]
+  return [
+    ...staticRoutes,
+    ...policyRoutes,
+    ...buildCollectionRoutes(),
+    ...buildProductRoutes(),
+  ]
 }

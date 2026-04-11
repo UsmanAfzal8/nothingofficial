@@ -4,6 +4,7 @@ import Link from 'next/link'
 import localFont from 'next/font/local'
 import { notFound, redirect } from 'next/navigation'
 import type { ReactNode } from 'react'
+import { CatalogProductTile } from '@/components/CatalogProductTile'
 import { NothingFooter } from '@/components/NothingFooter'
 import { NothingHeader } from '@/components/NothingHeader'
 import { SeoStructuredData } from '@/components/SeoStructuredData'
@@ -325,35 +326,6 @@ function WhatsAppIcon() {
   )
 }
 
-function PhoneAccessoryTile({ product }: { product: Product }) {
-  return (
-    <Link href={product.href} className="group block">
-      <article className="flex h-full flex-col">
-        <div className="relative aspect-[4/5] overflow-hidden">
-          {product.image ? (
-            <Image
-              src={product.image}
-              alt={product.name}
-              fill
-              sizes="(max-width: 768px) 48vw, 24vw"
-              className="object-contain object-center transition-transform duration-300 group-hover:scale-[1.03]"
-            />
-          ) : (
-            <div className="flex h-full items-center justify-center text-[10px] uppercase tracking-[0.22em] text-slate-400">
-              No image
-            </div>
-          )}
-        </div>
-
-        <div className="mt-3 text-center">
-          <h3 className="text-[0.98rem] leading-[1.12] tracking-[-0.015em] text-slate-900 sm:text-[1.04rem]">{product.name}</h3>
-          {product.priceLabel ? <p className="mt-1 text-[11px] text-slate-500">{product.priceLabel}</p> : null}
-        </div>
-      </article>
-    </Link>
-  )
-}
-
 function PhoneAccessoriesHero({
   productDetail,
   gallery,
@@ -642,26 +614,27 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
             intro={detailParagraphs[0] ?? null}
           />
 
-          <div className="mt-6 grid gap-6">
+          <div className="mt-6 space-y-10">
             {mobileAccessoryGroups.length > 0 ? (
               mobileAccessoryGroups.map((group) => (
-                <SectionCard key={group.id} title={group.title}>
-                  <div className="grid grid-cols-2 gap-x-4 gap-y-8">
-                    {group.products.map((product) => (
-                      <PhoneAccessoryTile
-                        key={product.id}
-                        product={product}
-                      />
+                <section key={group.id}>
+                  <div className="mb-4">
+                    <h2 className="text-[1.35rem] font-medium tracking-[-0.02em] text-slate-900 sm:text-[1.55rem]">{group.title}</h2>
+                  </div>
+                  <div className="grid grid-cols-2 gap-x-4 gap-y-9 md:gap-x-6 md:gap-y-12 lg:grid-cols-5 lg:gap-x-7 lg:gap-y-14">
+                    {group.products.map((product, index) => (
+                      <CatalogProductTile key={product.id} product={product} priority={index < 2} tone="shop-all" />
                     ))}
                   </div>
-                </SectionCard>
+                </section>
               ))
             ) : (
-              <SectionCard title="Related Accessories">
-                <p className="text-sm leading-6 text-slate-600">
+              <div className="rounded-[28px] border border-slate-200 bg-white p-5 shadow-[0_10px_30px_rgba(15,23,42,0.05)] sm:p-7">
+                <h2 className="text-[1.35rem] font-medium tracking-[-0.02em] text-slate-900 sm:text-[1.55rem]">Related Accessories</h2>
+                <p className="mt-5 text-sm leading-6 text-slate-600">
                   No linked protectors, chargers, or earbuds were found for this phone in the mobile-product connection table yet.
                 </p>
-              </SectionCard>
+              </div>
             )}
           </div>
         </main>
@@ -767,7 +740,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
         {recommendations.length > 0 ? (
           <section className="mt-10">
             <h2 className="text-[1.7rem] font-medium tracking-[-0.03em] text-slate-900">You may also like</h2>
-            <div className="mt-8 grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-3 xl:grid-cols-5 xl:gap-x-8 xl:gap-y-12">
+            <div className="mt-8 grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-5 lg:gap-x-8 lg:gap-y-12">
               {recommendations.map((product) => (
                 <RecommendationCard key={product.id} product={product} />
               ))}

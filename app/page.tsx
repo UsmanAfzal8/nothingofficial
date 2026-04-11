@@ -11,43 +11,51 @@ import {
   buildWebsiteStructuredData,
   homeSeoFaqs,
   homeSeoHighlights,
+  siteBrandName,
+  siteDescription,
   siteTrustLinks,
   siteKeywords,
   siteSeoTitle,
 } from '@/lib/data/site-content'
 import type { HomePageSection, Product } from '@/lib/models/catalog'
-import { buildAbsoluteUrl, buildFaqStructuredData } from '@/lib/utils/seo'
+import { buildAbsoluteUrl, buildFaqStructuredData, buildSeoKeywords } from '@/lib/utils/seo'
 
 export const revalidate = 900
 export const metadata: Metadata = {
   title: {
     absolute: siteSeoTitle,
   },
-  description:
-    'Browse Nothing Pakistan for Nothing phone models, Nothing chargers, CMF devices, earbuds, protectors, and accessories in Pakistan through category-led live catalog pages.',
-  keywords: [
-    ...siteKeywords,
+  description: siteDescription,
+  keywords: buildSeoKeywords(siteKeywords, [
+    `${siteBrandName} homepage`,
     'Nothing phone accessories Pakistan',
     'Nothing Pakistan accessories',
     'Nothing Pakistan chargers',
     'Nothing Pakistan phones',
     'Nothing audio Pakistan',
-  ],
+  ]),
   alternates: {
     canonical: buildAbsoluteUrl('/'),
   },
   openGraph: {
     title: siteSeoTitle,
-    description:
-      'Browse Nothing Pakistan for Nothing phone models, Nothing chargers, CMF devices, earbuds, protectors, and accessories in Pakistan through category-led live catalog pages.',
+    description: siteDescription,
     url: buildAbsoluteUrl('/'),
     type: 'website',
+    images: [
+      {
+        url: buildAbsoluteUrl('/opengraph-image'),
+        width: 1200,
+        height: 630,
+        alt: siteSeoTitle,
+      },
+    ],
   },
   twitter: {
-    card: 'summary',
+    card: 'summary_large_image',
     title: siteSeoTitle,
-    description:
-      'Browse Nothing Pakistan for Nothing phone models, Nothing chargers, CMF devices, earbuds, protectors, and accessories in Pakistan through category-led live catalog pages.',
+    description: siteDescription,
+    images: [buildAbsoluteUrl('/twitter-image')],
   },
 }
 
@@ -208,10 +216,10 @@ export default async function Home() {
               <div className="relative z-10 max-w-3xl pt-6">
                 <p className="text-[11px] uppercase tracking-[0.34em] text-black/56">Nothing Pakistan</p>
                 <h1 className="collection-product-name mt-5 text-5xl leading-[0.92] sm:text-6xl lg:text-7xl">
-                  Nothing Pakistan chargers, phones and accessories
+                  Nothing phones, chargers and CMF accessories in Pakistan
                 </h1>
                 <p className="mt-5 max-w-2xl font-sans text-[15px] leading-7 tracking-normal text-black/90 sm:text-base">
-                  Browse Nothing phone models and shop compatible Nothing chargers, data cables, protectors, earbuds, CMF
+                  Browse Nothing phone models and shop compatible chargers, data cables, protectors, earbuds, CMF
                   products, and accessories in Pakistan through focused catalog pages and support-ready store content.
                 </p>
 

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { NewsletterSignupContent } from '@/components/NewsletterSignupContent'
+import { InterTypographyScope } from '@/components/InterTypographyScope'
 import { NothingFooter } from '@/components/NothingFooter'
 import { NothingHeader } from '@/components/NothingHeader'
 import { siteBrandName, siteKeywords } from '@/lib/data/site-content'
@@ -32,16 +33,18 @@ export const metadata: Metadata = {
 
 export default function NewsletterPage() {
   return (
-    <div className="min-h-screen overflow-x-hidden bg-[#f4f4f0] text-[#111]">
-      <NothingHeader />
+    <InterTypographyScope>
+      <div className="min-h-screen overflow-x-hidden bg-[#f4f4f0] text-[#111]">
+        <NothingHeader />
 
-      <main className="px-4 pb-16 pt-24 md:px-8 md:pb-24">
-        <section className="mx-auto max-w-[1680px]">
-          <NewsletterSignupContent />
-        </section>
-      </main>
+        <main className="px-4 pb-16 pt-24 md:px-8 md:pb-24">
+          <section className="mx-auto max-w-[1680px]">
+            <NewsletterSignupContent />
+          </section>
+        </main>
 
-      <NothingFooter />
-    </div>
+        <NothingFooter />
+      </div>
+    </InterTypographyScope>
   )
 }

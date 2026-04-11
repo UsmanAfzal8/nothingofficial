@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { NothingFooter } from '@/components/NothingFooter'
 import { NothingHeader } from '@/components/NothingHeader'
+import { InterTypographyScope } from '@/components/InterTypographyScope'
 import { SeoStructuredData } from '@/components/SeoStructuredData'
 import { SupportCentreContent } from '@/components/SupportCentreContent'
 import { getSupportHeroImage } from '@/lib/data/catalog-repository'
@@ -50,15 +51,17 @@ export default async function SupportCentrePage() {
   ]
 
   return (
-    <div className="min-h-screen overflow-x-hidden bg-[#f4f4f0] text-[#111]">
-      <SeoStructuredData data={supportStructuredData} />
-      <NothingHeader />
+    <InterTypographyScope>
+      <div className="min-h-screen overflow-x-hidden bg-[#f4f4f0] text-[#111]">
+        <SeoStructuredData data={supportStructuredData} />
+        <NothingHeader />
 
-      <main className="px-4 pb-16 pt-24 md:pb-24">
-        <SupportCentreContent heroImageUrl={heroImage.url} heroImageAlt={heroImage.alt} />
-      </main>
+        <main className="px-4 pb-16 pt-24 md:pb-24">
+          <SupportCentreContent heroImageUrl={heroImage.url} heroImageAlt={heroImage.alt} />
+        </main>
 
-      <NothingFooter />
-    </div>
+        <NothingFooter />
+      </div>
+    </InterTypographyScope>
   )
 }

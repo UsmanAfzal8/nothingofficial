@@ -89,6 +89,7 @@ export interface SupabaseMobileRow {
   description: string | null
   meta_title: string | null
   meta_description: string | null
+  piority: number | null
   release_date: string | null
   created_at: string | null
   updated_at: string | null

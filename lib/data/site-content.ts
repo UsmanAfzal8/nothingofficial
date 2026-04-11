@@ -3,8 +3,8 @@ import { buildAbsoluteUrl } from '@/lib/utils/seo'
 export const siteBrandName = 'Nothing Pakistan'
 export const siteTagline = 'Tech is fun again.'
 export const siteDescription =
-  'Browse Nothing phone models and shop compatible Nothing chargers, CMF devices, earbuds, protectors, and accessories in Pakistan with live catalog pages, support content, and streamlined ordering.'
-export const siteSeoTitle = 'Nothing Pakistan | Nothing Chargers, Phone Accessories and CMF in Pakistan'
+  'Browse Nothing phones, chargers, earbuds, protectors, and CMF accessories in Pakistan with live catalog pages, support content, and streamlined ordering.'
+export const siteSeoTitle = 'Nothing Pakistan | Phones, Chargers & CMF Accessories'
 export const siteKeywords = [
   'Nothing Pakistan',
   'Nothing charger',
@@ -23,6 +23,9 @@ export const siteKeywords = [
 
 export const siteContactPhone = '+923424476070'
 export const siteContactWhatsappUrl = 'https://wa.me/923424476070'
+export const siteContactDisplayPhone = '03424476070'
+export const siteContactAddress = 'Raya 53 no, plaza commercial, Fairways pheas 6 DHA, DHA, Lahore, 54810, Pakistan'
+export const siteContactCoordinates = '31.47504732907068, 74.46976232054841'
 export const sitePrimaryLocation = {
   city: 'Lahore',
   country: 'Pakistan',
@@ -315,6 +318,12 @@ export function buildContactPageStructuredData() {
           url: buildAbsoluteUrl('/pages/contact-us'),
         },
       ],
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: siteContactAddress,
+        addressLocality: sitePrimaryLocation.city,
+        addressCountry: sitePrimaryLocation.countryCode,
+      },
     },
   }
 }

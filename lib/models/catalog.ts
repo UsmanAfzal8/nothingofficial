@@ -11,6 +11,7 @@ export interface Product {
   price?: number | null
   priceLabel?: string | null
   kind?: 'product' | 'mobile'
+  sortPriority?: number | null
   subtitle?: string | null
   updatedAt?: string | null
 }
