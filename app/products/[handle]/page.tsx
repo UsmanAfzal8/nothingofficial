@@ -486,7 +486,7 @@ function PrimaryCatalogPanel({
               Buy Now
             </Link>
             <Link
-              href="https://wa.me/923424476070"
+              href="https://wa.me/923361070111"
               target="_blank"
               rel="noreferrer"
               className="inline-flex h-12 items-center justify-center gap-2 rounded-[16px] border border-[#b7f0cb] bg-[#e9fff1] px-5 text-sm font-medium text-[#118a45] transition-colors hover:bg-[#dcffea]"
