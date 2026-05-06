@@ -22,29 +22,22 @@ export interface Collection {
   metaTitle?: string | null
   metaDescription?: string | null
   description?: string | null
+  canonicalUrl?: string | null
+  schemaJson?: Record<string, unknown> | null
   sourceUrl: string
   heroImage?: string | null
   updatedAt?: string | null
+  seoKeywords?: string[]
   products: Product[]
   parentCollection?: NavigationItem | null
   childCollections?: NavigationItem[]
   siblingCollections?: NavigationItem[]
 }
 
-export interface HomePageSection {
-  slug: string
-  title: string
-  description?: string | null
-  href: string
-  featuredProduct: Product | null
-  products: Product[]
-  childCollections?: NavigationItem[]
-}
-
 export interface HomePageData {
-  sections: HomePageSection[]
-  sectionNavigation: NavigationItem[]
-  featuredProduct: Product | null
+  phoneModels: Product[]
+  shopAllProducts: Product[]
+  trendingPicks: Product[]
 }
 
 export interface NavigationItem {

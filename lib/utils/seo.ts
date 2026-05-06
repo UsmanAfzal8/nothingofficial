@@ -27,19 +27,6 @@ function normalizeSiteOrigin(value: string | null | undefined): string | null {
   }
 }
 
-function isLocalOrigin(value: string): boolean {
-  try {
-    const parsedUrl = new URL(value)
-
-    return (
-      parsedUrl.protocol === 'http:' &&
-      (parsedUrl.hostname === 'localhost' || parsedUrl.hostname === '127.0.0.1')
-    )
-  } catch {
-    return false
-  }
-}
-
 export function isPreviewDeployment(): boolean {
   return process.env.VERCEL_ENV?.toLowerCase() === 'preview'
 }
@@ -62,7 +49,7 @@ export function getSiteOrigin(): string {
   for (const candidate of siteUrlCandidates) {
     const normalizedValue = normalizeSiteOrigin(candidate)
 
-    if (normalizedValue && isLocalOrigin(normalizedValue)) {
+    if (normalizedValue) {
       return normalizedValue
     }
   }
@@ -145,6 +132,34 @@ export function buildSeoKeywords(...groups: Array<Array<string | null | undefine
   }
 
   return values
+}
+
+export function splitSeoKeywords(value: string | null | undefined): string[] {
+  if (!value) {
+    return []
+  }
+
+  return value
+    .split(/[,;\n|]+/g)
+    .map((entry) => entry.trim())
+    .filter(Boolean)
+}
+
+export function compactSeoText(value: string): string {
+  return value.replace(/\s+/g, ' ').trim()
+}
+
+export function trimSeoDescription(value: string, maxLength = 158): string {
+  const normalizedValue = compactSeoText(value)
+
+  if (normalizedValue.length <= maxLength) {
+    return normalizedValue
+  }
+
+  const clippedValue = normalizedValue.slice(0, maxLength - 1)
+  const lastSpaceIndex = clippedValue.lastIndexOf(' ')
+
+  return `${clippedValue.slice(0, lastSpaceIndex > 80 ? lastSpaceIndex : clippedValue.length).trim()}.`
 }
 
 export function buildBreadcrumbStructuredData(items: SeoBreadcrumbItem[]) {

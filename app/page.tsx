@@ -1,23 +1,27 @@
 import type { Metadata } from 'next'
-import Image from 'next/image'
 import Link from 'next/link'
 import { CatalogProductTile } from '@/components/CatalogProductTile'
+import { HomeFaqTabs } from '@/components/HomeFaqTabs'
+import { HomeModelPicker } from '@/components/HomeModelPicker'
+import { InterTypographyScope } from '@/components/InterTypographyScope'
 import { NothingFooter } from '@/components/NothingFooter'
 import { NothingHeader } from '@/components/NothingHeader'
 import { SeoStructuredData } from '@/components/SeoStructuredData'
+import { TrendingPicksSection } from '@/components/TrendingPicksSection'
 import { getHomePageData } from '@/lib/data/catalog-repository'
 import {
   buildOrganizationStructuredData,
   buildWebsiteStructuredData,
+  homeFaqCategories,
+  homeFeatureHighlights,
   homeSeoFaqs,
-  homeSeoHighlights,
+  homeUserReviews,
   siteBrandName,
   siteDescription,
-  siteTrustLinks,
   siteKeywords,
   siteSeoTitle,
 } from '@/lib/data/site-content'
-import type { HomePageSection, Product } from '@/lib/models/catalog'
+import type { HomeFeatureEntry, HomeReviewEntry } from '@/lib/data/site-content'
 import { buildAbsoluteUrl, buildFaqStructuredData, buildSeoKeywords } from '@/lib/utils/seo'
 
 export const revalidate = 900
@@ -59,146 +63,103 @@ export const metadata: Metadata = {
   },
 }
 
-function ProductShowcaseStage({
-  product,
-  title,
-  eyebrow,
-  size = 'large',
-}: {
-  product: Product | null
-  title: string
-  eyebrow: string
-  size?: 'large' | 'compact'
-}) {
-  const imageHeightClass = size === 'large' ? 'h-[280px] sm:h-[360px] lg:h-[460px]' : 'h-[220px] sm:h-[280px] lg:h-[340px]'
-  const panelPaddingClass = size === 'large' ? 'p-8' : 'p-6'
-  const stageBody = (
-    <div className={`relative flex min-h-[360px] items-center justify-center overflow-hidden ${panelPaddingClass}`}>
-      <div className="absolute left-2 top-2 text-[10px] uppercase tracking-[0.22em] text-black/62">
-        {eyebrow}
-      </div>
+function FeatureIcon({ icon }: { icon: HomeFeatureEntry['icon'] }) {
+  const commonProps = {
+    width: 26,
+    height: 26,
+    viewBox: '0 0 24 24',
+    fill: 'none',
+    stroke: 'currentColor',
+    strokeWidth: 1.8,
+    strokeLinecap: 'round' as const,
+    strokeLinejoin: 'round' as const,
+    'aria-hidden': true,
+  }
 
-      {product?.priceLabel ? (
-        <div className="absolute bottom-2 left-2 text-[10px] uppercase tracking-[0.22em] text-black/62">
-          {product.priceLabel}
-        </div>
-      ) : null}
+  if (icon === 'return') {
+    return (
+      <svg {...commonProps}>
+        <path d="M9 14 4 9l5-5" />
+        <path d="M4 9h10a6 6 0 1 1 0 12h-3" />
+      </svg>
+    )
+  }
 
-      {product?.image ? (
-        <div className={`relative ${imageHeightClass} w-full max-w-[720px]`}>
-          <Image
-            src={product.image}
-            alt={product.name}
-            fill
-            sizes="(max-width: 1024px) 80vw, 40vw"
-            className="object-contain transition-transform duration-500 ease-out group-hover:scale-[1.02]"
-          />
-        </div>
-      ) : (
-        <div className="relative flex h-full min-h-[280px] w-full items-center justify-center text-center text-xs uppercase tracking-[0.28em] text-black/40">
-          {title}
-        </div>
-      )}
-    </div>
-  )
+  if (icon === 'delivery') {
+    return (
+      <svg {...commonProps}>
+        <path d="M3 7h11v9H3z" />
+        <path d="M14 10h4l3 3v3h-7" />
+        <path d="M7 19a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" />
+        <path d="M18 19a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" />
+      </svg>
+    )
+  }
 
-  if (!product?.href) {
-    return stageBody
+  if (icon === 'cod') {
+    return (
+      <svg {...commonProps}>
+        <path d="M4 7h16v10H4z" />
+        <path d="M8 12h.01" />
+        <path d="M16 12h.01" />
+        <path d="M12 15a3 3 0 0 0 0-6 3 3 0 0 0 0 6Z" />
+      </svg>
+    )
+  }
+
+  if (icon === 'support') {
+    return (
+      <svg {...commonProps}>
+        <path d="M4 12a8 8 0 0 1 16 0" />
+        <path d="M4 12v4a2 2 0 0 0 2 2h1v-7H6a2 2 0 0 0-2 2Z" />
+        <path d="M20 12v4a2 2 0 0 1-2 2h-1v-7h1a2 2 0 0 1 2 2Z" />
+        <path d="M15 20h-3" />
+      </svg>
+    )
   }
 
   return (
-    <Link
-      href={product.href}
-      aria-label={`View ${product.name}`}
-      className="group block rounded-[28px] transition-opacity hover:opacity-90"
-    >
-      {stageBody}
-    </Link>
+    <svg {...commonProps}>
+      <path d="m12 3 7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6z" />
+      <path d="m8.5 12 2.2 2.2 4.8-5" />
+    </svg>
   )
 }
 
-function CategorySection({
-  section,
-  index,
-}: {
-  section: HomePageSection
-  index: number
-}) {
-  const featuredProduct = section.featuredProduct
-  const secondaryProducts = section.products.filter((product) => product.id !== featuredProduct?.id).slice(0, 5)
-
+function VerifiedMark() {
   return (
-    <section key={section.slug} className="overflow-hidden border-t border-black/10 px-4 py-12 md:px-8 md:py-16">
-      <div className="relative mx-auto max-w-screen-2xl">
-        <div className="grid gap-6 lg:grid-cols-[minmax(0,1.05fr)_minmax(340px,0.95fr)] lg:items-center">
-          <div className="relative z-10 max-w-2xl">
-            <p className="text-[10px] uppercase tracking-[0.32em] text-black/42">
-              {String(index + 1).padStart(2, '0')} / {section.title}
-            </p>
-            <h2 className="collection-product-name mt-4 text-4xl leading-[0.96] sm:text-5xl">{section.title}</h2>
-            <p className="mt-4 max-w-xl font-sans text-[15px] leading-7 tracking-normal text-black/90 sm:text-base">
-              {section.description || `Browse ${section.title} with live product pages, pricing, and ordering support in Pakistan.`}
-            </p>
+    <span className="inline-flex h-4 w-4 items-center justify-center rounded-full bg-[#1d9bf0] text-white" aria-label="Verified buyer">
+      <svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+        <path d="m3 6.2 2 2L9.2 3.8" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    </span>
+  )
+}
 
-            {section.childCollections && section.childCollections.length > 0 ? (
-              <div className="relative z-10 mt-6 flex flex-wrap gap-2">
-                {section.childCollections.map((child) => (
-                  <Link
-                    key={child.slug}
-                    href={child.href}
-                    className="rounded-full border border-black/12 bg-white px-4 py-2 text-[10px] uppercase tracking-[0.2em] text-black/62 transition-colors hover:bg-black hover:text-white"
-                  >
-                    {child.label}
-                  </Link>
-                ))}
-              </div>
-            ) : null}
-
-            <div className="relative z-10 mt-8 flex flex-wrap items-center gap-3">
-              <Link
-                href={section.href}
-                className="inline-flex h-11 items-center justify-center rounded-full bg-black px-5 text-[11px] uppercase tracking-[0.24em] text-white transition-opacity hover:opacity-85"
-              >
-                View Collection
-              </Link>
-              {featuredProduct ? (
-                <Link
-                  href={`/order/${featuredProduct.handle}`}
-                  className="inline-flex h-11 items-center justify-center rounded-full border border-black/15 px-5 text-[11px] uppercase tracking-[0.24em] text-black transition-colors hover:bg-black hover:text-white"
-                >
-                  Order Featured
-                </Link>
-              ) : null}
-            </div>
+function ReviewCard({ review }: { review: HomeReviewEntry }) {
+  return (
+    <article className="min-w-[calc((100%_-_1rem)/2)] snap-start border border-black/10 bg-white p-5 shadow-[0_18px_45px_rgba(17,17,17,0.04)] lg:min-w-[calc((100%_-_4rem)/5)]">
+      <div className="flex items-start justify-between gap-3">
+        <div>
+          <div className="flex items-center gap-2">
+            <h3 className="collection-product-name text-lg leading-tight text-black">{review.buyerName}</h3>
+            <VerifiedMark />
           </div>
-
-          <ProductShowcaseStage
-            product={featuredProduct}
-            title={section.title}
-            eyebrow={featuredProduct?.variant || featuredProduct?.subtitle || section.title}
-            size="compact"
-          />
+          <p className="mt-1 text-[10px] uppercase tracking-[0.22em] text-black/42">{review.city}</p>
         </div>
-
-        {secondaryProducts.length > 0 ? (
-          <div className="mt-10 border-t border-black/10 pt-8">
-            <div className="grid grid-cols-2 gap-x-5 gap-y-10 lg:grid-cols-5">
-              {secondaryProducts.map((product, productIndex) => (
-                <CatalogProductTile key={product.id} product={product} priority={index === 0 && productIndex < 2} />
-              ))}
-            </div>
-          </div>
-        ) : null}
+        <span className="text-[10px] uppercase tracking-[0.2em] text-black/42">5.0</span>
       </div>
-    </section>
+      <p className="mt-5 min-h-[112px] font-sans text-sm leading-7 text-black/72">{review.comment}</p>
+      <p className="mt-5 border-t border-black/10 pt-4 text-[11px] uppercase tracking-[0.2em] text-black/46">{review.product}</p>
+    </article>
   )
 }
 
 export default async function Home() {
-  const { sections, sectionNavigation, featuredProduct } = await getHomePageData()
-  const heroSection = sections[0] ?? null
+  const { phoneModels, shopAllProducts, trendingPicks } = await getHomePageData()
+  const faqEntries = homeFaqCategories.flatMap((category) => category.items)
   const homeStructuredData: Record<string, unknown>[] = [buildOrganizationStructuredData(), buildWebsiteStructuredData()]
-  const homeFaqStructuredData = buildFaqStructuredData([...homeSeoFaqs])
+  const homeFaqStructuredData = buildFaqStructuredData([...homeSeoFaqs, ...faqEntries])
 
   if (homeFaqStructuredData) {
     homeStructuredData.push(homeFaqStructuredData)
@@ -210,156 +171,109 @@ export default async function Home() {
       <NothingHeader />
 
       <main className="pt-20">
-        {heroSection && featuredProduct ? (
-          <section className="relative overflow-hidden border-b border-black/10 px-4 pb-10 pt-6 md:px-8 md:pb-14 md:pt-10">
-            <div className="relative mx-auto grid max-w-screen-2xl gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(360px,560px)] lg:items-center">
-              <div className="relative z-10 max-w-3xl pt-6">
-                <p className="text-[11px] uppercase tracking-[0.34em] text-black/56">Nothing Pakistan</p>
-                <h1 className="collection-product-name mt-5 text-5xl leading-[0.92] sm:text-6xl lg:text-7xl">
-                  Nothing phones, chargers and CMF accessories in Pakistan
-                </h1>
-                <p className="mt-5 max-w-2xl font-sans text-[15px] leading-7 tracking-normal text-black/90 sm:text-base">
-                  Browse Nothing phone models and shop compatible chargers, data cables, protectors, earbuds, CMF
-                  products, and accessories in Pakistan through focused catalog pages and support-ready store content.
+        <section className="relative overflow-hidden border-b border-black/10 px-4 pb-12 pt-10 md:px-8 md:pb-16 md:pt-14">
+          <div className="mx-auto max-w-screen-2xl">
+            <div className="mx-auto max-w-5xl text-center">
+              <p className="dot-heading text-[11px] tracking-[0.28em] text-black/48">Nothing Pakistan</p>
+              <h1 className="mx-auto mt-5 max-w-3xl font-sans text-3xl font-medium leading-tight text-black sm:text-4xl lg:text-5xl">
+                Original Nothing & CMF Accessories
+              </h1>
+              <p className="mx-auto mt-5 max-w-3xl font-sans text-[15px] leading-7 text-black/78 sm:text-base">
+                Shop chargers, earbuds, protectors, cables, and daily tech essentials with clear Pakistan pricing, fast
+                WhatsApp support, and a simple order flow.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <TrendingPicksSection products={trendingPicks} />
+
+        <HomeModelPicker models={phoneModels} />
+
+        <section className="border-b border-black/10 px-4 py-12 md:px-8 md:py-16">
+          <div className="mx-auto max-w-screen-2xl">
+            <div className="flex items-end justify-between gap-4">
+              <div>
+                <p className="text-[10px] uppercase tracking-[0.3em] text-black/42">Shop All</p>
+                <h2 className="collection-product-name mt-3 text-4xl leading-none text-black sm:text-5xl">Products</h2>
+              </div>
+              <Link href="/collections/shop-all" className="text-[10px] uppercase tracking-[0.24em] text-black/52 hover:text-black">
+                View All
+              </Link>
+            </div>
+
+            {shopAllProducts.length > 0 ? (
+              <div className="mt-8 grid grid-cols-2 gap-x-4 gap-y-9 md:gap-x-6 md:gap-y-12 lg:grid-cols-5 lg:gap-x-7 lg:gap-y-14">
+                {shopAllProducts.map((product, index) => (
+                  <CatalogProductTile key={product.id} product={product} priority={index < 4} tone="shop-all" />
+                ))}
+              </div>
+            ) : (
+              <div className="mt-8 border border-black/10 bg-[#f8f8f4] px-6 py-14 text-center">
+                <p className="text-sm text-black/64">Products will appear here when the live catalog has Shop All items.</p>
+              </div>
+            )}
+          </div>
+        </section>
+
+        <section className="border-b border-black/10 px-4 py-12 md:px-8 md:py-16">
+          <div className="mx-auto max-w-screen-2xl">
+            <div className="max-w-3xl">
+              <p className="text-[10px] uppercase tracking-[0.3em] text-black/42">User Reviews</p>
+              <h2 className="collection-product-name mt-3 text-4xl leading-none text-black sm:text-5xl">What buyers say</h2>
+              <p className="mt-4 font-sans text-[15px] leading-7 text-black/70">
+                Real-style feedback from verified buyers across Pakistan who shop Nothing and CMF products online.
+              </p>
+            </div>
+
+            <div className="mt-8 flex snap-x gap-4 overflow-x-auto pb-4 [scrollbar-width:thin]">
+              {homeUserReviews.map((review) => (
+                <ReviewCard key={`${review.buyerName}-${review.product}`} review={review} />
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="border-b border-black/10 px-4 py-12 md:px-8 md:py-16">
+          <InterTypographyScope>
+            <div className="mx-auto max-w-screen-2xl">
+              <div className="max-w-3xl">
+                <p className="text-[10px] uppercase tracking-[0.3em] text-black/42">Store Benefits</p>
+                <h2 className="mt-3 text-3xl leading-tight text-black sm:text-4xl">Why people order from Nothing Pakistan</h2>
+                <p className="mt-3 max-w-2xl text-sm leading-7 text-black/64 sm:text-[15px]">
+                  Clear pricing, fast replies, and simple help for choosing the right Nothing and CMF accessories in Pakistan.
                 </p>
-
-                <div className="relative z-10 mt-8 flex flex-wrap items-center gap-3">
-                  <Link
-                    href={heroSection.href}
-                    className="inline-flex h-11 items-center justify-center rounded-full bg-black px-5 text-[11px] uppercase tracking-[0.24em] text-white transition-opacity hover:opacity-85"
-                  >
-                    Explore {heroSection.title}
-                  </Link>
-                  <Link
-                    href="/collections/chargers"
-                    className="inline-flex h-11 items-center justify-center rounded-full border border-black/15 px-5 text-[11px] uppercase tracking-[0.24em] text-black transition-colors hover:bg-black hover:text-white"
-                  >
-                    Shop Chargers
-                  </Link>
-                  <Link
-                    href="/collections/shop-all"
-                    className="inline-flex h-11 items-center justify-center rounded-full border border-black/15 px-5 text-[11px] uppercase tracking-[0.24em] text-black transition-colors hover:bg-black hover:text-white"
-                  >
-                    Shop All
-                  </Link>
-                </div>
-
-                <div className="relative z-10 mt-10 flex flex-wrap gap-3">
-                  {sectionNavigation.map((item) => (
-                    <Link
-                      key={item.slug}
-                      href={item.href}
-                      className="rounded-full border border-black/14 bg-white px-4 py-2 text-[11px] uppercase tracking-[0.22em] text-black/64 transition-colors hover:bg-black hover:text-white"
-                    >
-                      {item.label}
-                    </Link>
-                  ))}
-                </div>
               </div>
 
-              <div className="pb-2 lg:pb-0">
-                <ProductShowcaseStage
-                  product={featuredProduct}
-                  title={heroSection.title}
-                  eyebrow={featuredProduct.variant || featuredProduct.subtitle || heroSection.title}
-                  size="large"
-                />
+              <div className="mt-8 grid grid-cols-2 gap-4 lg:grid-cols-5">
+                {homeFeatureHighlights.map((feature) => (
+                  <article key={feature.title} className="rounded-[8px] border border-black/8 bg-white p-4 sm:p-5">
+                    <div className="flex h-10 w-10 items-center justify-center text-black/82">
+                      <FeatureIcon icon={feature.icon} />
+                    </div>
+                    <h3 className="mt-4 text-[15px] leading-6 text-black sm:text-base">{feature.title}</h3>
+                    <p className="mt-2 text-[12px] leading-6 text-black/62 sm:text-[13px]">{feature.description}</p>
+                  </article>
+                ))}
               </div>
             </div>
-          </section>
-        ) : (
-          <section className="mx-auto flex min-h-[70vh] max-w-3xl items-center justify-center px-4 pt-24 text-center">
-            <div>
-              <p className="text-[11px] uppercase tracking-[0.34em] text-black/45">Live Catalog</p>
-              <h1 className="collection-product-name mt-4 text-4xl sm:text-5xl">No live items found</h1>
-              <p className="mt-4 font-sans text-[15px] leading-7 tracking-normal text-black/90">
-                Add products and category links to publish the homepage sections for phones, chargers, accessories, and other Nothing Pakistan pages.
-              </p>
-            </div>
-          </section>
-        )}
-
-        {sections.map((section, index) => (
-          <CategorySection key={section.slug} section={section} index={index} />
-        ))}
-
-        <section className="border-t border-black/10 px-4 py-12 md:px-8 md:py-16">
-          <div className="mx-auto max-w-screen-2xl">
-            <div className="max-w-3xl">
-              <p className="text-[10px] uppercase tracking-[0.3em] text-black/42">Store Guide</p>
-              <h2 className="collection-product-name mt-4 text-4xl leading-[0.96] sm:text-5xl">
-                Search-friendly pages for Nothing Pakistan shoppers
-              </h2>
-              <p className="mt-4 max-w-2xl font-sans text-[15px] leading-7 tracking-normal text-black/90 sm:text-base">
-                These landing pages make it easier to discover Nothing chargers, compatible phone accessories, and the
-                support routes that help customers trust the site.
-              </p>
-            </div>
-
-            <div className="mt-8 grid gap-4 lg:grid-cols-3">
-              {homeSeoHighlights.map((item) => (
-                <article key={item.title} className="rounded-[28px] border border-black/10 bg-[#f8f8f4] p-6">
-                  <p className="text-[10px] uppercase tracking-[0.22em] text-black/42">{item.title}</p>
-                  <p className="mt-4 font-sans text-sm leading-7 text-black/72">{item.description}</p>
-                  <Link
-                    href={item.href}
-                    className="mt-6 inline-flex h-11 items-center justify-center rounded-full bg-black px-5 text-[10px] uppercase tracking-[0.24em] text-white transition-opacity hover:opacity-85"
-                  >
-                    {item.label}
-                  </Link>
-                </article>
-              ))}
-            </div>
-          </div>
+          </InterTypographyScope>
         </section>
 
-        <section className="border-t border-black/10 px-4 py-12 md:px-8 md:py-16">
+        <section className="px-4 py-12 md:px-8 md:py-16">
           <div className="mx-auto max-w-screen-2xl">
-            <div className="max-w-3xl">
-              <p className="text-[10px] uppercase tracking-[0.3em] text-black/42">Order & Support</p>
-              <h2 className="collection-product-name mt-4 text-4xl leading-[0.96] sm:text-5xl">
-                Trust routes connected to the catalog
+            <div className="max-w-4xl">
+              <p className="text-[10px] uppercase tracking-[0.3em] text-black/42">Nothing Pakistan FAQs</p>
+              <h2 className="collection-product-name mt-3 text-4xl leading-none text-black sm:text-5xl">
+                Frequently asked questions
               </h2>
-              <p className="mt-4 max-w-2xl font-sans text-[15px] leading-7 tracking-normal text-black/90 sm:text-base">
-                These pages help search engines and shoppers find support, contact, delivery, return, and ordering
-                information from the same Nothing Pakistan domain.
+              <p className="mt-4 font-sans text-[15px] leading-7 text-black/70">
+                Quick answers about shopping Nothing accessories, CMF earbuds, chargers, protectors, orders, delivery,
+                returns, and support in Pakistan.
               </p>
             </div>
 
-            <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-5">
-              {siteTrustLinks.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="rounded-[28px] border border-black/10 bg-[#f8f8f4] p-6 transition-colors hover:bg-black hover:text-white"
-                >
-                  <p className="text-[10px] uppercase tracking-[0.22em] text-black/42 transition-colors hover:text-white">{item.title}</p>
-                  <p className="mt-4 font-sans text-sm leading-7 text-black/72 transition-colors hover:text-white">
-                    {item.description}
-                  </p>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="border-t border-black/10 px-4 py-12 md:px-8 md:py-16">
-          <div className="mx-auto max-w-screen-2xl">
-            <p className="text-[10px] uppercase tracking-[0.3em] text-black/42">Popular Questions</p>
-            <h2 className="collection-product-name mt-4 text-4xl leading-[0.96] sm:text-5xl">
-              What people look for on Nothing Pakistan
-            </h2>
-
-            <div className="mt-8 border-t border-black/10">
-              {homeSeoFaqs.map((item) => (
-                <details key={item.question} className="border-b border-black/10 py-5">
-                  <summary className="cursor-pointer list-none text-sm leading-6 text-black/84 md:text-base">
-                    {item.question}
-                  </summary>
-                  <p className="mt-4 max-w-3xl font-sans text-sm leading-7 text-black/68">{item.answer}</p>
-                </details>
-              ))}
-            </div>
+            <HomeFaqTabs categories={homeFaqCategories} />
           </div>
         </section>
       </main>

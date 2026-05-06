@@ -1,74 +1,13 @@
-import { statSync } from 'node:fs'
-import { join } from 'node:path'
 import type { MetadataRoute } from 'next'
-import categories from '@/database/categories.json'
-import mobileProducts from '@/database/mobile.json'
-import storeProducts from '@/database/prodcuts.json'
+import { getCollectionSitemapEntries, getProductSitemapEntries } from '@/lib/data/catalog-repository'
 import { allPolicies } from '@/lib/data/policies'
-import { buildAbsoluteUrl, isPreviewDeployment } from '@/lib/utils/seo'
+import { buildAbsoluteUrl, getLastModifiedDate, isPreviewDeployment } from '@/lib/utils/seo'
 
 type SitemapItem = MetadataRoute.Sitemap[number]
-type SourceItem = {
-  name: string
-  slug: string
-}
 
-type RouteConfig = {
-  slug: string
-  priority: number
-  changeFrequency: SitemapItem['changeFrequency']
-}
-
-const categoriesSource = categories as SourceItem[]
-const mobileSource = mobileProducts as SourceItem[]
-
-const collectionSourceFiles = {
-  virtual: getFileModifiedTime('categories.json'),
-  categories: getFileModifiedTime('categories.json'),
-  products: getFileModifiedTime('prodcuts.json'),
-  mobiles: getFileModifiedTime('mobile.json'),
-}
-
-const fixedCollectionRoutes: RouteConfig[] = [
-  { slug: 'shop-all', priority: 1, changeFrequency: 'daily' },
-  { slug: 'phones', priority: 0.98, changeFrequency: 'daily' },
-  { slug: 'chargers', priority: 0.95, changeFrequency: 'weekly' },
-  { slug: 'protectors', priority: 0.92, changeFrequency: 'weekly' },
-  { slug: 'earbuds', priority: 0.92, changeFrequency: 'weekly' },
-]
-
-const categoryRouteConfigs: Record<string, Omit<RouteConfig, 'slug'>> = {
-  offers: { priority: 0.9, changeFrequency: 'daily' },
-  audio: { priority: 0.86, changeFrequency: 'weekly' },
-  watches: { priority: 0.74, changeFrequency: 'monthly' },
-  accessories: { priority: 0.88, changeFrequency: 'weekly' },
-  cmf: { priority: 0.87, changeFrequency: 'weekly' },
-  chargers: { priority: 0.95, changeFrequency: 'weekly' },
-  cables: { priority: 0.8, changeFrequency: 'monthly' },
-  'phone-cases': { priority: 0.79, changeFrequency: 'monthly' },
-  'phone-protectors': { priority: 0.82, changeFrequency: 'monthly' },
-}
-
-function getFileModifiedTime(fileName: string): Date {
-  try {
-    return statSync(join(process.cwd(), 'database', fileName)).mtime
-  } catch {
-    return new Date()
-  }
-}
-
-function buildRoute(slug: string, lastModified: Date, priority: number, changeFrequency: SitemapItem['changeFrequency']): SitemapItem {
-  return {
-    url: buildAbsoluteUrl(`/collections/${slug}`),
-    lastModified,
-    priority,
-    changeFrequency,
-  }
-}
-
-function uniqueRoutes(routes: SitemapItem[]): SitemapItem[] {
+function uniqueRoutes(routes: MetadataRoute.Sitemap): MetadataRoute.Sitemap {
   const seen = new Set<string>()
-  const output: SitemapItem[] = []
+  const output: MetadataRoute.Sitemap = []
 
   for (const route of routes) {
     if (seen.has(route.url)) {
@@ -82,81 +21,79 @@ function uniqueRoutes(routes: SitemapItem[]): SitemapItem[] {
   return output
 }
 
-function buildCollectionRoutes(): SitemapItem[] {
-  const routes: SitemapItem[] = fixedCollectionRoutes.map((route) =>
-    buildRoute(route.slug, collectionSourceFiles.virtual, route.priority, route.changeFrequency),
-  )
+function collectionPriority(entry: Awaited<ReturnType<typeof getCollectionSitemapEntries>>[number]): number {
+  if (entry.slug === 'shop-all') return 1
+  if (entry.slug === 'phones') return 0.98
+  if (entry.slug === 'chargers') return 0.95
+  if (entry.slug === 'trending-picks') return 0.94
+  if (entry.depth === 0) return Math.max(0.76, Math.min(0.92, 0.78 + entry.itemCount * 0.01))
 
-  for (const category of categoriesSource) {
-    const config = categoryRouteConfigs[category.slug] ?? { priority: 0.76, changeFrequency: 'monthly' }
-
-    routes.push(buildRoute(category.slug, collectionSourceFiles.categories, config.priority, config.changeFrequency))
-  }
-
-  return uniqueRoutes(routes)
+  return Math.max(0.62, Math.min(0.82, 0.66 + entry.itemCount * 0.01))
 }
 
-function buildProductRoute(slug: string, lastModified: Date, priority: number, changeFrequency: SitemapItem['changeFrequency']): SitemapItem {
-  return {
-    url: buildAbsoluteUrl(`/products/${slug}`),
-    lastModified,
-    priority,
-    changeFrequency,
-  }
+function collectionFrequency(entry: Awaited<ReturnType<typeof getCollectionSitemapEntries>>[number]): SitemapItem['changeFrequency'] {
+  if (['shop-all', 'phones', 'trending-picks'].includes(entry.slug)) return 'daily'
+  if (entry.itemCount >= 5) return 'weekly'
+
+  return 'monthly'
 }
 
-function buildProductRoutes(): SitemapItem[] {
-  const routes: SitemapItem[] = []
-  const seen = new Set<string>()
+function productPriority(entry: Awaited<ReturnType<typeof getProductSitemapEntries>>[number]): number {
+  if (entry.entityType === 'mobile') return 0.88
+  if (entry.collectionSlugs.includes('trending-picks')) return 0.84
+  if (entry.productType === 'charger' || entry.productType === 'earbuds') return 0.8
+  if (entry.productType === 'protector') return 0.72
 
-  for (const product of storeProducts) {
-    if (seen.has(product.slug)) {
-      continue
-    }
-
-    seen.add(product.slug)
-    routes.push(buildProductRoute(product.slug, collectionSourceFiles.products, 0.74, 'monthly'))
-  }
-
-  for (const mobile of mobileSource) {
-    if (seen.has(mobile.slug)) {
-      continue
-    }
-
-    seen.add(mobile.slug)
-    routes.push(buildProductRoute(mobile.slug, collectionSourceFiles.mobiles, 0.86, 'weekly'))
-  }
-
-  return routes
+  return 0.76
 }
 
-export default function sitemap(): MetadataRoute.Sitemap {
+function productFrequency(entry: Awaited<ReturnType<typeof getProductSitemapEntries>>[number]): SitemapItem['changeFrequency'] {
+  if (entry.entityType === 'mobile' || entry.collectionSlugs.includes('trending-picks')) return 'weekly'
+  if (entry.stockQuantity === 0) return 'monthly'
+
+  return 'weekly'
+}
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   if (isPreviewDeployment()) {
     return []
   }
 
-  const latestSourceModified = [collectionSourceFiles.virtual, collectionSourceFiles.categories, collectionSourceFiles.products, collectionSourceFiles.mobiles]
-    .sort((left, right) => right.getTime() - left.getTime())[0]
+  const [collections, products] = await Promise.all([getCollectionSitemapEntries(), getProductSitemapEntries()])
+  const latestCatalogDate =
+    [...collections.map((entry) => entry.updatedAt), ...products.map((entry) => entry.updatedAt)]
+      .map((value) => getLastModifiedDate(value))
+      .filter((value): value is Date => Boolean(value))
+      .sort((left, right) => right.getTime() - left.getTime())[0] ?? new Date()
 
   const staticRoutes: MetadataRoute.Sitemap = [
-    { url: buildAbsoluteUrl('/'), lastModified: latestSourceModified, changeFrequency: 'daily', priority: 1 },
-    { url: buildAbsoluteUrl('/pages/about'), lastModified: latestSourceModified, changeFrequency: 'monthly', priority: 0.72 },
-    { url: buildAbsoluteUrl('/pages/contact-us'), lastModified: latestSourceModified, changeFrequency: 'monthly', priority: 0.76 },
-    { url: buildAbsoluteUrl('/pages/support-centre'), lastModified: latestSourceModified, changeFrequency: 'weekly', priority: 0.82 },
-    { url: buildAbsoluteUrl('/pages/newsletter'), lastModified: latestSourceModified, changeFrequency: 'monthly', priority: 0.64 },
+    { url: buildAbsoluteUrl('/'), lastModified: latestCatalogDate, changeFrequency: 'daily', priority: 1 },
+    { url: buildAbsoluteUrl('/pages/about'), lastModified: latestCatalogDate, changeFrequency: 'monthly', priority: 0.72 },
+    { url: buildAbsoluteUrl('/pages/contact-us'), lastModified: latestCatalogDate, changeFrequency: 'monthly', priority: 0.76 },
+    { url: buildAbsoluteUrl('/pages/support-centre'), lastModified: latestCatalogDate, changeFrequency: 'weekly', priority: 0.82 },
+    { url: buildAbsoluteUrl('/pages/newsletter'), lastModified: latestCatalogDate, changeFrequency: 'monthly', priority: 0.64 },
   ]
 
   const policyRoutes: MetadataRoute.Sitemap = allPolicies.map((policy) => ({
     url: buildAbsoluteUrl(`/pages/policies/${policy.slug}`),
-    lastModified: latestSourceModified,
+    lastModified: latestCatalogDate,
     changeFrequency: 'monthly',
     priority: 0.65,
   }))
 
-  return [
-    ...staticRoutes,
-    ...policyRoutes,
-    ...buildCollectionRoutes(),
-    ...buildProductRoutes(),
-  ]
+  const collectionRoutes: MetadataRoute.Sitemap = collections.map((entry) => ({
+    url: buildAbsoluteUrl(`/collections/${entry.slug}`),
+    lastModified: getLastModifiedDate(entry.updatedAt) ?? latestCatalogDate,
+    changeFrequency: collectionFrequency(entry),
+    priority: collectionPriority(entry),
+  }))
+
+  const productRoutes: MetadataRoute.Sitemap = products.map((entry) => ({
+    url: buildAbsoluteUrl(`/products/${entry.handle}`),
+    lastModified: getLastModifiedDate(entry.updatedAt) ?? latestCatalogDate,
+    changeFrequency: productFrequency(entry),
+    priority: productPriority(entry),
+  }))
+
+  return uniqueRoutes([...staticRoutes, ...policyRoutes, ...collectionRoutes, ...productRoutes])
 }

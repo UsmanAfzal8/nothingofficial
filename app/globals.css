@@ -141,6 +141,22 @@ a {
   opacity: 0.76;
 }
 
+@media (min-width: 768px) {
+  .site-dot-overlay {
+    background-size: 112px 112px;
+  }
+}
+
+@media (max-width: 767px) {
+  .dot-mesh-background {
+    background-size: 64px 64px;
+  }
+
+  .dot-mesh-background-dark {
+    background-size: 84px 84px;
+  }
+}
+
 @keyframes order-success-pop {
   0% {
     transform: scale(0.72);

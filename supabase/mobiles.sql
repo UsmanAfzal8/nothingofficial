@@ -5,6 +5,11 @@ create table public.mobiles (
   description text null,
   meta_title character varying(255) null,
   meta_description text null,
+  seo_keywords text null,
+  canonical_url text null,
+  schema_json jsonb null,
+  seo_description_long text null,
+  image_alt_text text null,
   release_date date null,
   created_at timestamp without time zone null default now(),
   updated_at timestamp without time zone null default now(),
@@ -12,6 +17,10 @@ create table public.mobiles (
   constraint mobiles_pkey primary key (id),
   constraint mobiles_slug_key unique (slug)
 ) TABLESPACE pg_default;
+
+create index IF not exists idx_mobiles_seo_keywords on public.mobiles using gin (to_tsvector('english', coalesce(seo_keywords, ''))) TABLESPACE pg_default;
+create index IF not exists idx_mobiles_canonical_url on public.mobiles using btree (canonical_url) TABLESPACE pg_default;
+create index IF not exists idx_mobiles_schema_json on public.mobiles using gin (schema_json) TABLESPACE pg_default;
 
 create trigger trg_set_mobile_slug BEFORE INSERT
 or

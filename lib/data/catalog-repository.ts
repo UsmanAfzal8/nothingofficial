@@ -1,4 +1,4 @@
-import type { Collection, HomePageData, HomePageSection, NavigationItem, Product } from '@/lib/models/catalog'
+import type { Collection, HomePageData, NavigationItem, Product } from '@/lib/models/catalog'
 import type {
   ProductDetail,
   ProductDetailAggregateRating,
@@ -27,7 +27,7 @@ import type {
 import { STORE_RELATED_TYPE_ENUM } from '@/lib/models/supabase-enums'
 import type { ProductType } from '@/lib/models/supabase-enums'
 import { getSupabaseAdminClient } from '@/lib/supabase-admin'
-import { buildAbsoluteUrl } from '@/lib/utils/seo'
+import { buildAbsoluteUrl, splitSeoKeywords, trimSeoDescription } from '@/lib/utils/seo'
 
 export type SupportHeroImage = {
   url: string | null
@@ -119,6 +119,14 @@ type VirtualCollectionConfig = {
 const PRIMARY_VIRTUAL_COLLECTION_SLUGS = ['shop-all', 'phones'] as const
 const ACCESSORY_VIRTUAL_COLLECTION_SLUGS = ['chargers', 'protectors', 'earbuds'] as const
 const ALL_VIRTUAL_COLLECTION_SLUGS = [...PRIMARY_VIRTUAL_COLLECTION_SLUGS, ...ACCESSORY_VIRTUAL_COLLECTION_SLUGS] as const
+const TRENDING_PICK_PRODUCT_SLUGS = [
+  'cmf-buds-pro',
+  'cmf-power-65w-gan',
+  'nothing-usb-c-to-usb-c-cable',
+  'cmf-buds-pro-2',
+  'nothing-power-45w',
+  'cmf-power-100w-gan',
+] as const
 
 type VirtualCollectionSlug = (typeof ALL_VIRTUAL_COLLECTION_SLUGS)[number]
 
@@ -160,9 +168,24 @@ const PRODUCT_TYPE_LABELS: Record<ProductType, string> = {
   earbuds: 'Audio',
 }
 
+const PRODUCT_TYPE_SEARCH_LABELS: Record<ProductType, string[]> = {
+  charger: ['Nothing charger price in Pakistan', 'CMF charger Pakistan', 'GaN charger Pakistan'],
+  data_cable: ['Nothing cable price in Pakistan', 'USB-C cable Pakistan', 'Nothing data cable Pakistan'],
+  protector: ['Nothing screen protector Pakistan', 'Nothing phone protector price in Pakistan'],
+  earbuds: ['Nothing earbuds price in Pakistan', 'CMF earbuds Pakistan', 'wireless earbuds Pakistan'],
+}
+
 const SNAPSHOT_CACHE_TTL_MS = process.env.NODE_ENV === 'development' ? 15_000 : 120_000
 let snapshotCache: { value: CatalogSnapshot; expiresAt: number } | null = null
 let snapshotInFlight: Promise<CatalogSnapshot> | null = null
+
+const PRODUCT_PRICE_OVERRIDES: Record<string, number> = {
+  'cmf-buds-pro-2': 13000,
+  'cmf-buds-2': 16000,
+  'cmf-buds-2-plus': 15000,
+  'cmf-buds-2a': 11000,
+  'cmf-power-65w-gan': 6500,
+}
 
 function formatPrice(value: number | null | undefined): string | null {
   if (typeof value !== 'number' || Number.isNaN(value)) {
@@ -216,8 +239,66 @@ function getLatestTimestamp(values: Array<string | null | undefined>): string | 
   return latestTimestamp
 }
 
+function normalizeProductName(name: string): string {
+  return name
+    .replace(/\b9D\s+(Protector|Glass)\b/gi, 'Protector')
+    .replace(/\b9D\b/gi, '')
+    .replace(/\s{2,}/g, ' ')
+    .trim()
+}
+
+function resolveProductPrice(slug: string, price: number | null | undefined): number | null {
+  return PRODUCT_PRICE_OVERRIDES[slug] ?? price ?? null
+}
+
 function resolveBrandName(name: string): string {
   return /^cmf\b/i.test(name.trim()) ? 'CMF by Nothing' : 'Nothing'
+}
+
+function buildProductSearchKeywords(name: string, productType: ProductType | null | undefined, extraKeywords: string | null | undefined): string[] {
+  const baseKeywords = [
+    name,
+    `${name} price in Pakistan`,
+    `${name} Pakistan`,
+    `buy ${name} in Pakistan`,
+    `${resolveBrandName(name)} ${name}`,
+  ]
+
+  return [
+    ...baseKeywords,
+    ...(productType ? PRODUCT_TYPE_SEARCH_LABELS[productType] ?? [] : []),
+    ...splitSeoKeywords(extraKeywords),
+  ]
+}
+
+function buildMobileSearchKeywords(name: string, extraKeywords: string | null | undefined): string[] {
+  return [
+    name,
+    `${name} price in Pakistan`,
+    `${name} accessories Pakistan`,
+    `${name} protector Pakistan`,
+    `${name} charger Pakistan`,
+    `Nothing ${name} Pakistan`,
+    ...splitSeoKeywords(extraKeywords),
+  ]
+}
+
+function buildProductMetaDescription(product: SupabaseProductRow, name: string, priceLabel: string | null): string {
+  const productTypeLabel = product.product_type ? PRODUCT_TYPE_LABELS[product.product_type] ?? product.product_type : 'Nothing accessory'
+  const priceText = priceLabel ? ` Current price: ${priceLabel}.` : ''
+  const fallback =
+    `Shop ${name} in Pakistan from Nothing Pakistan. Check ${productTypeLabel.toLowerCase()} details, compatibility, PKR pricing, availability, delivery, and WhatsApp support.${priceText}`
+
+  return trimSeoDescription(product.meta_description || product.short_description || product.seo_description_long || product.description || fallback)
+}
+
+function buildMobileMetaDescription(mobile: SupabaseMobileRow): string {
+  const priceLabel = formatPrice(mobile.Price)
+  const priceText = priceLabel ? ` ${mobile.name} price in Pakistan is listed as ${priceLabel}.` : ''
+  const fallback =
+    `${mobile.name} page for Pakistan shoppers with price information, compatible Nothing accessories, chargers, protectors, earbuds, and support links.${priceText}`
+
+  return trimSeoDescription(mobile.meta_description || mobile.seo_description_long || mobile.description || fallback)
 }
 
 function resolveAvailability(stockQuantity?: number | null): ProductDetail['availability'] {
@@ -334,12 +415,12 @@ async function readCatalogSnapshotFromSupabase(): Promise<CatalogSnapshot> {
     supabase
       .from('products')
       .select(
-        'id, name, slug, description, short_description, meta_title, meta_description, price, stock_quantity, main_color_id, created_at, updated_at, product_type',
+        'id, name, slug, description, short_description, meta_title, meta_description, seo_keywords, canonical_url, schema_json, seo_description_long, image_alt_text, price, stock_quantity, main_color_id, created_at, updated_at, product_type',
       )
       .order('name', { ascending: true }),
     supabase
       .from('mobiles')
-      .select('id, name, slug, description, meta_title, meta_description, piority, release_date, created_at, updated_at, Price')
+      .select('id, name, slug, description, meta_title, meta_description, seo_keywords, canonical_url, schema_json, seo_description_long, image_alt_text, piority, release_date, created_at, updated_at, Price')
       .order('piority', { ascending: true, nullsFirst: false })
       .order('name', { ascending: true }),
     supabase
@@ -349,7 +430,8 @@ async function readCatalogSnapshotFromSupabase(): Promise<CatalogSnapshot> {
     supabase
       .from('category_relations')
       .select('id, category_id, related_type, related_id, created_at, updated_at')
-      .in('related_type', [...STORE_RELATED_TYPE_ENUM]),
+      .in('related_type', [...STORE_RELATED_TYPE_ENUM])
+      .order('id', { ascending: true }),
     supabase
       .from('images')
       .select('id, related_type, related_id, color_id, url, alt_text, title, caption, file_name, slug, sort_order, created_at, updated_at')
@@ -539,6 +621,33 @@ function getCatalogCardsForCategoryIds(snapshot: CatalogSnapshot, categoryIds: n
   return sortCatalogCards([...productCards, ...mobileCards])
 }
 
+function getCatalogCardsForProductSlugs(snapshot: CatalogSnapshot, slugs: readonly string[]): Product[] {
+  return slugs
+    .map((slug) => snapshot.products.find((product) => product.slug === slug))
+    .filter((product): product is SupabaseProductRow => Boolean(product))
+    .map((product) => buildProductCard(product, snapshot))
+}
+
+function getOrderedCategoryProductCards(snapshot: CatalogSnapshot, slug: string, fallbackSlugs: readonly string[]): Product[] {
+  const category = snapshot.categories.find((item) => item.slug === slug)
+
+  if (!category) {
+    return getCatalogCardsForProductSlugs(snapshot, fallbackSlugs)
+  }
+
+  const productIds = snapshot.productIdsByCategoryId.get(category.id) ?? []
+  const products = productIds
+    .map((productId) => snapshot.products.find((product) => product.id === productId))
+    .filter((product): product is SupabaseProductRow => Boolean(product))
+    .map((product) => buildProductCard(product, snapshot))
+
+  if (products.length > 0) {
+    return products
+  }
+
+  return getCatalogCardsForProductSlugs(snapshot, fallbackSlugs)
+}
+
 function getCategoryRelationTimestamps(
   snapshot: CatalogSnapshot,
   relatedType: 'product' | 'mobile',
@@ -647,17 +756,20 @@ function buildProductCard(product: SupabaseProductRow, snapshot: CatalogSnapshot
   const categories = getProductCategories(snapshot, product.id)
   const mainColor = product.main_color_id ? snapshot.colorsById.get(product.main_color_id) : null
   const typeLabel = product.product_type ? PRODUCT_TYPE_LABELS[product.product_type] ?? product.product_type : null
+  const name = normalizeProductName(product.name)
+  const price = resolveProductPrice(product.slug, product.price)
+  const priceLabel = formatPrice(price)
 
   return {
     id: `product-${product.id}`,
-    name: product.name,
+    name,
     handle: product.slug,
     href: `/products/${product.slug}`,
     image: images[0]?.url ?? null,
-    description: product.meta_description || product.short_description || product.description,
+    description: buildProductMetaDescription(product, name, priceLabel),
     variant: mainColor?.name ?? images[0]?.caption ?? null,
-    price: product.price,
-    priceLabel: formatPrice(product.price),
+    price,
+    priceLabel,
     kind: 'product',
     subtitle: categories[0]?.name ?? typeLabel,
     updatedAt: product.updated_at,
@@ -676,7 +788,7 @@ function buildMobileCard(mobile: SupabaseMobileRow, snapshot: CatalogSnapshot): 
     handle: mobile.slug,
     href: `/products/${mobile.slug}`,
     image: images[0]?.url ?? null,
-    description: mobile.meta_description || mobile.description,
+    description: buildMobileMetaDescription(mobile),
     variant,
     price: mobile.Price,
     priceLabel: formatPrice(mobile.Price),
@@ -788,25 +900,30 @@ function buildGallery(
   name: string,
   images: SupabaseImageRow[],
   snapshot: CatalogSnapshot,
+  fallbackAltText?: string | null,
 ): ProductDetailMedia[] {
   const colorsById = snapshot.colorsById
 
   return images.map((image) => ({
     id: `media-${image.id}`,
     url: image.url,
-    alt: image.alt_text || image.title || image.caption || name,
+    alt: image.alt_text || fallbackAltText || image.title || image.caption || name,
     title: image.title,
     caption: image.caption,
     colorName: image.color_id ? colorsById.get(image.color_id)?.name ?? null : null,
+    colorHex: image.color_id ? colorsById.get(image.color_id)?.hex_code ?? null : null,
     slug: image.slug,
   }))
 }
 
-function buildFaqs(faqs: SupabaseFaqRow[]): ProductDetailFaq[] {
+function buildFaqs(faqs: SupabaseFaqRow[], productName?: string | null, priceLabel?: string | null): ProductDetailFaq[] {
   return faqs.map((faq) => ({
     id: `faq-${faq.id}`,
     question: faq.question,
-    answer: faq.answer,
+    answer:
+      productName && priceLabel && /price/i.test(faq.question)
+        ? `The price of ${productName} in Pakistan is ${priceLabel}.`
+        : faq.answer,
   }))
 }
 
@@ -923,7 +1040,7 @@ function buildMobileAccessoryGroups(snapshot: CatalogSnapshot, mobileId: number)
 
   const groups: MobileAccessoryGroup[] = [
     { id: 'protectors', title: 'Related Protectors', products: protectors },
-    { id: 'chargers', title: 'Related Chargers', products: chargers },
+    { id: 'chargers', title: 'Related Charger and Cables', products: chargers },
     { id: 'earbuds', title: 'Related Earbuds', products: earbuds },
     { id: 'accessories', title: 'Other Accessories', products: accessories },
   ]
@@ -939,22 +1056,28 @@ function buildProductDetailFromProduct(product: SupabaseProductRow, snapshot: Ca
   const variants = buildVariants(images, snapshot, product.slug)
   const canonicalPath = `/products/${product.slug}`
   const mainColor = product.main_color_id ? snapshot.colorsById.get(product.main_color_id) ?? null : null
-  const gallery = buildGallery(product.name, images, snapshot)
+  const name = normalizeProductName(product.name)
   const reviews = buildReviews(snapshot, product.id)
+  const price = resolveProductPrice(product.slug, product.price)
+  const priceLabel = formatPrice(price)
+  const metaDescription = buildProductMetaDescription(product, name, priceLabel)
+  const gallery = buildGallery(name, images, snapshot, product.image_alt_text || `${name} price in Pakistan`)
 
   return {
     id: `product-${product.id}`,
     entityType: 'product',
     handle: product.slug,
-    name: product.name,
-    brandName: resolveBrandName(product.name),
-    pageTitle: product.meta_title || product.name,
-    summary: product.short_description,
-    metaDescription: product.meta_description,
-    description: product.description,
+    name,
+    brandName: resolveBrandName(name),
+    pageTitle: product.meta_title || name,
+    summary: product.short_description || metaDescription,
+    metaDescription,
+    seoKeywords: buildProductSearchKeywords(name, product.product_type, product.seo_keywords),
+    schemaJson: product.schema_json,
+    description: product.seo_description_long || product.description,
     sourceHref: canonicalPath,
     sourceUrl: buildAbsoluteUrl(canonicalPath),
-    canonicalUrl: buildAbsoluteUrl(canonicalPath),
+    canonicalUrl: product.canonical_url || buildAbsoluteUrl(canonicalPath),
     ogImage: images[0]?.url ?? null,
     primaryImage: images[0]?.url ?? null,
     gallery,
@@ -964,8 +1087,8 @@ function buildProductDetailFromProduct(product: SupabaseProductRow, snapshot: Ca
     variants,
     heroImages: images.map((image) => image.url),
     widgets: buildWidgets('product', product.product_type, images, snapshot, product.stock_quantity),
-    price: product.price,
-    priceLabel: formatPrice(product.price),
+    price,
+    priceLabel,
     stockQuantity: product.stock_quantity,
     availability: resolveAvailability(product.stock_quantity),
     createdAt: product.created_at,
@@ -976,7 +1099,7 @@ function buildProductDetailFromProduct(product: SupabaseProductRow, snapshot: Ca
       ['Stock', typeof product.stock_quantity === 'number' ? `${product.stock_quantity} units available` : null],
       ['Updated', formatCatalogDate(product.updated_at)],
     ]),
-    faqs: buildFaqs(faqs),
+    faqs: buildFaqs(faqs, name, priceLabel),
     reviews,
     relatedMobiles: buildRelatedMobiles(snapshot, product.id),
     breadcrumbItems: buildBreadcrumbItems(categories, snapshot, 'product'),
@@ -990,7 +1113,8 @@ function buildProductDetailFromMobile(mobile: SupabaseMobileRow, snapshot: Catal
   const categories = getMobileCategories(snapshot, mobile.id)
   const collections = buildProductCollections(categories, snapshot)
   const canonicalPath = `/products/${mobile.slug}`
-  const gallery = buildGallery(mobile.name, images, snapshot)
+  const metaDescription = buildMobileMetaDescription(mobile)
+  const gallery = buildGallery(mobile.name, images, snapshot, mobile.image_alt_text || `${mobile.name} price in Pakistan`)
 
   return {
     id: `mobile-${mobile.id}`,
@@ -999,12 +1123,14 @@ function buildProductDetailFromMobile(mobile: SupabaseMobileRow, snapshot: Catal
     name: mobile.name,
     brandName: resolveBrandName(mobile.name),
     pageTitle: mobile.meta_title || mobile.name,
-    summary: mobile.meta_description,
-    metaDescription: mobile.meta_description,
-    description: mobile.description,
+    summary: metaDescription,
+    metaDescription,
+    seoKeywords: buildMobileSearchKeywords(mobile.name, mobile.seo_keywords),
+    schemaJson: mobile.schema_json,
+    description: mobile.seo_description_long || mobile.description,
     sourceHref: canonicalPath,
     sourceUrl: buildAbsoluteUrl(canonicalPath),
-    canonicalUrl: buildAbsoluteUrl(canonicalPath),
+    canonicalUrl: mobile.canonical_url || buildAbsoluteUrl(canonicalPath),
     ogImage: images[0]?.url ?? null,
     primaryImage: images[0]?.url ?? null,
     gallery,
@@ -1024,20 +1150,12 @@ function buildProductDetailFromMobile(mobile: SupabaseMobileRow, snapshot: Catal
       ['Release date', formatCatalogDate(mobile.release_date)],
       ['Updated', formatCatalogDate(mobile.updated_at)],
     ]),
-    faqs: buildFaqs(faqs),
+    faqs: buildFaqs(faqs, mobile.name, formatPrice(mobile.Price)),
     reviews: [],
     relatedMobiles: [],
     breadcrumbItems: buildBreadcrumbItems(categories, snapshot, 'mobile'),
     aggregateRating: null,
   }
-}
-
-async function getAllCatalogProducts(): Promise<Product[]> {
-  const snapshot = await getCatalogSnapshot()
-  const mobileCards = snapshot.mobiles.map((mobile) => buildMobileCard(mobile, snapshot))
-  const productCards = snapshot.products.map((product) => buildProductCard(product, snapshot))
-
-  return sortCatalogCards([...mobileCards, ...productCards])
 }
 
 function getVirtualCollectionProducts(slug: VirtualCollectionSlug, snapshot: CatalogSnapshot): Product[] {
@@ -1082,9 +1200,17 @@ function buildVirtualCollection(slug: VirtualCollectionSlug, snapshot: CatalogSn
     metaTitle: config.metaTitle,
     metaDescription: config.description,
     description: config.description,
+    canonicalUrl: buildAbsoluteUrl(`/collections/${slug}`),
+    schemaJson: null,
     sourceUrl: buildAbsoluteUrl(`/collections/${slug}`),
     heroImage: getCollectionHeroImage(products),
     updatedAt: getVirtualCollectionUpdatedAt(slug, snapshot, products),
+    seoKeywords: [
+      `${config.title} Pakistan`,
+      `${config.title} price in Pakistan`,
+      `Nothing ${config.title} Pakistan`,
+      ...products.slice(0, 8).flatMap((product) => [product.name, `${product.name} price in Pakistan`]),
+    ],
     products,
     parentCollection: null,
     childCollections: [],
@@ -1092,92 +1218,16 @@ function buildVirtualCollection(slug: VirtualCollectionSlug, snapshot: CatalogSn
   }
 }
 
-function buildHomePageSection(
-  slug: string,
-  title: string,
-  description: string | null | undefined,
-  href: string,
-  products: Product[],
-  childCollections: NavigationItem[] = [],
-): HomePageSection | null {
-  const sortedProducts = sortHomeShowcaseCards(products)
-
-  if (sortedProducts.length === 0) {
-    return null
-  }
-
-  return {
-    slug,
-    title,
-    description,
-    href,
-    featuredProduct: sortedProducts[0] ?? null,
-    products: sortedProducts,
-    childCollections,
-  }
-}
-
 export async function getHomePageData(): Promise<HomePageData> {
   const snapshot = await getCatalogSnapshot()
-  const sections: HomePageSection[] = []
-  const sectionNavigation: NavigationItem[] = []
-
+  const shopAllProducts = sortCatalogCards(getVirtualCollectionProducts('shop-all', snapshot))
   const phoneProducts = sortHomeShowcaseCards(getVirtualCollectionProducts('phones', snapshot))
-  const phoneSection = buildHomePageSection(
-    'phones',
-    VIRTUAL_COLLECTIONS.phones.title,
-    VIRTUAL_COLLECTIONS.phones.description,
-    '/collections/phones',
-    phoneProducts,
-  )
-
-  if (phoneSection) {
-    sections.push(phoneSection)
-    sectionNavigation.push(
-      buildVirtualNavigationItem('phones', VIRTUAL_COLLECTIONS.phones.title, VIRTUAL_COLLECTIONS.phones.description),
-    )
-  }
-
-  const chargerProducts = sortHomeShowcaseCards(getVirtualCollectionProducts('chargers', snapshot))
-  const chargerSection = buildHomePageSection(
-    'chargers',
-    VIRTUAL_COLLECTIONS.chargers.title,
-    VIRTUAL_COLLECTIONS.chargers.description,
-    '/collections/chargers',
-    chargerProducts,
-  )
-
-  if (chargerSection) {
-    sections.push(chargerSection)
-    sectionNavigation.push(
-      buildVirtualNavigationItem('chargers', VIRTUAL_COLLECTIONS.chargers.title, VIRTUAL_COLLECTIONS.chargers.description, 'accessories'),
-    )
-  }
-
-  for (const category of getTopLevelCategories(snapshot)) {
-    const products = getCatalogCardsForCategoryIds(snapshot, getCategoryTreeIds(snapshot, category.id))
-    const childCollections = getChildCategories(snapshot, category.id).map((child) => buildNavigationItem(child, snapshot))
-    const section = buildHomePageSection(
-      category.slug,
-      category.name,
-      category.meta_description,
-      `/collections/${category.slug}`,
-      products,
-      childCollections,
-    )
-
-    if (!section) {
-      continue
-    }
-
-    sections.push(section)
-    sectionNavigation.push(buildNavigationItem(category, snapshot))
-  }
+  const trendingPicks = getOrderedCategoryProductCards(snapshot, 'trending-picks', TRENDING_PICK_PRODUCT_SLUGS)
 
   return {
-    sections,
-    sectionNavigation,
-    featuredProduct: sections[0]?.featuredProduct ?? null,
+    phoneModels: phoneProducts,
+    shopAllProducts,
+    trendingPicks,
   }
 }
 
@@ -1191,11 +1241,6 @@ export async function getNavigationMenuItems(): Promise<NavigationItem[]> {
     buildVirtualNavigationItem('chargers', VIRTUAL_COLLECTIONS.chargers.title, VIRTUAL_COLLECTIONS.chargers.description, 'accessories'),
     ...topLevelCategories.map((category) => buildNavigationItem(category, snapshot)),
   ]
-}
-
-export async function getHomeHeroItems(limit = 6): Promise<Product[]> {
-  const products = await getAllCatalogProducts()
-  return products.slice(0, limit)
 }
 
 export async function getAllCollectionSlugs(): Promise<string[]> {
@@ -1249,7 +1294,7 @@ export async function getCollectionSitemapEntries(): Promise<SitemapCollectionEn
     entries.push({
       slug: category.slug,
       title: category.name,
-      description: category.meta_description,
+      description: category.meta_description || category.seo_description_long || null,
       image: getCollectionHeroImage(products),
       updatedAt: getLatestTimestamp([category.updated_at, ...relationTimestamps, ...products.map((product) => product.updatedAt)]),
       itemCount: products.length,
@@ -1365,11 +1410,20 @@ export async function getCollectionBySlug(slug: string): Promise<Collection | nu
     slug: category.slug,
     title: category.name,
     metaTitle: category.meta_title,
-    metaDescription: category.meta_description,
-    description: category.meta_description,
+    metaDescription: category.meta_description || category.seo_description_long,
+    description: category.seo_description_long || category.meta_description,
+    canonicalUrl: category.canonical_url || buildAbsoluteUrl(`/collections/${category.slug}`),
+    schemaJson: category.schema_json,
     sourceUrl: buildAbsoluteUrl(`/collections/${category.slug}`),
     heroImage: getCollectionHeroImage(products),
     updatedAt: getLatestTimestamp([category.updated_at, ...relationTimestamps, ...products.map((product) => product.updatedAt)]),
+    seoKeywords: [
+      category.name,
+      `${category.name} Pakistan`,
+      `${category.name} price in Pakistan`,
+      ...splitSeoKeywords(category.seo_keywords),
+      ...products.slice(0, 8).flatMap((product) => [product.name, `${product.name} price in Pakistan`]),
+    ],
     products,
     parentCollection: parentCategory ? buildNavigationItem(parentCategory, snapshot) : null,
     childCollections,

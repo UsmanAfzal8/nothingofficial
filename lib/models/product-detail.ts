@@ -12,6 +12,7 @@ export interface ProductDetailMedia {
   title?: string | null
   caption?: string | null
   colorName?: string | null
+  colorHex?: string | null
   slug?: string | null
 }
 
@@ -76,6 +77,8 @@ export interface ProductDetail {
   pageTitle: string
   summary?: string | null
   metaDescription?: string | null
+  seoKeywords?: string[]
+  schemaJson?: Record<string, unknown> | null
   description?: string | null
   sourceHref: string
   sourceUrl: string

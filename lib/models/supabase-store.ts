@@ -7,6 +7,10 @@ export interface SupabaseCategoryRow {
   slug: string
   meta_title: string | null
   meta_description: string | null
+  seo_keywords?: string | null
+  canonical_url?: string | null
+  schema_json?: Record<string, unknown> | null
+  seo_description_long?: string | null
   parent_id: number | null
   created_at: string | null
   updated_at: string | null
@@ -74,6 +78,11 @@ export interface SupabaseProductRow {
   short_description: string | null
   meta_title: string | null
   meta_description: string | null
+  seo_keywords: string | null
+  canonical_url: string | null
+  schema_json: Record<string, unknown> | null
+  seo_description_long: string | null
+  image_alt_text: string | null
   price: number | null
   stock_quantity: number | null
   main_color_id: number | null
@@ -89,6 +98,11 @@ export interface SupabaseMobileRow {
   description: string | null
   meta_title: string | null
   meta_description: string | null
+  seo_keywords: string | null
+  canonical_url: string | null
+  schema_json: Record<string, unknown> | null
+  seo_description_long: string | null
+  image_alt_text: string | null
   piority: number | null
   release_date: string | null
   created_at: string | null

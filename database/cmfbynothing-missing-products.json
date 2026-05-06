@@ -1,0 +1,1454 @@
+{
+  "generatedAt": "2026-05-06T06:53:34.174Z",
+  "cmfSite": {
+    "supabaseUrl": "https://nvejygmoihjsuzbwxbtj.supabase.co",
+    "table": "items",
+    "totalRows": 70,
+    "parsedRows": 70,
+    "sourceTables": [
+      "products",
+      "mobiles"
+    ]
+  },
+  "nothingSite": {
+    "supabaseUrl": "https://zoixreubhtforowhbltq.supabase.co",
+    "liveProducts": 38,
+    "liveMobiles": 13,
+    "localProducts": 38,
+    "localMobiles": 13
+  },
+  "missingCount": 49,
+  "missingItems": [
+    {
+      "sourceId": 35,
+      "name": "CMF Watch Pro",
+      "slug": "cmf-watch-pro",
+      "sourceTable": "products",
+      "price": 13499,
+      "category": null,
+      "imageCount": 2,
+      "images": [
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775700380/nothing-pakistan/products/cmf-watch-pro/cmf-watch-pro-light-grey.webp",
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775700382/nothing-pakistan/products/cmf-watch-pro/cmf-watch-pro-dark-grey.webp"
+      ]
+    },
+    {
+      "sourceId": 33,
+      "name": "CMF Headphone Pro",
+      "slug": "cmf-headphone-pro",
+      "sourceTable": "products",
+      "price": 30999,
+      "category": null,
+      "imageCount": 3,
+      "images": [
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775699858/nothing-pakistan/products/cmf-headphone-pro/cmf-headphone-pro-dark-grey.webp",
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775699859/nothing-pakistan/products/cmf-headphone-pro/cmf-headphone-pro-light-grey.webp",
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775699861/nothing-pakistan/products/cmf-headphone-pro/cmf-headphone-pro-light-green.webp"
+      ]
+    },
+    {
+      "sourceId": 34,
+      "name": "CMF Watch 3 Pro",
+      "slug": "cmf-watch-3-pro",
+      "sourceTable": "products",
+      "price": 18499,
+      "category": null,
+      "imageCount": 4,
+      "images": [
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775700059/nothing-pakistan/products/cmf-watch-3-pro/cmf-watch-3-pro-light-green.webp",
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775700061/nothing-pakistan/products/cmf-watch-3-pro/cmf-watch-3-pro-orange.webp",
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775700062/nothing-pakistan/products/cmf-watch-3-pro/cmf-watch-3-pro-light-grey.webp",
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775700064/nothing-pakistan/products/cmf-watch-3-pro/cmf-watch-3-pro-dark-grey.webp"
+      ]
+    },
+    {
+      "sourceId": 40,
+      "name": "Nothing Ear",
+      "slug": "nothing-ear",
+      "sourceTable": "products",
+      "price": 24499,
+      "category": "earbuds",
+      "imageCount": 2,
+      "images": [
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775701722/nothing-pakistan/products/nothing-ear/nothing-ear-black.webp",
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775701724/nothing-pakistan/products/nothing-ear/nothing-ear-white.webp"
+      ]
+    },
+    {
+      "sourceId": 41,
+      "name": "Nothing Ear (3)",
+      "slug": "nothing-ear-3",
+      "sourceTable": "products",
+      "price": 45499,
+      "category": "earbuds",
+      "imageCount": 2,
+      "images": [
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775701873/nothing-pakistan/products/nothing-ear-3/nothing-ear-3-white.webp",
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775701876/nothing-pakistan/products/nothing-ear-3/nothing-ear-3-black.webp"
+      ]
+    },
+    {
+      "sourceId": 42,
+      "name": "Nothing Headphone (1)",
+      "slug": "nothing-headphone-1",
+      "sourceTable": "products",
+      "price": 54999,
+      "category": null,
+      "imageCount": 2,
+      "images": [
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775702077/nothing-pakistan/products/nothing-headphone-1/nothing-headphone-1-white.webp",
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775702079/nothing-pakistan/products/nothing-headphone-1/nothing-headphone-1-black.webp"
+      ]
+    },
+    {
+      "sourceId": 43,
+      "name": "Nothing Headphone (a)",
+      "slug": "nothing-headphone-a",
+      "sourceTable": "products",
+      "price": 22999,
+      "category": null,
+      "imageCount": 4,
+      "images": [
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775702253/nothing-pakistan/products/nothing-headphone-a/nothing-headphone-a-white.webp",
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775702255/nothing-pakistan/products/nothing-headphone-a/nothing-headphone-a-black.webp",
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775702257/nothing-pakistan/products/nothing-headphone-a/nothing-headphone-a-pink.webp",
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775702258/nothing-pakistan/products/nothing-headphone-a/nothing-headphone-a-yellow.webp"
+      ]
+    },
+    {
+      "sourceId": 44,
+      "name": "Nothing Ear (open)",
+      "slug": "nothing-ear-open",
+      "sourceTable": "products",
+      "price": 23999,
+      "category": "earbuds",
+      "imageCount": 1,
+      "images": [
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775702385/nothing-pakistan/products/nothing-ear-open/nothing-ear-open-white.webp"
+      ]
+    },
+    {
+      "sourceId": 45,
+      "name": "Nothing Cable (c-c)",
+      "slug": "nothing-cable-c-c",
+      "sourceTable": "products",
+      "price": 1499,
+      "category": "data_cable",
+      "imageCount": 1,
+      "images": [
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775702609/nothing-pakistan/products/nothing-cable-c-c/nothing-cable-c-c-white.webp"
+      ]
+    },
+    {
+      "sourceId": 46,
+      "name": "Nothing Power (45W)",
+      "slug": "nothing-power-45w",
+      "sourceTable": "products",
+      "price": 4499,
+      "category": "charger",
+      "imageCount": 1,
+      "images": [
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775702739/nothing-pakistan/products/nothing-power-45w/nothing-power-45w-white.webp"
+      ]
+    },
+    {
+      "sourceId": 49,
+      "name": "Nothing Phone (2) Case",
+      "slug": "nothing-phone-2-case",
+      "sourceTable": "products",
+      "price": 2000,
+      "category": "phone-cases",
+      "imageCount": 3,
+      "images": [
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775783780/nothing-pakistan/products/nothing-phone-2-case/nothing-phone-2-case-transparent-front-back.webp",
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775783782/nothing-pakistan/products/nothing-phone-2-case/nothing-phone-2-case-transparent-on-phone.webp",
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775783784/nothing-pakistan/products/nothing-phone-2-case/nothing-phone-2-case-transparent-angle.webp"
+      ]
+    },
+    {
+      "sourceId": 50,
+      "name": "Nothing Phone (2a) Case",
+      "slug": "nothing-phone-2a-case",
+      "sourceTable": "products",
+      "price": 1500,
+      "category": "phone-cases",
+      "imageCount": 3,
+      "images": [
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775783904/nothing-pakistan/products/nothing-phone-2a-case/nothing-phone-2a-case-transparent-front-back.webp",
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775783906/nothing-pakistan/products/nothing-phone-2a-case/nothing-phone-2a-case-transparent-on-phone.webp",
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775783908/nothing-pakistan/products/nothing-phone-2a-case/nothing-phone-2a-case-transparent-angle.webp"
+      ]
+    },
+    {
+      "sourceId": 51,
+      "name": "Nothing Phone (2a) Plus Case",
+      "slug": "nothing-phone-2a-plus-case",
+      "sourceTable": "products",
+      "price": 1500,
+      "category": "phone-cases",
+      "imageCount": 3,
+      "images": [
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775784034/nothing-pakistan/products/nothing-phone-2a-plus-case/nothing-phone-2a-plus-case-transparent-front-back.webp",
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775784036/nothing-pakistan/products/nothing-phone-2a-plus-case/nothing-phone-2a-plus-case-transparent-on-phone.webp",
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775784038/nothing-pakistan/products/nothing-phone-2a-plus-case/nothing-phone-2a-plus-case-transparent-angle.webp"
+      ]
+    },
+    {
+      "sourceId": 52,
+      "name": "Nothing Phone (3a) Pro Case",
+      "slug": "nothing-phone-3a-pro-case",
+      "sourceTable": "products",
+      "price": 1500,
+      "category": "phone-cases",
+      "imageCount": 3,
+      "images": [
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775784165/nothing-pakistan/products/nothing-phone-3a-pro-case/nothing-phone-3a-pro-case-transparent-front-back.webp",
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775784167/nothing-pakistan/products/nothing-phone-3a-pro-case/nothing-phone-3a-pro-case-transparent-on-phone.webp",
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775784169/nothing-pakistan/products/nothing-phone-3a-pro-case/nothing-phone-3a-pro-case-transparent-angle.webp"
+      ]
+    },
+    {
+      "sourceId": 53,
+      "name": "Nothing Phone (3a) Case",
+      "slug": "nothing-phone-3a-case",
+      "sourceTable": "products",
+      "price": 1500,
+      "category": "phone-cases",
+      "imageCount": 3,
+      "images": [
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775784307/nothing-pakistan/products/nothing-phone-3a-case/nothing-phone-3a-case-transparent-front-back.webp",
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775784309/nothing-pakistan/products/nothing-phone-3a-case/nothing-phone-3a-case-transparent-on-phone.webp",
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775784310/nothing-pakistan/products/nothing-phone-3a-case/nothing-phone-3a-case-transparent-angle.webp"
+      ]
+    },
+    {
+      "sourceId": 54,
+      "name": "Nothing Phone (3) Case",
+      "slug": "nothing-phone-3-case",
+      "sourceTable": "products",
+      "price": 2000,
+      "category": "phone-cases",
+      "imageCount": 3,
+      "images": [
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775784449/nothing-pakistan/products/nothing-phone-3-case/nothing-phone-3-case-transparent-on-phone.webp",
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775784450/nothing-pakistan/products/nothing-phone-3-case/nothing-phone-3-case-transparent-front-back.webp",
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775784452/nothing-pakistan/products/nothing-phone-3-case/nothing-phone-3-case-transparent-angle.webp"
+      ]
+    },
+    {
+      "sourceId": 55,
+      "name": "Nothing 4a Pro Case",
+      "slug": "nothing-4a-pro-case",
+      "sourceTable": "products",
+      "price": 2000,
+      "category": "phone-cases",
+      "imageCount": 3,
+      "images": [
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775786844/nothing-pakistan/products/nothing-4a-pro-case/nothing-4a-pro-case-transparent-front-back.webp",
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775786846/nothing-pakistan/products/nothing-4a-pro-case/nothing-4a-pro-case-transparent-on-phone.webp",
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775786847/nothing-pakistan/products/nothing-4a-pro-case/nothing-4a-pro-case-transparent-angle.webp"
+      ]
+    },
+    {
+      "sourceId": 56,
+      "name": "Nothing Phone (4a) Case",
+      "slug": "nothing-phone-4a-case",
+      "sourceTable": "products",
+      "price": 2000,
+      "category": "phone-cases",
+      "imageCount": 3,
+      "images": [
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775787260/nothing-pakistan/products/nothing-phone-4a-case/nothing-phone-4a-case-transparent-front-back.webp",
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775787262/nothing-pakistan/products/nothing-phone-4a-case/nothing-phone-4a-case-transparent-on-phone.webp",
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775787263/nothing-pakistan/products/nothing-phone-4a-case/nothing-phone-4a-case-transparent-angle.webp"
+      ]
+    },
+    {
+      "sourceId": 57,
+      "name": "CMF Phone 1 UV Glass",
+      "slug": "cmf-phone-1-uv-glass",
+      "sourceTable": "products",
+      "price": 1500,
+      "category": "protector",
+      "imageCount": 1,
+      "images": [
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775787718/nothing-pakistan/products/protectors/cmf-phone-1-uv-glass-main.webp"
+      ]
+    },
+    {
+      "sourceId": 58,
+      "name": "CMF Phone 1 Jelly Sheet",
+      "slug": "cmf-phone-1-jelly-sheet",
+      "sourceTable": "products",
+      "price": 1500,
+      "category": "protector",
+      "imageCount": 1,
+      "images": [
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775787722/nothing-pakistan/products/protectors/cmf-phone-1-jelly-sheet-main.webp"
+      ]
+    },
+    {
+      "sourceId": 59,
+      "name": "CMF Phone 1 9D Glass",
+      "slug": "cmf-phone-1-9d-glass",
+      "sourceTable": "products",
+      "price": 1500,
+      "category": "protector",
+      "imageCount": 1,
+      "images": [
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775787727/nothing-pakistan/products/protectors/cmf-phone-1-9d-glass-main.webp"
+      ]
+    },
+    {
+      "sourceId": 60,
+      "name": "CMF Phone 1 Privacy Glass",
+      "slug": "cmf-phone-1-privacy-glass",
+      "sourceTable": "products",
+      "price": 1500,
+      "category": "protector",
+      "imageCount": 1,
+      "images": [
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775787731/nothing-pakistan/products/protectors/cmf-phone-1-privacy-glass-main.webp"
+      ]
+    },
+    {
+      "sourceId": 62,
+      "name": "Nothing Phone (3a) UV Glass",
+      "slug": "nothing-phone-3a-uv-glass",
+      "sourceTable": "products",
+      "price": 1200,
+      "category": "protector",
+      "imageCount": 1,
+      "images": [
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775788846/nothing-pakistan/products/protector/nothing-phone-3a-uv-glass-main.webp"
+      ]
+    },
+    {
+      "sourceId": 63,
+      "name": "Nothing Phone (3a) Jelly Sheet",
+      "slug": "nothing-phone-3a-jelly-sheet",
+      "sourceTable": "products",
+      "price": 1500,
+      "category": "protector",
+      "imageCount": 1,
+      "images": [
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775788851/nothing-pakistan/products/protector/nothing-phone-3a-jelly-sheet-main.webp"
+      ]
+    },
+    {
+      "sourceId": 64,
+      "name": "Nothing Phone (3a) 9D Glass",
+      "slug": "nothing-phone-3a-9d-glass",
+      "sourceTable": "products",
+      "price": 2200,
+      "category": "protector",
+      "imageCount": 1,
+      "images": [
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775788855/nothing-pakistan/products/protector/nothing-phone-3a-9d-glass-main.webp"
+      ]
+    },
+    {
+      "sourceId": 65,
+      "name": "Nothing Phone (3a) Privacy Glass",
+      "slug": "nothing-phone-3a-privacy-glass",
+      "sourceTable": "products",
+      "price": 2500,
+      "category": "protector",
+      "imageCount": 1,
+      "images": [
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775788859/nothing-pakistan/products/protector/nothing-phone-3a-privacy-glass-main.webp"
+      ]
+    },
+    {
+      "sourceId": 66,
+      "name": "Nothing Phone (3a) Pro UV Glass",
+      "slug": "nothing-phone-3a-pro-uv-glass",
+      "sourceTable": "products",
+      "price": 1200,
+      "category": "protector",
+      "imageCount": 1,
+      "images": [
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775789028/nothing-pakistan/products/protector/nothing-phone-3a-pro-uv-glass-main.webp"
+      ]
+    },
+    {
+      "sourceId": 67,
+      "name": "Nothing Phone (3a) Pro Jelly Sheet",
+      "slug": "nothing-phone-3a-pro-jelly-sheet",
+      "sourceTable": "products",
+      "price": 1500,
+      "category": "protector",
+      "imageCount": 1,
+      "images": [
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775789032/nothing-pakistan/products/protector/nothing-phone-3a-pro-jelly-sheet-main.webp"
+      ]
+    },
+    {
+      "sourceId": 69,
+      "name": "Nothing Phone (3a) Pro Privacy Glass",
+      "slug": "nothing-phone-3a-pro-privacy-glass",
+      "sourceTable": "products",
+      "price": 2500,
+      "category": "protector",
+      "imageCount": 1,
+      "images": [
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775789040/nothing-pakistan/products/protector/nothing-phone-3a-pro-privacy-glass-main.webp"
+      ]
+    },
+    {
+      "sourceId": 70,
+      "name": "Nothing Phone (3a) Lite UV Glass",
+      "slug": "nothing-phone-3a-lite-uv-glass",
+      "sourceTable": "products",
+      "price": 1200,
+      "category": "protector",
+      "imageCount": 1,
+      "images": [
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775789208/nothing-pakistan/products/protector/nothing-phone-3a-lite-uv-glass-main.webp"
+      ]
+    },
+    {
+      "sourceId": 71,
+      "name": "Nothing Phone (3a) Lite Jelly Sheet",
+      "slug": "nothing-phone-3a-lite-jelly-sheet",
+      "sourceTable": "products",
+      "price": 1500,
+      "category": "protector",
+      "imageCount": 1,
+      "images": [
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775789212/nothing-pakistan/products/protector/nothing-phone-3a-lite-jelly-sheet-main.webp"
+      ]
+    },
+    {
+      "sourceId": 72,
+      "name": "Nothing Phone (3a) Lite 9D Glass",
+      "slug": "nothing-phone-3a-lite-9d-glass",
+      "sourceTable": "products",
+      "price": 2200,
+      "category": "protector",
+      "imageCount": 1,
+      "images": [
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775789216/nothing-pakistan/products/protector/nothing-phone-3a-lite-9d-glass-main.webp"
+      ]
+    },
+    {
+      "sourceId": 73,
+      "name": "Nothing Phone (3a) Lite Privacy Glass",
+      "slug": "nothing-phone-3a-lite-privacy-glass",
+      "sourceTable": "products",
+      "price": 2500,
+      "category": "protector",
+      "imageCount": 1,
+      "images": [
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775789222/nothing-pakistan/products/protector/nothing-phone-3a-lite-privacy-glass-main.webp"
+      ]
+    },
+    {
+      "sourceId": 74,
+      "name": "Nothing Phone (3) UV Glass",
+      "slug": "nothing-phone-3-uv-glass",
+      "sourceTable": "products",
+      "price": 1200,
+      "category": "protector",
+      "imageCount": 1,
+      "images": [
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775789391/nothing-pakistan/products/protector/nothing-phone-3-uv-glass-main.webp"
+      ]
+    },
+    {
+      "sourceId": 75,
+      "name": "Nothing Phone (3) Jelly Sheet",
+      "slug": "nothing-phone-3-jelly-sheet",
+      "sourceTable": "products",
+      "price": 1500,
+      "category": "protector",
+      "imageCount": 1,
+      "images": [
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775789395/nothing-pakistan/products/protector/nothing-phone-3-jelly-sheet-main.webp"
+      ]
+    },
+    {
+      "sourceId": 76,
+      "name": "Nothing Phone (3) 9D Glass",
+      "slug": "nothing-phone-3-9d-glass",
+      "sourceTable": "products",
+      "price": 2200,
+      "category": "protector",
+      "imageCount": 1,
+      "images": [
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775789400/nothing-pakistan/products/protector/nothing-phone-3-9d-glass-main.webp"
+      ]
+    },
+    {
+      "sourceId": 77,
+      "name": "Nothing Phone (3) Privacy Glass",
+      "slug": "nothing-phone-3-privacy-glass",
+      "sourceTable": "products",
+      "price": 2500,
+      "category": "protector",
+      "imageCount": 1,
+      "images": [
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775789405/nothing-pakistan/products/protector/nothing-phone-3-privacy-glass-main.webp"
+      ]
+    },
+    {
+      "sourceId": 39,
+      "name": "Nothing Ear (a)",
+      "slug": "nothing-ear-a",
+      "sourceTable": "products",
+      "price": 25499,
+      "category": "earbuds",
+      "imageCount": 3,
+      "images": [
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775701478/nothing-pakistan/products/nothing-ear-a/nothing-ear-a-white.webp",
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775701480/nothing-pakistan/products/nothing-ear-a/nothing-ear-a-black.webp",
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775701482/nothing-pakistan/products/nothing-ear-a/nothing-ear-a-yellow.webp"
+      ]
+    },
+    {
+      "sourceId": 79,
+      "name": "Nothing Phone (4a) Jelly Sheet",
+      "slug": "nothing-phone-4a-jelly-sheet",
+      "sourceTable": "products",
+      "price": 1500,
+      "category": "protector",
+      "imageCount": 1,
+      "images": [
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775789571/nothing-pakistan/products/protector/nothing-phone-4a-jelly-sheet-main.webp"
+      ]
+    },
+    {
+      "sourceId": 80,
+      "name": "Nothing Phone (4a) 9D Glass",
+      "slug": "nothing-phone-4a-9d-glass",
+      "sourceTable": "products",
+      "price": 2200,
+      "category": "protector",
+      "imageCount": 1,
+      "images": [
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775789576/nothing-pakistan/products/protector/nothing-phone-4a-9d-glass-main.webp"
+      ]
+    },
+    {
+      "sourceId": 81,
+      "name": "Nothing Phone (4a) Privacy Glass",
+      "slug": "nothing-phone-4a-privacy-glass",
+      "sourceTable": "products",
+      "price": 2500,
+      "category": "protector",
+      "imageCount": 1,
+      "images": [
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775789581/nothing-pakistan/products/protector/nothing-phone-4a-privacy-glass-main.webp"
+      ]
+    },
+    {
+      "sourceId": 82,
+      "name": "Nothing 4a Pro UV Glass",
+      "slug": "nothing-4a-pro-uv-glass",
+      "sourceTable": "products",
+      "price": 1200,
+      "category": "protector",
+      "imageCount": 1,
+      "images": [
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775789753/nothing-pakistan/products/protector/nothing-4a-pro-uv-glass-main.webp"
+      ]
+    },
+    {
+      "sourceId": 83,
+      "name": "Nothing 4a Pro Jelly Sheet",
+      "slug": "nothing-4a-pro-jelly-sheet",
+      "sourceTable": "products",
+      "price": 1500,
+      "category": "protector",
+      "imageCount": 1,
+      "images": [
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775789758/nothing-pakistan/products/protector/nothing-4a-pro-jelly-sheet-main.webp"
+      ]
+    },
+    {
+      "sourceId": 84,
+      "name": "Nothing 4a Pro 9D Glass",
+      "slug": "nothing-4a-pro-9d-glass",
+      "sourceTable": "products",
+      "price": 2200,
+      "category": "protector",
+      "imageCount": 1,
+      "images": [
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775789763/nothing-pakistan/products/protector/nothing-4a-pro-9d-glass-main.webp"
+      ]
+    },
+    {
+      "sourceId": 85,
+      "name": "Nothing 4a Pro Privacy Glass",
+      "slug": "nothing-4a-pro-privacy-glass",
+      "sourceTable": "products",
+      "price": 2500,
+      "category": "protector",
+      "imageCount": 1,
+      "images": [
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775789767/nothing-pakistan/products/protector/nothing-4a-pro-privacy-glass-main.webp"
+      ]
+    },
+    {
+      "sourceId": 48,
+      "name": "Nothing Phone (1) Case",
+      "slug": "nothing-phone-1-case",
+      "sourceTable": "products",
+      "price": 1200,
+      "category": "phone-cases",
+      "imageCount": 3,
+      "images": [
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775783426/nothing-pakistan/products/nothing-phone-1-case/nothing-phone-1-case-transparent-front-back.webp",
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775783428/nothing-pakistan/products/nothing-phone-1-case/nothing-phone-1-case-transparent-on-phone.webp",
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775783429/nothing-pakistan/products/nothing-phone-1-case/nothing-phone-1-case-transparent-angle.webp"
+      ]
+    },
+    {
+      "sourceId": 61,
+      "name": "Nothing Phone (3a) Lite Case",
+      "slug": "nothing-phone-3a-lite-case",
+      "sourceTable": "products",
+      "price": 1500,
+      "category": "phone-cases",
+      "imageCount": 3,
+      "images": [
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775788639/nothing-pakistan/products/nothing-phone-3a-lite-case/nothing-phone-3a-lite-case-transparent-front-back.webp",
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775788640/nothing-pakistan/products/nothing-phone-3a-lite-case/nothing-phone-3a-lite-case-transparent-on-phone.webp",
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775788642/nothing-pakistan/products/nothing-phone-3a-lite-case/nothing-phone-3a-lite-case-transparent-angle.webp"
+      ]
+    },
+    {
+      "sourceId": 68,
+      "name": "Nothing Phone (3a) Pro 9D Glass",
+      "slug": "nothing-phone-3a-pro-9d-glass",
+      "sourceTable": "products",
+      "price": 2200,
+      "category": "protector",
+      "imageCount": 1,
+      "images": [
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775789036/nothing-pakistan/products/protector/nothing-phone-3a-pro-9d-glass-main.webp"
+      ]
+    },
+    {
+      "sourceId": 78,
+      "name": "Nothing Phone (4a) UV Glass",
+      "slug": "nothing-phone-4a-uv-glass",
+      "sourceTable": "products",
+      "price": 1200,
+      "category": "protector",
+      "imageCount": 1,
+      "images": [
+        "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775789566/nothing-pakistan/products/protector/nothing-phone-4a-uv-glass-main.webp"
+      ]
+    }
+  ],
+  "downloads": [
+    {
+      "name": "CMF Watch Pro",
+      "slug": "cmf-watch-pro",
+      "sourceTable": "products",
+      "imageCount": 2,
+      "downloadedImages": [
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775700380/nothing-pakistan/products/cmf-watch-pro/cmf-watch-pro-light-grey.webp",
+          "path": "output image/cmfbynothing-missing-products/cmf-watch-pro/01.webp",
+          "status": "downloaded"
+        },
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775700382/nothing-pakistan/products/cmf-watch-pro/cmf-watch-pro-dark-grey.webp",
+          "path": "output image/cmfbynothing-missing-products/cmf-watch-pro/02.webp",
+          "status": "skipped"
+        }
+      ]
+    },
+    {
+      "name": "CMF Headphone Pro",
+      "slug": "cmf-headphone-pro",
+      "sourceTable": "products",
+      "imageCount": 3,
+      "downloadedImages": [
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775699858/nothing-pakistan/products/cmf-headphone-pro/cmf-headphone-pro-dark-grey.webp",
+          "path": "output image/cmfbynothing-missing-products/cmf-headphone-pro/01.webp",
+          "status": "skipped"
+        },
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775699859/nothing-pakistan/products/cmf-headphone-pro/cmf-headphone-pro-light-grey.webp",
+          "path": "output image/cmfbynothing-missing-products/cmf-headphone-pro/02.webp",
+          "status": "skipped"
+        },
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775699861/nothing-pakistan/products/cmf-headphone-pro/cmf-headphone-pro-light-green.webp",
+          "path": "output image/cmfbynothing-missing-products/cmf-headphone-pro/03.webp",
+          "status": "skipped"
+        }
+      ]
+    },
+    {
+      "name": "CMF Watch 3 Pro",
+      "slug": "cmf-watch-3-pro",
+      "sourceTable": "products",
+      "imageCount": 4,
+      "downloadedImages": [
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775700059/nothing-pakistan/products/cmf-watch-3-pro/cmf-watch-3-pro-light-green.webp",
+          "path": "output image/cmfbynothing-missing-products/cmf-watch-3-pro/01.webp",
+          "status": "skipped"
+        },
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775700061/nothing-pakistan/products/cmf-watch-3-pro/cmf-watch-3-pro-orange.webp",
+          "path": "output image/cmfbynothing-missing-products/cmf-watch-3-pro/02.webp",
+          "status": "skipped"
+        },
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775700062/nothing-pakistan/products/cmf-watch-3-pro/cmf-watch-3-pro-light-grey.webp",
+          "path": "output image/cmfbynothing-missing-products/cmf-watch-3-pro/03.webp",
+          "status": "skipped"
+        },
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775700064/nothing-pakistan/products/cmf-watch-3-pro/cmf-watch-3-pro-dark-grey.webp",
+          "path": "output image/cmfbynothing-missing-products/cmf-watch-3-pro/04.webp",
+          "status": "skipped"
+        }
+      ]
+    },
+    {
+      "name": "Nothing Ear",
+      "slug": "nothing-ear",
+      "sourceTable": "products",
+      "imageCount": 2,
+      "downloadedImages": [
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775701722/nothing-pakistan/products/nothing-ear/nothing-ear-black.webp",
+          "path": "output image/cmfbynothing-missing-products/nothing-ear/01.webp",
+          "status": "skipped"
+        },
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775701724/nothing-pakistan/products/nothing-ear/nothing-ear-white.webp",
+          "path": "output image/cmfbynothing-missing-products/nothing-ear/02.webp",
+          "status": "skipped"
+        }
+      ]
+    },
+    {
+      "name": "Nothing Ear (3)",
+      "slug": "nothing-ear-3",
+      "sourceTable": "products",
+      "imageCount": 2,
+      "downloadedImages": [
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775701873/nothing-pakistan/products/nothing-ear-3/nothing-ear-3-white.webp",
+          "path": "output image/cmfbynothing-missing-products/nothing-ear-3/01.webp",
+          "status": "skipped"
+        },
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775701876/nothing-pakistan/products/nothing-ear-3/nothing-ear-3-black.webp",
+          "path": "output image/cmfbynothing-missing-products/nothing-ear-3/02.webp",
+          "status": "skipped"
+        }
+      ]
+    },
+    {
+      "name": "Nothing Headphone (1)",
+      "slug": "nothing-headphone-1",
+      "sourceTable": "products",
+      "imageCount": 2,
+      "downloadedImages": [
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775702077/nothing-pakistan/products/nothing-headphone-1/nothing-headphone-1-white.webp",
+          "path": "output image/cmfbynothing-missing-products/nothing-headphone-1/01.webp",
+          "status": "skipped"
+        },
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775702079/nothing-pakistan/products/nothing-headphone-1/nothing-headphone-1-black.webp",
+          "path": "output image/cmfbynothing-missing-products/nothing-headphone-1/02.webp",
+          "status": "skipped"
+        }
+      ]
+    },
+    {
+      "name": "Nothing Headphone (a)",
+      "slug": "nothing-headphone-a",
+      "sourceTable": "products",
+      "imageCount": 4,
+      "downloadedImages": [
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775702253/nothing-pakistan/products/nothing-headphone-a/nothing-headphone-a-white.webp",
+          "path": "output image/cmfbynothing-missing-products/nothing-headphone-a/01.webp",
+          "status": "skipped"
+        },
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775702255/nothing-pakistan/products/nothing-headphone-a/nothing-headphone-a-black.webp",
+          "path": "output image/cmfbynothing-missing-products/nothing-headphone-a/02.webp",
+          "status": "skipped"
+        },
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775702257/nothing-pakistan/products/nothing-headphone-a/nothing-headphone-a-pink.webp",
+          "path": "output image/cmfbynothing-missing-products/nothing-headphone-a/03.webp",
+          "status": "skipped"
+        },
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775702258/nothing-pakistan/products/nothing-headphone-a/nothing-headphone-a-yellow.webp",
+          "path": "output image/cmfbynothing-missing-products/nothing-headphone-a/04.webp",
+          "status": "skipped"
+        }
+      ]
+    },
+    {
+      "name": "Nothing Ear (open)",
+      "slug": "nothing-ear-open",
+      "sourceTable": "products",
+      "imageCount": 1,
+      "downloadedImages": [
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775702385/nothing-pakistan/products/nothing-ear-open/nothing-ear-open-white.webp",
+          "path": "output image/cmfbynothing-missing-products/nothing-ear-open/01.webp",
+          "status": "skipped"
+        }
+      ]
+    },
+    {
+      "name": "Nothing Cable (c-c)",
+      "slug": "nothing-cable-c-c",
+      "sourceTable": "products",
+      "imageCount": 1,
+      "downloadedImages": [
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775702609/nothing-pakistan/products/nothing-cable-c-c/nothing-cable-c-c-white.webp",
+          "path": "output image/cmfbynothing-missing-products/nothing-cable-c-c/01.webp",
+          "status": "skipped"
+        }
+      ]
+    },
+    {
+      "name": "Nothing Power (45W)",
+      "slug": "nothing-power-45w",
+      "sourceTable": "products",
+      "imageCount": 1,
+      "downloadedImages": [
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775702739/nothing-pakistan/products/nothing-power-45w/nothing-power-45w-white.webp",
+          "path": "output image/cmfbynothing-missing-products/nothing-power-45w/01.webp",
+          "status": "skipped"
+        }
+      ]
+    },
+    {
+      "name": "Nothing Phone (2) Case",
+      "slug": "nothing-phone-2-case",
+      "sourceTable": "products",
+      "imageCount": 3,
+      "downloadedImages": [
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775783780/nothing-pakistan/products/nothing-phone-2-case/nothing-phone-2-case-transparent-front-back.webp",
+          "path": "output image/cmfbynothing-missing-products/nothing-phone-2-case/01.webp",
+          "status": "skipped"
+        },
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775783782/nothing-pakistan/products/nothing-phone-2-case/nothing-phone-2-case-transparent-on-phone.webp",
+          "path": "output image/cmfbynothing-missing-products/nothing-phone-2-case/02.webp",
+          "status": "skipped"
+        },
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775783784/nothing-pakistan/products/nothing-phone-2-case/nothing-phone-2-case-transparent-angle.webp",
+          "path": "output image/cmfbynothing-missing-products/nothing-phone-2-case/03.webp",
+          "status": "skipped"
+        }
+      ]
+    },
+    {
+      "name": "Nothing Phone (2a) Case",
+      "slug": "nothing-phone-2a-case",
+      "sourceTable": "products",
+      "imageCount": 3,
+      "downloadedImages": [
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775783904/nothing-pakistan/products/nothing-phone-2a-case/nothing-phone-2a-case-transparent-front-back.webp",
+          "path": "output image/cmfbynothing-missing-products/nothing-phone-2a-case/01.webp",
+          "status": "skipped"
+        },
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775783906/nothing-pakistan/products/nothing-phone-2a-case/nothing-phone-2a-case-transparent-on-phone.webp",
+          "path": "output image/cmfbynothing-missing-products/nothing-phone-2a-case/02.webp",
+          "status": "skipped"
+        },
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775783908/nothing-pakistan/products/nothing-phone-2a-case/nothing-phone-2a-case-transparent-angle.webp",
+          "path": "output image/cmfbynothing-missing-products/nothing-phone-2a-case/03.webp",
+          "status": "skipped"
+        }
+      ]
+    },
+    {
+      "name": "Nothing Phone (2a) Plus Case",
+      "slug": "nothing-phone-2a-plus-case",
+      "sourceTable": "products",
+      "imageCount": 3,
+      "downloadedImages": [
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775784034/nothing-pakistan/products/nothing-phone-2a-plus-case/nothing-phone-2a-plus-case-transparent-front-back.webp",
+          "path": "output image/cmfbynothing-missing-products/nothing-phone-2a-plus-case/01.webp",
+          "status": "skipped"
+        },
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775784036/nothing-pakistan/products/nothing-phone-2a-plus-case/nothing-phone-2a-plus-case-transparent-on-phone.webp",
+          "path": "output image/cmfbynothing-missing-products/nothing-phone-2a-plus-case/02.webp",
+          "status": "skipped"
+        },
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775784038/nothing-pakistan/products/nothing-phone-2a-plus-case/nothing-phone-2a-plus-case-transparent-angle.webp",
+          "path": "output image/cmfbynothing-missing-products/nothing-phone-2a-plus-case/03.webp",
+          "status": "skipped"
+        }
+      ]
+    },
+    {
+      "name": "Nothing Phone (3a) Pro Case",
+      "slug": "nothing-phone-3a-pro-case",
+      "sourceTable": "products",
+      "imageCount": 3,
+      "downloadedImages": [
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775784165/nothing-pakistan/products/nothing-phone-3a-pro-case/nothing-phone-3a-pro-case-transparent-front-back.webp",
+          "path": "output image/cmfbynothing-missing-products/nothing-phone-3a-pro-case/01.webp",
+          "status": "downloaded"
+        },
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775784167/nothing-pakistan/products/nothing-phone-3a-pro-case/nothing-phone-3a-pro-case-transparent-on-phone.webp",
+          "path": "output image/cmfbynothing-missing-products/nothing-phone-3a-pro-case/02.webp",
+          "status": "downloaded"
+        },
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775784169/nothing-pakistan/products/nothing-phone-3a-pro-case/nothing-phone-3a-pro-case-transparent-angle.webp",
+          "path": "output image/cmfbynothing-missing-products/nothing-phone-3a-pro-case/03.webp",
+          "status": "skipped"
+        }
+      ]
+    },
+    {
+      "name": "Nothing Phone (3a) Case",
+      "slug": "nothing-phone-3a-case",
+      "sourceTable": "products",
+      "imageCount": 3,
+      "downloadedImages": [
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775784307/nothing-pakistan/products/nothing-phone-3a-case/nothing-phone-3a-case-transparent-front-back.webp",
+          "path": "output image/cmfbynothing-missing-products/nothing-phone-3a-case/01.webp",
+          "status": "skipped"
+        },
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775784309/nothing-pakistan/products/nothing-phone-3a-case/nothing-phone-3a-case-transparent-on-phone.webp",
+          "path": "output image/cmfbynothing-missing-products/nothing-phone-3a-case/02.webp",
+          "status": "skipped"
+        },
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775784310/nothing-pakistan/products/nothing-phone-3a-case/nothing-phone-3a-case-transparent-angle.webp",
+          "path": "output image/cmfbynothing-missing-products/nothing-phone-3a-case/03.webp",
+          "status": "skipped"
+        }
+      ]
+    },
+    {
+      "name": "Nothing Phone (3) Case",
+      "slug": "nothing-phone-3-case",
+      "sourceTable": "products",
+      "imageCount": 3,
+      "downloadedImages": [
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775784449/nothing-pakistan/products/nothing-phone-3-case/nothing-phone-3-case-transparent-on-phone.webp",
+          "path": "output image/cmfbynothing-missing-products/nothing-phone-3-case/01.webp",
+          "status": "skipped"
+        },
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775784450/nothing-pakistan/products/nothing-phone-3-case/nothing-phone-3-case-transparent-front-back.webp",
+          "path": "output image/cmfbynothing-missing-products/nothing-phone-3-case/02.webp",
+          "status": "skipped"
+        },
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775784452/nothing-pakistan/products/nothing-phone-3-case/nothing-phone-3-case-transparent-angle.webp",
+          "path": "output image/cmfbynothing-missing-products/nothing-phone-3-case/03.webp",
+          "status": "skipped"
+        }
+      ]
+    },
+    {
+      "name": "Nothing 4a Pro Case",
+      "slug": "nothing-4a-pro-case",
+      "sourceTable": "products",
+      "imageCount": 3,
+      "downloadedImages": [
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775786844/nothing-pakistan/products/nothing-4a-pro-case/nothing-4a-pro-case-transparent-front-back.webp",
+          "path": "output image/cmfbynothing-missing-products/nothing-4a-pro-case/01.webp",
+          "status": "skipped"
+        },
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775786846/nothing-pakistan/products/nothing-4a-pro-case/nothing-4a-pro-case-transparent-on-phone.webp",
+          "path": "output image/cmfbynothing-missing-products/nothing-4a-pro-case/02.webp",
+          "status": "skipped"
+        },
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775786847/nothing-pakistan/products/nothing-4a-pro-case/nothing-4a-pro-case-transparent-angle.webp",
+          "path": "output image/cmfbynothing-missing-products/nothing-4a-pro-case/03.webp",
+          "status": "skipped"
+        }
+      ]
+    },
+    {
+      "name": "Nothing Phone (4a) Case",
+      "slug": "nothing-phone-4a-case",
+      "sourceTable": "products",
+      "imageCount": 3,
+      "downloadedImages": [
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775787260/nothing-pakistan/products/nothing-phone-4a-case/nothing-phone-4a-case-transparent-front-back.webp",
+          "path": "output image/cmfbynothing-missing-products/nothing-phone-4a-case/01.webp",
+          "status": "skipped"
+        },
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775787262/nothing-pakistan/products/nothing-phone-4a-case/nothing-phone-4a-case-transparent-on-phone.webp",
+          "path": "output image/cmfbynothing-missing-products/nothing-phone-4a-case/02.webp",
+          "status": "skipped"
+        },
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775787263/nothing-pakistan/products/nothing-phone-4a-case/nothing-phone-4a-case-transparent-angle.webp",
+          "path": "output image/cmfbynothing-missing-products/nothing-phone-4a-case/03.webp",
+          "status": "skipped"
+        }
+      ]
+    },
+    {
+      "name": "CMF Phone 1 UV Glass",
+      "slug": "cmf-phone-1-uv-glass",
+      "sourceTable": "products",
+      "imageCount": 1,
+      "downloadedImages": [
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775787718/nothing-pakistan/products/protectors/cmf-phone-1-uv-glass-main.webp",
+          "path": "output image/cmfbynothing-missing-products/cmf-phone-1-uv-glass/01.webp",
+          "status": "skipped"
+        }
+      ]
+    },
+    {
+      "name": "CMF Phone 1 Jelly Sheet",
+      "slug": "cmf-phone-1-jelly-sheet",
+      "sourceTable": "products",
+      "imageCount": 1,
+      "downloadedImages": [
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775787722/nothing-pakistan/products/protectors/cmf-phone-1-jelly-sheet-main.webp",
+          "path": "output image/cmfbynothing-missing-products/cmf-phone-1-jelly-sheet/01.webp",
+          "status": "skipped"
+        }
+      ]
+    },
+    {
+      "name": "CMF Phone 1 9D Glass",
+      "slug": "cmf-phone-1-9d-glass",
+      "sourceTable": "products",
+      "imageCount": 1,
+      "downloadedImages": [
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775787727/nothing-pakistan/products/protectors/cmf-phone-1-9d-glass-main.webp",
+          "path": "output image/cmfbynothing-missing-products/cmf-phone-1-9d-glass/01.webp",
+          "status": "skipped"
+        }
+      ]
+    },
+    {
+      "name": "CMF Phone 1 Privacy Glass",
+      "slug": "cmf-phone-1-privacy-glass",
+      "sourceTable": "products",
+      "imageCount": 1,
+      "downloadedImages": [
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775787731/nothing-pakistan/products/protectors/cmf-phone-1-privacy-glass-main.webp",
+          "path": "output image/cmfbynothing-missing-products/cmf-phone-1-privacy-glass/01.webp",
+          "status": "skipped"
+        }
+      ]
+    },
+    {
+      "name": "Nothing Phone (3a) UV Glass",
+      "slug": "nothing-phone-3a-uv-glass",
+      "sourceTable": "products",
+      "imageCount": 1,
+      "downloadedImages": [
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775788846/nothing-pakistan/products/protector/nothing-phone-3a-uv-glass-main.webp",
+          "path": "output image/cmfbynothing-missing-products/nothing-phone-3a-uv-glass/01.webp",
+          "status": "skipped"
+        }
+      ]
+    },
+    {
+      "name": "Nothing Phone (3a) Jelly Sheet",
+      "slug": "nothing-phone-3a-jelly-sheet",
+      "sourceTable": "products",
+      "imageCount": 1,
+      "downloadedImages": [
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775788851/nothing-pakistan/products/protector/nothing-phone-3a-jelly-sheet-main.webp",
+          "path": "output image/cmfbynothing-missing-products/nothing-phone-3a-jelly-sheet/01.webp",
+          "status": "skipped"
+        }
+      ]
+    },
+    {
+      "name": "Nothing Phone (3a) 9D Glass",
+      "slug": "nothing-phone-3a-9d-glass",
+      "sourceTable": "products",
+      "imageCount": 1,
+      "downloadedImages": [
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775788855/nothing-pakistan/products/protector/nothing-phone-3a-9d-glass-main.webp",
+          "path": "output image/cmfbynothing-missing-products/nothing-phone-3a-9d-glass/01.webp",
+          "status": "skipped"
+        }
+      ]
+    },
+    {
+      "name": "Nothing Phone (3a) Privacy Glass",
+      "slug": "nothing-phone-3a-privacy-glass",
+      "sourceTable": "products",
+      "imageCount": 1,
+      "downloadedImages": [
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775788859/nothing-pakistan/products/protector/nothing-phone-3a-privacy-glass-main.webp",
+          "path": "output image/cmfbynothing-missing-products/nothing-phone-3a-privacy-glass/01.webp",
+          "status": "skipped"
+        }
+      ]
+    },
+    {
+      "name": "Nothing Phone (3a) Pro UV Glass",
+      "slug": "nothing-phone-3a-pro-uv-glass",
+      "sourceTable": "products",
+      "imageCount": 1,
+      "downloadedImages": [
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775789028/nothing-pakistan/products/protector/nothing-phone-3a-pro-uv-glass-main.webp",
+          "path": "output image/cmfbynothing-missing-products/nothing-phone-3a-pro-uv-glass/01.webp",
+          "status": "skipped"
+        }
+      ]
+    },
+    {
+      "name": "Nothing Phone (3a) Pro Jelly Sheet",
+      "slug": "nothing-phone-3a-pro-jelly-sheet",
+      "sourceTable": "products",
+      "imageCount": 1,
+      "downloadedImages": [
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775789032/nothing-pakistan/products/protector/nothing-phone-3a-pro-jelly-sheet-main.webp",
+          "path": "output image/cmfbynothing-missing-products/nothing-phone-3a-pro-jelly-sheet/01.webp",
+          "status": "skipped"
+        }
+      ]
+    },
+    {
+      "name": "Nothing Phone (3a) Pro Privacy Glass",
+      "slug": "nothing-phone-3a-pro-privacy-glass",
+      "sourceTable": "products",
+      "imageCount": 1,
+      "downloadedImages": [
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775789040/nothing-pakistan/products/protector/nothing-phone-3a-pro-privacy-glass-main.webp",
+          "path": "output image/cmfbynothing-missing-products/nothing-phone-3a-pro-privacy-glass/01.webp",
+          "status": "skipped"
+        }
+      ]
+    },
+    {
+      "name": "Nothing Phone (3a) Lite UV Glass",
+      "slug": "nothing-phone-3a-lite-uv-glass",
+      "sourceTable": "products",
+      "imageCount": 1,
+      "downloadedImages": [
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775789208/nothing-pakistan/products/protector/nothing-phone-3a-lite-uv-glass-main.webp",
+          "path": "output image/cmfbynothing-missing-products/nothing-phone-3a-lite-uv-glass/01.webp",
+          "status": "skipped"
+        }
+      ]
+    },
+    {
+      "name": "Nothing Phone (3a) Lite Jelly Sheet",
+      "slug": "nothing-phone-3a-lite-jelly-sheet",
+      "sourceTable": "products",
+      "imageCount": 1,
+      "downloadedImages": [
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775789212/nothing-pakistan/products/protector/nothing-phone-3a-lite-jelly-sheet-main.webp",
+          "path": "output image/cmfbynothing-missing-products/nothing-phone-3a-lite-jelly-sheet/01.webp",
+          "status": "skipped"
+        }
+      ]
+    },
+    {
+      "name": "Nothing Phone (3a) Lite 9D Glass",
+      "slug": "nothing-phone-3a-lite-9d-glass",
+      "sourceTable": "products",
+      "imageCount": 1,
+      "downloadedImages": [
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775789216/nothing-pakistan/products/protector/nothing-phone-3a-lite-9d-glass-main.webp",
+          "path": "output image/cmfbynothing-missing-products/nothing-phone-3a-lite-9d-glass/01.webp",
+          "status": "skipped"
+        }
+      ]
+    },
+    {
+      "name": "Nothing Phone (3a) Lite Privacy Glass",
+      "slug": "nothing-phone-3a-lite-privacy-glass",
+      "sourceTable": "products",
+      "imageCount": 1,
+      "downloadedImages": [
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775789222/nothing-pakistan/products/protector/nothing-phone-3a-lite-privacy-glass-main.webp",
+          "path": "output image/cmfbynothing-missing-products/nothing-phone-3a-lite-privacy-glass/01.webp",
+          "status": "skipped"
+        }
+      ]
+    },
+    {
+      "name": "Nothing Phone (3) UV Glass",
+      "slug": "nothing-phone-3-uv-glass",
+      "sourceTable": "products",
+      "imageCount": 1,
+      "downloadedImages": [
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775789391/nothing-pakistan/products/protector/nothing-phone-3-uv-glass-main.webp",
+          "path": "output image/cmfbynothing-missing-products/nothing-phone-3-uv-glass/01.webp",
+          "status": "skipped"
+        }
+      ]
+    },
+    {
+      "name": "Nothing Phone (3) Jelly Sheet",
+      "slug": "nothing-phone-3-jelly-sheet",
+      "sourceTable": "products",
+      "imageCount": 1,
+      "downloadedImages": [
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775789395/nothing-pakistan/products/protector/nothing-phone-3-jelly-sheet-main.webp",
+          "path": "output image/cmfbynothing-missing-products/nothing-phone-3-jelly-sheet/01.webp",
+          "status": "skipped"
+        }
+      ]
+    },
+    {
+      "name": "Nothing Phone (3) 9D Glass",
+      "slug": "nothing-phone-3-9d-glass",
+      "sourceTable": "products",
+      "imageCount": 1,
+      "downloadedImages": [
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775789400/nothing-pakistan/products/protector/nothing-phone-3-9d-glass-main.webp",
+          "path": "output image/cmfbynothing-missing-products/nothing-phone-3-9d-glass/01.webp",
+          "status": "skipped"
+        }
+      ]
+    },
+    {
+      "name": "Nothing Phone (3) Privacy Glass",
+      "slug": "nothing-phone-3-privacy-glass",
+      "sourceTable": "products",
+      "imageCount": 1,
+      "downloadedImages": [
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775789405/nothing-pakistan/products/protector/nothing-phone-3-privacy-glass-main.webp",
+          "path": "output image/cmfbynothing-missing-products/nothing-phone-3-privacy-glass/01.webp",
+          "status": "skipped"
+        }
+      ]
+    },
+    {
+      "name": "Nothing Ear (a)",
+      "slug": "nothing-ear-a",
+      "sourceTable": "products",
+      "imageCount": 3,
+      "downloadedImages": [
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775701478/nothing-pakistan/products/nothing-ear-a/nothing-ear-a-white.webp",
+          "path": "output image/cmfbynothing-missing-products/nothing-ear-a/01.webp",
+          "status": "skipped"
+        },
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775701480/nothing-pakistan/products/nothing-ear-a/nothing-ear-a-black.webp",
+          "path": "output image/cmfbynothing-missing-products/nothing-ear-a/02.webp",
+          "status": "skipped"
+        },
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775701482/nothing-pakistan/products/nothing-ear-a/nothing-ear-a-yellow.webp",
+          "path": "output image/cmfbynothing-missing-products/nothing-ear-a/03.webp",
+          "status": "skipped"
+        }
+      ]
+    },
+    {
+      "name": "Nothing Phone (4a) Jelly Sheet",
+      "slug": "nothing-phone-4a-jelly-sheet",
+      "sourceTable": "products",
+      "imageCount": 1,
+      "downloadedImages": [
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775789571/nothing-pakistan/products/protector/nothing-phone-4a-jelly-sheet-main.webp",
+          "path": "output image/cmfbynothing-missing-products/nothing-phone-4a-jelly-sheet/01.webp",
+          "status": "skipped"
+        }
+      ]
+    },
+    {
+      "name": "Nothing Phone (4a) 9D Glass",
+      "slug": "nothing-phone-4a-9d-glass",
+      "sourceTable": "products",
+      "imageCount": 1,
+      "downloadedImages": [
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775789576/nothing-pakistan/products/protector/nothing-phone-4a-9d-glass-main.webp",
+          "path": "output image/cmfbynothing-missing-products/nothing-phone-4a-9d-glass/01.webp",
+          "status": "skipped"
+        }
+      ]
+    },
+    {
+      "name": "Nothing Phone (4a) Privacy Glass",
+      "slug": "nothing-phone-4a-privacy-glass",
+      "sourceTable": "products",
+      "imageCount": 1,
+      "downloadedImages": [
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775789581/nothing-pakistan/products/protector/nothing-phone-4a-privacy-glass-main.webp",
+          "path": "output image/cmfbynothing-missing-products/nothing-phone-4a-privacy-glass/01.webp",
+          "status": "skipped"
+        }
+      ]
+    },
+    {
+      "name": "Nothing 4a Pro UV Glass",
+      "slug": "nothing-4a-pro-uv-glass",
+      "sourceTable": "products",
+      "imageCount": 1,
+      "downloadedImages": [
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775789753/nothing-pakistan/products/protector/nothing-4a-pro-uv-glass-main.webp",
+          "path": "output image/cmfbynothing-missing-products/nothing-4a-pro-uv-glass/01.webp",
+          "status": "skipped"
+        }
+      ]
+    },
+    {
+      "name": "Nothing 4a Pro Jelly Sheet",
+      "slug": "nothing-4a-pro-jelly-sheet",
+      "sourceTable": "products",
+      "imageCount": 1,
+      "downloadedImages": [
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775789758/nothing-pakistan/products/protector/nothing-4a-pro-jelly-sheet-main.webp",
+          "path": "output image/cmfbynothing-missing-products/nothing-4a-pro-jelly-sheet/01.webp",
+          "status": "skipped"
+        }
+      ]
+    },
+    {
+      "name": "Nothing 4a Pro 9D Glass",
+      "slug": "nothing-4a-pro-9d-glass",
+      "sourceTable": "products",
+      "imageCount": 1,
+      "downloadedImages": [
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775789763/nothing-pakistan/products/protector/nothing-4a-pro-9d-glass-main.webp",
+          "path": "output image/cmfbynothing-missing-products/nothing-4a-pro-9d-glass/01.webp",
+          "status": "skipped"
+        }
+      ]
+    },
+    {
+      "name": "Nothing 4a Pro Privacy Glass",
+      "slug": "nothing-4a-pro-privacy-glass",
+      "sourceTable": "products",
+      "imageCount": 1,
+      "downloadedImages": [
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775789767/nothing-pakistan/products/protector/nothing-4a-pro-privacy-glass-main.webp",
+          "path": "output image/cmfbynothing-missing-products/nothing-4a-pro-privacy-glass/01.webp",
+          "status": "skipped"
+        }
+      ]
+    },
+    {
+      "name": "Nothing Phone (1) Case",
+      "slug": "nothing-phone-1-case",
+      "sourceTable": "products",
+      "imageCount": 3,
+      "downloadedImages": [
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775783426/nothing-pakistan/products/nothing-phone-1-case/nothing-phone-1-case-transparent-front-back.webp",
+          "path": "output image/cmfbynothing-missing-products/nothing-phone-1-case/01.webp",
+          "status": "skipped"
+        },
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775783428/nothing-pakistan/products/nothing-phone-1-case/nothing-phone-1-case-transparent-on-phone.webp",
+          "path": "output image/cmfbynothing-missing-products/nothing-phone-1-case/02.webp",
+          "status": "skipped"
+        },
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775783429/nothing-pakistan/products/nothing-phone-1-case/nothing-phone-1-case-transparent-angle.webp",
+          "path": "output image/cmfbynothing-missing-products/nothing-phone-1-case/03.webp",
+          "status": "skipped"
+        }
+      ]
+    },
+    {
+      "name": "Nothing Phone (3a) Lite Case",
+      "slug": "nothing-phone-3a-lite-case",
+      "sourceTable": "products",
+      "imageCount": 3,
+      "downloadedImages": [
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775788639/nothing-pakistan/products/nothing-phone-3a-lite-case/nothing-phone-3a-lite-case-transparent-front-back.webp",
+          "path": "output image/cmfbynothing-missing-products/nothing-phone-3a-lite-case/01.webp",
+          "status": "skipped"
+        },
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775788640/nothing-pakistan/products/nothing-phone-3a-lite-case/nothing-phone-3a-lite-case-transparent-on-phone.webp",
+          "path": "output image/cmfbynothing-missing-products/nothing-phone-3a-lite-case/02.webp",
+          "status": "skipped"
+        },
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775788642/nothing-pakistan/products/nothing-phone-3a-lite-case/nothing-phone-3a-lite-case-transparent-angle.webp",
+          "path": "output image/cmfbynothing-missing-products/nothing-phone-3a-lite-case/03.webp",
+          "status": "skipped"
+        }
+      ]
+    },
+    {
+      "name": "Nothing Phone (3a) Pro 9D Glass",
+      "slug": "nothing-phone-3a-pro-9d-glass",
+      "sourceTable": "products",
+      "imageCount": 1,
+      "downloadedImages": [
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775789036/nothing-pakistan/products/protector/nothing-phone-3a-pro-9d-glass-main.webp",
+          "path": "output image/cmfbynothing-missing-products/nothing-phone-3a-pro-9d-glass/01.webp",
+          "status": "skipped"
+        }
+      ]
+    },
+    {
+      "name": "Nothing Phone (4a) UV Glass",
+      "slug": "nothing-phone-4a-uv-glass",
+      "sourceTable": "products",
+      "imageCount": 1,
+      "downloadedImages": [
+        {
+          "url": "https://res.cloudinary.com/dbdsmy4em/image/upload/v1775789566/nothing-pakistan/products/protector/nothing-phone-4a-uv-glass-main.webp",
+          "path": "output image/cmfbynothing-missing-products/nothing-phone-4a-uv-glass/01.webp",
+          "status": "skipped"
+        }
+      ]
+    }
+  ]
+}

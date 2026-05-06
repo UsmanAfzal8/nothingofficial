@@ -4,8 +4,9 @@ import languageIcon from '@/assets/icons/more.svg'
 import newsletterIcon from '@/assets/icons/newsletter.svg'
 import storeIcon from '@/assets/icons/store.svg'
 import supportIcon from '@/assets/icons/support.svg'
+import whatsappIcon from '@/assets/icons/whastapp.svg'
 import { getNavigationMenuItems } from '@/lib/data/catalog-repository'
-import { storeLocations, supportedLanguages } from '@/lib/data/site-content'
+import { siteContactWhatsappUrl, storeLocations, supportedLanguages } from '@/lib/data/site-content'
 
 const FOOTER_HEADER_ORDER = ['phones', 'audio', 'watches', 'accessories', 'cmf'] as const
 
@@ -19,6 +20,7 @@ export async function NothingFooter() {
     .filter((item): item is NonNullable<(typeof menuItems)[number]> => Boolean(item))
 
   const supportHref = '/pages/support-centre'
+  const whatsappHref = siteContactWhatsappUrl
   const newsletterHref = '/pages/newsletter'
   const storeHref = store?.href || '/pages/contact-us#lahore-store'
   const languageHref = language?.href || '/'
@@ -45,6 +47,16 @@ export async function NothingFooter() {
             </div>
 
             <div className="mx-auto max-w-4xl space-y-2.5 sm:space-y-3">
+              <Link
+                href={whatsappHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex min-h-[66px] items-center justify-between rounded-[14px] border border-white/10 bg-[#0b0d10] px-5 transition-colors hover:bg-[#12161b]"
+              >
+                <span className="dot-heading text-[1.02rem] uppercase tracking-[0.14em] text-white/92">WhatsApp</span>
+                <Image src={whatsappIcon} alt="" aria-hidden="true" className="h-[22px] w-[22px]" />
+              </Link>
+
               <Link
                 href={supportHref}
                 className="flex min-h-[66px] items-center justify-between rounded-[14px] border border-white/10 bg-[#0b0d10] px-5 transition-colors hover:bg-[#12161b]"

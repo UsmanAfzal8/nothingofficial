@@ -86,12 +86,13 @@ function buildCollectionStructuredData(collection: Collection) {
   const faqStructuredData = buildFaqStructuredData(collectionSeoFaqs[collection.slug] ?? [])
 
   const structuredData: Record<string, unknown>[] = [
+    ...(collection.schemaJson ? [collection.schemaJson] : []),
     {
       '@context': 'https://schema.org',
       '@type': 'CollectionPage',
       name: collection.metaTitle || collection.title,
       description: buildCollectionSeoDescription(collection),
-      url: buildAbsoluteUrl(`/collections/${collection.slug}`),
+      url: collection.canonicalUrl || buildAbsoluteUrl(`/collections/${collection.slug}`),
       image: collection.heroImage ? [collection.heroImage] : undefined,
       mainEntity: {
         '@type': 'ItemList',
@@ -136,6 +137,8 @@ export async function generateMetadata({ params }: CollectionPageProps): Promise
     ],
     collection.childCollections?.map((item) => item.label) ?? [],
     collection.childCollections?.map((item) => `Nothing ${item.label} Pakistan`) ?? [],
+    collection.seoKeywords ?? [],
+    collection.products.slice(0, 8).flatMap((product) => [product.name, `${product.name} price in Pakistan`]),
   )
 
   return {
@@ -145,12 +148,12 @@ export async function generateMetadata({ params }: CollectionPageProps): Promise
     description,
     keywords,
     alternates: {
-      canonical: buildAbsoluteUrl(`/collections/${collection.slug}`),
+      canonical: collection.canonicalUrl || buildAbsoluteUrl(`/collections/${collection.slug}`),
     },
     openGraph: {
       title,
       description,
-      url: buildAbsoluteUrl(`/collections/${collection.slug}`),
+      url: collection.canonicalUrl || buildAbsoluteUrl(`/collections/${collection.slug}`),
       type: 'website',
       images: collection.heroImage ? [collection.heroImage] : undefined,
     },
