@@ -214,7 +214,7 @@ export default async function CollectionPage({ params }: CollectionPageProps) {
                 <CatalogProductTile
                   key={product.id}
                   product={product}
-                  priority={index < 4}
+                  priority={index < 2}
                   tone={isShopStyleCollection ? 'shop-all' : 'default'}
                 />
               ))}

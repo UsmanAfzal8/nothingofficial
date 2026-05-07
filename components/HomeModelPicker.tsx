@@ -185,6 +185,8 @@ export function HomeModelPicker({ models }: HomeModelPickerProps) {
                               src={model.image}
                               alt={model.name}
                               fill
+                              loading="lazy"
+                              fetchPriority="low"
                               sizes="(max-width: 1024px) 42vw, 18vw"
                               className="object-contain object-center transition-transform duration-500 ease-out group-hover:scale-[1.04]"
                             />

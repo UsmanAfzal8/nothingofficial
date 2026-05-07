@@ -21,6 +21,8 @@ export function CatalogProductTile({ product, priority = false, tone = 'default'
               alt={product.name}
               fill
               priority={priority}
+              loading={priority ? undefined : 'lazy'}
+              fetchPriority={priority ? 'high' : 'low'}
               sizes="(max-width: 768px) 48vw, (max-width: 1280px) 31vw, 19vw"
               className="object-contain object-center transition-transform duration-500 ease-out group-hover:scale-[1.035]"
             />

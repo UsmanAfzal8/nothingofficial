@@ -230,6 +230,7 @@ export function ProductDetailHero({
           alt={backgroundImage.alt || productName}
           fill
           priority
+          fetchPriority="high"
           sizes="100vw"
           className="object-cover object-center"
         />
@@ -245,7 +246,8 @@ export function ProductDetailHero({
                       src={selectedMedia.url}
                       alt={selectedMedia.alt || productName}
                       fill
-                      priority
+                      loading="eager"
+                      fetchPriority="high"
                       sizes="210px"
                       className="object-contain drop-shadow-[0_18px_28px_rgba(0,0,0,0.16)]"
                     />
@@ -342,6 +344,7 @@ export function ProductDetailHero({
                   alt={selectedMedia.alt || productName}
                   fill
                   priority
+                  fetchPriority="high"
                   sizes="(max-width: 1024px) 100vw, 56vw"
                   className="object-contain"
                 />
@@ -370,7 +373,15 @@ export function ProductDetailHero({
                     }`}
                   >
                     <span className="relative block h-[72px] w-[72px] sm:h-24 sm:w-24">
-                      <Image src={media.url} alt={media.alt || productName} fill sizes="96px" className="object-contain" />
+                      <Image
+                        src={media.url}
+                        alt={media.alt || productName}
+                        fill
+                        loading="lazy"
+                        fetchPriority="low"
+                        sizes="96px"
+                        className="object-contain"
+                      />
                     </span>
                   </button>
                 )

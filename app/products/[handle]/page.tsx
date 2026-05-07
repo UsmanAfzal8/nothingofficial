@@ -447,6 +447,8 @@ function RecommendationCard({ product }: { product: Product }) {
               src={product.image}
               alt={product.name}
               fill
+              loading="lazy"
+              fetchPriority="low"
               sizes="(max-width: 768px) 44vw, (max-width: 1200px) 28vw, 18vw"
               className="object-contain object-center transition-transform duration-300 group-hover:scale-[1.03]"
             />
