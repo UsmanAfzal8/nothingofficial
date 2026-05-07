@@ -12,6 +12,9 @@ type OrderByHandlePageProps = {
   }
 }
 
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 export async function generateMetadata({ params }: OrderByHandlePageProps): Promise<Metadata> {
   const requestedHandle = toSeoHandle(params.handle)
   const productDetail = await getProductDetailByHandle(requestedHandle)

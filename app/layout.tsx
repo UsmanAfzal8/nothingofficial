@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
 import { CartProvider } from '@/components/CartProvider'
+import { NavigationProgress } from '@/components/NavigationProgress'
 import { WhatsAppFloatingButton } from '@/components/WhatsAppFloatingButton'
 import { siteBrandName, siteDescription, siteKeywords, siteSeoTitle } from '@/lib/data/site-content'
 import { buildRobotsMetadata, getSiteOrigin } from '@/lib/utils/seo'
@@ -15,6 +16,12 @@ const ndot55 = localFont({
 const ndot55Caps = localFont({
   src: [{ path: '../fonts/Ndot55Caps-Regular.otf', weight: '400', style: 'normal' }],
   variable: '--font-ndot55-caps',
+  display: 'swap',
+})
+
+const ndot57 = localFont({
+  src: [{ path: '../fonts/Ndot57-Regular.otf', weight: '400', style: 'normal' }],
+  variable: '--font-ndot57',
   display: 'swap',
 })
 
@@ -71,11 +78,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en-PK">
-      <body className={`${ndot55.className} ${ndot55.variable} ${ndot55Caps.variable} ${ntype82.variable} isolate overflow-x-hidden antialiased`}>
+      <body className={`${ndot57.className} ${ndot57.variable} ${ndot55.variable} ${ndot55Caps.variable} ${ntype82.variable} isolate overflow-x-hidden antialiased`}>
         <div aria-hidden="true" className="site-dot-overlay" />
         <CartProvider>
           {children}
         </CartProvider>
+        <NavigationProgress />
         <WhatsAppFloatingButton />
       </body>
     </html>

@@ -85,6 +85,7 @@ export interface ProductDetail {
   canonicalUrl: string
   ogImage: string | null
   primaryImage: string | null
+  productBackgroundImage?: ProductDetailMedia | null
   gallery: ProductDetailMedia[]
   collectionSlugs: CollectionSlug[]
   collections: ProductDetailCollection[]

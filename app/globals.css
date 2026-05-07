@@ -23,7 +23,7 @@ body {
 }
 
 body {
-  font-family: var(--font-ndot55), sans-serif;
+  font-family: var(--font-ndot57), sans-serif;
   line-height: 1.2;
   text-rendering: optimizeLegibility;
 }
@@ -65,7 +65,7 @@ a {
 }
 
 .dot-logo {
-  font-family: var(--font-ndot55-caps), sans-serif;
+  font-family: var(--font-ndot57), sans-serif;
   font-size: 0.74rem;
   font-weight: 700;
   letter-spacing: 0.32em;
@@ -73,7 +73,7 @@ a {
 }
 
 .dot-heading {
-  font-family: var(--font-ndot55-caps), sans-serif;
+  font-family: var(--font-ndot57), sans-serif;
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }

@@ -1,5 +1,5 @@
 import type { OrderStatus, PaymentStatus, ProductType, RelatedType } from '@/lib/models/supabase-enums'
-export type { StoreRelatedType } from '@/lib/models/supabase-enums'
+export type { DetailImageRelatedType, StoreImageRelatedType, StoreRelatedType } from '@/lib/models/supabase-enums'
 
 export interface SupabaseCategoryRow {
   id: number

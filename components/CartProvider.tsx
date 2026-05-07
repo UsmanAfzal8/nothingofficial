@@ -14,7 +14,7 @@ type CartContextValue = {
   clearCart: () => void
 }
 
-const STORAGE_KEY = 'nothing-pakistan-cart:v1'
+const STORAGE_KEY = 'nothing-pakistan-cart:v2'
 
 const CartContext = createContext<CartContextValue | null>(null)
 
@@ -37,6 +37,7 @@ function normalizeCartItem(item: CartItemInput, quantity = 1): CartItem {
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([])
   const [isHydrated, setIsHydrated] = useState(false)
+  const cartHandlesKey = useMemo(() => items.map((item) => item.handle).join('|'), [items])
 
   useEffect(() => {
     try {
@@ -84,6 +85,72 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(items))
   }, [isHydrated, items])
+
+  useEffect(() => {
+    const handles = cartHandlesKey ? cartHandlesKey.split('|') : []
+
+    if (!isHydrated || handles.length === 0) {
+      return
+    }
+
+    const controller = new AbortController()
+
+    async function refreshLivePrices() {
+      try {
+        const response = await fetch('/api/cart-prices', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ handles }),
+          signal: controller.signal,
+        })
+
+        if (!response.ok) {
+          return
+        }
+
+        const payload = (await response.json()) as {
+          items?: Array<{
+            handle: string
+            name?: string | null
+            image?: string | null
+            price?: number | null
+            priceLabel?: string | null
+            entityType?: 'product' | 'mobile'
+          }>
+        }
+        const liveItemsByHandle = new Map((payload.items ?? []).map((item) => [item.handle, item]))
+
+        setItems((currentItems) =>
+          currentItems.map((item) => {
+            const liveItem = liveItemsByHandle.get(item.handle)
+
+            if (!liveItem) {
+              return item
+            }
+
+            return {
+              ...item,
+              name: liveItem.name ?? item.name,
+              image: liveItem.image ?? item.image,
+              price: typeof liveItem.price === 'number' ? liveItem.price : null,
+              priceLabel: liveItem.priceLabel ?? null,
+              entityType: liveItem.entityType ?? item.entityType,
+            }
+          }),
+        )
+      } catch (error) {
+        if (!controller.signal.aborted) {
+          console.error('[cart] failed to refresh live prices:', error)
+        }
+      }
+    }
+
+    refreshLivePrices()
+
+    return () => controller.abort()
+  }, [cartHandlesKey, isHydrated])
 
   const value = useMemo<CartContextValue>(() => {
     const itemCount = items.reduce((total, item) => total + item.quantity, 0)

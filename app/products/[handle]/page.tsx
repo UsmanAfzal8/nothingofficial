@@ -4,13 +4,17 @@ import Link from 'next/link'
 import localFont from 'next/font/local'
 import { notFound, redirect } from 'next/navigation'
 import type { ReactNode } from 'react'
+import orderIcon from '@/assets/icons/order.svg'
+import packageIcon from '@/assets/icons/package.svg'
+import deliverIcon from '@/assets/icons/deleiver.svg'
 import { CatalogProductTile } from '@/components/CatalogProductTile'
 import { NothingFooter } from '@/components/NothingFooter'
 import { NothingHeader } from '@/components/NothingHeader'
+import { ProductFaqAccordionSection } from '@/components/ProductFaqAccordionSection'
 import { ProductDetailHero } from '@/components/ProductDetailHero'
 import { SeoStructuredData } from '@/components/SeoStructuredData'
 import {
-  getAllProductHandles,
+  CATALOG_REVALIDATE_SECONDS,
   getCollectionBySlug,
   getMobileAccessoryGroupsByHandle,
   getProductDetailByHandle,
@@ -34,6 +38,52 @@ type ProductDetailPageProps = {
   }
 }
 
+function getPakistanCalendarDate(date: Date) {
+  const parts = new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'Asia/Karachi',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).formatToParts(date)
+
+  return {
+    year: Number(parts.find((part) => part.type === 'year')?.value ?? date.getUTCFullYear()),
+    month: Number(parts.find((part) => part.type === 'month')?.value ?? date.getUTCMonth() + 1),
+    day: Number(parts.find((part) => part.type === 'day')?.value ?? date.getUTCDate()),
+  }
+}
+
+function createUtcDate(year: number, month: number, day: number) {
+  return new Date(Date.UTC(year, month - 1, day))
+}
+
+function addUtcDays(date: Date, days: number) {
+  const nextDate = new Date(date)
+  nextDate.setUTCDate(nextDate.getUTCDate() + days)
+  return nextDate
+}
+
+function formatShortMonthDay(date: Date) {
+  return new Intl.DateTimeFormat('en-US', {
+    month: 'short',
+    day: 'numeric',
+    timeZone: 'UTC',
+  }).format(date)
+}
+
+function getProductDeliveryTimeline() {
+  const pakistanToday = getPakistanCalendarDate(new Date())
+  const orderDate = createUtcDate(pakistanToday.year, pakistanToday.month, pakistanToday.day)
+  const processDate = addUtcDays(orderDate, 1)
+  const deliveryStartDate = addUtcDays(processDate, 2)
+  const deliveryEndDate = addUtcDays(processDate, 3)
+
+  return {
+    processDateLabel: formatShortMonthDay(processDate),
+    deliveryRangeLabel: `${formatShortMonthDay(deliveryStartDate)} - ${formatShortMonthDay(deliveryEndDate)}`,
+  }
+}
+
 function uniqueStrings(values: Array<string | null | undefined>): string[] {
   const seen = new Set<string>()
   const output: string[] = []
@@ -45,6 +95,10 @@ function uniqueStrings(values: Array<string | null | undefined>): string[] {
   }
 
   return output
+}
+
+function isHtmlSnippet(value: string) {
+  return /<\/?[a-z][\s\S]*>/i.test(value)
 }
 
 function buildDisplayGallery(productDetail: ProductDetail): ProductDetailMedia[] {
@@ -111,7 +165,6 @@ function buildProductStructuredData(productDetail: ProductDetail, relatedProduct
     }))
 
     const mobileEntries: Array<Record<string, unknown> | null> = [
-      productDetail.schemaJson ?? null,
       {
         '@context': 'https://schema.org',
         '@type': 'CollectionPage',
@@ -201,7 +254,7 @@ function buildProductStructuredData(productDetail: ProductDetail, relatedProduct
   }
 
   const productEntries: Array<Record<string, unknown> | null> = [
-    productDetail.schemaJson ?? productSchema,
+    productSchema,
     buildBreadcrumbStructuredData(buildProductBreadcrumbs(productDetail)),
     faqStructuredData,
   ]
@@ -252,16 +305,118 @@ function DetailAccordion({
   return (
     <details
       open={defaultOpen}
-      className="rounded-[20px] border border-slate-200 bg-slate-50 px-4 py-4 shadow-[0_8px_22px_rgba(15,23,42,0.03)]"
+      className="rounded-[20px] border border-slate-200 bg-white/70 px-4 py-4 shadow-[0_8px_22px_rgba(15,23,42,0.03)] backdrop-blur-sm [&[open]_.accordion-minus]:flex [&[open]_.accordion-plus]:hidden"
     >
       <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-sm font-medium text-slate-900">
         <span>{title}</span>
-        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-slate-200 bg-white text-base text-slate-500">
+        <span className="accordion-plus flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-slate-200 bg-white text-base text-slate-500">
           +
+        </span>
+        <span className="accordion-minus hidden h-8 w-8 shrink-0 items-center justify-center rounded-full border border-slate-200 bg-white text-base text-slate-500">
+          -
         </span>
       </summary>
       <div className="pt-3 text-sm leading-6 text-slate-600">{children}</div>
     </details>
+  )
+}
+
+function DeliveryStep({
+  icon,
+  label,
+  dateLabel,
+  active = false,
+}: {
+  icon: typeof orderIcon
+  label: string
+  dateLabel: string
+  active?: boolean
+}) {
+  return (
+    <div className="flex min-w-0 flex-col items-center text-center">
+      <div
+        className={`flex h-16 w-16 items-center justify-center rounded-full border-4 sm:h-20 sm:w-20 ${
+          active
+            ? 'border-white bg-[#fff7ef] shadow-[0_14px_28px_rgba(244,110,30,0.16)]'
+            : 'border-[#f2f2f2] bg-[#f8f8f8] shadow-[0_10px_20px_rgba(15,23,42,0.04)]'
+        }`}
+      >
+        <Image src={icon} alt="" aria-hidden="true" className={`h-7 w-7 object-contain ${active ? '' : 'grayscale opacity-55'}`} />
+      </div>
+      <p className={`mt-3 text-[0.78rem] font-extrabold uppercase tracking-normal ${active ? 'text-[#ff7a00]' : 'text-[#4f5a6c]'}`}>
+        {label}
+      </p>
+      <p className={`mt-1 text-[0.76rem] font-semibold ${active ? 'text-[#71798a]' : 'text-[#9ea6b4]'}`}>
+        {dateLabel}
+      </p>
+    </div>
+  )
+}
+
+function EstimatedDeliveryPanel({ deliveryTimeline }: { deliveryTimeline: ReturnType<typeof getProductDeliveryTimeline> }) {
+  return (
+    <section className="rounded-[26px] border border-[#f7d9b7] bg-white/78 px-4 py-5 shadow-[0_18px_42px_rgba(244,110,30,0.08)] backdrop-blur-md sm:px-6 sm:py-7">
+      <p className="text-[0.9rem] font-black uppercase tracking-normal text-[#8d8d8d]">Estimated Delivery</p>
+      <p className="mt-1 font-sans text-[2.05rem] font-bold leading-none tracking-normal text-[#ff6f00] sm:text-[2.55rem]">
+        {deliveryTimeline.deliveryRangeLabel}
+      </p>
+
+      <div className="mt-6 border-t border-dashed border-[#f0c89d] pt-6">
+        <div className="grid grid-cols-[minmax(0,1fr)_minmax(1.4rem,1fr)_minmax(0,1fr)_minmax(1.4rem,1fr)_minmax(0,1fr)] items-start">
+          <DeliveryStep icon={orderIcon} label="Order" dateLabel="Today" active />
+          <div className="mt-8 h-1 rounded-full bg-[#ff7a00] sm:mt-10" />
+          <DeliveryStep icon={packageIcon} label="Process" dateLabel={deliveryTimeline.processDateLabel} active />
+          <div className="mt-8 h-1 rounded-full bg-[#edf0f5] sm:mt-10" />
+          <DeliveryStep icon={deliverIcon} label="Deliver" dateLabel={deliveryTimeline.deliveryRangeLabel} />
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function ProductDetailInfoSection({
+  productDetail,
+  detailParagraphs,
+  deliveryTimeline,
+}: {
+  productDetail: ProductDetail
+  detailParagraphs: string[]
+  deliveryTimeline: ReturnType<typeof getProductDeliveryTimeline>
+}) {
+  const faqs = productDetail.faqs ?? []
+
+  return (
+    <section className="min-h-screen bg-[#f5f7fb] px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+      <div className="mx-auto grid max-w-[1180px] gap-6 lg:grid-cols-[minmax(0,1fr)_420px] lg:items-start">
+        <div className="space-y-3">
+          <DetailAccordion title="Detailed Description">
+            <div className="space-y-4">
+              {detailParagraphs.length > 0 ? (
+                detailParagraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)
+              ) : (
+                <p>Product details will be added soon.</p>
+              )}
+            </div>
+          </DetailAccordion>
+          <DetailAccordion title="Return Policy">
+            If the item arrives damaged, incorrect, or defective, contact support as soon as possible so the team can review a replacement or return request.
+          </DetailAccordion>
+          <DetailAccordion title="Shipping Information">
+            Delivery time and shipping charges depend on your city and order size. Our team confirms the final delivery details during checkout.
+          </DetailAccordion>
+        </div>
+
+        <div className="lg:sticky lg:top-24">
+          <EstimatedDeliveryPanel deliveryTimeline={deliveryTimeline} />
+        </div>
+      </div>
+
+      {faqs.length > 0 ? (
+        <div className="mx-auto mt-12 max-w-[1180px] lg:mt-16">
+          <ProductFaqAccordionSection faqs={faqs} />
+        </div>
+      ) : null}
+    </section>
   )
 }
 
@@ -284,7 +439,7 @@ function ReviewCard({ review }: { review: ProductDetailReview }) {
 
 function RecommendationCard({ product }: { product: Product }) {
   return (
-    <Link href={product.href} className="group block text-center">
+    <Link href={product.href} prefetch={false} className="group block text-center">
       <div className="mx-auto w-full max-w-[220px]">
         {product.image ? (
           <div className="relative aspect-square w-full">
@@ -315,23 +470,27 @@ function PhoneAccessoriesHero({
   productDetail,
   gallery,
   intro,
+  deliveryTimeline,
 }: {
   productDetail: ProductDetail
   gallery: ProductDetailMedia[]
   intro: string | null
+  deliveryTimeline: ReturnType<typeof getProductDeliveryTimeline>
 }) {
   const labels = [...new Set([productDetail.variants[0]?.label, ...productDetail.widgets.map((item) => item.text)].filter(Boolean))].slice(0, 4)
 
   return (
     <ProductDetailHero
       productName={productDetail.name}
-      brandLabel="Phone Accessories"
+      brandLabel={productDetail.productBackgroundImage ? 'NOTHING (R)' : 'Phone Accessories'}
       entityType="mobile"
       gallery={gallery}
+      backgroundImage={productDetail.productBackgroundImage}
       intro={intro}
       priceLabel={productDetail.priceLabel}
       canonicalHandle={productDetail.handle}
       labels={labels}
+      deliveryTimeline={deliveryTimeline}
     />
   )
 }
@@ -342,12 +501,14 @@ function PrimaryCatalogPanel({
   collectionLabel,
   gallery,
   intro,
+  deliveryTimeline,
 }: {
   productDetail: ProductDetail
   canonicalHandle: string
   collectionLabel: string
   gallery: ProductDetailMedia[]
   intro: string | null
+  deliveryTimeline: ReturnType<typeof getProductDeliveryTimeline>
 }) {
   return (
     <ProductDetailHero
@@ -355,21 +516,17 @@ function PrimaryCatalogPanel({
       brandLabel={productDetail.brandName || collectionLabel}
       entityType="product"
       gallery={gallery}
+      backgroundImage={productDetail.productBackgroundImage}
       intro={intro}
       priceLabel={productDetail.priceLabel}
       canonicalHandle={canonicalHandle}
       labels={productDetail.widgets.map((item) => item.text)}
+      deliveryTimeline={deliveryTimeline}
     />
   )
 }
 
-export const revalidate = 900
-
-export async function generateStaticParams() {
-  const handles = await getAllProductHandles()
-
-  return handles.map((handle) => ({ handle }))
-}
+export const revalidate = CATALOG_REVALIDATE_SECONDS
 
 export async function generateMetadata({ params }: ProductDetailPageProps): Promise<Metadata> {
   const requestedHandle = toSeoHandle(params.handle)
@@ -442,44 +599,65 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
   }
 
   const gallery = buildDisplayGallery(productDetail)
-  const detailParagraphs = uniqueStrings([productDetail.summary, buildProductSeoDescription(productDetail), productDetail.description])
+  const detailParagraphs = uniqueStrings([buildProductSeoDescription(productDetail), productDetail.description]).filter(
+    (paragraph) => !isHtmlSnippet(paragraph),
+  )
   const breadcrumbItems = buildProductBreadcrumbs(productDetail)
   const collectionLabel = productDetail.collections[0]?.title ?? (productDetail.entityType === 'mobile' ? 'Phones' : 'Catalog')
+  const deliveryTimeline = getProductDeliveryTimeline()
 
   if (productDetail.entityType === 'mobile') {
     const mobileAccessoryGroups = await getMobileAccessoryGroupsByHandle(canonicalHandle)
     const relatedAccessoryProducts = mobileAccessoryGroups.flatMap((group) => group.products)
+    const usesImmersiveHero = Boolean(productDetail.productBackgroundImage)
 
     return (
       <div className={`${detailFont.className} min-h-screen bg-[#f5f7fb] text-slate-900`}>
         <SeoStructuredData data={buildProductStructuredData(productDetail, relatedAccessoryProducts)} />
         <NothingHeader />
 
-        <main className="mx-auto max-w-[1360px] px-4 pb-16 pt-24 sm:px-6 lg:px-8 lg:pt-28">
-          <nav aria-label="Breadcrumb" className="mb-5 flex flex-wrap items-center gap-2 text-sm text-slate-500">
-            {breadcrumbItems.map((item, index) =>
-              index === breadcrumbItems.length - 1 ? (
-                <span key={item.href} className="text-slate-700">
-                  {item.label}
-                </span>
-              ) : (
-                <div key={item.href} className="flex items-center gap-2">
-                  <Link href={item.href} className="transition-colors hover:text-slate-900">
+        <main
+          className={
+            usesImmersiveHero
+              ? 'pb-16'
+              : 'mx-auto max-w-[1360px] px-4 pb-16 pt-24 sm:px-6 lg:px-8 lg:pt-28'
+          }
+        >
+          {!usesImmersiveHero ? (
+            <nav aria-label="Breadcrumb" className="mb-5 flex flex-wrap items-center gap-2 text-sm text-slate-500">
+              {breadcrumbItems.map((item, index) =>
+                index === breadcrumbItems.length - 1 ? (
+                  <span key={item.href} className="text-slate-700">
                     {item.label}
-                  </Link>
-                  <span>/</span>
-                </div>
-              ),
-            )}
-          </nav>
+                  </span>
+                ) : (
+                  <div key={item.href} className="flex items-center gap-2">
+                    <Link href={item.href} className="transition-colors hover:text-slate-900">
+                      {item.label}
+                    </Link>
+                    <span>/</span>
+                  </div>
+                ),
+              )}
+            </nav>
+          ) : null}
 
           <PhoneAccessoriesHero
             productDetail={productDetail}
             gallery={gallery}
-            intro={detailParagraphs[0] ?? null}
+            intro={productDetail.summary ?? detailParagraphs[0] ?? null}
+            deliveryTimeline={deliveryTimeline}
           />
 
-          <div className="mt-6 space-y-10">
+          {usesImmersiveHero ? (
+            <ProductDetailInfoSection
+              productDetail={productDetail}
+              detailParagraphs={detailParagraphs}
+              deliveryTimeline={deliveryTimeline}
+            />
+          ) : null}
+
+          <div className={`mt-6 space-y-10 ${usesImmersiveHero ? 'mx-auto max-w-[1360px] px-1 sm:px-2 lg:px-4' : ''}`}>
             {mobileAccessoryGroups.length > 0 ? (
               mobileAccessoryGroups.map((group) => (
                 <section key={group.id}>
@@ -487,8 +665,8 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
                     <h2 className="text-[1.35rem] font-medium tracking-[-0.02em] text-slate-900 sm:text-[1.55rem]">{group.title}</h2>
                   </div>
                   <div className="grid grid-cols-2 gap-x-4 gap-y-9 md:gap-x-6 md:gap-y-12 lg:grid-cols-5 lg:gap-x-7 lg:gap-y-14">
-                    {group.products.map((product, index) => (
-                      <CatalogProductTile key={product.id} product={product} priority={index < 2} tone="shop-all" />
+                    {group.products.map((product) => (
+                      <CatalogProductTile key={product.id} product={product} tone="shop-all" />
                     ))}
                   </div>
                 </section>
@@ -511,6 +689,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
 
   const faqs = productDetail.faqs ?? []
   const reviews = productDetail.reviews ?? []
+  const usesImmersiveHero = Boolean(productDetail.productBackgroundImage)
   const primaryCollectionSlug = productDetail.collections[0]?.slug ?? null
   const [primaryCollection, fallbackCollection] = await Promise.all([
     primaryCollectionSlug ? getCollectionBySlug(primaryCollectionSlug) : Promise.resolve(null),
@@ -526,40 +705,54 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
       <SeoStructuredData data={buildProductStructuredData(productDetail)} />
       <NothingHeader />
 
-      <main className="mx-auto max-w-[1360px] px-4 pb-16 pt-24 sm:px-6 lg:px-8 lg:pt-28">
-        <nav aria-label="Breadcrumb" className="mb-5 flex flex-wrap items-center gap-2 text-sm text-slate-500">
-          {breadcrumbItems.map((item, index) =>
-            index === breadcrumbItems.length - 1 ? (
-              <span key={item.href} className="text-slate-700">
-                {item.label}
-              </span>
-            ) : (
-              <div key={item.href} className="flex items-center gap-2">
-                <Link href={item.href} className="transition-colors hover:text-slate-900">
+      <main className={usesImmersiveHero ? 'pb-16' : 'mx-auto max-w-[1360px] px-4 pb-16 pt-24 sm:px-6 lg:px-8 lg:pt-28'}>
+        {!usesImmersiveHero ? (
+          <nav aria-label="Breadcrumb" className="mb-5 flex flex-wrap items-center gap-2 text-sm text-slate-500">
+            {breadcrumbItems.map((item, index) =>
+              index === breadcrumbItems.length - 1 ? (
+                <span key={item.href} className="text-slate-700">
                   {item.label}
-                </Link>
-                <span>/</span>
-              </div>
-            ),
-          )}
-        </nav>
+                </span>
+              ) : (
+                <div key={item.href} className="flex items-center gap-2">
+                  <Link href={item.href} className="transition-colors hover:text-slate-900">
+                    {item.label}
+                  </Link>
+                  <span>/</span>
+                </div>
+              ),
+            )}
+          </nav>
+        ) : null}
 
         <PrimaryCatalogPanel
           productDetail={productDetail}
           canonicalHandle={canonicalHandle}
           collectionLabel={collectionLabel}
           gallery={gallery}
-          intro={detailParagraphs[0] ?? null}
+          intro={productDetail.summary ?? detailParagraphs[0] ?? null}
+          deliveryTimeline={deliveryTimeline}
         />
 
+        {usesImmersiveHero ? (
+          <ProductDetailInfoSection
+            productDetail={productDetail}
+            detailParagraphs={detailParagraphs}
+            deliveryTimeline={deliveryTimeline}
+          />
+        ) : (
         <div className="mt-6 grid gap-6">
           <SectionCard title="Product Details">
-            <div className="space-y-4 text-sm leading-7 text-slate-600">
-              {detailParagraphs.length > 0 ? (
-                detailParagraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)
-              ) : (
-                <p>Product details will be added soon.</p>
-              )}
+            <div className="space-y-3">
+              <DetailAccordion title="Overview">
+                <div className="space-y-4">
+                  {detailParagraphs.length > 0 ? (
+                    detailParagraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)
+                  ) : (
+                    <p>Product details will be added soon.</p>
+                  )}
+                </div>
+              </DetailAccordion>
             </div>
           </SectionCard>
 
@@ -589,8 +782,8 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
           <SectionCard title="Product FAQs">
             {faqs.length > 0 ? (
               <div className="space-y-3">
-                {faqs.map((faq, index) => (
-                  <DetailAccordion key={faq.id} title={faq.question} defaultOpen={index === 0}>
+                {faqs.map((faq) => (
+                  <DetailAccordion key={faq.id} title={faq.question}>
                     {faq.answer}
                   </DetailAccordion>
                 ))}
@@ -600,9 +793,10 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
             )}
           </SectionCard>
         </div>
+        )}
 
         {recommendations.length > 0 ? (
-          <section className="mt-10">
+          <section className={usesImmersiveHero ? 'mx-auto mt-10 max-w-[1360px] px-4 sm:px-6 lg:px-8' : 'mt-10'}>
             <h2 className="text-[1.7rem] font-medium tracking-[-0.03em] text-slate-900">You may also like</h2>
             <div className="mt-8 grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-5 lg:gap-x-8 lg:gap-y-12">
               {recommendations.map((product) => (

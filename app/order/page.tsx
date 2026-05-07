@@ -11,6 +11,9 @@ type OrderPageProps = {
   }
 }
 
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 function normalizeHandle(value: string | string[] | undefined): string | null {
   if (!value) return null
   if (Array.isArray(value)) {

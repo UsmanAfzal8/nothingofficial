@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import Link from 'next/link'
+import { AnalogClock } from '@/components/AnalogClock'
 import { CatalogProductTile } from '@/components/CatalogProductTile'
 import { HomeFaqTabs } from '@/components/HomeFaqTabs'
 import { HomeModelPicker } from '@/components/HomeModelPicker'
@@ -8,7 +10,7 @@ import { NothingFooter } from '@/components/NothingFooter'
 import { NothingHeader } from '@/components/NothingHeader'
 import { SeoStructuredData } from '@/components/SeoStructuredData'
 import { TrendingPicksSection } from '@/components/TrendingPicksSection'
-import { getHomePageData } from '@/lib/data/catalog-repository'
+import { CATALOG_REVALIDATE_SECONDS, getHomePageData } from '@/lib/data/catalog-repository'
 import {
   buildOrganizationStructuredData,
   buildWebsiteStructuredData,
@@ -24,7 +26,7 @@ import {
 import type { HomeFeatureEntry, HomeReviewEntry } from '@/lib/data/site-content'
 import { buildAbsoluteUrl, buildFaqStructuredData, buildSeoKeywords } from '@/lib/utils/seo'
 
-export const revalidate = 900
+export const revalidate = CATALOG_REVALIDATE_SECONDS
 export const metadata: Metadata = {
   title: {
     absolute: siteSeoTitle,
@@ -136,16 +138,32 @@ function VerifiedMark() {
   )
 }
 
+function PeopleIcon() {
+  return (
+    <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-black/10 bg-[#f5f5f1] text-black/62" aria-hidden="true">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+        <path d="M16 19c0-2.2-1.8-4-4-4s-4 1.8-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+        <path d="M12 12a3.3 3.3 0 1 0 0-6.6 3.3 3.3 0 0 0 0 6.6Z" stroke="currentColor" strokeWidth="1.8" />
+        <path d="M20 19c0-1.7-1-3.1-2.5-3.7" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+        <path d="M17.2 6.2a2.8 2.8 0 0 1 0 5.4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+      </svg>
+    </span>
+  )
+}
+
 function ReviewCard({ review }: { review: HomeReviewEntry }) {
   return (
     <article className="min-w-[calc((100%_-_1rem)/2)] snap-start border border-black/10 bg-white p-5 shadow-[0_18px_45px_rgba(17,17,17,0.04)] lg:min-w-[calc((100%_-_4rem)/5)]">
       <div className="flex items-start justify-between gap-3">
-        <div>
-          <div className="flex items-center gap-2">
-            <h3 className="collection-product-name text-lg leading-tight text-black">{review.buyerName}</h3>
-            <VerifiedMark />
+        <div className="flex min-w-0 items-start gap-3">
+          <PeopleIcon />
+          <div className="min-w-0">
+            <div className="flex items-center gap-2">
+              <h3 className="collection-product-name text-lg leading-tight text-black">{review.buyerName}</h3>
+              <VerifiedMark />
+            </div>
+            <p className="mt-1 text-[10px] uppercase tracking-[0.22em] text-black/42">{review.city}</p>
           </div>
-          <p className="mt-1 text-[10px] uppercase tracking-[0.22em] text-black/42">{review.city}</p>
         </div>
         <span className="text-[10px] uppercase tracking-[0.2em] text-black/42">5.0</span>
       </div>
@@ -157,6 +175,10 @@ function ReviewCard({ review }: { review: HomeReviewEntry }) {
 
 export default async function Home() {
   const { phoneModels, shopAllProducts, trendingPicks } = await getHomePageData()
+  const heroPhone =
+    phoneModels.find((model) => model.handle === 'phone-3') ??
+    phoneModels.find((model) => /^phone\s*\(?3\)?(?:\s|-|$)/i.test(model.name.trim())) ??
+    null
   const faqEntries = homeFaqCategories.flatMap((category) => category.items)
   const homeStructuredData: Record<string, unknown>[] = [buildOrganizationStructuredData(), buildWebsiteStructuredData()]
   const homeFaqStructuredData = buildFaqStructuredData([...homeSeoFaqs, ...faqEntries])
@@ -170,18 +192,42 @@ export default async function Home() {
       <SeoStructuredData data={homeStructuredData} />
       <NothingHeader />
 
-      <main className="pt-20">
-        <section className="relative overflow-hidden border-b border-black/10 px-4 pb-12 pt-10 md:px-8 md:pb-16 md:pt-14">
+      <main className="pt-16 md:pt-[4.5rem]">
+        <section className="relative overflow-hidden border-b border-black/10 px-4 pb-8 pt-6 md:px-8 md:pb-12 md:pt-8">
           <div className="mx-auto max-w-screen-2xl">
-            <div className="mx-auto max-w-5xl text-center">
-              <p className="dot-heading text-[11px] tracking-[0.28em] text-black/48">Nothing Pakistan</p>
-              <h1 className="mx-auto mt-5 max-w-3xl font-sans text-3xl font-medium leading-tight text-black sm:text-4xl lg:text-5xl">
-                Original Nothing & CMF Accessories
-              </h1>
-              <p className="mx-auto mt-5 max-w-3xl font-sans text-[15px] leading-7 text-black/78 sm:text-base">
-                Shop chargers, earbuds, protectors, cables, and daily tech essentials with clear Pakistan pricing, fast
-                WhatsApp support, and a simple order flow.
-              </p>
+            <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-4 text-center lg:grid-cols-[94px_minmax(0,1fr)] lg:gap-6 lg:text-left">
+              <div className="flex justify-center lg:justify-start lg:self-start">
+                <AnalogClock compact />
+              </div>
+
+              <div className="lg:text-center">
+                <p className="dot-heading text-[11px] tracking-[0.28em] text-black/48">Nothing Pakistan</p>
+                <h1 className="mx-auto mt-4 max-w-3xl font-sans text-3xl font-medium leading-tight text-black sm:text-4xl lg:text-5xl">
+                  Original Nothing & CMF Accessories
+                </h1>
+                <p className="mx-auto mt-4 max-w-3xl font-sans text-[15px] leading-7 text-black/78 sm:text-base">
+                  Shop chargers, earbuds, cables, and daily tech essentials with clear Pakistan pricing, fast
+                  WhatsApp support, and a simple order flow.
+                </p>
+
+                {heroPhone ? (
+                  <Link href={heroPhone.href} className="group block mx-auto mt-4 max-w-[390px] text-center transition-transform hover:-translate-y-0.5">
+                    <div className="relative mx-auto h-[300px] w-[220px] sm:h-[390px] sm:w-[275px] lg:h-[560px] lg:w-[390px]">
+                      {heroPhone.image ? (
+                        <Image
+                          src={heroPhone.image}
+                          alt="Nothing Phone 3"
+                          fill
+                          priority
+                          sizes="(max-width: 640px) 220px, (max-width: 1024px) 275px, 390px"
+                          className="object-contain transition-transform duration-300 group-hover:scale-[1.03]"
+                        />
+                      ) : null}
+                    </div>
+                    <p className="mt-1 dot-heading text-[10px] uppercase tracking-[0.18em] text-black/64">Nothing Phone 3</p>
+                  </Link>
+                ) : null}
+              </div>
             </div>
           </div>
         </section>
@@ -204,8 +250,8 @@ export default async function Home() {
 
             {shopAllProducts.length > 0 ? (
               <div className="mt-8 grid grid-cols-2 gap-x-4 gap-y-9 md:gap-x-6 md:gap-y-12 lg:grid-cols-5 lg:gap-x-7 lg:gap-y-14">
-                {shopAllProducts.map((product, index) => (
-                  <CatalogProductTile key={product.id} product={product} priority={index < 4} tone="shop-all" />
+                {shopAllProducts.map((product) => (
+                  <CatalogProductTile key={product.id} product={product} tone="shop-all" />
                 ))}
               </div>
             ) : (

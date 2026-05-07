@@ -5,7 +5,6 @@ import { resolve } from 'node:path'
 const SITE_URL = 'https://www.nothingshop.pk'
 const PRODUCT_SLUG = 'cmf-buds-pro'
 const PRODUCT_NAME = 'CMF Buds Pro'
-const PRICE = 13000
 
 function loadEnvFile(filePath) {
   try {
@@ -99,7 +98,8 @@ const seoDescriptionLong = [
   `The FAQ content covers price, authenticity, ANC, battery life, fast charging, water resistance, calling, wireless charging, device connection, app support, and delivery. This helps Google, AI search systems, and shoppers understand the product quickly while keeping the copy natural and useful instead of keyword stuffed.`,
 ].join('\n\n')
 
-const schemaJson = {
+function buildSchemaJson(price) {
+  return {
   '@context': 'https://schema.org',
   '@type': 'Product',
   name: PRODUCT_NAME,
@@ -119,7 +119,7 @@ const schemaJson = {
   offers: {
     '@type': 'Offer',
     priceCurrency: 'PKR',
-    price: PRICE,
+    price,
     availability: 'https://schema.org/InStock',
     itemCondition: 'https://schema.org/NewCondition',
     url: canonicalUrl,
@@ -132,6 +132,7 @@ const schemaJson = {
     { '@type': 'PropertyValue', name: 'Charging', value: 'USB-C wired charging with fast charging support' },
     { '@type': 'PropertyValue', name: 'Connection', value: 'Single device connection' },
   ],
+  }
 }
 
 const faqs = [
@@ -180,11 +181,12 @@ const faqs = [
 async function main() {
   const { data: product, error: productError } = await supabase
     .from('products')
-    .select('id, name, slug')
+    .select('id, name, slug, price')
     .eq('slug', PRODUCT_SLUG)
     .single()
 
   if (productError) throw productError
+  const currentPrice = typeof product.price === 'number' ? product.price : null
 
   const productPayload = {
     name: PRODUCT_NAME,
@@ -194,10 +196,9 @@ async function main() {
     meta_description: 'Buy original CMF Buds Pro in Pakistan for Rs 13,000 with 45 dB ANC, Ultra Bass, 39 hours playback, COD, and local Nothing Pakistan support.',
     seo_keywords: seoKeywords,
     canonical_url: canonicalUrl,
-    schema_json: schemaJson,
+    schema_json: buildSchemaJson(currentPrice),
     seo_description_long: seoDescriptionLong,
     image_alt_text: imageAltText,
-    price: PRICE,
     product_type: 'earbuds',
     updated_at: new Date().toISOString(),
   }
@@ -262,7 +263,7 @@ async function main() {
           id: product.id,
           slug: PRODUCT_SLUG,
           canonical_url: canonicalUrl,
-          price: PRICE,
+          price: currentPrice,
           faq_count: faqs.length,
           image_count: images?.length || 0,
         },

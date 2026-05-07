@@ -12,7 +12,7 @@ export function CatalogProductTile({ product, priority = false, tone = 'default'
   const isShopAll = tone === 'shop-all'
 
   return (
-    <Link href={product.href} className="group block">
+    <Link href={product.href} prefetch={false} className="group block">
       <article className="flex h-full flex-col">
         <div className={`relative overflow-hidden ${isShopAll ? 'aspect-[4/5]' : 'aspect-[4/5]'}`}>
           {product.image ? (
@@ -32,14 +32,11 @@ export function CatalogProductTile({ product, priority = false, tone = 'default'
         </div>
 
         <div className={isShopAll ? 'mt-3 text-center' : 'mt-4 border-t border-black/8 pt-4'}>
-          {!isShopAll && product.subtitle ? (
-            <p className="text-[9px] uppercase tracking-[0.24em] text-black/34">{product.subtitle}</p>
-          ) : null}
           <h3
             className={
               isShopAll
                 ? 'collection-product-name text-[0.98rem] leading-[1.12] tracking-[-0.015em] text-black sm:text-[1.04rem]'
-                : 'collection-product-name mt-2 text-[1.08rem] leading-[1.14] tracking-[-0.012em] text-black sm:text-[1.18rem]'
+                : 'collection-product-name text-[1.08rem] leading-[1.14] tracking-[-0.012em] text-black sm:text-[1.18rem]'
             }
           >
             {product.name}

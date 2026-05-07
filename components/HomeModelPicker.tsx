@@ -115,7 +115,7 @@ export function HomeModelPicker({ models }: HomeModelPickerProps) {
     <section className="border-b border-black/10 bg-white px-4 py-12 md:px-8 md:py-16">
       <div className="mx-auto max-w-screen-2xl">
         <div className="mx-auto max-w-3xl text-center">
-          <p className="dot-heading text-[10px] tracking-[0.3em] text-black/42">Phone Models</p>
+          <p className="dot-heading text-[10px] tracking-[0.3em] text-black/42">Phones</p>
           <h2 className="collection-product-name mt-4 text-4xl leading-none text-black sm:text-5xl lg:text-6xl">
             Choose Your Model
           </h2>
@@ -196,7 +196,7 @@ export function HomeModelPicker({ models }: HomeModelPickerProps) {
                         )}
                         <p
                           className="mt-4 text-center text-[0.82rem] uppercase tracking-[0.18em] text-black/72 sm:text-[0.88rem]"
-                          style={{ fontFamily: 'var(--font-ndot55), sans-serif' }}
+                          style={{ fontFamily: 'var(--font-ndot57), sans-serif' }}
                         >
                           {model.name}
                         </p>

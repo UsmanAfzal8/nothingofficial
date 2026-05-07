@@ -13,6 +13,8 @@ export interface Product {
   kind?: 'product' | 'mobile'
   sortPriority?: number | null
   subtitle?: string | null
+  colorName?: string | null
+  collectionSlugs?: string[]
   updatedAt?: string | null
 }
 

@@ -103,9 +103,9 @@ export const homeSeoHighlights = [
   {
     title: 'Nothing phone prices and compatible accessories',
     description:
-      'Use the phone pages to review Nothing phone model pages and discover compatible chargers, protectors, earbuds, and support routes in Pakistan.',
+      'Use the phone pages to review Nothing phones and discover compatible chargers, protectors, earbuds, and support routes in Pakistan.',
     href: '/collections/phones',
-    label: 'Browse phone models',
+    label: 'Browse phones',
   },
   {
     title: 'Support, delivery, and contact routes',
@@ -120,7 +120,7 @@ export const homeSeoFaqs = [
   {
     question: 'Where can I find Nothing products in Pakistan?',
     answer:
-      'Nothing Pakistan brings together Nothing phone model pages, compatible chargers, earbuds, protectors, CMF products, and support routes for customers in Pakistan.',
+      'Nothing Pakistan brings together Nothing phones, compatible chargers, earbuds, protectors, CMF products, and support routes for customers in Pakistan.',
   },
   {
     question: 'Does Nothing Pakistan have a page for Nothing chargers?',
@@ -173,9 +173,9 @@ export const collectionSeoFaqs: Record<string, Array<{ question: string; answer:
   ],
   phones: [
     {
-      question: 'Can I browse Nothing phone models with compatible accessories?',
+      question: 'Can I browse Nothing phones with compatible accessories?',
       answer:
-        'Yes. The phones collection links shoppers from phone model pages into compatible chargers, protectors, earbuds, and support routes in Pakistan.',
+        'Yes. The phones collection links shoppers from phone pages into compatible chargers, protectors, earbuds, and support routes in Pakistan.',
     },
     {
       question: 'Does Nothing Pakistan sell the phone or just show accessories?',
@@ -265,118 +265,118 @@ export const homeUserReviews: HomeReviewEntry[] = [
     buyerName: 'Ayesha',
     city: 'Lahore',
     product: 'CMF Buds Pro 2',
-    comment: 'Sound clear tha, packing neat thi, aur order expected time se pehle receive ho gaya.',
+    comment: 'The sound is clear, the packing was neat, and the order arrived earlier than expected.',
   },
   {
     buyerName: 'Hamza',
     city: 'Karachi',
     product: 'CMF Power 65W GaN Charger',
-    comment: 'Charging speed achi hai aur laptop aur phone dono ke liye kaafi useful nikla.',
+    comment: 'Charging speed is strong, and it works well for both my laptop and phone.',
   },
   {
     buyerName: 'Usman',
     city: 'Islamabad',
     product: 'Phone (3a) Protector',
-    comment: 'Protector fit perfect tha aur bubbles ke baghair smoothly install ho gaya.',
+    comment: 'The protector fit perfectly and installed smoothly without bubbles.',
   },
   {
     buyerName: 'Rabia',
     city: 'Faisalabad',
     product: 'CMF Buds 2a',
-    comment: 'Calls aur music dono ke liye acha experience mila aur battery backup bhi solid hai.',
+    comment: 'Calls and music both feel good, and the battery backup is solid.',
   },
   {
     buyerName: 'Danish',
     city: 'Rawalpindi',
     product: 'CMF Buds 2 Plus',
-    comment: 'Design premium feel deta hai aur delivery process simple aur fast tha.',
+    comment: 'The design feels premium, and the delivery process was simple and fast.',
   },
   {
     buyerName: 'Mehak',
     city: 'Multan',
     product: 'Phone (4a) Pro Protector',
-    comment: 'Product quality bohat achi thi aur support ne model confirmation mein help ki.',
+    comment: 'Product quality was very good, and support helped confirm the right phone model.',
   },
   {
     buyerName: 'Bilal',
     city: 'Peshawar',
     product: 'CMF Buds 2',
-    comment: 'Pairing quick thi aur daily use ke liye bohat comfortable earbuds hain.',
+    comment: 'Pairing was quick, and the earbuds are comfortable for daily use.',
   },
   {
     buyerName: 'Sana',
     city: 'Sialkot',
     product: 'Phone (3) Privacy Sheet',
-    comment: 'Privacy effect bilkul theek hai aur screen clarity bhi kaafi balanced hai.',
+    comment: 'The privacy effect works well, while screen clarity still feels balanced.',
   },
   {
     buyerName: 'Ali',
     city: 'Gujranwala',
     product: 'CMF Power 65W GaN Charger',
-    comment: 'Original product receive hua aur box condition bhi bilkul fresh thi.',
+    comment: 'I received an original product, and the box condition was fresh.',
   },
   {
     buyerName: 'Hira',
     city: 'Hyderabad',
     product: 'CMF Buds Pro 2',
-    comment: 'ANC expected se better thi aur seller communication bhi bohat smooth rahi.',
+    comment: 'The ANC was better than expected, and seller communication was smooth.',
   },
   {
     buyerName: 'Saad',
     city: 'Bahawalpur',
     product: 'Phone (3a) UV Protector',
-    comment: 'Phone model ke mutabiq exact fitting mili aur dispatch bhi jaldi ho gayi.',
+    comment: 'The fit matched my phone model exactly, and dispatch was quick.',
   },
   {
     buyerName: 'Fatima',
     city: 'Quetta',
     product: 'CMF Buds 2a',
-    comment: 'Budget ke hisaab se bohat acha value mila aur sound surprisingly clean hai.',
+    comment: 'For the price, the value is strong and the sound is surprisingly clean.',
   },
   {
     buyerName: 'Zain',
     city: 'Abbottabad',
     product: 'CMF Buds 2 Plus',
-    comment: 'Case compact hai aur everyday carry ke liye bohat convenient feel hota hai.',
+    comment: 'The case is compact and feels convenient for everyday carry.',
   },
   {
     buyerName: 'Noor',
     city: 'Sargodha',
     product: 'Phone (4a) Protector',
-    comment: 'Screen protection achi lagi aur order receive karte hi install kar liya.',
+    comment: 'The screen protection feels good, and I installed it as soon as the order arrived.',
   },
   {
     buyerName: 'Ahmed',
     city: 'Lahore',
     product: 'CMF Buds 2',
-    comment: 'Store experience reliable tha aur product exactly listing jaisa receive hua.',
+    comment: 'The store experience felt reliable, and the product matched the listing.',
   },
 ]
 
 export const homeFeatureHighlights: HomeFeatureEntry[] = [
   {
     title: '7 Days Return Policy',
-    description: 'Agar product issue ho to quick return aur replacement support available hai.',
+    description: 'If there is a valid product issue, quick return and replacement support is available.',
     icon: 'return',
   },
   {
     title: 'Free Delivery',
-    description: 'Selected orders par Pakistan ke major cities mein free delivery support di jati hai.',
+    description: 'Selected orders in major Pakistani cities can qualify for delivery support with clear confirmation before dispatch.',
     icon: 'delivery',
   },
   {
     title: 'Cash on Delivery',
-    description: 'Convenient COD option se order place karna simple aur trusted rehta hai.',
+    description: 'Cash on delivery keeps checkout simple, familiar, and easier to trust for customers across Pakistan.',
     icon: 'cod',
   },
   {
     title: '24/7 Support',
-    description: 'Order updates, product guidance, aur after-sales help ke liye support available hai.',
+    description: 'Support is available for order updates, product guidance, and after-sales help.',
     icon: 'support',
   },
   {
     title: '100% Original Products',
-    description: 'Store par listed products authentic sourcing aur careful verification ke sath share kiye jate hain.',
+    description: 'Listed products are presented with authentic sourcing and careful verification.',
     icon: 'original',
   },
 ]
@@ -455,9 +455,9 @@ export const homeFaqCategories: HomeFaqCategory[] = [
           'Yes, Nothing Pakistan lists CMF audio and charging products alongside other compatible accessories for Pakistan shoppers.',
       },
       {
-        question: 'Can I shop protectors for different Nothing phone models?',
+        question: 'Can I shop protectors for different Nothing phones?',
         answer:
-          'Yes, the store includes protector listings for multiple Nothing phone models so customers can choose the right fit for their device.',
+          'Yes, the store includes protector listings for multiple Nothing phones so customers can choose the right fit for their device.',
       },
       {
         question: 'How do I find the right charger for my Nothing device?',
@@ -482,7 +482,7 @@ export const homeFaqCategories: HomeFaqCategory[] = [
       {
         question: 'Does Nothing Pakistan offer screen protection options?',
         answer:
-          'Yes, the store includes privacy sheets, UV protectors, and standard protectors for supported phone models.',
+          'Yes, the store includes privacy sheets, UV protectors, and standard protectors for supported phones.',
       },
       {
         question: 'Can I browse all products in one place?',
@@ -654,7 +654,7 @@ export function buildOrganizationStructuredData() {
         },
         {
           '@type': 'OfferCatalog',
-          name: 'Nothing phone models',
+          name: 'Nothing phones',
           url: buildAbsoluteUrl('/collections/phones'),
         },
         {

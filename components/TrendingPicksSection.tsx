@@ -20,7 +20,7 @@ function ArrowButton({
   return (
     <button
       type="button"
-      aria-label={direction === 'previous' ? 'Show previous trending picks' : 'Show next trending picks'}
+      aria-label={direction === 'previous' ? 'Show previous selected gems' : 'Show next selected gems'}
       onClick={onClick}
       disabled={disabled}
       className="inline-flex h-11 w-11 items-center justify-center border border-black/10 bg-white text-black shadow-[0_14px_30px_rgba(17,17,17,0.08)] transition hover:bg-black hover:text-white disabled:cursor-not-allowed disabled:opacity-30"
@@ -51,7 +51,7 @@ export function TrendingPicksSection({ products }: TrendingPicksSectionProps) {
         <div className="flex items-end justify-between gap-4">
           <div>
             <p className="text-[10px] uppercase tracking-[0.3em] text-black/42">Best Product Sale</p>
-            <h2 className="collection-product-name mt-3 text-4xl leading-none text-black sm:text-5xl">Trending Picks</h2>
+            <h2 className="collection-product-name mt-3 text-4xl leading-none text-black sm:text-5xl">Selected Gems</h2>
           </div>
 
           <div className="hidden items-center gap-2 lg:flex">
@@ -77,14 +77,14 @@ export function TrendingPicksSection({ products }: TrendingPicksSectionProps) {
         </div>
 
         <div className="mt-8 grid grid-cols-2 gap-x-4 gap-y-9 lg:hidden">
-          {products.map((product, index) => (
-            <CatalogProductTile key={product.id} product={product} priority={index < 2} tone="shop-all" />
+          {products.map((product) => (
+            <CatalogProductTile key={product.id} product={product} tone="shop-all" />
           ))}
         </div>
 
         <div className="mt-8 hidden grid-cols-5 gap-x-7 gap-y-14 lg:grid">
-          {visibleDesktopProducts.map((product, index) => (
-            <CatalogProductTile key={product.id} product={product} priority={index < 5} tone="shop-all" />
+          {visibleDesktopProducts.map((product) => (
+            <CatalogProductTile key={product.id} product={product} tone="shop-all" />
           ))}
         </div>
       </div>

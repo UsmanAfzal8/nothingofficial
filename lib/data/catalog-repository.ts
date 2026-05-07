@@ -1,4 +1,6 @@
 import type { Collection, HomePageData, NavigationItem, Product } from '@/lib/models/catalog'
+import { unstable_cache } from 'next/cache'
+import { cache } from 'react'
 import type {
   ProductDetail,
   ProductDetailAggregateRating,
@@ -13,6 +15,7 @@ import type {
   ProductDetailWidget,
 } from '@/lib/models/product-detail'
 import type {
+  StoreImageRelatedType,
   StoreRelatedType,
   SupabaseCategoryRelationRow,
   SupabaseCategoryRow,
@@ -24,7 +27,7 @@ import type {
   SupabaseProductRow,
   SupabaseReviewRow,
 } from '@/lib/models/supabase-store'
-import { STORE_RELATED_TYPE_ENUM } from '@/lib/models/supabase-enums'
+import { DETAIL_IMAGE_RELATED_TYPE_ENUM, STORE_RELATED_TYPE_ENUM } from '@/lib/models/supabase-enums'
 import type { ProductType } from '@/lib/models/supabase-enums'
 import { getSupabaseAdminClient } from '@/lib/supabase-admin'
 import { buildAbsoluteUrl, splitSeoKeywords, trimSeoDescription } from '@/lib/utils/seo'
@@ -73,8 +76,13 @@ type CatalogSnapshot = {
   faqs: SupabaseFaqRow[]
   reviews: SupabaseReviewRow[]
   colorsById: Map<number, SupabaseColorRow>
+  productsById: Map<number, SupabaseProductRow>
+  productsBySlug: Map<string, SupabaseProductRow>
   categoriesById: Map<number, SupabaseCategoryRow>
+  categoriesBySlug: Map<string, SupabaseCategoryRow>
+  childCategoriesByParentId: Map<number | null, SupabaseCategoryRow[]>
   mobilesById: Map<number, SupabaseMobileRow>
+  mobilesBySlug: Map<string, SupabaseMobileRow>
   productIdsByCategoryId: Map<number, number[]>
   categoryIdsByProductId: Map<number, number[]>
   mobileIdsByCategoryId: Map<number, number[]>
@@ -86,27 +94,16 @@ type CatalogSnapshot = {
   reviewsByProductId: Map<number, SupabaseReviewRow[]>
 }
 
-const EMPTY_SNAPSHOT: CatalogSnapshot = {
-  products: [],
-  mobiles: [],
-  categories: [],
-  categoryRelations: [],
-  productMobiles: [],
-  images: [],
-  faqs: [],
-  reviews: [],
-  colorsById: new Map(),
-  categoriesById: new Map(),
-  mobilesById: new Map(),
-  productIdsByCategoryId: new Map(),
-  categoryIdsByProductId: new Map(),
-  mobileIdsByCategoryId: new Map(),
-  categoryIdsByMobileId: new Map(),
-  mobileIdsByProductId: new Map(),
-  productIdsByMobileId: new Map(),
-  imagesByEntryKey: new Map(),
-  faqsByEntryKey: new Map(),
-  reviewsByProductId: new Map(),
+type CatalogSnapshotPayload = {
+  products: SupabaseProductRow[]
+  mobiles: SupabaseMobileRow[]
+  categories: SupabaseCategoryRow[]
+  categoryRelations: SupabaseCategoryRelationRow[]
+  productMobiles: SupabaseProductMobileRow[]
+  images: SupabaseImageRow[]
+  faqs: SupabaseFaqRow[]
+  reviews: SupabaseReviewRow[]
+  colors: SupabaseColorRow[]
 }
 
 type VirtualCollectionConfig = {
@@ -137,9 +134,9 @@ const VIRTUAL_COLLECTIONS: Record<VirtualCollectionSlug, VirtualCollectionConfig
     description: 'Browse the full Nothing Pakistan catalog for chargers, earbuds, protectors, CMF devices, and other compatible accessories.',
   },
   phones: {
-    title: 'Phone models',
-    metaTitle: 'Nothing Phone Models in Pakistan | Compatible Accessories | Nothing Pakistan',
-    description: 'Browse Nothing phone model pages and jump into compatible chargers, protectors, earbuds, and support routes in Pakistan.',
+    title: 'Phones',
+    metaTitle: 'Nothing Phones in Pakistan | Compatible Accessories | Nothing Pakistan',
+    description: 'Browse Nothing phones and jump into compatible chargers, protectors, earbuds, and support routes in Pakistan.',
   },
   chargers: {
     title: 'Chargers',
@@ -173,18 +170,6 @@ const PRODUCT_TYPE_SEARCH_LABELS: Record<ProductType, string[]> = {
   data_cable: ['Nothing cable price in Pakistan', 'USB-C cable Pakistan', 'Nothing data cable Pakistan'],
   protector: ['Nothing screen protector Pakistan', 'Nothing phone protector price in Pakistan'],
   earbuds: ['Nothing earbuds price in Pakistan', 'CMF earbuds Pakistan', 'wireless earbuds Pakistan'],
-}
-
-const SNAPSHOT_CACHE_TTL_MS = process.env.NODE_ENV === 'development' ? 15_000 : 120_000
-let snapshotCache: { value: CatalogSnapshot; expiresAt: number } | null = null
-let snapshotInFlight: Promise<CatalogSnapshot> | null = null
-
-const PRODUCT_PRICE_OVERRIDES: Record<string, number> = {
-  'cmf-buds-pro-2': 13000,
-  'cmf-buds-2': 16000,
-  'cmf-buds-2-plus': 15000,
-  'cmf-buds-2a': 11000,
-  'cmf-power-65w-gan': 6500,
 }
 
 function formatPrice(value: number | null | undefined): string | null {
@@ -247,10 +232,6 @@ function normalizeProductName(name: string): string {
     .trim()
 }
 
-function resolveProductPrice(slug: string, price: number | null | undefined): number | null {
-  return PRODUCT_PRICE_OVERRIDES[slug] ?? price ?? null
-}
-
 function resolveBrandName(name: string): string {
   return /^cmf\b/i.test(name.trim()) ? 'CMF by Nothing' : 'Nothing'
 }
@@ -285,20 +266,22 @@ function buildMobileSearchKeywords(name: string, extraKeywords: string | null | 
 
 function buildProductMetaDescription(product: SupabaseProductRow, name: string, priceLabel: string | null): string {
   const productTypeLabel = product.product_type ? PRODUCT_TYPE_LABELS[product.product_type] ?? product.product_type : 'Nothing accessory'
-  const priceText = priceLabel ? ` Current price: ${priceLabel}.` : ''
+  const priceText = priceLabel ? ` Price: ${priceLabel}.` : ''
   const fallback =
-    `Shop ${name} in Pakistan from Nothing Pakistan. Check ${productTypeLabel.toLowerCase()} details, compatibility, PKR pricing, availability, delivery, and WhatsApp support.${priceText}`
+    `Shop ${name} in Pakistan from Nothing Pakistan.${priceText} Check ${productTypeLabel.toLowerCase()} details, compatibility, availability, delivery, and WhatsApp support.`
+  const source = product.meta_description || product.short_description || product.seo_description_long || product.description
 
-  return trimSeoDescription(product.meta_description || product.short_description || product.seo_description_long || product.description || fallback)
+  return trimSeoDescription(priceLabel && source && /\bprice\b/i.test(source) ? fallback : source || fallback)
 }
 
 function buildMobileMetaDescription(mobile: SupabaseMobileRow): string {
   const priceLabel = formatPrice(mobile.Price)
-  const priceText = priceLabel ? ` ${mobile.name} price in Pakistan is listed as ${priceLabel}.` : ''
+  const priceText = priceLabel ? ` Price: ${priceLabel}.` : ''
   const fallback =
-    `${mobile.name} page for Pakistan shoppers with price information, compatible Nothing accessories, chargers, protectors, earbuds, and support links.${priceText}`
+    `${mobile.name} page for Pakistan shoppers.${priceText} Browse compatible Nothing accessories, chargers, protectors, earbuds, and support links.`
+  const source = mobile.meta_description || mobile.seo_description_long || mobile.description
 
-  return trimSeoDescription(mobile.meta_description || mobile.seo_description_long || mobile.description || fallback)
+  return trimSeoDescription(priceLabel && source && /\bprice\b/i.test(source) ? fallback : source || fallback)
 }
 
 function resolveAvailability(stockQuantity?: number | null): ProductDetail['availability'] {
@@ -309,11 +292,11 @@ function resolveAvailability(stockQuantity?: number | null): ProductDetail['avai
   return stockQuantity > 0 ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock'
 }
 
-function buildEntryKey(type: StoreRelatedType, id: number): string {
+function buildEntryKey(type: StoreImageRelatedType, id: number): string {
   return `${type}:${id}`
 }
 
-function groupByEntry<T extends { related_type: StoreRelatedType; related_id: number }>(rows: T[]): Map<string, T[]> {
+function groupByEntry<T extends { related_type: StoreImageRelatedType; related_id: number }>(rows: T[]): Map<string, T[]> {
   const grouped = new Map<string, T[]>()
 
   for (const row of rows) {
@@ -394,11 +377,21 @@ function sortHomeShowcaseCards(items: Product[]): Product[] {
   })
 }
 
-async function readCatalogSnapshotFromSupabase(): Promise<CatalogSnapshot> {
+async function readCatalogSnapshotFromSupabase(): Promise<CatalogSnapshotPayload> {
   const supabase = getSupabaseAdminClient()
 
   if (!supabase) {
-    return EMPTY_SNAPSHOT
+    return {
+      products: [],
+      mobiles: [],
+      categories: [],
+      categoryRelations: [],
+      productMobiles: [],
+      images: [],
+      faqs: [],
+      reviews: [],
+      colors: [],
+    }
   }
 
   const [
@@ -435,7 +428,7 @@ async function readCatalogSnapshotFromSupabase(): Promise<CatalogSnapshot> {
     supabase
       .from('images')
       .select('id, related_type, related_id, color_id, url, alt_text, title, caption, file_name, slug, sort_order, created_at, updated_at')
-      .in('related_type', [...STORE_RELATED_TYPE_ENUM])
+      .in('related_type', [...STORE_RELATED_TYPE_ENUM, ...DETAIL_IMAGE_RELATED_TYPE_ENUM])
       .order('sort_order', { ascending: true }),
     supabase
       .from('faqs')
@@ -465,7 +458,17 @@ async function readCatalogSnapshotFromSupabase(): Promise<CatalogSnapshot> {
 
   if (failedResponse?.error) {
     console.error('[catalog-repository] failed to read Supabase catalog:', failedResponse.error.message)
-    return EMPTY_SNAPSHOT
+    return {
+      products: [],
+      mobiles: [],
+      categories: [],
+      categoryRelations: [],
+      productMobiles: [],
+      images: [],
+      faqs: [],
+      reviews: [],
+      colors: [],
+    }
   }
 
   const products = (productsResponse.data ?? []) as SupabaseProductRow[]
@@ -478,9 +481,29 @@ async function readCatalogSnapshotFromSupabase(): Promise<CatalogSnapshot> {
   const colors = (colorsResponse.data ?? []) as SupabaseColorRow[]
   const productMobiles = (productMobilesResponse.data ?? []) as SupabaseProductMobileRow[]
 
+  return {
+    products,
+    mobiles,
+    categories,
+    categoryRelations,
+    productMobiles,
+    images,
+    faqs,
+    reviews,
+    colors,
+  }
+}
+
+function buildCatalogSnapshot(payload: CatalogSnapshotPayload): CatalogSnapshot {
+  const { products, mobiles, categories, categoryRelations, productMobiles, images, faqs, reviews, colors } = payload
   const colorsById = new Map(colors.map((row) => [row.id, row]))
+  const productsById = new Map(products.map((row) => [row.id, row]))
+  const productsBySlug = new Map(products.map((row) => [row.slug, row]))
   const categoriesById = new Map(categories.map((row) => [row.id, row]))
+  const categoriesBySlug = new Map(categories.map((row) => [row.slug, row]))
+  const childCategoriesByParentId = new Map<number | null, SupabaseCategoryRow[]>()
   const mobilesById = new Map(mobiles.map((row) => [row.id, row]))
+  const mobilesBySlug = new Map(mobiles.map((row) => [row.slug, row]))
   const productIdsByCategoryId = new Map<number, number[]>()
   const categoryIdsByProductId = new Map<number, number[]>()
   const mobileIdsByCategoryId = new Map<number, number[]>()
@@ -488,6 +511,12 @@ async function readCatalogSnapshotFromSupabase(): Promise<CatalogSnapshot> {
   const mobileIdsByProductId = new Map<number, number[]>()
   const productIdsByMobileId = new Map<number, number[]>()
   const reviewsByProductId = new Map<number, SupabaseReviewRow[]>()
+
+  for (const category of categories) {
+    const siblings = childCategoriesByParentId.get(category.parent_id ?? null) ?? []
+    siblings.push(category)
+    childCategoriesByParentId.set(category.parent_id ?? null, siblings)
+  }
 
   for (const relation of categoryRelations) {
     if (relation.related_type === 'product') {
@@ -539,49 +568,43 @@ async function readCatalogSnapshotFromSupabase(): Promise<CatalogSnapshot> {
     faqs,
     reviews,
     colorsById,
+    productsById,
+    productsBySlug,
     categoriesById,
+    categoriesBySlug,
+    childCategoriesByParentId,
     mobilesById,
+    mobilesBySlug,
     productIdsByCategoryId,
     categoryIdsByProductId,
     mobileIdsByCategoryId,
     categoryIdsByMobileId,
     mobileIdsByProductId,
     productIdsByMobileId,
-    imagesByEntryKey: groupByEntry(images as Array<SupabaseImageRow & { related_type: StoreRelatedType }>),
+    imagesByEntryKey: groupByEntry(images as Array<SupabaseImageRow & { related_type: StoreImageRelatedType }>),
     faqsByEntryKey: groupByEntry(faqs as Array<SupabaseFaqRow & { related_type: StoreRelatedType }>),
     reviewsByProductId,
   }
 }
 
+export const CATALOG_REVALIDATE_SECONDS = 300
+
+const readCatalogSnapshotPayload = unstable_cache(readCatalogSnapshotFromSupabase, ['catalog-snapshot'], {
+  revalidate: CATALOG_REVALIDATE_SECONDS,
+})
+
+const readCatalogSnapshotForRequest = cache(readCatalogSnapshotPayload)
+
 async function getCatalogSnapshot(): Promise<CatalogSnapshot> {
-  const now = Date.now()
-
-  if (snapshotCache && snapshotCache.expiresAt > now) {
-    return snapshotCache.value
-  }
-
-  if (snapshotInFlight) {
-    return snapshotInFlight
-  }
-
-  snapshotInFlight = readCatalogSnapshotFromSupabase()
-    .then((snapshot) => {
-      snapshotCache = { value: snapshot, expiresAt: Date.now() + SNAPSHOT_CACHE_TTL_MS }
-      return snapshot
-    })
-    .finally(() => {
-      snapshotInFlight = null
-    })
-
-  return snapshotInFlight
+  return buildCatalogSnapshot(await readCatalogSnapshotForRequest())
 }
 
 function getTopLevelCategories(snapshot: CatalogSnapshot): SupabaseCategoryRow[] {
-  return snapshot.categories.filter((category) => category.parent_id === null)
+  return snapshot.childCategoriesByParentId.get(null) ?? []
 }
 
 function getChildCategories(snapshot: CatalogSnapshot, parentId: number): SupabaseCategoryRow[] {
-  return snapshot.categories.filter((category) => category.parent_id === parentId)
+  return snapshot.childCategoriesByParentId.get(parentId) ?? []
 }
 
 function getDescendantCategoryIds(snapshot: CatalogSnapshot, categoryId: number): number[] {
@@ -610,7 +633,7 @@ function getCatalogCardsForCategoryIds(snapshot: CatalogSnapshot, categoryIds: n
   const productIds = [...new Set(categoryIds.flatMap((categoryId) => snapshot.productIdsByCategoryId.get(categoryId) ?? []))]
   const mobileIds = [...new Set(categoryIds.flatMap((categoryId) => snapshot.mobileIdsByCategoryId.get(categoryId) ?? []))]
   const productCards = productIds
-    .map((productId) => snapshot.products.find((product) => product.id === productId))
+    .map((productId) => snapshot.productsById.get(productId))
     .filter((product): product is SupabaseProductRow => Boolean(product))
     .map((product) => buildProductCard(product, snapshot))
   const mobileCards = mobileIds
@@ -623,13 +646,13 @@ function getCatalogCardsForCategoryIds(snapshot: CatalogSnapshot, categoryIds: n
 
 function getCatalogCardsForProductSlugs(snapshot: CatalogSnapshot, slugs: readonly string[]): Product[] {
   return slugs
-    .map((slug) => snapshot.products.find((product) => product.slug === slug))
+    .map((slug) => snapshot.productsBySlug.get(slug))
     .filter((product): product is SupabaseProductRow => Boolean(product))
     .map((product) => buildProductCard(product, snapshot))
 }
 
 function getOrderedCategoryProductCards(snapshot: CatalogSnapshot, slug: string, fallbackSlugs: readonly string[]): Product[] {
-  const category = snapshot.categories.find((item) => item.slug === slug)
+  const category = snapshot.categoriesBySlug.get(slug)
 
   if (!category) {
     return getCatalogCardsForProductSlugs(snapshot, fallbackSlugs)
@@ -637,7 +660,7 @@ function getOrderedCategoryProductCards(snapshot: CatalogSnapshot, slug: string,
 
   const productIds = snapshot.productIdsByCategoryId.get(category.id) ?? []
   const products = productIds
-    .map((productId) => snapshot.products.find((product) => product.id === productId))
+    .map((productId) => snapshot.productsById.get(productId))
     .filter((product): product is SupabaseProductRow => Boolean(product))
     .map((product) => buildProductCard(product, snapshot))
 
@@ -701,6 +724,14 @@ function getMobileImages(snapshot: CatalogSnapshot, mobileId: number): SupabaseI
   return snapshot.imagesByEntryKey.get(buildEntryKey('mobile', mobileId)) ?? []
 }
 
+function getProductDetailImages(snapshot: CatalogSnapshot, productId: number): SupabaseImageRow[] {
+  return snapshot.imagesByEntryKey.get(buildEntryKey('detail_product', productId)) ?? []
+}
+
+function getMobileDetailImages(snapshot: CatalogSnapshot, mobileId: number): SupabaseImageRow[] {
+  return snapshot.imagesByEntryKey.get(buildEntryKey('detail_mobile', mobileId)) ?? []
+}
+
 function getProductFaqs(snapshot: CatalogSnapshot, productId: number): SupabaseFaqRow[] {
   return snapshot.faqsByEntryKey.get(buildEntryKey('product', productId)) ?? []
 }
@@ -757,7 +788,7 @@ function buildProductCard(product: SupabaseProductRow, snapshot: CatalogSnapshot
   const mainColor = product.main_color_id ? snapshot.colorsById.get(product.main_color_id) : null
   const typeLabel = product.product_type ? PRODUCT_TYPE_LABELS[product.product_type] ?? product.product_type : null
   const name = normalizeProductName(product.name)
-  const price = resolveProductPrice(product.slug, product.price)
+  const price = product.price ?? null
   const priceLabel = formatPrice(price)
 
   return {
@@ -772,6 +803,8 @@ function buildProductCard(product: SupabaseProductRow, snapshot: CatalogSnapshot
     priceLabel,
     kind: 'product',
     subtitle: categories[0]?.name ?? typeLabel,
+    colorName: mainColor?.name ?? (images[0]?.color_id ? snapshot.colorsById.get(images[0].color_id)?.name ?? null : null),
+    collectionSlugs: categories.map((category) => category.slug),
     updatedAt: product.updated_at,
   }
 }
@@ -795,8 +828,134 @@ function buildMobileCard(mobile: SupabaseMobileRow, snapshot: CatalogSnapshot): 
     kind: 'mobile',
     sortPriority: mobile.piority,
     subtitle: 'Phone',
+    colorName: colors[0]?.name ?? null,
+    collectionSlugs: getMobileCategories(snapshot, mobile.id).map((category) => category.slug),
     updatedAt: mobile.updated_at,
   }
+}
+
+function inferImageColorName(image: SupabaseImageRow, snapshot: CatalogSnapshot): string | null {
+  if (image.color_id) {
+    return snapshot.colorsById.get(image.color_id)?.name ?? null
+  }
+
+  const fallback = image.caption || image.title || image.alt_text || image.file_name || null
+
+  if (!fallback) {
+    return null
+  }
+
+  const normalized = fallback
+    .replace(/\.(webp|png|jpe?g|avif)$/i, '')
+    .replace(/[-_]+/g, ' ')
+    .trim()
+
+  const knownColors = [
+    'black',
+    'white',
+    'orange',
+    'blue',
+    'green',
+    'yellow',
+    'dark grey',
+    'light grey',
+    'grey',
+    'gray',
+    'silver',
+    'red',
+    'pink',
+    'purple',
+    'milk',
+  ]
+
+  return knownColors.find((color) => new RegExp(`\\b${color}\\b`, 'i').test(normalized)) ?? null
+}
+
+function buildProductVariantCards(product: SupabaseProductRow, snapshot: CatalogSnapshot): Product[] {
+  const baseCard = buildProductCard(product, snapshot)
+  const images = getProductImages(snapshot, product.id)
+  const categories = getProductCategories(snapshot, product.id)
+  const seen = new Set<string>()
+  const variantCards: Product[] = []
+
+  for (const image of images) {
+    const colorName = inferImageColorName(image, snapshot)
+    const key = colorName ? `color:${colorName.toLowerCase()}` : `image:${image.url}`
+
+    if (seen.has(key)) {
+      continue
+    }
+
+    seen.add(key)
+    variantCards.push({
+      ...baseCard,
+      id: `${baseCard.id}-${colorName ? colorName.toLowerCase().replace(/\s+/g, '-') : image.id}`,
+      name: baseCard.name,
+      image: image.url,
+      variant: colorName ?? image.caption ?? image.title ?? baseCard.variant,
+      colorName,
+      collectionSlugs: categories.map((category) => category.slug),
+    })
+  }
+
+  return variantCards.length > 0 ? variantCards : [baseCard]
+}
+
+function buildMobileVariantCards(mobile: SupabaseMobileRow, snapshot: CatalogSnapshot): Product[] {
+  const baseCard = buildMobileCard(mobile, snapshot)
+  const images = getMobileImages(snapshot, mobile.id)
+  const categories = getMobileCategories(snapshot, mobile.id)
+  const seen = new Set<string>()
+  const variantCards: Product[] = []
+
+  for (const image of images) {
+    const colorName = inferImageColorName(image, snapshot)
+    const key = colorName ? `color:${colorName.toLowerCase()}` : `image:${image.url}`
+
+    if (seen.has(key)) {
+      continue
+    }
+
+    seen.add(key)
+    variantCards.push({
+      ...baseCard,
+      id: `${baseCard.id}-${colorName ? colorName.toLowerCase().replace(/\s+/g, '-') : image.id}`,
+      name: baseCard.name,
+      image: image.url,
+      variant: colorName ?? image.caption ?? image.title ?? baseCard.variant,
+      colorName,
+      collectionSlugs: categories.map((category) => category.slug),
+    })
+  }
+
+  return variantCards.length > 0 ? variantCards : [baseCard]
+}
+
+function isProtectorOrCoverProduct(product: SupabaseProductRow, snapshot: CatalogSnapshot): boolean {
+  if (product.product_type === 'protector') {
+    return true
+  }
+
+  const categorySlugs = getProductCategories(snapshot, product.id).map((category) => category.slug)
+  const haystack = `${product.name} ${product.slug} ${categorySlugs.join(' ')}`.toLowerCase()
+
+  return /\b(protector|protectors|cover|covers|case|cases|phone-cases|phone-protectors)\b/.test(haystack)
+}
+
+function isCmfMobile(mobile: SupabaseMobileRow): boolean {
+  return /^cmf\b/i.test(mobile.name.trim()) || mobile.slug.startsWith('cmf-')
+}
+
+function buildCmfCollectionProducts(snapshot: CatalogSnapshot, categoryProducts: Product[]): Product[] {
+  const categoryProductHandles = new Set(categoryProducts.map((product) => product.handle))
+  const cmfProductCards = snapshot.products
+    .filter((product) => categoryProductHandles.has(product.slug))
+    .filter((product) => !isProtectorOrCoverProduct(product, snapshot))
+    .flatMap((product) => buildProductVariantCards(product, snapshot))
+
+  const cmfMobileCards = snapshot.mobiles.filter(isCmfMobile).flatMap((mobile) => buildMobileVariantCards(mobile, snapshot))
+
+  return sortCatalogCards([...cmfMobileCards, ...cmfProductCards])
 }
 
 function buildProductCollections(categories: SupabaseCategoryRow[], snapshot: CatalogSnapshot): ProductDetailCollection[] {
@@ -916,6 +1075,12 @@ function buildGallery(
   }))
 }
 
+function isProductBackgroundImage(image: SupabaseImageRow) {
+  const source = [image.slug, image.title, image.caption, image.file_name].filter(Boolean).join(' ').toLowerCase()
+
+  return source.includes('product background') || source.includes('product-background')
+}
+
 function buildFaqs(faqs: SupabaseFaqRow[], productName?: string | null, priceLabel?: string | null): ProductDetailFaq[] {
   return faqs.map((faq) => ({
     id: `faq-${faq.id}`,
@@ -1012,7 +1177,7 @@ function buildMobileAccessoryGroups(snapshot: CatalogSnapshot, mobileId: number)
   const productIds = snapshot.productIdsByMobileId.get(mobileId) ?? []
   const linkedProducts = uniqueById(
     productIds
-      .map((productId) => snapshot.products.find((product) => product.id === productId))
+      .map((productId) => snapshot.productsById.get(productId))
       .filter((product): product is SupabaseProductRow => Boolean(product)),
   )
 
@@ -1050,18 +1215,23 @@ function buildMobileAccessoryGroups(snapshot: CatalogSnapshot, mobileId: number)
 
 function buildProductDetailFromProduct(product: SupabaseProductRow, snapshot: CatalogSnapshot): ProductDetail {
   const images = getProductImages(snapshot, product.id)
+  const productBackgroundImage = getProductDetailImages(snapshot, product.id)[0] ?? images.find(isProductBackgroundImage) ?? null
+  const galleryImages = images.filter((image) => !isProductBackgroundImage(image))
   const faqs = getProductFaqs(snapshot, product.id)
   const categories = getProductCategories(snapshot, product.id)
   const collections = buildProductCollections(categories, snapshot)
-  const variants = buildVariants(images, snapshot, product.slug)
+  const variants = buildVariants(galleryImages, snapshot, product.slug)
   const canonicalPath = `/products/${product.slug}`
   const mainColor = product.main_color_id ? snapshot.colorsById.get(product.main_color_id) ?? null : null
   const name = normalizeProductName(product.name)
   const reviews = buildReviews(snapshot, product.id)
-  const price = resolveProductPrice(product.slug, product.price)
+  const price = product.price ?? null
   const priceLabel = formatPrice(price)
   const metaDescription = buildProductMetaDescription(product, name, priceLabel)
-  const gallery = buildGallery(name, images, snapshot, product.image_alt_text || `${name} price in Pakistan`)
+  const gallery = buildGallery(name, galleryImages, snapshot, product.image_alt_text || `${name} price in Pakistan`)
+  const backgroundMedia = productBackgroundImage
+    ? buildGallery(name, [productBackgroundImage], snapshot, `${name} product background`)[0] ?? null
+    : null
 
   return {
     id: `product-${product.id}`,
@@ -1078,22 +1248,23 @@ function buildProductDetailFromProduct(product: SupabaseProductRow, snapshot: Ca
     sourceHref: canonicalPath,
     sourceUrl: buildAbsoluteUrl(canonicalPath),
     canonicalUrl: product.canonical_url || buildAbsoluteUrl(canonicalPath),
-    ogImage: images[0]?.url ?? null,
-    primaryImage: images[0]?.url ?? null,
+    ogImage: galleryImages[0]?.url ?? productBackgroundImage?.url ?? null,
+    primaryImage: galleryImages[0]?.url ?? null,
+    productBackgroundImage: backgroundMedia,
     gallery,
     collectionSlugs: collections.map((collection) => collection.slug),
     collections,
-    variantUrls: images.map((image) => image.url),
+    variantUrls: galleryImages.map((image) => image.url),
     variants,
-    heroImages: images.map((image) => image.url),
-    widgets: buildWidgets('product', product.product_type, images, snapshot, product.stock_quantity),
+    heroImages: galleryImages.map((image) => image.url),
+    widgets: buildWidgets('product', product.product_type, galleryImages, snapshot, product.stock_quantity),
     price,
     priceLabel,
     stockQuantity: product.stock_quantity,
     availability: resolveAvailability(product.stock_quantity),
     createdAt: product.created_at,
     updatedAt: product.updated_at,
-    specs: buildDetailSpecs('product', collections, images, snapshot, [
+    specs: buildDetailSpecs('product', collections, galleryImages, snapshot, [
       ['Type', product.product_type ? PRODUCT_TYPE_LABELS[product.product_type] ?? product.product_type : null],
       ['Main colour', mainColor?.name],
       ['Stock', typeof product.stock_quantity === 'number' ? `${product.stock_quantity} units available` : null],
@@ -1109,12 +1280,17 @@ function buildProductDetailFromProduct(product: SupabaseProductRow, snapshot: Ca
 
 function buildProductDetailFromMobile(mobile: SupabaseMobileRow, snapshot: CatalogSnapshot): ProductDetail {
   const images = getMobileImages(snapshot, mobile.id)
+  const productBackgroundImage = getMobileDetailImages(snapshot, mobile.id)[0] ?? images.find(isProductBackgroundImage) ?? null
+  const galleryImages = images.filter((image) => !isProductBackgroundImage(image))
   const faqs = getMobileFaqs(snapshot, mobile.id)
   const categories = getMobileCategories(snapshot, mobile.id)
   const collections = buildProductCollections(categories, snapshot)
   const canonicalPath = `/products/${mobile.slug}`
   const metaDescription = buildMobileMetaDescription(mobile)
-  const gallery = buildGallery(mobile.name, images, snapshot, mobile.image_alt_text || `${mobile.name} price in Pakistan`)
+  const gallery = buildGallery(mobile.name, galleryImages, snapshot, mobile.image_alt_text || `${mobile.name} price in Pakistan`)
+  const backgroundMedia = productBackgroundImage
+    ? buildGallery(mobile.name, [productBackgroundImage], snapshot, `${mobile.name} product background`)[0] ?? null
+    : null
 
   return {
     id: `mobile-${mobile.id}`,
@@ -1123,7 +1299,7 @@ function buildProductDetailFromMobile(mobile: SupabaseMobileRow, snapshot: Catal
     name: mobile.name,
     brandName: resolveBrandName(mobile.name),
     pageTitle: mobile.meta_title || mobile.name,
-    summary: metaDescription,
+    summary: mobile.description || metaDescription,
     metaDescription,
     seoKeywords: buildMobileSearchKeywords(mobile.name, mobile.seo_keywords),
     schemaJson: mobile.schema_json,
@@ -1131,22 +1307,23 @@ function buildProductDetailFromMobile(mobile: SupabaseMobileRow, snapshot: Catal
     sourceHref: canonicalPath,
     sourceUrl: buildAbsoluteUrl(canonicalPath),
     canonicalUrl: mobile.canonical_url || buildAbsoluteUrl(canonicalPath),
-    ogImage: images[0]?.url ?? null,
-    primaryImage: images[0]?.url ?? null,
+    ogImage: galleryImages[0]?.url ?? productBackgroundImage?.url ?? null,
+    primaryImage: galleryImages[0]?.url ?? null,
+    productBackgroundImage: backgroundMedia,
     gallery,
     collectionSlugs: collections.map((collection) => collection.slug),
     collections,
-    variantUrls: images.map((image) => image.url),
-    variants: buildVariants(images, snapshot, mobile.slug),
-    heroImages: images.map((image) => image.url),
-    widgets: buildWidgets('mobile', null, images, snapshot),
+    variantUrls: galleryImages.map((image) => image.url),
+    variants: buildVariants(galleryImages, snapshot, mobile.slug),
+    heroImages: galleryImages.map((image) => image.url),
+    widgets: buildWidgets('mobile', null, galleryImages, snapshot),
     price: mobile.Price,
     priceLabel: formatPrice(mobile.Price),
     stockQuantity: null,
     availability: resolveAvailability(),
     createdAt: mobile.created_at,
     updatedAt: mobile.updated_at,
-    specs: buildDetailSpecs('mobile', collections, images, snapshot, [
+    specs: buildDetailSpecs('mobile', collections, galleryImages, snapshot, [
       ['Release date', formatCatalogDate(mobile.release_date)],
       ['Updated', formatCatalogDate(mobile.updated_at)],
     ]),
@@ -1160,13 +1337,15 @@ function buildProductDetailFromMobile(mobile: SupabaseMobileRow, snapshot: Catal
 
 function getVirtualCollectionProducts(slug: VirtualCollectionSlug, snapshot: CatalogSnapshot): Product[] {
   if (slug === 'shop-all') {
-    const productCards = snapshot.products.map((product) => buildProductCard(product, snapshot))
+    const productCards = snapshot.products
+      .filter((product) => !isProtectorOrCoverProduct(product, snapshot))
+      .flatMap((product) => buildProductVariantCards(product, snapshot))
 
     return sortCatalogCards(productCards)
   }
 
   if (slug === 'phones') {
-    return sortCatalogCards(snapshot.mobiles.map((mobile) => buildMobileCard(mobile, snapshot)))
+    return sortCatalogCards(snapshot.mobiles.flatMap((mobile) => buildMobileVariantCards(mobile, snapshot)))
   }
 
   const productTypes = VIRTUAL_COLLECTIONS[slug].productTypes ?? []
@@ -1174,7 +1353,7 @@ function getVirtualCollectionProducts(slug: VirtualCollectionSlug, snapshot: Cat
   return sortCatalogCards(
     snapshot.products
       .filter((product) => product.product_type && productTypes.includes(product.product_type))
-      .map((product) => buildProductCard(product, snapshot)),
+      .flatMap((product) => buildProductVariantCards(product, snapshot)),
   )
 }
 
@@ -1220,8 +1399,12 @@ function buildVirtualCollection(slug: VirtualCollectionSlug, snapshot: CatalogSn
 
 export async function getHomePageData(): Promise<HomePageData> {
   const snapshot = await getCatalogSnapshot()
-  const shopAllProducts = sortCatalogCards(getVirtualCollectionProducts('shop-all', snapshot))
-  const phoneProducts = sortHomeShowcaseCards(getVirtualCollectionProducts('phones', snapshot))
+  const shopAllProducts = sortCatalogCards(
+    snapshot.products
+      .filter((product) => !isProtectorOrCoverProduct(product, snapshot))
+      .map((product) => buildProductCard(product, snapshot)),
+  )
+  const phoneProducts = sortHomeShowcaseCards(snapshot.mobiles.map((mobile) => buildMobileCard(mobile, snapshot)))
   const trendingPicks = getOrderedCategoryProductCards(snapshot, 'trending-picks', TRENDING_PICK_PRODUCT_SLUGS)
 
   return {
@@ -1348,7 +1531,7 @@ export async function getProductSitemapEntries(): Promise<SitemapProductEntry[]>
     const faqs = getMobileFaqs(snapshot, mobile.id)
     const linkedProductIds = snapshot.productIdsByMobileId.get(mobile.id) ?? []
     const linkedProducts = linkedProductIds
-      .map((productId) => snapshot.products.find((product) => product.id === productId))
+      .map((productId) => snapshot.productsById.get(productId))
       .filter((product): product is SupabaseProductRow => Boolean(product))
     const productMobileTimestamps = snapshot.productMobiles
       .filter((relation) => relation.mobile_id === mobile.id)
@@ -1386,14 +1569,24 @@ export async function getCollectionBySlug(slug: string): Promise<Collection | nu
     return buildVirtualCollection(slug, snapshot)
   }
 
-  const category = snapshot.categories.find((item) => item.slug === slug)
+  const category = snapshot.categoriesBySlug.get(slug)
 
   if (!category) {
     return null
   }
 
   const categoryTreeIds = getCategoryTreeIds(snapshot, category.id)
-  const products = getCatalogCardsForCategoryIds(snapshot, categoryTreeIds)
+  const rawProducts = getCatalogCardsForCategoryIds(snapshot, categoryTreeIds)
+  const products =
+    category.slug === 'cmf'
+      ? buildCmfCollectionProducts(snapshot, rawProducts)
+      : category.slug === 'shop-all'
+        ? rawProducts
+        : sortCatalogCards(
+            snapshot.products
+              .filter((product) => rawProducts.some((card) => card.handle === product.slug))
+              .flatMap((product) => buildProductVariantCards(product, snapshot)),
+          )
   const relationTimestamps = snapshot.categoryRelations
     .filter((relation) => categoryTreeIds.includes(relation.category_id))
     .map((relation) => relation.updated_at || relation.created_at)
@@ -1433,13 +1626,13 @@ export async function getCollectionBySlug(slug: string): Promise<Collection | nu
 
 export async function getProductDetailByHandle(handle: string): Promise<ProductDetail | null> {
   const snapshot = await getCatalogSnapshot()
-  const product = snapshot.products.find((item) => item.slug === handle)
+  const product = snapshot.productsBySlug.get(handle)
 
   if (product) {
     return buildProductDetailFromProduct(product, snapshot)
   }
 
-  const mobile = snapshot.mobiles.find((item) => item.slug === handle)
+  const mobile = snapshot.mobilesBySlug.get(handle)
 
   if (mobile) {
     return buildProductDetailFromMobile(mobile, snapshot)
@@ -1450,7 +1643,7 @@ export async function getProductDetailByHandle(handle: string): Promise<ProductD
 
 export async function getMobileAccessoryGroupsByHandle(handle: string): Promise<MobileAccessoryGroup[]> {
   const snapshot = await getCatalogSnapshot()
-  const mobile = snapshot.mobiles.find((item) => item.slug === handle)
+  const mobile = snapshot.mobilesBySlug.get(handle)
 
   if (!mobile) {
     return []

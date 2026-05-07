@@ -4,16 +4,24 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useMemo, useState } from 'react'
 import type { ProductDetailMedia } from '@/lib/models/product-detail'
+import orderIcon from '@/assets/icons/order.svg'
+import packageIcon from '@/assets/icons/package.svg'
+import deliverIcon from '@/assets/icons/deleiver.svg'
 
 type ProductDetailHeroProps = {
   productName: string
   brandLabel: string
   entityType: 'product' | 'mobile'
   gallery: ProductDetailMedia[]
+  backgroundImage?: ProductDetailMedia | null
   intro: string | null
   priceLabel?: string | null
   canonicalHandle: string
   labels?: string[]
+  deliveryTimeline?: {
+    processDateLabel: string
+    deliveryRangeLabel: string
+  }
 }
 
 type ColorOption = {
@@ -34,8 +42,8 @@ const COLOR_HEX_BY_NAME: Record<string, string> = {
   orange: '#ff6a00',
   blue: '#4a7fd8',
   yellow: '#f4d64f',
-  green: '#7fbf72',
-  'light green': '#b8d7a0',
+  green: '#8fb57e',
+  'light green': '#b7c9a6',
   pink: '#e7a6b6',
 }
 
@@ -103,15 +111,100 @@ function WhatsAppIcon() {
   )
 }
 
+function DeliveryTimelineStep({
+  icon,
+  label,
+  dateLabel,
+  active = false,
+}: {
+  icon: typeof orderIcon
+  label: string
+  dateLabel: string
+  active?: boolean
+}) {
+  return (
+    <div className="flex min-w-0 flex-col items-center text-center">
+      <div
+        className={`flex h-16 w-16 items-center justify-center rounded-full border-4 sm:h-[86px] sm:w-[86px] lg:h-[74px] lg:w-[74px] ${
+          active
+            ? 'border-white bg-[#fff7ef] shadow-[0_14px_28px_rgba(244,110,30,0.18)]'
+            : 'border-[#f2f2f2] bg-[#f8f8f8] shadow-[0_10px_20px_rgba(15,23,42,0.04)]'
+        }`}
+      >
+        <Image src={icon} alt="" aria-hidden="true" className={`h-7 w-7 object-contain ${active ? '' : 'grayscale opacity-55'}`} />
+      </div>
+      <p className={`mt-3 text-[0.8rem] font-extrabold uppercase tracking-normal ${active ? 'text-[#ff7a00]' : 'text-[#4f5a6c]'}`}>
+        {label}
+      </p>
+      <p className={`mt-1 text-[0.78rem] font-semibold ${active ? 'text-[#71798a]' : 'text-[#9ea6b4]'}`}>
+        {dateLabel}
+      </p>
+    </div>
+  )
+}
+
+function DeliveryTimelineCard({
+  deliveryTimeline,
+}: {
+  deliveryTimeline: NonNullable<ProductDetailHeroProps['deliveryTimeline']>
+}) {
+  return (
+    <div className="mt-6 rounded-[1.85rem] border border-[#f7d9b7] bg-[linear-gradient(180deg,#fffdfa_0%,#ffffff_100%)] px-4 py-5 shadow-[0_18px_42px_rgba(244,110,30,0.08)] sm:px-5 sm:py-6">
+      <p className="text-[0.95rem] font-black uppercase tracking-normal text-[#8d8d8d]">
+        Estimated Delivery
+      </p>
+      <p className="mt-1 font-sans text-[2rem] font-bold leading-none tracking-normal text-[#ff6f00] sm:text-[2.35rem]">
+        {deliveryTimeline.deliveryRangeLabel}
+      </p>
+
+      <div className="mt-5 border-t border-dashed border-[#f0c89d] pt-5">
+        <div className="grid grid-cols-[minmax(0,1fr)_minmax(1.2rem,1fr)_minmax(0,1fr)_minmax(1.2rem,1fr)_minmax(0,1fr)] items-start sm:grid-cols-[minmax(0,1fr)_minmax(2.5rem,1fr)_minmax(0,1fr)_minmax(2.5rem,1fr)_minmax(0,1fr)]">
+          <DeliveryTimelineStep icon={orderIcon} label="Order" dateLabel="Today" active />
+          <div className="mt-8 h-1 rounded-full bg-[#ff7a00] sm:mt-[2.55rem]" />
+          <DeliveryTimelineStep icon={packageIcon} label="Process" dateLabel={deliveryTimeline.processDateLabel} active />
+          <div className="mt-8 h-1 rounded-full bg-[#edf0f5] sm:mt-[2.55rem]" />
+          <DeliveryTimelineStep icon={deliverIcon} label="Deliver" dateLabel={deliveryTimeline.deliveryRangeLabel} />
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function isHtmlSnippet(value: string) {
+  return /<\/?[a-z][\s\S]*>/i.test(value)
+}
+
+function IntroContent({ intro, compact = false }: { intro: string | null; compact?: boolean }) {
+  if (!intro) return null
+
+  const className = compact
+    ? 'mt-3 text-[0.5rem] uppercase leading-[1.35] tracking-[0.1em] text-black sm:text-[0.56rem] [&_.np-feature-list]:space-y-1.5 [&_.np-feature]:flex [&_.np-feature]:items-center [&_.np-feature]:gap-1.5 [&_.np-feature_img]:h-2.5 [&_.np-feature_img]:w-2.5 [&_.np-feature_img]:shrink-0'
+    : 'mt-5 text-base leading-7 text-slate-600 [&_.np-feature-list]:space-y-3 [&_.np-feature]:flex [&_.np-feature]:items-center [&_.np-feature]:gap-3 [&_.np-feature_img]:h-4 [&_.np-feature_img]:w-4 [&_.np-feature_img]:shrink-0'
+
+  if (isHtmlSnippet(intro)) {
+    return <div className={className} dangerouslySetInnerHTML={{ __html: intro }} />
+  }
+
+  return <p className={className}>{intro}</p>
+}
+
+function formatHeroPrice(priceLabel?: string | null) {
+  if (!priceLabel) return 'Contact for price'
+
+  return priceLabel.replace(/^Rs\s*/i, 'PKR ')
+}
+
 export function ProductDetailHero({
   productName,
   brandLabel,
   entityType,
   gallery,
+  backgroundImage,
   intro,
   priceLabel,
   canonicalHandle,
   labels = [],
+  deliveryTimeline,
 }: ProductDetailHeroProps) {
   const [selectedIndex, setSelectedIndex] = useState(0)
   const selectedMedia = gallery[selectedIndex] ?? gallery[0] ?? null
@@ -127,11 +220,119 @@ export function ProductDetailHero({
     entityType === 'mobile'
       ? `https://wa.me/923361070111?text=${encodeURIComponent(`Hi, I want to purchase this phone if available. Kindly tell me the price: ${productName}`)}`
       : 'https://wa.me/923361070111'
+  const buyHref = `/order/${canonicalHandle}`
+
+  if (backgroundImage) {
+    return (
+      <section className="relative min-h-screen overflow-hidden bg-[#e8e8e6] font-sans">
+        <Image
+          src={backgroundImage.url}
+          alt={backgroundImage.alt || productName}
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-center"
+        />
+        <div className="pointer-events-none absolute inset-0 opacity-70 [background-image:radial-gradient(circle,#111_1.2px,transparent_1.45px)] [background-position:1.4rem_1.4rem] [background-size:7.5rem_7.5rem] sm:[background-size:9.5rem_7.75rem]" />
+
+        <div className="relative z-10 flex min-h-screen items-end justify-center px-4 pb-6 pt-24 sm:px-8 sm:pb-10">
+          <div className="w-full max-w-[470px] rounded-[14px] border border-white/80 bg-[#fbf7ef] p-4 text-black shadow-[0_24px_80px_rgba(0,0,0,0.20),inset_0_1px_0_rgba(255,255,255,0.88)] sm:p-5">
+            <div className="grid grid-cols-[104px_minmax(0,1fr)] items-start gap-3 sm:grid-cols-[124px_minmax(0,1fr)]">
+              {selectedMedia ? (
+                <div className="w-full max-w-[104px] sm:max-w-[124px]">
+                  <div className="relative mx-auto aspect-square w-[82px] sm:w-full">
+                    <Image
+                      src={selectedMedia.url}
+                      alt={selectedMedia.alt || productName}
+                      fill
+                      priority
+                      sizes="210px"
+                      className="object-contain drop-shadow-[0_18px_28px_rgba(0,0,0,0.16)]"
+                    />
+                  </div>
+
+                  {colorOptions.length > 0 ? (
+                    <div className="mt-2 flex flex-wrap justify-center gap-1.5">
+                      {colorOptions.map((color) => {
+                        const isActive = color.mediaIndex === selectedIndex
+                        const isLight = ['white', 'milk', 'silver', 'yellow'].includes(color.key)
+
+                        return (
+                          <button
+                            key={color.key}
+                            type="button"
+                            aria-label={`Show ${color.label}`}
+                            title={color.label}
+                            aria-pressed={isActive}
+                            onClick={() => setSelectedIndex(color.mediaIndex)}
+                            className={`flex h-5 w-5 items-center justify-center rounded-full border transition ${
+                              isActive ? 'border-black shadow-[0_0_0_3px_rgba(0,0,0,0.10)]' : 'border-black/20 hover:border-black/55'
+                            }`}
+                          >
+                            <span
+                              className={`block h-3 w-3 rounded-full ${isLight ? 'border border-black/20' : ''}`}
+                              style={{ backgroundColor: color.hex }}
+                            />
+                          </button>
+                        )
+                      })}
+                    </div>
+                  ) : null}
+                </div>
+              ) : null}
+
+              <div className="min-w-0">
+                <h1 className="[font-family:var(--font-ndot57)] text-[0.86rem] lowercase leading-none tracking-[0.13em] sm:text-[1rem]">
+                  {productName}
+                </h1>
+                <IntroContent intro={intro} compact />
+                <p className="mt-3 [font-family:var(--font-ndot57)] text-[0.6rem] uppercase tracking-[0.16em] text-black sm:text-[0.68rem]">
+                  {formatHeroPrice(priceLabel)}
+                </p>
+              </div>
+            </div>
+
+            {entityType === 'product' ? (
+              <div className="mt-3 grid gap-2 sm:grid-cols-2">
+                <Link
+                  href={buyHref}
+                  className="inline-flex h-10 items-center justify-center rounded-[8px] bg-black px-3 [font-family:var(--font-ndot57)] text-[0.95rem] font-bold uppercase tracking-[0.06em] text-white transition-colors hover:bg-[#1b1b1b] sm:h-10 sm:text-[1rem] sm:tracking-[0.08em]"
+                >
+                  Buy Now
+                </Link>
+                <Link
+                  href={whatsappHref}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex h-10 items-center justify-center gap-1.5 rounded-[8px] bg-[#20c65a] px-3 [font-family:var(--font-ndot57)] text-[0.86rem] font-bold uppercase tracking-[0.03em] text-white transition-colors hover:bg-[#18ad4d] sm:h-10 sm:text-[0.92rem] sm:tracking-[0.04em]"
+                >
+                  <WhatsAppIcon />
+                  <span>Contact on WhatsApp</span>
+                </Link>
+              </div>
+            ) : (
+              <div className="mt-3">
+                <Link
+                  href={whatsappHref}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex h-10 w-full items-center justify-center gap-1.5 rounded-[8px] bg-[#20c65a] px-3 [font-family:var(--font-ndot57)] text-[0.86rem] font-bold uppercase tracking-[0.03em] text-white transition-colors hover:bg-[#18ad4d] sm:h-10 sm:text-[0.92rem] sm:tracking-[0.04em]"
+                >
+                  <WhatsAppIcon />
+                  <span>Contact on WhatsApp</span>
+                </Link>
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+    )
+  }
 
   return (
     <section className="rounded-[30px] border border-slate-200 bg-white p-4 font-sans shadow-[0_18px_40px_rgba(15,23,42,0.06)] sm:p-6 lg:p-8">
       <div className="grid gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(320px,0.95fr)] lg:items-start">
-        <div>
+        <div className="min-w-0">
           <div className="rounded-[26px] border border-slate-200 bg-[#f8fafc] p-5 sm:p-7">
             {selectedMedia ? (
               <div className="relative h-[300px] w-full sm:h-[420px] lg:h-[540px]">
@@ -153,7 +354,7 @@ export function ProductDetailHero({
           </div>
 
           {gallery.length > 1 ? (
-            <div className="mt-4 flex gap-3 overflow-x-auto pb-1">
+            <div className="mt-4 flex max-w-full gap-3 overflow-x-auto pb-2 [-webkit-overflow-scrolling:touch]">
               {gallery.map((media, index) => {
                 const isActive = index === selectedIndex
 
@@ -164,11 +365,11 @@ export function ProductDetailHero({
                     aria-label={`Show ${media.colorName || media.title || `${productName} image ${index + 1}`}`}
                     aria-pressed={isActive}
                     onClick={() => setSelectedIndex(index)}
-                    className={`rounded-[18px] border p-3 transition ${
+                    className={`shrink-0 rounded-[18px] border p-2 transition sm:p-3 ${
                       isActive ? 'border-slate-900 bg-slate-50 shadow-[0_12px_28px_rgba(15,23,42,0.08)]' : 'border-slate-200 bg-white hover:border-slate-400'
                     }`}
                   >
-                    <span className="relative block h-20 w-20 sm:h-24 sm:w-24">
+                    <span className="relative block h-[72px] w-[72px] sm:h-24 sm:w-24">
                       <Image src={media.url} alt={media.alt || productName} fill sizes="96px" className="object-contain" />
                     </span>
                   </button>
@@ -190,7 +391,7 @@ export function ProductDetailHero({
             </p>
           ) : null}
 
-          {intro ? <p className="mt-5 text-base leading-7 text-slate-600">{intro}</p> : null}
+          <IntroContent intro={intro} />
 
           {colorOptions.length > 0 ? (
             <div className="mt-6">
@@ -242,11 +443,13 @@ export function ProductDetailHero({
             </div>
           </div>
 
+          {deliveryTimeline ? <DeliveryTimelineCard deliveryTimeline={deliveryTimeline} /> : null}
+
           {entityType === 'product' ? (
             <div className="mt-6 grid gap-3 sm:grid-cols-2">
               <Link
                 href={`/order/${canonicalHandle}`}
-                className="inline-flex h-12 items-center justify-center rounded-[16px] bg-slate-900 px-5 font-sans text-sm font-medium text-white transition-colors hover:bg-slate-800"
+                className="inline-flex h-12 items-center justify-center rounded-[16px] bg-slate-900 px-5 font-sans text-base font-bold text-white transition-colors hover:bg-slate-800 sm:text-lg"
               >
                 Buy Now
               </Link>
@@ -254,7 +457,7 @@ export function ProductDetailHero({
                 href={whatsappHref}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex h-12 items-center justify-center gap-2 rounded-[16px] border border-[#b7f0cb] bg-[#e9fff1] px-5 font-sans text-sm font-medium text-[#118a45] transition-colors hover:bg-[#dcffea]"
+                className="inline-flex h-12 items-center justify-center gap-2 rounded-[16px] border border-[#b7f0cb] bg-[#e9fff1] px-5 font-sans text-base font-bold text-[#118a45] transition-colors hover:bg-[#dcffea] sm:text-lg"
               >
                 <WhatsAppIcon />
                 <span>Contact on WhatsApp</span>
@@ -266,7 +469,7 @@ export function ProductDetailHero({
                 href={whatsappHref}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-[16px] border border-[#b7f0cb] bg-[#e9fff1] px-5 font-sans text-sm font-medium text-[#118a45] transition-colors hover:bg-[#dcffea] sm:w-auto sm:min-w-[240px]"
+                className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-[16px] border border-[#b7f0cb] bg-[#e9fff1] px-5 font-sans text-base font-bold text-[#118a45] transition-colors hover:bg-[#dcffea] sm:w-auto sm:min-w-[240px] sm:text-lg"
               >
                 <WhatsAppIcon />
                 <span>Contact on WhatsApp</span>

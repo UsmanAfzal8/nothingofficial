@@ -203,7 +203,14 @@ export function OrderForm({ product, backLink }: OrderFormProps) {
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
 
-    if (!canSubmit) return
+    if (!canSubmit) {
+      setSubmitState({
+        status: 'error',
+        message: 'Please fill in name, address, city, district, and phone. Postal code is optional.',
+        orderNumber: null,
+      })
+      return
+    }
 
     setSubmitState({ status: 'submitting', message: '', orderNumber: null })
 
@@ -387,7 +394,7 @@ export function OrderForm({ product, backLink }: OrderFormProps) {
 
               <button
                 type="submit"
-                disabled={!canSubmit || submitState.status === 'submitting'}
+                disabled={submitState.status === 'submitting'}
                 className="inline-flex h-12 items-center justify-center rounded-[16px] bg-slate-900 px-6 text-sm font-medium text-white transition-colors hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-60"
               >
                 {submitState.status === 'submitting' ? 'Placing order...' : 'Place Order'}

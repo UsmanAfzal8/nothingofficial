@@ -5,9 +5,9 @@ import { CatalogProductTile } from '@/components/CatalogProductTile'
 import { NothingFooter } from '@/components/NothingFooter'
 import { NothingHeader } from '@/components/NothingHeader'
 import { SeoStructuredData } from '@/components/SeoStructuredData'
-import { getAllCollectionSlugs, getCollectionBySlug } from '@/lib/data/catalog-repository'
+import { CATALOG_REVALIDATE_SECONDS, getCollectionBySlug } from '@/lib/data/catalog-repository'
 import { collectionSeoFaqs, siteBrandName, siteKeywords, siteTrustLinks } from '@/lib/data/site-content'
-import type { Collection, NavigationItem } from '@/lib/models/catalog'
+import type { Collection } from '@/lib/models/catalog'
 import { buildAbsoluteUrl, buildBreadcrumbStructuredData, buildFaqStructuredData, buildRobotsMetadata, buildSeoKeywords } from '@/lib/utils/seo'
 
 type CollectionPageProps = {
@@ -16,13 +16,8 @@ type CollectionPageProps = {
   }
 }
 
-export const revalidate = 900
+export const revalidate = CATALOG_REVALIDATE_SECONDS
 const SHOP_STYLE_SLUGS = new Set(['shop-all', 'phones', 'chargers', 'protectors', 'earbuds', 'offers', 'audio', 'watches', 'accessories', 'cmf'])
-const ACCESSORY_SEO_LINKS = [
-  { slug: 'chargers', label: 'Chargers', href: '/collections/chargers' },
-  { slug: 'protectors', label: 'Protectors', href: '/collections/protectors' },
-  { slug: 'earbuds', label: 'Earbuds', href: '/collections/earbuds' },
-] as const
 const COLLECTION_SUPPORT_SLUGS = new Set(['shop-all', 'phones', 'chargers', 'accessories', 'protectors', 'phone-protectors', 'earbuds', 'cmf'])
 
 function buildCollectionSeoDescription(collection: Collection) {
@@ -46,30 +41,6 @@ function buildCollectionSeoDescription(collection: Collection) {
     default:
       return collection.description || `Browse ${collection.title} from ${siteBrandName} with live product pages, pricing, and ordering support in Pakistan.`
   }
-}
-
-function buildCollectionQuickLinks(collection: Collection) {
-  if (collection.slug === 'shop-all') {
-    return [
-      { label: 'Phone models', href: '/collections/phones' },
-      { label: 'Chargers', href: '/collections/chargers' },
-      { label: 'Contact us', href: '/pages/contact-us' },
-    ]
-  }
-
-  if (collection.slug === 'phones') {
-    return [
-      { label: 'Chargers', href: '/collections/chargers' },
-      { label: 'Protectors', href: '/collections/protectors' },
-      { label: 'Earbuds', href: '/collections/earbuds' },
-    ]
-  }
-
-  if (collection.slug === 'accessories' || ACCESSORY_SEO_LINKS.some((item) => item.slug === collection.slug)) {
-    return [...ACCESSORY_SEO_LINKS.filter((item) => item.slug !== collection.slug)]
-  }
-
-  return []
 }
 
 function buildCollectionBreadcrumbs(collection: Collection) {
@@ -167,12 +138,6 @@ export async function generateMetadata({ params }: CollectionPageProps): Promise
   }
 }
 
-export async function generateStaticParams() {
-  const slugs = await getAllCollectionSlugs()
-
-  return slugs.map((slug) => ({ slug }))
-}
-
 export default async function CollectionPage({ params }: CollectionPageProps) {
   const collection = await getCollectionBySlug(params.slug)
 
@@ -180,33 +145,11 @@ export default async function CollectionPage({ params }: CollectionPageProps) {
     notFound()
   }
 
-  const contextualCollections =
-    collection.childCollections && collection.childCollections.length > 0
-      ? collection.childCollections
-      : collection.siblingCollections ?? []
-  const contextualLabel =
-    collection.childCollections && collection.childCollections.length > 0
-      ? 'Subcategories'
-      : collection.parentCollection
-        ? `${collection.parentCollection.label} categories`
-        : null
   const breadcrumbItems = buildCollectionBreadcrumbs(collection)
   const isShopStyleCollection = SHOP_STYLE_SLUGS.has(collection.slug)
-  const isAccessoriesCollection = collection.slug === 'accessories'
-  const isAccessoriesChild = collection.parentCollection?.slug === 'accessories'
   const seoDescription = buildCollectionSeoDescription(collection)
-  const quickLinks = buildCollectionQuickLinks(collection)
   const collectionFaqEntries = collectionSeoFaqs[collection.slug] ?? []
   const shouldShowTrustLinks = COLLECTION_SUPPORT_SLUGS.has(collection.slug)
-
-  const accessoriesLinks: NavigationItem[] =
-    isAccessoriesCollection || isAccessoriesChild
-      ? [
-          { slug: 'accessories', label: 'Accessories', href: '/collections/accessories' },
-          ...(isAccessoriesCollection ? collection.childCollections ?? [] : collection.siblingCollections ?? []),
-        ]
-      : []
-  const activeAccessoriesSlug = isAccessoriesCollection ? 'accessories' : collection.slug
 
   return (
     <div className={`min-h-screen overflow-x-hidden text-[#111] ${isShopStyleCollection ? 'bg-white' : 'bg-[#f4f4f0]'}`}>
@@ -240,19 +183,6 @@ export default async function CollectionPage({ params }: CollectionPageProps) {
                     {collection.slug === 'shop-all' ? 'All products' : collection.title}
                   </h1>
                   <p className="mx-auto mt-4 max-w-3xl text-sm leading-7 text-black/62 md:text-base">{seoDescription}</p>
-                  {quickLinks.length > 0 ? (
-                    <div className="mt-5 flex flex-wrap items-center justify-center gap-2">
-                      {quickLinks.map((item) => (
-                        <Link
-                          key={item.href}
-                          href={item.href}
-                          className="rounded-full border border-black/12 bg-white px-4 py-2 text-[10px] uppercase tracking-[0.2em] text-black/58 transition-colors hover:bg-black hover:text-white"
-                        >
-                          {item.label}
-                        </Link>
-                      ))}
-                    </div>
-                  ) : null}
                 </div>
               </div>
             ) : (
@@ -261,19 +191,6 @@ export default async function CollectionPage({ params }: CollectionPageProps) {
                   <p className="mb-3 text-[10px] uppercase tracking-[0.34em] text-black/45 md:text-xs">Catalog Collection</p>
                   <h1 className="text-4xl leading-[0.95] tracking-[-0.04em] text-black md:text-6xl">{collection.title}</h1>
                   <p className="mt-4 max-w-2xl text-sm leading-6 text-black/62 md:text-base">{seoDescription}</p>
-                  {quickLinks.length > 0 ? (
-                    <div className="mt-5 flex flex-wrap gap-2">
-                      {quickLinks.map((item) => (
-                        <Link
-                          key={item.href}
-                          href={item.href}
-                          className="rounded-full border border-black/10 bg-white px-4 py-2 text-[10px] uppercase tracking-[0.2em] text-black/56 transition-colors hover:bg-black hover:text-white"
-                        >
-                          {item.label}
-                        </Link>
-                      ))}
-                    </div>
-                  ) : null}
                 </div>
 
                 {collection.products.length > 0 ? (
@@ -284,49 +201,6 @@ export default async function CollectionPage({ params }: CollectionPageProps) {
               </div>
             )}
           </div>
-
-          {isAccessoriesCollection && accessoriesLinks.length > 0 ? (
-            <div className="mt-4 overflow-x-auto">
-              <div className="flex min-w-max gap-2 pb-1">
-                {accessoriesLinks.map((item) => {
-                  const isActive = item.slug === activeAccessoriesSlug
-
-                  return (
-                    <Link
-                      key={item.slug}
-                      href={item.href}
-                      className={`rounded-full px-4 py-2 text-[10px] uppercase tracking-[0.22em] transition-colors ${
-                        isActive ? 'bg-black text-white' : 'border border-black/10 bg-white text-black/58 hover:bg-black hover:text-white'
-                      }`}
-                    >
-                      {item.label}
-                    </Link>
-                  )
-                })}
-              </div>
-            </div>
-          ) : null}
-
-          {!isShopStyleCollection ? (
-            <div className="mt-6 flex flex-col gap-5">
-              {contextualLabel && contextualCollections.length > 0 ? (
-                <div>
-                  <p className="text-[10px] uppercase tracking-[0.28em] text-black/42">{contextualLabel}</p>
-                  <div className="mt-3 flex flex-wrap gap-2">
-                    {contextualCollections.map((item) => (
-                      <Link
-                        key={item.slug}
-                        href={item.href}
-                        className="rounded-full border border-black/10 bg-white px-4 py-2 text-[10px] uppercase tracking-[0.2em] text-black/56 transition-colors hover:bg-black hover:text-white"
-                      >
-                        {item.label}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              ) : null}
-            </div>
-          ) : null}
 
           {collection.products.length > 0 ? (
             <div

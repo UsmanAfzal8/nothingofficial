@@ -42,14 +42,6 @@ const supabase = createClient(supabaseUrl, supabaseKey, {
   },
 })
 
-const PRICE_OVERRIDES = {
-  'cmf-buds-pro-2': 13000,
-  'cmf-buds-2': 16000,
-  'cmf-buds-2-plus': 15000,
-  'cmf-buds-2a': 11000,
-  'cmf-power-65w-gan': 6500,
-}
-
 const RESEARCH_SOURCES = [
   'Google Ads Keyword Planner intent framework',
   'Pakistan SERP review for Nothing and CMF phone price queries',
@@ -461,7 +453,7 @@ async function fetchImages(relatedType) {
 
 function resolvePrice(item, entityType) {
   if (entityType === 'mobile') return typeof item.Price === 'number' ? item.Price : null
-  return PRICE_OVERRIDES[item.slug] ?? (typeof item.price === 'number' ? item.price : null)
+  return typeof item.price === 'number' ? item.price : null
 }
 
 function formatPrice(price) {
@@ -508,10 +500,6 @@ async function updateTable({ table, entityType, imageType, selectColumns }) {
       seo_description_long: buildLongDescription(item, name, category, priceLabel, entityType),
       image_alt_text: imageAltText,
       updated_at: new Date().toISOString(),
-    }
-
-    if (entityType === 'product' && PRICE_OVERRIDES[item.slug]) {
-      updatePayload.price = PRICE_OVERRIDES[item.slug]
     }
 
     const { error: updateError } = await supabase.from(table).update(updatePayload).eq('id', item.id)
