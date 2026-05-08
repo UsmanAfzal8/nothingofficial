@@ -75,10 +75,7 @@ export default async function OrderByHandlePage({ params }: OrderByHandlePagePro
       <main className="pt-20 lg:pt-24">
         <section className="px-4 pb-16 pt-6 md:px-8 md:pb-24">
           <div className="mx-auto w-full max-w-[1200px]">
-            <OrderForm
-              product={selectedProduct}
-              backLink={{ href: `/products/${canonicalHandle}`, label: 'Back to Product' }}
-            />
+            <OrderForm product={selectedProduct} />
           </div>
         </section>
       </main>

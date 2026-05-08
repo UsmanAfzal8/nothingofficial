@@ -13,14 +13,8 @@ type SelectedProduct = {
   price: number | null
 }
 
-type OrderFormLink = {
-  href: string
-  label: string
-}
-
 type OrderFormProps = {
   product: SelectedProduct | null
-  backLink?: OrderFormLink | null
 }
 
 type SubmitState = {
@@ -37,6 +31,8 @@ type CheckoutItem = {
   quantity: number
 }
 
+type PaymentMethod = 'cod' | 'bank_transfer'
+
 const initialSubmitState: SubmitState = {
   status: 'idle',
   message: '',
@@ -45,6 +41,17 @@ const initialSubmitState: SubmitState = {
 
 const fieldClassName =
   'w-full rounded-[16px] border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-slate-400 focus:ring-2 focus:ring-slate-200'
+
+const SHIPPING_FEE = 300
+const BANK_TRANSFER_DISCOUNT_RATE = 0.04
+const BANK_ACCOUNT = {
+  bank: 'BANK ALFALAH',
+  accountName: 'SOFTWARE SUITE',
+  accountNumber: '57065002899706',
+  iban: 'PK40ALFH5706005002899706',
+  whatsapp: '03361070111',
+  whatsappUrl: 'https://wa.me/923361070111',
+} as const
 
 function formatPrice(value: number | null | undefined): string | null {
   if (typeof value !== 'number' || Number.isNaN(value)) {
@@ -56,6 +63,75 @@ function formatPrice(value: number | null | undefined): string | null {
     currency: 'PKR',
     maximumFractionDigits: 0,
   }).format(value)
+}
+
+function getPakistanCalendarDate(date: Date) {
+  const parts = new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'Asia/Karachi',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).formatToParts(date)
+
+  return {
+    year: Number(parts.find((part) => part.type === 'year')?.value ?? date.getUTCFullYear()),
+    month: Number(parts.find((part) => part.type === 'month')?.value ?? date.getUTCMonth() + 1),
+    day: Number(parts.find((part) => part.type === 'day')?.value ?? date.getUTCDate()),
+  }
+}
+
+function createUtcDate(year: number, month: number, day: number) {
+  return new Date(Date.UTC(year, month - 1, day))
+}
+
+function addUtcDays(date: Date, days: number) {
+  const nextDate = new Date(date)
+  nextDate.setUTCDate(nextDate.getUTCDate() + days)
+  return nextDate
+}
+
+function formatShortMonthDay(date: Date) {
+  return new Intl.DateTimeFormat('en-US', {
+    month: 'short',
+    day: 'numeric',
+    timeZone: 'UTC',
+  }).format(date)
+}
+
+function getDeliveryTimeline() {
+  const pakistanToday = getPakistanCalendarDate(new Date())
+  const orderDate = createUtcDate(pakistanToday.year, pakistanToday.month, pakistanToday.day)
+  const processDate = addUtcDays(orderDate, 1)
+  const deliveryStartDate = addUtcDays(processDate, 2)
+  const deliveryEndDate = addUtcDays(processDate, 3)
+
+  return {
+    processDateLabel: formatShortMonthDay(processDate),
+    deliveryRangeLabel: `${formatShortMonthDay(deliveryStartDate)} - ${formatShortMonthDay(deliveryEndDate)}`,
+  }
+}
+
+function PlusMinusIcon({ open }: { open: boolean }) {
+  return (
+    <span className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-slate-200 bg-white text-base text-slate-500">
+      {open ? '-' : '+'}
+    </span>
+  )
+}
+
+function WhatsAppIcon() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path
+        d="M12 2.8c5.08 0 9.2 4.12 9.2 9.2S17.08 21.2 12 21.2c-1.54 0-3-.38-4.29-1.06L3.4 21.4l1.3-4.18A9.15 9.15 0 0 1 2.8 12c0-5.08 4.12-9.2 9.2-9.2Z"
+        fill="#25D366"
+      />
+      <path
+        d="M8.95 7.9c-.24 0-.47.11-.62.34-.35.5-.46 1.15-.3 1.73.3 1.12 1.06 2.22 2.14 3.29 1.08 1.08 2.18 1.84 3.3 2.15.58.16 1.23.05 1.73-.3.22-.15.34-.38.34-.62v-.86c0-.23-.15-.43-.37-.5l-1.72-.57a.62.62 0 0 0-.63.16l-.57.58a.47.47 0 0 1-.49.13c-.67-.22-1.78-1.09-2.16-1.8a.45.45 0 0 1 .08-.52l.57-.58a.63.63 0 0 0 .16-.63l-.57-1.73a.53.53 0 0 0-.5-.37h-.39Z"
+        fill="white"
+      />
+    </svg>
+  )
 }
 
 function mapProductToCheckoutItem(product: SelectedProduct): CheckoutItem {
@@ -118,7 +194,7 @@ function OrderSuccessScreen({
   )
 }
 
-export function OrderForm({ product, backLink }: OrderFormProps) {
+export function OrderForm({ product }: OrderFormProps) {
   const { items: cartItems, subtotal: cartSubtotal, clearCart } = useCart()
   const [name, setName] = useState('')
   const [address, setAddress] = useState('')
@@ -126,6 +202,8 @@ export function OrderForm({ product, backLink }: OrderFormProps) {
   const [district, setDistrict] = useState('')
   const [postalCode, setPostalCode] = useState('')
   const [phone, setPhone] = useState('')
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('cod')
+  const [mobileSummaryOpen, setMobileSummaryOpen] = useState(false)
   const [submitState, setSubmitState] = useState<SubmitState>(initialSubmitState)
 
   const canSubmit = useMemo(
@@ -160,16 +238,20 @@ export function OrderForm({ product, backLink }: OrderFormProps) {
 
   const itemCount = getCheckoutItemCount(checkoutItems)
   const previewImage = product?.image ?? checkoutItems[0]?.image ?? null
-  const pageTitle = product ? 'Complete your order' : isCartCheckout ? 'Checkout' : 'Place your order'
-  const pageDescription = product
-    ? 'Fill in your delivery details and we will confirm your order by phone.'
-    : isCartCheckout
-      ? 'Review your cart order and enter the delivery details below.'
-      : 'Enter your details and we will contact you to confirm the order.'
-  const secondaryLink: OrderFormLink =
-    cartItems.length > 0
-      ? { href: '/cart', label: isCartCheckout ? 'Back to Cart' : `View Cart (${cartItems.length})` }
-    : { href: '/collections/shop-all', label: 'Shop Products' }
+  const deliveryTimeline = useMemo(() => getDeliveryTimeline(), [])
+  const bankTransferDiscount = useMemo(
+    () => Number((paymentMethod === 'bank_transfer' ? checkoutSubtotal * BANK_TRANSFER_DISCOUNT_RATE : 0).toFixed(2)),
+    [checkoutSubtotal, paymentMethod],
+  )
+  const shippingFee = paymentMethod === 'bank_transfer' ? 0 : SHIPPING_FEE
+  const totalPrice = useMemo(
+    () => Math.max(0, Number((checkoutSubtotal - bankTransferDiscount + shippingFee).toFixed(2))),
+    [bankTransferDiscount, checkoutSubtotal, shippingFee],
+  )
+  const paymentNotes =
+    paymentMethod === 'bank_transfer'
+      ? `Bank transfer selected. Shipping fee waived. 4% discount applied. After payment send screenshot to ${BANK_ACCOUNT.whatsapp}.`
+      : 'Cash on delivery selected. Shipping fee Rs 300 applies.'
 
   if (!product && !isCartCheckout) {
     return (
@@ -187,14 +269,6 @@ export function OrderForm({ product, backLink }: OrderFormProps) {
           >
             Browse Products
           </Link>
-          {backLink ? (
-            <Link
-              href={backLink.href}
-              className="inline-flex h-12 items-center justify-center rounded-[16px] border border-slate-200 bg-white px-6 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-50"
-            >
-              {backLink.label}
-            </Link>
-          ) : null}
         </div>
       </section>
     )
@@ -240,6 +314,11 @@ export function OrderForm({ product, backLink }: OrderFormProps) {
           postalCode,
           phone,
           items: requestItems,
+          paymentMethod,
+          shippingFee,
+          discountAmount: bankTransferDiscount,
+          totalPrice,
+          notes: paymentNotes,
         }),
       })
 
@@ -277,36 +356,95 @@ export function OrderForm({ product, backLink }: OrderFormProps) {
 
   return (
     <div className="grid gap-6 font-sans">
-      <section className="rounded-[28px] border border-slate-200 bg-white p-6 shadow-[0_18px_40px_rgba(15,23,42,0.06)] sm:p-8">
-        <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
-          <div className="max-w-2xl">
-            <p className="text-sm font-medium text-slate-500">{product ? 'Product Order' : isCartCheckout ? 'Cart Checkout' : 'Order Request'}</p>
-            <h1 className="mt-2 text-3xl font-semibold tracking-[-0.03em] text-slate-900 sm:text-4xl">{pageTitle}</h1>
-            <p className="mt-3 text-sm leading-7 text-slate-600 sm:text-base">{pageDescription}</p>
+      <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_360px]">
+        <aside className="order-1 rounded-[28px] border border-slate-200 bg-white p-6 shadow-[0_18px_40px_rgba(15,23,42,0.06)] sm:p-8 lg:order-2">
+          <div className="lg:hidden">
+            <button
+              type="button"
+              onClick={() => setMobileSummaryOpen((current) => !current)}
+              className="flex w-full items-center justify-between gap-4"
+              aria-expanded={mobileSummaryOpen}
+              aria-controls="order-summary-panel"
+            >
+              <div>
+                <h2 className="text-left text-2xl font-semibold tracking-[-0.02em] text-slate-900">Order summary</h2>
+                <p className="mt-1 text-left text-sm text-slate-500">{itemCount} item{itemCount === 1 ? '' : 's'} in this order</p>
+              </div>
+              <PlusMinusIcon open={mobileSummaryOpen} />
+            </button>
           </div>
 
-          <div className="flex flex-wrap gap-3">
-            {backLink ? (
-              <Link
-                href={backLink.href}
-                className="inline-flex h-11 items-center justify-center rounded-[14px] border border-slate-200 bg-white px-4 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-50"
-              >
-                {backLink.label}
-              </Link>
+          <div id="order-summary-panel" className={`${mobileSummaryOpen ? 'mt-6 block' : 'hidden'} lg:mt-0 lg:block`}>
+            <div className="hidden lg:block">
+              <h2 className="text-2xl font-semibold tracking-[-0.02em] text-slate-900">Order summary</h2>
+            </div>
+
+            {previewImage ? (
+              <div className="mt-6 rounded-[22px] border border-slate-200 bg-slate-50 p-4">
+                <div className="relative h-48 w-full">
+                  <Image
+                    src={previewImage}
+                    alt={product?.name ?? checkoutItems[0]?.name ?? 'Order preview'}
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 360px"
+                    className="object-contain"
+                  />
+                </div>
+              </div>
             ) : null}
 
-            <Link
-              href={secondaryLink.href}
-              className="inline-flex h-11 items-center justify-center rounded-[14px] border border-slate-200 bg-white px-4 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-50"
-            >
-              {secondaryLink.label}
-            </Link>
-          </div>
-        </div>
-      </section>
+            <div className="mt-6 space-y-3">
+              {checkoutItems.length > 0
+                ? checkoutItems.map((item) => {
+                    const itemTotal = typeof item.price === 'number' ? item.price * item.quantity : null
 
-      <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_360px]">
-        <section className="rounded-[28px] border border-slate-200 bg-white p-6 shadow-[0_18px_40px_rgba(15,23,42,0.06)] sm:p-8">
+                    return (
+                      <div
+                        key={`${item.handle || 'general'}-${item.name}`}
+                        className="rounded-[18px] border border-slate-200 bg-slate-50 p-4"
+                      >
+                        <div className="flex items-start justify-between gap-4">
+                          <div>
+                            <h3 className="text-base font-medium text-slate-900">{item.name}</h3>
+                            <p className="mt-1 text-sm text-slate-500">Qty {item.quantity}</p>
+                          </div>
+                          <p className="text-sm font-medium text-slate-900">{itemTotal !== null ? formatPrice(itemTotal) : 'Pending'}</p>
+                        </div>
+                        {typeof item.price === 'number' ? <p className="mt-2 text-sm text-slate-500">{formatPrice(item.price)} each</p> : null}
+                      </div>
+                    )
+                  })
+                : null}
+            </div>
+
+            <div className="mt-6 rounded-[22px] border border-slate-200 bg-[linear-gradient(180deg,#fbfcff_0%,#f4f7fb_100%)] p-5">
+              <div className="space-y-3">
+                <div className="flex items-center justify-between text-sm text-slate-600">
+                  <span>Subtotal</span>
+                  <span className="font-medium text-slate-900">{checkoutSubtotal > 0 ? formatPrice(checkoutSubtotal) : 'Confirm on call'}</span>
+                </div>
+                <div className="flex items-center justify-between text-sm text-slate-600">
+                  <span>Shipping fee</span>
+                  <span className="font-medium text-slate-900">{formatPrice(shippingFee)}</span>
+                </div>
+                <div className="flex items-center justify-between text-sm text-emerald-700">
+                  <span>Bank transfer discount</span>
+                  <span className="font-medium">{bankTransferDiscount > 0 ? `- ${formatPrice(bankTransferDiscount)}` : formatPrice(0)}</span>
+                </div>
+                <div className="border-t border-slate-200 pt-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-medium text-slate-600">Total</span>
+                    <span className="text-xl font-semibold tracking-[-0.03em] text-slate-900">
+                      {totalPrice > 0 ? formatPrice(totalPrice) : 'Confirm on call'}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        <section className="order-2 rounded-[28px] border border-slate-200 bg-white p-6 shadow-[0_18px_40px_rgba(15,23,42,0.06)] sm:p-8 lg:order-1">
           <h2 className="text-2xl font-semibold tracking-[-0.02em] text-slate-900">Delivery details</h2>
           <p className="mt-2 text-sm leading-7 text-slate-600">Please enter your name, address, and phone number to place the order.</p>
 
@@ -361,7 +499,7 @@ export function OrderForm({ product, backLink }: OrderFormProps) {
 
               <div className="grid gap-5 md:grid-cols-2">
                 <label className="grid gap-2">
-                  <span className="text-sm font-medium text-slate-700">Postal code</span>
+                  <span className="text-sm font-medium text-slate-700">Postal code <span className="font-normal text-slate-400">(optional)</span></span>
                   <input
                     value={postalCode}
                     onChange={(event) => setPostalCode(event.target.value)}
@@ -381,6 +519,78 @@ export function OrderForm({ product, backLink }: OrderFormProps) {
                   />
                 </label>
               </div>
+
+              <div className="rounded-[24px] border border-slate-200 bg-[linear-gradient(180deg,#ffffff_0%,#f8fafc_100%)] p-5 sm:p-6">
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <h3 className="text-lg font-semibold tracking-[-0.02em] text-slate-900">Payment method</h3>
+                    <p className="mt-1 text-sm leading-6 text-slate-600">COD adds Rs 300 shipping. Bank transfer gives free shipping and 4% off.</p>
+                  </div>
+                </div>
+
+                <div className="mt-5 grid gap-4">
+                  <button
+                    type="button"
+                    onClick={() => setPaymentMethod('cod')}
+                    className={`rounded-[20px] border p-0 text-left transition ${
+                      paymentMethod === 'cod'
+                        ? 'border-slate-900 bg-slate-900 text-white shadow-[0_18px_32px_rgba(15,23,42,0.18)]'
+                        : 'border-slate-200 bg-white text-slate-900 hover:border-slate-300'
+                    }`}
+                  >
+                    <div className="flex items-center justify-between gap-4 p-3 sm:p-4">
+                      <div>
+                        <p className="text-sm font-semibold uppercase tracking-[0.16em]">Cash on delivery</p>
+                        <p className={`mt-2 text-sm leading-6 ${paymentMethod === 'cod' ? 'text-white/80' : 'text-slate-600'}`}>
+                          Shipping fee Rs 300 is added to the order total.
+                        </p>
+                      </div>
+                      <span className={`inline-flex h-5 w-5 rounded-full border ${paymentMethod === 'cod' ? 'border-white bg-white' : 'border-slate-300'}`}>
+                        {paymentMethod === 'cod' ? <span className="m-auto h-2.5 w-2.5 rounded-full bg-slate-900" /> : null}
+                      </span>
+                    </div>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setPaymentMethod('bank_transfer')}
+                    className={`rounded-[22px] border p-0 text-left transition ${
+                      paymentMethod === 'bank_transfer'
+                        ? 'border-emerald-500 bg-[linear-gradient(180deg,#f0fdf4_0%,#ecfdf5_100%)] text-slate-900 shadow-[0_18px_32px_rgba(16,185,129,0.12)]'
+                        : 'border-slate-200 bg-white text-slate-900 hover:border-slate-300'
+                    }`}
+                  >
+                    <div className="flex items-start justify-between gap-4 p-3 sm:p-4">
+                      <div>
+                        <p className="text-sm font-semibold uppercase tracking-[0.16em]">Bank transfer</p>
+                        <p className="mt-2 text-sm leading-6 text-slate-600">Agree to bank transfer for free shipping, 4% off, and faster order confirmation. Send the payment screenshot on WhatsApp.</p>
+                      </div>
+                      <span className={`inline-flex h-5 w-5 rounded-full border ${paymentMethod === 'bank_transfer' ? 'border-emerald-600 bg-emerald-600' : 'border-slate-300'}`}>
+                        {paymentMethod === 'bank_transfer' ? <span className="m-auto h-2.5 w-2.5 rounded-full bg-white" /> : null}
+                      </span>
+                    </div>
+
+                    <div className="mx-3 mb-3 mt-1 rounded-[18px] border border-emerald-100 bg-white/90 p-3 text-sm leading-6 text-slate-700 sm:mx-4 sm:mb-4 sm:p-4">
+                      <p className="font-semibold text-slate-900">{BANK_ACCOUNT.bank}</p>
+                      <p className="mt-2"><span className="font-medium">Name:</span> {BANK_ACCOUNT.accountName}</p>
+                      <p><span className="font-medium">ACC#</span> {BANK_ACCOUNT.accountNumber}</p>
+                      <p><span className="font-medium">IBAN:</span> {BANK_ACCOUNT.iban}</p>
+                      <div className="mt-3 flex flex-wrap items-center gap-2 text-[12px] leading-5 text-slate-600">
+                        <span>After payment send screenshot to</span>
+                        <Link
+                          href={BANK_ACCOUNT.whatsappUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="inline-flex items-center gap-1.5 rounded-full bg-[#25D366]/12 px-2 py-1 text-[11px] font-medium text-[#128C7E] transition hover:bg-[#25D366]/20"
+                          aria-label="Open WhatsApp"
+                        >
+                          <WhatsAppIcon />
+                        </Link>
+                      </div>
+                    </div>
+                  </button>
+                </div>
+              </div>
             </div>
 
             {submitState.status === 'error' ? (
@@ -391,69 +601,46 @@ export function OrderForm({ product, backLink }: OrderFormProps) {
               <p className="text-sm text-slate-500">
                 {itemCount > 0 ? `${itemCount} item${itemCount === 1 ? '' : 's'} in this order` : 'General request'}
               </p>
+            </div>
+
+            <div className="rounded-[24px] border border-slate-200 bg-[linear-gradient(180deg,#fffdfa_0%,#ffffff_100%)] p-5 shadow-[0_14px_32px_rgba(244,110,30,0.08)]">
+              <div className="space-y-2">
+                <div className="flex items-center justify-between text-sm text-slate-600">
+                  <span>Subtotal</span>
+                  <span className="font-medium text-slate-900">{formatPrice(checkoutSubtotal) ?? 'Confirm on call'}</span>
+                </div>
+                <div className="flex items-center justify-between text-sm text-slate-600">
+                  <span>Shipping fee</span>
+                  <span className="font-medium text-slate-900">{formatPrice(shippingFee)}</span>
+                </div>
+                <div className="flex items-center justify-between text-sm text-emerald-700">
+                  <span>Bank transfer discount</span>
+                  <span className="font-medium">{bankTransferDiscount > 0 ? `- ${formatPrice(bankTransferDiscount)}` : formatPrice(0)}</span>
+                </div>
+                <div className="border-t border-slate-200 pt-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-medium text-slate-600">Total after discount</span>
+                    <span className="text-2xl font-semibold tracking-[-0.03em] text-slate-900">{formatPrice(totalPrice) ?? 'Confirm on call'}</span>
+                  </div>
+                </div>
+              </div>
 
               <button
                 type="submit"
                 disabled={submitState.status === 'submitting'}
-                className="inline-flex h-12 items-center justify-center rounded-[16px] bg-slate-900 px-6 text-sm font-medium text-white transition-colors hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-60"
+                className="mt-5 inline-flex h-12 w-full items-center justify-center rounded-[16px] bg-slate-900 px-6 text-sm font-medium text-white transition-colors hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-60"
               >
                 {submitState.status === 'submitting' ? 'Placing order...' : 'Place Order'}
               </button>
+
+              <div className="mt-5 rounded-[18px] border border-[#f7d9b7] bg-[linear-gradient(180deg,#fffdfa_0%,#ffffff_100%)] px-4 py-4">
+                <p className="text-[0.82rem] font-black uppercase tracking-normal text-[#8d8d8d]">Estimated delivery</p>
+                <p className="mt-1 text-[1.55rem] font-bold leading-none text-[#ff6f00]">{deliveryTimeline.deliveryRangeLabel}</p>
+                <p className="mt-2 text-sm leading-6 text-slate-600">Processing starts by {deliveryTimeline.processDateLabel}. Final timing may vary slightly by city and confirmation time.</p>
+              </div>
             </div>
           </form>
         </section>
-
-        <aside className="rounded-[28px] border border-slate-200 bg-white p-6 shadow-[0_18px_40px_rgba(15,23,42,0.06)] sm:p-8">
-          <h2 className="text-2xl font-semibold tracking-[-0.02em] text-slate-900">Order summary</h2>
-
-          {previewImage ? (
-            <div className="mt-6 rounded-[22px] border border-slate-200 bg-slate-50 p-4">
-              <div className="relative h-48 w-full">
-                <Image
-                  src={previewImage}
-                  alt={product?.name ?? checkoutItems[0]?.name ?? 'Order preview'}
-                  fill
-                  sizes="(max-width: 1024px) 100vw, 360px"
-                  className="object-contain"
-                />
-              </div>
-            </div>
-          ) : null}
-
-          <div className="mt-6 space-y-3">
-          {checkoutItems.length > 0 ? (
-              checkoutItems.map((item) => {
-                const itemTotal = typeof item.price === 'number' ? item.price * item.quantity : null
-
-                return (
-                  <div
-                    key={`${item.handle || 'general'}-${item.name}`}
-                    className="rounded-[18px] border border-slate-200 bg-slate-50 p-4"
-                  >
-                    <div className="flex items-start justify-between gap-4">
-                      <div>
-                        <h3 className="text-base font-medium text-slate-900">{item.name}</h3>
-                        <p className="mt-1 text-sm text-slate-500">Qty {item.quantity}</p>
-                      </div>
-                      <p className="text-sm font-medium text-slate-900">{itemTotal !== null ? formatPrice(itemTotal) : 'Pending'}</p>
-                    </div>
-                    {typeof item.price === 'number' ? <p className="mt-2 text-sm text-slate-500">{formatPrice(item.price)} each</p> : null}
-                  </div>
-                )
-              })
-            ) : null}
-          </div>
-
-          <div className="mt-6 rounded-[18px] border border-slate-200 bg-slate-50 p-4">
-            <div className="flex items-center justify-between">
-              <span className="text-sm text-slate-500">Subtotal</span>
-              <span className="text-lg font-semibold tracking-[-0.02em] text-slate-900">
-                {checkoutSubtotal > 0 ? formatPrice(checkoutSubtotal) : 'Confirm on call'}
-              </span>
-            </div>
-            <p className="mt-3 text-sm leading-6 text-slate-600">After you place the order, the team will contact you to confirm stock, delivery details, and final processing.</p>
-          </div>
-        </aside>
       </div>
     </div>
   )

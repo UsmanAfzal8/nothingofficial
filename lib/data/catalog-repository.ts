@@ -184,6 +184,26 @@ function formatPrice(value: number | null | undefined): string | null {
   }).format(value)
 }
 
+function sanitizeCatalogCopy(value: string | null | undefined): string | null {
+  if (!value) {
+    return null
+  }
+
+  const sanitized = value
+    .replace(/\bPrice:\s*(?:Rs\.?|PKR)\s*[\d,]+(?:\s*\/-)?\.?/gi, '')
+    .replace(/\b(?:currently\s+)?listed\s+at\s+(?:Rs\.?|PKR)\s*[\d,]+(?:\s*\/-)?/gi, '')
+    .replace(/\bprice\s+in\s+Pakistan\s+is\s+(?:Rs\.?|PKR)\s*[\d,]+(?:\s*\/-)?/gi, 'price in Pakistan')
+    .replace(/\bprice\s+is\s+(?:Rs\.?|PKR)\s*[\d,]+(?:\s*\/-)?/gi, 'price')
+    .replace(/\b(?:Rs\.?|PKR)\s*[\d,]+(?:\s*\/-)?/gi, '')
+    .replace(/\(\s*\)/g, '')
+    .replace(/\s+([,.;:!?])/g, '$1')
+    .replace(/([,.;:!?]){2,}/g, '$1')
+    .replace(/\s{2,}/g, ' ')
+    .trim()
+
+  return sanitized || null
+}
+
 function formatCatalogDate(value: string | null | undefined): string | null {
   if (!value) {
     return null
@@ -264,24 +284,19 @@ function buildMobileSearchKeywords(name: string, extraKeywords: string | null | 
   ]
 }
 
-function buildProductMetaDescription(product: SupabaseProductRow, name: string, priceLabel: string | null): string {
+function buildProductMetaDescription(product: SupabaseProductRow, name: string): string {
   const productTypeLabel = product.product_type ? PRODUCT_TYPE_LABELS[product.product_type] ?? product.product_type : 'Nothing accessory'
-  const priceText = priceLabel ? ` Price: ${priceLabel}.` : ''
-  const fallback =
-    `Shop ${name} in Pakistan from Nothing Pakistan.${priceText} Check ${productTypeLabel.toLowerCase()} details, compatibility, availability, delivery, and WhatsApp support.`
-  const source = product.meta_description || product.short_description || product.seo_description_long || product.description
+  const fallback = `Shop ${name} in Pakistan from Nothing Pakistan. Check ${productTypeLabel.toLowerCase()} details, compatibility, availability, delivery, and WhatsApp support.`
+  const source = sanitizeCatalogCopy(product.meta_description || product.short_description || product.seo_description_long || product.description)
 
-  return trimSeoDescription(priceLabel && source && /\bprice\b/i.test(source) ? fallback : source || fallback)
+  return trimSeoDescription(source || fallback)
 }
 
 function buildMobileMetaDescription(mobile: SupabaseMobileRow): string {
-  const priceLabel = formatPrice(mobile.Price)
-  const priceText = priceLabel ? ` Price: ${priceLabel}.` : ''
-  const fallback =
-    `${mobile.name} page for Pakistan shoppers.${priceText} Browse compatible Nothing accessories, chargers, protectors, earbuds, and support links.`
-  const source = mobile.meta_description || mobile.seo_description_long || mobile.description
+  const fallback = `${mobile.name} page for Pakistan shoppers. Browse compatible Nothing accessories, chargers, protectors, earbuds, and support links.`
+  const source = sanitizeCatalogCopy(mobile.meta_description || mobile.seo_description_long || mobile.description)
 
-  return trimSeoDescription(priceLabel && source && /\bprice\b/i.test(source) ? fallback : source || fallback)
+  return trimSeoDescription(source || fallback)
 }
 
 function resolveAvailability(stockQuantity?: number | null): ProductDetail['availability'] {
@@ -587,7 +602,7 @@ function buildCatalogSnapshot(payload: CatalogSnapshotPayload): CatalogSnapshot 
   }
 }
 
-export const CATALOG_REVALIDATE_SECONDS = 300
+export const CATALOG_REVALIDATE_SECONDS = 10
 
 const readCatalogSnapshotPayload = unstable_cache(readCatalogSnapshotFromSupabase, ['catalog-snapshot'], {
   revalidate: CATALOG_REVALIDATE_SECONDS,
@@ -797,7 +812,7 @@ function buildProductCard(product: SupabaseProductRow, snapshot: CatalogSnapshot
     handle: product.slug,
     href: `/products/${product.slug}`,
     image: images[0]?.url ?? null,
-    description: buildProductMetaDescription(product, name, priceLabel),
+    description: buildProductMetaDescription(product, name),
     variant: mainColor?.name ?? images[0]?.caption ?? null,
     price,
     priceLabel,
@@ -1227,7 +1242,7 @@ function buildProductDetailFromProduct(product: SupabaseProductRow, snapshot: Ca
   const reviews = buildReviews(snapshot, product.id)
   const price = product.price ?? null
   const priceLabel = formatPrice(price)
-  const metaDescription = buildProductMetaDescription(product, name, priceLabel)
+  const metaDescription = buildProductMetaDescription(product, name)
   const gallery = buildGallery(name, galleryImages, snapshot, product.image_alt_text || `${name} price in Pakistan`)
   const backgroundMedia = productBackgroundImage
     ? buildGallery(name, [productBackgroundImage], snapshot, `${name} product background`)[0] ?? null
@@ -1240,11 +1255,11 @@ function buildProductDetailFromProduct(product: SupabaseProductRow, snapshot: Ca
     name,
     brandName: resolveBrandName(name),
     pageTitle: product.meta_title || name,
-    summary: product.short_description || metaDescription,
+    summary: sanitizeCatalogCopy(product.short_description) || sanitizeCatalogCopy(product.description) || metaDescription,
     metaDescription,
     seoKeywords: buildProductSearchKeywords(name, product.product_type, product.seo_keywords),
     schemaJson: product.schema_json,
-    description: product.seo_description_long || product.description,
+    description: sanitizeCatalogCopy(product.seo_description_long) || sanitizeCatalogCopy(product.description),
     sourceHref: canonicalPath,
     sourceUrl: buildAbsoluteUrl(canonicalPath),
     canonicalUrl: product.canonical_url || buildAbsoluteUrl(canonicalPath),
@@ -1299,11 +1314,11 @@ function buildProductDetailFromMobile(mobile: SupabaseMobileRow, snapshot: Catal
     name: mobile.name,
     brandName: resolveBrandName(mobile.name),
     pageTitle: mobile.meta_title || mobile.name,
-    summary: mobile.description || metaDescription,
+    summary: sanitizeCatalogCopy(mobile.description) || metaDescription,
     metaDescription,
     seoKeywords: buildMobileSearchKeywords(mobile.name, mobile.seo_keywords),
     schemaJson: mobile.schema_json,
-    description: mobile.seo_description_long || mobile.description,
+    description: sanitizeCatalogCopy(mobile.seo_description_long) || sanitizeCatalogCopy(mobile.description),
     sourceHref: canonicalPath,
     sourceUrl: buildAbsoluteUrl(canonicalPath),
     canonicalUrl: mobile.canonical_url || buildAbsoluteUrl(canonicalPath),

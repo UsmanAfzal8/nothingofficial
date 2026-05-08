@@ -41,12 +41,12 @@ const aboutSections = [
   {
     title: 'What this store is',
     body:
-      'Nothing Pakistan is a catalog-led storefront for Nothing and CMF devices in Pakistan. The site is designed so users can move from discovery to detail, cart, and checkout while staying inside one consistent visual system.',
+      'Nothing Pakistan is a catalog-led storefront for original Nothing and CMF devices in Pakistan. The site is designed so users can move from discovery to detail, support, and ordering while staying inside one consistent visual system.',
   },
   {
     title: 'How the site is organized',
     body:
-      'Products are grouped into live categories and subcategories, with product images, policy pages, support information, and checkout flows connected to the same storefront structure. This makes the site easier to crawl, understand, and navigate.',
+      'Products are grouped into live categories and subcategories, with product images, policy pages, support information, and checkout flows connected to the same storefront structure. This makes the site easier to crawl, understand, and navigate for both customers and search engines.',
   },
   {
     title: 'How to reach the right information',
@@ -118,6 +118,9 @@ export default function AboutPage() {
 
           <div className="mx-auto mt-10 max-w-screen-2xl rounded-[34px] border border-black/10 bg-white/72 p-6 shadow-[0_24px_60px_rgba(17,17,17,0.06)] backdrop-blur-xl md:p-8">
             <p className="text-[10px] uppercase tracking-[0.28em] text-black/42">Brand Channels</p>
+            <p className="mt-4 max-w-4xl text-sm leading-7 text-black/68">
+              This page helps search engines and customers understand that Nothing Pakistan is more than a single product landing page. It connects the official store message with support routes, legal pages, and the broader catalog so branded searches can land on a stronger trust page when needed.
+            </p>
             <div className="mt-5 flex flex-wrap gap-3">
               {socialLinks.map((item) => (
                 <a

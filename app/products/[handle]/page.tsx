@@ -157,37 +157,50 @@ function buildProductStructuredData(productDetail: ProductDetail, relatedProduct
   )
 
   if (productDetail.entityType === 'mobile') {
-    const itemList = relatedProducts.slice(0, 12).map((product, index) => ({
-      '@type': 'ListItem',
-      position: index + 1,
-      url: buildAbsoluteUrl(product.href),
-      name: product.name,
-    }))
+    const mobileProductSchema: Record<string, unknown> = {
+      '@context': 'https://schema.org',
+      '@type': 'Product',
+      name: productDetail.name,
+      description: buildProductSeoDescription(productDetail),
+      image: images.length > 0 ? images : undefined,
+      sku: productDetail.handle,
+      url: productDetail.canonicalUrl,
+      brand: {
+        '@type': 'Brand',
+        name: productDetail.brandName,
+      },
+      category: 'Smartphone',
+      itemCondition: 'https://schema.org/NewCondition',
+      seller: {
+        '@type': 'Organization',
+        name: siteBrandName,
+      },
+      offers:
+        typeof productDetail.price === 'number'
+          ? {
+              '@type': 'Offer',
+              priceCurrency: 'PKR',
+              price: productDetail.price,
+              availability: productDetail.availability,
+              url: productDetail.canonicalUrl,
+            }
+          : undefined,
+      additionalProperty:
+        productDetail.specs?.slice(0, 8).map((spec) => ({
+          '@type': 'PropertyValue',
+          name: spec.label,
+          value: spec.value,
+        })) ?? undefined,
+      isRelatedTo:
+        relatedProducts.slice(0, 8).map((product) => ({
+          '@type': 'Product',
+          name: product.name,
+          url: buildAbsoluteUrl(product.href),
+        })) ?? undefined,
+    }
 
     const mobileEntries: Array<Record<string, unknown> | null> = [
-      {
-        '@context': 'https://schema.org',
-        '@type': 'CollectionPage',
-        name: `${productDetail.name} accessories`,
-        description: buildProductSeoDescription(productDetail),
-        url: productDetail.canonicalUrl,
-        image: images,
-        about: {
-          '@type': 'Product',
-          name: productDetail.name,
-          brand: {
-            '@type': 'Brand',
-            name: productDetail.brandName,
-          },
-        },
-        mainEntity:
-          itemList.length > 0
-            ? {
-                '@type': 'ItemList',
-                itemListElement: itemList,
-              }
-            : undefined,
-      },
+      mobileProductSchema,
       buildBreadcrumbStructuredData(buildProductBreadcrumbs(productDetail)),
       faqStructuredData,
     ]
@@ -200,7 +213,7 @@ function buildProductStructuredData(productDetail: ProductDetail, relatedProduct
     '@type': 'Product',
     name: productDetail.name,
     description: buildProductSeoDescription(productDetail),
-    image: images,
+    image: images.length > 0 ? images : undefined,
     sku: productDetail.handle,
     url: productDetail.canonicalUrl,
     category: productDetail.collections.map((collection) => collection.title).join(', ') || undefined,
@@ -253,6 +266,14 @@ function buildProductStructuredData(productDetail: ProductDetail, relatedProduct
     }))
   }
 
+  if (productDetail.specs && productDetail.specs.length > 0) {
+    productSchema.additionalProperty = productDetail.specs.slice(0, 10).map((spec) => ({
+      '@type': 'PropertyValue',
+      name: spec.label,
+      value: spec.value,
+    }))
+  }
+
   const productEntries: Array<Record<string, unknown> | null> = [
     productSchema,
     buildBreadcrumbStructuredData(buildProductBreadcrumbs(productDetail)),
@@ -260,6 +281,25 @@ function buildProductStructuredData(productDetail: ProductDetail, relatedProduct
   ]
 
   return productEntries.filter((entry): entry is Record<string, unknown> => Boolean(entry))
+}
+
+function buildProductSeoNarrative(productDetail: ProductDetail, relatedProductsCount = 0) {
+  const collectionTitles = productDetail.collections.map((collection) => collection.title)
+  const firstCollection = collectionTitles[0] ?? (productDetail.entityType === 'mobile' ? 'phones' : 'products')
+  const priceSentence = productDetail.priceLabel
+    ? `${productDetail.name} is currently shown with a live PKR price of ${productDetail.priceLabel}, helping shoppers compare cost before they move into the order flow.`
+    : `${productDetail.name} is presented with a contact-first buying flow so customers can confirm the latest price, stock, and delivery details before ordering.`
+  const supportSentence =
+    relatedProductsCount > 0
+      ? `This page also connects buyers to ${relatedProductsCount} related accessories and nearby catalog routes, which strengthens internal linking and helps shoppers discover compatible add-ons from the same storefront.`
+      : `This page links naturally into support, ordering, and nearby catalog routes so customers can continue their buying journey without losing context.`
+
+  return [
+    `${productDetail.name} sits inside the ${firstCollection.toLowerCase()} section of ${siteBrandName}, where shoppers in Pakistan expect clear product details, original-brand positioning, and a faster route into delivery or support.`,
+    priceSentence,
+    `The page is designed to answer high-intent searches around ${productDetail.name} price in Pakistan, compatibility, availability, and original product sourcing while keeping the content useful for real customers instead of keyword stuffing.`,
+    supportSentence,
+  ]
 }
 
 function buildRecommendedProducts(productGroups: Product[][], currentHandle: string) {
@@ -378,10 +418,12 @@ function ProductDetailInfoSection({
   productDetail,
   detailParagraphs,
   deliveryTimeline,
+  seoNarrative,
 }: {
   productDetail: ProductDetail
   detailParagraphs: string[]
   deliveryTimeline: ReturnType<typeof getProductDeliveryTimeline>
+  seoNarrative: string[]
 }) {
   const faqs = productDetail.faqs ?? []
 
@@ -398,12 +440,31 @@ function ProductDetailInfoSection({
               )}
             </div>
           </DetailAccordion>
+          <DetailAccordion title="Buying Guide" defaultOpen>
+            <div className="space-y-4">
+              {seoNarrative.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
+            </div>
+          </DetailAccordion>
           <DetailAccordion title="Return Policy">
             If the item arrives damaged, incorrect, or defective, contact support as soon as possible so the team can review a replacement or return request.
           </DetailAccordion>
           <DetailAccordion title="Shipping Information">
             Delivery time and shipping charges depend on your city and order size. Our team confirms the final delivery details during checkout.
           </DetailAccordion>
+          {productDetail.specs && productDetail.specs.length > 0 ? (
+            <DetailAccordion title="Key Specs">
+              <div className="grid gap-3 sm:grid-cols-2">
+                {productDetail.specs.slice(0, 8).map((spec) => (
+                  <div key={spec.id} className="rounded-[16px] border border-slate-200 bg-white px-4 py-3">
+                    <p className="text-[11px] uppercase tracking-[0.18em] text-slate-500">{spec.label}</p>
+                    <p className="mt-2 text-sm leading-6 text-slate-700">{spec.value}</p>
+                  </div>
+                ))}
+              </div>
+            </DetailAccordion>
+          ) : null}
         </div>
 
         <div className="lg:sticky lg:top-24">
@@ -601,7 +662,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
   }
 
   const gallery = buildDisplayGallery(productDetail)
-  const detailParagraphs = uniqueStrings([buildProductSeoDescription(productDetail), productDetail.description]).filter(
+  const detailParagraphs = uniqueStrings([productDetail.summary, productDetail.description]).filter(
     (paragraph) => !isHtmlSnippet(paragraph),
   )
   const breadcrumbItems = buildProductBreadcrumbs(productDetail)
@@ -612,6 +673,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
     const mobileAccessoryGroups = await getMobileAccessoryGroupsByHandle(canonicalHandle)
     const relatedAccessoryProducts = mobileAccessoryGroups.flatMap((group) => group.products)
     const usesImmersiveHero = Boolean(productDetail.productBackgroundImage)
+    const seoNarrative = buildProductSeoNarrative(productDetail, relatedAccessoryProducts.length)
 
     return (
       <div className={`${detailFont.className} min-h-screen bg-[#f5f7fb] text-slate-900`}>
@@ -656,6 +718,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
               productDetail={productDetail}
               detailParagraphs={detailParagraphs}
               deliveryTimeline={deliveryTimeline}
+              seoNarrative={seoNarrative}
             />
           ) : null}
 
@@ -701,6 +764,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
     [primaryCollection?.products ?? [], fallbackCollection?.products ?? []],
     canonicalHandle,
   )
+  const seoNarrative = buildProductSeoNarrative(productDetail, recommendations.length)
 
   return (
     <div className={`${detailFont.className} min-h-screen bg-[#f5f7fb] text-slate-900`}>
@@ -741,6 +805,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
             productDetail={productDetail}
             detailParagraphs={detailParagraphs}
             deliveryTimeline={deliveryTimeline}
+            seoNarrative={seoNarrative}
           />
         ) : (
         <div className="mt-6 grid gap-6">
@@ -755,8 +820,28 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
                   )}
                 </div>
               </DetailAccordion>
+              <DetailAccordion title="Buying Guide" defaultOpen>
+                <div className="space-y-4">
+                  {seoNarrative.map((paragraph) => (
+                    <p key={paragraph}>{paragraph}</p>
+                  ))}
+                </div>
+              </DetailAccordion>
             </div>
           </SectionCard>
+
+          {productDetail.specs && productDetail.specs.length > 0 ? (
+            <SectionCard title="Key Specs">
+              <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+                {productDetail.specs.slice(0, 8).map((spec) => (
+                  <div key={spec.id} className="rounded-[22px] border border-slate-200 bg-slate-50 p-4">
+                    <p className="text-[11px] uppercase tracking-[0.18em] text-slate-500">{spec.label}</p>
+                    <p className="mt-2 text-sm leading-6 text-slate-700">{spec.value}</p>
+                  </div>
+                ))}
+              </div>
+            </SectionCard>
+          ) : null}
 
           <SectionCard title="Delivery & Returns">
             <div className="space-y-3">

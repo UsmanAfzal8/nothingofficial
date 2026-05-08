@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
-import { AnalogClock } from '@/components/AnalogClock'
 import { CatalogProductTile } from '@/components/CatalogProductTile'
 import { HomeFaqTabs } from '@/components/HomeFaqTabs'
 import { HomeModelPicker } from '@/components/HomeModelPicker'
@@ -19,19 +18,21 @@ import {
   homeSeoFaqs,
   homeUserReviews,
   siteBrandName,
-  siteDescription,
   siteKeywords,
-  siteSeoTitle,
 } from '@/lib/data/site-content'
 import type { HomeFeatureEntry, HomeReviewEntry } from '@/lib/data/site-content'
 import { buildAbsoluteUrl, buildFaqStructuredData, buildSeoKeywords } from '@/lib/utils/seo'
 
 export const revalidate = CATALOG_REVALIDATE_SECONDS
+const homeMetaTitle = 'Nothing Pakistan | Phones, CMF, Chargers & Earbuds'
+const homeMetaDescription =
+  'Shop Nothing and CMF phones, earbuds, chargers, cables, and accessories in Pakistan with live pricing and WhatsApp support.'
+
 export const metadata: Metadata = {
   title: {
-    absolute: siteSeoTitle,
+    absolute: homeMetaTitle,
   },
-  description: siteDescription,
+  description: homeMetaDescription,
   keywords: buildSeoKeywords(siteKeywords, [
     `${siteBrandName} homepage`,
     'Nothing phone accessories Pakistan',
@@ -44,8 +45,8 @@ export const metadata: Metadata = {
     canonical: buildAbsoluteUrl('/'),
   },
   openGraph: {
-    title: siteSeoTitle,
-    description: siteDescription,
+    title: homeMetaTitle,
+    description: homeMetaDescription,
     url: buildAbsoluteUrl('/'),
     type: 'website',
     images: [
@@ -53,14 +54,14 @@ export const metadata: Metadata = {
         url: buildAbsoluteUrl('/opengraph-image'),
         width: 1200,
         height: 630,
-        alt: siteSeoTitle,
+        alt: homeMetaTitle,
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: siteSeoTitle,
-    description: siteDescription,
+    title: homeMetaTitle,
+    description: homeMetaDescription,
     images: [buildAbsoluteUrl('/twitter-image')],
   },
 }
@@ -175,10 +176,6 @@ function ReviewCard({ review }: { review: HomeReviewEntry }) {
 
 export default async function Home() {
   const { phoneModels, shopAllProducts, trendingPicks } = await getHomePageData()
-  const heroPhone =
-    phoneModels.find((model) => model.handle === 'phone-3') ??
-    phoneModels.find((model) => /^phone\s*\(?3\)?(?:\s|-|$)/i.test(model.name.trim())) ??
-    null
   const faqEntries = homeFaqCategories.flatMap((category) => category.items)
   const homeStructuredData: Record<string, unknown>[] = [buildOrganizationStructuredData(), buildWebsiteStructuredData()]
   const homeFaqStructuredData = buildFaqStructuredData([...homeSeoFaqs, ...faqEntries])
@@ -192,41 +189,27 @@ export default async function Home() {
       <SeoStructuredData data={homeStructuredData} />
       <NothingHeader />
 
-      <main className="pt-16 md:pt-[4.5rem]">
-        <section className="relative overflow-hidden border-b border-black/10 px-4 pb-8 pt-6 md:px-8 md:pb-12 md:pt-8">
-          <div className="mx-auto max-w-screen-2xl">
-            <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-4 text-center lg:grid-cols-[94px_minmax(0,1fr)] lg:gap-6 lg:text-left">
-              <div className="flex justify-center lg:justify-start lg:self-start">
-                <AnalogClock compact />
-              </div>
+      <main>
+        <section className="relative flex h-screen min-h-[640px] max-h-[100svh] items-end overflow-hidden border-b border-black/10">
+          <Image
+            src="https://nothingshop.b-cdn.net/banner/nothing_pakistan.avif"
+            alt="Nothing Phone 3 hero background"
+            fill
+            priority
+            fetchPriority="high"
+            sizes="100vw"
+            className="object-cover object-center"
+          />
 
-              <div className="lg:text-center">
-                <p className="dot-heading text-[11px] tracking-[0.28em] text-black/48">Nothing Pakistan</p>
-                <h1 className="mx-auto mt-4 max-w-3xl font-sans text-3xl font-medium leading-tight text-black sm:text-4xl lg:text-5xl">
-                  Original Nothing & CMF Accessories
+          <div className="relative z-10 flex h-full w-full px-4 pb-7 pt-24 sm:px-6 sm:pb-9 sm:pt-28 md:px-8 lg:pb-6 lg:pt-32">
+            <div className="mx-auto flex h-full max-w-screen-2xl items-end">
+              <div className="max-w-3xl text-black lg:max-w-2xl">
+                <h1 className="dot-heading text-[1.18rem] leading-[0.98] tracking-[0.1em] text-black sm:text-[1.7rem] lg:text-[1.9rem]">
+                  Nothing & CMF Products in Pakistan
                 </h1>
-                <p className="mx-auto mt-4 max-w-3xl font-sans text-[15px] leading-7 text-black/78 sm:text-base">
-                  Shop chargers, earbuds, cables, and daily tech essentials with clear Pakistan pricing, fast
-                  WhatsApp support, and a simple order flow.
+                <p className="mt-3 max-w-xl font-sans text-[0.82rem] leading-6 text-black sm:mt-3 sm:max-w-xl sm:text-[0.95rem] sm:leading-6 lg:max-w-xl lg:text-[0.88rem] lg:leading-5">
+                  Shop Nothing and CMF phones, earbuds, chargers, cables, and accessories with live pricing, product details, and WhatsApp support through Nothing Pakistan.
                 </p>
-
-                {heroPhone ? (
-                  <Link href={heroPhone.href} className="group block mx-auto mt-4 max-w-[390px] text-center transition-transform hover:-translate-y-0.5">
-                    <div className="relative mx-auto h-[300px] w-[220px] sm:h-[390px] sm:w-[275px] lg:h-[560px] lg:w-[390px]">
-                      {heroPhone.image ? (
-                        <Image
-                          src={heroPhone.image}
-                          alt="Nothing Phone 3"
-                          fill
-                          priority
-                          sizes="(max-width: 640px) 220px, (max-width: 1024px) 275px, 390px"
-                          className="object-contain transition-transform duration-300 group-hover:scale-[1.03]"
-                        />
-                      ) : null}
-                    </div>
-                    <p className="mt-1 dot-heading text-[10px] uppercase tracking-[0.18em] text-black/64">Nothing Phone 3</p>
-                  </Link>
-                ) : null}
               </div>
             </div>
           </div>

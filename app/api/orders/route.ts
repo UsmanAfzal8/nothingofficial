@@ -31,6 +31,10 @@ type CreateOrderPayload = {
   quantity?: unknown
   unitPrice?: unknown
   currency?: unknown
+  paymentMethod?: unknown
+  shippingFee?: unknown
+  discountAmount?: unknown
+  totalPrice?: unknown
 }
 
 type NormalizedOrderItem = {
@@ -51,6 +55,11 @@ type NormalizedOrderUser = {
   district: string
   postalCode: string | null
 }
+
+type PaymentMethod = 'cod' | 'bank_transfer'
+
+const SHIPPING_FEE = 300
+const BANK_TRANSFER_DISCOUNT_RATE = 0.04
 
 function toTrimmedString(value: unknown): string {
   if (typeof value !== 'string') return ''
@@ -73,6 +82,10 @@ function toNonNegativeNumber(value: unknown, fallback: number): number {
   const parsed = Number(value)
   if (!Number.isFinite(parsed)) return fallback
   return parsed >= 0 ? parsed : fallback
+}
+
+function normalizePaymentMethod(value: unknown): PaymentMethod {
+  return value === 'bank_transfer' ? 'bank_transfer' : 'cod'
 }
 
 function normalizeOrderItems(body: CreateOrderPayload): NormalizedOrderItem[] {
@@ -190,9 +203,19 @@ export async function POST(request: NextRequest) {
     const phone = toTrimmedString(body.phone)
     const postalCode = toOptionalString(body.postalCode)
     const orderItems = normalizeOrderItems(body)
-    const lineTotal = Number(
-      orderItems.reduce((total, item) => total + item.quantity * item.unit_price, 0).toFixed(2),
-    )
+    const paymentMethod = normalizePaymentMethod(body.paymentMethod)
+    const lineTotal = Number(orderItems.reduce((total, item) => total + item.quantity * item.unit_price, 0).toFixed(2))
+    const shippingFee = paymentMethod === 'bank_transfer' ? 0 : SHIPPING_FEE
+    const discountAmount = paymentMethod === 'bank_transfer' ? Number((lineTotal * BANK_TRANSFER_DISCOUNT_RATE).toFixed(2)) : 0
+    const finalTotal = Number((lineTotal - discountAmount + shippingFee).toFixed(2))
+    const paymentNotes =
+      paymentMethod === 'bank_transfer'
+        ? 'Online payment selected. Free shipping and 4% discount applied. User will send online payment screenshot to 03361070111.'
+        : 'Cash on delivery selected. Shipping fee Rs 300 applied.'
+    const orderItemsWithNotes = orderItems.map((item) => ({
+      ...item,
+      notes: item.notes ? `${item.notes} | ${paymentNotes}` : paymentNotes,
+    }))
 
     if (!name || !address || !city || !district || !phone) {
       return jsonNoIndex(
@@ -223,8 +246,8 @@ export async function POST(request: NextRequest) {
       .from('orders')
       .insert({
         user_id: userId,
-        items: orderItems,
-        total_price: lineTotal,
+        items: orderItemsWithNotes,
+        total_price: finalTotal,
         shipping_address: shippingAddress,
         billing_address: shippingAddress,
         payment_status: paymentStatus,

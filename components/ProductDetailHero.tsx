@@ -218,8 +218,8 @@ export function ProductDetailHero({
   const displayedPriceLabel = entityType === 'mobile' && priceLabel ? `≈ ${priceLabel}` : (priceLabel ?? 'Contact for price')
   const whatsappHref =
     entityType === 'mobile'
-      ? `https://wa.me/923361070111?text=${encodeURIComponent(`Hi, I want to purchase this phone if available. Kindly tell me the price: ${productName}`)}`
-      : 'https://wa.me/923361070111'
+      ? `https://api.whatsapp.com/send?phone=923361070111&text=${encodeURIComponent(`Hi, I want to purchase this phone if available. Kindly tell me the price: ${productName}`)}`
+      : 'https://api.whatsapp.com/send?phone=923361070111'
   const buyHref = `/order/${canonicalHandle}`
 
   if (backgroundImage) {

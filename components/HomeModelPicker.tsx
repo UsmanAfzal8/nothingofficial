@@ -176,28 +176,30 @@ export function HomeModelPicker({ models }: HomeModelPickerProps) {
                       <Link
                         key={model.id}
                         href={model.href}
-                        className="group flex min-h-[220px] flex-col items-center justify-between rounded-[28px] bg-transparent p-4 transition duration-300 hover:-translate-y-1 sm:min-h-[270px] lg:min-h-[320px]"
+                        className="group flex min-h-[220px] flex-col items-start justify-between rounded-[28px] bg-transparent p-4 transition duration-300 hover:-translate-y-1 sm:min-h-[270px] lg:min-h-[320px]"
                         aria-label={`Open ${model.name}`}
                       >
-                        {model.image ? (
-                          <div className="relative h-[160px] w-full max-w-[150px] sm:h-[200px] sm:max-w-[180px] lg:h-[230px] lg:max-w-[190px]">
-                            <Image
-                              src={model.image}
-                              alt={model.name}
-                              fill
-                              loading="lazy"
-                              fetchPriority="low"
-                              sizes="(max-width: 1024px) 42vw, 18vw"
-                              className="object-contain object-center transition-transform duration-500 ease-out group-hover:scale-[1.04]"
-                            />
-                          </div>
-                        ) : (
-                          <div className="flex h-[160px] w-full items-center justify-center text-center text-[11px] uppercase tracking-[0.24em] text-black/30 sm:h-[200px] lg:h-[230px]">
-                            {model.name}
-                          </div>
-                        )}
+                        <div className="w-full">
+                          {model.image ? (
+                            <div className="relative mx-auto h-[160px] w-full max-w-[150px] sm:h-[200px] sm:max-w-[180px] lg:h-[230px] lg:max-w-[190px]">
+                              <Image
+                                src={model.image}
+                                alt={model.name}
+                                fill
+                                loading="lazy"
+                                fetchPriority="low"
+                                sizes="(max-width: 1024px) 42vw, 18vw"
+                                className="object-contain object-center transition-transform duration-500 ease-out group-hover:scale-[1.04]"
+                              />
+                            </div>
+                          ) : (
+                            <div className="flex h-[160px] w-full items-center justify-center text-center text-[11px] uppercase tracking-[0.24em] text-black/30 sm:h-[200px] lg:h-[230px]">
+                              {model.name}
+                            </div>
+                          )}
+                        </div>
                         <p
-                          className="mt-4 text-center text-[0.82rem] uppercase tracking-[0.18em] text-black/72 sm:text-[0.88rem]"
+                          className="mt-4 min-h-[2.5rem] w-full text-left text-[0.82rem] uppercase leading-[1.35] tracking-[0.18em] text-black/72 sm:min-h-[2.8rem] sm:text-[0.88rem] lg:min-h-[3rem]"
                           style={{ fontFamily: 'var(--font-ndot57), sans-serif' }}
                         >
                           {model.name}

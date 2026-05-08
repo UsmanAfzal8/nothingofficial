@@ -20,6 +20,52 @@ export const revalidate = CATALOG_REVALIDATE_SECONDS
 const SHOP_STYLE_SLUGS = new Set(['shop-all', 'phones', 'chargers', 'protectors', 'earbuds', 'offers', 'audio', 'watches', 'accessories', 'cmf'])
 const COLLECTION_SUPPORT_SLUGS = new Set(['shop-all', 'phones', 'chargers', 'accessories', 'protectors', 'phone-protectors', 'earbuds', 'cmf'])
 
+function uniqueProductsByHandle(products: Collection['products']) {
+  const seen = new Set<string>()
+
+  return products.filter((product) => {
+    if (seen.has(product.handle)) {
+      return false
+    }
+
+    seen.add(product.handle)
+    return true
+  })
+}
+
+function buildCollectionLongformSections(collection: Collection) {
+  const topProducts = uniqueProductsByHandle(collection.products).slice(0, 4)
+  const productNames = topProducts.map((product) => product.name)
+  const productSentence = productNames.length > 0 ? productNames.join(', ') : `${collection.title} products`
+  const childCollections = collection.childCollections?.map((item) => item.label) ?? []
+  const childSentence = childCollections.length > 0 ? childCollections.join(', ') : null
+
+  const intro = `${collection.title} on ${siteBrandName} is built for shoppers in Pakistan who want clearer product discovery, visible PKR pricing, and faster routes into support or ordering.`
+  const selection =
+    collection.products.length > 0
+      ? `This collection currently highlights products such as ${productSentence}, making it easier to compare the most relevant options without leaving the storefront.`
+      : `This collection is ready for indexing and merchandising, even when products are temporarily unavailable.`
+  const buying =
+    childSentence
+      ? `Related sections such as ${childSentence} help users move from broad category discovery to the exact Nothing or CMF product type they need.`
+      : `Customers can move from this collection into product pages, support pages, and policy routes without losing context about delivery, compatibility, or ordering.`
+
+  return [
+    {
+      title: `Why shop ${collection.title} from ${siteBrandName}`,
+      body: intro,
+    },
+    {
+      title: `What shoppers can compare in ${collection.title}`,
+      body: selection,
+    },
+    {
+      title: `How this collection supports buying intent`,
+      body: buying,
+    },
+  ]
+}
+
 function buildCollectionSeoDescription(collection: Collection) {
   if (collection.metaDescription) {
     return collection.metaDescription
@@ -53,11 +99,10 @@ function buildCollectionBreadcrumbs(collection: Collection) {
 
 function buildCollectionStructuredData(collection: Collection) {
   const breadcrumbItems = buildCollectionBreadcrumbs(collection)
-  const topProducts = collection.products.slice(0, 12)
+  const topProducts = uniqueProductsByHandle(collection.products).slice(0, 12)
   const faqStructuredData = buildFaqStructuredData(collectionSeoFaqs[collection.slug] ?? [])
 
   const structuredData: Record<string, unknown>[] = [
-    ...(collection.schemaJson ? [collection.schemaJson] : []),
     {
       '@context': 'https://schema.org',
       '@type': 'CollectionPage',
@@ -70,8 +115,11 @@ function buildCollectionStructuredData(collection: Collection) {
         itemListElement: topProducts.map((product, index) => ({
           '@type': 'ListItem',
           position: index + 1,
-          url: buildAbsoluteUrl(product.href),
-          name: product.name,
+          item: {
+            '@type': 'Product',
+            name: product.name,
+            url: buildAbsoluteUrl(product.href),
+          },
         })),
       },
     },
@@ -147,9 +195,58 @@ export default async function CollectionPage({ params }: CollectionPageProps) {
 
   const breadcrumbItems = buildCollectionBreadcrumbs(collection)
   const isShopStyleCollection = SHOP_STYLE_SLUGS.has(collection.slug)
+  const isOffersCollection = collection.slug === 'offers'
   const seoDescription = buildCollectionSeoDescription(collection)
   const collectionFaqEntries = collectionSeoFaqs[collection.slug] ?? []
   const shouldShowTrustLinks = COLLECTION_SUPPORT_SLUGS.has(collection.slug)
+  const collectionLongformSections = buildCollectionLongformSections(collection)
+  const relatedCollectionLinks = collection.childCollections?.length ? collection.childCollections : []
+
+  if (isOffersCollection) {
+    return (
+      <div className="min-h-screen overflow-x-hidden bg-black text-white">
+        <SeoStructuredData data={buildCollectionStructuredData(collection)} />
+        <NothingHeader />
+
+        <main className="relative min-h-screen px-4 pb-24 pt-24 md:px-8 md:pb-32">
+          <div className="pointer-events-none absolute inset-0 [background-image:radial-gradient(circle,rgba(255,255,255,0.9)_1.2px,transparent_1.3px)] [background-position:1.9rem_2.1rem] [background-size:5.5rem_5.5rem] sm:[background-size:9rem_9rem]" />
+
+          <section className="relative mx-auto flex min-h-[calc(100vh-7rem)] max-w-[1360px] flex-col justify-center">
+            <div className="mx-auto max-w-[960px] py-6 text-center md:py-8">
+              <h1 className="dot-heading text-[1.45rem] leading-[0.94] tracking-[0.2em] text-white sm:text-[2rem] lg:text-[2.8rem]">
+                OFFERS
+              </h1>
+            </div>
+
+            <div className="mx-auto flex w-full max-w-[960px] justify-center">
+              <article className="w-full max-w-[720px] rounded-[22px] bg-[#3f3f3f] px-4 py-4 shadow-[0_28px_80px_rgba(0,0,0,0.36)] sm:px-5 sm:py-5 lg:max-w-[680px] lg:px-6 lg:py-6">
+                <div className="max-w-[560px]">
+                  <p className="dot-heading text-[1.8rem] leading-[0.95] tracking-[0.08em] text-white sm:text-[2.2rem] lg:text-[2.7rem]">
+                    Non COD offer
+                  </p>
+                  <div className="inter-only-scope mt-4 space-y-1.5 text-[0.92rem] leading-7 text-white/92 sm:text-[1rem] lg:mt-5 lg:text-[1.02rem] lg:leading-8">
+                    <p>Free Delivery ✅</p>
+                    <p>No Govt Tax ✅</p>
+                    <p>Get 4% off on each product when you pay online.</p>
+                  </div>
+                  <div className="mt-5 lg:mt-6">
+                    <Link
+                      href="/order"
+                      className="inline-flex h-9 items-center justify-center rounded-full bg-[#5b5b5b] px-4 text-[10px] uppercase tracking-[0.2em] text-white transition-colors hover:bg-white hover:text-black"
+                    >
+                      Claim offer
+                    </Link>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </section>
+        </main>
+
+        <NothingFooter />
+      </div>
+    )
+  }
 
   return (
     <div className={`min-h-screen overflow-x-hidden text-[#111] ${isShopStyleCollection ? 'bg-white' : 'bg-[#f4f4f0]'}`}>
@@ -226,6 +323,33 @@ export default async function CollectionPage({ params }: CollectionPageProps) {
               <p className="mt-3 text-sm text-black/65">This page is ready for search indexing, but there are no live products in this collection yet.</p>
             </div>
           )}
+
+          <section className="mt-12 grid gap-4 lg:grid-cols-3">
+            {collectionLongformSections.map((section) => (
+              <article key={section.title} className="rounded-[30px] border border-black/10 bg-white/78 p-6 shadow-[0_18px_50px_rgba(17,17,17,0.05)] backdrop-blur-xl">
+                <p className="text-[10px] uppercase tracking-[0.22em] text-black/42">{section.title}</p>
+                <p className="mt-4 text-sm leading-7 text-black/68">{section.body}</p>
+              </article>
+            ))}
+          </section>
+
+          {relatedCollectionLinks.length > 0 ? (
+            <section className="mt-8 rounded-[32px] border border-black/10 bg-white p-6 shadow-[0_20px_55px_rgba(17,17,17,0.04)] md:p-8">
+              <p className="text-[10px] uppercase tracking-[0.3em] text-black/42">Related Categories</p>
+              <h2 className="collection-product-name mt-4 text-3xl leading-[0.96] sm:text-4xl">Continue into a more specific category</h2>
+              <div className="mt-6 flex flex-wrap gap-3">
+                {relatedCollectionLinks.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className="rounded-full border border-black/10 bg-[#f8f8f4] px-4 py-3 text-[10px] uppercase tracking-[0.2em] text-black/65 transition-colors hover:bg-black hover:text-white"
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
+            </section>
+          ) : null}
 
           {collectionFaqEntries.length > 0 || shouldShowTrustLinks ? (
             <div className="mt-12 grid gap-6 lg:grid-cols-[minmax(0,1.15fr)_360px]">

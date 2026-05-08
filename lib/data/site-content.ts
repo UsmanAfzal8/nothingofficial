@@ -3,10 +3,12 @@ import { buildAbsoluteUrl } from '@/lib/utils/seo'
 export const siteBrandName = 'Nothing Pakistan'
 export const siteTagline = 'Tech is fun again.'
 export const siteDescription =
-  'Shop Nothing and CMF products in Pakistan, including Nothing phones, CMF phones, earbuds, GaN chargers, cables, and phone protectors with PKR pricing and support.'
-export const siteSeoTitle = 'Nothing Pakistan | Nothing Phone, CMF, Chargers & Earbuds'
+  'Official Nothing store in Pakistan for original Nothing and CMF phones, earbuds, chargers, cables, and screen protectors with PKR pricing, nationwide delivery, and WhatsApp support.'
+export const siteSeoTitle = 'Official Nothing Store in Pakistan | Phones, CMF, Chargers & Earbuds'
 export const siteKeywords = [
   'Nothing Pakistan',
+  'Official Nothing store Pakistan',
+  'Official Nothing Pakistan',
   'Nothing Shop Pakistan',
   'Nothing store Pakistan',
   'Nothing phone price in Pakistan',
@@ -94,23 +96,23 @@ export const newsletterHighlights = [
 
 export const homeSeoHighlights = [
   {
-    title: 'Nothing and CMF chargers in Pakistan',
+    title: 'Original Nothing and CMF chargers in Pakistan',
     description:
-      'Browse Nothing charger, CMF Power GaN charger, and cable pages with PKR pricing and direct links into the ordering flow.',
+      'Browse original Nothing chargers, CMF Power GaN chargers, and cable pages with PKR pricing, delivery support, and direct links into the ordering flow.',
     href: '/collections/chargers',
     label: 'Shop chargers',
   },
   {
-    title: 'Nothing phone prices and compatible accessories',
+    title: 'Nothing phone prices with compatible accessories',
     description:
-      'Use the phone pages to review Nothing phones and discover compatible chargers, protectors, earbuds, and support routes in Pakistan.',
+      'Use the phone pages to review Nothing phones and discover compatible chargers, protectors, earbuds, and support routes across Pakistan.',
     href: '/collections/phones',
     label: 'Browse phones',
   },
   {
     title: 'Support, delivery, and contact routes',
     description:
-      'Give customers and search engines clear trust signals through connected support, policy, contact, and order pages.',
+      'Give customers and search engines stronger trust signals through connected support, policy, contact, and order pages.',
     href: '/pages/contact-us',
     label: 'Open support routes',
   },
@@ -673,12 +675,17 @@ export function buildWebsiteStructuredData() {
     '@type': 'WebSite',
     '@id': buildAbsoluteUrl('/#website'),
     name: siteBrandName,
-    alternateName: ['Nothing Pakistan', 'Nothing chargers Pakistan', 'Nothing accessories Pakistan'],
+    alternateName: 'Official Nothing store in Pakistan',
     url: buildAbsoluteUrl('/'),
     description: siteDescription,
     inLanguage: 'en-PK',
     publisher: {
       '@id': buildAbsoluteUrl('/#organization'),
+    },
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: `${buildAbsoluteUrl('/collections/shop-all')}?q={search_term_string}`,
+      'query-input': 'required name=search_term_string',
     },
   }
 }

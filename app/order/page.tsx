@@ -51,7 +51,7 @@ export default async function OrderPage({ searchParams }: OrderPageProps) {
       <main className="pt-20 lg:pt-24">
         <section className="px-4 pb-16 pt-6 md:px-8 md:pb-24">
           <div className="mx-auto w-full max-w-[1200px]">
-            <OrderForm product={null} backLink={{ href: '/collections/shop-all', label: 'Browse Products' }} />
+            <OrderForm product={null} />
           </div>
         </section>
       </main>

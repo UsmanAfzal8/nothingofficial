@@ -209,6 +209,9 @@ export default function ContactUsPage() {
 
             <div className="mx-auto mt-10 max-w-screen-2xl rounded-[34px] border border-black/10 bg-white/72 p-6 shadow-[0_24px_60px_rgba(17,17,17,0.06)] backdrop-blur-xl md:p-8">
               <p className="text-[10px] uppercase tracking-[0.28em] text-black/42">Brand Social Channels</p>
+              <p className="mt-4 max-w-4xl text-sm leading-7 text-black/68">
+                Keeping contact, map, policy, and support information on one page gives Google a clearer trust signal for branded and transactional queries. It also helps shoppers confirm that they are dealing with the official store in Pakistan before they place an order.
+              </p>
               <div className="mt-5 flex flex-wrap gap-3">
                 {socialLinks.map((item) => (
                   <a

@@ -1,0 +1,657 @@
+{
+  "generatedAt": "2026-05-08T18:19:03.422Z",
+  "productsUpdated": 58,
+  "mobilesUpdated": 13,
+  "productsScanned": 58,
+  "mobilesScanned": 13,
+  "productChanges": [
+    {
+      "id": 25,
+      "slug": "phone-3-uv-protector",
+      "changedFields": [
+        "description",
+        "short_description",
+        "meta_description",
+        "seo_description_long"
+      ]
+    },
+    {
+      "id": 60,
+      "slug": "cmf-phone-1-jelly-sheet",
+      "changedFields": [
+        "description",
+        "short_description",
+        "meta_description",
+        "seo_description_long"
+      ]
+    },
+    {
+      "id": 47,
+      "slug": "phone-2-cover",
+      "changedFields": [
+        "description",
+        "short_description",
+        "meta_description",
+        "seo_description_long"
+      ]
+    },
+    {
+      "id": 67,
+      "slug": "phone-1-cover",
+      "changedFields": [
+        "description",
+        "short_description",
+        "meta_description",
+        "seo_description_long"
+      ]
+    },
+    {
+      "id": 17,
+      "slug": "phone-3a-pro-uv-protector",
+      "changedFields": [
+        "description",
+        "short_description",
+        "meta_description",
+        "seo_description_long"
+      ]
+    },
+    {
+      "id": 52,
+      "slug": "phone-3-cover",
+      "changedFields": [
+        "description",
+        "short_description",
+        "meta_description",
+        "seo_description_long"
+      ]
+    },
+    {
+      "id": 6,
+      "slug": "ear-a",
+      "changedFields": [
+        "description",
+        "meta_description",
+        "seo_description_long"
+      ]
+    },
+    {
+      "id": 5,
+      "slug": "ear",
+      "changedFields": [
+        "description",
+        "meta_description",
+        "seo_description_long"
+      ]
+    },
+    {
+      "id": 3,
+      "slug": "cmf-power-65w-gan",
+      "changedFields": [
+        "meta_description",
+        "seo_description_long"
+      ]
+    },
+    {
+      "id": 11,
+      "slug": "cmf-buds-pro-2",
+      "changedFields": [
+        "meta_description",
+        "seo_description_long"
+      ]
+    },
+    {
+      "id": 7,
+      "slug": "ear-open",
+      "changedFields": [
+        "description",
+        "meta_description",
+        "seo_description_long"
+      ]
+    },
+    {
+      "id": 12,
+      "slug": "cmf-phone-2-pro-uv-protector",
+      "changedFields": [
+        "meta_description",
+        "seo_description_long"
+      ]
+    },
+    {
+      "id": 35,
+      "slug": "phone-4a-pro-9d-protector",
+      "changedFields": [
+        "meta_description",
+        "seo_description_long"
+      ]
+    },
+    {
+      "id": 19,
+      "slug": "phone-3a-pro-9d-protector",
+      "changedFields": [
+        "description",
+        "short_description",
+        "meta_description",
+        "seo_description_long"
+      ]
+    },
+    {
+      "id": 2,
+      "slug": "cmf-power-100w-gan",
+      "changedFields": [
+        "meta_description",
+        "seo_description_long"
+      ]
+    },
+    {
+      "id": 43,
+      "slug": "headphone-1",
+      "changedFields": [
+        "description",
+        "meta_description",
+        "seo_description_long"
+      ]
+    },
+    {
+      "id": 36,
+      "slug": "phone-4a-pro-privacy-sheet",
+      "changedFields": [
+        "meta_description",
+        "seo_description_long"
+      ]
+    },
+    {
+      "id": 68,
+      "slug": "phone-3a-lite-cover",
+      "changedFields": [
+        "description",
+        "short_description",
+        "meta_description",
+        "seo_description_long"
+      ]
+    },
+    {
+      "id": 41,
+      "slug": "cmf-headphone-pro",
+      "changedFields": [
+        "description",
+        "meta_description",
+        "seo_description_long"
+      ]
+    },
+    {
+      "id": 31,
+      "slug": "phone-4a-9d-protector",
+      "changedFields": [
+        "description",
+        "short_description",
+        "meta_description",
+        "seo_description_long"
+      ]
+    },
+    {
+      "id": 8,
+      "slug": "cmf-buds-2-plus",
+      "changedFields": [
+        "meta_description",
+        "seo_description_long"
+      ]
+    },
+    {
+      "id": 33,
+      "slug": "phone-4a-pro-uv-protector",
+      "changedFields": [
+        "meta_description",
+        "seo_description_long"
+      ]
+    },
+    {
+      "id": 42,
+      "slug": "cmf-watch-3-pro",
+      "changedFields": [
+        "description",
+        "meta_description",
+        "seo_description_long"
+      ]
+    },
+    {
+      "id": 29,
+      "slug": "phone-4a-uv-protector",
+      "changedFields": [
+        "description",
+        "short_description",
+        "meta_description",
+        "seo_description_long"
+      ]
+    },
+    {
+      "id": 10,
+      "slug": "cmf-buds-2",
+      "changedFields": [
+        "meta_description",
+        "seo_description_long"
+      ]
+    },
+    {
+      "id": 34,
+      "slug": "phone-4a-pro-jelly-sheet",
+      "changedFields": [
+        "meta_description",
+        "seo_description_long"
+      ]
+    },
+    {
+      "id": 30,
+      "slug": "phone-4a-jelly-sheet",
+      "changedFields": [
+        "description",
+        "short_description",
+        "meta_description",
+        "seo_description_long"
+      ]
+    },
+    {
+      "id": 4,
+      "slug": "ear-3",
+      "changedFields": [
+        "description",
+        "meta_description",
+        "seo_description_long"
+      ]
+    },
+    {
+      "id": 59,
+      "slug": "cmf-phone-1-uv-protector",
+      "changedFields": [
+        "description",
+        "short_description",
+        "meta_description",
+        "seo_description_long"
+      ]
+    },
+    {
+      "id": 21,
+      "slug": "phone-3a-lite-uv-protector",
+      "changedFields": [
+        "description",
+        "short_description",
+        "meta_description",
+        "seo_description_long"
+      ]
+    },
+    {
+      "id": 50,
+      "slug": "phone-3a-pro-cover",
+      "changedFields": [
+        "description",
+        "short_description",
+        "meta_description",
+        "seo_description_long"
+      ]
+    },
+    {
+      "id": 44,
+      "slug": "headphone-a",
+      "changedFields": [
+        "description",
+        "meta_description",
+        "seo_description_long"
+      ]
+    },
+    {
+      "id": 51,
+      "slug": "phone-3a-cover",
+      "changedFields": [
+        "description",
+        "short_description",
+        "meta_description",
+        "seo_description_long"
+      ]
+    },
+    {
+      "id": 54,
+      "slug": "phone-4a-cover",
+      "changedFields": [
+        "description",
+        "short_description",
+        "meta_description",
+        "seo_description_long"
+      ]
+    },
+    {
+      "id": 45,
+      "slug": "nothing-usb-c-to-usb-c-cable",
+      "changedFields": [
+        "description",
+        "meta_description",
+        "seo_description_long"
+      ]
+    },
+    {
+      "id": 28,
+      "slug": "phone-3-privacy-sheet",
+      "changedFields": [
+        "description",
+        "short_description",
+        "meta_description",
+        "seo_description_long"
+      ]
+    },
+    {
+      "id": 32,
+      "slug": "phone-4a-privacy-sheet",
+      "changedFields": [
+        "description",
+        "short_description",
+        "meta_description",
+        "seo_description_long"
+      ]
+    },
+    {
+      "id": 61,
+      "slug": "cmf-phone-1-protector",
+      "changedFields": [
+        "description",
+        "short_description",
+        "meta_description",
+        "seo_description_long"
+      ]
+    },
+    {
+      "id": 46,
+      "slug": "nothing-power-45w",
+      "changedFields": [
+        "description",
+        "meta_description",
+        "seo_description_long"
+      ]
+    },
+    {
+      "id": 53,
+      "slug": "nothing-4a-pro-cover",
+      "changedFields": [
+        "description",
+        "short_description",
+        "meta_description",
+        "seo_description_long"
+      ]
+    },
+    {
+      "id": 18,
+      "slug": "phone-3a-pro-jelly-sheet",
+      "changedFields": [
+        "description",
+        "short_description",
+        "meta_description",
+        "seo_description_long"
+      ]
+    },
+    {
+      "id": 38,
+      "slug": "cmf-buds-pro",
+      "changedFields": [
+        "meta_description",
+        "seo_description_long"
+      ]
+    },
+    {
+      "id": 1,
+      "slug": "cmf-power-140w-gan",
+      "changedFields": [
+        "meta_description",
+        "seo_description_long"
+      ]
+    },
+    {
+      "id": 62,
+      "slug": "cmf-phone-1-privacy-sheet",
+      "changedFields": [
+        "description",
+        "short_description",
+        "meta_description",
+        "seo_description_long"
+      ]
+    },
+    {
+      "id": 13,
+      "slug": "phone-3a-uv-protector",
+      "changedFields": [
+        "description",
+        "short_description",
+        "meta_description",
+        "seo_description_long"
+      ]
+    },
+    {
+      "id": 15,
+      "slug": "phone-3a-9d-protector",
+      "changedFields": [
+        "description",
+        "short_description",
+        "meta_description",
+        "seo_description_long"
+      ]
+    },
+    {
+      "id": 40,
+      "slug": "cmf-watch-pro",
+      "changedFields": [
+        "description",
+        "meta_description",
+        "seo_description_long"
+      ]
+    },
+    {
+      "id": 16,
+      "slug": "phone-3a-privacy-sheet",
+      "changedFields": [
+        "description",
+        "short_description",
+        "meta_description",
+        "seo_description_long"
+      ]
+    },
+    {
+      "id": 23,
+      "slug": "phone-3a-lite-9d-protector",
+      "changedFields": [
+        "description",
+        "short_description",
+        "meta_description",
+        "seo_description_long"
+      ]
+    },
+    {
+      "id": 9,
+      "slug": "cmf-buds-2a",
+      "changedFields": [
+        "meta_description",
+        "seo_description_long"
+      ]
+    },
+    {
+      "id": 26,
+      "slug": "phone-3-jelly-sheet",
+      "changedFields": [
+        "description",
+        "short_description",
+        "meta_description",
+        "seo_description_long"
+      ]
+    },
+    {
+      "id": 48,
+      "slug": "phone-2a-cover",
+      "changedFields": [
+        "description",
+        "short_description",
+        "meta_description",
+        "seo_description_long"
+      ]
+    },
+    {
+      "id": 49,
+      "slug": "phone-2a-plus-cover",
+      "changedFields": [
+        "description",
+        "short_description",
+        "meta_description",
+        "seo_description_long"
+      ]
+    },
+    {
+      "id": 14,
+      "slug": "phone-3a-jelly-sheet",
+      "changedFields": [
+        "description",
+        "short_description",
+        "meta_description",
+        "seo_description_long"
+      ]
+    },
+    {
+      "id": 22,
+      "slug": "phone-3a-lite-jelly-sheet",
+      "changedFields": [
+        "description",
+        "short_description",
+        "meta_description",
+        "seo_description_long"
+      ]
+    },
+    {
+      "id": 20,
+      "slug": "phone-3a-pro-privacy-sheet",
+      "changedFields": [
+        "description",
+        "short_description",
+        "meta_description",
+        "seo_description_long"
+      ]
+    },
+    {
+      "id": 27,
+      "slug": "phone-3-9d-protector",
+      "changedFields": [
+        "description",
+        "short_description",
+        "meta_description",
+        "seo_description_long"
+      ]
+    },
+    {
+      "id": 24,
+      "slug": "phone-3a-lite-privacy-sheet",
+      "changedFields": [
+        "description",
+        "short_description",
+        "meta_description",
+        "seo_description_long"
+      ]
+    }
+  ],
+  "mobileChanges": [
+    {
+      "id": 6,
+      "slug": "phone-3a-lite",
+      "changedFields": [
+        "meta_description",
+        "seo_description_long"
+      ]
+    },
+    {
+      "id": 5,
+      "slug": "phone-3",
+      "changedFields": [
+        "meta_description",
+        "seo_description_long"
+      ]
+    },
+    {
+      "id": 3,
+      "slug": "nothing-4a-pro",
+      "changedFields": [
+        "seo_description_long"
+      ]
+    },
+    {
+      "id": 4,
+      "slug": "phone-4a",
+      "changedFields": [
+        "meta_description",
+        "seo_description_long"
+      ]
+    },
+    {
+      "id": 13,
+      "slug": "phone-2a-plus",
+      "changedFields": [
+        "meta_description",
+        "seo_description_long"
+      ]
+    },
+    {
+      "id": 7,
+      "slug": "phone-3a-pro",
+      "changedFields": [
+        "meta_description",
+        "seo_description_long"
+      ]
+    },
+    {
+      "id": 8,
+      "slug": "phone-3a",
+      "changedFields": [
+        "meta_description",
+        "seo_description_long"
+      ]
+    },
+    {
+      "id": 10,
+      "slug": "cmf-phone-2-pro",
+      "changedFields": [
+        "meta_description",
+        "seo_description_long"
+      ]
+    },
+    {
+      "id": 11,
+      "slug": "phone-2a",
+      "changedFields": [
+        "meta_description",
+        "seo_description_long"
+      ]
+    },
+    {
+      "id": 9,
+      "slug": "phone-3a-community-edition",
+      "changedFields": [
+        "meta_description",
+        "seo_description_long"
+      ]
+    },
+    {
+      "id": 12,
+      "slug": "cmf-phone-1",
+      "changedFields": [
+        "meta_description",
+        "seo_description_long"
+      ]
+    },
+    {
+      "id": 14,
+      "slug": "phone-2",
+      "changedFields": [
+        "meta_description",
+        "seo_description_long"
+      ]
+    },
+    {
+      "id": 15,
+      "slug": "phone-1",
+      "changedFields": [
+        "meta_description",
+        "seo_description_long"
+      ]
+    }
+  ]
+}
