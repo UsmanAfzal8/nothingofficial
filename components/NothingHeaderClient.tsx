@@ -58,18 +58,18 @@ export function NothingHeaderClient({ menuItems }: NothingHeaderClientProps) {
               onClick={() => setIsDrawerOpen((current) => !current)}
             >
               {isDrawerOpen ? (
-                <CloseIcon className="h-[15px] w-[15px] text-black/68 md:h-4 md:w-4" />
+                <CloseIcon className="h-[18px] w-[18px] text-black/68 md:h-[18px] md:w-[18px]" />
               ) : (
                 <Image
                   src={menuIcon}
                   alt=""
                   aria-hidden="true"
-                  className="h-[13px] w-[13px] object-contain opacity-70 md:h-[14px] md:w-[14px]"
+                  className="h-[18px] w-[18px] object-contain opacity-70 md:h-[18px] md:w-[18px]"
                 />
               )}
             </button>
 
-            <Link href="/" className="truncate px-2 text-center font-dot-caps text-[9px] uppercase tracking-[0.05em] text-black/72 md:text-[12px]">
+            <Link href="/" className="dot-logo truncate px-2 text-center text-[9px] uppercase tracking-[0.05em] text-black/72 md:text-[12px]">
               NOTHING PAKISTAN
             </Link>
 
@@ -82,7 +82,7 @@ export function NothingHeaderClient({ menuItems }: NothingHeaderClientProps) {
                 src={cartIcon}
                 alt=""
                 aria-hidden="true"
-                className="h-[14px] w-[14px] object-contain opacity-70 md:h-[15px] md:w-[15px]"
+                className="h-[19px] w-[19px] object-contain opacity-70 md:h-[19px] md:w-[19px]"
               />
               {itemCount > 0 ? (
                 <span className="absolute -right-1 -top-1 inline-flex h-4 min-w-4 items-center justify-center rounded-full bg-black px-1 text-[9px] text-white">
@@ -115,12 +115,12 @@ export function NothingHeaderClient({ menuItems }: NothingHeaderClientProps) {
                 className="inline-flex h-8 w-8 items-center justify-center rounded-[6px] text-black/62 transition-opacity hover:opacity-65"
                 onClick={() => setIsDrawerOpen(false)}
               >
-                <CloseIcon className="h-[14px] w-[14px]" />
+                <CloseIcon className="h-[18px] w-[18px]" />
               </button>
 
               <Link
                 href="/"
-                className="truncate px-3 text-center font-dot-caps text-[9px] uppercase tracking-[0.05em] text-black/72"
+                className="dot-logo truncate px-3 text-center text-[9px] uppercase tracking-[0.05em] text-black/72"
                 onClick={() => setIsDrawerOpen(false)}
               >
                 NOTHING PAKISTAN
@@ -136,7 +136,7 @@ export function NothingHeaderClient({ menuItems }: NothingHeaderClientProps) {
                   src={cartIcon}
                   alt=""
                   aria-hidden="true"
-                  className="h-[14px] w-[14px] object-contain opacity-70"
+                  className="h-[19px] w-[19px] object-contain opacity-70"
                 />
                 {itemCount > 0 ? (
                   <span className="absolute -right-1 -top-1 inline-flex h-4 min-w-4 items-center justify-center rounded-full bg-black px-1 text-[9px] text-white">
@@ -152,7 +152,7 @@ export function NothingHeaderClient({ menuItems }: NothingHeaderClientProps) {
                   <Link
                     key={item.slug}
                     href={item.href}
-                    className="w-full border-b border-black/10 py-4 font-dot-caps text-[clamp(1.8rem,5vw,2.45rem)] uppercase leading-[0.92] tracking-[0.04em] text-black/82 transition-opacity hover:opacity-58"
+                    className="dot-heading w-full border-b border-black/10 py-4 text-[clamp(1.8rem,5vw,2.45rem)] uppercase leading-[0.92] tracking-[0.04em] text-black/82 transition-opacity hover:opacity-58"
                     onClick={() => setIsDrawerOpen(false)}
                   >
                     {item.label}

@@ -37,8 +37,8 @@ export function CatalogProductTile({ product, priority = false, tone = 'default'
           <h3
             className={
               isShopAll
-                ? 'collection-product-name text-[0.98rem] leading-[1.12] tracking-[-0.015em] text-black sm:text-[1.04rem]'
-                : 'collection-product-name text-[1.08rem] leading-[1.14] tracking-[-0.012em] text-black sm:text-[1.18rem]'
+                ? 'product-card-name text-[0.98rem] leading-[1.12] text-black sm:text-[1.04rem]'
+                : 'product-card-name text-[1.08rem] leading-[1.14] text-black sm:text-[1.18rem]'
             }
           >
             {product.name}

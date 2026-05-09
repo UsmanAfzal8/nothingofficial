@@ -82,6 +82,10 @@ a {
   font-family: var(--font-ntype82), serif;
 }
 
+.product-card-name {
+  font-family: var(--font-georgia), Georgia, serif;
+}
+
 .inter-only-scope {
   font-family: var(--font-inter-light), sans-serif;
   font-weight: 300;

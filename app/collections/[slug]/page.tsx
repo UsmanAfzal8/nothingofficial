@@ -227,7 +227,7 @@ export default async function CollectionPage({ params }: CollectionPageProps) {
                   <div className="inter-only-scope mt-4 space-y-1.5 text-[0.92rem] leading-7 text-white/92 sm:text-[1rem] lg:mt-5 lg:text-[1.02rem] lg:leading-8">
                     <p>Free Delivery ✅</p>
                     <p>No Govt Tax ✅</p>
-                    <p>Get 4% off on each product when you pay online.</p>
+                    <p>We pay your 4% Govt Tax when you pay online.</p>
                   </div>
                   <div className="mt-5 lg:mt-6">
                     <Link

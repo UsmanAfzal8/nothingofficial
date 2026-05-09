@@ -16,6 +16,10 @@ function jsonNoIndex(body: unknown, init?: ResponseInit) {
   })
 }
 
+export async function GET() {
+  return jsonNoIndex({ error: 'Method not allowed.' }, { status: 405 })
+}
+
 type CreateOrderPayload = {
   name?: unknown
   address?: unknown
@@ -33,7 +37,7 @@ type CreateOrderPayload = {
   currency?: unknown
   paymentMethod?: unknown
   shippingFee?: unknown
-  discountAmount?: unknown
+  govtTaxAmount?: unknown
   totalPrice?: unknown
 }
 
@@ -58,8 +62,8 @@ type NormalizedOrderUser = {
 
 type PaymentMethod = 'cod' | 'bank_transfer'
 
-const SHIPPING_FEE = 300
-const BANK_TRANSFER_DISCOUNT_RATE = 0.04
+const SHIPPING_FEE = 450
+const GOVT_TAX_RATE = 0.04
 
 function toTrimmedString(value: unknown): string {
   if (typeof value !== 'string') return ''
@@ -206,12 +210,12 @@ export async function POST(request: NextRequest) {
     const paymentMethod = normalizePaymentMethod(body.paymentMethod)
     const lineTotal = Number(orderItems.reduce((total, item) => total + item.quantity * item.unit_price, 0).toFixed(2))
     const shippingFee = paymentMethod === 'bank_transfer' ? 0 : SHIPPING_FEE
-    const discountAmount = paymentMethod === 'bank_transfer' ? Number((lineTotal * BANK_TRANSFER_DISCOUNT_RATE).toFixed(2)) : 0
-    const finalTotal = Number((lineTotal - discountAmount + shippingFee).toFixed(2))
+    const govtTaxAmount = paymentMethod === 'cod' ? Number((lineTotal * GOVT_TAX_RATE).toFixed(2)) : 0
+    const finalTotal = Number((lineTotal + govtTaxAmount + shippingFee).toFixed(2))
     const paymentNotes =
       paymentMethod === 'bank_transfer'
-        ? 'Online payment selected. Free shipping and 4% discount applied. User will send online payment screenshot to 03361070111.'
-        : 'Cash on delivery selected. Shipping fee Rs 300 applied.'
+        ? 'Non COD: Bank transfer customer gets free shipping and 0% tax. We pay the 4% govt tax. Express next-day delivery. User will send online payment screenshot to 03361070111.'
+        : 'COD order: Rs 450 shipping fee and 4% govt tax applied.'
     const orderItemsWithNotes = orderItems.map((item) => ({
       ...item,
       notes: item.notes ? `${item.notes} | ${paymentNotes}` : paymentNotes,

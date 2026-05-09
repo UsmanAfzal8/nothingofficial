@@ -31,6 +31,12 @@ const ntype82 = localFont({
   display: 'swap',
 })
 
+const georgia = localFont({
+  src: [{ path: '../fonts/georgia.ttf', weight: '400', style: 'normal' }],
+  variable: '--font-georgia',
+  display: 'swap',
+})
+
 export const metadata: Metadata = {
   metadataBase: new URL(getSiteOrigin()),
   title: {
@@ -78,7 +84,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en-PK">
-      <body className={`${ndot57.className} ${ndot57.variable} ${ndot55.variable} ${ndot55Caps.variable} ${ntype82.variable} isolate overflow-x-hidden antialiased`}>
+      <body className={`${ndot57.className} ${ndot57.variable} ${ndot55.variable} ${ndot55Caps.variable} ${ntype82.variable} ${georgia.variable} isolate overflow-x-hidden antialiased`}>
         <div aria-hidden="true" className="site-dot-overlay" />
         <CartProvider>
           {children}

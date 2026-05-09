@@ -42,8 +42,8 @@ const initialSubmitState: SubmitState = {
 const fieldClassName =
   'w-full rounded-[16px] border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-slate-400 focus:ring-2 focus:ring-slate-200'
 
-const SHIPPING_FEE = 300
-const BANK_TRANSFER_DISCOUNT_RATE = 0.04
+const SHIPPING_FEE = 450
+const GOVT_TAX_RATE = 0.04
 const BANK_ACCOUNT = {
   bank: 'BANK ALFALAH',
   accountName: 'SOFTWARE SUITE',
@@ -98,16 +98,23 @@ function formatShortMonthDay(date: Date) {
   }).format(date)
 }
 
-function getDeliveryTimeline() {
+function formatDeliveryRangeLabel(startDate: Date, endDate: Date) {
+  const startLabel = formatShortMonthDay(startDate)
+  const endLabel = formatShortMonthDay(endDate)
+
+  return startLabel === endLabel ? startLabel : `${startLabel} - ${endLabel}`
+}
+
+function getDeliveryTimeline(paymentMethod: PaymentMethod) {
   const pakistanToday = getPakistanCalendarDate(new Date())
   const orderDate = createUtcDate(pakistanToday.year, pakistanToday.month, pakistanToday.day)
   const processDate = addUtcDays(orderDate, 1)
-  const deliveryStartDate = addUtcDays(processDate, 2)
-  const deliveryEndDate = addUtcDays(processDate, 3)
+  const deliveryStartDate = paymentMethod === 'bank_transfer' ? addUtcDays(processDate, 1) : addUtcDays(processDate, 2)
+  const deliveryEndDate = paymentMethod === 'bank_transfer' ? deliveryStartDate : addUtcDays(processDate, 3)
 
   return {
     processDateLabel: formatShortMonthDay(processDate),
-    deliveryRangeLabel: `${formatShortMonthDay(deliveryStartDate)} - ${formatShortMonthDay(deliveryEndDate)}`,
+    deliveryRangeLabel: formatDeliveryRangeLabel(deliveryStartDate, deliveryEndDate),
   }
 }
 
@@ -238,20 +245,20 @@ export function OrderForm({ product }: OrderFormProps) {
 
   const itemCount = getCheckoutItemCount(checkoutItems)
   const previewImage = product?.image ?? checkoutItems[0]?.image ?? null
-  const deliveryTimeline = useMemo(() => getDeliveryTimeline(), [])
-  const bankTransferDiscount = useMemo(
-    () => Number((paymentMethod === 'bank_transfer' ? checkoutSubtotal * BANK_TRANSFER_DISCOUNT_RATE : 0).toFixed(2)),
+  const deliveryTimeline = useMemo(() => getDeliveryTimeline(paymentMethod), [paymentMethod])
+  const govtTaxAmount = useMemo(
+    () => Number((paymentMethod === 'cod' ? checkoutSubtotal * GOVT_TAX_RATE : 0).toFixed(2)),
     [checkoutSubtotal, paymentMethod],
   )
   const shippingFee = paymentMethod === 'bank_transfer' ? 0 : SHIPPING_FEE
   const totalPrice = useMemo(
-    () => Math.max(0, Number((checkoutSubtotal - bankTransferDiscount + shippingFee).toFixed(2))),
-    [bankTransferDiscount, checkoutSubtotal, shippingFee],
+    () => Math.max(0, Number((checkoutSubtotal + govtTaxAmount + shippingFee).toFixed(2))),
+    [checkoutSubtotal, govtTaxAmount, shippingFee],
   )
   const paymentNotes =
     paymentMethod === 'bank_transfer'
-      ? `Bank transfer selected. Shipping fee waived. 4% discount applied. After payment send screenshot to ${BANK_ACCOUNT.whatsapp}.`
-      : 'Cash on delivery selected. Shipping fee Rs 300 applies.'
+      ? `Non COD: Bank transfer customer gets free shipping and 0% tax. We pay the 4% govt tax. Express next-day delivery. After payment send screenshot to ${BANK_ACCOUNT.whatsapp}.`
+      : 'COD order: Rs 450 shipping fee and 4% govt tax applied.'
 
   if (!product && !isCartCheckout) {
     return (
@@ -316,7 +323,7 @@ export function OrderForm({ product }: OrderFormProps) {
           items: requestItems,
           paymentMethod,
           shippingFee,
-          discountAmount: bankTransferDiscount,
+          govtTaxAmount,
           totalPrice,
           notes: paymentNotes,
         }),
@@ -405,7 +412,7 @@ export function OrderForm({ product }: OrderFormProps) {
                       >
                         <div className="flex items-start justify-between gap-4">
                           <div>
-                            <h3 className="text-base font-medium text-slate-900">{item.name}</h3>
+                            <h3 className="product-card-name text-base text-slate-900">{item.name}</h3>
                             <p className="mt-1 text-sm text-slate-500">Qty {item.quantity}</p>
                           </div>
                           <p className="text-sm font-medium text-slate-900">{itemTotal !== null ? formatPrice(itemTotal) : 'Pending'}</p>
@@ -427,9 +434,9 @@ export function OrderForm({ product }: OrderFormProps) {
                   <span>Shipping fee</span>
                   <span className="font-medium text-slate-900">{formatPrice(shippingFee)}</span>
                 </div>
-                <div className="flex items-center justify-between text-sm text-emerald-700">
-                  <span>Bank transfer discount</span>
-                  <span className="font-medium">{bankTransferDiscount > 0 ? `- ${formatPrice(bankTransferDiscount)}` : formatPrice(0)}</span>
+                <div className="flex items-center justify-between text-sm text-slate-600">
+                  <span>Govt Tax</span>
+                  <span className="font-medium text-slate-900">{formatPrice(govtTaxAmount)}</span>
                 </div>
                 <div className="border-t border-slate-200 pt-3">
                   <div className="flex items-center justify-between">
@@ -524,7 +531,7 @@ export function OrderForm({ product }: OrderFormProps) {
                 <div className="flex items-start justify-between gap-4">
                   <div>
                     <h3 className="text-lg font-semibold tracking-[-0.02em] text-slate-900">Payment method</h3>
-                    <p className="mt-1 text-sm leading-6 text-slate-600">COD adds Rs 300 shipping. Bank transfer gives free shipping and 4% off.</p>
+                    <p className="mt-1 text-sm leading-6 text-slate-600">COD orders = Rs 450 Shipping fee + 4% Govt Tax. Non COD bank transfer gets free shipping and 0% tax.</p>
                   </div>
                 </div>
 
@@ -542,7 +549,7 @@ export function OrderForm({ product }: OrderFormProps) {
                       <div>
                         <p className="text-sm font-semibold uppercase tracking-[0.16em]">Cash on delivery</p>
                         <p className={`mt-2 text-sm leading-6 ${paymentMethod === 'cod' ? 'text-white/80' : 'text-slate-600'}`}>
-                          Shipping fee Rs 300 is added to the order total.
+                          COD orders = Rs 450 Shipping fee + 4% Govt Tax.
                         </p>
                       </div>
                       <span className={`inline-flex h-5 w-5 rounded-full border ${paymentMethod === 'cod' ? 'border-white bg-white' : 'border-slate-300'}`}>
@@ -563,7 +570,7 @@ export function OrderForm({ product }: OrderFormProps) {
                     <div className="flex items-start justify-between gap-4 p-3 sm:p-4">
                       <div>
                         <p className="text-sm font-semibold uppercase tracking-[0.16em]">Bank transfer</p>
-                        <p className="mt-2 text-sm leading-6 text-slate-600">Agree to bank transfer for free shipping, 4% off, and faster order confirmation. Send the payment screenshot on WhatsApp.</p>
+                        <p className="mt-2 text-sm leading-6 text-slate-600">Non COD: Bank Transfer customers get Free Shipping, 0% Tax. We pay your 4% govt tax. Plus, get Express Next-Day Delivery.</p>
                       </div>
                       <span className={`inline-flex h-5 w-5 rounded-full border ${paymentMethod === 'bank_transfer' ? 'border-emerald-600 bg-emerald-600' : 'border-slate-300'}`}>
                         {paymentMethod === 'bank_transfer' ? <span className="m-auto h-2.5 w-2.5 rounded-full bg-white" /> : null}
@@ -613,13 +620,13 @@ export function OrderForm({ product }: OrderFormProps) {
                   <span>Shipping fee</span>
                   <span className="font-medium text-slate-900">{formatPrice(shippingFee)}</span>
                 </div>
-                <div className="flex items-center justify-between text-sm text-emerald-700">
-                  <span>Bank transfer discount</span>
-                  <span className="font-medium">{bankTransferDiscount > 0 ? `- ${formatPrice(bankTransferDiscount)}` : formatPrice(0)}</span>
+                <div className="flex items-center justify-between text-sm text-slate-600">
+                  <span>Govt Tax</span>
+                  <span className="font-medium text-slate-900">{formatPrice(govtTaxAmount)}</span>
                 </div>
                 <div className="border-t border-slate-200 pt-3">
                   <div className="flex items-center justify-between">
-                    <span className="text-sm font-medium text-slate-600">Total after discount</span>
+                    <span className="text-sm font-medium text-slate-600">Total</span>
                     <span className="text-2xl font-semibold tracking-[-0.03em] text-slate-900">{formatPrice(totalPrice) ?? 'Confirm on call'}</span>
                   </div>
                 </div>
@@ -636,7 +643,9 @@ export function OrderForm({ product }: OrderFormProps) {
               <div className="mt-5 rounded-[18px] border border-[#f7d9b7] bg-[linear-gradient(180deg,#fffdfa_0%,#ffffff_100%)] px-4 py-4">
                 <p className="text-[0.82rem] font-black uppercase tracking-normal text-[#8d8d8d]">Estimated delivery</p>
                 <p className="mt-1 text-[1.55rem] font-bold leading-none text-[#ff6f00]">{deliveryTimeline.deliveryRangeLabel}</p>
-                <p className="mt-2 text-sm leading-6 text-slate-600">Processing starts by {deliveryTimeline.processDateLabel}. Final timing may vary slightly by city and confirmation time.</p>
+                <p className="mt-2 text-sm leading-6 text-slate-600">
+                  Processing starts by {deliveryTimeline.processDateLabel}. {paymentMethod === 'bank_transfer' ? 'Online payment orders are expected the next day after processing.' : 'Final timing may vary slightly by city and confirmation time.'}
+                </p>
               </div>
             </div>
           </form>

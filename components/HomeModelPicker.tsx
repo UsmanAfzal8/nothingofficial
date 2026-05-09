@@ -199,8 +199,7 @@ export function HomeModelPicker({ models }: HomeModelPickerProps) {
                           )}
                         </div>
                         <p
-                          className="mt-4 min-h-[2.5rem] w-full text-left text-[0.82rem] uppercase leading-[1.35] tracking-[0.18em] text-black/72 sm:min-h-[2.8rem] sm:text-[0.88rem] lg:min-h-[3rem]"
-                          style={{ fontFamily: 'var(--font-ndot57), sans-serif' }}
+                          className="product-card-name mt-4 min-h-[2.5rem] w-full text-left text-[0.92rem] leading-[1.25] text-black/78 sm:min-h-[2.8rem] sm:text-[1rem] lg:min-h-[3rem]"
                         >
                           {model.name}
                         </p>

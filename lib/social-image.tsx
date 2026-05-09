@@ -4,16 +4,6 @@ import type { ReactNode } from 'react'
 const WIDTH = 1200
 const HEIGHT = 630
 
-async function loadFont(pathname: string) {
-  const response = await fetch(new URL(pathname, import.meta.url))
-
-  if (!response.ok) {
-    throw new Error(`Failed to load font asset: ${pathname}`)
-  }
-
-  return response.arrayBuffer()
-}
-
 function DotPill({ children }: { children: ReactNode }) {
   return (
     <div
@@ -42,11 +32,6 @@ type SocialImageProps = {
 }
 
 export async function createSocialImage({ title, subtitle, eyebrow, chips }: SocialImageProps) {
-  const [headlineFont, bodyFont] = await Promise.all([
-    loadFont('../fonts/NType82-Headline.otf'),
-    loadFont('../fonts/NType82-Regular.otf'),
-  ])
-
   return new ImageResponse(
     (
       <div
@@ -119,7 +104,6 @@ export async function createSocialImage({ title, subtitle, eyebrow, chips }: Soc
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <div
                 style={{
-                  fontFamily: 'NType82',
                   fontSize: 24,
                   letterSpacing: '0.22em',
                   textTransform: 'uppercase',
@@ -133,7 +117,6 @@ export async function createSocialImage({ title, subtitle, eyebrow, chips }: Soc
             <div style={{ display: 'flex', flexDirection: 'column', gap: 22, maxWidth: 760 }}>
               <div
                 style={{
-                  fontFamily: 'NType82Headline',
                   fontSize: 84,
                   lineHeight: 0.92,
                   letterSpacing: '-0.05em',
@@ -143,7 +126,6 @@ export async function createSocialImage({ title, subtitle, eyebrow, chips }: Soc
               </div>
               <div
                 style={{
-                  fontFamily: 'NType82',
                   fontSize: 34,
                   lineHeight: 1.22,
                   letterSpacing: '-0.02em',
@@ -163,7 +145,6 @@ export async function createSocialImage({ title, subtitle, eyebrow, chips }: Soc
                     border: '1px solid rgba(17, 17, 17, 0.14)',
                     borderRadius: 9999,
                     padding: '12px 16px',
-                    fontFamily: 'NType82',
                     fontSize: 24,
                     lineHeight: 1,
                     letterSpacing: '0.08em',
@@ -206,7 +187,6 @@ export async function createSocialImage({ title, subtitle, eyebrow, chips }: Soc
               >
                 <div
                   style={{
-                    fontFamily: 'NType82Headline',
                     fontSize: 36,
                     lineHeight: 1,
                     letterSpacing: '-0.04em',
@@ -216,7 +196,6 @@ export async function createSocialImage({ title, subtitle, eyebrow, chips }: Soc
                 </div>
                 <div
                   style={{
-                    fontFamily: 'NType82',
                     fontSize: 20,
                     lineHeight: 1,
                     opacity: 0.72,
@@ -239,7 +218,6 @@ export async function createSocialImage({ title, subtitle, eyebrow, chips }: Soc
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
-              fontFamily: 'NType82',
               fontSize: 20,
               letterSpacing: '0.22em',
               textTransform: 'uppercase',
@@ -255,10 +233,6 @@ export async function createSocialImage({ title, subtitle, eyebrow, chips }: Soc
     {
       width: WIDTH,
       height: HEIGHT,
-      fonts: [
-        { name: 'NType82', data: bodyFont, style: 'normal', weight: 400 },
-        { name: 'NType82Headline', data: headlineFont, style: 'normal', weight: 400 },
-      ],
     },
   )
 }

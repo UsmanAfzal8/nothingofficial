@@ -23,6 +23,10 @@ function jsonNoIndex(body: unknown, init?: ResponseInit) {
   })
 }
 
+export async function GET() {
+  return jsonNoIndex({ error: 'Method not allowed.' }, { status: 405 })
+}
+
 export async function POST(request: NextRequest) {
   try {
     const payload = (await request.json()) as CartPriceRequest

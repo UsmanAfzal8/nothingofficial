@@ -522,7 +522,7 @@ function RecommendationCard({ product }: { product: Product }) {
       </div>
 
       <div className="mt-5">
-        <h3 className="text-[1.05rem] leading-[1.15] tracking-[-0.02em] text-slate-900 sm:text-[1.18rem]">{product.name}</h3>
+        <h3 className="product-card-name text-[1.05rem] leading-[1.15] text-slate-900 sm:text-[1.18rem]">{product.name}</h3>
         {product.priceLabel ? <p className="mt-2 text-sm text-slate-500">{product.priceLabel}</p> : null}
       </div>
     </Link>
