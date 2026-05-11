@@ -116,6 +116,7 @@ type VirtualCollectionConfig = {
 const PRIMARY_VIRTUAL_COLLECTION_SLUGS = ['shop-all', 'phones'] as const
 const ACCESSORY_VIRTUAL_COLLECTION_SLUGS = ['chargers', 'protectors', 'earbuds'] as const
 const ALL_VIRTUAL_COLLECTION_SLUGS = [...PRIMARY_VIRTUAL_COLLECTION_SLUGS, ...ACCESSORY_VIRTUAL_COLLECTION_SLUGS] as const
+const INDEXABLE_CONTENT_COLLECTION_SLUGS = new Set(['offers'])
 const TRENDING_PICK_PRODUCT_SLUGS = [
   'cmf-buds-pro',
   'cmf-power-65w-gan',
@@ -171,6 +172,9 @@ const PRODUCT_TYPE_SEARCH_LABELS: Record<ProductType, string[]> = {
   protector: ['Nothing screen protector Pakistan', 'Nothing phone protector price in Pakistan'],
   earbuds: ['Nothing earbuds price in Pakistan', 'CMF earbuds Pakistan', 'wireless earbuds Pakistan'],
 }
+
+const ACCESSORY_COLLECTION_PRODUCT_TYPES = new Set<ProductType>(['charger', 'data_cable', 'protector'])
+const ACCESSORY_COLLECTION_CATEGORY_SLUGS = new Set(['chargers', 'cables', 'phone-cases', 'phone-protectors', 'protectors'])
 
 function formatPrice(value: number | null | undefined): string | null {
   if (typeof value !== 'number' || Number.isNaN(value)) {
@@ -957,6 +961,33 @@ function isProtectorOrCoverProduct(product: SupabaseProductRow, snapshot: Catalo
   return /\b(protector|protectors|cover|covers|case|cases|phone-cases|phone-protectors)\b/.test(haystack)
 }
 
+function isWatchProduct(product: SupabaseProductRow, snapshot: CatalogSnapshot): boolean {
+  const categorySlugs = getProductCategories(snapshot, product.id).map((category) => category.slug)
+  const haystack = `${product.name} ${product.slug} ${categorySlugs.join(' ')}`.toLowerCase()
+
+  return /\b(watch|watches)\b/.test(haystack)
+}
+
+function isAccessoriesCollectionProduct(product: SupabaseProductRow, snapshot: CatalogSnapshot): boolean {
+  if (isWatchProduct(product, snapshot)) {
+    return false
+  }
+
+  if (product.product_type && ACCESSORY_COLLECTION_PRODUCT_TYPES.has(product.product_type)) {
+    return true
+  }
+
+  const categorySlugs = getProductCategories(snapshot, product.id).map((category) => category.slug)
+
+  if (categorySlugs.some((slug) => ACCESSORY_COLLECTION_CATEGORY_SLUGS.has(slug))) {
+    return true
+  }
+
+  const haystack = `${product.name} ${product.slug} ${categorySlugs.join(' ')}`.toLowerCase()
+
+  return /\b(charger|chargers|cable|cables|cover|covers|case|cases|protector|protectors|glass|sheet)\b/.test(haystack)
+}
+
 function isCmfMobile(mobile: SupabaseMobileRow): boolean {
   return /^cmf\b/i.test(mobile.name.trim()) || mobile.slug.startsWith('cmf-')
 }
@@ -1461,6 +1492,16 @@ function getCollectionUpdatedAt(products: Product[], fallbackValue: string | nul
   return getLatestTimestamp([fallbackValue, ...products.map((product) => product.updatedAt)])
 }
 
+function filterAccessoriesCollectionCards(snapshot: CatalogSnapshot, products: Product[]): Product[] {
+  const allowedHandles = new Set(
+    snapshot.products
+      .filter((product) => isAccessoriesCollectionProduct(product, snapshot))
+      .map((product) => product.slug),
+  )
+
+  return products.filter((product) => allowedHandles.has(product.handle))
+}
+
 export async function getCollectionSitemapEntries(): Promise<SitemapCollectionEntry[]> {
   const snapshot = await getCatalogSnapshot()
   const entries: SitemapCollectionEntry[] = ALL_VIRTUAL_COLLECTION_SLUGS.map((slug) => {
@@ -1480,12 +1521,13 @@ export async function getCollectionSitemapEntries(): Promise<SitemapCollectionEn
 
   for (const category of snapshot.categories) {
     const categoryTreeIds = getCategoryTreeIds(snapshot, category.id)
-    const products = getCatalogCardsForCategoryIds(snapshot, categoryTreeIds)
+    const rawProducts = getCatalogCardsForCategoryIds(snapshot, categoryTreeIds)
+    const products = category.slug === 'accessories' ? filterAccessoriesCollectionCards(snapshot, rawProducts) : rawProducts
     const relationTimestamps = snapshot.categoryRelations
       .filter((relation) => categoryTreeIds.includes(relation.category_id))
       .map((relation) => relation.updated_at || relation.created_at)
 
-    if (products.length === 0) {
+    if (products.length === 0 && !INDEXABLE_CONTENT_COLLECTION_SLUGS.has(category.slug)) {
       continue
     }
 
@@ -1494,7 +1536,7 @@ export async function getCollectionSitemapEntries(): Promise<SitemapCollectionEn
       title: category.name,
       description: category.meta_description || category.seo_description_long || null,
       image: getCollectionHeroImage(products),
-      updatedAt: getLatestTimestamp([category.updated_at, ...relationTimestamps, ...products.map((product) => product.updatedAt)]),
+      updatedAt: getLatestTimestamp([category.updated_at, category.created_at, ...relationTimestamps, ...products.map((product) => product.updatedAt)]),
       itemCount: products.length,
       depth: getCategoryDepth(snapshot, category),
     })
@@ -1595,6 +1637,13 @@ export async function getCollectionBySlug(slug: string): Promise<Collection | nu
   const products =
     category.slug === 'cmf'
       ? buildCmfCollectionProducts(snapshot, rawProducts)
+      : category.slug === 'accessories'
+        ? sortCatalogCards(
+            snapshot.products
+              .filter((product) => rawProducts.some((card) => card.handle === product.slug))
+              .filter((product) => isAccessoriesCollectionProduct(product, snapshot))
+              .flatMap((product) => buildProductVariantCards(product, snapshot)),
+          )
       : category.slug === 'shop-all'
         ? rawProducts
         : sortCatalogCards(

@@ -141,12 +141,12 @@ export const collectionSeoFaqs: Record<string, Array<{ question: string; answer:
     {
       question: 'Does Nothing Pakistan have a page for Nothing accessories?',
       answer:
-        'Yes. The accessories collection groups chargers, protectors, earbuds, cables, and other compatible Nothing and CMF add-ons for shoppers in Pakistan.',
+        'Yes. The accessories collection groups chargers, cables, phone cases, screen protectors, glass, and other compatible Nothing and CMF add-ons for shoppers in Pakistan.',
     },
     {
       question: 'Can I browse accessory categories separately?',
       answer:
-        'Yes. The accessories section links to dedicated landing pages for chargers, protectors, and earbuds so people can reach the right accessory type faster.',
+        'Yes. The accessories section links to dedicated landing pages for chargers, cables, phone cases, and phone protectors so people can reach the right accessory type faster.',
     },
   ],
   chargers: [

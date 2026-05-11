@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { CatalogProductTile } from '@/components/CatalogProductTile'
+import { InterTypographyScope } from '@/components/InterTypographyScope'
 import { NothingFooter } from '@/components/NothingFooter'
 import { NothingHeader } from '@/components/NothingHeader'
 import { SeoStructuredData } from '@/components/SeoStructuredData'
@@ -19,6 +20,7 @@ type CollectionPageProps = {
 export const revalidate = CATALOG_REVALIDATE_SECONDS
 const SHOP_STYLE_SLUGS = new Set(['shop-all', 'phones', 'chargers', 'protectors', 'earbuds', 'offers', 'audio', 'watches', 'accessories', 'cmf'])
 const COLLECTION_SUPPORT_SLUGS = new Set(['shop-all', 'phones', 'chargers', 'accessories', 'protectors', 'phone-protectors', 'earbuds', 'cmf'])
+const INDEXABLE_CONTENT_COLLECTION_SLUGS = new Set(['offers'])
 
 function uniqueProductsByHandle(products: Collection['products']) {
   const seen = new Set<string>()
@@ -83,7 +85,7 @@ function buildCollectionSeoDescription(collection: Collection) {
     case 'earbuds':
       return 'Browse Nothing earbuds and audio accessories in Pakistan with live catalog pages and ordering support.'
     case 'accessories':
-      return 'Browse Nothing accessories in Pakistan including chargers, protectors, earbuds, and everyday add-ons for Nothing devices.'
+      return 'Browse Nothing accessories in Pakistan including chargers, cables, phone cases, screen protectors, and glass for Nothing devices.'
     default:
       return collection.description || `Browse ${collection.title} from ${siteBrandName} with live product pages, pricing, and ordering support in Pakistan.`
   }
@@ -144,7 +146,7 @@ export async function generateMetadata({ params }: CollectionPageProps): Promise
 
   const description = buildCollectionSeoDescription(collection)
   const title = collection.metaTitle || `${collection.title} in Pakistan | ${siteBrandName}`
-  const hasProducts = collection.products.length > 0
+  const hasIndexableContent = collection.products.length > 0 || INDEXABLE_CONTENT_COLLECTION_SLUGS.has(collection.slug)
   const keywords = buildSeoKeywords(
     siteKeywords,
     [
@@ -182,7 +184,7 @@ export async function generateMetadata({ params }: CollectionPageProps): Promise
       description,
       images: collection.heroImage ? [collection.heroImage] : undefined,
     },
-    robots: buildRobotsMetadata({ index: hasProducts }),
+    robots: buildRobotsMetadata({ index: hasIndexableContent }),
   }
 }
 
@@ -218,23 +220,43 @@ export default async function CollectionPage({ params }: CollectionPageProps) {
               </h1>
             </div>
 
-            <div className="mx-auto flex w-full max-w-[960px] justify-center">
+            <div className="mx-auto flex w-full max-w-[960px] flex-col items-center gap-4">
               <article className="w-full max-w-[720px] rounded-[22px] bg-[#3f3f3f] px-4 py-4 shadow-[0_28px_80px_rgba(0,0,0,0.36)] sm:px-5 sm:py-5 lg:max-w-[680px] lg:px-6 lg:py-6">
                 <div className="max-w-[560px]">
                   <p className="dot-heading text-[1.8rem] leading-[0.95] tracking-[0.08em] text-white sm:text-[2.2rem] lg:text-[2.7rem]">
                     Non COD offer
                   </p>
-                  <div className="inter-only-scope mt-4 space-y-1.5 text-[0.92rem] leading-7 text-white/92 sm:text-[1rem] lg:mt-5 lg:text-[1.02rem] lg:leading-8">
+                  <InterTypographyScope className="mt-4 space-y-1.5 text-[0.92rem] leading-7 text-white/92 sm:text-[1rem] lg:mt-5 lg:text-[1.02rem] lg:leading-8">
                     <p>Free Delivery ✅</p>
                     <p>No Govt Tax ✅</p>
                     <p>We pay your 4% Govt Tax when you pay online.</p>
-                  </div>
+                  </InterTypographyScope>
                   <div className="mt-5 lg:mt-6">
                     <Link
-                      href="/order"
+                      href="/collections/shop-all"
                       className="inline-flex h-9 items-center justify-center rounded-full bg-[#5b5b5b] px-4 text-[10px] uppercase tracking-[0.2em] text-white transition-colors hover:bg-white hover:text-black"
                     >
                       Claim offer
+                    </Link>
+                  </div>
+                </div>
+              </article>
+
+              <article className="w-full max-w-[720px] rounded-[22px] bg-[#3f3f3f] px-4 py-4 shadow-[0_28px_80px_rgba(0,0,0,0.36)] sm:px-5 sm:py-5 lg:max-w-[680px] lg:px-6 lg:py-6">
+                <div className="max-w-[600px]">
+                  <p className="dot-heading text-[1.8rem] leading-[0.95] tracking-[0.08em] text-white sm:text-[2.2rem] lg:text-[2.7rem]">
+                    Student program
+                  </p>
+                  <InterTypographyScope className="mt-4 space-y-1.5 text-[0.92rem] leading-7 text-white/92 sm:text-[1rem] lg:mt-5 lg:text-[1.02rem] lg:leading-8">
+                    <p>Enjoy 5% off phones, audio and wearable products with the Nothing Student Program.</p>
+                    <p>To apply, send your valid student card for verification.</p>
+                  </InterTypographyScope>
+                  <div className="mt-5 lg:mt-6">
+                    <Link
+                      href="/collections/shop-all"
+                      className="inline-flex h-9 items-center justify-center rounded-full bg-[#5b5b5b] px-4 text-[10px] uppercase tracking-[0.2em] text-white transition-colors hover:bg-white hover:text-black"
+                    >
+                      Apply now
                     </Link>
                   </div>
                 </div>

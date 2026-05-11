@@ -125,18 +125,18 @@ function DeliveryTimelineStep({
   return (
     <div className="flex min-w-0 flex-col items-center text-center">
       <div
-        className={`flex h-16 w-16 items-center justify-center rounded-full border-4 sm:h-[86px] sm:w-[86px] lg:h-[74px] lg:w-[74px] ${
+        className={`flex h-8 w-8 items-center justify-center rounded-full border-2 sm:h-[86px] sm:w-[86px] sm:border-4 lg:h-[74px] lg:w-[74px] ${
           active
             ? 'border-white bg-[#fff7ef] shadow-[0_14px_28px_rgba(244,110,30,0.18)]'
             : 'border-[#f2f2f2] bg-[#f8f8f8] shadow-[0_10px_20px_rgba(15,23,42,0.04)]'
         }`}
       >
-        <Image src={icon} alt="" aria-hidden="true" className={`h-7 w-7 object-contain ${active ? '' : 'grayscale opacity-55'}`} />
+        <Image src={icon} alt="" aria-hidden="true" className={`h-3.5 w-3.5 object-contain sm:h-7 sm:w-7 ${active ? '' : 'grayscale opacity-55'}`} />
       </div>
-      <p className={`mt-3 text-[0.8rem] font-extrabold uppercase tracking-normal ${active ? 'text-[#ff7a00]' : 'text-[#4f5a6c]'}`}>
+      <p className={`mt-1.5 text-[0.42rem] font-extrabold uppercase tracking-normal sm:mt-3 sm:text-[0.8rem] ${active ? 'text-[#ff7a00]' : 'text-[#4f5a6c]'}`}>
         {label}
       </p>
-      <p className={`mt-1 text-[0.78rem] font-semibold ${active ? 'text-[#71798a]' : 'text-[#9ea6b4]'}`}>
+      <p className={`mt-0.5 text-[0.4rem] font-semibold sm:mt-1 sm:text-[0.78rem] ${active ? 'text-[#71798a]' : 'text-[#9ea6b4]'}`}>
         {dateLabel}
       </p>
     </div>
@@ -149,20 +149,20 @@ function DeliveryTimelineCard({
   deliveryTimeline: NonNullable<ProductDetailHeroProps['deliveryTimeline']>
 }) {
   return (
-    <div className="mt-6 rounded-[1.85rem] border border-[#f7d9b7] bg-[linear-gradient(180deg,#fffdfa_0%,#ffffff_100%)] px-4 py-5 shadow-[0_18px_42px_rgba(244,110,30,0.08)] sm:px-5 sm:py-6">
-      <p className="text-[0.95rem] font-black uppercase tracking-normal text-[#8d8d8d]">
+    <div className="mt-6 rounded-[1.1rem] border border-[#f7d9b7] bg-[linear-gradient(180deg,#fffdfa_0%,#ffffff_100%)] px-2.5 py-2.5 shadow-[0_18px_42px_rgba(244,110,30,0.08)] sm:rounded-[1.85rem] sm:px-5 sm:py-6">
+      <p className="text-[0.48rem] font-black uppercase tracking-normal text-[#8d8d8d] sm:text-[0.95rem]">
         Estimated Delivery
       </p>
-      <p className="mt-1 font-sans text-[2rem] font-bold leading-none tracking-normal text-[#ff6f00] sm:text-[2.35rem]">
+      <p className="mt-0.5 font-sans text-[1rem] font-bold leading-none tracking-normal text-[#ff6f00] sm:mt-1 sm:text-[2.35rem]">
         {deliveryTimeline.deliveryRangeLabel}
       </p>
 
-      <div className="mt-5 border-t border-dashed border-[#f0c89d] pt-5">
-        <div className="grid grid-cols-[minmax(0,1fr)_minmax(1.2rem,1fr)_minmax(0,1fr)_minmax(1.2rem,1fr)_minmax(0,1fr)] items-start sm:grid-cols-[minmax(0,1fr)_minmax(2.5rem,1fr)_minmax(0,1fr)_minmax(2.5rem,1fr)_minmax(0,1fr)]">
+      <div className="mt-2.5 border-t border-dashed border-[#f0c89d] pt-2.5 sm:mt-5 sm:pt-5">
+        <div className="grid grid-cols-[minmax(0,1fr)_minmax(0.6rem,1fr)_minmax(0,1fr)_minmax(0.6rem,1fr)_minmax(0,1fr)] items-start sm:grid-cols-[minmax(0,1fr)_minmax(2.5rem,1fr)_minmax(0,1fr)_minmax(2.5rem,1fr)_minmax(0,1fr)]">
           <DeliveryTimelineStep icon={orderIcon} label="Order" dateLabel="Today" active />
-          <div className="mt-8 h-1 rounded-full bg-[#ff7a00] sm:mt-[2.55rem]" />
+          <div className="mt-4 h-0.5 rounded-full bg-[#ff7a00] sm:mt-[2.55rem] sm:h-1" />
           <DeliveryTimelineStep icon={packageIcon} label="Process" dateLabel={deliveryTimeline.processDateLabel} active />
-          <div className="mt-8 h-1 rounded-full bg-[#edf0f5] sm:mt-[2.55rem]" />
+          <div className="mt-4 h-0.5 rounded-full bg-[#edf0f5] sm:mt-[2.55rem] sm:h-1" />
           <DeliveryTimelineStep icon={deliverIcon} label="Deliver" dateLabel={deliveryTimeline.deliveryRangeLabel} />
         </div>
       </div>

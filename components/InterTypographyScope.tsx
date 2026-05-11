@@ -14,9 +14,10 @@ const interMedium = localFont({
 })
 
 type InterTypographyScopeProps = {
+  className?: string
   children: ReactNode
 }
 
-export function InterTypographyScope({ children }: InterTypographyScopeProps) {
-  return <div className={`inter-only-scope ${interLight.variable} ${interMedium.variable}`}>{children}</div>
+export function InterTypographyScope({ className = '', children }: InterTypographyScopeProps) {
+  return <div className={`inter-only-scope ${interLight.variable} ${interMedium.variable} ${className}`}>{children}</div>
 }
