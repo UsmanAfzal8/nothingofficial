@@ -1,22 +1,24 @@
+/* eslint-disable @next/next/no-img-element */
 import { ImageResponse } from 'next/og'
 import type { ReactNode } from 'react'
 
 const WIDTH = 1200
 const HEIGHT = 630
+const HOME_HERO_IMAGE = new URL('../public/social/nothing-pakistan-og.jpg', import.meta.url)
 
 function DotPill({ children }: { children: ReactNode }) {
   return (
     <div
       style={{
-        border: '1px solid rgba(17, 17, 17, 0.14)',
+        border: '1px solid rgba(255, 255, 255, 0.34)',
         borderRadius: 9999,
-        padding: '12px 18px',
-        fontSize: 20,
+        padding: '10px 16px',
+        fontSize: 18,
         lineHeight: 1,
         letterSpacing: '0.22em',
         textTransform: 'uppercase',
-        color: '#111111',
-        background: 'rgba(255, 255, 255, 0.8)',
+        color: '#ffffff',
+        background: 'rgba(0, 0, 0, 0.26)',
       }}
     >
       {children}
@@ -28,10 +30,12 @@ type SocialImageProps = {
   title: string
   subtitle: string
   eyebrow: string
-  chips: string[]
+  chips?: string[]
 }
 
-export async function createSocialImage({ title, subtitle, eyebrow, chips }: SocialImageProps) {
+export async function createSocialImage({ title, subtitle, eyebrow }: SocialImageProps) {
+  const heroImageData = await fetch(HOME_HERO_IMAGE).then((response) => response.arrayBuffer())
+
   return new ImageResponse(
     (
       <div
@@ -41,44 +45,40 @@ export async function createSocialImage({ title, subtitle, eyebrow, chips }: Soc
           width: '100%',
           height: '100%',
           overflow: 'hidden',
-          background:
-            'radial-gradient(circle at 16% 18%, rgba(255,255,255,0.9) 0%, rgba(240,240,236,0.95) 30%, rgba(214,216,211,1) 100%)',
-          color: '#111111',
+          background: '#111111',
+          color: '#ffffff',
         }}
       >
+        <img
+          src={heroImageData as unknown as string}
+          alt=""
+          width={WIDTH}
+          height={HEIGHT}
+          style={{
+            position: 'absolute',
+            inset: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            objectPosition: 'center',
+          }}
+        />
+
         <div
           style={{
             position: 'absolute',
             inset: 0,
-            backgroundImage:
-              'radial-gradient(circle, rgba(17,17,17,0.14) 0.8px, transparent 1px), radial-gradient(circle, rgba(17,17,17,0.04) 0.8px, transparent 1px)',
-            backgroundSize: '54px 54px, 160px 160px',
-            backgroundPosition: '20px 18px, 54px 42px',
-            opacity: 0.5,
+            background:
+              'linear-gradient(90deg, rgba(0,0,0,0.86) 0%, rgba(0,0,0,0.72) 42%, rgba(0,0,0,0.28) 68%, rgba(0,0,0,0.08) 100%)',
           }}
         />
 
         <div
           style={{
             position: 'absolute',
-            right: -120,
-            top: -80,
-            width: 400,
-            height: 400,
-            borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(17,17,17,0.11), rgba(17,17,17,0) 70%)',
-          }}
-        />
-
-        <div
-          style={{
-            position: 'absolute',
-            left: -90,
-            bottom: -120,
-            width: 360,
-            height: 360,
-            borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(255,255,255,0.9), rgba(255,255,255,0) 68%)',
+            inset: 0,
+            background:
+              'linear-gradient(180deg, rgba(0,0,0,0.18) 0%, rgba(0,0,0,0.08) 38%, rgba(0,0,0,0.78) 100%)',
           }}
         />
 
@@ -87,126 +87,49 @@ export async function createSocialImage({ title, subtitle, eyebrow, chips }: Soc
             position: 'relative',
             display: 'flex',
             width: '100%',
-            padding: 64,
-            gap: 40,
-            alignItems: 'stretch',
-            justifyContent: 'space-between',
+            height: '100%',
+            padding: '58px 64px 136px',
+            alignItems: 'flex-end',
+            justifyContent: 'flex-start',
           }}
         >
           <div
             style={{
               display: 'flex',
               flexDirection: 'column',
-              justifyContent: 'space-between',
-              width: '62%',
+              justifyContent: 'flex-end',
+              width: '50%',
+              gap: 24,
             }}
           >
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 20, maxWidth: 560 }}>
               <div
                 style={{
-                  fontSize: 24,
-                  letterSpacing: '0.22em',
-                  textTransform: 'uppercase',
-                }}
-              >
-                {eyebrow}
-              </div>
-              <DotPill>Live catalog</DotPill>
-            </div>
-
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 22, maxWidth: 760 }}>
-              <div
-                style={{
-                  fontSize: 84,
-                  lineHeight: 0.92,
-                  letterSpacing: '-0.05em',
+                  fontSize: 66,
+                  lineHeight: 1,
+                  letterSpacing: 0,
+                  textShadow: '0 3px 28px rgba(0,0,0,0.9)',
                 }}
               >
                 {title}
               </div>
               <div
                 style={{
-                  fontSize: 34,
-                  lineHeight: 1.22,
-                  letterSpacing: '-0.02em',
-                  color: 'rgba(17,17,17,0.82)',
-                  maxWidth: 720,
+                  fontSize: 28,
+                  lineHeight: 1.3,
+                  letterSpacing: 0,
+                  color: 'rgba(255,255,255,0.94)',
+                  maxWidth: 540,
+                  textShadow: '0 2px 22px rgba(0,0,0,0.92)',
                 }}
               >
                 {subtitle}
               </div>
             </div>
 
-            <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap', paddingTop: 10 }}>
-              {chips.map((chip) => (
-                <div
-                  key={chip}
-                  style={{
-                    border: '1px solid rgba(17, 17, 17, 0.14)',
-                    borderRadius: 9999,
-                    padding: '12px 16px',
-                    fontSize: 24,
-                    lineHeight: 1,
-                    letterSpacing: '0.08em',
-                    background: 'rgba(255,255,255,0.8)',
-                  }}
-                >
-                  {chip}
-                </div>
-              ))}
+            <div style={{ display: 'flex', alignItems: 'center', gap: 18 }}>
+              <DotPill>Live catalog</DotPill>
             </div>
-          </div>
-
-          <div
-            style={{
-              width: '32%',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-between',
-              gap: 18,
-            }}
-          >
-            {[
-              'Phones',
-              'Chargers',
-              'Earbuds',
-              'Protectors',
-            ].map((item, index) => (
-              <div
-                key={item}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  padding: '22px 24px',
-                  borderRadius: 28,
-                  border: '1px solid rgba(17,17,17,0.08)',
-                  background: index === 0 ? '#111111' : 'rgba(255,255,255,0.7)',
-                  color: index === 0 ? '#ffffff' : '#111111',
-                }}
-              >
-                <div
-                  style={{
-                    fontSize: 36,
-                    lineHeight: 1,
-                    letterSpacing: '-0.04em',
-                  }}
-                >
-                  {item}
-                </div>
-                <div
-                  style={{
-                    fontSize: 20,
-                    lineHeight: 1,
-                    opacity: 0.72,
-                    letterSpacing: '0.18em',
-                    textTransform: 'uppercase',
-                  }}
-                >
-                  PK
-                </div>
-              </div>
-            ))}
           </div>
 
           <div
@@ -214,18 +137,17 @@ export async function createSocialImage({ title, subtitle, eyebrow, chips }: Soc
               position: 'absolute',
               left: 64,
               right: 64,
-              bottom: 34,
+              top: 34,
               display: 'flex',
               alignItems: 'center',
-              justifyContent: 'space-between',
-              fontSize: 20,
+              justifyContent: 'flex-end',
+              fontSize: 18,
               letterSpacing: '0.22em',
               textTransform: 'uppercase',
-              color: 'rgba(17,17,17,0.72)',
+              color: 'rgba(255,255,255,0.72)',
             }}
           >
-            <span>Nothing Pakistan</span>
-            <span>Phones, chargers, CMF accessories in Pakistan</span>
+            <span>{eyebrow} / nothingshop.pk</span>
           </div>
         </div>
       </div>

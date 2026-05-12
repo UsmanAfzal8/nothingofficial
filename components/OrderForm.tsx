@@ -535,6 +535,10 @@ export function OrderForm({ product }: OrderFormProps) {
                   </div>
                 </div>
 
+                <div className="mt-4 rounded-[18px] border border-amber-200 bg-amber-50 px-4 py-3 text-sm leading-6 text-amber-900">
+                  For the safety and accountability of high-value shipments, we operate exclusively on a pre-payment basis. We do not offer a COD option for these high value items, ensuring every delivery is fully documented and secure.
+                </div>
+
                 <div className="mt-5 grid gap-4">
                   <button
                     type="button"

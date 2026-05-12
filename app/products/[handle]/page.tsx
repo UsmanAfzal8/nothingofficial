@@ -415,18 +415,14 @@ function EstimatedDeliveryPanel({ deliveryTimeline }: { deliveryTimeline: Return
 }
 
 function ProductDetailInfoSection({
-  productDetail,
   detailParagraphs,
   deliveryTimeline,
   seoNarrative,
 }: {
-  productDetail: ProductDetail
   detailParagraphs: string[]
   deliveryTimeline: ReturnType<typeof getProductDeliveryTimeline>
   seoNarrative: string[]
 }) {
-  const faqs = productDetail.faqs ?? []
-
   return (
     <section className="min-h-screen bg-[#f5f7fb] px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
       <div className="mx-auto grid max-w-[1180px] gap-6 lg:grid-cols-[minmax(0,1fr)_420px] lg:items-start">
@@ -453,30 +449,15 @@ function ProductDetailInfoSection({
           <DetailAccordion title="Shipping Information">
             Delivery time and shipping charges depend on your city and order size. Our team confirms the final delivery details during checkout.
           </DetailAccordion>
-          {productDetail.specs && productDetail.specs.length > 0 ? (
-            <DetailAccordion title="Key Specs">
-              <div className="grid gap-3 sm:grid-cols-2">
-                {productDetail.specs.slice(0, 8).map((spec) => (
-                  <div key={spec.id} className="rounded-[16px] border border-slate-200 bg-white px-4 py-3">
-                    <p className="text-[11px] uppercase tracking-[0.18em] text-slate-500">{spec.label}</p>
-                    <p className="mt-2 text-sm leading-6 text-slate-700">{spec.value}</p>
-                  </div>
-                ))}
-              </div>
-            </DetailAccordion>
-          ) : null}
+          <DetailAccordion title="Pre-Payment Policy">
+            For the safety and accountability of high-value shipments, we operate exclusively on a pre-payment basis. We do not offer a COD option for these high value items, ensuring every delivery is fully documented and secure.
+          </DetailAccordion>
         </div>
 
         <div className="lg:sticky lg:top-24">
           <EstimatedDeliveryPanel deliveryTimeline={deliveryTimeline} />
         </div>
       </div>
-
-      {faqs.length > 0 ? (
-        <div className="mx-auto mt-12 max-w-[1180px] lg:mt-16">
-          <ProductFaqAccordionSection faqs={faqs} />
-        </div>
-      ) : null}
     </section>
   )
 }
@@ -672,6 +653,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
   if (productDetail.entityType === 'mobile') {
     const mobileAccessoryGroups = await getMobileAccessoryGroupsByHandle(canonicalHandle)
     const relatedAccessoryProducts = mobileAccessoryGroups.flatMap((group) => group.products)
+    const faqs = productDetail.faqs ?? []
     const usesImmersiveHero = Boolean(productDetail.productBackgroundImage)
     const seoNarrative = buildProductSeoNarrative(productDetail, relatedAccessoryProducts.length)
 
@@ -715,7 +697,6 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
 
           {usesImmersiveHero ? (
             <ProductDetailInfoSection
-              productDetail={productDetail}
               detailParagraphs={detailParagraphs}
               deliveryTimeline={deliveryTimeline}
               seoNarrative={seoNarrative}
@@ -745,6 +726,12 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
               </div>
             )}
           </div>
+
+          {faqs.length > 0 ? (
+            <section className={usesImmersiveHero ? 'mx-auto mt-12 max-w-[1180px] px-1 sm:px-2 lg:px-4' : 'mt-12'}>
+              <ProductFaqAccordionSection faqs={faqs} />
+            </section>
+          ) : null}
         </main>
 
         <NothingFooter />
@@ -800,9 +787,8 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
           deliveryTimeline={deliveryTimeline}
         />
 
-        {usesImmersiveHero ? (
+          {usesImmersiveHero ? (
           <ProductDetailInfoSection
-            productDetail={productDetail}
             detailParagraphs={detailParagraphs}
             deliveryTimeline={deliveryTimeline}
             seoNarrative={seoNarrative}
@@ -830,23 +816,13 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
             </div>
           </SectionCard>
 
-          {productDetail.specs && productDetail.specs.length > 0 ? (
-            <SectionCard title="Key Specs">
-              <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-                {productDetail.specs.slice(0, 8).map((spec) => (
-                  <div key={spec.id} className="rounded-[22px] border border-slate-200 bg-slate-50 p-4">
-                    <p className="text-[11px] uppercase tracking-[0.18em] text-slate-500">{spec.label}</p>
-                    <p className="mt-2 text-sm leading-6 text-slate-700">{spec.value}</p>
-                  </div>
-                ))}
-              </div>
-            </SectionCard>
-          ) : null}
-
           <SectionCard title="Delivery & Returns">
             <div className="space-y-3">
               <DetailAccordion title="Shipping Information">
                 Delivery time and shipping charges depend on your city and order size. The support team confirms the final delivery details during checkout.
+              </DetailAccordion>
+              <DetailAccordion title="Pre-Payment Policy">
+                For the safety and accountability of high-value shipments, we operate exclusively on a pre-payment basis. We do not offer a COD option for these high value items, ensuring every delivery is fully documented and secure.
               </DetailAccordion>
               <DetailAccordion title="Returns & Exchanges">
                 If the item arrives damaged, incorrect, or defective, contact support as soon as possible so the team can review a replacement or return request.
@@ -866,19 +842,6 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
             )}
           </SectionCard>
 
-          <SectionCard title="Product FAQs">
-            {faqs.length > 0 ? (
-              <div className="space-y-3">
-                {faqs.map((faq) => (
-                  <DetailAccordion key={faq.id} title={faq.question}>
-                    {faq.answer}
-                  </DetailAccordion>
-                ))}
-              </div>
-            ) : (
-              <p className="text-sm leading-6 text-slate-600">No FAQs yet.</p>
-            )}
-          </SectionCard>
         </div>
         )}
 
@@ -891,6 +854,26 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
               ))}
             </div>
           </section>
+        ) : null}
+
+        {faqs.length > 0 ? (
+          usesImmersiveHero ? (
+            <section className="mx-auto mt-12 max-w-[1180px] px-4 sm:px-6 lg:px-8">
+              <ProductFaqAccordionSection faqs={faqs} />
+            </section>
+          ) : (
+            <div className="mt-10">
+              <SectionCard title="Product FAQs">
+                <div className="space-y-3">
+                  {faqs.map((faq) => (
+                    <DetailAccordion key={faq.id} title={faq.question}>
+                      {faq.answer}
+                    </DetailAccordion>
+                  ))}
+                </div>
+              </SectionCard>
+            </div>
+          )
         ) : null}
       </main>
 
