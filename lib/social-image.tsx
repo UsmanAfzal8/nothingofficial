@@ -4,7 +4,7 @@ import type { ReactNode } from 'react'
 
 const WIDTH = 1200
 const HEIGHT = 630
-const HOME_HERO_IMAGE = new URL('../public/social/nothing-pakistan-og.jpg', import.meta.url)
+const HOME_HERO_IMAGE_PATH = '/social/nothing-pakistan-og.jpg'
 
 function DotPill({ children }: { children: ReactNode }) {
   return (
@@ -27,14 +27,16 @@ function DotPill({ children }: { children: ReactNode }) {
 }
 
 type SocialImageProps = {
+  origin: string
   title: string
   subtitle: string
   eyebrow: string
   chips?: string[]
 }
 
-export async function createSocialImage({ title, subtitle, eyebrow }: SocialImageProps) {
-  const heroImageData = await fetch(HOME_HERO_IMAGE).then((response) => response.arrayBuffer())
+export async function createSocialImage({ origin, title, subtitle, eyebrow }: SocialImageProps) {
+  const heroImageUrl = new URL(HOME_HERO_IMAGE_PATH, origin)
+  const heroImageData = await fetch(heroImageUrl).then((response) => response.arrayBuffer())
 
   return new ImageResponse(
     (

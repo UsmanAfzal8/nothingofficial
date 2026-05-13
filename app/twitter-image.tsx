@@ -1,5 +1,4 @@
 import { createSocialImage } from '@/lib/social-image'
-import { siteBrandName } from '@/lib/data/site-content'
 
 export const runtime = 'edge'
 
@@ -10,9 +9,12 @@ export const size = {
 
 export const contentType = 'image/png'
 
-export default async function TwitterImage() {
+const SITE_BRAND_NAME = 'Nothing Pakistan'
+
+export default async function TwitterImage(request: Request) {
   return createSocialImage({
-    eyebrow: siteBrandName,
+    origin: new URL(request.url).origin,
+    eyebrow: SITE_BRAND_NAME,
     title: 'Nothing & CMF Products in Pakistan',
     subtitle: 'Shop Nothing and CMF phones, earbuds, chargers, cables, and accessories with live pricing and WhatsApp support.',
     chips: ['Live catalog', 'Support', 'Orders', 'Pakistan'],
