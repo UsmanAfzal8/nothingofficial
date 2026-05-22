@@ -72,9 +72,24 @@ a {
   text-transform: uppercase;
 }
 
+.header-brand-logo {
+  font-family: var(--font-ndot57), sans-serif !important;
+  font-weight: 700;
+  font-synthesis: none;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
 .dot-heading {
   font-family: var(--font-ndot57), sans-serif;
   letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.site-drawer-menu-link {
+  font-family: var(--font-ndot57), sans-serif !important;
+  font-weight: 400 !important;
+  font-synthesis: none;
   text-transform: uppercase;
 }
 
@@ -121,6 +136,24 @@ a {
 .inter-only-scope :is(p, li, input, textarea, select, option, span, div, small) {
   font-family: var(--font-inter-light), sans-serif;
   font-weight: 300;
+}
+
+.inter-only-scope :is(header, header *, footer, footer *) {
+  font-family: var(--font-ndot57), sans-serif !important;
+}
+
+.inter-only-scope .site-drawer-menu-link {
+  font-family: var(--font-ndot57), sans-serif !important;
+  font-weight: 400 !important;
+}
+
+.inter-only-scope .header-brand-logo {
+  font-family: var(--font-ndot57), sans-serif !important;
+  font-weight: 700;
+}
+
+.inter-only-scope footer :is(.dot-heading, .dot-logo) {
+  font-family: var(--font-ndot57), sans-serif !important;
 }
 
 .hero-overlay {

@@ -38,6 +38,7 @@ export interface Collection {
 
 export interface HomePageData {
   phoneModels: Product[]
+  featuredCovers: Product[]
   shopAllProducts: Product[]
   trendingPicks: Product[]
 }

@@ -104,7 +104,7 @@ export type SeoFaqItem = {
   answer: string
 }
 
-export function buildSeoKeywords(...groups: Array<Array<string | null | undefined>>): string[] {
+export function buildSeoKeywords(...groups: Array<ReadonlyArray<string | null | undefined>>): string[] {
   const seen = new Set<string>()
   const values: string[] = []
 
@@ -175,7 +175,7 @@ export function buildBreadcrumbStructuredData(items: SeoBreadcrumbItem[]) {
   }
 }
 
-export function buildFaqStructuredData(items: SeoFaqItem[]) {
+export function buildFaqStructuredData(items: ReadonlyArray<SeoFaqItem>) {
   if (items.length === 0) {
     return null
   }

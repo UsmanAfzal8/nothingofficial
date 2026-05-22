@@ -19,6 +19,7 @@ import {
   getMobileAccessoryGroupsByHandle,
   getProductDetailByHandle,
 } from '@/lib/data/catalog-repository'
+import { companyIdentifier, companyLegalName } from '@/lib/data/company'
 import { siteBrandName, siteKeywords } from '@/lib/data/site-content'
 import type { Product } from '@/lib/models/catalog'
 import type { ProductDetail, ProductDetailFaq, ProductDetailMedia, ProductDetailReview } from '@/lib/models/product-detail'
@@ -174,6 +175,8 @@ function buildProductStructuredData(productDetail: ProductDetail, relatedProduct
       seller: {
         '@type': 'Organization',
         name: siteBrandName,
+        legalName: companyLegalName,
+        identifier: companyIdentifier,
       },
       offers:
         typeof productDetail.price === 'number'
@@ -225,6 +228,8 @@ function buildProductStructuredData(productDetail: ProductDetail, relatedProduct
     seller: {
       '@type': 'Organization',
       name: siteBrandName,
+      legalName: companyLegalName,
+      identifier: companyIdentifier,
     },
     offers:
       typeof productDetail.price === 'number'
@@ -487,7 +492,7 @@ function RecommendationCard({ product }: { product: Product }) {
           <div className="relative aspect-square w-full">
             <Image
               src={product.image}
-              alt={product.name}
+              alt={`${product.name} original product price in Pakistan from Nothing Pakistan`}
               fill
               loading="lazy"
               fetchPriority="low"
@@ -721,7 +726,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
               <div className="rounded-[28px] border border-slate-200 bg-white p-5 shadow-[0_10px_30px_rgba(15,23,42,0.05)] sm:p-7">
                 <h2 className="text-[1.35rem] font-medium tracking-[-0.02em] text-slate-900 sm:text-[1.55rem]">Related Accessories</h2>
                 <p className="mt-5 text-sm leading-6 text-slate-600">
-                  No linked protectors, chargers, or earbuds were found for this phone in the mobile-product connection table yet.
+                  No linked covers, protectors, chargers, or earbuds were found for this phone in the mobile-product connection table yet.
                 </p>
               </div>
             )}

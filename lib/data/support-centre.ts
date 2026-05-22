@@ -16,9 +16,9 @@ export const supportQuickLinks: Array<{ label: string; href: string; external?: 
     href: 'https://support.nothing.tech/hc/en-us/categories/38487206374289-FAQ-General',
     external: true,
   },
-  { label: 'After-Sales Service', href: '/pages/support-centre#contact-us' },
-  { label: 'Software Download', href: '/pages/support-centre#software-download' },
-  { label: 'Product Status', href: '/pages/support-centre#product-status' },
+  { label: 'After-Sales Service', href: '/support-centre#contact-us' },
+  { label: 'Software Download', href: '/support-centre#software-download' },
+  { label: 'Product Status', href: '/support-centre#product-status' },
 ]
 
 export const supportFaqs: Array<{ id: string; question: string; answer: string }> = [

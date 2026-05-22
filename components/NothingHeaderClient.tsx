@@ -44,7 +44,7 @@ export function NothingHeaderClient({ menuItems }: NothingHeaderClientProps) {
   return (
     <>
       <header className="fixed inset-x-0 top-0 z-50 flex justify-center px-3 pt-4 md:px-6 md:pt-5">
-        <div className="w-full max-w-[560px]">
+        <div className="w-full max-w-[500px] lg:max-w-[470px]">
           <div
             className={`grid h-12 grid-cols-[44px_minmax(0,1fr)_44px] items-center rounded-[10px] border border-black/8 bg-white/[0.97] px-2 text-[#111] shadow-[0_16px_40px_rgba(17,17,17,0.12)] transition-opacity duration-200 md:h-11 md:grid-cols-[40px_minmax(0,1fr)_40px] md:px-3 ${
               isDrawerOpen ? 'pointer-events-none opacity-0' : 'opacity-100'
@@ -69,8 +69,8 @@ export function NothingHeaderClient({ menuItems }: NothingHeaderClientProps) {
               )}
             </button>
 
-            <Link href="/" className="dot-logo truncate px-2 text-center text-[9px] uppercase tracking-[0.05em] text-black/72 md:text-[12px]">
-              NOTHING PAKISTAN
+            <Link href="/" className="header-brand-logo truncate px-2 text-center text-[18px] leading-none text-black/78 md:text-[20px]">
+              Nothing (R)
             </Link>
 
             <Link
@@ -120,10 +120,10 @@ export function NothingHeaderClient({ menuItems }: NothingHeaderClientProps) {
 
               <Link
                 href="/"
-                className="dot-logo truncate px-3 text-center text-[9px] uppercase tracking-[0.05em] text-black/72"
+                className="header-brand-logo truncate px-3 text-center text-[18px] leading-none text-black/78"
                 onClick={() => setIsDrawerOpen(false)}
               >
-                NOTHING PAKISTAN
+                Nothing (R)
               </Link>
 
               <Link
@@ -152,7 +152,7 @@ export function NothingHeaderClient({ menuItems }: NothingHeaderClientProps) {
                   <Link
                     key={item.slug}
                     href={item.href}
-                    className="dot-heading w-full border-b border-black/10 py-4 text-[clamp(1.8rem,5vw,2.45rem)] uppercase leading-[0.92] tracking-[0.04em] text-black/82 transition-opacity hover:opacity-58"
+                    className="site-drawer-menu-link dot-heading w-full border-b border-black/10 py-4 text-[clamp(1.8rem,5vw,2.45rem)] uppercase leading-[0.92] tracking-[0.04em] text-black/82 transition-opacity hover:opacity-58"
                     onClick={() => setIsDrawerOpen(false)}
                   >
                     {item.label}

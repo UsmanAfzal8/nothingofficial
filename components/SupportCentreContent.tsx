@@ -143,7 +143,7 @@ export function SupportCentreContent({ heroImageUrl, heroImageAlt }: SupportCent
           <h3 className="mt-4 text-[1.7rem] leading-[0.96] tracking-[-0.04em] text-black">Need direct help?</h3>
           <p className="mt-4 text-sm leading-7 text-black/62">Use the contact page if you need store information, after-sales help, or buying guidance.</p>
           <Link
-            href="/pages/contact-us"
+            href="/contact-us"
             className="mt-6 inline-flex h-11 items-center justify-center rounded-full bg-black px-5 text-[10px] uppercase tracking-[0.24em] text-white transition-opacity hover:opacity-85"
           >
             Contact Support
@@ -155,7 +155,7 @@ export function SupportCentreContent({ heroImageUrl, heroImageAlt }: SupportCent
           <h3 className="mt-4 text-[1.7rem] leading-[0.96] tracking-[-0.04em] text-black">Lahore store routes.</h3>
           <p className="mt-4 text-sm leading-7 text-black/62">Use the Lahore store entry from the footer to jump into contact and location information.</p>
           <Link
-            href="/pages/contact-us#lahore-store"
+            href="/contact-us#lahore-store"
             className="mt-6 inline-flex h-11 items-center justify-center rounded-full border border-black/12 px-5 text-[10px] uppercase tracking-[0.24em] text-black transition-colors hover:bg-black hover:text-white"
           >
             Open Lahore

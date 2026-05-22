@@ -5,6 +5,26 @@ const nextConfig = {
   async redirects() {
     return [
       {
+        source: '/pages/about',
+        destination: '/about-us',
+        permanent: true,
+      },
+      {
+        source: '/pages/about-us',
+        destination: '/about-us',
+        permanent: true,
+      },
+      {
+        source: '/pages/contact-us',
+        destination: '/contact-us',
+        permanent: true,
+      },
+      {
+        source: '/pages/support-centre',
+        destination: '/support-centre',
+        permanent: true,
+      },
+      {
         source: '/:path*',
         has: [
           {

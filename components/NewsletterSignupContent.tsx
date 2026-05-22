@@ -142,7 +142,7 @@ export function NewsletterSignupContent() {
               Go to support if you need delivery, returns, or product help before joining the newsletter flow.
             </p>
             <Link
-              href="/pages/support-centre"
+              href="/support-centre"
               className="mt-5 inline-flex h-11 items-center justify-center rounded-full border border-black/12 px-5 text-[10px] uppercase tracking-[0.24em] text-black transition-colors hover:bg-black hover:text-white"
             >
               Open Support

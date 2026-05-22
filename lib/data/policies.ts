@@ -5,6 +5,7 @@ export type PolicySlug =
   | 'terms-of-sale'
   | 'shipping-and-delivery-policy'
   | 'return-and-refund-policy'
+  | 'warranty-policy'
   | 'acceptable-use-policy'
   | 'user-agreement'
 
@@ -28,8 +29,8 @@ const policies: PolicyDocument[] = [
     title: 'Privacy Policy',
     summary:
       'This Privacy Policy explains how the Nothing Pakistan collects, uses, stores, and protects your personal information when you browse, order, or request support.',
-    effectiveDate: 'March 5, 2026',
-    lastUpdated: 'March 5, 2026',
+    effectiveDate: 'May 19, 2026',
+    lastUpdated: 'May 19, 2026',
     sections: [
       {
         title: '1. Scope',
@@ -93,8 +94,8 @@ const policies: PolicyDocument[] = [
     title: 'Terms of Sale',
     summary:
       'These Terms of Sale govern product purchases made through the Nothing Pakistan, including pricing, delivery, returns, and warranty handling.',
-    effectiveDate: 'March 5, 2026',
-    lastUpdated: 'March 5, 2026',
+    effectiveDate: 'May 19, 2026',
+    lastUpdated: 'May 19, 2026',
     sections: [
       {
         title: '1. Seller Identity',
@@ -159,8 +160,8 @@ const policies: PolicyDocument[] = [
     title: 'Shipping and Delivery Policy',
     summary:
       'This Shipping and Delivery Policy explains how the Nothing Pakistan handles dispatch timing, delivery expectations, address validation, and fulfillment communication.',
-    effectiveDate: 'March 15, 2026',
-    lastUpdated: 'March 15, 2026',
+    effectiveDate: 'May 19, 2026',
+    lastUpdated: 'May 19, 2026',
     sections: [
       {
         title: '1. Delivery Coverage',
@@ -211,8 +212,8 @@ const policies: PolicyDocument[] = [
     title: 'Return and Refund Policy',
     summary:
       'This Return and Refund Policy explains how the Nothing Pakistan reviews return eligibility, replacements, rejected deliveries, and approved refunds.',
-    effectiveDate: 'March 15, 2026',
-    lastUpdated: 'March 15, 2026',
+    effectiveDate: 'May 19, 2026',
+    lastUpdated: 'May 19, 2026',
     sections: [
       {
         title: '1. Eligibility Window',
@@ -259,12 +260,63 @@ const policies: PolicyDocument[] = [
     ],
   },
   {
+    slug: 'warranty-policy',
+    title: 'Warranty Policy',
+    summary:
+      'This Warranty Policy explains how Nothing Pakistan reviews warranty expectations, seller support, manufacturer support, proof of purchase, and product issue reports.',
+    effectiveDate: 'May 19, 2026',
+    lastUpdated: 'May 19, 2026',
+    sections: [
+      {
+        title: '1. Scope',
+        paragraphs: [
+          'This Warranty Policy applies to products purchased through Nothing Pakistan and operated by NOTHING OFFICIAL (SMC-PRIVATE) LIMITED.',
+          'Warranty handling depends on the product type, order record, product condition, and any warranty terms communicated on the product page or during support confirmation.',
+        ],
+      },
+      {
+        title: '2. Proof of Purchase',
+        paragraphs: [
+          'Customers should keep order confirmation, payment records, invoice details where provided, packaging photos, and support messages.',
+          'Warranty or replacement review may be delayed or refused if the customer cannot provide enough information to verify the order.',
+        ],
+      },
+      {
+        title: '3. What Warranty Review May Cover',
+        paragraphs: [
+          'Warranty review may cover verified manufacturing faults, incorrect items, or defects reported within the applicable support window.',
+          'Coverage does not automatically include accidental damage, liquid damage, misuse, unauthorized repair, missing accessories, cosmetic wear after use, or issues caused by incompatible third-party products.',
+        ],
+      },
+      {
+        title: '4. Reporting a Warranty Issue',
+        paragraphs: [
+          'Contact support as soon as an issue is noticed and provide order details, product photos, packaging photos, videos where useful, and a clear description of the problem.',
+          'Nothing Pakistan may ask for additional evidence before approving inspection, replacement, repair guidance, or another support outcome.',
+        ],
+      },
+      {
+        title: '5. Manufacturer and Seller Support',
+        paragraphs: [
+          'Some products may be handled through manufacturer support, seller support, or a product-specific review process depending on availability and warranty terms.',
+          'Company registration verifies the Pakistani business identity behind the storefront and does not replace product-specific warranty terms.',
+        ],
+      },
+      {
+        title: '6. Contact',
+        paragraphs: [
+          'For warranty help, contact Nothing Pakistan through the support centre, contact page, or WhatsApp support route published on this website.',
+        ],
+      },
+    ],
+  },
+  {
     slug: 'acceptable-use-policy',
     title: 'Acceptable Use Policy',
     summary:
       'This Acceptable Use Policy sets behavior rules for use of the Nothing Pakistan website, support features, and account tools.',
-    effectiveDate: 'March 5, 2026',
-    lastUpdated: 'March 5, 2026',
+    effectiveDate: 'May 19, 2026',
+    lastUpdated: 'May 19, 2026',
     sections: [
       {
         title: '1. Purpose',
@@ -321,8 +373,8 @@ const policies: PolicyDocument[] = [
     title: 'User Agreement',
     summary:
       'This User Agreement defines the general terms for accessing and using the Nothing Pakistan website and related support services.',
-    effectiveDate: 'March 5, 2026',
-    lastUpdated: 'March 5, 2026',
+    effectiveDate: 'May 19, 2026',
+    lastUpdated: 'May 19, 2026',
     sections: [
       {
         title: '1. Agreement to Terms',

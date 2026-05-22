@@ -1,12 +1,14 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import { CompanyTrustBadge } from '@/components/CompanyTrustBadge'
 import { CatalogProductTile } from '@/components/CatalogProductTile'
 import { InterTypographyScope } from '@/components/InterTypographyScope'
 import { NothingFooter } from '@/components/NothingFooter'
 import { NothingHeader } from '@/components/NothingHeader'
 import { SeoStructuredData } from '@/components/SeoStructuredData'
 import { CATALOG_REVALIDATE_SECONDS, getCollectionBySlug } from '@/lib/data/catalog-repository'
+import { companyIdentifier, companyLegalName } from '@/lib/data/company'
 import { collectionSeoFaqs, siteBrandName, siteKeywords, siteTrustLinks } from '@/lib/data/site-content'
 import type { Collection } from '@/lib/models/catalog'
 import { buildAbsoluteUrl, buildBreadcrumbStructuredData, buildFaqStructuredData, buildRobotsMetadata, buildSeoKeywords } from '@/lib/utils/seo'
@@ -45,7 +47,7 @@ function buildCollectionLongformSections(collection: Collection) {
   const intro = `${collection.title} on ${siteBrandName} is built for shoppers in Pakistan who want clearer product discovery, visible PKR pricing, and faster routes into support or ordering.`
   const selection =
     collection.products.length > 0
-      ? `This collection currently highlights products such as ${productSentence}, making it easier to compare the most relevant options without leaving the storefront.`
+      ? `This collection currently highlights products such as ${productSentence}, making it easier to compare relevant options without leaving the storefront. Each product card leads into a detail page where buyers can review price in Pakistan, images, delivery guidance, support routes, and related catalog links.`
       : `This collection is ready for indexing and merchandising, even when products are temporarily unavailable.`
   const buying =
     childSentence
@@ -54,16 +56,28 @@ function buildCollectionLongformSections(collection: Collection) {
 
   return [
     {
-      title: `Why shop ${collection.title} from ${siteBrandName}`,
-      body: intro,
+      title: `Direct answer for ${collection.title}`,
+      body: `${collection.title} is a dedicated ${siteBrandName} collection for Pakistan shoppers comparing Nothing and CMF products with clearer product details, internal links, support routes, and company verification before ordering.`,
     },
     {
-      title: `What shoppers can compare in ${collection.title}`,
+      title: `Why shop ${collection.title} from ${siteBrandName}`,
+      body: `${intro} The page is structured for search engines and real buyers: it has an H1, category context, product listings, FAQs, trust links, and connections to policies and support. That makes it easier to understand what the category offers before opening individual product pages.`,
+    },
+    {
+      title: `What shoppers can compare`,
       body: selection,
     },
     {
-      title: `How this collection supports buying intent`,
-      body: buying,
+      title: `Buying guide for ${collection.title}`,
+      body: `${buying} Before buying, customers should confirm product model, color or variant, compatibility, price, stock status, payment method, delivery city, and return expectations. If the product is a charger, check wattage and cable needs. If it is an audio product, compare calls, battery, ANC, and comfort. If it is a protector or cover, confirm the exact phone model.`,
+    },
+    {
+      title: 'Authenticity and seller checks',
+      body: `Customers should verify seller authenticity before ordering technology products online. ${siteBrandName} links to company verification, contact details, support guidance, and policy pages so shoppers can review the business identity behind the storefront. Company registration verifies the Pakistani business identity and should be considered alongside product checks, packaging expectations, and support communication.`,
+    },
+    {
+      title: 'Delivery, COD, and support',
+      body: `Delivery and payment expectations can vary by product value, city, and confirmation timing. Customers can use product pages, checkout, and WhatsApp support to confirm COD or pre-payment availability, delivery range, and order documentation. Keeping order records and support messages helps if a return, replacement, or compatibility question comes up later.`,
     },
   ]
 }
@@ -112,6 +126,12 @@ function buildCollectionStructuredData(collection: Collection) {
       description: buildCollectionSeoDescription(collection),
       url: collection.canonicalUrl || buildAbsoluteUrl(`/collections/${collection.slug}`),
       image: collection.heroImage ? [collection.heroImage] : undefined,
+      publisher: {
+        '@type': 'Organization',
+        name: siteBrandName,
+        legalName: companyLegalName,
+        identifier: companyIdentifier,
+      },
       mainEntity: {
         '@type': 'ItemList',
         itemListElement: topProducts.map((product, index) => ({
@@ -401,6 +421,7 @@ export default async function CollectionPage({ params }: CollectionPageProps) {
                   <h2 className="collection-product-name mt-4 text-3xl leading-[0.96] sm:text-4xl">
                     Need help before ordering?
                   </h2>
+                  <CompanyTrustBadge compact className="mt-6" />
                   <div className="mt-6 space-y-3">
                     {siteTrustLinks.map((item) => (
                       <Link

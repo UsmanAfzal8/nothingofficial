@@ -61,7 +61,7 @@ export type SitemapProductEntry = {
 }
 
 export type MobileAccessoryGroup = {
-  id: 'protectors' | 'chargers' | 'earbuds' | 'accessories'
+  id: 'covers' | 'protectors' | 'chargers' | 'earbuds' | 'accessories'
   title: string
   products: Product[]
 }
@@ -126,6 +126,20 @@ const TRENDING_PICK_PRODUCT_SLUGS = [
   'cmf-power-100w-gan',
 ] as const
 
+const FEATURED_COVERS_CATEGORY_SLUG = 'featured-covers'
+const FEATURED_COVER_PRODUCT_SLUGS = [
+  'nothing-phone-1-black-polo-cover',
+  'nothing-phone-2-blue-cover',
+  'nothing-phone-1-polo-cover',
+  'nothing-phone-1-gray-polo-cover',
+  'nothing-phone-2a-green-cover',
+  'nothing-phone-2a-black-polo-cover',
+  'nothing-phone-3-brown-cover',
+  'nothing-phone-3a-pro-transparent-cover',
+  'nothing-phone-2-transparent-cover',
+  'nothing-phone-2a-plus-transparent-cover',
+] as const
+
 type VirtualCollectionSlug = (typeof ALL_VIRTUAL_COLLECTION_SLUGS)[number]
 
 const VIRTUAL_COLLECTIONS: Record<VirtualCollectionSlug, VirtualCollectionConfig> = {
@@ -149,7 +163,7 @@ const VIRTUAL_COLLECTIONS: Record<VirtualCollectionSlug, VirtualCollectionConfig
     title: 'Protectors',
     metaTitle: 'Nothing Protectors in Pakistan | Nothing Pakistan',
     description: 'Browse screen protectors and protective accessories for Nothing devices in Pakistan.',
-    productTypes: ['protector'],
+    productTypes: ['protector', 'screen_protector'],
   },
   earbuds: {
     title: 'Earbuds',
@@ -164,6 +178,8 @@ const PRODUCT_TYPE_LABELS: Record<ProductType, string> = {
   data_cable: 'Cable',
   protector: 'Protector',
   earbuds: 'Audio',
+  covers: 'Cover',
+  screen_protector: 'Screen Protector',
 }
 
 const PRODUCT_TYPE_SEARCH_LABELS: Record<ProductType, string[]> = {
@@ -171,9 +187,11 @@ const PRODUCT_TYPE_SEARCH_LABELS: Record<ProductType, string[]> = {
   data_cable: ['Nothing cable price in Pakistan', 'USB-C cable Pakistan', 'Nothing data cable Pakistan'],
   protector: ['Nothing screen protector Pakistan', 'Nothing phone protector price in Pakistan'],
   earbuds: ['Nothing earbuds price in Pakistan', 'CMF earbuds Pakistan', 'wireless earbuds Pakistan'],
+  covers: ['Nothing phone cover price in Pakistan', 'Nothing phone case Pakistan', 'CMF phone cover Pakistan'],
+  screen_protector: ['Nothing screen protector Pakistan', 'Nothing phone glass protector Pakistan'],
 }
 
-const ACCESSORY_COLLECTION_PRODUCT_TYPES = new Set<ProductType>(['charger', 'data_cable', 'protector'])
+const ACCESSORY_COLLECTION_PRODUCT_TYPES = new Set<ProductType>(['charger', 'data_cable', 'protector', 'covers', 'screen_protector'])
 const ACCESSORY_COLLECTION_CATEGORY_SLUGS = new Set(['chargers', 'cables', 'phone-cases', 'phone-protectors', 'protectors'])
 
 function formatPrice(value: number | null | undefined): string | null {
@@ -951,7 +969,7 @@ function buildMobileVariantCards(mobile: SupabaseMobileRow, snapshot: CatalogSna
 }
 
 function isProtectorOrCoverProduct(product: SupabaseProductRow, snapshot: CatalogSnapshot): boolean {
-  if (product.product_type === 'protector') {
+  if (product.product_type === 'protector' || product.product_type === 'screen_protector') {
     return true
   }
 
@@ -959,6 +977,21 @@ function isProtectorOrCoverProduct(product: SupabaseProductRow, snapshot: Catalo
   const haystack = `${product.name} ${product.slug} ${categorySlugs.join(' ')}`.toLowerCase()
 
   return /\b(protector|protectors|cover|covers|case|cases|phone-cases|phone-protectors)\b/.test(haystack)
+}
+
+function isCoverProduct(product: SupabaseProductRow, snapshot: CatalogSnapshot): boolean {
+  if (product.product_type === 'covers') {
+    return true
+  }
+
+  if (product.product_type === 'protector' || product.product_type === 'screen_protector') {
+    return false
+  }
+
+  const categorySlugs = getProductCategories(snapshot, product.id).map((category) => category.slug)
+  const haystack = `${product.name} ${product.slug} ${categorySlugs.join(' ')}`.toLowerCase()
+
+  return /\b(cover|covers|case|cases|phone-cases)\b/.test(haystack)
 }
 
 function isWatchProduct(product: SupabaseProductRow, snapshot: CatalogSnapshot): boolean {
@@ -1112,7 +1145,7 @@ function buildGallery(
   return images.map((image) => ({
     id: `media-${image.id}`,
     url: image.url,
-    alt: image.alt_text || fallbackAltText || image.title || image.caption || name,
+    alt: image.alt_text || fallbackAltText || `${name} original product price in Pakistan from Nothing Pakistan`,
     title: image.title,
     caption: image.caption,
     colorName: image.color_id ? colorsById.get(image.color_id)?.name ?? null : null,
@@ -1233,7 +1266,11 @@ function buildMobileAccessoryGroups(snapshot: CatalogSnapshot, mobileId: number)
   }))
 
   const protectors = groupedProducts
-    .filter(({ product }) => product.product_type === 'protector')
+    .filter(({ product }) => product.product_type === 'protector' || product.product_type === 'screen_protector')
+    .map(({ card }) => card)
+    .sort((left, right) => left.name.localeCompare(right.name))
+  const covers = groupedProducts
+    .filter(({ product }) => isCoverProduct(product, snapshot))
     .map(({ card }) => card)
     .sort((left, right) => left.name.localeCompare(right.name))
   const chargers = groupedProducts
@@ -1245,11 +1282,12 @@ function buildMobileAccessoryGroups(snapshot: CatalogSnapshot, mobileId: number)
     .map(({ card }) => card)
     .sort((left, right) => left.name.localeCompare(right.name))
   const accessories = groupedProducts
-    .filter(({ product }) => !product.product_type)
+    .filter(({ product }) => !product.product_type && !isCoverProduct(product, snapshot))
     .map(({ card }) => card)
     .sort((left, right) => left.name.localeCompare(right.name))
 
   const groups: MobileAccessoryGroup[] = [
+    { id: 'covers', title: 'Related Covers', products: covers },
     { id: 'protectors', title: 'Related Protectors', products: protectors },
     { id: 'chargers', title: 'Related Charger and Cables', products: chargers },
     { id: 'earbuds', title: 'Related Earbuds', products: earbuds },
@@ -1452,9 +1490,11 @@ export async function getHomePageData(): Promise<HomePageData> {
   )
   const phoneProducts = sortHomeShowcaseCards(snapshot.mobiles.map((mobile) => buildMobileCard(mobile, snapshot)))
   const trendingPicks = getOrderedCategoryProductCards(snapshot, 'trending-picks', TRENDING_PICK_PRODUCT_SLUGS)
+  const featuredCovers = getOrderedCategoryProductCards(snapshot, FEATURED_COVERS_CATEGORY_SLUG, FEATURED_COVER_PRODUCT_SLUGS)
 
   return {
     phoneModels: phoneProducts,
+    featuredCovers,
     shopAllProducts,
     trendingPicks,
   }

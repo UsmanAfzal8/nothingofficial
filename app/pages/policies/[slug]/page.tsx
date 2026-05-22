@@ -4,8 +4,9 @@ import { notFound } from 'next/navigation'
 import { NothingFooter } from '@/components/NothingFooter'
 import { NothingHeader } from '@/components/NothingHeader'
 import { allPolicies, getPolicyBySlug, getPolicyCanonical, policySlugs } from '@/lib/data/policies'
-import { siteBrandName, siteKeywords } from '@/lib/data/site-content'
-import { buildSeoKeywords } from '@/lib/utils/seo'
+import { companyIdentifier, companyLegalName, companySupportEmail } from '@/lib/data/company'
+import { siteBrandName, siteContactDisplayPhone, siteKeywords } from '@/lib/data/site-content'
+import { buildAbsoluteUrl, buildRobotsMetadata, buildSeoKeywords } from '@/lib/utils/seo'
 
 type PolicyPageProps = {
   params: {
@@ -45,12 +46,15 @@ export function generateMetadata({ params }: PolicyPageProps): Metadata {
       description,
       url: canonical,
       type: 'article',
+      images: [buildAbsoluteUrl('/social/nothing-pakistan-og.jpg')],
     },
     twitter: {
-      card: 'summary',
+      card: 'summary_large_image',
       title,
       description,
+      images: [buildAbsoluteUrl('/social/nothing-pakistan-og.jpg')],
     },
+    robots: buildRobotsMetadata(),
   }
 }
 
@@ -73,6 +77,12 @@ export default function PolicyPage({ params }: PolicyPageProps) {
             <p className="mt-4 text-sm text-black/70">{policy.summary}</p>
 
             <div className="mt-5 grid gap-2 text-xs text-black/65">
+              <p>
+                <span className="font-medium text-black/80">Legal:</span> {companyLegalName}
+              </p>
+              <p>
+                <span className="font-medium text-black/80">SECP:</span> {companyIdentifier}
+              </p>
               <p>
                 <span className="font-medium text-black/80">Effective:</span> {policy.effectiveDate}
               </p>
@@ -125,8 +135,9 @@ export default function PolicyPage({ params }: PolicyPageProps) {
             </div>
 
             <div className="mt-10 rounded-xl border border-black/15 bg-white/80 p-4 text-sm text-black/75">
-              This policy is published by {siteBrandName}. For legal or account-specific help, please contact our support
-              centre.
+              This policy is published by {siteBrandName}, operated by {companyLegalName} ({companyIdentifier}). For legal,
+              order, return, warranty, or account-specific help, contact {companySupportEmail}, call {siteContactDisplayPhone},
+              or open the support centre.
             </div>
           </article>
         </section>

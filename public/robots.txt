@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://www.nothingshop.pk/sitemap.xml
+Sitemap: https://www.nothingshop.pk/server-sitemap.xml
+
+Allow: /llms.txt
+Allow: /company-verification
+Allow: /about-us
+Allow: /authenticity
+Allow: /support-centre
+Allow: /contact-us

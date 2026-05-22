@@ -1,14 +1,22 @@
 import { buildAbsoluteUrl } from '@/lib/utils/seo'
+import {
+  companyCertificateUrl,
+  companyFoundingDate,
+  companyIdentifier,
+  companyLegalName,
+  companySocialLinks,
+  companyWebsite,
+} from '@/lib/data/company'
 
 export const siteBrandName = 'Nothing Pakistan'
 export const siteTagline = 'Tech is fun again.'
 export const siteDescription =
-  'Official Nothing store in Pakistan for original Nothing and CMF phones, earbuds, chargers, cables, and screen protectors with PKR pricing, nationwide delivery, and WhatsApp support.'
-export const siteSeoTitle = 'Official Nothing Store in Pakistan | Phones, CMF, Chargers & Earbuds'
+  'Nothing Pakistan is a storefront for Nothing and CMF phones, earbuds, chargers, cables, and screen protectors with PKR pricing, nationwide delivery, WhatsApp support, and SECP registered company information.'
+export const siteSeoTitle = 'Nothing Products in Pakistan | Phones, CMF & Accessories'
 export const siteKeywords = [
   'Nothing Pakistan',
-  'Official Nothing store Pakistan',
-  'Official Nothing Pakistan',
+  'Nothing products Pakistan',
+  'SECP registered Nothing Pakistan',
   'Nothing Shop Pakistan',
   'Nothing store Pakistan',
   'Nothing phone price in Pakistan',
@@ -43,7 +51,7 @@ export const siteKeywords = [
 export const siteContactPhone = '+923361070111'
 export const siteContactWhatsappUrl = 'https://wa.me/923361070111'
 export const siteContactDisplayPhone = '03361070111'
-export const siteContactAddress = 'Raya 53 no, plaza commercial, Fairways pheas 6 DHA, DHA, Lahore, 54810, Pakistan'
+export const siteContactAddress = 'Al-Qadir Heights, Babar Block Garden Town, Lahore, Pakistan'
 export const siteContactCoordinates = '31.47504732907068, 74.46976232054841'
 export const sitePrimaryLocation = {
   city: 'Lahore',
@@ -51,23 +59,19 @@ export const sitePrimaryLocation = {
   countryCode: 'PK',
 } as const
 
-export const socialLinks: Array<{ label: string; href: string }> = [
-  { label: 'Instagram', href: 'https://www.instagram.com/nothing' },
-  { label: 'TikTok', href: 'https://www.tiktok.com/@nothing' },
-  { label: 'X / Twitter', href: 'https://twitter.com/nothing' },
-  { label: 'YouTube', href: 'https://youtube.com/c/NothingTechnology' },
-  { label: 'Community', href: 'https://nothing.community' },
-]
+export const socialLinks: Array<{ label: string; href: string }> = [...companySocialLinks]
 
 export const footerCompanyLinks = [
-  { label: 'About Us', href: '/pages/about' },
-  { label: 'Contact Us', href: '/pages/contact-us' },
-  { label: 'Support Centre', href: '/pages/support-centre' },
+  { label: 'About Us', href: '/about-us' },
+  { label: 'Company Verification', href: '/company-verification' },
+  { label: 'Authenticity', href: '/authenticity' },
+  { label: 'Contact Us', href: '/contact-us' },
+  { label: 'Support Centre', href: '/support-centre' },
 ]
 
 export const footerSupportLinks = [
-  { label: 'Support Centre', href: '/pages/support-centre' },
-  { label: 'Contact Us', href: '/pages/contact-us' },
+  { label: 'Support Centre', href: '/support-centre' },
+  { label: 'Contact Us', href: '/contact-us' },
   { label: 'Shipping Policy', href: '/pages/policies/shipping-and-delivery-policy' },
   { label: 'Returns Policy', href: '/pages/policies/return-and-refund-policy' },
 ]
@@ -77,11 +81,12 @@ export const footerPolicyLinks = [
   { label: 'Terms of Sale', href: '/pages/policies/terms-of-sale' },
   { label: 'Shipping & Delivery', href: '/pages/policies/shipping-and-delivery-policy' },
   { label: 'Returns & Refunds', href: '/pages/policies/return-and-refund-policy' },
+  { label: 'Warranty Policy', href: '/pages/policies/warranty-policy' },
   { label: 'User Agreement', href: '/pages/policies/user-agreement' },
 ]
 
 export const storeLocations = [
-  { label: 'Lahore', href: '/pages/contact-us#lahore-store' },
+  { label: 'Lahore', href: '/contact-us#lahore-store' },
 ] as const
 
 export const supportedLanguages = [
@@ -113,7 +118,7 @@ export const homeSeoHighlights = [
     title: 'Support, delivery, and contact routes',
     description:
       'Give customers and search engines stronger trust signals through connected support, policy, contact, and order pages.',
-    href: '/pages/contact-us',
+    href: '/contact-us',
     label: 'Open support routes',
   },
 ] as const
@@ -137,6 +142,30 @@ export const homeSeoFaqs = [
 ] as const
 
 export const collectionSeoFaqs: Record<string, Array<{ question: string; answer: string }>> = {
+  'shop-all': [
+    {
+      question: 'What can I find in the Shop All collection?',
+      answer:
+        'The Shop All collection brings together currently listed Nothing and CMF products, including phones, audio, chargers, protectors, accessories, and related shopping routes in Pakistan.',
+    },
+    {
+      question: 'Can I verify the business before buying from Shop All?',
+      answer:
+        'Yes. Nothing Pakistan links its company verification page, SECP certificate, support centre, contact page, and policy pages so customers can review trust details before ordering.',
+    },
+  ],
+  audio: [
+    {
+      question: 'Where can I buy Nothing and CMF audio products in Pakistan?',
+      answer:
+        'Use the Audio collection on Nothing Pakistan to browse earbuds and audio products with product pages, PKR pricing, support links, and ordering guidance.',
+    },
+    {
+      question: 'What should I compare before buying earbuds?',
+      answer:
+        'Compare call quality, ANC, battery life, comfort, app features, price in Pakistan, delivery expectations, and return policy before placing an order.',
+    },
+  ],
   accessories: [
     {
       question: 'Does Nothing Pakistan have a page for Nothing accessories?',
@@ -209,18 +238,35 @@ export const collectionSeoFaqs: Record<string, Array<{ question: string; answer:
         'Yes. Protector pages connect shoppers to compatible accessory routes so they can move from a device page to the right protective add-on quickly.',
     },
   ],
+  cmf: [
+    {
+      question: 'Can I browse CMF products in Pakistan?',
+      answer:
+        'Yes. The CMF collection groups eligible CMF phones, earbuds, chargers, and related products so Pakistan shoppers can compare options from one place.',
+    },
+    {
+      question: 'How should I verify CMF product details before buying?',
+      answer:
+        'Check the product page, model name, price, support channel, delivery terms, return expectations, and company verification page before ordering.',
+    },
+  ],
 }
 
 export const siteTrustLinks = [
   {
     title: 'Support Centre',
     description: 'Browse troubleshooting, FAQs, and after-sales help.',
-    href: '/pages/support-centre',
+    href: '/support-centre',
   },
   {
     title: 'Contact Us',
     description: 'Open the main contact and store-trust page for the business.',
-    href: '/pages/contact-us',
+    href: '/contact-us',
+  },
+  {
+    title: 'Company Verification',
+    description: 'Review the SECP registered company name, CUIN, and certificate link.',
+    href: '/company-verification',
   },
   {
     title: 'Shipping Policy',
@@ -392,7 +438,22 @@ export const homeFaqCategories: HomeFaqCategory[] = [
       {
         question: 'What is Nothing Pakistan?',
         answer:
-          'Nothing Pakistan is an online storefront focused on Nothing phones, CMF accessories, chargers, protectors, earbuds, and related shopping support for customers in Pakistan.',
+          `Nothing Pakistan is an online storefront operated by ${companyLegalName}, an SECP registered Pakistani company with ${companyIdentifier}. It focuses on Nothing phones, CMF accessories, chargers, protectors, earbuds, and shopping support for customers in Pakistan.`,
+      },
+      {
+        question: 'Is Nothing Pakistan a registered company?',
+        answer:
+          `Yes. Nothing Pakistan is operated by ${companyLegalName}, an SECP registered Pakistani company with ${companyIdentifier}. Customers can view the Company Verification page and SECP certificate before buying.`,
+      },
+      {
+        question: 'What is the legal company name?',
+        answer:
+          `The official registered company name behind the Nothing Pakistan storefront is ${companyLegalName}. The company details are published for transparency on the Company Verification page.`,
+      },
+      {
+        question: 'How can I verify the company?',
+        answer:
+          `You can verify the company by checking the legal name, ${companyIdentifier}, incorporation date, and certificate PDF linked from the Company Verification page and footer.`,
       },
       {
         question: 'Is Nothing Pakistan only an online store?',
@@ -620,7 +681,10 @@ export function buildOrganizationStructuredData() {
     '@type': 'OnlineStore',
     '@id': buildAbsoluteUrl('/#organization'),
     name: siteBrandName,
-    url: buildAbsoluteUrl('/'),
+    legalName: companyLegalName,
+    url: companyWebsite,
+    identifier: companyIdentifier,
+    foundingDate: companyFoundingDate,
     description: siteDescription,
     slogan: siteTagline,
     telephone: siteContactPhone,
@@ -630,6 +694,7 @@ export function buildOrganizationStructuredData() {
     },
     inLanguage: 'en-PK',
     sameAs: socialLinks.map((item) => item.href),
+    document: companyCertificateUrl,
     address: {
       '@type': 'PostalAddress',
       addressLocality: sitePrimaryLocation.city,
@@ -642,7 +707,7 @@ export function buildOrganizationStructuredData() {
         telephone: siteContactPhone,
         areaServed: sitePrimaryLocation.countryCode,
         availableLanguage: ['en', 'en-PK'],
-        url: buildAbsoluteUrl('/pages/contact-us'),
+        url: buildAbsoluteUrl('/contact-us'),
       },
     ],
     hasOfferCatalog: {
@@ -675,8 +740,8 @@ export function buildWebsiteStructuredData() {
     '@type': 'WebSite',
     '@id': buildAbsoluteUrl('/#website'),
     name: siteBrandName,
-    alternateName: 'Official Nothing store in Pakistan',
-    url: buildAbsoluteUrl('/'),
+    alternateName: 'Nothing Pakistan storefront',
+    url: companyWebsite,
     description: siteDescription,
     inLanguage: 'en-PK',
     publisher: {
@@ -694,9 +759,9 @@ export function buildContactPageStructuredData() {
   return {
     '@context': 'https://schema.org',
     '@type': 'ContactPage',
-    '@id': buildAbsoluteUrl('/pages/contact-us#contact-page'),
+    '@id': buildAbsoluteUrl('/contact-us#contact-page'),
     name: `Contact ${siteBrandName}`,
-    url: buildAbsoluteUrl('/pages/contact-us'),
+    url: buildAbsoluteUrl('/contact-us'),
     description:
       'Find support, order, delivery, and policy routes for Nothing Pakistan from one clear contact page.',
     about: {
@@ -706,6 +771,8 @@ export function buildContactPageStructuredData() {
       '@type': 'Organization',
       '@id': buildAbsoluteUrl('/#organization'),
       name: siteBrandName,
+      legalName: companyLegalName,
+      identifier: companyIdentifier,
       url: buildAbsoluteUrl('/'),
       contactPoint: [
         {
@@ -714,7 +781,7 @@ export function buildContactPageStructuredData() {
           telephone: siteContactPhone,
           areaServed: sitePrimaryLocation.countryCode,
           availableLanguage: ['en', 'en-PK'],
-          url: buildAbsoluteUrl('/pages/contact-us'),
+          url: buildAbsoluteUrl('/contact-us'),
         },
       ],
       address: {

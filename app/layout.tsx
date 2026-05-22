@@ -31,6 +31,12 @@ const ntype82 = localFont({
   display: 'swap',
 })
 
+const ntype82Headline = localFont({
+  src: [{ path: '../fonts/NType82-Headline.otf', weight: '400', style: 'normal' }],
+  variable: '--font-ntype82-headline',
+  display: 'swap',
+})
+
 const georgia = localFont({
   src: [{ path: '../fonts/georgia.ttf', weight: '400', style: 'normal' }],
   variable: '--font-georgia',
@@ -84,7 +90,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en-PK">
-      <body className={`${ndot57.className} ${ndot57.variable} ${ndot55.variable} ${ndot55Caps.variable} ${ntype82.variable} ${georgia.variable} isolate overflow-x-hidden antialiased`}>
+      <body className={`${ndot57.className} ${ndot57.variable} ${ndot55.variable} ${ndot55Caps.variable} ${ntype82.variable} ${ntype82Headline.variable} ${georgia.variable} isolate overflow-x-hidden antialiased`}>
         <div aria-hidden="true" className="site-dot-overlay" />
         <CartProvider>
           {children}

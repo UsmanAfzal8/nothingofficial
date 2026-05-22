@@ -3,6 +3,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { type FormEvent, useMemo, useState } from 'react'
+import { CompanyTrustBadge } from '@/components/CompanyTrustBadge'
 import { useCart } from '@/components/CartProvider'
 import type { CartItem } from '@/lib/models/cart'
 
@@ -448,6 +449,8 @@ export function OrderForm({ product }: OrderFormProps) {
                 </div>
               </div>
             </div>
+
+            <CompanyTrustBadge compact className="mt-5" />
           </div>
         </aside>
 
