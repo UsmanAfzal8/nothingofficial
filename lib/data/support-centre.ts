@@ -1,24 +1,18 @@
 export const supportHero = {
   title: 'Support Centre',
   description:
-    'Learn more about your Nothing products, find answers, troubleshoot problems, request help and more.',
+    'Learn more about your Nothing Pakistan products, find answers, troubleshoot problems, request help and more.',
+  imageUrl: 'https://cdn.nothingshop.pk/support-centre/support-centre-title-update-2160x1200.webp',
+  imageAlt: 'Nothing Pakistan Support Centre hero with Nothing phone and audio products',
 }
 
 export const supportQuickLinks: Array<{ label: string; href: string; external?: boolean }> = [
-  { label: 'Product Guide', href: '/collections/shop-all' },
-  {
-    label: 'Troubleshooting',
-    href: 'https://support.nothing.tech/hc/en-us/categories/7455115681041-Troubleshooting',
-    external: true,
-  },
-  {
-    label: 'FAQs',
-    href: 'https://support.nothing.tech/hc/en-us/categories/38487206374289-FAQ-General',
-    external: true,
-  },
-  { label: 'After-Sales Service', href: '/support-centre#contact-us' },
-  { label: 'Software Download', href: '/support-centre#software-download' },
-  { label: 'Product Status', href: '/support-centre#product-status' },
+  { label: 'Product Guide', href: '/support-centre/product-guide' },
+  { label: 'Troubleshooting', href: '/support-centre/troubleshooting' },
+  { label: 'FAQs', href: '/support-centre/faqs' },
+  { label: 'After-Sales Service', href: '/support-centre/after-sales-service' },
+  { label: 'Software Download', href: '/support-centre/software-download' },
+  { label: 'Product Status', href: '/support-centre/product-status' },
 ]
 
 export const supportFaqs: Array<{ id: string; question: string; answer: string }> = [

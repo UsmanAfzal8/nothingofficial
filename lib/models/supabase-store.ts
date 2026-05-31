@@ -70,6 +70,71 @@ export interface SupabaseFaqRow {
   updated_at: string | null
 }
 
+export interface SupabaseSpecGroupRow {
+  id: number
+  related_type: RelatedType
+  related_id: number
+  title: string
+  subtitle: string | null
+  icon_key: string | null
+  media_url: string | null
+  media_alt: string | null
+  media_type: string | null
+  media_position: string | null
+  default_open: boolean
+  sort_order: number
+  created_at: string | null
+  updated_at: string | null
+}
+
+export interface SupabaseSpecGroupItemRow {
+  id: number
+  spec_group_id: number
+  section: string | null
+  label: string
+  value: string
+  sort_order: number
+  created_at: string | null
+  updated_at: string | null
+}
+
+export interface SupabaseProductFeatureSectionRow {
+  id: number
+  related_type: RelatedType
+  related_id: number
+  source_key: string | null
+  feature_key: string
+  feature_title: string
+  feature_version: string | null
+  title: string
+  display_context: 'mobile' | 'desktop' | 'all'
+  cover_image_url: string | null
+  cover_video_playback_id: string | null
+  cover_video_url: string | null
+  cover_thumbnail_url: string | null
+  sort_order: number
+  active: boolean
+  created_at: string | null
+  updated_at: string | null
+}
+
+export interface SupabaseProductFeatureSlideRow {
+  id: number
+  product_feature_section_id: number
+  source_key: string | null
+  title: string
+  body: string | null
+  media_type: 'image' | 'video'
+  image_url: string | null
+  video_playback_id: string | null
+  video_url: string | null
+  thumbnail_url: string | null
+  sort_order: number
+  active: boolean
+  created_at: string | null
+  updated_at: string | null
+}
+
 export interface SupabaseProductRow {
   id: number
   name: string

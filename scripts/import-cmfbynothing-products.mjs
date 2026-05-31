@@ -166,18 +166,21 @@ function detectVariant(item) {
 
   if (/\bcase\b|\bcover\b/.test(haystack)) return 'cover'
   if (/\bjelly\s+sheet\b/.test(haystack)) return 'jelly'
-  if (/\bprivacy\b/.test(haystack)) return 'privacy'
   if (/\buv\b/.test(haystack)) return 'uv'
   if (/\b9d\b|\bglass\b|\bprotector\b/.test(haystack)) return 'protector'
 
   return null
 }
 
+function isPrivacySheetItem(item) {
+  return /\bprivacy\b|\bprivacy\s+sheet\b/.test(`${item.name} ${item.slug}`.toLowerCase())
+}
+
 function determineProductKind(item, variant) {
   const haystack = `${item.name} ${item.slug} ${item.category || ''}`.toLowerCase()
 
   if (variant === 'cover') return 'cover'
-  if (variant === 'jelly' || variant === 'privacy' || variant === 'uv' || variant === 'protector') return 'protector'
+  if (variant === 'jelly' || variant === 'uv' || variant === 'protector') return 'protector'
   if (item.category === 'earbuds') return 'earbuds'
   if (item.category === 'data_cable' || /\bcable\b/.test(haystack)) return 'data_cable'
   if (item.category === 'charger' || /\bcharger\b|\bpower\b|\bgan\b/.test(haystack)) return 'charger'
@@ -203,16 +206,6 @@ function buildAccessoryFromMobile(item, mobile, variant) {
     return {
       name: `${baseName} Jelly Sheet`,
       slug: `${mobile.slug}-jelly-sheet`,
-      legacySlugs: [],
-      productType: 'protector',
-      collections: [CATEGORY_SLUGS.accessories, CATEGORY_SLUGS.phoneProtectors],
-    }
-  }
-
-  if (variant === 'privacy') {
-    return {
-      name: `${baseName} Privacy Sheet`,
-      slug: `${mobile.slug}-privacy-sheet`,
       legacySlugs: [],
       productType: 'protector',
       collections: [CATEGORY_SLUGS.accessories, CATEGORY_SLUGS.phoneProtectors],
@@ -497,7 +490,7 @@ function buildKeywords(record) {
   }
 
   if (record.kind === 'protector') {
-    base.push('Nothing screen protector Pakistan', 'privacy sheet Pakistan', 'UV protector Pakistan', 'jelly sheet Pakistan')
+    base.push('Nothing screen protector Pakistan', 'UV protector Pakistan', 'jelly sheet Pakistan')
   }
 
   if (record.kind === 'charger' || record.kind === 'data_cable') {
@@ -628,7 +621,7 @@ function buildFaqs(record, priceLabel) {
       [`What kind of protection does ${record.name} offer?`, `${record.name} is positioned for day-to-day screen protection, cleaner fit, and model-matched coverage for the right phone.`],
       [`Is ${record.name} easy to pair with a cover?`, `Buyers usually combine a protector with a matching phone cover. You can confirm the related cover or other accessories on WhatsApp before ordering.`],
       [`Will ${record.name} affect daily touch use?`, `${record.name} is listed as a practical screen accessory, and buyers can confirm the right variant for daily use on WhatsApp before purchase.`],
-      [`Can I choose between Privacy Sheet, Jelly Sheet, UV Protector, and Protector versions?`, `Yes. Nothing Pakistan separates these variants clearly so buyers can choose the finish and protection style that matches their preference.`],
+      [`Can I choose between Jelly Sheet, UV Protector, and Protector versions?`, `Yes. Nothing Pakistan separates these variants clearly so buyers can choose the protection style that matches their preference.`],
       [`How do I know ${record.name} fits my phone correctly?`, `${record.name} is mapped to the related phone model in the catalog, which helps buyers avoid guesswork around compatibility.`],
       [`Is ${record.name} available for delivery in Pakistan?`, `Yes, this listing is intended for Pakistan delivery with local ordering support and WhatsApp confirmation.`],
       [`How can I place an order for ${record.name}?`, `You can order through the product page or message Nothing Pakistan on WhatsApp to confirm stock, price, and delivery details first.`],
@@ -862,6 +855,25 @@ async function main() {
   const touchedProducts = []
 
   for (const sourceItem of sourceItems) {
+    if (isPrivacySheetItem(sourceItem)) {
+      reportRows.push({
+        sourceName: sourceItem.name,
+        sourceSlug: sourceItem.slug,
+        action: 'skipped',
+        productId: null,
+        name: sourceItem.name,
+        slug: sourceItem.slug,
+        kind: 'privacy',
+        linkedMobile: null,
+        collections: [],
+        imageCount: 0,
+        faqCount: 0,
+        price: typeof sourceItem.price === 'number' ? sourceItem.price : Number(sourceItem.price) || null,
+      })
+      console.log(`Skipped privacy sheet: ${sourceItem.name} (${sourceItem.slug})`)
+      continue
+    }
+
     const record = buildTargetRecord(sourceItem, mobilesWithAliases)
     const existingProduct = resolveExistingProduct(record, existingLookup)
     const finalSlug = existingProduct?.slug || record.slug

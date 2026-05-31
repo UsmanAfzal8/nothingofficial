@@ -59,7 +59,7 @@ const contactOptions = [
   {
     title: 'Policy and store information',
     description: 'Use the policy pages for privacy, shipping, returns, and sale terms when you need store-level rules and expectations.',
-    href: '/pages/policies/privacy-policy',
+    href: '/pages/privacy-policy',
     label: 'Open Policy Pages',
   },
 ]

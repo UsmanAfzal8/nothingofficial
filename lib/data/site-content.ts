@@ -72,17 +72,17 @@ export const footerCompanyLinks = [
 export const footerSupportLinks = [
   { label: 'Support Centre', href: '/support-centre' },
   { label: 'Contact Us', href: '/contact-us' },
-  { label: 'Shipping Policy', href: '/pages/policies/shipping-and-delivery-policy' },
-  { label: 'Returns Policy', href: '/pages/policies/return-and-refund-policy' },
+  { label: 'Shipping Policy', href: '/pages/shipping-and-delivery-policy' },
+  { label: 'Returns Policy', href: '/pages/return-and-refund-policy' },
 ]
 
 export const footerPolicyLinks = [
-  { label: 'Privacy Policy', href: '/pages/policies/privacy-policy' },
-  { label: 'Terms of Sale', href: '/pages/policies/terms-of-sale' },
-  { label: 'Shipping & Delivery', href: '/pages/policies/shipping-and-delivery-policy' },
-  { label: 'Returns & Refunds', href: '/pages/policies/return-and-refund-policy' },
-  { label: 'Warranty Policy', href: '/pages/policies/warranty-policy' },
-  { label: 'User Agreement', href: '/pages/policies/user-agreement' },
+  { label: 'Privacy Policy', href: '/pages/privacy-policy' },
+  { label: 'Terms of Sale', href: '/pages/terms-of-sale' },
+  { label: 'Shipping & Delivery', href: '/pages/shipping-and-delivery-policy' },
+  { label: 'Returns & Refunds', href: '/pages/return-and-refund-policy' },
+  { label: 'Warranty Policy', href: '/pages/warranty-policy' },
+  { label: 'User Agreement', href: '/pages/user-agreement' },
 ]
 
 export const storeLocations = [
@@ -271,12 +271,12 @@ export const siteTrustLinks = [
   {
     title: 'Shipping Policy',
     description: 'Review delivery expectations before you place an order.',
-    href: '/pages/policies/shipping-and-delivery-policy',
+    href: '/pages/shipping-and-delivery-policy',
   },
   {
     title: 'Returns Policy',
     description: 'Check return and replacement guidance for ordered items.',
-    href: '/pages/policies/return-and-refund-policy',
+    href: '/pages/return-and-refund-policy',
   },
   {
     title: 'Start Order',
@@ -354,8 +354,8 @@ export const homeUserReviews: HomeReviewEntry[] = [
   {
     buyerName: 'Sana',
     city: 'Sialkot',
-    product: 'Phone (3) Privacy Sheet',
-    comment: 'The privacy effect works well, while screen clarity still feels balanced.',
+    product: 'Phone (3) Protector',
+    comment: 'The fit works well, while screen clarity still feels balanced.',
   },
   {
     buyerName: 'Ali',
@@ -545,7 +545,7 @@ export const homeFaqCategories: HomeFaqCategory[] = [
       {
         question: 'Does Nothing Pakistan offer screen protection options?',
         answer:
-          'Yes, the store includes privacy sheets, UV protectors, and standard protectors for supported phones.',
+          'Yes, the store includes UV protectors, jelly sheets, and standard protectors for supported phones.',
       },
       {
         question: 'Can I browse all products in one place?',

@@ -22,7 +22,14 @@ import {
 import { companyIdentifier, companyLegalName } from '@/lib/data/company'
 import { siteBrandName, siteKeywords } from '@/lib/data/site-content'
 import type { Product } from '@/lib/models/catalog'
-import type { ProductDetail, ProductDetailFaq, ProductDetailMedia, ProductDetailReview } from '@/lib/models/product-detail'
+import type {
+  ProductDetail,
+  ProductDetailFaq,
+  ProductDetailMedia,
+  ProductDetailReview,
+  ProductDetailSpecGroup,
+  ProductFeatureSection,
+} from '@/lib/models/product-detail'
 import { buildAbsoluteUrl, buildBreadcrumbStructuredData, buildFaqStructuredData, buildRobotsMetadata, buildSeoKeywords, toSeoHandle } from '@/lib/utils/seo'
 
 const detailFont = localFont({
@@ -419,6 +426,221 @@ function EstimatedDeliveryPanel({ deliveryTimeline }: { deliveryTimeline: Return
   )
 }
 
+function SpecsMarkIcon() {
+  const dots = [
+    [2, 8],
+    [6, 8],
+    [10, 8],
+    [14, 8],
+    [18, 8],
+    [22, 8],
+    [26, 8],
+    [6, 12],
+    [10, 12],
+    [14, 12],
+    [18, 12],
+    [22, 12],
+    [10, 16],
+    [14, 16],
+    [18, 16],
+    [14, 20],
+  ]
+
+  return (
+    <svg width="34" height="28" viewBox="0 0 34 28" fill="none" aria-hidden="true">
+      {dots.map(([cx, cy]) => (
+        <circle key={`${cx}-${cy}`} cx={cx} cy={cy} r="1.85" fill="currentColor" />
+      ))}
+      <circle cx="6" cy="4" r="1.85" fill="currentColor" />
+      <circle cx="6" cy="20" r="1.85" fill="currentColor" />
+    </svg>
+  )
+}
+
+function ProductSpecGroupsSection({ groups }: { groups: ProductDetailSpecGroup[] }) {
+  if (groups.length === 0) {
+    return null
+  }
+
+  return (
+    <section className="overflow-hidden rounded-[28px] bg-[#f1f1ee] px-4 py-10 text-black sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-[1180px]">
+        <div className="flex flex-col items-center text-center">
+          <div className="flex h-[112px] w-[112px] flex-col items-center justify-center rounded-[18px] bg-white text-black shadow-[0_18px_60px_rgba(17,17,17,0.06)]">
+            <SpecsMarkIcon />
+            <span className="mt-3 text-[13px] leading-none text-black/82">Specs</span>
+          </div>
+        </div>
+
+        <div className="mt-8 grid gap-3 lg:grid-cols-2">
+          {groups.map((group) => (
+            <DetailAccordion key={group.id} title={group.title} defaultOpen={group.defaultOpen}>
+              <div className="space-y-4">
+                {group.subtitle ? <p>{group.subtitle}</p> : null}
+                {group.mediaUrl ? (
+                  <div className="relative overflow-hidden rounded-[8px] border border-slate-100 bg-slate-50">
+                    <Image
+                      src={group.mediaUrl}
+                      alt={group.mediaAlt || group.title}
+                      width={900}
+                      height={650}
+                      loading="lazy"
+                      fetchPriority="low"
+                      sizes="(max-width: 768px) 100vw, 900px"
+                      className="h-auto w-full object-contain"
+                    />
+                  </div>
+                ) : null}
+                {group.specs.length > 0 ? (
+                  <dl className="divide-y divide-slate-200 rounded-[14px] border border-slate-200 bg-white">
+                    {group.specs.map((spec) => (
+                      <div key={spec.id} className="grid gap-1 px-4 py-3 sm:grid-cols-[180px_minmax(0,1fr)] sm:gap-5">
+                        <dt className="font-medium text-slate-900">{spec.label}</dt>
+                        <dd>{spec.value}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                ) : null}
+              </div>
+            </DetailAccordion>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function FeatureMedia({
+  imageUrl,
+  videoUrl,
+  thumbnailUrl,
+  title,
+  className = '',
+}: {
+  imageUrl?: string | null
+  videoUrl?: string | null
+  thumbnailUrl?: string | null
+  title: string
+  className?: string
+}) {
+  if (videoUrl) {
+    return (
+      <video
+        className={`h-full w-full object-cover ${className}`}
+        src={videoUrl}
+        poster={thumbnailUrl || imageUrl || undefined}
+        aria-label={title}
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="metadata"
+      />
+    )
+  }
+
+  if (imageUrl) {
+    return (
+      <Image
+        src={imageUrl}
+        alt={title}
+        fill
+        loading="lazy"
+        fetchPriority="low"
+        sizes="(max-width: 768px) 92vw, 980px"
+        className={`object-cover ${className}`}
+      />
+    )
+  }
+
+  if (thumbnailUrl) {
+    return (
+      <Image
+        src={thumbnailUrl}
+        alt={title}
+        fill
+        loading="lazy"
+        fetchPriority="low"
+        sizes="(max-width: 768px) 92vw, 980px"
+        className={`object-cover ${className}`}
+      />
+    )
+  }
+
+  return <div className="flex h-full w-full items-center justify-center bg-white text-sm text-black/40">{title}</div>
+}
+
+function ProductFeatureSectionsSection({ sections }: { sections: ProductFeatureSection[] }) {
+  if (sections.length === 0) {
+    return null
+  }
+
+  return (
+    <div className="space-y-8">
+      {sections.map((section) => {
+        const coverSlide = section.slides[0]
+        const coverImageUrl = section.coverImageUrl || coverSlide?.imageUrl || coverSlide?.thumbnailUrl || null
+        const coverVideoUrl = section.coverVideoUrl || coverSlide?.videoUrl || null
+        const coverThumbnailUrl = section.coverThumbnailUrl || coverSlide?.thumbnailUrl || coverSlide?.imageUrl || null
+
+        return (
+          <section key={section.id} className="overflow-hidden rounded-[28px] bg-[#f3f3f1] px-4 py-10 text-black sm:px-6 lg:px-8 lg:py-14">
+            <div className="mx-auto max-w-[1180px]">
+              <div className="text-center">
+                <p
+                  className="text-[13px] font-normal uppercase leading-none tracking-[0.18em] text-black"
+                  style={{ fontFamily: 'var(--font-ndot55-caps), sans-serif' }}
+                >
+                  {section.featureTitle}
+                  {section.featureVersion ? ` ${section.featureVersion}` : ''}
+                </p>
+                <h2 className="mx-auto mt-5 max-w-2xl text-[2.15rem] leading-[1.02] text-black sm:text-[3rem]">
+                  {section.title}
+                </h2>
+              </div>
+
+              {coverImageUrl || coverVideoUrl || coverThumbnailUrl ? (
+                <div className="relative mx-auto mt-8 aspect-[16/10] max-w-[920px] overflow-hidden rounded-[16px] bg-white shadow-[0_22px_80px_rgba(17,17,17,0.08)] sm:aspect-[16/9]">
+                  <FeatureMedia
+                    imageUrl={coverImageUrl}
+                    videoUrl={coverVideoUrl}
+                    thumbnailUrl={coverThumbnailUrl}
+                    title={section.title}
+                  />
+                </div>
+              ) : null}
+
+              {section.slides.length > 0 ? (
+                <div className="mt-8 flex snap-x gap-4 overflow-x-auto pb-4 [scrollbar-width:thin]">
+                  {section.slides.map((slide) => (
+                    <article
+                      key={slide.id}
+                      className="min-w-[82%] snap-start overflow-hidden rounded-[16px] bg-white shadow-[0_18px_54px_rgba(17,17,17,0.06)] sm:min-w-[380px] lg:min-w-[420px]"
+                    >
+                      <div className="relative aspect-[4/3] bg-[#eeeeea]">
+                        <FeatureMedia
+                          imageUrl={slide.imageUrl}
+                          videoUrl={slide.videoUrl}
+                          thumbnailUrl={slide.thumbnailUrl}
+                          title={slide.title}
+                        />
+                      </div>
+                      <div className="px-5 py-5 sm:px-6 sm:py-6">
+                        <h3 className="text-[1.5rem] leading-tight text-black">{slide.title}</h3>
+                        {slide.body ? <p className="mt-4 text-sm leading-7 text-black/68">{slide.body}</p> : null}
+                      </div>
+                    </article>
+                  ))}
+                </div>
+              ) : null}
+            </div>
+          </section>
+        )
+      })}
+    </div>
+  )
+}
+
 function ProductDetailInfoSection({
   detailParagraphs,
   deliveryTimeline,
@@ -520,11 +742,15 @@ function PhoneAccessoriesHero({
   gallery,
   intro,
   deliveryTimeline,
+  specGroups,
+  featureSections,
 }: {
   productDetail: ProductDetail
   gallery: ProductDetailMedia[]
   intro: string | null
   deliveryTimeline: ReturnType<typeof getProductDeliveryTimeline>
+  specGroups: ProductDetailSpecGroup[]
+  featureSections: ProductFeatureSection[]
 }) {
   const labels = [...new Set([productDetail.variants[0]?.label, ...productDetail.widgets.map((item) => item.text)].filter(Boolean))].slice(0, 4)
 
@@ -540,6 +766,8 @@ function PhoneAccessoriesHero({
       canonicalHandle={productDetail.handle}
       labels={labels}
       deliveryTimeline={deliveryTimeline}
+      specGroups={specGroups}
+      featureSections={featureSections}
     />
   )
 }
@@ -551,6 +779,8 @@ function PrimaryCatalogPanel({
   gallery,
   intro,
   deliveryTimeline,
+  specGroups,
+  featureSections,
 }: {
   productDetail: ProductDetail
   canonicalHandle: string
@@ -558,6 +788,8 @@ function PrimaryCatalogPanel({
   gallery: ProductDetailMedia[]
   intro: string | null
   deliveryTimeline: ReturnType<typeof getProductDeliveryTimeline>
+  specGroups: ProductDetailSpecGroup[]
+  featureSections: ProductFeatureSection[]
 }) {
   return (
     <ProductDetailHero
@@ -571,6 +803,8 @@ function PrimaryCatalogPanel({
       canonicalHandle={canonicalHandle}
       labels={productDetail.widgets.map((item) => item.text)}
       deliveryTimeline={deliveryTimeline}
+      specGroups={specGroups}
+      featureSections={featureSections}
     />
   )
 }
@@ -654,6 +888,8 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
   const breadcrumbItems = buildProductBreadcrumbs(productDetail)
   const collectionLabel = productDetail.collections[0]?.title ?? (productDetail.entityType === 'mobile' ? 'Phones' : 'Catalog')
   const deliveryTimeline = getProductDeliveryTimeline()
+  const specGroups = productDetail.specGroups ?? []
+  const productFeatureSections = productDetail.productFeatureSections ?? []
 
   if (productDetail.entityType === 'mobile') {
     const mobileAccessoryGroups = await getMobileAccessoryGroupsByHandle(canonicalHandle)
@@ -698,7 +934,21 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
             gallery={gallery}
             intro={productDetail.summary ?? detailParagraphs[0] ?? null}
             deliveryTimeline={deliveryTimeline}
+            specGroups={specGroups}
+            featureSections={productFeatureSections}
           />
+
+          {!usesImmersiveHero ? (
+            <div className="mt-6">
+              <ProductSpecGroupsSection groups={specGroups} />
+            </div>
+          ) : null}
+
+          {!usesImmersiveHero && productFeatureSections.length > 0 ? (
+            <div className={usesImmersiveHero ? 'mx-auto mt-10 max-w-[1180px] px-1 sm:px-2 lg:px-4' : 'mt-6'}>
+              <ProductFeatureSectionsSection sections={productFeatureSections} />
+            </div>
+          ) : null}
 
           {usesImmersiveHero ? (
             <ProductDetailInfoSection
@@ -790,9 +1040,11 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
           gallery={gallery}
           intro={productDetail.summary ?? detailParagraphs[0] ?? null}
           deliveryTimeline={deliveryTimeline}
+          specGroups={specGroups}
+          featureSections={productFeatureSections}
         />
 
-          {usesImmersiveHero ? (
+        {usesImmersiveHero ? (
           <ProductDetailInfoSection
             detailParagraphs={detailParagraphs}
             deliveryTimeline={deliveryTimeline}
@@ -800,6 +1052,8 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
           />
         ) : (
         <div className="mt-6 grid gap-6">
+          <ProductSpecGroupsSection groups={specGroups} />
+
           <SectionCard title="Product Details">
             <div className="space-y-3">
               <DetailAccordion title="Overview">
@@ -820,6 +1074,8 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
               </DetailAccordion>
             </div>
           </SectionCard>
+
+          <ProductFeatureSectionsSection sections={productFeatureSections} />
 
           <SectionCard title="Delivery & Returns">
             <div className="space-y-3">

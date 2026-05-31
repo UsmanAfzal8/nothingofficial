@@ -1,0 +1,204 @@
+{
+  "generated_at": "2026-05-24T15:13:28.395Z",
+  "source": "supabase",
+  "summary": {
+    "mobiles": 13,
+    "products": 60,
+    "catalog_rows": 73,
+    "included_rows": 23,
+    "rows_with_specs": 23,
+    "rows_without_specs": 50,
+    "rows_with_product_feature_sections": 20,
+    "rows_without_product_feature_sections": 53,
+    "spec_groups": 244,
+    "spec_group_items": 1496,
+    "product_feature_sections": 20,
+    "product_feature_slides": 99
+  },
+  "rows": [
+    {
+      "related_type": "mobile",
+      "related_id": 10,
+      "name": "CMF Phone 2 Pro",
+      "slug": "cmf-phone-2-pro",
+      "has_specs": true,
+      "has_product_feature_sections": true
+    },
+    {
+      "related_type": "mobile",
+      "related_id": 3,
+      "name": "Nothing 4a Pro",
+      "slug": "nothing-4a-pro",
+      "has_specs": true,
+      "has_product_feature_sections": true
+    },
+    {
+      "related_type": "mobile",
+      "related_id": 5,
+      "name": "Phone (3)",
+      "slug": "phone-3",
+      "has_specs": true,
+      "has_product_feature_sections": true
+    },
+    {
+      "related_type": "mobile",
+      "related_id": 8,
+      "name": "Phone (3a)",
+      "slug": "phone-3a",
+      "has_specs": true,
+      "has_product_feature_sections": true
+    },
+    {
+      "related_type": "mobile",
+      "related_id": 9,
+      "name": "Phone (3a) Community Edition",
+      "slug": "phone-3a-community-edition",
+      "has_specs": true,
+      "has_product_feature_sections": true
+    },
+    {
+      "related_type": "mobile",
+      "related_id": 6,
+      "name": "Phone (3a) Lite",
+      "slug": "phone-3a-lite",
+      "has_specs": true,
+      "has_product_feature_sections": true
+    },
+    {
+      "related_type": "mobile",
+      "related_id": 7,
+      "name": "Phone (3a) Pro",
+      "slug": "phone-3a-pro",
+      "has_specs": true,
+      "has_product_feature_sections": true
+    },
+    {
+      "related_type": "mobile",
+      "related_id": 4,
+      "name": "Phone (4a)",
+      "slug": "phone-4a",
+      "has_specs": true,
+      "has_product_feature_sections": true
+    },
+    {
+      "related_type": "product",
+      "related_id": 10,
+      "name": "CMF Buds 2",
+      "slug": "cmf-buds-2",
+      "has_specs": true,
+      "has_product_feature_sections": true
+    },
+    {
+      "related_type": "product",
+      "related_id": 8,
+      "name": "CMF Buds 2 Plus",
+      "slug": "cmf-buds-2-plus",
+      "has_specs": true,
+      "has_product_feature_sections": true
+    },
+    {
+      "related_type": "product",
+      "related_id": 9,
+      "name": "CMF Buds 2a",
+      "slug": "cmf-buds-2a",
+      "has_specs": true,
+      "has_product_feature_sections": true
+    },
+    {
+      "related_type": "product",
+      "related_id": 11,
+      "name": "CMF Buds Pro 2",
+      "slug": "cmf-buds-pro-2",
+      "has_specs": true,
+      "has_product_feature_sections": true
+    },
+    {
+      "related_type": "product",
+      "related_id": 41,
+      "name": "CMF Headphone Pro",
+      "slug": "cmf-headphone-pro",
+      "has_specs": true,
+      "has_product_feature_sections": true
+    },
+    {
+      "related_type": "product",
+      "related_id": 2,
+      "name": "CMF Power 100W GaN",
+      "slug": "cmf-power-100w-gan",
+      "has_specs": true,
+      "has_product_feature_sections": false
+    },
+    {
+      "related_type": "product",
+      "related_id": 1,
+      "name": "CMF Power 140W GaN",
+      "slug": "cmf-power-140w-gan",
+      "has_specs": true,
+      "has_product_feature_sections": false
+    },
+    {
+      "related_type": "product",
+      "related_id": 3,
+      "name": "CMF Power 65W GaN",
+      "slug": "cmf-power-65w-gan",
+      "has_specs": true,
+      "has_product_feature_sections": false
+    },
+    {
+      "related_type": "product",
+      "related_id": 42,
+      "name": "CMF Watch 3 Pro",
+      "slug": "cmf-watch-3-pro",
+      "has_specs": true,
+      "has_product_feature_sections": true
+    },
+    {
+      "related_type": "product",
+      "related_id": 5,
+      "name": "Ear",
+      "slug": "ear",
+      "has_specs": true,
+      "has_product_feature_sections": true
+    },
+    {
+      "related_type": "product",
+      "related_id": 4,
+      "name": "Ear (3)",
+      "slug": "ear-3",
+      "has_specs": true,
+      "has_product_feature_sections": true
+    },
+    {
+      "related_type": "product",
+      "related_id": 6,
+      "name": "Ear (a)",
+      "slug": "ear-a",
+      "has_specs": true,
+      "has_product_feature_sections": true
+    },
+    {
+      "related_type": "product",
+      "related_id": 7,
+      "name": "Ear (open)",
+      "slug": "ear-open",
+      "has_specs": true,
+      "has_product_feature_sections": true
+    },
+    {
+      "related_type": "product",
+      "related_id": 43,
+      "name": "Headphone (1)",
+      "slug": "headphone-1",
+      "has_specs": true,
+      "has_product_feature_sections": true
+    },
+    {
+      "related_type": "product",
+      "related_id": 44,
+      "name": "Headphone (a)",
+      "slug": "headphone-a",
+      "has_specs": true,
+      "has_product_feature_sections": true
+    }
+  ]
+}

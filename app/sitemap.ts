@@ -2,6 +2,7 @@ import type { MetadataRoute } from 'next'
 import { getCollectionSitemapEntries, getProductSitemapEntries } from '@/lib/data/catalog-repository'
 import { blogPosts } from '@/lib/data/blog'
 import { allPolicies } from '@/lib/data/policies'
+import { supportPageSlugs } from '@/lib/data/support-pages'
 import { buildAbsoluteUrl, getLastModifiedDate } from '@/lib/utils/seo'
 
 type SitemapItem = MetadataRoute.Sitemap[number]
@@ -61,8 +62,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: buildAbsoluteUrl('/llms.txt'), lastModified: latestCatalogDate, changeFrequency: 'monthly', priority: 0.3 },
   ]
 
+  const supportRoutes: MetadataRoute.Sitemap = supportPageSlugs.map((slug) => ({
+    url: buildAbsoluteUrl(`/support-centre/${slug}`),
+    lastModified: latestCatalogDate,
+    changeFrequency: 'monthly',
+    priority: 0.66,
+  }))
+
   const policyRoutes: MetadataRoute.Sitemap = allPolicies.map((policy) => ({
-    url: buildAbsoluteUrl(`/pages/policies/${policy.slug}`),
+    url: buildAbsoluteUrl(`/pages/${policy.slug}`),
     lastModified: latestCatalogDate,
     changeFrequency: 'yearly',
     priority: 0.4,
@@ -89,5 +97,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: productPriority(entry),
   }))
 
-  return uniqueRoutes([...staticRoutes, ...policyRoutes, ...collectionRoutes, ...productRoutes, ...blogRoutes])
+  return uniqueRoutes([...staticRoutes, ...supportRoutes, ...policyRoutes, ...collectionRoutes, ...productRoutes, ...blogRoutes])
 }

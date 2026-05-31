@@ -40,8 +40,52 @@ export interface ProductDetailRelatedItem {
 
 export interface ProductDetailSpec {
   id: string
+  section?: string | null
   label: string
   value: string
+}
+
+export interface ProductDetailSpecGroup {
+  id: string
+  title: string
+  subtitle?: string | null
+  iconKey?: string | null
+  mediaUrl?: string | null
+  mediaAlt?: string | null
+  mediaType?: string | null
+  mediaPosition?: string | null
+  defaultOpen: boolean
+  sortOrder: number
+  specs: ProductDetailSpec[]
+}
+
+export interface ProductFeatureSlide {
+  id: string
+  sourceKey?: string | null
+  title: string
+  body?: string | null
+  mediaType: 'image' | 'video'
+  imageUrl?: string | null
+  videoPlaybackId?: string | null
+  videoUrl?: string | null
+  thumbnailUrl?: string | null
+  sortOrder: number
+}
+
+export interface ProductFeatureSection {
+  id: string
+  sourceKey?: string | null
+  featureKey: string
+  featureTitle: string
+  featureVersion?: string | null
+  title: string
+  displayContext: 'mobile' | 'desktop' | 'all'
+  coverImageUrl?: string | null
+  coverVideoPlaybackId?: string | null
+  coverVideoUrl?: string | null
+  coverThumbnailUrl?: string | null
+  sortOrder: number
+  slides: ProductFeatureSlide[]
 }
 
 export interface ProductDetailReview {
@@ -100,6 +144,8 @@ export interface ProductDetail {
   createdAt?: string | null
   updatedAt?: string | null
   specs?: ProductDetailSpec[]
+  specGroups?: ProductDetailSpecGroup[]
+  productFeatureSections?: ProductFeatureSection[]
   faqs?: ProductDetailFaq[]
   reviews?: ProductDetailReview[]
   relatedMobiles?: ProductDetailRelatedItem[]

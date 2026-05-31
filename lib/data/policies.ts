@@ -443,7 +443,7 @@ export function getPolicyBySlug(slug: string): PolicyDocument | undefined {
 }
 
 export function getPolicyCanonical(slug: PolicySlug): string {
-  return buildAbsoluteUrl(`/pages/policies/${slug}`)
+  return buildAbsoluteUrl(`/pages/${slug}`)
 }
 
 export const allPolicies = policies

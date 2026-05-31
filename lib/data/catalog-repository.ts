@@ -7,10 +7,12 @@ import type {
   ProductDetailBreadcrumbItem,
   ProductDetailCollection,
   ProductDetailFaq,
+  ProductFeatureSection,
   ProductDetailMedia,
   ProductDetailRelatedItem,
   ProductDetailReview,
   ProductDetailSpec,
+  ProductDetailSpecGroup,
   ProductDetailVariant,
   ProductDetailWidget,
 } from '@/lib/models/product-detail'
@@ -23,9 +25,13 @@ import type {
   SupabaseFaqRow,
   SupabaseImageRow,
   SupabaseMobileRow,
+  SupabaseProductFeatureSectionRow,
+  SupabaseProductFeatureSlideRow,
   SupabaseProductMobileRow,
   SupabaseProductRow,
   SupabaseReviewRow,
+  SupabaseSpecGroupItemRow,
+  SupabaseSpecGroupRow,
 } from '@/lib/models/supabase-store'
 import { DETAIL_IMAGE_RELATED_TYPE_ENUM, STORE_RELATED_TYPE_ENUM } from '@/lib/models/supabase-enums'
 import type { ProductType } from '@/lib/models/supabase-enums'
@@ -74,6 +80,10 @@ type CatalogSnapshot = {
   productMobiles: SupabaseProductMobileRow[]
   images: SupabaseImageRow[]
   faqs: SupabaseFaqRow[]
+  specGroups: SupabaseSpecGroupRow[]
+  specGroupItems: SupabaseSpecGroupItemRow[]
+  productFeatureSections: SupabaseProductFeatureSectionRow[]
+  productFeatureSlides: SupabaseProductFeatureSlideRow[]
   reviews: SupabaseReviewRow[]
   colorsById: Map<number, SupabaseColorRow>
   productsById: Map<number, SupabaseProductRow>
@@ -91,6 +101,10 @@ type CatalogSnapshot = {
   productIdsByMobileId: Map<number, number[]>
   imagesByEntryKey: Map<string, SupabaseImageRow[]>
   faqsByEntryKey: Map<string, SupabaseFaqRow[]>
+  specGroupsByEntryKey: Map<string, SupabaseSpecGroupRow[]>
+  specGroupItemsByGroupId: Map<number, SupabaseSpecGroupItemRow[]>
+  productFeatureSectionsByEntryKey: Map<string, SupabaseProductFeatureSectionRow[]>
+  productFeatureSlidesBySectionId: Map<number, SupabaseProductFeatureSlideRow[]>
   reviewsByProductId: Map<number, SupabaseReviewRow[]>
 }
 
@@ -102,6 +116,10 @@ type CatalogSnapshotPayload = {
   productMobiles: SupabaseProductMobileRow[]
   images: SupabaseImageRow[]
   faqs: SupabaseFaqRow[]
+  specGroups: SupabaseSpecGroupRow[]
+  specGroupItems: SupabaseSpecGroupItemRow[]
+  productFeatureSections: SupabaseProductFeatureSectionRow[]
+  productFeatureSlides: SupabaseProductFeatureSlideRow[]
   reviews: SupabaseReviewRow[]
   colors: SupabaseColorRow[]
 }
@@ -193,6 +211,31 @@ const PRODUCT_TYPE_SEARCH_LABELS: Record<ProductType, string[]> = {
 
 const ACCESSORY_COLLECTION_PRODUCT_TYPES = new Set<ProductType>(['charger', 'data_cable', 'protector', 'covers', 'screen_protector'])
 const ACCESSORY_COLLECTION_CATEGORY_SLUGS = new Set(['chargers', 'cables', 'phone-cases', 'phone-protectors', 'protectors'])
+const SUPABASE_PAGE_SIZE = 1000
+
+async function fetchPagedSupabaseRows<T>(
+  queryPage: (from: number, to: number) => PromiseLike<{ data: T[] | null; error: { message: string } | null }>,
+): Promise<{ data: T[]; error: { message: string } | null }> {
+  const rows: T[] = []
+
+  for (let from = 0; ; from += SUPABASE_PAGE_SIZE) {
+    const to = from + SUPABASE_PAGE_SIZE - 1
+    const response = await queryPage(from, to)
+
+    if (response.error) {
+      return { data: [], error: response.error }
+    }
+
+    const pageRows = response.data ?? []
+    rows.push(...pageRows)
+
+    if (pageRows.length < SUPABASE_PAGE_SIZE) {
+      break
+    }
+  }
+
+  return { data: rows, error: null }
+}
 
 function formatPrice(value: number | null | undefined): string | null {
   if (typeof value !== 'number' || Number.isNaN(value)) {
@@ -426,10 +469,92 @@ async function readCatalogSnapshotFromSupabase(): Promise<CatalogSnapshotPayload
       productMobiles: [],
       images: [],
       faqs: [],
+      specGroups: [],
+      specGroupItems: [],
+      productFeatureSections: [],
+      productFeatureSlides: [],
       reviews: [],
       colors: [],
     }
   }
+
+  const specGroupsPromise = supabase
+    .from('spec_groups')
+    .select(
+      'id, related_type, related_id, title, subtitle, icon_key, media_url, media_alt, media_type, media_position, default_open, sort_order, created_at, updated_at',
+    )
+    .in('related_type', [...STORE_RELATED_TYPE_ENUM])
+    .order('sort_order', { ascending: true })
+    .then((response) => {
+      if (response.error) {
+        console.warn('[catalog-repository] spec_groups unavailable:', response.error.message)
+        return { data: [] as SupabaseSpecGroupRow[], error: null }
+      }
+
+      return {
+        data: (response.data ?? []) as SupabaseSpecGroupRow[],
+        error: null,
+      }
+    })
+
+  const specGroupItemsPromise = fetchPagedSupabaseRows<SupabaseSpecGroupItemRow>((from, to) =>
+    supabase
+      .from('spec_group_items')
+      .select('id, spec_group_id, section, label, value, sort_order, created_at, updated_at')
+      .order('spec_group_id', { ascending: true })
+      .order('sort_order', { ascending: true })
+      .range(from, to),
+  )
+    .then((response) => {
+      if (response.error) {
+        console.warn('[catalog-repository] spec_group_items unavailable:', response.error.message)
+        return { data: [] as SupabaseSpecGroupItemRow[], error: null }
+      }
+
+      return {
+        data: (response.data ?? []) as SupabaseSpecGroupItemRow[],
+        error: null,
+      }
+    })
+
+  const productFeatureSectionsPromise = supabase
+    .from('product_feature_sections')
+    .select(
+      'id, related_type, related_id, source_key, feature_key, feature_title, feature_version, title, display_context, cover_image_url, cover_video_playback_id, cover_video_url, cover_thumbnail_url, sort_order, active, created_at, updated_at',
+    )
+    .in('related_type', [...STORE_RELATED_TYPE_ENUM])
+    .eq('active', true)
+    .order('sort_order', { ascending: true })
+    .then((response) => {
+      if (response.error) {
+        console.warn('[catalog-repository] product_feature_sections unavailable:', response.error.message)
+        return { data: [] as SupabaseProductFeatureSectionRow[], error: null }
+      }
+
+      return {
+        data: (response.data ?? []) as SupabaseProductFeatureSectionRow[],
+        error: null,
+      }
+    })
+
+  const productFeatureSlidesPromise = supabase
+    .from('product_feature_slides')
+    .select(
+      'id, product_feature_section_id, source_key, title, body, media_type, image_url, video_playback_id, video_url, thumbnail_url, sort_order, active, created_at, updated_at',
+    )
+    .eq('active', true)
+    .order('sort_order', { ascending: true })
+    .then((response) => {
+      if (response.error) {
+        console.warn('[catalog-repository] product_feature_slides unavailable:', response.error.message)
+        return { data: [] as SupabaseProductFeatureSlideRow[], error: null }
+      }
+
+      return {
+        data: (response.data ?? []) as SupabaseProductFeatureSlideRow[],
+        error: null,
+      }
+    })
 
   const [
     productsResponse,
@@ -438,6 +563,10 @@ async function readCatalogSnapshotFromSupabase(): Promise<CatalogSnapshotPayload
     categoryRelationsResponse,
     imagesResponse,
     faqsResponse,
+    specGroupsResponse,
+    specGroupItemsResponse,
+    productFeatureSectionsResponse,
+    productFeatureSlidesResponse,
     reviewsResponse,
     colorsResponse,
     productMobilesResponse,
@@ -471,6 +600,10 @@ async function readCatalogSnapshotFromSupabase(): Promise<CatalogSnapshotPayload
       .from('faqs')
       .select('id, related_type, related_id, question, answer, created_at, updated_at')
       .in('related_type', [...STORE_RELATED_TYPE_ENUM]),
+    specGroupsPromise,
+    specGroupItemsPromise,
+    productFeatureSectionsPromise,
+    productFeatureSlidesPromise,
     supabase
       .from('reviews')
       .select('id, product_id, user_name, rating, comment, created_at, updated_at')
@@ -486,6 +619,10 @@ async function readCatalogSnapshotFromSupabase(): Promise<CatalogSnapshotPayload
     categoryRelationsResponse,
     imagesResponse,
     faqsResponse,
+    specGroupsResponse,
+    specGroupItemsResponse,
+    productFeatureSectionsResponse,
+    productFeatureSlidesResponse,
     reviewsResponse,
     colorsResponse,
     productMobilesResponse,
@@ -503,6 +640,10 @@ async function readCatalogSnapshotFromSupabase(): Promise<CatalogSnapshotPayload
       productMobiles: [],
       images: [],
       faqs: [],
+      specGroups: [],
+      specGroupItems: [],
+      productFeatureSections: [],
+      productFeatureSlides: [],
       reviews: [],
       colors: [],
     }
@@ -514,6 +655,10 @@ async function readCatalogSnapshotFromSupabase(): Promise<CatalogSnapshotPayload
   const categoryRelations = (categoryRelationsResponse.data ?? []) as SupabaseCategoryRelationRow[]
   const images = (imagesResponse.data ?? []) as SupabaseImageRow[]
   const faqs = (faqsResponse.data ?? []) as SupabaseFaqRow[]
+  const specGroups = (specGroupsResponse.data ?? []) as SupabaseSpecGroupRow[]
+  const specGroupItems = (specGroupItemsResponse.data ?? []) as SupabaseSpecGroupItemRow[]
+  const productFeatureSections = (productFeatureSectionsResponse.data ?? []) as SupabaseProductFeatureSectionRow[]
+  const productFeatureSlides = (productFeatureSlidesResponse.data ?? []) as SupabaseProductFeatureSlideRow[]
   const reviews = (reviewsResponse.data ?? []) as SupabaseReviewRow[]
   const colors = (colorsResponse.data ?? []) as SupabaseColorRow[]
   const productMobiles = (productMobilesResponse.data ?? []) as SupabaseProductMobileRow[]
@@ -526,13 +671,31 @@ async function readCatalogSnapshotFromSupabase(): Promise<CatalogSnapshotPayload
     productMobiles,
     images,
     faqs,
+    specGroups,
+    specGroupItems,
+    productFeatureSections,
+    productFeatureSlides,
     reviews,
     colors,
   }
 }
 
 function buildCatalogSnapshot(payload: CatalogSnapshotPayload): CatalogSnapshot {
-  const { products, mobiles, categories, categoryRelations, productMobiles, images, faqs, reviews, colors } = payload
+  const {
+    products,
+    mobiles,
+    categories,
+    categoryRelations,
+    productMobiles,
+    images,
+    faqs,
+    specGroups,
+    specGroupItems,
+    productFeatureSections,
+    productFeatureSlides,
+    reviews,
+    colors,
+  } = payload
   const colorsById = new Map(colors.map((row) => [row.id, row]))
   const productsById = new Map(products.map((row) => [row.id, row]))
   const productsBySlug = new Map(products.map((row) => [row.slug, row]))
@@ -548,6 +711,8 @@ function buildCatalogSnapshot(payload: CatalogSnapshotPayload): CatalogSnapshot 
   const mobileIdsByProductId = new Map<number, number[]>()
   const productIdsByMobileId = new Map<number, number[]>()
   const reviewsByProductId = new Map<number, SupabaseReviewRow[]>()
+  const specGroupItemsByGroupId = new Map<number, SupabaseSpecGroupItemRow[]>()
+  const productFeatureSlidesBySectionId = new Map<number, SupabaseProductFeatureSlideRow[]>()
 
   for (const category of categories) {
     const siblings = childCategoriesByParentId.get(category.parent_id ?? null) ?? []
@@ -595,6 +760,18 @@ function buildCatalogSnapshot(payload: CatalogSnapshotPayload): CatalogSnapshot 
     reviewsByProductId.set(review.product_id, productReviews)
   }
 
+  for (const item of specGroupItems) {
+    const groupItems = specGroupItemsByGroupId.get(item.spec_group_id) ?? []
+    groupItems.push(item)
+    specGroupItemsByGroupId.set(item.spec_group_id, groupItems)
+  }
+
+  for (const slide of productFeatureSlides) {
+    const sectionSlides = productFeatureSlidesBySectionId.get(slide.product_feature_section_id) ?? []
+    sectionSlides.push(slide)
+    productFeatureSlidesBySectionId.set(slide.product_feature_section_id, sectionSlides)
+  }
+
   return {
     products,
     mobiles,
@@ -603,6 +780,10 @@ function buildCatalogSnapshot(payload: CatalogSnapshotPayload): CatalogSnapshot 
     productMobiles,
     images,
     faqs,
+    specGroups,
+    specGroupItems,
+    productFeatureSections,
+    productFeatureSlides,
     reviews,
     colorsById,
     productsById,
@@ -620,15 +801,22 @@ function buildCatalogSnapshot(payload: CatalogSnapshotPayload): CatalogSnapshot 
     productIdsByMobileId,
     imagesByEntryKey: groupByEntry(images as Array<SupabaseImageRow & { related_type: StoreImageRelatedType }>),
     faqsByEntryKey: groupByEntry(faqs as Array<SupabaseFaqRow & { related_type: StoreRelatedType }>),
+    specGroupsByEntryKey: groupByEntry(specGroups as Array<SupabaseSpecGroupRow & { related_type: StoreRelatedType }>),
+    specGroupItemsByGroupId,
+    productFeatureSectionsByEntryKey: groupByEntry(productFeatureSections as Array<SupabaseProductFeatureSectionRow & { related_type: StoreRelatedType }>),
+    productFeatureSlidesBySectionId,
     reviewsByProductId,
   }
 }
 
 export const CATALOG_REVALIDATE_SECONDS = 10
 
-const readCatalogSnapshotPayload = unstable_cache(readCatalogSnapshotFromSupabase, ['catalog-snapshot'], {
+const readCachedCatalogSnapshotPayload = unstable_cache(readCatalogSnapshotFromSupabase, ['catalog-snapshot'], {
   revalidate: CATALOG_REVALIDATE_SECONDS,
 })
+
+const readCatalogSnapshotPayload =
+  process.env.NODE_ENV === 'development' ? readCatalogSnapshotFromSupabase : readCachedCatalogSnapshotPayload
 
 const readCatalogSnapshotForRequest = cache(readCatalogSnapshotPayload)
 
@@ -775,6 +963,22 @@ function getProductFaqs(snapshot: CatalogSnapshot, productId: number): SupabaseF
 
 function getMobileFaqs(snapshot: CatalogSnapshot, mobileId: number): SupabaseFaqRow[] {
   return snapshot.faqsByEntryKey.get(buildEntryKey('mobile', mobileId)) ?? []
+}
+
+function getProductSpecGroups(snapshot: CatalogSnapshot, productId: number): SupabaseSpecGroupRow[] {
+  return snapshot.specGroupsByEntryKey.get(buildEntryKey('product', productId)) ?? []
+}
+
+function getMobileSpecGroups(snapshot: CatalogSnapshot, mobileId: number): SupabaseSpecGroupRow[] {
+  return snapshot.specGroupsByEntryKey.get(buildEntryKey('mobile', mobileId)) ?? []
+}
+
+function getProductFeatureSections(snapshot: CatalogSnapshot, productId: number): SupabaseProductFeatureSectionRow[] {
+  return snapshot.productFeatureSectionsByEntryKey.get(buildEntryKey('product', productId)) ?? []
+}
+
+function getMobileFeatureSections(snapshot: CatalogSnapshot, mobileId: number): SupabaseProductFeatureSectionRow[] {
+  return snapshot.productFeatureSectionsByEntryKey.get(buildEntryKey('mobile', mobileId)) ?? []
 }
 
 function getProductCategories(snapshot: CatalogSnapshot, productId: number): SupabaseCategoryRow[] {
@@ -931,6 +1135,45 @@ function buildProductVariantCards(product: SupabaseProductRow, snapshot: Catalog
       image: image.url,
       variant: colorName ?? image.caption ?? image.title ?? baseCard.variant,
       colorName,
+      collectionSlugs: categories.map((category) => category.slug),
+    })
+  }
+
+  return variantCards.length > 0 ? variantCards : [baseCard]
+}
+
+function buildProductColorVariantCards(product: SupabaseProductRow, snapshot: CatalogSnapshot): Product[] {
+  const baseCard = buildProductCard(product, snapshot)
+  const images = getProductImages(snapshot, product.id)
+  const categories = getProductCategories(snapshot, product.id)
+  const colorImages = images
+    .map((image) => {
+      const color = image.color_id ? snapshot.colorsById.get(image.color_id) ?? null : null
+      return color ? { image, color } : null
+    })
+    .filter((entry): entry is { image: SupabaseImageRow; color: SupabaseColorRow } => Boolean(entry))
+  const uniqueColorIds = new Set(colorImages.map((entry) => entry.color.id))
+
+  if (uniqueColorIds.size <= 1) {
+    return [baseCard]
+  }
+
+  const seen = new Set<number>()
+  const variantCards: Product[] = []
+
+  for (const { image, color } of colorImages) {
+    if (seen.has(color.id)) {
+      continue
+    }
+
+    seen.add(color.id)
+    variantCards.push({
+      ...baseCard,
+      id: `${baseCard.id}-${color.name.toLowerCase().replace(/\s+/g, '-')}`,
+      name: baseCard.name,
+      image: image.url,
+      variant: color.name,
+      colorName: color.name,
       collectionSlugs: categories.map((category) => category.slug),
     })
   }
@@ -1215,6 +1458,98 @@ function buildDetailSpecs(
   return specs
 }
 
+function buildSpecGroups(
+  groups: SupabaseSpecGroupRow[],
+  specs: ProductDetailSpec[],
+  itemsByGroupId: Map<number, SupabaseSpecGroupItemRow[]>,
+): ProductDetailSpecGroup[] {
+  if (groups.length === 0) {
+    return specs.length > 0
+      ? [
+          {
+            id: 'spec-group-overview',
+            title: 'Specifications',
+            subtitle: null,
+            iconKey: null,
+            mediaUrl: null,
+            mediaAlt: null,
+            mediaType: 'image',
+            mediaPosition: 'top',
+            defaultOpen: true,
+            sortOrder: 0,
+            specs,
+          },
+        ]
+      : []
+  }
+
+  return groups.map((group) => {
+    const groupItems = itemsByGroupId.get(group.id) ?? []
+
+    return {
+      id: `spec-group-${group.id}`,
+      title: group.title,
+      subtitle: group.subtitle,
+      iconKey: group.icon_key,
+      mediaUrl: group.media_url,
+      mediaAlt: group.media_alt,
+      mediaType: group.media_type || 'image',
+      mediaPosition: group.media_position || 'top',
+      defaultOpen: group.default_open,
+      sortOrder: group.sort_order,
+      specs: groupItems.map((item) => ({
+        id: `spec-group-item-${item.id}`,
+        section: item.section,
+        label: item.label,
+        value: item.value,
+      })),
+    }
+  })
+}
+
+function buildProductSpecGroups(
+  groups: SupabaseSpecGroupRow[],
+  itemsByGroupId: Map<number, SupabaseSpecGroupItemRow[]>,
+): ProductDetailSpecGroup[] {
+  return buildSpecGroups(groups, [], itemsByGroupId).filter((group) => group.specs.length > 0 || group.mediaUrl)
+}
+
+function buildProductFeatureSections(
+  sections: SupabaseProductFeatureSectionRow[],
+  snapshot: CatalogSnapshot,
+): ProductFeatureSection[] {
+  return sections.map((section) => {
+    const slides = snapshot.productFeatureSlidesBySectionId.get(section.id) ?? []
+
+    return {
+      id: `product-feature-section-${section.id}`,
+      sourceKey: section.source_key,
+      featureKey: section.feature_key,
+      featureTitle: section.feature_title,
+      featureVersion: section.feature_version,
+      title: section.title,
+      displayContext: section.display_context,
+      coverImageUrl: section.cover_image_url,
+      coverVideoPlaybackId: section.cover_video_playback_id,
+      coverVideoUrl: section.cover_video_url,
+      coverThumbnailUrl: section.cover_thumbnail_url,
+      sortOrder: section.sort_order,
+      slides: slides.map((slide) => ({
+        id: `product-feature-slide-${slide.id}`,
+        sourceKey: slide.source_key,
+        title: slide.title,
+        body: slide.body,
+        mediaType: slide.media_type,
+        imageUrl: slide.image_url,
+        videoPlaybackId: slide.video_playback_id,
+        videoUrl: slide.video_url,
+        thumbnailUrl: slide.thumbnail_url,
+        sortOrder: slide.sort_order,
+      })),
+    }
+  })
+}
+
 function buildReviews(snapshot: CatalogSnapshot, productId: number): ProductDetailReview[] {
   const reviews = snapshot.reviewsByProductId.get(productId) ?? []
 
@@ -1306,7 +1641,6 @@ function buildProductDetailFromProduct(product: SupabaseProductRow, snapshot: Ca
   const collections = buildProductCollections(categories, snapshot)
   const variants = buildVariants(galleryImages, snapshot, product.slug)
   const canonicalPath = `/products/${product.slug}`
-  const mainColor = product.main_color_id ? snapshot.colorsById.get(product.main_color_id) ?? null : null
   const name = normalizeProductName(product.name)
   const reviews = buildReviews(snapshot, product.id)
   const price = product.price ?? null
@@ -1316,6 +1650,8 @@ function buildProductDetailFromProduct(product: SupabaseProductRow, snapshot: Ca
   const backgroundMedia = productBackgroundImage
     ? buildGallery(name, [productBackgroundImage], snapshot, `${name} product background`)[0] ?? null
     : null
+  const specGroups = buildProductSpecGroups(getProductSpecGroups(snapshot, product.id), snapshot.specGroupItemsByGroupId)
+  const specs = specGroups.flatMap((group) => group.specs)
 
   return {
     id: `product-${product.id}`,
@@ -1348,12 +1684,9 @@ function buildProductDetailFromProduct(product: SupabaseProductRow, snapshot: Ca
     availability: resolveAvailability(product.stock_quantity),
     createdAt: product.created_at,
     updatedAt: product.updated_at,
-    specs: buildDetailSpecs('product', collections, galleryImages, snapshot, [
-      ['Type', product.product_type ? PRODUCT_TYPE_LABELS[product.product_type] ?? product.product_type : null],
-      ['Main colour', mainColor?.name],
-      ['Stock', typeof product.stock_quantity === 'number' ? `${product.stock_quantity} units available` : null],
-      ['Updated', formatCatalogDate(product.updated_at)],
-    ]),
+    specs,
+    specGroups,
+    productFeatureSections: buildProductFeatureSections(getProductFeatureSections(snapshot, product.id), snapshot),
     faqs: buildFaqs(faqs, name, priceLabel),
     reviews,
     relatedMobiles: buildRelatedMobiles(snapshot, product.id),
@@ -1375,6 +1708,10 @@ function buildProductDetailFromMobile(mobile: SupabaseMobileRow, snapshot: Catal
   const backgroundMedia = productBackgroundImage
     ? buildGallery(mobile.name, [productBackgroundImage], snapshot, `${mobile.name} product background`)[0] ?? null
     : null
+  const specs = buildDetailSpecs('mobile', collections, galleryImages, snapshot, [
+    ['Release date', formatCatalogDate(mobile.release_date)],
+    ['Updated', formatCatalogDate(mobile.updated_at)],
+  ])
 
   return {
     id: `mobile-${mobile.id}`,
@@ -1407,10 +1744,9 @@ function buildProductDetailFromMobile(mobile: SupabaseMobileRow, snapshot: Catal
     availability: resolveAvailability(),
     createdAt: mobile.created_at,
     updatedAt: mobile.updated_at,
-    specs: buildDetailSpecs('mobile', collections, galleryImages, snapshot, [
-      ['Release date', formatCatalogDate(mobile.release_date)],
-      ['Updated', formatCatalogDate(mobile.updated_at)],
-    ]),
+    specs,
+    specGroups: buildSpecGroups(getMobileSpecGroups(snapshot, mobile.id), specs, snapshot.specGroupItemsByGroupId),
+    productFeatureSections: buildProductFeatureSections(getMobileFeatureSections(snapshot, mobile.id), snapshot),
     faqs: buildFaqs(faqs, mobile.name, formatPrice(mobile.Price)),
     reviews: [],
     relatedMobiles: [],
@@ -1682,7 +2018,7 @@ export async function getCollectionBySlug(slug: string): Promise<Collection | nu
             snapshot.products
               .filter((product) => rawProducts.some((card) => card.handle === product.slug))
               .filter((product) => isAccessoriesCollectionProduct(product, snapshot))
-              .flatMap((product) => buildProductVariantCards(product, snapshot)),
+              .flatMap((product) => buildProductColorVariantCards(product, snapshot)),
           )
       : category.slug === 'shop-all'
         ? rawProducts

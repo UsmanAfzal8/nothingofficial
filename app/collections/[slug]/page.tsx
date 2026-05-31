@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { CompanyTrustBadge } from '@/components/CompanyTrustBadge'
 import { CatalogProductTile } from '@/components/CatalogProductTile'
 import { InterTypographyScope } from '@/components/InterTypographyScope'
 import { NothingFooter } from '@/components/NothingFooter'
@@ -9,7 +8,7 @@ import { NothingHeader } from '@/components/NothingHeader'
 import { SeoStructuredData } from '@/components/SeoStructuredData'
 import { CATALOG_REVALIDATE_SECONDS, getCollectionBySlug } from '@/lib/data/catalog-repository'
 import { companyIdentifier, companyLegalName } from '@/lib/data/company'
-import { collectionSeoFaqs, siteBrandName, siteKeywords, siteTrustLinks } from '@/lib/data/site-content'
+import { collectionSeoFaqs, siteBrandName, siteKeywords } from '@/lib/data/site-content'
 import type { Collection } from '@/lib/models/catalog'
 import { buildAbsoluteUrl, buildBreadcrumbStructuredData, buildFaqStructuredData, buildRobotsMetadata, buildSeoKeywords } from '@/lib/utils/seo'
 
@@ -21,7 +20,6 @@ type CollectionPageProps = {
 
 export const revalidate = CATALOG_REVALIDATE_SECONDS
 const SHOP_STYLE_SLUGS = new Set(['shop-all', 'phones', 'chargers', 'protectors', 'earbuds', 'offers', 'audio', 'watches', 'accessories', 'cmf'])
-const COLLECTION_SUPPORT_SLUGS = new Set(['shop-all', 'phones', 'chargers', 'accessories', 'protectors', 'phone-protectors', 'earbuds', 'cmf'])
 const INDEXABLE_CONTENT_COLLECTION_SLUGS = new Set(['offers'])
 
 function uniqueProductsByHandle(products: Collection['products']) {
@@ -35,51 +33,6 @@ function uniqueProductsByHandle(products: Collection['products']) {
     seen.add(product.handle)
     return true
   })
-}
-
-function buildCollectionLongformSections(collection: Collection) {
-  const topProducts = uniqueProductsByHandle(collection.products).slice(0, 4)
-  const productNames = topProducts.map((product) => product.name)
-  const productSentence = productNames.length > 0 ? productNames.join(', ') : `${collection.title} products`
-  const childCollections = collection.childCollections?.map((item) => item.label) ?? []
-  const childSentence = childCollections.length > 0 ? childCollections.join(', ') : null
-
-  const intro = `${collection.title} on ${siteBrandName} is built for shoppers in Pakistan who want clearer product discovery, visible PKR pricing, and faster routes into support or ordering.`
-  const selection =
-    collection.products.length > 0
-      ? `This collection currently highlights products such as ${productSentence}, making it easier to compare relevant options without leaving the storefront. Each product card leads into a detail page where buyers can review price in Pakistan, images, delivery guidance, support routes, and related catalog links.`
-      : `This collection is ready for indexing and merchandising, even when products are temporarily unavailable.`
-  const buying =
-    childSentence
-      ? `Related sections such as ${childSentence} help users move from broad category discovery to the exact Nothing or CMF product type they need.`
-      : `Customers can move from this collection into product pages, support pages, and policy routes without losing context about delivery, compatibility, or ordering.`
-
-  return [
-    {
-      title: `Direct answer for ${collection.title}`,
-      body: `${collection.title} is a dedicated ${siteBrandName} collection for Pakistan shoppers comparing Nothing and CMF products with clearer product details, internal links, support routes, and company verification before ordering.`,
-    },
-    {
-      title: `Why shop ${collection.title} from ${siteBrandName}`,
-      body: `${intro} The page is structured for search engines and real buyers: it has an H1, category context, product listings, FAQs, trust links, and connections to policies and support. That makes it easier to understand what the category offers before opening individual product pages.`,
-    },
-    {
-      title: `What shoppers can compare`,
-      body: selection,
-    },
-    {
-      title: `Buying guide for ${collection.title}`,
-      body: `${buying} Before buying, customers should confirm product model, color or variant, compatibility, price, stock status, payment method, delivery city, and return expectations. If the product is a charger, check wattage and cable needs. If it is an audio product, compare calls, battery, ANC, and comfort. If it is a protector or cover, confirm the exact phone model.`,
-    },
-    {
-      title: 'Authenticity and seller checks',
-      body: `Customers should verify seller authenticity before ordering technology products online. ${siteBrandName} links to company verification, contact details, support guidance, and policy pages so shoppers can review the business identity behind the storefront. Company registration verifies the Pakistani business identity and should be considered alongside product checks, packaging expectations, and support communication.`,
-    },
-    {
-      title: 'Delivery, COD, and support',
-      body: `Delivery and payment expectations can vary by product value, city, and confirmation timing. Customers can use product pages, checkout, and WhatsApp support to confirm COD or pre-payment availability, delivery range, and order documentation. Keeping order records and support messages helps if a return, replacement, or compatibility question comes up later.`,
-    },
-  ]
 }
 
 function buildCollectionSeoDescription(collection: Collection) {
@@ -219,9 +172,6 @@ export default async function CollectionPage({ params }: CollectionPageProps) {
   const isShopStyleCollection = SHOP_STYLE_SLUGS.has(collection.slug)
   const isOffersCollection = collection.slug === 'offers'
   const seoDescription = buildCollectionSeoDescription(collection)
-  const collectionFaqEntries = collectionSeoFaqs[collection.slug] ?? []
-  const shouldShowTrustLinks = COLLECTION_SUPPORT_SLUGS.has(collection.slug)
-  const collectionLongformSections = buildCollectionLongformSections(collection)
   const relatedCollectionLinks = collection.childCollections?.length ? collection.childCollections : []
 
   if (isOffersCollection) {
@@ -366,15 +316,6 @@ export default async function CollectionPage({ params }: CollectionPageProps) {
             </div>
           )}
 
-          <section className="mt-12 grid gap-4 lg:grid-cols-3">
-            {collectionLongformSections.map((section) => (
-              <article key={section.title} className="rounded-[30px] border border-black/10 bg-white/78 p-6 shadow-[0_18px_50px_rgba(17,17,17,0.05)] backdrop-blur-xl">
-                <p className="text-[10px] uppercase tracking-[0.22em] text-black/42">{section.title}</p>
-                <p className="mt-4 text-sm leading-7 text-black/68">{section.body}</p>
-              </article>
-            ))}
-          </section>
-
           {relatedCollectionLinks.length > 0 ? (
             <section className="mt-8 rounded-[32px] border border-black/10 bg-white p-6 shadow-[0_20px_55px_rgba(17,17,17,0.04)] md:p-8">
               <p className="text-[10px] uppercase tracking-[0.3em] text-black/42">Related Categories</p>
@@ -391,56 +332,6 @@ export default async function CollectionPage({ params }: CollectionPageProps) {
                 ))}
               </div>
             </section>
-          ) : null}
-
-          {collectionFaqEntries.length > 0 || shouldShowTrustLinks ? (
-            <div className="mt-12 grid gap-6 lg:grid-cols-[minmax(0,1.15fr)_360px]">
-              {collectionFaqEntries.length > 0 ? (
-                <section className="rounded-[32px] border border-black/10 bg-white p-6 shadow-[0_20px_55px_rgba(17,17,17,0.04)] md:p-8">
-                  <p className="text-[10px] uppercase tracking-[0.3em] text-black/42">Collection Answers</p>
-                  <h2 className="collection-product-name mt-4 text-3xl leading-[0.96] sm:text-4xl">
-                    Direct answers for {collection.title}
-                  </h2>
-
-                  <div className="mt-8 border-t border-black/10">
-                    {collectionFaqEntries.map((item) => (
-                      <details key={item.question} className="border-b border-black/10 py-5">
-                        <summary className="cursor-pointer list-none text-sm leading-6 text-black/84 md:text-base">
-                          {item.question}
-                        </summary>
-                        <p className="mt-4 max-w-3xl text-sm leading-7 text-black/68">{item.answer}</p>
-                      </details>
-                    ))}
-                  </div>
-                </section>
-              ) : null}
-
-              {shouldShowTrustLinks ? (
-                <aside className="rounded-[32px] border border-black/10 bg-[#f8f8f4] p-6 shadow-[0_20px_55px_rgba(17,17,17,0.04)] md:p-8">
-                  <p className="text-[10px] uppercase tracking-[0.3em] text-black/42">Support Routes</p>
-                  <h2 className="collection-product-name mt-4 text-3xl leading-[0.96] sm:text-4xl">
-                    Need help before ordering?
-                  </h2>
-                  <CompanyTrustBadge compact className="mt-6" />
-                  <div className="mt-6 space-y-3">
-                    {siteTrustLinks.map((item) => (
-                      <Link
-                        key={item.href}
-                        href={item.href}
-                        className="block rounded-[22px] border border-black/10 bg-white px-4 py-4 transition-colors hover:bg-black hover:text-white"
-                      >
-                        <p className="text-[10px] uppercase tracking-[0.2em] text-black/46 transition-colors hover:text-white">
-                          {item.title}
-                        </p>
-                        <p className="mt-2 text-sm leading-6 text-black/68 transition-colors hover:text-white">
-                          {item.description}
-                        </p>
-                      </Link>
-                    ))}
-                  </div>
-                </aside>
-              ) : null}
-            </div>
           ) : null}
         </section>
       </main>

@@ -2,11 +2,16 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { useMemo, useState } from 'react'
-import type { ProductDetailMedia } from '@/lib/models/product-detail'
+import { Fragment, useEffect, useMemo, useRef, useState } from 'react'
+import type { ProductDetailMedia, ProductDetailSpecGroup, ProductFeatureSection, ProductFeatureSlide } from '@/lib/models/product-detail'
 import orderIcon from '@/assets/icons/order.svg'
 import packageIcon from '@/assets/icons/package.svg'
 import deliverIcon from '@/assets/icons/deleiver.svg'
+import cancelIcon from '@/assets/icons/cancel_icon.svg'
+import folderIcon from '@/assets/icons/folder.svg'
+import plusMinusIcon from '@/assets/icons/plus_minus_icon.svg'
+import specsIcon from '@/assets/icons/specs.svg'
+import specIconLinks from '@/assets/icons/spec-icon-links.json'
 
 type ProductDetailHeroProps = {
   productName: string
@@ -22,6 +27,8 @@ type ProductDetailHeroProps = {
     processDateLabel: string
     deliveryRangeLabel: string
   }
+  specGroups?: ProductDetailSpecGroup[]
+  featureSections?: ProductFeatureSection[]
 }
 
 type ColorOption = {
@@ -30,6 +37,14 @@ type ColorOption = {
   hex: string
   mediaIndex: number
 }
+
+const specIcons = specIconLinks as Record<string, string>
+const featureBadgePositions = [
+  'right-4 top-32 sm:right-12 sm:top-[38%] lg:right-[17%] lg:top-[52%]',
+  'right-4 top-56 sm:right-20 sm:top-[20%] lg:right-[10%] lg:top-[22%]',
+  'left-[18%] top-[42%]',
+  'right-[10%] bottom-[18%]',
+] as const
 
 const COLOR_HEX_BY_NAME: Record<string, string> = {
   black: '#111111',
@@ -108,6 +123,505 @@ function WhatsAppIcon() {
         fill="currentColor"
       />
     </svg>
+  )
+}
+
+function normalizeSpecIconKey(value: string) {
+  return value.trim().toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
+}
+
+function getSpecIconUrl(group: ProductDetailSpecGroup) {
+  const keys = [group.iconKey, normalizeSpecIconKey(group.title)].filter(Boolean) as string[]
+
+  for (const key of keys) {
+    const iconUrl = specIcons[key]
+
+    if (iconUrl) {
+      return iconUrl
+    }
+  }
+
+  return specIcons['other-features'] ?? specsIcon
+}
+
+function inferSpecSections(group: ProductDetailSpecGroup) {
+  if (group.specs.some((spec) => spec.section)) {
+    return group.specs
+  }
+
+  if (normalizeSpecIconKey(group.title) !== 'camera') {
+    return group.specs
+  }
+
+  const cameraSections = ['Main camera', 'Periscope camera', 'Ultra-wide camera', 'Front camera', 'TrueLens Engine 4', 'Video recording']
+  let sectionIndex = 0
+
+  return group.specs.map((spec, index) => {
+    const labelKey = spec.label.trim().toLowerCase()
+    const valueKey = spec.value.trim().toLowerCase()
+
+    if (index > 0 && labelKey === 'resolution' && sectionIndex < 3) {
+      sectionIndex += 1
+    }
+
+    if (labelKey === 'front camera' && sectionIndex < 3) {
+      sectionIndex = 3
+    }
+
+    if (labelKey === 'truelens engine 4' || valueKey.includes('ultra xdr')) {
+      sectionIndex = Math.max(sectionIndex, 4)
+    }
+
+    if (labelKey === 'video recording' || valueKey.includes('fps') || valueKey.includes('time lapse')) {
+      sectionIndex = cameraSections.length - 1
+    }
+
+    if (!labelKey && sectionIndex < cameraSections.length - 2 && index > 0) {
+      sectionIndex = Math.max(sectionIndex, 4)
+    }
+
+    return {
+      ...spec,
+      section: cameraSections[sectionIndex],
+    }
+  })
+}
+
+function SpecsFolderBadge({ onOpen }: { onOpen: () => void }) {
+  return (
+    <button
+      type="button"
+      className="group absolute left-4 top-28 z-40 flex cursor-pointer flex-col items-center rounded-[18px] p-2 transition-transform duration-300 ease-out hover:-translate-y-1 hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-black/40 sm:left-8 sm:top-32 lg:left-14 lg:top-36"
+      onClick={onOpen}
+      aria-label="Open specs"
+    >
+      <span className="relative block h-[60px] w-[60px] transition-transform duration-300 ease-out group-hover:scale-110 sm:h-[72px] sm:w-[72px]">
+        <Image
+          src={folderIcon}
+          alt=""
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 h-full w-full object-contain"
+        />
+        <Image
+          src={specsIcon}
+          alt=""
+          aria-hidden="true"
+          className="pointer-events-none absolute left-1/2 top-1/2 h-[30px] w-[30px] -translate-x-1/2 -translate-y-1/2 object-contain transition-transform duration-300 ease-out group-hover:scale-110 sm:h-[36px] sm:w-[36px]"
+        />
+      </span>
+      <span className="mt-3 text-center font-serif text-[0.9rem] text-black transition-transform duration-300 ease-out group-hover:scale-105 sm:text-[1rem]">Specs</span>
+    </button>
+  )
+}
+
+function SpecsOverlay({
+  groups,
+  openGroupId,
+  onToggleGroup,
+  onClose,
+}: {
+  groups: ProductDetailSpecGroup[]
+  openGroupId: string | null
+  onToggleGroup: (groupId: string) => void
+  onClose: () => void
+}) {
+  return (
+    <div className="fixed inset-0 z-[70] overflow-y-auto bg-white/25 backdrop-blur-[20px]">
+      <div className="pointer-events-none absolute inset-0 opacity-70 [background-image:radial-gradient(circle,#111_1.2px,transparent_1.45px)] [background-position:1.4rem_1.4rem] [background-size:7.5rem_7.5rem] sm:[background-size:9.5rem_7.75rem]" />
+
+      <div className="relative mx-auto min-h-screen w-full max-w-[560px] px-4 pb-10 pt-5">
+        <div className="grid h-[54px] grid-cols-[44px_minmax(0,1fr)_44px] items-center rounded-[10px] bg-white/[0.9] px-2 shadow-[0_14px_36px_rgba(17,17,17,0.08)] backdrop-blur-md">
+          <button
+            type="button"
+            aria-label="Close specs"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-[8px] transition-opacity hover:opacity-65"
+            onClick={onClose}
+          >
+            <Image src={cancelIcon} alt="" aria-hidden="true" className="h-[18px] w-[18px] object-contain opacity-75" />
+          </button>
+          <p className="text-center [font-family:var(--font-ndot57)] text-[1.25rem] uppercase leading-none tracking-[0.16em] text-black">
+            Specs
+          </p>
+          <span aria-hidden="true" />
+        </div>
+
+        <div className="mt-5 grid gap-1.5">
+          {groups.length > 0 ? (
+            groups.map((group) => {
+              const isOpen = openGroupId === group.id
+              const displaySpecs = inferSpecSections(group)
+              const groupedSpecs = displaySpecs.reduce<Array<{ section: string | null; specs: typeof displaySpecs }>>((sections, spec) => {
+                const section = spec.section ?? null
+                const currentSection = sections[sections.length - 1]
+
+                if (currentSection && currentSection.section === section) {
+                  currentSection.specs.push(spec)
+                } else {
+                  sections.push({ section, specs: [spec] })
+                }
+
+                return sections
+              }, [])
+
+              return (
+                <div key={group.id} className="overflow-hidden rounded-[8px] bg-white/[0.9] shadow-[0_10px_26px_rgba(17,17,17,0.06)] backdrop-blur-md">
+                  <button
+                    type="button"
+                    className="grid min-h-[54px] w-full grid-cols-[28px_minmax(0,1fr)_24px] items-center gap-3 px-4 text-left transition-colors hover:bg-white/55"
+                    onClick={() => onToggleGroup(group.id)}
+                    aria-expanded={isOpen}
+                  >
+                    <Image src={getSpecIconUrl(group)} alt="" aria-hidden="true" width={18} height={18} className="h-[18px] w-[18px] object-contain opacity-80" />
+                    <span className="product-card-name text-[1rem] leading-none text-black sm:text-[1.16rem]">{group.title}</span>
+                    <Image
+                      src={plusMinusIcon}
+                      alt=""
+                      aria-hidden="true"
+                      className={`h-[14px] w-[14px] object-contain opacity-70 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
+                    />
+                  </button>
+
+                  {isOpen ? (
+                    <div className="product-card-name px-4 py-4 text-[0.82rem] leading-5 text-black/72 sm:text-[0.88rem]">
+                      {group.mediaUrl ? (
+                        <div className="relative mb-4 overflow-hidden rounded-[8px] bg-white/70">
+                          <Image
+                            src={group.mediaUrl}
+                            alt={group.mediaAlt || group.title}
+                            width={900}
+                            height={650}
+                            loading="lazy"
+                            fetchPriority="low"
+                            sizes="(max-width: 640px) 100vw, 520px"
+                            className="h-auto w-full object-contain"
+                          />
+                        </div>
+                      ) : null}
+
+                      {groupedSpecs.length > 0 ? (
+                        <dl>
+                          {groupedSpecs.map((section) => (
+                            <Fragment key={section.section ?? 'default'}>
+                              {section.section ? (
+                                <dt className="product-card-name pb-2 pt-4 text-[0.9rem] leading-tight text-[#b2b3b3] first:pt-0 sm:text-[0.98rem]">{section.section}</dt>
+                              ) : null}
+                              {section.specs.map((spec) => {
+                                const hasLabel = spec.label.trim().length > 0
+
+                                return (
+                                  <div key={spec.id} className="grid gap-1 py-1.5 sm:grid-cols-[170px_minmax(0,1fr)] sm:gap-5">
+                                    {hasLabel ? (
+                                      <>
+                                        <dt className="[font-family:var(--font-lettera-regular)] text-[#010101]">{spec.label}</dt>
+                                        <dd className="whitespace-pre-line [font-family:var(--font-lettera-regular)] text-[#010101]">{spec.value}</dd>
+                                      </>
+                                    ) : (
+                                      <dd className="whitespace-pre-line [font-family:var(--font-lettera-regular)] text-[#010101] sm:col-span-2">{spec.value}</dd>
+                                    )}
+                                  </div>
+                                )
+                              })}
+                            </Fragment>
+                          ))}
+                        </dl>
+                      ) : (
+                        <p>No spec details available yet.</p>
+                      )}
+                    </div>
+                  ) : null}
+                </div>
+              )
+            })
+          ) : (
+            <div className="rounded-[8px] bg-white/84 px-4 py-5 text-center product-card-name text-lg text-black/70">
+              No specs available yet.
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function isHlsVideo(url?: string | null) {
+  return Boolean(url && /\.m3u8(?:$|\?)/i.test(url))
+}
+
+function getFeatureThumbnail(section: ProductFeatureSection) {
+  const firstSlide = section.slides[0]
+
+  return (
+    section.coverThumbnailUrl ||
+    section.coverImageUrl ||
+    firstSlide?.thumbnailUrl ||
+    firstSlide?.imageUrl ||
+    null
+  )
+}
+
+function getFeatureMedia(section: ProductFeatureSection, slide?: ProductFeatureSlide | null) {
+  return {
+    imageUrl: slide?.imageUrl || slide?.thumbnailUrl || section.coverImageUrl || section.coverThumbnailUrl || null,
+    videoUrl: slide?.videoUrl || section.coverVideoUrl || null,
+    thumbnailUrl: slide?.thumbnailUrl || slide?.imageUrl || section.coverThumbnailUrl || section.coverImageUrl || null,
+  }
+}
+
+function HlsFeatureVideo({
+  videoUrl,
+  posterUrl,
+  title,
+}: {
+  videoUrl: string
+  posterUrl?: string | null
+  title: string
+}) {
+  const videoRef = useRef<HTMLVideoElement | null>(null)
+
+  useEffect(() => {
+    const video = videoRef.current
+    let hls: { destroy: () => void; loadSource: (source: string) => void; attachMedia: (media: HTMLMediaElement) => void } | null = null
+    let cancelled = false
+
+    if (!video) return undefined
+
+    if (!isHlsVideo(videoUrl) || video.canPlayType('application/vnd.apple.mpegurl')) {
+      video.src = videoUrl
+      video.play().catch(() => undefined)
+
+      return () => {
+        video.removeAttribute('src')
+        video.load()
+      }
+    }
+
+    import('hls.js')
+      .then(({ default: Hls }) => {
+        if (cancelled || !video) return
+
+        if (Hls.isSupported()) {
+          hls = new Hls({ enableWorker: true })
+          hls.loadSource(videoUrl)
+          hls.attachMedia(video)
+          video.play().catch(() => undefined)
+        }
+      })
+      .catch(() => undefined)
+
+    return () => {
+      cancelled = true
+      hls?.destroy()
+      video.removeAttribute('src')
+      video.load()
+    }
+  }, [videoUrl])
+
+  return (
+    <video
+      ref={videoRef}
+      poster={posterUrl || undefined}
+      aria-label={title}
+      className="h-full w-full object-cover"
+      autoPlay
+      muted
+      loop
+      playsInline
+      preload="metadata"
+    />
+  )
+}
+
+function FeatureVisual({
+  media,
+  title,
+}: {
+  media: ReturnType<typeof getFeatureMedia>
+  title: string
+}) {
+  if (media.videoUrl) {
+    return <HlsFeatureVideo key={media.videoUrl} videoUrl={media.videoUrl} posterUrl={media.thumbnailUrl || media.imageUrl} title={title} />
+  }
+
+  const stillImageUrl = media.imageUrl || media.thumbnailUrl
+
+  if (stillImageUrl) {
+    return (
+      <Image
+        key={stillImageUrl}
+        src={stillImageUrl}
+        alt={title}
+        fill
+        priority
+        fetchPriority="high"
+        sizes="100vw"
+        className="object-cover object-center"
+      />
+    )
+  }
+
+  return <div className="h-full w-full bg-[#d8dedc]" />
+}
+
+function DotArrowIcon({ direction }: { direction: 'left' | 'right' }) {
+  const rightPoints = [
+    [4, 10],
+    [8, 10],
+    [12, 10],
+    [16, 10],
+    [14, 6],
+    [16, 8],
+    [18, 10],
+    [16, 12],
+    [14, 14],
+  ]
+  const points = direction === 'right' ? rightPoints : rightPoints.map(([x, y]) => [22 - x, y])
+
+  return (
+    <svg width="22" height="20" viewBox="0 0 22 20" fill="none" aria-hidden="true">
+      {points.map(([cx, cy], index) => (
+        <circle key={`${cx}-${cy}-${index}`} cx={cx} cy={cy} r="1.25" fill="currentColor" />
+      ))}
+    </svg>
+  )
+}
+
+function ProductFeatureBadge({
+  section,
+  index,
+  onOpen,
+}: {
+  section: ProductFeatureSection
+  index: number
+  onOpen: () => void
+}) {
+  const thumbnailUrl = getFeatureThumbnail(section)
+  const position = featureBadgePositions[index % featureBadgePositions.length]
+
+  return (
+    <button
+      type="button"
+      className={`group absolute z-40 flex max-w-[142px] cursor-pointer flex-col items-center text-center text-white outline-none transition-transform duration-300 ease-out hover:-translate-y-1 hover:scale-105 focus-visible:ring-2 focus-visible:ring-white/70 ${position}`}
+      onClick={onOpen}
+      aria-label={`Open ${section.title}`}
+    >
+      <span className="relative block h-[76px] w-[76px] overflow-hidden rounded-[12px] bg-white/85 shadow-[0_18px_44px_rgba(0,0,0,0.18)] transition-transform duration-300 ease-out group-hover:scale-110 sm:h-[92px] sm:w-[92px]">
+        {thumbnailUrl ? (
+          <Image
+            src={thumbnailUrl}
+            alt=""
+            aria-hidden="true"
+            fill
+            loading="lazy"
+            fetchPriority="low"
+            sizes="96px"
+            className="object-cover"
+          />
+        ) : (
+          <span className="absolute inset-0 flex items-center justify-center bg-[#f2f2ef] text-black">
+            <DotArrowIcon direction="right" />
+          </span>
+        )}
+      </span>
+      <span className="mt-3 text-center font-serif text-[0.9rem] leading-tight text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.45)] transition-transform duration-300 ease-out group-hover:scale-105 sm:text-[1rem]">
+        {section.title}
+      </span>
+    </button>
+  )
+}
+
+function ProductFeatureOverlay({
+  section,
+  activeSlideIndex,
+  onSelectSlide,
+  onClose,
+}: {
+  section: ProductFeatureSection
+  activeSlideIndex: number
+  onSelectSlide: (slideIndex: number) => void
+  onClose: () => void
+}) {
+  const slides = section.slides.length > 0 ? section.slides : []
+  const activeSlide = slides[activeSlideIndex] ?? slides[0] ?? null
+  const activeMedia = getFeatureMedia(section, activeSlide)
+  const slideCount = slides.length
+  const goToSlide = (slideIndex: number) => {
+    if (slideCount === 0) return
+
+    onSelectSlide((slideIndex + slideCount) % slideCount)
+  }
+
+  return (
+    <div className="fixed inset-0 z-[70] overflow-hidden bg-[#d9dfdd] text-white">
+      <div className="absolute inset-0">
+        <FeatureVisual media={activeMedia} title={activeSlide?.title || section.title} />
+      </div>
+      <div className="pointer-events-none absolute inset-0 bg-black/5" />
+      <div className="pointer-events-none absolute inset-0 opacity-70 [background-image:radial-gradient(circle,#fff_1.5px,transparent_1.8px)] [background-position:4rem_4rem] [background-size:8rem_8rem] sm:[background-size:8rem_8rem]" />
+
+      <div className="relative z-10 mx-auto flex h-screen min-h-[620px] w-full max-w-[560px] flex-col px-4 py-5">
+        <div className="grid h-[54px] grid-cols-[44px_minmax(0,1fr)_96px] items-center rounded-[8px] bg-[#686854]/80 px-2 shadow-[0_14px_36px_rgba(0,0,0,0.12)] backdrop-blur-md">
+          <button
+            type="button"
+            aria-label={`Close ${section.title}`}
+            className="inline-flex h-10 w-10 items-center justify-center rounded-[8px] transition-opacity hover:opacity-70"
+            onClick={onClose}
+          >
+            <Image src={cancelIcon} alt="" aria-hidden="true" className="h-[16px] w-[16px] object-contain invert" />
+          </button>
+          <p className="truncate text-center [font-family:var(--font-ndot57)] text-[1.05rem] uppercase leading-none tracking-[0.12em] text-white sm:text-[1.2rem]">
+            {section.title}
+          </p>
+          <div className="flex items-center justify-end gap-1">
+            <button
+              type="button"
+              aria-label="Previous feature slide"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-[8px] text-white transition-opacity hover:opacity-70 disabled:opacity-35"
+              disabled={slideCount < 2}
+              onClick={() => goToSlide(activeSlideIndex - 1)}
+            >
+              <DotArrowIcon direction="left" />
+            </button>
+            <button
+              type="button"
+              aria-label="Next feature slide"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-[8px] text-white transition-opacity hover:opacity-70 disabled:opacity-35"
+              disabled={slideCount < 2}
+              onClick={() => goToSlide(activeSlideIndex + 1)}
+            >
+              <DotArrowIcon direction="right" />
+            </button>
+          </div>
+        </div>
+
+        <div className="mt-auto pb-7">
+          <article className="mx-auto max-w-[545px] rounded-[8px] bg-[#716b50]/80 px-5 py-5 text-white shadow-[0_18px_54px_rgba(0,0,0,0.16)] backdrop-blur-md sm:px-6 sm:py-6">
+            <h2 className="[font-family:var(--font-georgia)] text-[1.45rem] leading-tight text-white sm:text-[1.65rem]">
+              {activeSlide?.title || section.title}
+            </h2>
+            {activeSlide?.body ? (
+              <p className="mt-5 [font-family:var(--font-georgia)] text-[0.95rem] leading-6 text-white sm:text-[1.02rem]">
+                {activeSlide.body}
+              </p>
+            ) : null}
+          </article>
+
+          {slideCount > 1 ? (
+            <div className="mt-5 flex items-center justify-center gap-2">
+              {slides.map((slide, index) => (
+                <button
+                  key={slide.id}
+                  type="button"
+                  aria-label={`Show ${slide.title}`}
+                  aria-pressed={index === activeSlideIndex}
+                  className={`h-2.5 w-2.5 rounded-full transition ${index === activeSlideIndex ? 'bg-white/95' : 'bg-white/50 hover:bg-white/75'}`}
+                  onClick={() => onSelectSlide(index)}
+                />
+              ))}
+            </div>
+          ) : null}
+        </div>
+      </div>
+    </div>
   )
 }
 
@@ -205,9 +719,16 @@ export function ProductDetailHero({
   canonicalHandle,
   labels = [],
   deliveryTimeline,
+  specGroups = [],
+  featureSections = [],
 }: ProductDetailHeroProps) {
   const [selectedIndex, setSelectedIndex] = useState(0)
+  const [isSpecsOpen, setIsSpecsOpen] = useState(false)
+  const [openSpecGroupId, setOpenSpecGroupId] = useState<string | null>(null)
+  const [activeFeatureId, setActiveFeatureId] = useState<string | null>(null)
+  const [activeFeatureSlideIndex, setActiveFeatureSlideIndex] = useState(0)
   const selectedMedia = gallery[selectedIndex] ?? gallery[0] ?? null
+  const activeFeature = featureSections.find((section) => section.id === activeFeatureId) ?? null
   const colorOptions = useMemo(() => buildColorOptions(gallery), [gallery])
   const colorKeys = useMemo(() => new Set(colorOptions.map((color) => color.key)), [colorOptions])
   const uniqueLabels = useMemo(
@@ -221,6 +742,15 @@ export function ProductDetailHero({
       ? `https://api.whatsapp.com/send?phone=923361070111&text=${encodeURIComponent(`Hi, I want to purchase this phone if available. Kindly tell me the price: ${productName}`)}`
       : 'https://api.whatsapp.com/send?phone=923361070111'
   const buyHref = `/order/${canonicalHandle}`
+  const hasSpecGroups = specGroups.some((group) => group.specs.length > 0 || group.mediaUrl)
+
+  useEffect(() => {
+    document.body.style.overflow = isSpecsOpen || activeFeature ? 'hidden' : ''
+
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [activeFeature, isSpecsOpen])
 
   if (backgroundImage) {
     return (
@@ -235,6 +765,42 @@ export function ProductDetailHero({
           className="object-cover object-center"
         />
         <div className="pointer-events-none absolute inset-0 opacity-70 [background-image:radial-gradient(circle,#111_1.2px,transparent_1.45px)] [background-position:1.4rem_1.4rem] [background-size:7.5rem_7.5rem] sm:[background-size:9.5rem_7.75rem]" />
+        {hasSpecGroups ? <SpecsFolderBadge onOpen={() => setIsSpecsOpen(true)} /> : null}
+        {featureSections.map((section, index) => (
+          <ProductFeatureBadge
+            key={section.id}
+            section={section}
+            index={index}
+            onOpen={() => {
+              setIsSpecsOpen(false)
+              setOpenSpecGroupId(null)
+              setActiveFeatureId(section.id)
+              setActiveFeatureSlideIndex(0)
+            }}
+          />
+        ))}
+        {isSpecsOpen ? (
+          <SpecsOverlay
+            groups={specGroups}
+            openGroupId={openSpecGroupId}
+            onToggleGroup={(groupId) => setOpenSpecGroupId((current) => (current === groupId ? null : groupId))}
+            onClose={() => {
+              setIsSpecsOpen(false)
+              setOpenSpecGroupId(null)
+            }}
+          />
+        ) : null}
+        {activeFeature ? (
+          <ProductFeatureOverlay
+            section={activeFeature}
+            activeSlideIndex={activeFeatureSlideIndex}
+            onSelectSlide={setActiveFeatureSlideIndex}
+            onClose={() => {
+              setActiveFeatureId(null)
+              setActiveFeatureSlideIndex(0)
+            }}
+          />
+        ) : null}
 
         <div className="relative z-10 flex min-h-screen items-end justify-center px-4 pb-6 pt-24 sm:px-8 sm:pb-10">
           <div className="w-full max-w-[470px] rounded-[14px] border border-white/80 bg-[#fbf7ef] p-4 text-black shadow-[0_24px_80px_rgba(0,0,0,0.20),inset_0_1px_0_rgba(255,255,255,0.88)] sm:p-5">

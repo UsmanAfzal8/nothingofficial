@@ -43,6 +43,12 @@ const georgia = localFont({
   display: 'swap',
 })
 
+const letteraRegular = localFont({
+  src: [{ path: '../fonts/LetteraMonoLL-Regular.otf', weight: '400', style: 'normal' }],
+  variable: '--font-lettera-regular',
+  display: 'swap',
+})
+
 export const metadata: Metadata = {
   metadataBase: new URL(getSiteOrigin()),
   title: {
@@ -90,7 +96,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en-PK">
-      <body className={`${ndot57.className} ${ndot57.variable} ${ndot55.variable} ${ndot55Caps.variable} ${ntype82.variable} ${ntype82Headline.variable} ${georgia.variable} isolate overflow-x-hidden antialiased`}>
+      <body className={`${ndot57.className} ${ndot57.variable} ${ndot55.variable} ${ndot55Caps.variable} ${ntype82.variable} ${ntype82Headline.variable} ${georgia.variable} ${letteraRegular.variable} isolate overflow-x-hidden antialiased`}>
         <div aria-hidden="true" className="site-dot-overlay" />
         <CartProvider>
           {children}

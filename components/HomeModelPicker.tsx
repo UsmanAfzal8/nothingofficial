@@ -199,7 +199,7 @@ export function HomeModelPicker({ models }: HomeModelPickerProps) {
                           )}
                         </div>
                         <p
-                          className="product-card-name mt-4 min-h-[2.5rem] w-full text-left text-[0.92rem] leading-[1.25] text-black/78 sm:min-h-[2.8rem] sm:text-[1rem] lg:min-h-[3rem]"
+                          className="product-card-name mx-auto mt-4 min-h-[2.5rem] w-full text-center text-[0.92rem] leading-[1.25] text-black/78 sm:min-h-[2.8rem] sm:text-[1rem] lg:min-h-[3rem]"
                         >
                           {model.name}
                         </p>

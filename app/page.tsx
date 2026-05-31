@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
-import { CompanyTrustBadge } from '@/components/CompanyTrustBadge'
 import { CatalogProductTile } from '@/components/CatalogProductTile'
 import { HomeFaqTabs } from '@/components/HomeFaqTabs'
 import { HomeModelPicker } from '@/components/HomeModelPicker'
@@ -11,11 +10,6 @@ import { NothingHeader } from '@/components/NothingHeader'
 import { SeoStructuredData } from '@/components/SeoStructuredData'
 import { TrendingPicksSection } from '@/components/TrendingPicksSection'
 import { CATALOG_REVALIDATE_SECONDS, getHomePageData } from '@/lib/data/catalog-repository'
-import {
-  companyCertificateUrl,
-  companyCuin,
-  companyLegalName,
-} from '@/lib/data/company'
 import {
   buildOrganizationStructuredData,
   buildWebsiteStructuredData,
@@ -181,7 +175,7 @@ function ReviewCard({ review }: { review: HomeReviewEntry }) {
 }
 
 export default async function Home() {
-  const { phoneModels, featuredCovers, shopAllProducts, trendingPicks } = await getHomePageData()
+  const { phoneModels, shopAllProducts, trendingPicks } = await getHomePageData()
   const faqEntries = homeFaqCategories.flatMap((category) => category.items)
   const homeStructuredData: Record<string, unknown>[] = [buildOrganizationStructuredData(), buildWebsiteStructuredData()]
   const homeFaqStructuredData = buildFaqStructuredData([...homeSeoFaqs, ...faqEntries])
@@ -229,32 +223,6 @@ export default async function Home() {
           <div className="mx-auto max-w-screen-2xl">
             <div className="flex items-end justify-between gap-4">
               <div>
-                <p className="text-[10px] uppercase tracking-[0.3em] text-black/42">Featured Covers</p>
-                <h2 className="collection-product-name mt-3 text-4xl leading-none text-black sm:text-5xl">Covers</h2>
-              </div>
-              <Link href="/collections/featured-covers" className="text-[10px] uppercase tracking-[0.24em] text-black/52 hover:text-black">
-                View All
-              </Link>
-            </div>
-
-            {featuredCovers.length > 0 ? (
-              <div className="mt-8 grid grid-cols-2 gap-x-4 gap-y-9 md:gap-x-6 md:gap-y-12 lg:grid-cols-5 lg:gap-x-7 lg:gap-y-14">
-                {featuredCovers.map((product) => (
-                  <CatalogProductTile key={product.id} product={product} tone="shop-all" />
-                ))}
-              </div>
-            ) : (
-              <div className="mt-8 border border-black/10 bg-[#f8f8f4] px-6 py-14 text-center">
-                <p className="text-sm text-black/64">Featured covers will appear here when the category is linked in the live catalog.</p>
-              </div>
-            )}
-          </div>
-        </section>
-
-        <section className="border-b border-black/10 px-4 py-12 md:px-8 md:py-16">
-          <div className="mx-auto max-w-screen-2xl">
-            <div className="flex items-end justify-between gap-4">
-              <div>
                 <p className="text-[10px] uppercase tracking-[0.3em] text-black/42">Shop All</p>
                 <h2 className="collection-product-name mt-3 text-4xl leading-none text-black sm:text-5xl">Products</h2>
               </div>
@@ -283,7 +251,7 @@ export default async function Home() {
               <p className="text-[10px] uppercase tracking-[0.3em] text-black/42">User Reviews</p>
               <h2 className="collection-product-name mt-3 text-4xl leading-none text-black sm:text-5xl">What buyers say</h2>
               <p className="mt-4 font-sans text-[15px] leading-7 text-black/70">
-                Real-style feedback from verified buyers across Pakistan who shop Nothing and CMF products online.
+                Feedback from verified buyers across Pakistan who shop Nothing and CMF products online.
               </p>
             </div>
 
@@ -336,36 +304,6 @@ export default async function Home() {
 
             <HomeFaqTabs categories={homeFaqCategories} />
           </div>
-        </section>
-
-        <section className="border-t border-black/10 bg-[#f4f4f0] px-4 py-12 md:px-8 md:py-16">
-          <InterTypographyScope>
-            <div className="mx-auto grid max-w-screen-2xl gap-8 lg:grid-cols-[minmax(0,1fr)_390px] lg:items-center">
-              <div className="max-w-4xl">
-                <h2 className="text-3xl leading-tight text-black sm:text-4xl">Is Nothing Pakistan a registered company?</h2>
-                <p className="mt-4 max-w-3xl text-sm leading-7 text-black/68 sm:text-[15px]">
-                  Yes. Nothing Pakistan is operated by {companyLegalName}, an SECP registered Pakistani company with CUIN {companyCuin}. Customers can review the Company Verification page and SECP certificate before buying Nothing or CMF products in Pakistan.
-                </p>
-                <div className="mt-6 flex flex-wrap gap-3">
-                  <Link
-                    href="/company-verification"
-                    className="inline-flex h-11 items-center justify-center rounded-[8px] bg-black px-5 text-[10px] uppercase tracking-[0.2em] text-white transition-opacity hover:opacity-85"
-                  >
-                    View Company Verification
-                  </Link>
-                  <Link
-                    href={companyCertificateUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex h-11 items-center justify-center rounded-[8px] border border-black/12 px-5 text-[10px] uppercase tracking-[0.2em] text-black transition-colors hover:bg-black hover:text-white"
-                  >
-                    View SECP Certificate
-                  </Link>
-                </div>
-              </div>
-              <CompanyTrustBadge />
-            </div>
-          </InterTypographyScope>
         </section>
       </main>
 

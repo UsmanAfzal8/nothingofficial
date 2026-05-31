@@ -25,6 +25,11 @@ const nextConfig = {
         permanent: true,
       },
       {
+        source: '/pages/policies/:slug',
+        destination: '/pages/:slug',
+        permanent: true,
+      },
+      {
         source: '/:path*',
         has: [
           {

@@ -8,7 +8,7 @@ import { siteContactWhatsappUrl } from '@/lib/data/site-content'
 export function WhatsAppFloatingButton() {
   const pathname = usePathname()
 
-  if (pathname.startsWith('/order') || pathname.startsWith('/products')) {
+  if (pathname.startsWith('/order') || pathname.startsWith('/products') || pathname.startsWith('/support-centre') || pathname.startsWith('/pages/support-centre')) {
     return null
   }
 
