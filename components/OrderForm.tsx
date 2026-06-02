@@ -47,9 +47,9 @@ const SHIPPING_FEE = 450
 const GOVT_TAX_RATE = 0.04
 const BANK_ACCOUNT = {
   bank: 'BANK ALFALAH',
-  accountName: 'SOFTWARE SUITE',
-  accountNumber: '57065002899706',
-  iban: 'PK40ALFH5706005002899706',
+  accountName: 'NOTHING OFFICIAL',
+  accountNumber: '57065002935977',
+  iban: 'PK35ALFH5706005002935977',
   whatsapp: '03361070111',
   whatsappUrl: 'https://wa.me/923361070111',
 } as const
