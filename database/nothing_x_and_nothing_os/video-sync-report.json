@@ -1,0 +1,58 @@
+{
+  "synced_at": "2026-06-02T00:29:30.081Z",
+  "products_checked": 6,
+  "products_synced": 6,
+  "section_videos_updated": 22,
+  "slide_videos_updated": 74,
+  "products": [
+    {
+      "handle": "phone-4a-pro",
+      "related_slug": "nothing-4a-pro",
+      "sections_seen": 11,
+      "section_videos_updated": 5,
+      "slide_videos_updated": 27,
+      "missing_sections": []
+    },
+    {
+      "handle": "phone-4a",
+      "related_slug": "phone-4a",
+      "sections_seen": 11,
+      "section_videos_updated": 4,
+      "slide_videos_updated": 25,
+      "missing_sections": []
+    },
+    {
+      "handle": "phone-3",
+      "related_slug": "phone-3",
+      "sections_seen": 10,
+      "section_videos_updated": 4,
+      "slide_videos_updated": 9,
+      "missing_sections": []
+    },
+    {
+      "handle": "phone-3a-lite",
+      "related_slug": "phone-3a-lite",
+      "sections_seen": 8,
+      "section_videos_updated": 2,
+      "slide_videos_updated": 12,
+      "missing_sections": []
+    },
+    {
+      "handle": "phone-3a-pro",
+      "related_slug": "phone-3a-pro",
+      "sections_seen": 10,
+      "section_videos_updated": 4,
+      "slide_videos_updated": 1,
+      "missing_sections": []
+    },
+    {
+      "handle": "phone-3a",
+      "related_slug": "phone-3a",
+      "sections_seen": 10,
+      "section_videos_updated": 3,
+      "slide_videos_updated": 0,
+      "missing_sections": []
+    }
+  ],
+  "failed": []
+}

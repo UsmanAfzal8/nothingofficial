@@ -201,7 +201,8 @@ export interface SupabaseUserRow {
 
 export interface SupabaseReviewRow {
   id: number
-  product_id: number | null
+  related_type: RelatedType | null
+  related_id: number | null
   user_name: string
   rating: number | null
   comment: string | null

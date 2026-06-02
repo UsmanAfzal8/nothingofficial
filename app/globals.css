@@ -442,6 +442,180 @@ body:has(.support-detail-page) .site-dot-overlay {
   background: #052b55;
 }
 
+.company-verification-hero {
+  min-height: 620px;
+  background:
+    radial-gradient(circle at 82% 28%, rgba(0, 0, 0, 0.055), transparent 25%),
+    linear-gradient(180deg, #eeefef 0%, #f4f4f6 100%);
+}
+
+.company-verification-hero .support-hero-copy {
+  top: 220px;
+}
+
+.company-verification-kicker {
+  margin: 0 0 24px;
+  font-family: var(--font-lettera-regular), monospace;
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  line-height: 1;
+  text-transform: uppercase;
+  color: rgba(0, 0, 0, 0.46);
+}
+
+.company-verification-content {
+  padding-top: 96px;
+}
+
+.company-verification-section {
+  margin-top: 104px;
+}
+
+.company-verification-section:first-child {
+  margin-top: 0;
+}
+
+.company-verification-section h2 {
+  font-family: var(--font-ntype82), serif;
+  font-size: 30px;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.company-verification-table-wrap {
+  margin-top: 42px;
+  border-top: 1px dotted #111;
+}
+
+.company-verification-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-ntype82), serif;
+  font-size: 16px;
+  line-height: 1.45;
+}
+
+.company-verification-table tr {
+  border-bottom: 1px dotted #111;
+}
+
+.company-verification-table th,
+.company-verification-table td {
+  padding: 24px 0;
+  vertical-align: top;
+}
+
+.company-verification-table th {
+  width: 34%;
+  padding-right: 24px;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.company-verification-table td {
+  color: rgba(0, 0, 0, 0.78);
+}
+
+.company-verification-section-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 260px;
+  gap: 60px;
+  align-items: start;
+}
+
+.company-verification-section-header p,
+.company-verification-copy p {
+  margin-top: 24px;
+  max-width: 660px;
+  font-family: var(--font-ntype82), serif;
+  font-size: 16px;
+  line-height: 1.55;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.company-verification-copy p + p {
+  margin-top: 18px;
+}
+
+.company-verification-section-header a {
+  display: inline-flex;
+  min-height: 56px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #111;
+  border-radius: 999px;
+  color: #111;
+  font-family: var(--font-lettera-regular), monospace;
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  line-height: 1.15;
+  text-align: center;
+  text-transform: uppercase;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.company-verification-section-header a:hover {
+  background: #111;
+  color: #fff;
+}
+
+.company-verification-certificate {
+  margin-top: 42px;
+  overflow: hidden;
+  border: 1px dotted #111;
+  background: #fff;
+}
+
+.company-verification-certificate iframe {
+  display: block;
+  width: 100%;
+  height: 520px;
+  border: 0;
+  background: #fff;
+}
+
+.company-verification-registered {
+  margin-top: 104px;
+  background: #111;
+  padding: 34px;
+  color: #fff;
+}
+
+.company-verification-registered > p {
+  font-family: var(--font-lettera-regular), monospace;
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  line-height: 1;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.56);
+}
+
+.company-verification-registered dl {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px 36px;
+  margin-top: 30px;
+}
+
+.company-verification-registered dt {
+  font-family: var(--font-lettera-regular), monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.46);
+}
+
+.company-verification-registered dd {
+  margin-top: 8px;
+  font-family: var(--font-ntype82), serif;
+  font-size: 16px;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.86);
+}
+
 .support-detail-page {
   min-height: 100vh;
   overflow-x: hidden;
@@ -764,17 +938,38 @@ body:has(.support-detail-page) .site-dot-overlay {
     min-height: 720px;
   }
 
+  .company-verification-hero {
+    min-height: 600px;
+  }
+
   .support-hero-copy {
     left: 24px;
     top: 292px;
+  }
+
+  .company-verification-hero .support-hero-copy {
+    top: 210px;
   }
 
   .support-content {
     padding: 88px 24px 112px;
   }
 
+  .company-verification-content {
+    padding-top: 78px;
+  }
+
   .support-quick-links {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .company-verification-section-header {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .company-verification-section-header a {
+    width: min(100%, 320px);
   }
 
   .support-contact-row {
@@ -817,6 +1012,10 @@ body:has(.support-detail-page) .site-dot-overlay {
     min-height: 680px;
   }
 
+  .company-verification-hero {
+    min-height: 560px;
+  }
+
   .support-hero-image {
     object-position: center top;
   }
@@ -824,6 +1023,10 @@ body:has(.support-detail-page) .site-dot-overlay {
   .support-hero-copy {
     top: 260px;
     width: calc(100vw - 40px);
+  }
+
+  .company-verification-hero .support-hero-copy {
+    top: 188px;
   }
 
   .support-hero-copy h1 {
@@ -838,6 +1041,41 @@ body:has(.support-detail-page) .site-dot-overlay {
   .support-quick-links {
     grid-template-columns: 1fr;
     gap: 18px;
+  }
+
+  .company-verification-section {
+    margin-top: 78px;
+  }
+
+  .company-verification-table,
+  .company-verification-table tbody,
+  .company-verification-table tr,
+  .company-verification-table th,
+  .company-verification-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .company-verification-table th {
+    padding: 20px 0 0;
+  }
+
+  .company-verification-table td {
+    padding: 8px 0 20px;
+    overflow-wrap: anywhere;
+  }
+
+  .company-verification-certificate iframe {
+    height: 420px;
+  }
+
+  .company-verification-registered {
+    margin-top: 78px;
+    padding: 24px;
+  }
+
+  .company-verification-registered dl {
+    grid-template-columns: 1fr;
   }
 
   .support-faq-section,

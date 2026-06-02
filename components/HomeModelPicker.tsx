@@ -176,12 +176,12 @@ export function HomeModelPicker({ models }: HomeModelPickerProps) {
                       <Link
                         key={model.id}
                         href={model.href}
-                        className="group flex min-h-[220px] flex-col items-start justify-between rounded-[28px] bg-transparent p-4 transition duration-300 hover:-translate-y-1 sm:min-h-[270px] lg:min-h-[320px]"
+                        className="group flex min-h-[270px] flex-col items-start justify-between rounded-[28px] bg-transparent p-1 transition duration-300 hover:-translate-y-1 sm:min-h-[330px] lg:min-h-[455px] lg:p-2"
                         aria-label={`Open ${model.name}`}
                       >
                         <div className="w-full">
                           {model.image ? (
-                            <div className="relative mx-auto h-[160px] w-full max-w-[150px] sm:h-[200px] sm:max-w-[180px] lg:h-[230px] lg:max-w-[190px]">
+                            <div className="relative mx-auto h-[215px] w-full max-w-[190px] sm:h-[265px] sm:max-w-[230px] lg:h-[365px] lg:max-w-[275px]">
                               <Image
                                 src={model.image}
                                 alt={model.name}
@@ -189,17 +189,17 @@ export function HomeModelPicker({ models }: HomeModelPickerProps) {
                                 loading="lazy"
                                 fetchPriority="low"
                                 sizes="(max-width: 1024px) 42vw, 18vw"
-                                className="object-contain object-center transition-transform duration-500 ease-out group-hover:scale-[1.04]"
+                                className="scale-[1.08] object-contain object-center transition-transform duration-500 ease-out group-hover:scale-[1.12] lg:scale-[1.12] lg:group-hover:scale-[1.16]"
                               />
                             </div>
                           ) : (
-                            <div className="flex h-[160px] w-full items-center justify-center text-center text-[11px] uppercase tracking-[0.24em] text-black/30 sm:h-[200px] lg:h-[230px]">
+                            <div className="flex h-[215px] w-full items-center justify-center text-center text-[11px] uppercase tracking-[0.24em] text-black/30 sm:h-[265px] lg:h-[365px]">
                               {model.name}
                             </div>
                           )}
                         </div>
                         <p
-                          className="product-card-name mx-auto mt-4 min-h-[2.5rem] w-full text-center text-[0.92rem] leading-[1.25] text-black/78 sm:min-h-[2.8rem] sm:text-[1rem] lg:min-h-[3rem]"
+                          className="product-card-name mx-auto mt-4 min-h-[2.5rem] w-full text-center text-[0.92rem] leading-[1.25] text-black/78 sm:min-h-[2.8rem] sm:text-[1rem] lg:min-h-[3rem] lg:text-[1.08rem]"
                         >
                           {model.name}
                         </p>

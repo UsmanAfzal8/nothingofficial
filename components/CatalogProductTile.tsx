@@ -25,7 +25,7 @@ export function CatalogProductTile({ product, priority = false, tone = 'default'
               loading={priority ? undefined : 'lazy'}
               fetchPriority={priority ? 'high' : 'low'}
               sizes="(max-width: 768px) 48vw, (max-width: 1280px) 31vw, 19vw"
-              className="object-contain object-center transition-transform duration-500 ease-out group-hover:scale-[1.035]"
+              className="scale-[1.32] object-contain object-center transition-transform duration-500 ease-out group-hover:scale-[1.36] sm:scale-100 sm:group-hover:scale-[1.035]"
             />
           ) : (
             <div className="flex h-full items-center justify-center text-[10px] uppercase tracking-[0.22em] text-black/24">

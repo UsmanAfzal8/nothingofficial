@@ -4,9 +4,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Fragment, useEffect, useMemo, useRef, useState } from 'react'
 import type { ProductDetailMedia, ProductDetailSpecGroup, ProductFeatureSection, ProductFeatureSlide } from '@/lib/models/product-detail'
-import orderIcon from '@/assets/icons/order.svg'
-import packageIcon from '@/assets/icons/package.svg'
-import deliverIcon from '@/assets/icons/deleiver.svg'
 import cancelIcon from '@/assets/icons/cancel_icon.svg'
 import folderIcon from '@/assets/icons/folder.svg'
 import plusMinusIcon from '@/assets/icons/plus_minus_icon.svg'
@@ -19,6 +16,7 @@ type ProductDetailHeroProps = {
   entityType: 'product' | 'mobile'
   gallery: ProductDetailMedia[]
   backgroundImage?: ProductDetailMedia | null
+  backgroundImages?: ProductDetailMedia[]
   intro: string | null
   priceLabel?: string | null
   canonicalHandle: string
@@ -27,6 +25,7 @@ type ProductDetailHeroProps = {
     processDateLabel: string
     deliveryRangeLabel: string
   }
+  hasSpecs?: boolean
   specGroups?: ProductDetailSpecGroup[]
   featureSections?: ProductFeatureSection[]
 }
@@ -39,12 +38,24 @@ type ColorOption = {
 }
 
 const specIcons = specIconLinks as Record<string, string>
-const featureBadgePositions = [
-  'right-4 top-32 sm:right-12 sm:top-[38%] lg:right-[17%] lg:top-[52%]',
-  'right-4 top-56 sm:right-20 sm:top-[20%] lg:right-[10%] lg:top-[22%]',
-  'left-[18%] top-[42%]',
-  'right-[10%] bottom-[18%]',
+const firstBackgroundBadgePositions = [
+  'right-[8%] top-[243px] sm:left-[8%] sm:top-[11%] lg:left-[10%] lg:top-[63%]',
+  'left-[38%] top-[443px] sm:right-[6%] sm:left-auto sm:top-[36%] lg:right-[2%] lg:top-[38%]',
+  'left-[38%] top-[764px] sm:right-[11%] sm:left-auto sm:top-[11%] lg:right-[18%] lg:top-[13%]',
+  'right-[8%] top-[764px] sm:right-[11%] sm:top-auto sm:bottom-[17%] lg:right-[18%] lg:top-[76%] lg:bottom-auto',
+  'left-[8%] top-[243px] sm:left-[13%] sm:top-[34%] lg:left-[18%] lg:top-[38%]',
 ] as const
+const secondBackgroundBadgePositions = [
+  'right-[6%] top-[31%] sm:right-[12%] sm:top-[36%] lg:right-[18%] lg:top-[45%]',
+  'left-[8%] top-[11%] sm:left-[13%] sm:top-[13%] lg:left-[18%] lg:top-[20%]',
+  'left-[28%] top-[12%] sm:left-[30%] sm:top-[13%] lg:left-[34%] lg:top-[20%]',
+  'right-[8%] top-[12%] sm:right-[12%] sm:top-[13%] lg:right-[18%] lg:top-[20%]',
+  'left-[12%] bottom-[18%] sm:left-[18%] sm:bottom-[18%] lg:left-[26%] lg:top-[62%]',
+  'left-[48%] bottom-[10%] sm:left-[50%] sm:bottom-[10%] lg:left-[50%] lg:top-[75%]',
+  'right-[7%] bottom-[12%] sm:right-[13%] sm:bottom-[12%] lg:right-[8%] lg:top-[61%]',
+] as const
+const largeFeatureKeys = new Set(['official-its-metal-now', 'official-zooooom', 'official-nothing-os', 'official-playground'])
+const mobileLargeFeatureKeys = new Set(['official-zooooom', 'official-nothing-os', 'official-playground'])
 
 const COLOR_HEX_BY_NAME: Record<string, string> = {
   black: '#111111',
@@ -191,7 +202,7 @@ function SpecsFolderBadge({ onOpen }: { onOpen: () => void }) {
   return (
     <button
       type="button"
-      className="group absolute left-4 top-28 z-40 flex cursor-pointer flex-col items-center rounded-[18px] p-2 transition-transform duration-300 ease-out hover:-translate-y-1 hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-black/40 sm:left-8 sm:top-32 lg:left-14 lg:top-36"
+      className="group absolute left-8 top-24 z-40 flex cursor-pointer flex-col items-center rounded-[18px] p-2 transition-transform duration-300 ease-out hover:-translate-y-1 hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-black/40 sm:left-8 sm:top-32 lg:left-14 lg:top-36"
       onClick={onOpen}
       aria-label="Open specs"
     >
@@ -209,18 +220,22 @@ function SpecsFolderBadge({ onOpen }: { onOpen: () => void }) {
           className="pointer-events-none absolute left-1/2 top-1/2 h-[30px] w-[30px] -translate-x-1/2 -translate-y-1/2 object-contain transition-transform duration-300 ease-out group-hover:scale-110 sm:h-[36px] sm:w-[36px]"
         />
       </span>
-      <span className="mt-3 text-center font-serif text-[0.9rem] text-black transition-transform duration-300 ease-out group-hover:scale-105 sm:text-[1rem]">Specs</span>
+      <span className="mt-3 text-center [font-family:var(--font-lettera-regular)] text-[0.72rem] leading-tight text-[#8f918a] [text-shadow:0_1px_8px_rgba(255,255,255,0.42),0_1px_8px_rgba(0,0,0,0.32)] transition-transform duration-300 ease-out group-hover:scale-105 sm:text-[0.86rem]">
+        Specs
+      </span>
     </button>
   )
 }
 
 function SpecsOverlay({
   groups,
+  isLoading,
   openGroupId,
   onToggleGroup,
   onClose,
 }: {
   groups: ProductDetailSpecGroup[]
+  isLoading: boolean
   openGroupId: string | null
   onToggleGroup: (groupId: string) => void
   onClose: () => void
@@ -246,7 +261,11 @@ function SpecsOverlay({
         </div>
 
         <div className="mt-5 grid gap-1.5">
-          {groups.length > 0 ? (
+          {isLoading ? (
+            <div className="rounded-[8px] bg-white/[0.9] px-4 py-5 text-center product-card-name text-lg text-black/70 shadow-[0_10px_26px_rgba(17,17,17,0.06)] backdrop-blur-md">
+              Loading specs...
+            </div>
+          ) : groups.length > 0 ? (
             groups.map((group) => {
               const isOpen = openGroupId === group.id
               const displaySpecs = inferSpecSections(group)
@@ -271,7 +290,15 @@ function SpecsOverlay({
                     onClick={() => onToggleGroup(group.id)}
                     aria-expanded={isOpen}
                   >
-                    <Image src={getSpecIconUrl(group)} alt="" aria-hidden="true" width={18} height={18} className="h-[18px] w-[18px] object-contain opacity-80" />
+                    <Image
+                      src={getSpecIconUrl(group)}
+                      alt=""
+                      aria-hidden="true"
+                      width={18}
+                      height={18}
+                      unoptimized
+                      className="h-[18px] w-[18px] object-contain opacity-80"
+                    />
                     <span className="product-card-name text-[1rem] leading-none text-black sm:text-[1.16rem]">{group.title}</span>
                     <Image
                       src={plusMinusIcon}
@@ -293,6 +320,7 @@ function SpecsOverlay({
                             loading="lazy"
                             fetchPriority="low"
                             sizes="(max-width: 640px) 100vw, 520px"
+                            unoptimized
                             className="h-auto w-full object-contain"
                           />
                         </div>
@@ -454,6 +482,7 @@ function FeatureVisual({
         priority
         fetchPriority="high"
         sizes="100vw"
+        unoptimized
         className="object-cover object-center"
       />
     )
@@ -487,25 +516,44 @@ function DotArrowIcon({ direction }: { direction: 'left' | 'right' }) {
 
 function ProductFeatureBadge({
   section,
-  index,
+  position,
   onOpen,
+  isInline = false,
 }: {
   section: ProductFeatureSection
-  index: number
+  position: string
   onOpen: () => void
+  isInline?: boolean
 }) {
   const thumbnailUrl = getFeatureThumbnail(section)
-  const position = featureBadgePositions[index % featureBadgePositions.length]
+  const isDesktopLarge = largeFeatureKeys.has(section.featureKey)
+  const isMobileLarge = mobileLargeFeatureKeys.has(section.featureKey)
+  const widthClass = isMobileLarge
+    ? 'w-[215px] sm:w-[172px] lg:w-[276px]'
+    : isDesktopLarge
+      ? 'w-[96px] sm:w-[112px] lg:w-[276px]'
+      : 'w-[96px] sm:w-[112px] lg:w-[130px]'
+  const mediaClass = isMobileLarge
+    ? 'h-[215px] w-full sm:h-[116px] lg:h-[156px]'
+    : isDesktopLarge
+      ? 'h-[76px] w-[76px] sm:h-[92px] sm:w-[92px] lg:h-[156px] lg:w-full'
+      : 'h-[76px] w-[76px] sm:h-[92px] sm:w-[92px] lg:h-[108px] lg:w-[108px]'
 
   return (
     <button
       type="button"
-      className={`group absolute z-40 flex max-w-[142px] cursor-pointer flex-col items-center text-center text-white outline-none transition-transform duration-300 ease-out hover:-translate-y-1 hover:scale-105 focus-visible:ring-2 focus-visible:ring-white/70 ${position}`}
+      className={`group z-40 flex cursor-pointer flex-col items-center text-center text-black outline-none transition-transform duration-300 ease-out hover:-translate-y-1 hover:scale-105 focus-visible:ring-2 focus-visible:ring-black/40 ${
+        isInline ? 'relative' : 'absolute'
+      } ${widthClass} ${position}`}
       onClick={onOpen}
       aria-label={`Open ${section.title}`}
     >
-      <span className="relative block h-[76px] w-[76px] overflow-hidden rounded-[12px] bg-white/85 shadow-[0_18px_44px_rgba(0,0,0,0.18)] transition-transform duration-300 ease-out group-hover:scale-110 sm:h-[92px] sm:w-[92px]">
-        {thumbnailUrl ? (
+      <span
+        className={`relative block overflow-hidden rounded-[7px] bg-white/90 shadow-[0_18px_44px_rgba(0,0,0,0.16)] transition-transform duration-300 ease-out group-hover:scale-105 ${mediaClass}`}
+      >
+        {section.coverVideoUrl ? (
+          <HlsFeatureVideo videoUrl={section.coverVideoUrl} posterUrl={thumbnailUrl} title={section.title} />
+        ) : thumbnailUrl ? (
           <Image
             src={thumbnailUrl}
             alt=""
@@ -513,7 +561,8 @@ function ProductFeatureBadge({
             fill
             loading="lazy"
             fetchPriority="low"
-            sizes="96px"
+            sizes={isDesktopLarge || isMobileLarge ? '(max-width: 640px) 215px, (max-width: 1024px) 180px, 276px' : '130px'}
+            unoptimized
             className="object-cover"
           />
         ) : (
@@ -522,8 +571,8 @@ function ProductFeatureBadge({
           </span>
         )}
       </span>
-      <span className="mt-3 text-center font-serif text-[0.9rem] leading-tight text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.45)] transition-transform duration-300 ease-out group-hover:scale-105 sm:text-[1rem]">
-        {section.title}
+      <span className="mt-2 text-center [font-family:var(--font-lettera-regular)] text-[0.58rem] leading-tight text-[#8f918a] [text-shadow:0_1px_8px_rgba(255,255,255,0.42),0_1px_8px_rgba(0,0,0,0.32)] transition-transform duration-300 ease-out group-hover:scale-105 sm:mt-3 sm:text-[0.75rem]">
+        {section.featureTitle}
       </span>
     </button>
   )
@@ -532,11 +581,13 @@ function ProductFeatureBadge({
 function ProductFeatureOverlay({
   section,
   activeSlideIndex,
+  isLoading,
   onSelectSlide,
   onClose,
 }: {
   section: ProductFeatureSection
   activeSlideIndex: number
+  isLoading: boolean
   onSelectSlide: (slideIndex: number) => void
   onClose: () => void
 }) {
@@ -598,7 +649,11 @@ function ProductFeatureOverlay({
             <h2 className="[font-family:var(--font-georgia)] text-[1.45rem] leading-tight text-white sm:text-[1.65rem]">
               {activeSlide?.title || section.title}
             </h2>
-            {activeSlide?.body ? (
+            {isLoading && slideCount === 0 ? (
+              <p className="mt-5 [font-family:var(--font-georgia)] text-[0.95rem] leading-6 text-white sm:text-[1.02rem]">
+                Loading feature details...
+              </p>
+            ) : activeSlide?.body ? (
               <p className="mt-5 [font-family:var(--font-georgia)] text-[0.95rem] leading-6 text-white sm:text-[1.02rem]">
                 {activeSlide.body}
               </p>
@@ -625,65 +680,6 @@ function ProductFeatureOverlay({
   )
 }
 
-function DeliveryTimelineStep({
-  icon,
-  label,
-  dateLabel,
-  active = false,
-}: {
-  icon: typeof orderIcon
-  label: string
-  dateLabel: string
-  active?: boolean
-}) {
-  return (
-    <div className="flex min-w-0 flex-col items-center text-center">
-      <div
-        className={`flex h-8 w-8 items-center justify-center rounded-full border-2 sm:h-[86px] sm:w-[86px] sm:border-4 lg:h-[74px] lg:w-[74px] ${
-          active
-            ? 'border-white bg-[#fff7ef] shadow-[0_14px_28px_rgba(244,110,30,0.18)]'
-            : 'border-[#f2f2f2] bg-[#f8f8f8] shadow-[0_10px_20px_rgba(15,23,42,0.04)]'
-        }`}
-      >
-        <Image src={icon} alt="" aria-hidden="true" className={`h-3.5 w-3.5 object-contain sm:h-7 sm:w-7 ${active ? '' : 'grayscale opacity-55'}`} />
-      </div>
-      <p className={`mt-1.5 text-[0.42rem] font-extrabold uppercase tracking-normal sm:mt-3 sm:text-[0.8rem] ${active ? 'text-[#ff7a00]' : 'text-[#4f5a6c]'}`}>
-        {label}
-      </p>
-      <p className={`mt-0.5 text-[0.4rem] font-semibold sm:mt-1 sm:text-[0.78rem] ${active ? 'text-[#71798a]' : 'text-[#9ea6b4]'}`}>
-        {dateLabel}
-      </p>
-    </div>
-  )
-}
-
-function DeliveryTimelineCard({
-  deliveryTimeline,
-}: {
-  deliveryTimeline: NonNullable<ProductDetailHeroProps['deliveryTimeline']>
-}) {
-  return (
-    <div className="mt-6 rounded-[1.1rem] border border-[#f7d9b7] bg-[linear-gradient(180deg,#fffdfa_0%,#ffffff_100%)] px-2.5 py-2.5 shadow-[0_18px_42px_rgba(244,110,30,0.08)] sm:rounded-[1.85rem] sm:px-5 sm:py-6">
-      <p className="text-[0.48rem] font-black uppercase tracking-normal text-[#8d8d8d] sm:text-[0.95rem]">
-        Estimated Delivery
-      </p>
-      <p className="mt-0.5 font-sans text-[1rem] font-bold leading-none tracking-normal text-[#ff6f00] sm:mt-1 sm:text-[2.35rem]">
-        {deliveryTimeline.deliveryRangeLabel}
-      </p>
-
-      <div className="mt-2.5 border-t border-dashed border-[#f0c89d] pt-2.5 sm:mt-5 sm:pt-5">
-        <div className="grid grid-cols-[minmax(0,1fr)_minmax(0.6rem,1fr)_minmax(0,1fr)_minmax(0.6rem,1fr)_minmax(0,1fr)] items-start sm:grid-cols-[minmax(0,1fr)_minmax(2.5rem,1fr)_minmax(0,1fr)_minmax(2.5rem,1fr)_minmax(0,1fr)]">
-          <DeliveryTimelineStep icon={orderIcon} label="Order" dateLabel="Today" active />
-          <div className="mt-4 h-0.5 rounded-full bg-[#ff7a00] sm:mt-[2.55rem] sm:h-1" />
-          <DeliveryTimelineStep icon={packageIcon} label="Process" dateLabel={deliveryTimeline.processDateLabel} active />
-          <div className="mt-4 h-0.5 rounded-full bg-[#edf0f5] sm:mt-[2.55rem] sm:h-1" />
-          <DeliveryTimelineStep icon={deliverIcon} label="Deliver" dateLabel={deliveryTimeline.deliveryRangeLabel} />
-        </div>
-      </div>
-    </div>
-  )
-}
-
 function isHtmlSnippet(value: string) {
   return /<\/?[a-z][\s\S]*>/i.test(value)
 }
@@ -692,7 +688,7 @@ function IntroContent({ intro, compact = false }: { intro: string | null; compac
   if (!intro) return null
 
   const className = compact
-    ? 'mt-3 text-[0.5rem] uppercase leading-[1.35] tracking-[0.1em] text-black sm:text-[0.56rem] [&_.np-feature-list]:space-y-1.5 [&_.np-feature]:flex [&_.np-feature]:items-center [&_.np-feature]:gap-1.5 [&_.np-feature_img]:h-2.5 [&_.np-feature_img]:w-2.5 [&_.np-feature_img]:shrink-0'
+    ? 'mt-2 max-h-[4.4rem] overflow-hidden text-[0.56rem] uppercase leading-[1.45] tracking-[0.08em] text-black/66 sm:max-h-[5.2rem] sm:text-[0.62rem] [&_.np-feature-list]:space-y-1.5 [&_.np-feature]:flex [&_.np-feature]:items-center [&_.np-feature]:gap-1.5 [&_.np-feature_img]:h-2.5 [&_.np-feature_img]:w-2.5 [&_.np-feature_img]:shrink-0'
     : 'mt-5 text-base leading-7 text-slate-600 [&_.np-feature-list]:space-y-3 [&_.np-feature]:flex [&_.np-feature]:items-center [&_.np-feature]:gap-3 [&_.np-feature_img]:h-4 [&_.np-feature_img]:w-4 [&_.np-feature_img]:shrink-0'
 
   if (isHtmlSnippet(intro)) {
@@ -708,27 +704,220 @@ function formatHeroPrice(priceLabel?: string | null) {
   return priceLabel.replace(/^Rs\s*/i, 'PKR ')
 }
 
+function formatOfficialProductName(productName: string) {
+  const normalized = productName.trim()
+
+  if (/^phone\s*\(/i.test(normalized)) {
+    return normalized.replace(/\(([^)]+)\)/, '( $1 )')
+  }
+
+  const nothingMatch = normalized.match(/^Nothing\s+(.+)$/i)
+  if (!nothingMatch) return normalized
+
+  const model = nothingMatch[1].trim()
+  if (!/^(?:phone\s*)?\(?\d/i.test(model)) {
+    return normalized
+  }
+
+  const suffixMatch = model.match(/^(.+?)\s+(Pro|Lite|Plus)$/i)
+
+  if (suffixMatch) {
+    return `Phone ( ${suffixMatch[1]} ) ${suffixMatch[2]}`
+  }
+
+  return `Phone ( ${model} )`
+}
+
+function StickyPurchaseCard({
+  productName,
+  selectedMedia,
+  selectedIndex,
+  colorOptions,
+  onSelectColor,
+  priceLabel,
+  buyHref,
+  whatsappHref,
+  intro,
+  isCompact,
+  isVisible,
+}: {
+  productName: string
+  selectedMedia: ProductDetailMedia | null
+  selectedIndex: number
+  colorOptions: ColorOption[]
+  onSelectColor: (mediaIndex: number) => void
+  priceLabel?: string | null
+  buyHref: string
+  whatsappHref: string
+  intro: string | null
+  isCompact: boolean
+  isVisible: boolean
+}) {
+  const officialName = formatOfficialProductName(productName)
+  const formattedPrice = formatHeroPrice(priceLabel)
+
+  return (
+    <aside
+      className={`fixed bottom-3 left-1/2 z-50 w-[min(640px,calc(100vw-16px))] -translate-x-1/2 transition-all duration-300 ease-out sm:bottom-4 ${
+        isVisible ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-8 opacity-0'
+      }`}
+      aria-label={`${productName} purchase options`}
+    >
+      <div
+        className={`overflow-hidden rounded-[8px] border border-black/18 bg-white text-black opacity-90 shadow-[0_18px_70px_rgba(17,17,17,0.17)] transition-all duration-300 ${
+          isCompact ? 'px-3 py-2.5' : 'px-3 py-3 sm:px-4 sm:py-4'
+        }`}
+      >
+        {isCompact ? (
+          <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-2">
+            <div className="min-w-0">
+              <p className="truncate [font-family:var(--font-ndot57)] text-[0.74rem] uppercase leading-none tracking-[0.08em] text-black sm:text-[0.86rem]">
+                {officialName}
+              </p>
+              <p className="mt-1 truncate [font-family:var(--font-lettera-regular)] text-[0.62rem] uppercase tracking-[0.08em] text-black/58">
+                {formattedPrice}
+              </p>
+            </div>
+            <div className="grid grid-cols-2 gap-1.5">
+              <Link
+                href={buyHref}
+                className="inline-flex h-9 items-center justify-center rounded-[4px] bg-black px-3 [font-family:var(--font-ndot57)] text-[0.62rem] uppercase tracking-[0.08em] text-white transition-colors hover:bg-[#1b1b1b] sm:px-4 sm:text-[0.68rem]"
+              >
+                Buy
+              </Link>
+              <Link
+                href={whatsappHref}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex h-9 items-center justify-center gap-1.5 rounded-[4px] bg-[#25D366] px-3 [font-family:var(--font-ndot57)] text-[0.62rem] uppercase tracking-[0.08em] text-white transition-colors hover:bg-[#20bd5a] sm:px-4 sm:text-[0.68rem]"
+              >
+                <WhatsAppIcon />
+                <span>Chat</span>
+              </Link>
+            </div>
+          </div>
+        ) : (
+          <>
+            <div className="grid grid-cols-[minmax(0,1fr)_112px] gap-3 sm:grid-cols-[minmax(0,1fr)_150px] sm:gap-5">
+              <div className="min-w-0">
+                <h2 className="[font-family:var(--font-ndot57)] text-[0.94rem] uppercase leading-none tracking-[0.08em] text-black sm:text-[1.18rem]">
+                  {officialName}
+                </h2>
+                <IntroContent intro={intro} compact />
+                <p className="mt-3 [font-family:var(--font-lettera-regular)] text-[0.72rem] uppercase tracking-[0.12em] text-black/48">
+                  Price
+                </p>
+                <p className="mt-1 [font-family:var(--font-ndot57)] text-[0.9rem] uppercase tracking-[0.08em] text-black sm:text-[1.02rem]">
+                  {formattedPrice}
+                </p>
+              </div>
+
+              <div className="min-w-0">
+                <div className="relative h-[112px] sm:h-[142px]">
+                  {selectedMedia ? (
+                    <Image
+                      key={selectedMedia.url}
+                      src={selectedMedia.url}
+                      alt={selectedMedia.alt || productName}
+                      fill
+                      loading="eager"
+                      fetchPriority="low"
+                      sizes="150px"
+                      unoptimized
+                      className="object-contain object-center"
+                    />
+                  ) : null}
+                </div>
+                <div className="mt-2 flex flex-wrap items-center justify-center gap-2">
+                  {colorOptions.length > 0 ? (
+                    colorOptions.map((option) => {
+                      const isSelected = option.mediaIndex === selectedIndex
+
+                      return (
+                        <button
+                          key={option.key}
+                          type="button"
+                          className={`h-6 w-6 rounded-full transition sm:h-7 sm:w-7 ${
+                            isSelected ? 'border border-black p-1 shadow-[0_0_0_2px_rgba(0,0,0,0.08)]' : 'border border-black/18 p-0.5 hover:border-black/55'
+                          }`}
+                          onClick={() => onSelectColor(option.mediaIndex)}
+                          aria-label={`Select ${option.label}`}
+                          aria-pressed={isSelected}
+                        >
+                          <span className="block h-full w-full rounded-full border border-black/10" style={{ backgroundColor: option.hex }} />
+                        </button>
+                      )
+                    })
+                  ) : (
+                    <span className="[font-family:var(--font-lettera-regular)] text-[0.62rem] uppercase tracking-[0.08em] text-black/55">
+                      Default
+                    </span>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-3 grid grid-cols-2 gap-2 sm:mt-4">
+              <Link
+                href={buyHref}
+                className="inline-flex h-10 items-center justify-center rounded-[4px] bg-black px-4 [font-family:var(--font-ndot57)] text-[0.68rem] uppercase tracking-[0.08em] text-white transition-colors hover:bg-[#1b1b1b] sm:h-11 sm:text-[0.76rem]"
+              >
+                Buy Now
+              </Link>
+              <Link
+                href={whatsappHref}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex h-10 items-center justify-center gap-2 rounded-[4px] bg-[#25D366] px-4 [font-family:var(--font-ndot57)] text-[0.62rem] uppercase tracking-[0.07em] text-white transition-colors hover:bg-[#20bd5a] sm:h-11 sm:text-[0.72rem]"
+              >
+                <WhatsAppIcon />
+                <span>Contact WhatsApp</span>
+              </Link>
+            </div>
+          </>
+        )}
+      </div>
+    </aside>
+  )
+}
+
 export function ProductDetailHero({
   productName,
   brandLabel,
   entityType,
   gallery,
   backgroundImage,
+  backgroundImages = [],
   intro,
   priceLabel,
   canonicalHandle,
   labels = [],
-  deliveryTimeline,
+  hasSpecs,
   specGroups = [],
   featureSections = [],
 }: ProductDetailHeroProps) {
+  const immersiveRef = useRef<HTMLElement | null>(null)
   const [selectedIndex, setSelectedIndex] = useState(0)
   const [isSpecsOpen, setIsSpecsOpen] = useState(false)
+  const [loadedSpecGroups, setLoadedSpecGroups] = useState(specGroups)
+  const [isSpecsLoading, setIsSpecsLoading] = useState(false)
   const [openSpecGroupId, setOpenSpecGroupId] = useState<string | null>(null)
   const [activeFeatureId, setActiveFeatureId] = useState<string | null>(null)
   const [activeFeatureSlideIndex, setActiveFeatureSlideIndex] = useState(0)
+  const [featureSectionsById, setFeatureSectionsById] = useState<Record<string, ProductFeatureSection>>({})
+  const [isPurchaseCardVisible, setIsPurchaseCardVisible] = useState(true)
+  const [isPurchaseCardCompact, setIsPurchaseCardCompact] = useState(false)
   const selectedMedia = gallery[selectedIndex] ?? gallery[0] ?? null
-  const activeFeature = featureSections.find((section) => section.id === activeFeatureId) ?? null
+  const initialDisplayedFeatureSections = useMemo(() => {
+    const officialSections = featureSections.filter((section) => section.featureKey.startsWith('official-'))
+
+    return officialSections.length > 0 ? officialSections : featureSections
+  }, [featureSections])
+  const displayedFeatureSections = useMemo(
+    () => initialDisplayedFeatureSections.map((section) => featureSectionsById[section.id] ?? section),
+    [featureSectionsById, initialDisplayedFeatureSections],
+  )
+  const activeFeature = activeFeatureId ? displayedFeatureSections.find((section) => section.id === activeFeatureId) ?? null : null
   const colorOptions = useMemo(() => buildColorOptions(gallery), [gallery])
   const colorKeys = useMemo(() => new Set(colorOptions.map((color) => color.key)), [colorOptions])
   const uniqueLabels = useMemo(
@@ -742,7 +931,84 @@ export function ProductDetailHero({
       ? `https://api.whatsapp.com/send?phone=923361070111&text=${encodeURIComponent(`Hi, I want to purchase this phone if available. Kindly tell me the price: ${productName}`)}`
       : 'https://api.whatsapp.com/send?phone=923361070111'
   const buyHref = `/order/${canonicalHandle}`
-  const hasSpecGroups = specGroups.some((group) => group.specs.length > 0 || group.mediaUrl)
+  const hasSpecGroups = hasSpecs ?? loadedSpecGroups.length > 0
+  const immersiveBackgroundImages = backgroundImages.length > 0 ? backgroundImages : backgroundImage ? [backgroundImage] : []
+  const firstHeroFeatureSections = immersiveBackgroundImages.length > 1 ? displayedFeatureSections.slice(0, 5) : displayedFeatureSections
+  const secondHeroFeatureSections = immersiveBackgroundImages.length > 1 ? displayedFeatureSections.slice(5) : []
+
+  useEffect(() => {
+    setLoadedSpecGroups(specGroups)
+    setFeatureSectionsById({})
+    setIsSpecsLoading(false)
+    setOpenSpecGroupId(null)
+    setActiveFeatureId(null)
+    setActiveFeatureSlideIndex(0)
+  }, [canonicalHandle, featureSections, specGroups])
+
+  const loadSpecGroups = async () => {
+    if (loadedSpecGroups.some((group) => group.specs.length > 0)) return
+
+    setIsSpecsLoading(true)
+
+    try {
+      const response = await fetch(`/api/products/${encodeURIComponent(canonicalHandle)}/spec-groups`, {
+        cache: 'no-store',
+      })
+
+      if (!response.ok) return
+
+      const payload = (await response.json()) as { specGroups?: ProductDetailSpecGroup[] }
+
+      if (Array.isArray(payload.specGroups)) {
+        setLoadedSpecGroups(payload.specGroups)
+      }
+    } catch {
+      return
+    } finally {
+      setIsSpecsLoading(false)
+    }
+  }
+
+  const openSpecs = () => {
+    setIsSpecsOpen(true)
+    void loadSpecGroups()
+  }
+
+  const loadFeatureSection = async (section: ProductFeatureSection) => {
+    const hydratedSection = featureSectionsById[section.id]
+
+    if (section.slides.length > 0 || hydratedSection?.slides.length) return
+
+    try {
+      const response = await fetch(
+        `/api/products/${encodeURIComponent(canonicalHandle)}/feature-sections/${encodeURIComponent(section.id)}`,
+        {
+          cache: 'no-store',
+        },
+      )
+
+      if (!response.ok) return
+
+      const payload = (await response.json()) as { section?: ProductFeatureSection }
+
+      if (payload.section) {
+        setFeatureSectionsById((current) => ({
+          ...current,
+          [section.id]: payload.section as ProductFeatureSection,
+        }))
+      }
+    } catch {
+      return
+    }
+  }
+
+  const openFeature = (section: ProductFeatureSection) => {
+    setIsSpecsOpen(false)
+    setOpenSpecGroupId(null)
+    setActiveFeatureId(section.id)
+    setActiveFeatureSlideIndex(0)
+    void loadFeatureSection(section)
+  }
 
   useEffect(() => {
     document.body.style.overflow = isSpecsOpen || activeFeature ? 'hidden' : ''
@@ -752,36 +1018,36 @@ export function ProductDetailHero({
     }
   }, [activeFeature, isSpecsOpen])
 
-  if (backgroundImage) {
+  useEffect(() => {
+    if (immersiveBackgroundImages.length === 0) return undefined
+
+    const updatePurchaseCardState = () => {
+      const rect = immersiveRef.current?.getBoundingClientRect()
+
+      if (!rect) return
+
+      setIsPurchaseCardVisible(rect.top < window.innerHeight - 90 && rect.bottom > 90)
+      setIsPurchaseCardCompact(Math.abs(rect.top) > 520)
+    }
+
+    updatePurchaseCardState()
+    window.addEventListener('scroll', updatePurchaseCardState, { passive: true })
+    window.addEventListener('resize', updatePurchaseCardState)
+
+    return () => {
+      window.removeEventListener('scroll', updatePurchaseCardState)
+      window.removeEventListener('resize', updatePurchaseCardState)
+    }
+  }, [immersiveBackgroundImages.length])
+
+  if (immersiveBackgroundImages.length > 0) {
     return (
-      <section className="relative min-h-screen overflow-hidden bg-[#e8e8e6] font-sans">
-        <Image
-          src={backgroundImage.url}
-          alt={backgroundImage.alt || productName}
-          fill
-          priority
-          fetchPriority="high"
-          sizes="100vw"
-          className="object-cover object-center"
-        />
-        <div className="pointer-events-none absolute inset-0 opacity-70 [background-image:radial-gradient(circle,#111_1.2px,transparent_1.45px)] [background-position:1.4rem_1.4rem] [background-size:7.5rem_7.5rem] sm:[background-size:9.5rem_7.75rem]" />
-        {hasSpecGroups ? <SpecsFolderBadge onOpen={() => setIsSpecsOpen(true)} /> : null}
-        {featureSections.map((section, index) => (
-          <ProductFeatureBadge
-            key={section.id}
-            section={section}
-            index={index}
-            onOpen={() => {
-              setIsSpecsOpen(false)
-              setOpenSpecGroupId(null)
-              setActiveFeatureId(section.id)
-              setActiveFeatureSlideIndex(0)
-            }}
-          />
-        ))}
+      <section ref={immersiveRef} className="relative overflow-hidden bg-[#f3f4f4] font-sans text-black">
+        <h1 className="sr-only">{productName}</h1>
         {isSpecsOpen ? (
           <SpecsOverlay
-            groups={specGroups}
+            groups={loadedSpecGroups}
+            isLoading={isSpecsLoading}
             openGroupId={openSpecGroupId}
             onToggleGroup={(groupId) => setOpenSpecGroupId((current) => (current === groupId ? null : groupId))}
             onClose={() => {
@@ -794,6 +1060,7 @@ export function ProductDetailHero({
           <ProductFeatureOverlay
             section={activeFeature}
             activeSlideIndex={activeFeatureSlideIndex}
+            isLoading={false}
             onSelectSlide={setActiveFeatureSlideIndex}
             onClose={() => {
               setActiveFeatureId(null)
@@ -802,97 +1069,114 @@ export function ProductDetailHero({
           />
         ) : null}
 
-        <div className="relative z-10 flex min-h-screen items-end justify-center px-4 pb-6 pt-24 sm:px-8 sm:pb-10">
-          <div className="w-full max-w-[470px] rounded-[14px] border border-white/80 bg-[#fbf7ef] p-4 text-black shadow-[0_24px_80px_rgba(0,0,0,0.20),inset_0_1px_0_rgba(255,255,255,0.88)] sm:p-5">
-            <div className="grid grid-cols-[104px_minmax(0,1fr)] items-start gap-3 sm:grid-cols-[124px_minmax(0,1fr)]">
-              {selectedMedia ? (
-                <div className="w-full max-w-[104px] sm:max-w-[124px]">
-                  <div className="relative mx-auto aspect-square w-[82px] sm:w-full">
-                    <Image
-                      src={selectedMedia.url}
-                      alt={selectedMedia.alt || productName}
-                      fill
-                      loading="eager"
-                      fetchPriority="high"
-                      sizes="210px"
-                      className="object-contain drop-shadow-[0_18px_28px_rgba(0,0,0,0.16)]"
-                    />
+        {immersiveBackgroundImages.map((image, index) => {
+          const isFirst = index === 0
+          const isSecond = index === 1
+
+          const renderFirstFeatureBadges = () =>
+            firstHeroFeatureSections.map((section, featureIndex) => (
+              <ProductFeatureBadge
+                key={section.id}
+                section={section}
+                position={firstBackgroundBadgePositions[featureIndex % firstBackgroundBadgePositions.length]}
+                onOpen={() => openFeature(section)}
+              />
+            ))
+
+          const renderMobileFeatureBadges = (sections: ProductFeatureSection[], className: string) =>
+            sections.length > 0 ? (
+              <div className={`absolute inset-x-4 z-40 flex flex-wrap items-start justify-center gap-x-5 gap-y-7 sm:hidden ${className}`}>
+                {sections.map((section) => (
+                  <ProductFeatureBadge key={section.id} section={section} position="" isInline onOpen={() => openFeature(section)} />
+                ))}
+              </div>
+            ) : null
+
+          if (isFirst) {
+            return (
+              <Fragment key={image.id}>
+                <section className="relative min-h-[1280px] overflow-hidden bg-[#f3f4f4] sm:hidden">
+                  <Image
+                    src={image.url}
+                    alt={image.alt || productName}
+                    fill
+                    priority
+                    fetchPriority="high"
+                    loading="eager"
+                    sizes="100vw"
+                    unoptimized
+                    className="object-cover object-center"
+                  />
+                  <div className="pointer-events-none absolute inset-0 opacity-55 [background-image:radial-gradient(circle,#111_1px,transparent_1.35px)] [background-position:1.4rem_1.4rem] [background-size:7.5rem_7.5rem]" />
+                  {hasSpecGroups ? <SpecsFolderBadge onOpen={openSpecs} /> : null}
+                  {renderMobileFeatureBadges(firstHeroFeatureSections, 'bottom-28')}
+                </section>
+
+                <section className="relative hidden min-h-screen overflow-hidden bg-[#f3f4f4] sm:block">
+                  <Image
+                    src={image.url}
+                    alt={image.alt || productName}
+                    fill
+                    priority
+                    fetchPriority="high"
+                    loading="eager"
+                    sizes="100vw"
+                    unoptimized
+                    className="object-cover object-center"
+                  />
+                  <div className="pointer-events-none absolute inset-0 opacity-55 [background-image:radial-gradient(circle,#111_1px,transparent_1.35px)] [background-position:1.4rem_1.4rem] [background-size:9.5rem_7.75rem]" />
+                  {hasSpecGroups ? <SpecsFolderBadge onOpen={openSpecs} /> : null}
+                  {renderFirstFeatureBadges()}
+                </section>
+              </Fragment>
+            )
+          }
+
+          return (
+            <section key={image.id} className="relative min-h-[520px] overflow-hidden bg-[#f3f4f4] sm:min-h-[720px] lg:min-h-[820px]">
+              <Image
+                src={image.url}
+                alt={image.alt || productName}
+                fill
+                fetchPriority="low"
+                loading="lazy"
+                sizes="100vw"
+                unoptimized
+                className="object-cover object-center"
+              />
+              <div className="pointer-events-none absolute inset-0 opacity-55 [background-image:radial-gradient(circle,#111_1px,transparent_1.35px)] [background-position:1.4rem_1.4rem] [background-size:7.5rem_7.5rem] sm:[background-size:9.5rem_7.75rem]" />
+
+              {isSecond ? (
+                <>
+                  {renderMobileFeatureBadges(secondHeroFeatureSections, 'top-12')}
+                  <div className="hidden sm:block">
+                    {secondHeroFeatureSections.map((section, featureIndex) => (
+                      <ProductFeatureBadge
+                        key={section.id}
+                        section={section}
+                        position={secondBackgroundBadgePositions[featureIndex % secondBackgroundBadgePositions.length]}
+                        onOpen={() => openFeature(section)}
+                      />
+                    ))}
                   </div>
-
-                  {colorOptions.length > 0 ? (
-                    <div className="mt-2 flex flex-wrap justify-center gap-1.5">
-                      {colorOptions.map((color) => {
-                        const isActive = color.mediaIndex === selectedIndex
-                        const isLight = ['white', 'milk', 'silver', 'yellow'].includes(color.key)
-
-                        return (
-                          <button
-                            key={color.key}
-                            type="button"
-                            aria-label={`Show ${color.label}`}
-                            title={color.label}
-                            aria-pressed={isActive}
-                            onClick={() => setSelectedIndex(color.mediaIndex)}
-                            className={`flex h-5 w-5 items-center justify-center rounded-full border transition ${
-                              isActive ? 'border-black shadow-[0_0_0_3px_rgba(0,0,0,0.10)]' : 'border-black/20 hover:border-black/55'
-                            }`}
-                          >
-                            <span
-                              className={`block h-3 w-3 rounded-full ${isLight ? 'border border-black/20' : ''}`}
-                              style={{ backgroundColor: color.hex }}
-                            />
-                          </button>
-                        )
-                      })}
-                    </div>
-                  ) : null}
-                </div>
+                </>
               ) : null}
-
-              <div className="min-w-0">
-                <h1 className="[font-family:var(--font-ndot57)] text-[0.86rem] lowercase leading-none tracking-[0.13em] sm:text-[1rem]">
-                  {productName}
-                </h1>
-                <IntroContent intro={intro} compact />
-                <p className="mt-3 [font-family:var(--font-ndot57)] text-[0.6rem] uppercase tracking-[0.16em] text-black sm:text-[0.68rem]">
-                  {formatHeroPrice(priceLabel)}
-                </p>
-              </div>
-            </div>
-
-            {entityType === 'product' ? (
-              <div className="mt-3 grid gap-2 sm:grid-cols-2">
-                <Link
-                  href={buyHref}
-                  className="inline-flex h-10 items-center justify-center rounded-[8px] bg-black px-3 [font-family:var(--font-ndot57)] text-[0.95rem] font-bold uppercase tracking-[0.06em] text-white transition-colors hover:bg-[#1b1b1b] sm:h-10 sm:text-[1rem] sm:tracking-[0.08em]"
-                >
-                  Buy Now
-                </Link>
-                <Link
-                  href={whatsappHref}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex h-10 items-center justify-center gap-1.5 rounded-[8px] bg-[#20c65a] px-3 [font-family:var(--font-ndot57)] text-[0.86rem] font-bold uppercase tracking-[0.03em] text-white transition-colors hover:bg-[#18ad4d] sm:h-10 sm:text-[0.92rem] sm:tracking-[0.04em]"
-                >
-                  <WhatsAppIcon />
-                  <span>Contact on WhatsApp</span>
-                </Link>
-              </div>
-            ) : (
-              <div className="mt-3">
-                <Link
-                  href={whatsappHref}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex h-10 w-full items-center justify-center gap-1.5 rounded-[8px] bg-[#20c65a] px-3 [font-family:var(--font-ndot57)] text-[0.86rem] font-bold uppercase tracking-[0.03em] text-white transition-colors hover:bg-[#18ad4d] sm:h-10 sm:text-[0.92rem] sm:tracking-[0.04em]"
-                >
-                  <WhatsAppIcon />
-                  <span>Contact on WhatsApp</span>
-                </Link>
-              </div>
-            )}
-          </div>
-        </div>
+            </section>
+          )
+        })}
+        <StickyPurchaseCard
+          productName={productName}
+          selectedMedia={selectedMedia}
+          selectedIndex={selectedIndex}
+          colorOptions={colorOptions}
+          onSelectColor={setSelectedIndex}
+          priceLabel={priceLabel}
+          buyHref={buyHref}
+          whatsappHref={whatsappHref}
+          intro={intro}
+          isCompact={isPurchaseCardCompact}
+          isVisible={isPurchaseCardVisible && !isSpecsOpen && !activeFeature}
+        />
       </section>
     )
   }
@@ -912,6 +1196,7 @@ export function ProductDetailHero({
                   priority
                   fetchPriority="high"
                   sizes="(max-width: 1024px) 100vw, 56vw"
+                  unoptimized
                   className="object-contain"
                 />
               </div>
@@ -946,6 +1231,7 @@ export function ProductDetailHero({
                         loading="lazy"
                         fetchPriority="low"
                         sizes="96px"
+                        unoptimized
                         className="object-contain"
                       />
                     </span>
@@ -1019,8 +1305,6 @@ export function ProductDetailHero({
               </p>
             </div>
           </div>
-
-          {deliveryTimeline ? <DeliveryTimelineCard deliveryTimeline={deliveryTimeline} /> : null}
 
           {entityType === 'product' ? (
             <div className="mt-6 grid gap-3 sm:grid-cols-2">

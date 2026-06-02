@@ -37,6 +37,8 @@ import { DETAIL_IMAGE_RELATED_TYPE_ENUM, STORE_RELATED_TYPE_ENUM } from '@/lib/m
 import type { ProductType } from '@/lib/models/supabase-enums'
 import { getSupabaseAdminClient } from '@/lib/supabase-admin'
 import { buildAbsoluteUrl, splitSeoKeywords, trimSeoDescription } from '@/lib/utils/seo'
+import fallbackMobiles from '@/database/mobile.json'
+import fallbackProducts from '@/database/prodcuts.json'
 
 export type SupportHeroImage = {
   url: string | null
@@ -105,7 +107,7 @@ type CatalogSnapshot = {
   specGroupItemsByGroupId: Map<number, SupabaseSpecGroupItemRow[]>
   productFeatureSectionsByEntryKey: Map<string, SupabaseProductFeatureSectionRow[]>
   productFeatureSlidesBySectionId: Map<number, SupabaseProductFeatureSlideRow[]>
-  reviewsByProductId: Map<number, SupabaseReviewRow[]>
+  reviewsByEntryKey: Map<string, SupabaseReviewRow[]>
 }
 
 type CatalogSnapshotPayload = {
@@ -122,6 +124,23 @@ type CatalogSnapshotPayload = {
   productFeatureSlides: SupabaseProductFeatureSlideRow[]
   reviews: SupabaseReviewRow[]
   colors: SupabaseColorRow[]
+}
+
+type CatalogSnapshotReadOptions = {
+  includeDetailRows?: boolean
+}
+
+type ProductDetailReadOptions = {
+  includeDetailRows?: boolean
+}
+
+type FallbackProductRow = SupabaseProductRow & {
+  piority?: number | null
+}
+
+type FallbackMobileRow = SupabaseMobileRow & {
+  pta_tax?: number | null
+  non_pta_price?: number | null
 }
 
 type VirtualCollectionConfig = {
@@ -372,6 +391,281 @@ function resolveAvailability(stockQuantity?: number | null): ProductDetail['avai
   return stockQuantity > 0 ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock'
 }
 
+function parseCatalogNumber(value: unknown): number | null {
+  if (typeof value === 'number') {
+    return Number.isFinite(value) ? value : null
+  }
+
+  if (typeof value === 'string') {
+    const parsed = Number(value.replace(/,/g, ''))
+    return Number.isFinite(parsed) ? parsed : null
+  }
+
+  return null
+}
+
+function getSchemaImages(schemaJson: Record<string, unknown> | null | undefined): string[] {
+  const image = schemaJson?.image
+
+  if (typeof image === 'string') {
+    return [image]
+  }
+
+  if (Array.isArray(image)) {
+    return image.filter((item): item is string => typeof item === 'string' && item.startsWith('http'))
+  }
+
+  return []
+}
+
+function buildFallbackGallery(name: string, schemaJson: Record<string, unknown> | null | undefined, altText?: string | null): ProductDetailMedia[] {
+  return getSchemaImages(schemaJson).map((url, index) => ({
+    id: `fallback-media-${index + 1}`,
+    url,
+    alt: altText || `${name} original product in Pakistan from Nothing Pakistan`,
+    title: name,
+    caption: index === 0 ? 'Product image' : `Product image ${index + 1}`,
+    colorName: null,
+    colorHex: null,
+    slug: null,
+  }))
+}
+
+function buildFallbackCollections(itemType: 'product' | 'mobile', productType?: ProductType | null): ProductDetailCollection[] {
+  if (itemType === 'mobile') {
+    return [{ slug: 'phones', title: 'Phones' }]
+  }
+
+  if (productType === 'charger' || productType === 'data_cable') {
+    return [{ slug: 'chargers', title: 'Chargers' }]
+  }
+
+  if (productType === 'earbuds') {
+    return [{ slug: 'audio', title: 'Audio' }]
+  }
+
+  if (productType === 'covers' || productType === 'protector' || productType === 'screen_protector') {
+    return [{ slug: 'accessories', title: 'Accessories' }]
+  }
+
+  return [{ slug: 'shop-all', title: 'Shop All' }]
+}
+
+function buildFallbackBreadcrumbs(collections: ProductDetailCollection[], itemType: 'product' | 'mobile'): ProductDetailBreadcrumbItem[] {
+  const fallbackCollection = itemType === 'mobile'
+    ? { slug: 'phones', title: 'Phones' }
+    : { slug: 'shop-all', title: 'Shop All' }
+  const primaryCollection = collections[0] ?? fallbackCollection
+
+  return [
+    { label: 'Home', href: '/' },
+    { label: primaryCollection.title, href: `/collections/${primaryCollection.slug}` },
+  ]
+}
+
+function buildFallbackSpecGroups(specs: ProductDetailSpec[]): ProductDetailSpecGroup[] {
+  return specs.length > 0
+    ? [
+        {
+          id: 'fallback-spec-group-overview',
+          title: 'Specifications',
+          subtitle: null,
+          iconKey: null,
+          mediaUrl: null,
+          mediaAlt: null,
+          mediaType: 'image',
+          mediaPosition: 'top',
+          defaultOpen: true,
+          sortOrder: 0,
+          specs,
+        },
+      ]
+    : []
+}
+
+function buildFallbackProductDetail(product: FallbackProductRow): ProductDetail {
+  const name = normalizeProductName(product.name)
+  const price = parseCatalogNumber(product.price)
+  const priceLabel = formatPrice(price)
+  const schemaJson = product.schema_json ?? null
+  const gallery = buildFallbackGallery(name, schemaJson, product.image_alt_text)
+  const collections = buildFallbackCollections('product', product.product_type)
+  const canonicalPath = `/products/${product.slug}`
+  const summary = sanitizeCatalogCopy(product.short_description) || sanitizeCatalogCopy(product.description) || buildProductMetaDescription(product, name)
+  const specs: ProductDetailSpec[] = [
+    product.product_type
+      ? {
+          id: 'fallback-spec-product-type',
+          label: 'Product type',
+          value: PRODUCT_TYPE_LABELS[product.product_type] ?? product.product_type,
+        }
+      : null,
+    priceLabel
+      ? {
+          id: 'fallback-spec-price',
+          label: 'Price',
+          value: priceLabel,
+        }
+      : null,
+  ].filter((spec): spec is ProductDetailSpec => Boolean(spec))
+
+  return {
+    id: `product-${product.id}`,
+    entityType: 'product',
+    handle: product.slug,
+    name,
+    brandName: resolveBrandName(name),
+    pageTitle: product.meta_title || name,
+    summary,
+    metaDescription: buildProductMetaDescription(product, name),
+    seoKeywords: buildProductSearchKeywords(name, product.product_type, product.seo_keywords),
+    schemaJson,
+    description: sanitizeCatalogCopy(product.seo_description_long) || sanitizeCatalogCopy(product.description),
+    sourceHref: canonicalPath,
+    sourceUrl: buildAbsoluteUrl(canonicalPath),
+    canonicalUrl: product.canonical_url || buildAbsoluteUrl(canonicalPath),
+    ogImage: gallery[0]?.url ?? null,
+    primaryImage: gallery[0]?.url ?? null,
+    productBackgroundImage: null,
+    productBackgroundImages: [],
+    gallery,
+    collectionSlugs: collections.map((collection) => collection.slug),
+    collections,
+    variantUrls: gallery.map((image) => image.url),
+    variants: gallery.map((image, index) => ({
+      id: `fallback-variant-${index + 1}`,
+      label: image.caption || `Image ${index + 1}`,
+      href: canonicalPath,
+    })),
+    heroImages: gallery.map((image) => image.url),
+    widgets: [
+      {
+        id: 'fallback-widget-1',
+        text: product.product_type ? PRODUCT_TYPE_LABELS[product.product_type] ?? product.product_type : 'Live catalog item',
+      },
+      {
+        id: 'fallback-widget-2',
+        text: typeof product.stock_quantity === 'number' && product.stock_quantity <= 0 ? 'Out of stock' : 'In stock',
+      },
+    ],
+    price,
+    priceLabel,
+    stockQuantity: product.stock_quantity,
+    availability: resolveAvailability(product.stock_quantity),
+    createdAt: product.created_at,
+    updatedAt: product.updated_at,
+    specs,
+    specGroups: buildFallbackSpecGroups(specs),
+    productFeatureSections: [],
+    faqs: buildFaqs([], name, priceLabel),
+    reviews: [],
+    relatedMobiles: [],
+    breadcrumbItems: buildFallbackBreadcrumbs(collections, 'product'),
+    aggregateRating: null,
+  }
+}
+
+function buildFallbackMobileDetail(mobile: FallbackMobileRow): ProductDetail {
+  const price = parseCatalogNumber(mobile.Price)
+  const priceLabel = formatPrice(price)
+  const schemaJson = mobile.schema_json ?? null
+  const gallery = buildFallbackGallery(mobile.name, schemaJson, mobile.image_alt_text)
+  const collections = buildFallbackCollections('mobile')
+  const canonicalPath = `/products/${mobile.slug}`
+  const specs: ProductDetailSpec[] = [
+    mobile.release_date
+      ? {
+          id: 'fallback-spec-release-date',
+          label: 'Release date',
+          value: formatCatalogDate(mobile.release_date) ?? mobile.release_date,
+        }
+      : null,
+    priceLabel
+      ? {
+          id: 'fallback-spec-price',
+          label: 'Price',
+          value: priceLabel,
+        }
+      : null,
+  ].filter((spec): spec is ProductDetailSpec => Boolean(spec))
+
+  return {
+    id: `mobile-${mobile.id}`,
+    entityType: 'mobile',
+    handle: mobile.slug,
+    name: mobile.name,
+    brandName: resolveBrandName(mobile.name),
+    pageTitle: mobile.meta_title || mobile.name,
+    summary: sanitizeCatalogCopy(mobile.description) || buildMobileMetaDescription(mobile),
+    metaDescription: buildMobileMetaDescription(mobile),
+    seoKeywords: buildMobileSearchKeywords(mobile.name, mobile.seo_keywords),
+    schemaJson,
+    description: sanitizeCatalogCopy(mobile.seo_description_long) || sanitizeCatalogCopy(mobile.description),
+    sourceHref: canonicalPath,
+    sourceUrl: buildAbsoluteUrl(canonicalPath),
+    canonicalUrl: mobile.canonical_url || buildAbsoluteUrl(canonicalPath),
+    ogImage: gallery[0]?.url ?? null,
+    primaryImage: gallery[0]?.url ?? null,
+    productBackgroundImage: null,
+    productBackgroundImages: [],
+    gallery,
+    collectionSlugs: collections.map((collection) => collection.slug),
+    collections,
+    variantUrls: gallery.map((image) => image.url),
+    variants: gallery.map((image, index) => ({
+      id: `fallback-variant-${index + 1}`,
+      label: image.caption || `Image ${index + 1}`,
+      href: canonicalPath,
+    })),
+    heroImages: gallery.map((image) => image.url),
+    widgets: [
+      {
+        id: 'fallback-widget-1',
+        text: 'Phone',
+      },
+      {
+        id: 'fallback-widget-2',
+        text: 'Live catalog item',
+      },
+    ],
+    price,
+    priceLabel,
+    stockQuantity: null,
+    availability: resolveAvailability(),
+    createdAt: mobile.created_at,
+    updatedAt: mobile.updated_at,
+    specs,
+    specGroups: buildFallbackSpecGroups(specs),
+    productFeatureSections: [],
+    faqs: buildFaqs([], mobile.name, priceLabel),
+    reviews: [],
+    relatedMobiles: [],
+    breadcrumbItems: buildFallbackBreadcrumbs(collections, 'mobile'),
+    aggregateRating: null,
+  }
+}
+
+function buildFallbackProductDetailByHandle(handle: string): ProductDetail | null {
+  const fallbackProduct = (fallbackProducts as unknown as FallbackProductRow[]).find((product) => product.slug === handle)
+  if (fallbackProduct) {
+    return buildFallbackProductDetail(fallbackProduct)
+  }
+
+  const fallbackMobile = (fallbackMobiles as unknown as FallbackMobileRow[]).find((mobile) => mobile.slug === handle)
+  if (fallbackMobile) {
+    return buildFallbackMobileDetail(fallbackMobile)
+  }
+
+  return null
+}
+
+function getFallbackProductHandles(): string[] {
+  return [
+    ...(fallbackProducts as unknown as FallbackProductRow[]).map((product) => product.slug),
+    ...(fallbackMobiles as unknown as FallbackMobileRow[]).map((mobile) => mobile.slug),
+  ].filter((slug): slug is string => Boolean(slug))
+}
+
 function buildEntryKey(type: StoreImageRelatedType, id: number): string {
   return `${type}:${id}`
 }
@@ -457,8 +751,9 @@ function sortHomeShowcaseCards(items: Product[]): Product[] {
   })
 }
 
-async function readCatalogSnapshotFromSupabase(): Promise<CatalogSnapshotPayload> {
+async function readCatalogSnapshotFromSupabase(options: CatalogSnapshotReadOptions = {}): Promise<CatalogSnapshotPayload> {
   const supabase = getSupabaseAdminClient()
+  const includeDetailRows = options.includeDetailRows ?? true
 
   if (!supabase) {
     return {
@@ -497,25 +792,27 @@ async function readCatalogSnapshotFromSupabase(): Promise<CatalogSnapshotPayload
       }
     })
 
-  const specGroupItemsPromise = fetchPagedSupabaseRows<SupabaseSpecGroupItemRow>((from, to) =>
-    supabase
-      .from('spec_group_items')
-      .select('id, spec_group_id, section, label, value, sort_order, created_at, updated_at')
-      .order('spec_group_id', { ascending: true })
-      .order('sort_order', { ascending: true })
-      .range(from, to),
-  )
-    .then((response) => {
-      if (response.error) {
-        console.warn('[catalog-repository] spec_group_items unavailable:', response.error.message)
-        return { data: [] as SupabaseSpecGroupItemRow[], error: null }
-      }
+  const specGroupItemsPromise = includeDetailRows
+    ? fetchPagedSupabaseRows<SupabaseSpecGroupItemRow>((from, to) =>
+        supabase
+          .from('spec_group_items')
+          .select('id, spec_group_id, section, label, value, sort_order, created_at, updated_at')
+          .order('spec_group_id', { ascending: true })
+          .order('sort_order', { ascending: true })
+          .range(from, to),
+      )
+        .then((response) => {
+          if (response.error) {
+            console.warn('[catalog-repository] spec_group_items unavailable:', response.error.message)
+            return { data: [] as SupabaseSpecGroupItemRow[], error: null }
+          }
 
-      return {
-        data: (response.data ?? []) as SupabaseSpecGroupItemRow[],
-        error: null,
-      }
-    })
+          return {
+            data: (response.data ?? []) as SupabaseSpecGroupItemRow[],
+            error: null,
+          }
+        })
+    : Promise.resolve({ data: [] as SupabaseSpecGroupItemRow[], error: null })
 
   const productFeatureSectionsPromise = supabase
     .from('product_feature_sections')
@@ -537,24 +834,26 @@ async function readCatalogSnapshotFromSupabase(): Promise<CatalogSnapshotPayload
       }
     })
 
-  const productFeatureSlidesPromise = supabase
-    .from('product_feature_slides')
-    .select(
-      'id, product_feature_section_id, source_key, title, body, media_type, image_url, video_playback_id, video_url, thumbnail_url, sort_order, active, created_at, updated_at',
-    )
-    .eq('active', true)
-    .order('sort_order', { ascending: true })
-    .then((response) => {
-      if (response.error) {
-        console.warn('[catalog-repository] product_feature_slides unavailable:', response.error.message)
-        return { data: [] as SupabaseProductFeatureSlideRow[], error: null }
-      }
+  const productFeatureSlidesPromise = includeDetailRows
+    ? supabase
+        .from('product_feature_slides')
+        .select(
+          'id, product_feature_section_id, source_key, title, body, media_type, image_url, video_playback_id, video_url, thumbnail_url, sort_order, active, created_at, updated_at',
+        )
+        .eq('active', true)
+        .order('sort_order', { ascending: true })
+        .then((response) => {
+          if (response.error) {
+            console.warn('[catalog-repository] product_feature_slides unavailable:', response.error.message)
+            return { data: [] as SupabaseProductFeatureSlideRow[], error: null }
+          }
 
-      return {
-        data: (response.data ?? []) as SupabaseProductFeatureSlideRow[],
-        error: null,
-      }
-    })
+          return {
+            data: (response.data ?? []) as SupabaseProductFeatureSlideRow[],
+            error: null,
+          }
+        })
+    : Promise.resolve({ data: [] as SupabaseProductFeatureSlideRow[], error: null })
 
   const [
     productsResponse,
@@ -596,17 +895,22 @@ async function readCatalogSnapshotFromSupabase(): Promise<CatalogSnapshotPayload
       .select('id, related_type, related_id, color_id, url, alt_text, title, caption, file_name, slug, sort_order, created_at, updated_at')
       .in('related_type', [...STORE_RELATED_TYPE_ENUM, ...DETAIL_IMAGE_RELATED_TYPE_ENUM])
       .order('sort_order', { ascending: true }),
-    supabase
-      .from('faqs')
-      .select('id, related_type, related_id, question, answer, created_at, updated_at')
-      .in('related_type', [...STORE_RELATED_TYPE_ENUM]),
+    fetchPagedSupabaseRows<SupabaseFaqRow>((from, to) =>
+      supabase
+        .from('faqs')
+        .select('id, related_type, related_id, question, answer, created_at, updated_at')
+        .in('related_type', [...STORE_RELATED_TYPE_ENUM])
+        .order('id', { ascending: true })
+        .range(from, to),
+    ),
     specGroupsPromise,
     specGroupItemsPromise,
     productFeatureSectionsPromise,
     productFeatureSlidesPromise,
     supabase
       .from('reviews')
-      .select('id, product_id, user_name, rating, comment, created_at, updated_at')
+      .select('id, related_type, related_id, user_name, rating, comment, created_at, updated_at')
+      .in('related_type', [...STORE_RELATED_TYPE_ENUM])
       .order('created_at', { ascending: false }),
     supabase.from('colors').select('id, name, hex_code, created_at, updated_at'),
     supabase.from('product_mobiles').select('id, product_id, mobile_id, created_at'),
@@ -628,40 +932,41 @@ async function readCatalogSnapshotFromSupabase(): Promise<CatalogSnapshotPayload
     productMobilesResponse,
   ]
 
-  const failedResponse = responses.find((response) => response.error)
+  const responseNames = [
+    'products',
+    'mobiles',
+    'categories',
+    'category_relations',
+    'images',
+    'faqs',
+    'spec_groups',
+    'spec_group_items',
+    'product_feature_sections',
+    'product_feature_slides',
+    'reviews',
+    'colors',
+    'product_mobiles',
+  ] as const
 
-  if (failedResponse?.error) {
-    console.error('[catalog-repository] failed to read Supabase catalog:', failedResponse.error.message)
-    return {
-      products: [],
-      mobiles: [],
-      categories: [],
-      categoryRelations: [],
-      productMobiles: [],
-      images: [],
-      faqs: [],
-      specGroups: [],
-      specGroupItems: [],
-      productFeatureSections: [],
-      productFeatureSlides: [],
-      reviews: [],
-      colors: [],
+  responses.forEach((response, index) => {
+    if (response.error) {
+      console.error(`[catalog-repository] ${responseNames[index]} unavailable:`, response.error.message)
     }
-  }
+  })
 
-  const products = (productsResponse.data ?? []) as SupabaseProductRow[]
-  const mobiles = (mobilesResponse.data ?? []) as SupabaseMobileRow[]
-  const categories = (categoriesResponse.data ?? []) as SupabaseCategoryRow[]
-  const categoryRelations = (categoryRelationsResponse.data ?? []) as SupabaseCategoryRelationRow[]
-  const images = (imagesResponse.data ?? []) as SupabaseImageRow[]
-  const faqs = (faqsResponse.data ?? []) as SupabaseFaqRow[]
-  const specGroups = (specGroupsResponse.data ?? []) as SupabaseSpecGroupRow[]
-  const specGroupItems = (specGroupItemsResponse.data ?? []) as SupabaseSpecGroupItemRow[]
-  const productFeatureSections = (productFeatureSectionsResponse.data ?? []) as SupabaseProductFeatureSectionRow[]
-  const productFeatureSlides = (productFeatureSlidesResponse.data ?? []) as SupabaseProductFeatureSlideRow[]
-  const reviews = (reviewsResponse.data ?? []) as SupabaseReviewRow[]
-  const colors = (colorsResponse.data ?? []) as SupabaseColorRow[]
-  const productMobiles = (productMobilesResponse.data ?? []) as SupabaseProductMobileRow[]
+  const products = (productsResponse.error ? [] : productsResponse.data ?? []) as SupabaseProductRow[]
+  const mobiles = (mobilesResponse.error ? [] : mobilesResponse.data ?? []) as SupabaseMobileRow[]
+  const categories = (categoriesResponse.error ? [] : categoriesResponse.data ?? []) as SupabaseCategoryRow[]
+  const categoryRelations = (categoryRelationsResponse.error ? [] : categoryRelationsResponse.data ?? []) as SupabaseCategoryRelationRow[]
+  const images = (imagesResponse.error ? [] : imagesResponse.data ?? []) as SupabaseImageRow[]
+  const faqs = (faqsResponse.error ? [] : faqsResponse.data ?? []) as SupabaseFaqRow[]
+  const specGroups = (specGroupsResponse.error ? [] : specGroupsResponse.data ?? []) as SupabaseSpecGroupRow[]
+  const specGroupItems = (specGroupItemsResponse.error ? [] : specGroupItemsResponse.data ?? []) as SupabaseSpecGroupItemRow[]
+  const productFeatureSections = (productFeatureSectionsResponse.error ? [] : productFeatureSectionsResponse.data ?? []) as SupabaseProductFeatureSectionRow[]
+  const productFeatureSlides = (productFeatureSlidesResponse.error ? [] : productFeatureSlidesResponse.data ?? []) as SupabaseProductFeatureSlideRow[]
+  const reviews = (reviewsResponse.error ? [] : reviewsResponse.data ?? []) as SupabaseReviewRow[]
+  const colors = (colorsResponse.error ? [] : colorsResponse.data ?? []) as SupabaseColorRow[]
+  const productMobiles = (productMobilesResponse.error ? [] : productMobilesResponse.data ?? []) as SupabaseProductMobileRow[]
 
   return {
     products,
@@ -710,9 +1015,12 @@ function buildCatalogSnapshot(payload: CatalogSnapshotPayload): CatalogSnapshot 
   const categoryIdsByMobileId = new Map<number, number[]>()
   const mobileIdsByProductId = new Map<number, number[]>()
   const productIdsByMobileId = new Map<number, number[]>()
-  const reviewsByProductId = new Map<number, SupabaseReviewRow[]>()
   const specGroupItemsByGroupId = new Map<number, SupabaseSpecGroupItemRow[]>()
   const productFeatureSlidesBySectionId = new Map<number, SupabaseProductFeatureSlideRow[]>()
+  const reviewRowsWithEntry = reviews.filter(
+    (review): review is SupabaseReviewRow & { related_type: StoreRelatedType; related_id: number } =>
+      (review.related_type === 'product' || review.related_type === 'mobile') && typeof review.related_id === 'number',
+  )
 
   for (const category of categories) {
     const siblings = childCategoriesByParentId.get(category.parent_id ?? null) ?? []
@@ -751,13 +1059,6 @@ function buildCatalogSnapshot(payload: CatalogSnapshotPayload): CatalogSnapshot 
     const productIds = productIdsByMobileId.get(relation.mobile_id) ?? []
     productIds.push(relation.product_id)
     productIdsByMobileId.set(relation.mobile_id, productIds)
-  }
-
-  for (const review of reviews) {
-    if (!review.product_id) continue
-    const productReviews = reviewsByProductId.get(review.product_id) ?? []
-    productReviews.push(review)
-    reviewsByProductId.set(review.product_id, productReviews)
   }
 
   for (const item of specGroupItems) {
@@ -805,23 +1106,36 @@ function buildCatalogSnapshot(payload: CatalogSnapshotPayload): CatalogSnapshot 
     specGroupItemsByGroupId,
     productFeatureSectionsByEntryKey: groupByEntry(productFeatureSections as Array<SupabaseProductFeatureSectionRow & { related_type: StoreRelatedType }>),
     productFeatureSlidesBySectionId,
-    reviewsByProductId,
+    reviewsByEntryKey: groupByEntry(reviewRowsWithEntry),
   }
 }
 
-export const CATALOG_REVALIDATE_SECONDS = 10
+export const CATALOG_REVALIDATE_SECONDS = 300
 
-const readCachedCatalogSnapshotPayload = unstable_cache(readCatalogSnapshotFromSupabase, ['catalog-snapshot'], {
+async function readFullCatalogSnapshotFromSupabase() {
+  return readCatalogSnapshotFromSupabase({ includeDetailRows: true })
+}
+
+async function readLiteCatalogSnapshotFromSupabase() {
+  return readCatalogSnapshotFromSupabase({ includeDetailRows: false })
+}
+
+const readCachedCatalogSnapshotPayload = unstable_cache(readFullCatalogSnapshotFromSupabase, ['catalog-snapshot-v4'], {
   revalidate: CATALOG_REVALIDATE_SECONDS,
 })
 
-const readCatalogSnapshotPayload =
-  process.env.NODE_ENV === 'development' ? readCatalogSnapshotFromSupabase : readCachedCatalogSnapshotPayload
+const readCachedLiteCatalogSnapshotPayload = unstable_cache(readLiteCatalogSnapshotFromSupabase, ['catalog-snapshot-lite-v5'], {
+  revalidate: CATALOG_REVALIDATE_SECONDS,
+})
 
-const readCatalogSnapshotForRequest = cache(readCatalogSnapshotPayload)
+const readCatalogSnapshotForRequest = cache(readCachedCatalogSnapshotPayload)
+const readLiteCatalogSnapshotForRequest = cache(readCachedLiteCatalogSnapshotPayload)
 
-async function getCatalogSnapshot(): Promise<CatalogSnapshot> {
-  return buildCatalogSnapshot(await readCatalogSnapshotForRequest())
+async function getCatalogSnapshot(options: CatalogSnapshotReadOptions = {}): Promise<CatalogSnapshot> {
+  const includeDetailRows = options.includeDetailRows ?? true
+  const payload = includeDetailRows ? await readCatalogSnapshotForRequest() : await readLiteCatalogSnapshotForRequest()
+
+  return buildCatalogSnapshot(payload)
 }
 
 function getTopLevelCategories(snapshot: CatalogSnapshot): SupabaseCategoryRow[] {
@@ -955,6 +1269,15 @@ function getProductDetailImages(snapshot: CatalogSnapshot, productId: number): S
 
 function getMobileDetailImages(snapshot: CatalogSnapshot, mobileId: number): SupabaseImageRow[] {
   return snapshot.imagesByEntryKey.get(buildEntryKey('detail_mobile', mobileId)) ?? []
+}
+
+function isOfficialProductBackgroundImage(image: SupabaseImageRow): boolean {
+  return image.slug?.startsWith('official-background-') || image.caption === 'Official product background'
+}
+
+function getPreferredProductBackgroundImages(detailImages: SupabaseImageRow[]): SupabaseImageRow[] {
+  const officialImages = detailImages.filter(isOfficialProductBackgroundImage)
+  return officialImages.length > 0 ? officialImages : detailImages
 }
 
 function getProductFaqs(snapshot: CatalogSnapshot, productId: number): SupabaseFaqRow[] {
@@ -1550,8 +1873,15 @@ function buildProductFeatureSections(
   })
 }
 
-function buildReviews(snapshot: CatalogSnapshot, productId: number): ProductDetailReview[] {
-  const reviews = snapshot.reviewsByProductId.get(productId) ?? []
+function getProductReviews(snapshot: CatalogSnapshot, productId: number): SupabaseReviewRow[] {
+  return snapshot.reviewsByEntryKey.get(buildEntryKey('product', productId)) ?? []
+}
+
+function getMobileReviews(snapshot: CatalogSnapshot, mobileId: number): SupabaseReviewRow[] {
+  return snapshot.reviewsByEntryKey.get(buildEntryKey('mobile', mobileId)) ?? []
+}
+
+function buildReviews(reviews: SupabaseReviewRow[]): ProductDetailReview[] {
 
   return reviews.map((review) => ({
     id: `review-${review.id}`,
@@ -1634,7 +1964,8 @@ function buildMobileAccessoryGroups(snapshot: CatalogSnapshot, mobileId: number)
 
 function buildProductDetailFromProduct(product: SupabaseProductRow, snapshot: CatalogSnapshot): ProductDetail {
   const images = getProductImages(snapshot, product.id)
-  const productBackgroundImage = getProductDetailImages(snapshot, product.id)[0] ?? images.find(isProductBackgroundImage) ?? null
+  const productBackgroundImages = getPreferredProductBackgroundImages(getProductDetailImages(snapshot, product.id))
+  const productBackgroundImage = productBackgroundImages[0] ?? images.find(isProductBackgroundImage) ?? null
   const galleryImages = images.filter((image) => !isProductBackgroundImage(image))
   const faqs = getProductFaqs(snapshot, product.id)
   const categories = getProductCategories(snapshot, product.id)
@@ -1642,7 +1973,7 @@ function buildProductDetailFromProduct(product: SupabaseProductRow, snapshot: Ca
   const variants = buildVariants(galleryImages, snapshot, product.slug)
   const canonicalPath = `/products/${product.slug}`
   const name = normalizeProductName(product.name)
-  const reviews = buildReviews(snapshot, product.id)
+  const reviews = buildReviews(getProductReviews(snapshot, product.id))
   const price = product.price ?? null
   const priceLabel = formatPrice(price)
   const metaDescription = buildProductMetaDescription(product, name)
@@ -1650,6 +1981,11 @@ function buildProductDetailFromProduct(product: SupabaseProductRow, snapshot: Ca
   const backgroundMedia = productBackgroundImage
     ? buildGallery(name, [productBackgroundImage], snapshot, `${name} product background`)[0] ?? null
     : null
+  const backgroundMediaItems = productBackgroundImages.length > 0
+    ? buildGallery(name, productBackgroundImages, snapshot, `${name} product background`)
+    : backgroundMedia
+      ? [backgroundMedia]
+      : []
   const specGroups = buildProductSpecGroups(getProductSpecGroups(snapshot, product.id), snapshot.specGroupItemsByGroupId)
   const specs = specGroups.flatMap((group) => group.specs)
 
@@ -1671,6 +2007,7 @@ function buildProductDetailFromProduct(product: SupabaseProductRow, snapshot: Ca
     ogImage: galleryImages[0]?.url ?? productBackgroundImage?.url ?? null,
     primaryImage: galleryImages[0]?.url ?? null,
     productBackgroundImage: backgroundMedia,
+    productBackgroundImages: backgroundMediaItems,
     gallery,
     collectionSlugs: collections.map((collection) => collection.slug),
     collections,
@@ -1697,7 +2034,8 @@ function buildProductDetailFromProduct(product: SupabaseProductRow, snapshot: Ca
 
 function buildProductDetailFromMobile(mobile: SupabaseMobileRow, snapshot: CatalogSnapshot): ProductDetail {
   const images = getMobileImages(snapshot, mobile.id)
-  const productBackgroundImage = getMobileDetailImages(snapshot, mobile.id)[0] ?? images.find(isProductBackgroundImage) ?? null
+  const productBackgroundImages = getPreferredProductBackgroundImages(getMobileDetailImages(snapshot, mobile.id))
+  const productBackgroundImage = productBackgroundImages[0] ?? images.find(isProductBackgroundImage) ?? null
   const galleryImages = images.filter((image) => !isProductBackgroundImage(image))
   const faqs = getMobileFaqs(snapshot, mobile.id)
   const categories = getMobileCategories(snapshot, mobile.id)
@@ -1708,6 +2046,12 @@ function buildProductDetailFromMobile(mobile: SupabaseMobileRow, snapshot: Catal
   const backgroundMedia = productBackgroundImage
     ? buildGallery(mobile.name, [productBackgroundImage], snapshot, `${mobile.name} product background`)[0] ?? null
     : null
+  const backgroundMediaItems = productBackgroundImages.length > 0
+    ? buildGallery(mobile.name, productBackgroundImages, snapshot, `${mobile.name} product background`)
+    : backgroundMedia
+      ? [backgroundMedia]
+      : []
+  const reviews = buildReviews(getMobileReviews(snapshot, mobile.id))
   const specs = buildDetailSpecs('mobile', collections, galleryImages, snapshot, [
     ['Release date', formatCatalogDate(mobile.release_date)],
     ['Updated', formatCatalogDate(mobile.updated_at)],
@@ -1731,6 +2075,7 @@ function buildProductDetailFromMobile(mobile: SupabaseMobileRow, snapshot: Catal
     ogImage: galleryImages[0]?.url ?? productBackgroundImage?.url ?? null,
     primaryImage: galleryImages[0]?.url ?? null,
     productBackgroundImage: backgroundMedia,
+    productBackgroundImages: backgroundMediaItems,
     gallery,
     collectionSlugs: collections.map((collection) => collection.slug),
     collections,
@@ -1748,10 +2093,10 @@ function buildProductDetailFromMobile(mobile: SupabaseMobileRow, snapshot: Catal
     specGroups: buildSpecGroups(getMobileSpecGroups(snapshot, mobile.id), specs, snapshot.specGroupItemsByGroupId),
     productFeatureSections: buildProductFeatureSections(getMobileFeatureSections(snapshot, mobile.id), snapshot),
     faqs: buildFaqs(faqs, mobile.name, formatPrice(mobile.Price)),
-    reviews: [],
+    reviews,
     relatedMobiles: [],
     breadcrumbItems: buildBreadcrumbItems(categories, snapshot, 'mobile'),
-    aggregateRating: null,
+    aggregateRating: buildAggregateRating(reviews),
   }
 }
 
@@ -1818,7 +2163,7 @@ function buildVirtualCollection(slug: VirtualCollectionSlug, snapshot: CatalogSn
 }
 
 export async function getHomePageData(): Promise<HomePageData> {
-  const snapshot = await getCatalogSnapshot()
+  const snapshot = await getCatalogSnapshot({ includeDetailRows: false })
   const shopAllProducts = sortCatalogCards(
     snapshot.products
       .filter((product) => !isProtectorOrCoverProduct(product, snapshot))
@@ -1837,7 +2182,7 @@ export async function getHomePageData(): Promise<HomePageData> {
 }
 
 export async function getNavigationMenuItems(): Promise<NavigationItem[]> {
-  const snapshot = await getCatalogSnapshot()
+  const snapshot = await getCatalogSnapshot({ includeDetailRows: false })
   const topLevelCategories = getTopLevelCategories(snapshot)
 
   return [
@@ -1849,15 +2194,24 @@ export async function getNavigationMenuItems(): Promise<NavigationItem[]> {
 }
 
 export async function getAllCollectionSlugs(): Promise<string[]> {
-  const snapshot = await getCatalogSnapshot()
+  const snapshot = await getCatalogSnapshot({ includeDetailRows: false })
 
   return [...ALL_VIRTUAL_COLLECTION_SLUGS, ...snapshot.categories.map((category) => category.slug)]
 }
 
 export async function getAllProductHandles(): Promise<string[]> {
-  const snapshot = await getCatalogSnapshot()
+  try {
+    const snapshot = await getCatalogSnapshot({ includeDetailRows: false })
+    const handles = [...snapshot.products.map((product) => product.slug), ...snapshot.mobiles.map((mobile) => mobile.slug)]
 
-  return [...snapshot.products.map((product) => product.slug), ...snapshot.mobiles.map((mobile) => mobile.slug)]
+    return [...new Set([...handles, ...getFallbackProductHandles()])]
+  } catch {
+    return getFallbackProductHandles()
+  }
+}
+
+export async function getProductStaticHandles(): Promise<string[]> {
+  return [...new Set(await getAllProductHandles())]
 }
 
 function getCollectionHeroImage(products: Product[]): string | null {
@@ -1927,7 +2281,7 @@ export async function getProductSitemapEntries(): Promise<SitemapProductEntry[]>
   const productEntries = snapshot.products.map((product) => {
     const images = getProductImages(snapshot, product.id)
     const faqs = getProductFaqs(snapshot, product.id)
-    const reviews = snapshot.reviewsByProductId.get(product.id) ?? []
+    const reviews = getProductReviews(snapshot, product.id)
     const linkedMobileIds = snapshot.mobileIdsByProductId.get(product.id) ?? []
     const linkedMobilesUpdatedAt = linkedMobileIds
       .map((mobileId) => snapshot.mobilesById.get(mobileId)?.updated_at ?? null)
@@ -1996,7 +2350,7 @@ export async function getProductSitemapEntries(): Promise<SitemapProductEntry[]>
 }
 
 export async function getCollectionBySlug(slug: string): Promise<Collection | null> {
-  const snapshot = await getCatalogSnapshot()
+  const snapshot = await getCatalogSnapshot({ includeDetailRows: false })
 
   if (isVirtualCollectionSlug(slug)) {
     return buildVirtualCollection(slug, snapshot)
@@ -2064,25 +2418,29 @@ export async function getCollectionBySlug(slug: string): Promise<Collection | nu
   }
 }
 
-export async function getProductDetailByHandle(handle: string): Promise<ProductDetail | null> {
-  const snapshot = await getCatalogSnapshot()
-  const product = snapshot.productsBySlug.get(handle)
+export async function getProductDetailByHandle(handle: string, options: ProductDetailReadOptions = {}): Promise<ProductDetail | null> {
+  try {
+    const snapshot = await getCatalogSnapshot(options)
+    const product = snapshot.productsBySlug.get(handle)
 
-  if (product) {
-    return buildProductDetailFromProduct(product, snapshot)
+    if (product) {
+      return buildProductDetailFromProduct(product, snapshot)
+    }
+
+    const mobile = snapshot.mobilesBySlug.get(handle)
+
+    if (mobile) {
+      return buildProductDetailFromMobile(mobile, snapshot)
+    }
+  } catch (error) {
+    console.warn('[catalog-repository] product detail snapshot unavailable, using fallback catalog:', error)
   }
 
-  const mobile = snapshot.mobilesBySlug.get(handle)
-
-  if (mobile) {
-    return buildProductDetailFromMobile(mobile, snapshot)
-  }
-
-  return null
+  return buildFallbackProductDetailByHandle(handle)
 }
 
 export async function getMobileAccessoryGroupsByHandle(handle: string): Promise<MobileAccessoryGroup[]> {
-  const snapshot = await getCatalogSnapshot()
+  const snapshot = await getCatalogSnapshot({ includeDetailRows: false })
   const mobile = snapshot.mobilesBySlug.get(handle)
 
   if (!mobile) {

@@ -130,6 +130,7 @@ export interface ProductDetail {
   ogImage: string | null
   primaryImage: string | null
   productBackgroundImage?: ProductDetailMedia | null
+  productBackgroundImages?: ProductDetailMedia[]
   gallery: ProductDetailMedia[]
   collectionSlugs: CollectionSlug[]
   collections: ProductDetailCollection[]

@@ -1,0 +1,101 @@
+{
+  "synced_at": "2026-06-02T16:42:45.227Z",
+  "source": "user-provided official product links",
+  "handles_seen": 5,
+  "products_synced": 5,
+  "products_skipped": 0,
+  "backgrounds_seen": 28,
+  "backgrounds_inserted": 24,
+  "backgrounds_skipped_existing": 4,
+  "feature_sections_seen": 42,
+  "feature_slides_seen": 193,
+  "sections_inserted": 41,
+  "sections_media_filled": 0,
+  "slides_inserted": 189,
+  "slides_media_filled": 0,
+  "images_uploaded": 170,
+  "failed": [],
+  "skipped": [],
+  "products": [
+    {
+      "handle": "cmf-phone-1",
+      "url": "https://intl.nothing.tech/products/cmf-phone-1",
+      "local": "mobile:cmf-phone-1",
+      "title": "CMF Phone 1",
+      "backgrounds": {
+        "seen": 4,
+        "inserted": 0,
+        "skipped": 4
+      },
+      "features": {
+        "seen": 8,
+        "slidesSeen": 30,
+        "skippedExisting": false
+      }
+    },
+    {
+      "handle": "cmf-phone-2-pro",
+      "url": "https://intl.nothing.tech/products/cmf-phone-2-pro?Colour=Orange&Capacity=8%2B128GB",
+      "local": "mobile:cmf-phone-2-pro",
+      "title": "CMF Phone 2 Pro",
+      "backgrounds": {
+        "seen": 6,
+        "inserted": 6,
+        "skipped": 0
+      },
+      "features": {
+        "seen": 8,
+        "slidesSeen": 28,
+        "skippedExisting": false
+      }
+    },
+    {
+      "handle": "phone-3a",
+      "url": "https://intl.nothing.tech/products/phone-3a?Colour=Black&Capacity=12%2B256GB",
+      "local": "mobile:phone-3a-community-edition",
+      "title": "Phone (3a)",
+      "backgrounds": {
+        "seen": 6,
+        "inserted": 6,
+        "skipped": 0
+      },
+      "features": {
+        "seen": 10,
+        "slidesSeen": 47,
+        "skippedExisting": false
+      }
+    },
+    {
+      "handle": "phone-2a",
+      "url": "https://intl.nothing.tech/products/phone-2a?Colour=Milk&Capacity=12%2B256GB",
+      "local": "mobile:phone-2a",
+      "title": "Phone (2a)",
+      "backgrounds": {
+        "seen": 6,
+        "inserted": 6,
+        "skipped": 0
+      },
+      "features": {
+        "seen": 8,
+        "slidesSeen": 43,
+        "skippedExisting": false
+      }
+    },
+    {
+      "handle": "phone-2a-plus",
+      "url": "https://intl.nothing.tech/products/phone-2a-plus?Colour=Grey&Capacity=12%2B256GB",
+      "local": "mobile:phone-2a-plus",
+      "title": "Phone (2a) Plus",
+      "backgrounds": {
+        "seen": 6,
+        "inserted": 6,
+        "skipped": 0
+      },
+      "features": {
+        "seen": 8,
+        "slidesSeen": 45,
+        "skippedExisting": false
+      }
+    }
+  ]
+}

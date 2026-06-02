@@ -1,0 +1,365 @@
+{
+  "synced_at": "2026-06-02T10:33:08.771Z",
+  "source": "https://nothing.tech/collections/shop-all",
+  "handles_seen": 28,
+  "products_synced": 21,
+  "products_skipped": 7,
+  "backgrounds_seen": 110,
+  "backgrounds_inserted": 12,
+  "backgrounds_skipped_existing": 98,
+  "feature_sections_seen": 166,
+  "feature_slides_seen": 566,
+  "sections_inserted": 0,
+  "sections_media_filled": 0,
+  "slides_inserted": 0,
+  "slides_media_filled": 0,
+  "images_uploaded": 12,
+  "failed": [],
+  "skipped": [
+    {
+      "handle": "cmf-headphone-pro-ear-cushions",
+      "reason": "No matching local product/mobile slug"
+    },
+    {
+      "handle": "cmf-phone-1-case",
+      "reason": "No matching local product/mobile slug"
+    },
+    {
+      "handle": "nothing-hoodie",
+      "reason": "No matching local product/mobile slug"
+    },
+    {
+      "handle": "nothing-labcoat",
+      "reason": "No matching local product/mobile slug"
+    },
+    {
+      "handle": "nothing-overall",
+      "reason": "No matching local product/mobile slug"
+    },
+    {
+      "handle": "nothing-tracksuit-jacket",
+      "reason": "No matching local product/mobile slug"
+    },
+    {
+      "handle": "nothing-tracksuit-trousers",
+      "reason": "No matching local product/mobile slug"
+    }
+  ],
+  "products": [
+    {
+      "handle": "cmf-buds-2",
+      "local": "product:cmf-buds-2",
+      "title": "CMF Buds 2",
+      "backgrounds": {
+        "seen": 3,
+        "inserted": 0,
+        "skipped": 3
+      },
+      "features": {
+        "seen": 8,
+        "slidesSeen": 15,
+        "skippedExisting": false
+      }
+    },
+    {
+      "handle": "cmf-buds-2-plus",
+      "local": "product:cmf-buds-2-plus",
+      "title": "CMF Buds 2 Plus",
+      "backgrounds": {
+        "seen": 3,
+        "inserted": 0,
+        "skipped": 3
+      },
+      "features": {
+        "seen": 9,
+        "slidesSeen": 16,
+        "skippedExisting": false
+      }
+    },
+    {
+      "handle": "cmf-buds-2a",
+      "local": "product:cmf-buds-2a",
+      "title": "CMF Buds 2a",
+      "backgrounds": {
+        "seen": 3,
+        "inserted": 0,
+        "skipped": 3
+      },
+      "features": {
+        "seen": 8,
+        "slidesSeen": 15,
+        "skippedExisting": false
+      }
+    },
+    {
+      "handle": "cmf-buds-pro-2",
+      "local": "product:cmf-buds-pro-2",
+      "title": "CMF Buds Pro 2",
+      "backgrounds": {
+        "seen": 5,
+        "inserted": 0,
+        "skipped": 5
+      },
+      "features": {
+        "seen": 8,
+        "slidesSeen": 16,
+        "skippedExisting": false
+      }
+    },
+    {
+      "handle": "cmf-headphone-pro",
+      "local": "product:cmf-headphone-pro",
+      "title": "CMF Headphone Pro",
+      "backgrounds": {
+        "seen": 6,
+        "inserted": 0,
+        "skipped": 6
+      },
+      "features": {
+        "seen": 8,
+        "slidesSeen": 17,
+        "skippedExisting": false
+      }
+    },
+    {
+      "handle": "cmf-power-100w-gan",
+      "local": "product:cmf-power-100w-gan",
+      "title": "CMF Power 100W GaN",
+      "backgrounds": {
+        "seen": 4,
+        "inserted": 0,
+        "skipped": 4
+      },
+      "features": {
+        "seen": 6,
+        "slidesSeen": 6,
+        "skippedExisting": false
+      }
+    },
+    {
+      "handle": "cmf-power-140w-gan",
+      "local": "product:cmf-power-140w-gan",
+      "title": "CMF Power 140W GaN",
+      "backgrounds": {
+        "seen": 4,
+        "inserted": 0,
+        "skipped": 4
+      },
+      "features": {
+        "seen": 6,
+        "slidesSeen": 6,
+        "skippedExisting": false
+      }
+    },
+    {
+      "handle": "cmf-power-65w-gan",
+      "local": "product:cmf-power-65w-gan",
+      "title": "CMF Power 65W GaN",
+      "backgrounds": {
+        "seen": 3,
+        "inserted": 0,
+        "skipped": 3
+      },
+      "features": {
+        "seen": 6,
+        "slidesSeen": 6,
+        "skippedExisting": false
+      }
+    },
+    {
+      "handle": "cmf-watch-3-pro",
+      "local": "product:cmf-watch-3-pro",
+      "title": "CMF Watch 3 Pro",
+      "backgrounds": {
+        "seen": 6,
+        "inserted": 0,
+        "skipped": 6
+      },
+      "features": {
+        "seen": 9,
+        "slidesSeen": 32,
+        "skippedExisting": false
+      }
+    },
+    {
+      "handle": "ear",
+      "local": "product:ear",
+      "title": "Ear",
+      "backgrounds": {
+        "seen": 5,
+        "inserted": 0,
+        "skipped": 5
+      },
+      "features": {
+        "seen": 6,
+        "slidesSeen": 26,
+        "skippedExisting": false
+      }
+    },
+    {
+      "handle": "ear-3",
+      "local": "product:ear-3",
+      "title": "Ear (3)",
+      "backgrounds": {
+        "seen": 6,
+        "inserted": 0,
+        "skipped": 6
+      },
+      "features": {
+        "seen": 9,
+        "slidesSeen": 22,
+        "skippedExisting": false
+      }
+    },
+    {
+      "handle": "ear-a",
+      "local": "product:ear-a",
+      "title": "Ear (a)",
+      "backgrounds": {
+        "seen": 6,
+        "inserted": 0,
+        "skipped": 6
+      },
+      "features": {
+        "seen": 4,
+        "slidesSeen": 7,
+        "skippedExisting": false
+      }
+    },
+    {
+      "handle": "ear-open",
+      "local": "product:ear-open",
+      "title": "Ear (open)",
+      "backgrounds": {
+        "seen": 5,
+        "inserted": 0,
+        "skipped": 5
+      },
+      "features": {
+        "seen": 5,
+        "slidesSeen": 20,
+        "skippedExisting": false
+      }
+    },
+    {
+      "handle": "headphone-1",
+      "local": "product:headphone-1",
+      "title": "Headphone (1)",
+      "backgrounds": {
+        "seen": 7,
+        "inserted": 0,
+        "skipped": 7
+      },
+      "features": {
+        "seen": 8,
+        "slidesSeen": 27,
+        "skippedExisting": false
+      }
+    },
+    {
+      "handle": "headphone-a",
+      "local": "product:headphone-a",
+      "title": "Headphone (a)",
+      "backgrounds": {
+        "seen": 6,
+        "inserted": 0,
+        "skipped": 6
+      },
+      "features": {
+        "seen": 6,
+        "slidesSeen": 20,
+        "skippedExisting": false
+      }
+    },
+    {
+      "handle": "phone-3",
+      "local": "mobile:phone-3",
+      "title": "Phone (3)",
+      "backgrounds": {
+        "seen": 6,
+        "inserted": 0,
+        "skipped": 6
+      },
+      "features": {
+        "seen": 10,
+        "slidesSeen": 67,
+        "skippedExisting": true
+      }
+    },
+    {
+      "handle": "phone-3a",
+      "local": "mobile:phone-3a",
+      "title": "Phone (3a)",
+      "backgrounds": {
+        "seen": 6,
+        "inserted": 0,
+        "skipped": 6
+      },
+      "features": {
+        "seen": 10,
+        "slidesSeen": 47,
+        "skippedExisting": true
+      }
+    },
+    {
+      "handle": "phone-3a-lite",
+      "local": "mobile:phone-3a-lite",
+      "title": "Phone (3a) Lite",
+      "backgrounds": {
+        "seen": 7,
+        "inserted": 5,
+        "skipped": 2
+      },
+      "features": {
+        "seen": 8,
+        "slidesSeen": 33,
+        "skippedExisting": true
+      }
+    },
+    {
+      "handle": "phone-3a-pro",
+      "local": "mobile:phone-3a-pro",
+      "title": "Phone (3a) Pro",
+      "backgrounds": {
+        "seen": 5,
+        "inserted": 2,
+        "skipped": 3
+      },
+      "features": {
+        "seen": 10,
+        "slidesSeen": 49,
+        "skippedExisting": true
+      }
+    },
+    {
+      "handle": "phone-4a",
+      "local": "mobile:phone-4a",
+      "title": "Phone (4a)",
+      "backgrounds": {
+        "seen": 7,
+        "inserted": 0,
+        "skipped": 7
+      },
+      "features": {
+        "seen": 11,
+        "slidesSeen": 55,
+        "skippedExisting": true
+      }
+    },
+    {
+      "handle": "phone-4a-pro",
+      "local": "mobile:nothing-4a-pro",
+      "title": "Phone (4a) Pro",
+      "backgrounds": {
+        "seen": 7,
+        "inserted": 5,
+        "skipped": 2
+      },
+      "features": {
+        "seen": 11,
+        "slidesSeen": 64,
+        "skippedExisting": true
+      }
+    }
+  ]
+}

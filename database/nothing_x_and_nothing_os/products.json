@@ -1,0 +1,85 @@
+{
+  "source": "https://nothing.tech/collections/phones",
+  "generated_at": "2026-06-01T22:33:41.041Z",
+  "output_dir": "database/nothing_x_and_nothing_os",
+  "products_checked": 6,
+  "products_with_features": 6,
+  "products_without_features": 0,
+  "products_failed": 0,
+  "features": [
+    {
+      "name": "Phone (4a) Pro",
+      "handle": "phone-4a-pro",
+      "specs_url": "https://nothing.tech/products/phone-4a-pro?Colour=Silver&Capacity=8%2B128GB",
+      "related_type": "mobile",
+      "related_id": 3,
+      "related_slug": "nothing-4a-pro",
+      "feature_key": "official-phone-feature-stacks",
+      "feature_title": "Official phone feature stacks",
+      "slides_count": 64,
+      "json_file": "database/nothing_x_and_nothing_os/phone-4a-pro.json"
+    },
+    {
+      "name": "Phone (4a)",
+      "handle": "phone-4a",
+      "specs_url": "https://nothing.tech/products/phone-4a?Colour=White&Capacity=8%2B128GB",
+      "related_type": "mobile",
+      "related_id": 4,
+      "related_slug": "phone-4a",
+      "feature_key": "official-phone-feature-stacks",
+      "feature_title": "Official phone feature stacks",
+      "slides_count": 55,
+      "json_file": "database/nothing_x_and_nothing_os/phone-4a.json"
+    },
+    {
+      "name": "Phone (3)",
+      "handle": "phone-3",
+      "specs_url": "https://nothing.tech/products/phone-3?Colour=White&Capacity=12%2B256GB",
+      "related_type": "mobile",
+      "related_id": 5,
+      "related_slug": "phone-3",
+      "feature_key": "official-phone-feature-stacks",
+      "feature_title": "Official phone feature stacks",
+      "slides_count": 67,
+      "json_file": "database/nothing_x_and_nothing_os/phone-3.json"
+    },
+    {
+      "name": "Phone (3a) Lite",
+      "handle": "phone-3a-lite",
+      "specs_url": "https://nothing.tech/products/phone-3a-lite?Colour=White&Capacity=8%2B128GB",
+      "related_type": "mobile",
+      "related_id": 6,
+      "related_slug": "phone-3a-lite",
+      "feature_key": "official-phone-feature-stacks",
+      "feature_title": "Official phone feature stacks",
+      "slides_count": 33,
+      "json_file": "database/nothing_x_and_nothing_os/phone-3a-lite.json"
+    },
+    {
+      "name": "Phone (3a) Pro",
+      "handle": "phone-3a-pro",
+      "specs_url": "https://nothing.tech/products/phone-3a-pro?Colour=Grey&Capacity=12%2B256GB+%28Pick+up+only%29",
+      "related_type": "mobile",
+      "related_id": 7,
+      "related_slug": "phone-3a-pro",
+      "feature_key": "official-phone-feature-stacks",
+      "feature_title": "Official phone feature stacks",
+      "slides_count": 49,
+      "json_file": "database/nothing_x_and_nothing_os/phone-3a-pro.json"
+    },
+    {
+      "name": "Phone (3a)",
+      "handle": "phone-3a",
+      "specs_url": "https://nothing.tech/products/phone-3a?Colour=Black&Capacity=12%2B256GB",
+      "related_type": "mobile",
+      "related_id": 8,
+      "related_slug": "phone-3a",
+      "feature_key": "official-phone-feature-stacks",
+      "feature_title": "Official phone feature stacks",
+      "slides_count": 47,
+      "json_file": "database/nothing_x_and_nothing_os/phone-3a.json"
+    }
+  ],
+  "missing": [],
+  "failed": []
+}

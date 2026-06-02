@@ -4,9 +4,6 @@ import Link from 'next/link'
 import localFont from 'next/font/local'
 import { notFound, redirect } from 'next/navigation'
 import type { ReactNode } from 'react'
-import orderIcon from '@/assets/icons/order.svg'
-import packageIcon from '@/assets/icons/package.svg'
-import deliverIcon from '@/assets/icons/deleiver.svg'
 import { CatalogProductTile } from '@/components/CatalogProductTile'
 import { NothingFooter } from '@/components/NothingFooter'
 import { NothingHeader } from '@/components/NothingHeader'
@@ -18,6 +15,7 @@ import {
   getCollectionBySlug,
   getMobileAccessoryGroupsByHandle,
   getProductDetailByHandle,
+  getProductStaticHandles,
 } from '@/lib/data/catalog-repository'
 import { companyIdentifier, companyLegalName } from '@/lib/data/company'
 import { siteBrandName, siteKeywords } from '@/lib/data/site-content'
@@ -295,25 +293,6 @@ function buildProductStructuredData(productDetail: ProductDetail, relatedProduct
   return productEntries.filter((entry): entry is Record<string, unknown> => Boolean(entry))
 }
 
-function buildProductSeoNarrative(productDetail: ProductDetail, relatedProductsCount = 0) {
-  const collectionTitles = productDetail.collections.map((collection) => collection.title)
-  const firstCollection = collectionTitles[0] ?? (productDetail.entityType === 'mobile' ? 'phones' : 'products')
-  const priceSentence = productDetail.priceLabel
-    ? `${productDetail.name} is currently shown with a live PKR price of ${productDetail.priceLabel}, helping shoppers compare cost before they move into the order flow.`
-    : `${productDetail.name} is presented with a contact-first buying flow so customers can confirm the latest price, stock, and delivery details before ordering.`
-  const supportSentence =
-    relatedProductsCount > 0
-      ? `This page also connects buyers to ${relatedProductsCount} related accessories and nearby catalog routes, which strengthens internal linking and helps shoppers discover compatible add-ons from the same storefront.`
-      : `This page links naturally into support, ordering, and nearby catalog routes so customers can continue their buying journey without losing context.`
-
-  return [
-    `${productDetail.name} sits inside the ${firstCollection.toLowerCase()} section of ${siteBrandName}, where shoppers in Pakistan expect clear product details, original-brand positioning, and a faster route into delivery or support.`,
-    priceSentence,
-    `The page is designed to answer high-intent searches around ${productDetail.name} price in Pakistan, compatibility, availability, and original product sourcing while keeping the content useful for real customers instead of keyword stuffing.`,
-    supportSentence,
-  ]
-}
-
 function buildRecommendedProducts(productGroups: Product[][], currentHandle: string) {
   const seen = new Set<string>()
   const output: Product[] = []
@@ -370,59 +349,6 @@ function DetailAccordion({
       </summary>
       <div className="pt-3 text-sm leading-6 text-slate-600">{children}</div>
     </details>
-  )
-}
-
-function DeliveryStep({
-  icon,
-  label,
-  dateLabel,
-  active = false,
-}: {
-  icon: typeof orderIcon
-  label: string
-  dateLabel: string
-  active?: boolean
-}) {
-  return (
-    <div className="flex min-w-0 flex-col items-center text-center">
-      <div
-        className={`flex h-16 w-16 items-center justify-center rounded-full border-4 sm:h-20 sm:w-20 ${
-          active
-            ? 'border-white bg-[#fff7ef] shadow-[0_14px_28px_rgba(244,110,30,0.16)]'
-            : 'border-[#f2f2f2] bg-[#f8f8f8] shadow-[0_10px_20px_rgba(15,23,42,0.04)]'
-        }`}
-      >
-        <Image src={icon} alt="" aria-hidden="true" className={`h-7 w-7 object-contain ${active ? '' : 'grayscale opacity-55'}`} />
-      </div>
-      <p className={`mt-3 text-[0.78rem] font-extrabold uppercase tracking-normal ${active ? 'text-[#ff7a00]' : 'text-[#4f5a6c]'}`}>
-        {label}
-      </p>
-      <p className={`mt-1 text-[0.76rem] font-semibold ${active ? 'text-[#71798a]' : 'text-[#9ea6b4]'}`}>
-        {dateLabel}
-      </p>
-    </div>
-  )
-}
-
-function EstimatedDeliveryPanel({ deliveryTimeline }: { deliveryTimeline: ReturnType<typeof getProductDeliveryTimeline> }) {
-  return (
-    <section className="rounded-[26px] border border-[#f7d9b7] bg-white/78 px-4 py-5 shadow-[0_18px_42px_rgba(244,110,30,0.08)] backdrop-blur-md sm:px-6 sm:py-7">
-      <p className="text-[0.9rem] font-black uppercase tracking-normal text-[#8d8d8d]">Estimated Delivery</p>
-      <p className="mt-1 font-sans text-[2.05rem] font-bold leading-none tracking-normal text-[#ff6f00] sm:text-[2.55rem]">
-        {deliveryTimeline.deliveryRangeLabel}
-      </p>
-
-      <div className="mt-6 border-t border-dashed border-[#f0c89d] pt-6">
-        <div className="grid grid-cols-[minmax(0,1fr)_minmax(1.4rem,1fr)_minmax(0,1fr)_minmax(1.4rem,1fr)_minmax(0,1fr)] items-start">
-          <DeliveryStep icon={orderIcon} label="Order" dateLabel="Today" active />
-          <div className="mt-8 h-1 rounded-full bg-[#ff7a00] sm:mt-10" />
-          <DeliveryStep icon={packageIcon} label="Process" dateLabel={deliveryTimeline.processDateLabel} active />
-          <div className="mt-8 h-1 rounded-full bg-[#edf0f5] sm:mt-10" />
-          <DeliveryStep icon={deliverIcon} label="Deliver" dateLabel={deliveryTimeline.deliveryRangeLabel} />
-        </div>
-      </div>
-    </section>
   )
 }
 
@@ -641,54 +567,6 @@ function ProductFeatureSectionsSection({ sections }: { sections: ProductFeatureS
   )
 }
 
-function ProductDetailInfoSection({
-  detailParagraphs,
-  deliveryTimeline,
-  seoNarrative,
-}: {
-  detailParagraphs: string[]
-  deliveryTimeline: ReturnType<typeof getProductDeliveryTimeline>
-  seoNarrative: string[]
-}) {
-  return (
-    <section className="min-h-screen bg-[#f5f7fb] px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
-      <div className="mx-auto grid max-w-[1180px] gap-6 lg:grid-cols-[minmax(0,1fr)_420px] lg:items-start">
-        <div className="space-y-3">
-          <DetailAccordion title="Detailed Description">
-            <div className="space-y-4">
-              {detailParagraphs.length > 0 ? (
-                detailParagraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)
-              ) : (
-                <p>Product details will be added soon.</p>
-              )}
-            </div>
-          </DetailAccordion>
-          <DetailAccordion title="Buying Guide" defaultOpen>
-            <div className="space-y-4">
-              {seoNarrative.map((paragraph) => (
-                <p key={paragraph}>{paragraph}</p>
-              ))}
-            </div>
-          </DetailAccordion>
-          <DetailAccordion title="Return Policy">
-            If the item arrives damaged, incorrect, or defective, contact support as soon as possible so the team can review a replacement or return request.
-          </DetailAccordion>
-          <DetailAccordion title="Shipping Information">
-            Delivery time and shipping charges depend on your city and order size. Our team confirms the final delivery details during checkout.
-          </DetailAccordion>
-          <DetailAccordion title="Pre-Payment Policy">
-            For the safety and accountability of high-value shipments, we operate exclusively on a pre-payment basis. We do not offer a COD option for these high value items, ensuring every delivery is fully documented and secure.
-          </DetailAccordion>
-        </div>
-
-        <div className="lg:sticky lg:top-24">
-          <EstimatedDeliveryPanel deliveryTimeline={deliveryTimeline} />
-        </div>
-      </div>
-    </section>
-  )
-}
-
 function ReviewCard({ review }: { review: ProductDetailReview }) {
   return (
     <article className="rounded-[22px] border border-slate-200 bg-slate-50 p-5">
@@ -753,6 +631,7 @@ function PhoneAccessoriesHero({
   featureSections: ProductFeatureSection[]
 }) {
   const labels = [...new Set([productDetail.variants[0]?.label, ...productDetail.widgets.map((item) => item.text)].filter(Boolean))].slice(0, 4)
+  const hasSpecs = specGroups.length > 0
 
   return (
     <ProductDetailHero
@@ -761,11 +640,13 @@ function PhoneAccessoriesHero({
       entityType="mobile"
       gallery={gallery}
       backgroundImage={productDetail.productBackgroundImage}
+      backgroundImages={productDetail.productBackgroundImages}
       intro={intro}
       priceLabel={productDetail.priceLabel}
       canonicalHandle={productDetail.handle}
       labels={labels}
       deliveryTimeline={deliveryTimeline}
+      hasSpecs={hasSpecs}
       specGroups={specGroups}
       featureSections={featureSections}
     />
@@ -791,6 +672,8 @@ function PrimaryCatalogPanel({
   specGroups: ProductDetailSpecGroup[]
   featureSections: ProductFeatureSection[]
 }) {
+  const hasSpecs = specGroups.length > 0
+
   return (
     <ProductDetailHero
       productName={productDetail.name}
@@ -798,11 +681,13 @@ function PrimaryCatalogPanel({
       entityType="product"
       gallery={gallery}
       backgroundImage={productDetail.productBackgroundImage}
+      backgroundImages={productDetail.productBackgroundImages}
       intro={intro}
       priceLabel={productDetail.priceLabel}
       canonicalHandle={canonicalHandle}
       labels={productDetail.widgets.map((item) => item.text)}
       deliveryTimeline={deliveryTimeline}
+      hasSpecs={hasSpecs}
       specGroups={specGroups}
       featureSections={featureSections}
     />
@@ -811,9 +696,15 @@ function PrimaryCatalogPanel({
 
 export const revalidate = CATALOG_REVALIDATE_SECONDS
 
+export async function generateStaticParams() {
+  const handles = await getProductStaticHandles()
+
+  return handles.map((handle) => ({ handle }))
+}
+
 export async function generateMetadata({ params }: ProductDetailPageProps): Promise<Metadata> {
   const requestedHandle = toSeoHandle(params.handle)
-  const productDetail = await getProductDetailByHandle(requestedHandle)
+  const productDetail = await getProductDetailByHandle(requestedHandle, { includeDetailRows: false })
 
   if (!productDetail) {
     return {
@@ -869,7 +760,7 @@ export async function generateMetadata({ params }: ProductDetailPageProps): Prom
 
 export default async function ProductDetailPage({ params }: ProductDetailPageProps) {
   const requestedHandle = toSeoHandle(params.handle)
-  const productDetail = await getProductDetailByHandle(requestedHandle)
+  const productDetail = await getProductDetailByHandle(requestedHandle, { includeDetailRows: false })
 
   if (!productDetail) {
     notFound()
@@ -896,8 +787,6 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
     const relatedAccessoryProducts = mobileAccessoryGroups.flatMap((group) => group.products)
     const faqs = productDetail.faqs ?? []
     const usesImmersiveHero = Boolean(productDetail.productBackgroundImage)
-    const seoNarrative = buildProductSeoNarrative(productDetail, relatedAccessoryProducts.length)
-
     return (
       <div className={`${detailFont.className} min-h-screen bg-[#f5f7fb] text-slate-900`}>
         <SeoStructuredData data={buildProductStructuredData(productDetail, relatedAccessoryProducts)} />
@@ -950,14 +839,6 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
             </div>
           ) : null}
 
-          {usesImmersiveHero ? (
-            <ProductDetailInfoSection
-              detailParagraphs={detailParagraphs}
-              deliveryTimeline={deliveryTimeline}
-              seoNarrative={seoNarrative}
-            />
-          ) : null}
-
           <div className={`mt-6 space-y-10 ${usesImmersiveHero ? 'mx-auto max-w-[1360px] px-1 sm:px-2 lg:px-4' : ''}`}>
             {mobileAccessoryGroups.length > 0 ? (
               mobileAccessoryGroups.map((group) => (
@@ -1006,8 +887,6 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
     [primaryCollection?.products ?? [], fallbackCollection?.products ?? []],
     canonicalHandle,
   )
-  const seoNarrative = buildProductSeoNarrative(productDetail, recommendations.length)
-
   return (
     <div className={`${detailFont.className} min-h-screen bg-[#f5f7fb] text-slate-900`}>
       <SeoStructuredData data={buildProductStructuredData(productDetail)} />
@@ -1044,13 +923,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
           featureSections={productFeatureSections}
         />
 
-        {usesImmersiveHero ? (
-          <ProductDetailInfoSection
-            detailParagraphs={detailParagraphs}
-            deliveryTimeline={deliveryTimeline}
-            seoNarrative={seoNarrative}
-          />
-        ) : (
+        {!usesImmersiveHero ? (
         <div className="mt-6 grid gap-6">
           <ProductSpecGroupsSection groups={specGroups} />
 
@@ -1065,31 +938,10 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
                   )}
                 </div>
               </DetailAccordion>
-              <DetailAccordion title="Buying Guide" defaultOpen>
-                <div className="space-y-4">
-                  {seoNarrative.map((paragraph) => (
-                    <p key={paragraph}>{paragraph}</p>
-                  ))}
-                </div>
-              </DetailAccordion>
             </div>
           </SectionCard>
 
           <ProductFeatureSectionsSection sections={productFeatureSections} />
-
-          <SectionCard title="Delivery & Returns">
-            <div className="space-y-3">
-              <DetailAccordion title="Shipping Information">
-                Delivery time and shipping charges depend on your city and order size. The support team confirms the final delivery details during checkout.
-              </DetailAccordion>
-              <DetailAccordion title="Pre-Payment Policy">
-                For the safety and accountability of high-value shipments, we operate exclusively on a pre-payment basis. We do not offer a COD option for these high value items, ensuring every delivery is fully documented and secure.
-              </DetailAccordion>
-              <DetailAccordion title="Returns & Exchanges">
-                If the item arrives damaged, incorrect, or defective, contact support as soon as possible so the team can review a replacement or return request.
-              </DetailAccordion>
-            </div>
-          </SectionCard>
 
           <SectionCard title="Reviews">
             {reviews.length > 0 ? (
@@ -1104,7 +956,13 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
           </SectionCard>
 
         </div>
-        )}
+        ) : null}
+
+        {faqs.length > 0 ? (
+          <section className={usesImmersiveHero ? 'mx-auto mt-12 max-w-[1180px] px-4 sm:px-6 lg:px-8' : 'mt-10'}>
+            <ProductFaqAccordionSection faqs={faqs} />
+          </section>
+        ) : null}
 
         {recommendations.length > 0 ? (
           <section className={usesImmersiveHero ? 'mx-auto mt-10 max-w-[1360px] px-4 sm:px-6 lg:px-8' : 'mt-10'}>
@@ -1115,26 +973,6 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
               ))}
             </div>
           </section>
-        ) : null}
-
-        {faqs.length > 0 ? (
-          usesImmersiveHero ? (
-            <section className="mx-auto mt-12 max-w-[1180px] px-4 sm:px-6 lg:px-8">
-              <ProductFaqAccordionSection faqs={faqs} />
-            </section>
-          ) : (
-            <div className="mt-10">
-              <SectionCard title="Product FAQs">
-                <div className="space-y-3">
-                  {faqs.map((faq) => (
-                    <DetailAccordion key={faq.id} title={faq.question}>
-                      {faq.answer}
-                    </DetailAccordion>
-                  ))}
-                </div>
-              </SectionCard>
-            </div>
-          )
         ) : null}
       </main>
 
