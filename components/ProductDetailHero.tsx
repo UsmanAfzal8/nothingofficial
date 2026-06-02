@@ -1107,7 +1107,7 @@ export function ProductDetailHero({
                     unoptimized
                     className="object-cover object-center"
                   />
-                  <div className="pointer-events-none absolute inset-0 opacity-55 [background-image:radial-gradient(circle,#111_1px,transparent_1.35px)] [background-position:1.4rem_1.4rem] [background-size:7.5rem_7.5rem]" />
+                  
                   {hasSpecGroups ? <SpecsFolderBadge onOpen={openSpecs} /> : null}
                   {renderMobileFeatureBadges(firstHeroFeatureSections, 'bottom-28')}
                 </section>
@@ -1124,7 +1124,7 @@ export function ProductDetailHero({
                     unoptimized
                     className="object-cover object-center"
                   />
-                  <div className="pointer-events-none absolute inset-0 opacity-55 [background-image:radial-gradient(circle,#111_1px,transparent_1.35px)] [background-position:1.4rem_1.4rem] [background-size:9.5rem_7.75rem]" />
+                  
                   {hasSpecGroups ? <SpecsFolderBadge onOpen={openSpecs} /> : null}
                   {renderFirstFeatureBadges()}
                 </section>
@@ -1144,7 +1144,7 @@ export function ProductDetailHero({
                 unoptimized
                 className="object-cover object-center"
               />
-              <div className="pointer-events-none absolute inset-0 opacity-55 [background-image:radial-gradient(circle,#111_1px,transparent_1.35px)] [background-position:1.4rem_1.4rem] [background-size:7.5rem_7.5rem] sm:[background-size:9.5rem_7.75rem]" />
+              
 
               {isSecond ? (
                 <>
