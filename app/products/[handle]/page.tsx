@@ -18,7 +18,7 @@ import {
   getProductStaticHandles,
 } from '@/lib/data/catalog-repository'
 import { companyIdentifier, companyLegalName } from '@/lib/data/company'
-import { siteBrandName, siteKeywords } from '@/lib/data/site-content'
+import { siteBrandName, siteContactPhone, siteContactWhatsappUrl, siteKeywords } from '@/lib/data/site-content'
 import type { Product } from '@/lib/models/catalog'
 import type {
   ProductDetail,
@@ -153,6 +153,78 @@ function buildProductSeoDescription(productDetail: ProductDetail) {
   )
 }
 
+function getPriceValidUntil() {
+  const currentYear = new Date().getUTCFullYear()
+  return `${currentYear + 1}-12-31`
+}
+
+function buildOfferStructuredData(productDetail: ProductDetail) {
+  if (typeof productDetail.price !== 'number') {
+    return undefined
+  }
+
+  return {
+    '@type': 'Offer',
+    '@id': `${productDetail.canonicalUrl}#offer`,
+    priceCurrency: 'PKR',
+    price: productDetail.price,
+    priceValidUntil: getPriceValidUntil(),
+    availability: productDetail.availability,
+    url: productDetail.canonicalUrl,
+    itemCondition: 'https://schema.org/NewCondition',
+    seller: {
+      '@type': 'Organization',
+      '@id': buildAbsoluteUrl('/#organization'),
+      name: siteBrandName,
+      legalName: companyLegalName,
+      identifier: companyIdentifier,
+      url: buildAbsoluteUrl('/'),
+      telephone: siteContactPhone,
+      contactPoint: {
+        '@type': 'ContactPoint',
+        contactType: 'customer support',
+        telephone: siteContactPhone,
+        url: siteContactWhatsappUrl,
+        areaServed: 'PK',
+        availableLanguage: ['en', 'en-PK'],
+      },
+    },
+    areaServed: {
+      '@type': 'Country',
+      name: 'Pakistan',
+    },
+    shippingDetails: {
+      '@type': 'OfferShippingDetails',
+      shippingDestination: {
+        '@type': 'DefinedRegion',
+        addressCountry: 'PK',
+      },
+      deliveryTime: {
+        '@type': 'ShippingDeliveryTime',
+        handlingTime: {
+          '@type': 'QuantitativeValue',
+          minValue: 1,
+          maxValue: 1,
+          unitCode: 'DAY',
+        },
+        transitTime: {
+          '@type': 'QuantitativeValue',
+          minValue: 2,
+          maxValue: 3,
+          unitCode: 'DAY',
+        },
+      },
+    },
+    hasMerchantReturnPolicy: {
+      '@type': 'MerchantReturnPolicy',
+      applicableCountry: 'PK',
+      returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow',
+      merchantReturnDays: 7,
+      returnMethod: 'https://schema.org/ReturnByMail',
+    },
+  }
+}
+
 function isCloudinaryRawHtmlUrl(value: string | null | undefined): value is string {
   if (!value) return false
 
@@ -202,10 +274,12 @@ function buildProductStructuredData(productDetail: ProductDetail, relatedProduct
     const mobileProductSchema: Record<string, unknown> = {
       '@context': 'https://schema.org',
       '@type': 'Product',
+      '@id': `${productDetail.canonicalUrl}#product`,
       name: productDetail.name,
       description: buildProductSeoDescription(productDetail),
       image: images.length > 0 ? images : undefined,
       sku: productDetail.handle,
+      mpn: productDetail.handle,
       url: productDetail.canonicalUrl,
       brand: {
         '@type': 'Brand',
@@ -213,22 +287,21 @@ function buildProductStructuredData(productDetail: ProductDetail, relatedProduct
       },
       category: 'Smartphone',
       itemCondition: 'https://schema.org/NewCondition',
+      audience: {
+        '@type': 'PeopleAudience',
+        geographicArea: {
+          '@type': 'Country',
+          name: 'Pakistan',
+        },
+      },
       seller: {
         '@type': 'Organization',
+        '@id': buildAbsoluteUrl('/#organization'),
         name: siteBrandName,
         legalName: companyLegalName,
         identifier: companyIdentifier,
       },
-      offers:
-        typeof productDetail.price === 'number'
-          ? {
-              '@type': 'Offer',
-              priceCurrency: 'PKR',
-              price: productDetail.price,
-              availability: productDetail.availability,
-              url: productDetail.canonicalUrl,
-            }
-          : undefined,
+      offers: buildOfferStructuredData(productDetail),
       additionalProperty:
         productDetail.specs?.slice(0, 8).map((spec) => ({
           '@type': 'PropertyValue',
@@ -255,10 +328,12 @@ function buildProductStructuredData(productDetail: ProductDetail, relatedProduct
   const productSchema: Record<string, unknown> = {
     '@context': 'https://schema.org',
     '@type': 'Product',
+    '@id': `${productDetail.canonicalUrl}#product`,
     name: productDetail.name,
     description: buildProductSeoDescription(productDetail),
     image: images.length > 0 ? images : undefined,
     sku: productDetail.handle,
+    mpn: productDetail.handle,
     url: productDetail.canonicalUrl,
     category: productDetail.collections.map((collection) => collection.title).join(', ') || undefined,
     brand: {
@@ -266,22 +341,21 @@ function buildProductStructuredData(productDetail: ProductDetail, relatedProduct
       name: productDetail.brandName,
     },
     itemCondition: 'https://schema.org/NewCondition',
+    audience: {
+      '@type': 'PeopleAudience',
+      geographicArea: {
+        '@type': 'Country',
+        name: 'Pakistan',
+      },
+    },
     seller: {
       '@type': 'Organization',
+      '@id': buildAbsoluteUrl('/#organization'),
       name: siteBrandName,
       legalName: companyLegalName,
       identifier: companyIdentifier,
     },
-    offers:
-      typeof productDetail.price === 'number'
-        ? {
-            '@type': 'Offer',
-            priceCurrency: 'PKR',
-            price: productDetail.price,
-            availability: productDetail.availability,
-            url: productDetail.canonicalUrl,
-          }
-        : undefined,
+    offers: buildOfferStructuredData(productDetail),
   }
 
   if (productDetail.aggregateRating) {

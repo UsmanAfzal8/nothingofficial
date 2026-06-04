@@ -35,7 +35,7 @@ const homeProductPanels = [
     title: 'headphone ( a )',
     headline: 'Five days of back-to-back tracks',
     subline: 'w/ Global Brand Ambassador + Shareholder Charli xcx',
-    href: '/collections/audio',
+    href: '/products/headphone-a',
     image: productImageUrls.headphoneA,
     background: 'https://cdn.sanity.io/images/gtd4w1cq/production/15fcb585ab7a03ec909309c84edbeea4ea6caf21-4096x2305.jpg?auto=format',
     objectPosition: '50% 50%',
@@ -53,7 +53,7 @@ const homeProductPanels = [
     title: 'headphone ( 1 )',
     headline: 'Custom sound with tuning by KEF',
     subline: 'w/ Global Brand Ambassador + Shareholder Charli xcx',
-    href: '/collections/audio',
+    href: '/products/headphone-1',
     image: productImageUrls.headphone1,
     background: 'https://cdn.sanity.io/images/gtd4w1cq/production/6e7ce8b020e81a6e157c8c0d7ccacc16961f7896-4096x2305.jpg?auto=format',
     objectPosition: '50% 50%',
@@ -192,7 +192,7 @@ function HeroSection() {
         title="NOTHING ( CHARLI XCX )"
         headline="Our new campaign for Headphone (a)"
         subline="Shot by Aidan Zamiri in London"
-        href="/collections/audio"
+        href="/products/headphone-a"
         image={productImageUrls.headphoneA}
       />
     </section>

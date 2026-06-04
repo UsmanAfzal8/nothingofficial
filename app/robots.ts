@@ -11,6 +11,10 @@ export default function robots(): MetadataRoute.Robots {
         allow: [
           '/',
           '/llms.txt',
+          '/ai-products',
+          '/collections/',
+          '/products/',
+          '/blog/',
           '/company-verification',
           '/about-us',
           '/authenticity',

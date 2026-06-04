@@ -38,6 +38,7 @@ type ColorOption = {
 }
 
 const specIcons = specIconLinks as Record<string, string>
+const plusMinusIconUrl = specIcons['plus-minus'] ?? plusMinusIcon
 const firstBackgroundBadgePositions = [
   'right-[8%] top-[243px] sm:left-[8%] sm:top-[11%] lg:left-[10%] lg:top-[63%]',
   'left-[38%] top-[443px] sm:right-[6%] sm:left-auto sm:top-[36%] lg:right-[2%] lg:top-[38%]',
@@ -728,6 +729,87 @@ function formatOfficialProductName(productName: string) {
   return `Phone ( ${model} )`
 }
 
+function ColorNameSelector({
+  colorOptions,
+  selectedIndex,
+  onSelectColor,
+  className = '',
+  menuPlacement = 'top',
+  compact = false,
+}: {
+  colorOptions: ColorOption[]
+  selectedIndex: number
+  onSelectColor: (mediaIndex: number) => void
+  className?: string
+  menuPlacement?: 'top' | 'bottom'
+  compact?: boolean
+}) {
+  const [isOpen, setIsOpen] = useState(false)
+  const selectedColor = colorOptions.find((option) => option.mediaIndex === selectedIndex) ?? colorOptions[0]
+
+  if (!selectedColor) {
+    return null
+  }
+
+  return (
+    <div className={`relative ${className}`}>
+      <button
+        type="button"
+        aria-haspopup="listbox"
+        aria-expanded={isOpen}
+        className={`grid w-full grid-cols-[1fr_auto] items-center gap-3 rounded-[8px] bg-white px-4 text-black shadow-[0_12px_34px_rgba(17,17,17,0.09)] transition hover:bg-[#f7f7f4] ${
+          compact ? 'h-8 text-[0.58rem]' : 'h-10 text-[0.72rem]'
+        }`}
+        onClick={() => setIsOpen((current) => !current)}
+      >
+        <span className="truncate text-center [font-family:var(--font-ntype82)] uppercase tracking-[0.18em]">
+          {selectedColor.label}
+        </span>
+        <Image
+          src={plusMinusIconUrl}
+          alt=""
+          aria-hidden="true"
+          width={14}
+          height={14}
+          unoptimized
+          className={`h-[13px] w-[13px] object-contain opacity-65 transition-transform ${isOpen ? 'rotate-180' : ''}`}
+        />
+      </button>
+
+      {isOpen ? (
+        <div
+          role="listbox"
+          aria-label="Select color"
+          className={`absolute left-0 z-[90] w-full overflow-hidden rounded-[18px] border border-white/25 bg-black/72 py-1.5 text-white shadow-[0_18px_42px_rgba(0,0,0,0.32)] backdrop-blur-xl ${
+            menuPlacement === 'top' ? 'bottom-[calc(100%+8px)]' : 'top-[calc(100%+8px)]'
+          }`}
+        >
+          {colorOptions.map((option) => {
+            const isSelected = option.mediaIndex === selectedIndex
+
+            return (
+              <button
+                key={option.key}
+                type="button"
+                role="option"
+                aria-selected={isSelected}
+                className="grid min-h-[34px] w-full grid-cols-[22px_minmax(0,1fr)] items-center gap-2 px-3 text-left [font-family:var(--font-ntype82)] text-[0.88rem] leading-none text-white transition hover:bg-white/10"
+                onClick={() => {
+                  onSelectColor(option.mediaIndex)
+                  setIsOpen(false)
+                }}
+              >
+                <span className="text-[1rem] leading-none">{isSelected ? '\u2713' : ''}</span>
+                <span>{option.label}</span>
+              </button>
+            )
+          })}
+        </div>
+      ) : null}
+    </div>
+  )
+}
+
 function StickyPurchaseCard({
   productName,
   selectedMedia,
@@ -764,7 +846,7 @@ function StickyPurchaseCard({
       aria-label={`${productName} purchase options`}
     >
       <div
-        className={`overflow-hidden rounded-[8px] border border-black/18 bg-white text-black opacity-90 shadow-[0_18px_70px_rgba(17,17,17,0.17)] transition-all duration-300 ${
+        className={`rounded-[8px] border border-black/18 bg-white text-black opacity-90 shadow-[0_18px_70px_rgba(17,17,17,0.17)] transition-all duration-300 ${
           isCompact ? 'px-3 py-2.5' : 'px-3 py-3 sm:px-4 sm:py-4'
         }`}
       >
@@ -777,6 +859,15 @@ function StickyPurchaseCard({
               <p className="mt-1 truncate [font-family:var(--font-lettera-regular)] text-[0.62rem] uppercase tracking-[0.08em] text-black/58">
                 {formattedPrice}
               </p>
+              {colorOptions.length > 0 ? (
+                <ColorNameSelector
+                  colorOptions={colorOptions}
+                  selectedIndex={selectedIndex}
+                  onSelectColor={onSelectColor}
+                  compact
+                  className="mt-1.5 max-w-[132px]"
+                />
+              ) : null}
             </div>
             <div className="grid grid-cols-2 gap-1.5">
               <Link
@@ -804,12 +895,17 @@ function StickyPurchaseCard({
                   {officialName}
                 </h2>
                 <IntroContent intro={intro} compact />
-                <p className="mt-3 [font-family:var(--font-lettera-regular)] text-[0.72rem] uppercase tracking-[0.12em] text-black/48">
-                  Price
-                </p>
-                <p className="mt-1 [font-family:var(--font-ndot57)] text-[0.9rem] uppercase tracking-[0.08em] text-black sm:text-[1.02rem]">
+                <p className="mt-3 [font-family:var(--font-ndot57)] text-[0.9rem] uppercase tracking-[0.08em] text-black sm:text-[1.02rem]">
                   {formattedPrice}
                 </p>
+                {colorOptions.length > 0 ? (
+                  <ColorNameSelector
+                    colorOptions={colorOptions}
+                    selectedIndex={selectedIndex}
+                    onSelectColor={onSelectColor}
+                    className="mt-3 w-full max-w-[210px]"
+                  />
+                ) : null}
               </div>
 
               <div className="min-w-0">
@@ -827,32 +923,6 @@ function StickyPurchaseCard({
                       className="object-contain object-center"
                     />
                   ) : null}
-                </div>
-                <div className="mt-2 flex flex-wrap items-center justify-center gap-2">
-                  {colorOptions.length > 0 ? (
-                    colorOptions.map((option) => {
-                      const isSelected = option.mediaIndex === selectedIndex
-
-                      return (
-                        <button
-                          key={option.key}
-                          type="button"
-                          className={`h-6 w-6 rounded-full transition sm:h-7 sm:w-7 ${
-                            isSelected ? 'border border-black p-1 shadow-[0_0_0_2px_rgba(0,0,0,0.08)]' : 'border border-black/18 p-0.5 hover:border-black/55'
-                          }`}
-                          onClick={() => onSelectColor(option.mediaIndex)}
-                          aria-label={`Select ${option.label}`}
-                          aria-pressed={isSelected}
-                        >
-                          <span className="block h-full w-full rounded-full border border-black/10" style={{ backgroundColor: option.hex }} />
-                        </button>
-                      )
-                    })
-                  ) : (
-                    <span className="[font-family:var(--font-lettera-regular)] text-[0.62rem] uppercase tracking-[0.08em] text-black/55">
-                      Default
-                    </span>
-                  )}
                 </div>
               </div>
             </div>
@@ -924,7 +994,6 @@ export function ProductDetailHero({
     () => [...new Set(labels.filter((label) => label && !colorKeys.has(normalizeColorName(label))))].slice(0, 4),
     [colorKeys, labels],
   )
-  const priceTitle = entityType === 'mobile' ? 'Listed phone price' : 'Price'
   const displayedPriceLabel = entityType === 'mobile' && priceLabel ? `≈ ${priceLabel}` : (priceLabel ?? 'Contact for price')
   const whatsappHref =
     entityType === 'mobile'
@@ -1185,9 +1254,9 @@ export function ProductDetailHero({
     <section className="rounded-[30px] border border-slate-200 bg-white p-4 font-sans shadow-[0_18px_40px_rgba(15,23,42,0.06)] sm:p-6 lg:p-8">
       <div className="grid gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(320px,0.95fr)] lg:items-start">
         <div className="min-w-0">
-          <div className="rounded-[26px] border border-slate-200 bg-[#f8fafc] p-5 sm:p-7">
+          <div className="rounded-[26px] border border-slate-200 bg-white p-5 sm:p-7">
             {selectedMedia ? (
-              <div className="relative h-[300px] w-full sm:h-[420px] lg:h-[540px]">
+              <div className="relative mx-auto h-[min(80svh,380px)] w-full max-w-[min(78vw,420px)] sm:h-[min(80svh,500px)] sm:max-w-[480px] lg:h-[min(80svh,620px)] lg:max-w-[520px]">
                 <Image
                   key={selectedMedia.url}
                   src={selectedMedia.url}
@@ -1257,34 +1326,13 @@ export function ProductDetailHero({
           <IntroContent intro={intro} />
 
           {colorOptions.length > 0 ? (
-            <div className="mt-6">
-              <p className="text-sm text-slate-500">Colors</p>
-              <div className="mt-3 flex flex-wrap gap-3">
-                {colorOptions.map((color) => {
-                  const isActive = color.mediaIndex === selectedIndex
-                  const isLight = ['white', 'milk', 'silver', 'yellow'].includes(color.key)
-
-                  return (
-                    <button
-                      key={color.key}
-                      type="button"
-                      aria-label={`Show ${color.label}`}
-                      title={color.label}
-                      aria-pressed={isActive}
-                      onClick={() => setSelectedIndex(color.mediaIndex)}
-                      className={`flex h-11 w-11 items-center justify-center rounded-full border transition ${
-                        isActive ? 'border-slate-950 shadow-[0_0_0_4px_rgba(15,23,42,0.08)]' : 'border-slate-200 hover:border-slate-500'
-                      }`}
-                    >
-                      <span
-                        className={`block h-8 w-8 rounded-full ${isLight ? 'border border-slate-300' : ''}`}
-                        style={{ backgroundColor: color.hex }}
-                      />
-                    </button>
-                  )
-                })}
-              </div>
-            </div>
+            <ColorNameSelector
+              colorOptions={colorOptions}
+              selectedIndex={selectedIndex}
+              onSelectColor={setSelectedIndex}
+              menuPlacement="bottom"
+              className="mt-6 max-w-[320px]"
+            />
           ) : null}
 
           {uniqueLabels.length > 0 ? (
@@ -1299,8 +1347,7 @@ export function ProductDetailHero({
 
           <div className="mt-6 rounded-[24px] border border-slate-200 bg-slate-50 p-5">
             <div>
-              <p className="text-sm text-slate-500">{priceTitle}</p>
-              <p className="mt-2 font-sans text-[1.9rem] font-medium leading-none tracking-normal text-slate-900">
+              <p className="font-sans text-[1.9rem] font-medium leading-none tracking-normal text-slate-900">
                 {displayedPriceLabel}
               </p>
             </div>

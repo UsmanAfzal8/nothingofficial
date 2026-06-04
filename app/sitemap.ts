@@ -52,6 +52,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticRoutes: MetadataRoute.Sitemap = [
     { url: buildAbsoluteUrl('/'), lastModified: latestCatalogDate, changeFrequency: 'daily', priority: 1 },
     { url: buildAbsoluteUrl('/company-verification'), lastModified: latestCatalogDate, changeFrequency: 'monthly', priority: 0.9 },
+    { url: buildAbsoluteUrl('/ai-products'), lastModified: latestCatalogDate, changeFrequency: 'weekly', priority: 0.84 },
     { url: buildAbsoluteUrl('/about-us'), lastModified: latestCatalogDate, changeFrequency: 'monthly', priority: 0.8 },
     { url: buildAbsoluteUrl('/authenticity'), lastModified: latestCatalogDate, changeFrequency: 'monthly', priority: 0.8 },
     { url: buildAbsoluteUrl('/contact-us'), lastModified: latestCatalogDate, changeFrequency: 'monthly', priority: 0.72 },

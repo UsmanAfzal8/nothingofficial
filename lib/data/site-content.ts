@@ -46,6 +46,13 @@ export const siteKeywords = [
   'CMF by Nothing Official Store Pakistan',
   'CMF buds Pakistan',
   'Nothing audio Pakistan',
+  'Nothing AI phone Pakistan',
+  'Nothing OS AI tools Pakistan',
+  'Nothing Essential Space Pakistan',
+  'Nothing ChatGPT integration Pakistan',
+  'Nothing Gemini phone Pakistan',
+  'Nothing Phone 3 AI features Pakistan',
+  'Nothing Phone 4a AI features Pakistan',
 ]
 
 export const siteContactPhone = '+923361070111'
@@ -71,6 +78,7 @@ export const footerCompanyLinks = [
 
 export const footerSupportLinks = [
   { label: 'Support Centre', href: '/support-centre' },
+  { label: 'AI Phone Guide', href: '/ai-products' },
   { label: 'Contact Us', href: '/contact-us' },
   { label: 'Shipping Policy', href: '/pages/shipping-and-delivery-policy' },
   { label: 'Returns Policy', href: '/pages/return-and-refund-policy' },
@@ -138,6 +146,63 @@ export const homeSeoFaqs = [
     question: 'Can I browse accessories for a specific Nothing phone?',
     answer:
       'Yes. Phone pages on Nothing Official Store Pakistan link to compatible chargers, protectors, earbuds, and other accessories so shoppers can move from the device to the right add-ons.',
+  },
+] as const
+
+export const aiProductKeywords = [
+  'Nothing AI phone Pakistan',
+  'Nothing OS AI tools Pakistan',
+  'Nothing Essential Space Pakistan',
+  'Nothing Essential Search Pakistan',
+  'Nothing ChatGPT integration Pakistan',
+  'Nothing Gemini phone Pakistan',
+  'Nothing Phone 3 AI features Pakistan',
+  'Nothing Phone 4a AI features Pakistan',
+  'Nothing Phone 3a AI features Pakistan',
+  'AI smartphone Pakistan Nothing',
+] as const
+
+export const aiProductHighlights = [
+  {
+    title: 'Nothing OS with Essential AI tools',
+    description:
+      'Nothing phones can include Essential Space, Essential Search, AI summaries, reminders, and other Nothing OS intelligence features depending on the model and software region.',
+    href: '/collections/phones',
+  },
+  {
+    title: 'ChatGPT voice routes for Nothing devices',
+    description:
+      'Nothing support guidance says ChatGPT features require a compatible Nothing smartphone, the latest Nothing X app, the ChatGPT app, and Voice AI controls enabled for supported audio or wearable products.',
+    href: '/support-centre/software-download',
+  },
+  {
+    title: 'Gemini and modern AI assistant use',
+    description:
+      'Newer Nothing phone pages highlight built-in Google Gemini and AI assistant experiences, making phone pages relevant for shoppers comparing AI-capable Android phones in Pakistan.',
+    href: '/collections/phones',
+  },
+] as const
+
+export const aiProductFaqs = [
+  {
+    question: 'Which Nothing phones should I compare for AI features in Pakistan?',
+    answer:
+      'Start with the latest Nothing phone pages in the Phones collection, then compare Nothing OS version, Essential Space, Essential Search, ChatGPT support, Gemini support, storage, RAM, camera, battery, and current Pakistan availability.',
+  },
+  {
+    question: 'Do Nothing earbuds use ChatGPT directly?',
+    answer:
+      'Nothing support says ChatGPT earbud activation depends on a compatible Nothing smartphone, updated Nothing X app, the ChatGPT app, and enabling ChatGPT through Nothing X controls where supported.',
+  },
+  {
+    question: 'Is Essential Space available on every Nothing phone?',
+    answer:
+      'Essential Space and related Nothing OS AI tools depend on the exact phone model, software version, and regional rollout. Check the product page and confirm current support before ordering.',
+  },
+  {
+    question: 'Can I buy accessories for an AI-focused Nothing phone?',
+    answer:
+      'Yes. Nothing Official Store Pakistan connects phone pages with compatible chargers, protectors, earbuds, and other accessories so shoppers can prepare the full device setup.',
   },
 ] as const
 

@@ -2,12 +2,12 @@ import localFont from 'next/font/local'
 import Image from 'next/image'
 import Link from 'next/link'
 import { CompanyTrustBadge } from '@/components/CompanyTrustBadge'
+import { FooterStoreSelector } from '@/components/FooterStoreSelector'
 import aboutUsIcon from '@/assets/icons/about_us.svg'
-import storeIcon from '@/assets/icons/store.svg'
 import supportIcon from '@/assets/icons/support.svg'
 import whatsappFooterIcon from '@/assets/icons/whatsapp-footer-white.svg'
 import { getNavigationMenuItems } from '@/lib/data/catalog-repository'
-import { siteContactWhatsappUrl, storeLocations } from '@/lib/data/site-content'
+import { siteContactWhatsappUrl } from '@/lib/data/site-content'
 
 const spaceMono = localFont({
   src: '../fonts/SpaceMono-Regular.otf',
@@ -42,10 +42,8 @@ const footerUtilityLinks = [
 
 export async function NothingFooter() {
   const [menuItems] = await Promise.all([getNavigationMenuItems()])
-  const store = storeLocations[0]
 
   const headerItems = menuItems.filter((item) => item.slug !== 'trending-picks')
-  const storeHref = store?.href ?? '/contact-us#lahore-store'
   const storeLabel = 'Pakistan'
 
   return (
@@ -101,15 +99,10 @@ export async function NothingFooter() {
                       </Link>
                     )
                   })}
-                  <Link
-                    href={storeHref}
-                    className="flex h-[54px] items-center justify-between rounded-[10px] bg-white/[0.06] px-5 transition-colors hover:bg-white/[0.09]"
-                  >
-                    <span className={`${spaceMono.className} text-[11px] uppercase tracking-[0.08em] text-white`}>
-                      {storeLabel}
-                    </span>
-                    <Image src={storeIcon} alt="" aria-hidden="true" className="h-[20px] w-[20px] object-contain" />
-                  </Link>
+                  <FooterStoreSelector
+                    label={storeLabel}
+                    className={`flex h-[54px] items-center justify-between rounded-[10px] bg-white/[0.06] px-5 ${spaceMono.className} text-[11px] uppercase tracking-[0.08em] text-white transition-colors hover:bg-white/[0.09]`}
+                  />
                 </div>
               </div>
 
@@ -207,15 +200,10 @@ export async function NothingFooter() {
                 </Link>
               )
             })}
-            <Link
-              href={storeHref}
-              className="flex h-[52px] items-center justify-between rounded-[10px] bg-white/[0.06] px-4 transition-colors hover:bg-white/[0.09]"
-            >
-              <span className={`${spaceMono.className} text-[10px] uppercase tracking-[0.08em] text-white`}>
-                {storeLabel}
-              </span>
-              <Image src={storeIcon} alt="" aria-hidden="true" className="h-[20px] w-[20px] object-contain" />
-            </Link>
+            <FooterStoreSelector
+              label={storeLabel}
+              className={`flex h-[52px] items-center justify-between rounded-[10px] bg-white/[0.06] px-4 ${spaceMono.className} text-[10px] uppercase tracking-[0.08em] text-white transition-colors hover:bg-white/[0.09]`}
+            />
           </div>
 
           <CompanyTrustBadge tone="dark" compact className="mx-auto mt-7 max-w-[320px] text-left" />

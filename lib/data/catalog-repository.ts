@@ -855,11 +855,30 @@ async function readCatalogSnapshotFromSupabase(options: CatalogSnapshotReadOptio
         })
     : Promise.resolve({ data: [] as SupabaseProductFeatureSlideRow[], error: null })
 
+  const categorySeoFieldsPromise = supabase
+    .from('categories')
+    .select('id, seo_keywords, canonical_url, schema_json, seo_description_long')
+    .then((response) => {
+      if (response.error) {
+        if (process.env.NODE_ENV === 'development') {
+          console.warn('[catalog-repository] optional category SEO fields unavailable:', response.error.message)
+        }
+
+        return { data: [] as Array<Pick<SupabaseCategoryRow, 'id' | 'seo_keywords' | 'canonical_url' | 'schema_json' | 'seo_description_long'>>, error: null }
+      }
+
+      return {
+        data: (response.data ?? []) as Array<Pick<SupabaseCategoryRow, 'id' | 'seo_keywords' | 'canonical_url' | 'schema_json' | 'seo_description_long'>>,
+        error: null,
+      }
+    })
+
   const [
     productsResponse,
     mobilesResponse,
     categoriesResponse,
     categoryRelationsResponse,
+    categorySeoFieldsResponse,
     imagesResponse,
     faqsResponse,
     specGroupsResponse,
@@ -890,6 +909,7 @@ async function readCatalogSnapshotFromSupabase(options: CatalogSnapshotReadOptio
       .select('id, category_id, related_type, related_id, created_at, updated_at')
       .in('related_type', [...STORE_RELATED_TYPE_ENUM])
       .order('id', { ascending: true }),
+    categorySeoFieldsPromise,
     supabase
       .from('images')
       .select('id, related_type, related_id, color_id, url, alt_text, title, caption, file_name, slug, sort_order, created_at, updated_at')
@@ -956,7 +976,11 @@ async function readCatalogSnapshotFromSupabase(options: CatalogSnapshotReadOptio
 
   const products = (productsResponse.error ? [] : productsResponse.data ?? []) as SupabaseProductRow[]
   const mobiles = (mobilesResponse.error ? [] : mobilesResponse.data ?? []) as SupabaseMobileRow[]
-  const categories = (categoriesResponse.error ? [] : categoriesResponse.data ?? []) as SupabaseCategoryRow[]
+  const categorySeoFieldsById = new Map((categorySeoFieldsResponse.data ?? []).map((row) => [row.id, row]))
+  const categories = ((categoriesResponse.error ? [] : categoriesResponse.data ?? []) as SupabaseCategoryRow[]).map((category) => ({
+    ...category,
+    ...categorySeoFieldsById.get(category.id),
+  }))
   const categoryRelations = (categoryRelationsResponse.error ? [] : categoryRelationsResponse.data ?? []) as SupabaseCategoryRelationRow[]
   const images = (imagesResponse.error ? [] : imagesResponse.data ?? []) as SupabaseImageRow[]
   const faqs = (faqsResponse.error ? [] : faqsResponse.data ?? []) as SupabaseFaqRow[]

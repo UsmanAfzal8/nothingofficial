@@ -25,9 +25,21 @@ const ndot57 = localFont({
   display: 'swap',
 })
 
+const ndot57Caps = localFont({
+  src: [{ path: '../fonts/Ndot57Caps-Regular.otf', weight: '400', style: 'normal' }],
+  variable: '--font-ndot57-caps',
+  display: 'swap',
+})
+
 const ntype82 = localFont({
   src: [{ path: '../fonts/NType82-Regular.otf', weight: '400', style: 'normal' }],
   variable: '--font-ntype82',
+  display: 'swap',
+})
+
+const ntype82Mono = localFont({
+  src: [{ path: '../fonts/NType82Mono-Regular.otf', weight: '400', style: 'normal' }],
+  variable: '--font-ntype82-mono',
   display: 'swap',
 })
 
@@ -63,8 +75,8 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: '/favicon/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
-      { url: '/favicon/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon/favicon.svg', type: 'image/svg+xml' },
+      { url: '/favicon/favicon-96x96.png', sizes: '96x96', type: 'image/png' },
     ],
     shortcut: '/favicon/favicon.ico',
     apple: [{ url: '/favicon/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }],
@@ -96,7 +108,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en-PK">
-      <body className={`${ndot57.className} ${ndot57.variable} ${ndot55.variable} ${ndot55Caps.variable} ${ntype82.variable} ${ntype82Headline.variable} ${georgia.variable} ${letteraRegular.variable} isolate overflow-x-hidden antialiased`}>
+      <body className={`${ndot57.className} ${ndot57.variable} ${ndot57Caps.variable} ${ndot55.variable} ${ndot55Caps.variable} ${ntype82.variable} ${ntype82Mono.variable} ${ntype82Headline.variable} ${georgia.variable} ${letteraRegular.variable} isolate overflow-x-hidden antialiased`}>
         <div aria-hidden="true" className="site-dot-overlay" />
         <CartProvider>
           {children}

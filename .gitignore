@@ -2,6 +2,7 @@
 *.log
 .env.local
 .env.*.local
+env
 node_modules
 .git
 .DS_Store

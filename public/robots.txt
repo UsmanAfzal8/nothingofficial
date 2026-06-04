@@ -5,6 +5,10 @@ Sitemap: https://www.nothingofficial.pk/sitemap.xml
 Sitemap: https://www.nothingofficial.pk/server-sitemap.xml
 
 Allow: /llms.txt
+Allow: /ai-products
+Allow: /collections/
+Allow: /products/
+Allow: /blog/
 Allow: /company-verification
 Allow: /about-us
 Allow: /authenticity

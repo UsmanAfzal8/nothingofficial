@@ -8,7 +8,7 @@ import { NothingHeader } from '@/components/NothingHeader'
 import { SeoStructuredData } from '@/components/SeoStructuredData'
 import { CATALOG_REVALIDATE_SECONDS, getCollectionBySlug } from '@/lib/data/catalog-repository'
 import { companyIdentifier, companyLegalName } from '@/lib/data/company'
-import { collectionSeoFaqs, siteBrandName, siteKeywords } from '@/lib/data/site-content'
+import { collectionSeoFaqs, siteBrandName, siteKeywords, siteTrustLinks } from '@/lib/data/site-content'
 import type { Collection } from '@/lib/models/catalog'
 import { buildAbsoluteUrl, buildBreadcrumbStructuredData, buildFaqStructuredData, buildRobotsMetadata, buildSeoKeywords } from '@/lib/utils/seo'
 
@@ -75,12 +75,23 @@ function buildCollectionStructuredData(collection: Collection) {
     {
       '@context': 'https://schema.org',
       '@type': 'CollectionPage',
+      '@id': `${collection.canonicalUrl || buildAbsoluteUrl(`/collections/${collection.slug}`)}#collection-page`,
       name: collection.metaTitle || collection.title,
       description: buildCollectionSeoDescription(collection),
       url: collection.canonicalUrl || buildAbsoluteUrl(`/collections/${collection.slug}`),
       image: collection.heroImage ? [collection.heroImage] : undefined,
+      keywords: collection.seoKeywords?.join(', ') || undefined,
+      inLanguage: 'en-PK',
+      audience: {
+        '@type': 'PeopleAudience',
+        geographicArea: {
+          '@type': 'Country',
+          name: 'Pakistan',
+        },
+      },
       publisher: {
         '@type': 'Organization',
+        '@id': buildAbsoluteUrl('/#organization'),
         name: siteBrandName,
         legalName: companyLegalName,
         identifier: companyIdentifier,
@@ -94,6 +105,7 @@ function buildCollectionStructuredData(collection: Collection) {
             '@type': 'Product',
             name: product.name,
             url: buildAbsoluteUrl(product.href),
+            image: product.image || undefined,
           },
         })),
       },
@@ -105,7 +117,96 @@ function buildCollectionStructuredData(collection: Collection) {
     structuredData.push(faqStructuredData)
   }
 
+  if (collection.schemaJson) {
+    structuredData.push(collection.schemaJson)
+  }
+
   return structuredData
+}
+
+function buildCollectionAnswerSections(collection: Collection, seoDescription: string) {
+  const topProducts = uniqueProductsByHandle(collection.products).slice(0, 4)
+  const productNames = topProducts.map((product) => product.name).join(', ')
+  const title = collection.title === 'Shop all' ? 'Shop All' : collection.title
+
+  return [
+    {
+      eyebrow: `Why shop ${title}`,
+      title: `${title} for Pakistan buyers`,
+      body:
+        `${title} on ${siteBrandName} is built for shoppers in Pakistan who want product pages with visible PKR pricing, model information, support routes, and clear ordering context. ${seoDescription}`,
+    },
+    {
+      eyebrow: `Compare ${title}`,
+      title: `What shoppers can compare`,
+      body: productNames
+        ? `This collection highlights products such as ${productNames}, helping shoppers compare relevant Nothing and CMF options without leaving the storefront.`
+        : `This collection is structured so product listings, support routes, and policy pages can be connected as soon as live catalog items are available.`,
+    },
+    {
+      eyebrow: 'Buying intent',
+      title: 'How this collection supports ordering',
+      body:
+        'Customers can move from this collection into product pages, support pages, company verification, delivery information, return policy, and the order flow without losing product context.',
+    },
+  ]
+}
+
+function CollectionAeoSection({ collection, seoDescription }: { collection: Collection; seoDescription: string }) {
+  const answerSections = buildCollectionAnswerSections(collection, seoDescription)
+  const faqs = collectionSeoFaqs[collection.slug] ?? []
+
+  return (
+    <section className="mt-12 border-t border-black/10 pt-10">
+      <div className="grid gap-5 lg:grid-cols-3">
+        {answerSections.map((section) => (
+          <article key={section.eyebrow} className="rounded-[8px] border border-black/10 bg-white p-5">
+            <p className="text-[10px] uppercase tracking-[0.28em] text-black/42">{section.eyebrow}</p>
+            <h2 className="mt-4 text-2xl leading-tight tracking-[-0.03em] text-black">{section.title}</h2>
+            <p className="mt-4 text-sm leading-7 text-black/62">{section.body}</p>
+          </article>
+        ))}
+      </div>
+
+      {faqs.length > 0 ? (
+        <div className="mt-10 grid gap-6 lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1fr)]">
+          <div>
+            <p className="text-[10px] uppercase tracking-[0.28em] text-black/42">Collection Answers</p>
+            <h2 className="mt-3 text-3xl leading-tight tracking-[-0.04em] text-black">Direct answers for {collection.title}</h2>
+          </div>
+          <div className="divide-y divide-black/10 rounded-[8px] border border-black/10 bg-white">
+            {faqs.map((faq) => (
+              <details key={faq.question} className="group px-5 py-4">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-sm font-medium text-black">
+                  {faq.question}
+                  <span className="text-lg leading-none text-black/38 group-open:hidden">+</span>
+                  <span className="hidden text-lg leading-none text-black/38 group-open:block">-</span>
+                </summary>
+                <p className="mt-3 text-sm leading-7 text-black/62">{faq.answer}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      ) : null}
+
+      <div className="mt-10 rounded-[8px] border border-black/10 bg-white p-5">
+        <p className="text-[10px] uppercase tracking-[0.28em] text-black/42">Support Routes</p>
+        <h2 className="mt-3 text-3xl leading-tight tracking-[-0.04em] text-black">Need help before ordering?</h2>
+        <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+          {siteTrustLinks.slice(0, 5).map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="rounded-[8px] border border-black/10 bg-[#f8f8f4] p-4 transition-colors hover:bg-black hover:text-white"
+            >
+              <span className="block text-sm font-medium">{link.title}</span>
+              <span className="mt-2 block text-xs leading-5 opacity-65">{link.description}</span>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
 }
 
 export async function generateMetadata({ params }: CollectionPageProps): Promise<Metadata> {
@@ -333,6 +434,8 @@ export default async function CollectionPage({ params }: CollectionPageProps) {
               </div>
             </section>
           ) : null}
+
+          <CollectionAeoSection collection={collection} seoDescription={seoDescription} />
         </section>
       </main>
 

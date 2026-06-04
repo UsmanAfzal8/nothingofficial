@@ -55,6 +55,7 @@ const BANK_ACCOUNT = {
   whatsapp: '03361070111',
   whatsappUrl: 'https://wa.me/923361070111',
 } as const
+const STORE_MAP_URL = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(siteContactAddress)}`
 
 function formatPrice(value: number | null | undefined): string | null {
   if (typeof value !== 'number' || Number.isNaN(value)) {
@@ -492,19 +493,19 @@ export function OrderForm({ product }: OrderFormProps) {
                 </div>
               </div>
 
-              <label className="grid gap-2">
-                <span className="text-sm font-medium text-slate-700">Full name</span>
-                <input
-                  required
-                  value={name}
-                  onChange={(event) => setName(event.target.value)}
-                  placeholder="Your full name"
-                  className={fieldClassName}
-                />
-              </label>
-
               {deliveryType === 'ship' ? (
                 <>
+                  <label className="grid gap-2">
+                    <span className="text-sm font-medium text-slate-700">Full name</span>
+                    <input
+                      required
+                      value={name}
+                      onChange={(event) => setName(event.target.value)}
+                      placeholder="Your full name"
+                      className={fieldClassName}
+                    />
+                  </label>
+
                   <label className="grid gap-2">
                     <span className="text-sm font-medium text-slate-700">Address</span>
                     <textarea
@@ -550,154 +551,165 @@ export function OrderForm({ product }: OrderFormProps) {
                       className={fieldClassName}
                     />
                   </label>
+
+                  <div className="grid gap-5">
+                    <label className="grid gap-2">
+                      <span className="text-sm font-medium text-slate-700">Phone number</span>
+                      <input
+                        required
+                        value={phone}
+                        onChange={(event) => setPhone(event.target.value)}
+                        placeholder="+92 300 0000000"
+                        className={fieldClassName}
+                      />
+                    </label>
+                  </div>
+
+                  <div className="rounded-[24px] border border-slate-200 bg-[linear-gradient(180deg,#ffffff_0%,#f8fafc_100%)] p-5 sm:p-6">
+                    <div className="flex items-start justify-between gap-4">
+                      <div>
+                        <h3 className="text-lg font-semibold tracking-[-0.02em] text-slate-900">Payment method</h3>
+                        <p className="mt-1 text-sm leading-6 text-slate-600">COD orders = Rs 450 Shipping fee + 4% Govt Tax. Non COD bank transfer gets free shipping and 0% tax.</p>
+                      </div>
+                    </div>
+
+                    <div className="mt-4 rounded-[18px] border border-amber-200 bg-amber-50 px-4 py-3 text-sm leading-6 text-amber-900">
+                      For the safety and accountability of high-value shipments, we operate exclusively on a pre-payment basis. We do not offer a COD option for these high value items, ensuring every delivery is fully documented and secure.
+                    </div>
+
+                    <div className="mt-5 grid gap-4">
+                      <button
+                        type="button"
+                        onClick={() => setPaymentMethod('cod')}
+                        className={`rounded-[20px] border p-0 text-left transition ${
+                          paymentMethod === 'cod'
+                            ? 'border-slate-900 bg-slate-900 text-white shadow-[0_18px_32px_rgba(15,23,42,0.18)]'
+                            : 'border-slate-200 bg-white text-slate-900 hover:border-slate-300'
+                        }`}
+                      >
+                        <div className="flex items-center justify-between gap-4 p-3 sm:p-4">
+                          <div>
+                            <p className="text-sm font-semibold uppercase tracking-[0.16em]">Cash on delivery</p>
+                            <p className={`mt-2 text-sm leading-6 ${paymentMethod === 'cod' ? 'text-white/80' : 'text-slate-600'}`}>
+                              COD orders = Rs 450 Shipping fee + 4% Govt Tax.
+                            </p>
+                          </div>
+                          <span className={`inline-flex h-5 w-5 rounded-full border ${paymentMethod === 'cod' ? 'border-white bg-white' : 'border-slate-300'}`}>
+                            {paymentMethod === 'cod' ? <span className="m-auto h-2.5 w-2.5 rounded-full bg-slate-900" /> : null}
+                          </span>
+                        </div>
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => setPaymentMethod('bank_transfer')}
+                        className={`rounded-[22px] border p-0 text-left transition ${
+                          paymentMethod === 'bank_transfer'
+                            ? 'border-emerald-500 bg-[linear-gradient(180deg,#f0fdf4_0%,#ecfdf5_100%)] text-slate-900 shadow-[0_18px_32px_rgba(16,185,129,0.12)]'
+                            : 'border-slate-200 bg-white text-slate-900 hover:border-slate-300'
+                        }`}
+                      >
+                        <div className="flex items-start justify-between gap-4 p-3 sm:p-4">
+                          <div>
+                            <p className="text-sm font-semibold uppercase tracking-[0.16em]">Bank transfer</p>
+                            <p className="mt-2 text-sm leading-6 text-slate-600">Non COD: Bank Transfer customers get Free Shipping, 0% Tax. We pay your 4% govt tax. Plus, get Express Next-Day Delivery.</p>
+                          </div>
+                          <span className={`inline-flex h-5 w-5 rounded-full border ${paymentMethod === 'bank_transfer' ? 'border-emerald-600 bg-emerald-600' : 'border-slate-300'}`}>
+                            {paymentMethod === 'bank_transfer' ? <span className="m-auto h-2.5 w-2.5 rounded-full bg-white" /> : null}
+                          </span>
+                        </div>
+
+                        <div className="mx-3 mb-3 mt-1 rounded-[18px] border border-emerald-100 bg-white/90 p-3 text-sm leading-6 text-slate-700 sm:mx-4 sm:mb-4 sm:p-4">
+                          <p className="font-semibold text-slate-900">{BANK_ACCOUNT.bank}</p>
+                          <p className="mt-2"><span className="font-medium">Name:</span> {BANK_ACCOUNT.accountName}</p>
+                          <p><span className="font-medium">ACC#</span> {BANK_ACCOUNT.accountNumber}</p>
+                          <p><span className="font-medium">IBAN:</span> {BANK_ACCOUNT.iban}</p>
+                          <div className="mt-3 flex flex-wrap items-center gap-2 text-[12px] leading-5 text-slate-600">
+                            <span>After payment send screenshot to</span>
+                            <Link
+                              href={BANK_ACCOUNT.whatsappUrl}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="inline-flex items-center gap-1.5 rounded-full bg-[#25D366]/12 px-2 py-1 text-[11px] font-medium text-[#128C7E] transition hover:bg-[#25D366]/20"
+                              aria-label="Open WhatsApp"
+                            >
+                              <WhatsAppIcon />
+                            </Link>
+                          </div>
+                        </div>
+                      </button>
+                    </div>
+                  </div>
                 </>
               ) : (
-                <div className="rounded-[8px] border border-black/10 bg-[#f4f4f2] p-5">
+                <div className="rounded-[20px] border border-black/10 bg-[#f4f4f2] p-5 sm:p-6">
                   <p className="text-[0.72rem] uppercase tracking-[0.18em] text-black/52">Pickup location</p>
-                  <h3 className="mt-3 [font-family:var(--font-georgia)] text-3xl leading-none text-black">Garden Town, Lahore</h3>
+                  <h3 className="mt-3 [font-family:var(--font-georgia)] text-3xl leading-none text-black sm:text-4xl">Garden Town, Lahore</h3>
                   <p className="mt-4 text-sm leading-7 text-black/68">{siteContactAddress}</p>
-                  <p className="mt-3 text-sm leading-7 text-black/58">Pickup is confirmed after stock and payment confirmation.</p>
+                  <Link
+                    href={STORE_MAP_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-5 inline-flex h-11 items-center justify-center rounded-[8px] bg-black px-5 text-[10px] uppercase tracking-[0.2em] text-white transition-opacity hover:opacity-85"
+                  >
+                    Open Map
+                  </Link>
                 </div>
               )}
-
-              <div className="grid gap-5">
-                <label className="grid gap-2">
-                  <span className="text-sm font-medium text-slate-700">Phone number</span>
-                  <input
-                    required
-                    value={phone}
-                    onChange={(event) => setPhone(event.target.value)}
-                    placeholder="+92 300 0000000"
-                    className={fieldClassName}
-                  />
-                </label>
-              </div>
-
-              <div className="rounded-[24px] border border-slate-200 bg-[linear-gradient(180deg,#ffffff_0%,#f8fafc_100%)] p-5 sm:p-6">
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <h3 className="text-lg font-semibold tracking-[-0.02em] text-slate-900">Payment method</h3>
-                    <p className="mt-1 text-sm leading-6 text-slate-600">COD orders = Rs 450 Shipping fee + 4% Govt Tax. Non COD bank transfer gets free shipping and 0% tax.</p>
-                  </div>
-                </div>
-
-                <div className="mt-4 rounded-[18px] border border-amber-200 bg-amber-50 px-4 py-3 text-sm leading-6 text-amber-900">
-                  For the safety and accountability of high-value shipments, we operate exclusively on a pre-payment basis. We do not offer a COD option for these high value items, ensuring every delivery is fully documented and secure.
-                </div>
-
-                <div className="mt-5 grid gap-4">
-                  <button
-                    type="button"
-                    onClick={() => setPaymentMethod('cod')}
-                    className={`rounded-[20px] border p-0 text-left transition ${
-                      paymentMethod === 'cod'
-                        ? 'border-slate-900 bg-slate-900 text-white shadow-[0_18px_32px_rgba(15,23,42,0.18)]'
-                        : 'border-slate-200 bg-white text-slate-900 hover:border-slate-300'
-                    }`}
-                  >
-                    <div className="flex items-center justify-between gap-4 p-3 sm:p-4">
-                      <div>
-                        <p className="text-sm font-semibold uppercase tracking-[0.16em]">Cash on delivery</p>
-                        <p className={`mt-2 text-sm leading-6 ${paymentMethod === 'cod' ? 'text-white/80' : 'text-slate-600'}`}>
-                          COD orders = Rs 450 Shipping fee + 4% Govt Tax.
-                        </p>
-                      </div>
-                      <span className={`inline-flex h-5 w-5 rounded-full border ${paymentMethod === 'cod' ? 'border-white bg-white' : 'border-slate-300'}`}>
-                        {paymentMethod === 'cod' ? <span className="m-auto h-2.5 w-2.5 rounded-full bg-slate-900" /> : null}
-                      </span>
-                    </div>
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => setPaymentMethod('bank_transfer')}
-                    className={`rounded-[22px] border p-0 text-left transition ${
-                      paymentMethod === 'bank_transfer'
-                        ? 'border-emerald-500 bg-[linear-gradient(180deg,#f0fdf4_0%,#ecfdf5_100%)] text-slate-900 shadow-[0_18px_32px_rgba(16,185,129,0.12)]'
-                        : 'border-slate-200 bg-white text-slate-900 hover:border-slate-300'
-                    }`}
-                  >
-                    <div className="flex items-start justify-between gap-4 p-3 sm:p-4">
-                      <div>
-                        <p className="text-sm font-semibold uppercase tracking-[0.16em]">Bank transfer</p>
-                        <p className="mt-2 text-sm leading-6 text-slate-600">Non COD: Bank Transfer customers get Free Shipping, 0% Tax. We pay your 4% govt tax. Plus, get Express Next-Day Delivery.</p>
-                      </div>
-                      <span className={`inline-flex h-5 w-5 rounded-full border ${paymentMethod === 'bank_transfer' ? 'border-emerald-600 bg-emerald-600' : 'border-slate-300'}`}>
-                        {paymentMethod === 'bank_transfer' ? <span className="m-auto h-2.5 w-2.5 rounded-full bg-white" /> : null}
-                      </span>
-                    </div>
-
-                    <div className="mx-3 mb-3 mt-1 rounded-[18px] border border-emerald-100 bg-white/90 p-3 text-sm leading-6 text-slate-700 sm:mx-4 sm:mb-4 sm:p-4">
-                      <p className="font-semibold text-slate-900">{BANK_ACCOUNT.bank}</p>
-                      <p className="mt-2"><span className="font-medium">Name:</span> {BANK_ACCOUNT.accountName}</p>
-                      <p><span className="font-medium">ACC#</span> {BANK_ACCOUNT.accountNumber}</p>
-                      <p><span className="font-medium">IBAN:</span> {BANK_ACCOUNT.iban}</p>
-                      <div className="mt-3 flex flex-wrap items-center gap-2 text-[12px] leading-5 text-slate-600">
-                        <span>After payment send screenshot to</span>
-                        <Link
-                          href={BANK_ACCOUNT.whatsappUrl}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="inline-flex items-center gap-1.5 rounded-full bg-[#25D366]/12 px-2 py-1 text-[11px] font-medium text-[#128C7E] transition hover:bg-[#25D366]/20"
-                          aria-label="Open WhatsApp"
-                        >
-                          <WhatsAppIcon />
-                        </Link>
-                      </div>
-                    </div>
-                  </button>
-                </div>
-              </div>
             </div>
 
-            {submitState.status === 'error' ? (
-              <div className="rounded-[16px] border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">{submitState.message}</div>
+            {deliveryType === 'ship' ? (
+              <>
+                {submitState.status === 'error' ? (
+                  <div className="rounded-[16px] border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">{submitState.message}</div>
+                ) : null}
+
+                <div className="flex flex-col gap-3 border-t border-slate-200 pt-5 sm:flex-row sm:items-center sm:justify-between">
+                  <p className="text-sm text-slate-500">
+                    {itemCount > 0 ? `${itemCount} item${itemCount === 1 ? '' : 's'} in this order` : 'General request'}
+                  </p>
+                </div>
+
+                <div className="rounded-[24px] border border-slate-200 bg-[linear-gradient(180deg,#fffdfa_0%,#ffffff_100%)] p-5 shadow-[0_14px_32px_rgba(244,110,30,0.08)]">
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between text-sm text-slate-600">
+                      <span>Subtotal</span>
+                      <span className="font-medium text-slate-900">{formatPrice(checkoutSubtotal) ?? 'Confirm on call'}</span>
+                    </div>
+                    <div className="flex items-center justify-between text-sm text-slate-600">
+                      <span>Shipping fee</span>
+                      <span className="font-medium text-slate-900">{formatPrice(shippingFee)}</span>
+                    </div>
+                    <div className="flex items-center justify-between text-sm text-slate-600">
+                      <span>Govt Tax</span>
+                      <span className="font-medium text-slate-900">{formatPrice(govtTaxAmount)}</span>
+                    </div>
+                    <div className="border-t border-slate-200 pt-3">
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm font-medium text-slate-600">Total</span>
+                        <span className="text-2xl font-semibold tracking-[-0.03em] text-slate-900">{formatPrice(totalPrice) ?? 'Confirm on call'}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={submitState.status === 'submitting'}
+                    className="mt-5 inline-flex h-12 w-full items-center justify-center rounded-[16px] bg-slate-900 px-6 text-sm font-medium text-white transition-colors hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-60"
+                  >
+                    {submitState.status === 'submitting' ? 'Placing order...' : 'Place Order'}
+                  </button>
+
+                  <div className="mt-5 rounded-[18px] border border-[#f7d9b7] bg-[linear-gradient(180deg,#fffdfa_0%,#ffffff_100%)] px-4 py-4">
+                    <p className="text-[0.82rem] font-black uppercase tracking-normal text-[#8d8d8d]">Estimated delivery</p>
+                    <p className="mt-1 text-[1.55rem] font-bold leading-none text-[#ff6f00]">{deliveryTimeline.deliveryRangeLabel}</p>
+                    <p className="mt-2 text-sm leading-6 text-slate-600">
+                      Processing starts by {deliveryTimeline.processDateLabel}. {paymentMethod === 'bank_transfer' ? 'Online payment orders are expected the next day after processing.' : 'Final timing may vary slightly by city and confirmation time.'}
+                    </p>
+                  </div>
+                </div>
+              </>
             ) : null}
-
-            <div className="flex flex-col gap-3 border-t border-slate-200 pt-5 sm:flex-row sm:items-center sm:justify-between">
-              <p className="text-sm text-slate-500">
-                {itemCount > 0 ? `${itemCount} item${itemCount === 1 ? '' : 's'} in this order` : 'General request'}
-              </p>
-            </div>
-
-            <div className="rounded-[24px] border border-slate-200 bg-[linear-gradient(180deg,#fffdfa_0%,#ffffff_100%)] p-5 shadow-[0_14px_32px_rgba(244,110,30,0.08)]">
-              <div className="space-y-2">
-                <div className="flex items-center justify-between text-sm text-slate-600">
-                  <span>Subtotal</span>
-                  <span className="font-medium text-slate-900">{formatPrice(checkoutSubtotal) ?? 'Confirm on call'}</span>
-                </div>
-                <div className="flex items-center justify-between text-sm text-slate-600">
-                  <span>Shipping fee</span>
-                  <span className="font-medium text-slate-900">{formatPrice(shippingFee)}</span>
-                </div>
-                <div className="flex items-center justify-between text-sm text-slate-600">
-                  <span>Govt Tax</span>
-                  <span className="font-medium text-slate-900">{formatPrice(govtTaxAmount)}</span>
-                </div>
-                <div className="border-t border-slate-200 pt-3">
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm font-medium text-slate-600">Total</span>
-                    <span className="text-2xl font-semibold tracking-[-0.03em] text-slate-900">{formatPrice(totalPrice) ?? 'Confirm on call'}</span>
-                  </div>
-                </div>
-              </div>
-
-              <button
-                type="submit"
-                disabled={submitState.status === 'submitting'}
-                className="mt-5 inline-flex h-12 w-full items-center justify-center rounded-[16px] bg-slate-900 px-6 text-sm font-medium text-white transition-colors hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-60"
-              >
-                {submitState.status === 'submitting' ? 'Placing order...' : 'Place Order'}
-              </button>
-
-              <div className="mt-5 rounded-[18px] border border-[#f7d9b7] bg-[linear-gradient(180deg,#fffdfa_0%,#ffffff_100%)] px-4 py-4">
-                <p className="text-[0.82rem] font-black uppercase tracking-normal text-[#8d8d8d]">Estimated delivery</p>
-                <p className="mt-1 text-[1.55rem] font-bold leading-none text-[#ff6f00]">{deliveryTimeline.deliveryRangeLabel}</p>
-                <p className="mt-2 text-sm leading-6 text-slate-600">
-                  Processing starts by {deliveryTimeline.processDateLabel}. {paymentMethod === 'bank_transfer' ? 'Online payment orders are expected the next day after processing.' : 'Final timing may vary slightly by city and confirmation time.'}
-                </p>
-              </div>
-            </div>
           </form>
         </section>
       </div>
