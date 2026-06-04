@@ -3,8 +3,9 @@ import Image from 'next/image'
 import Link from 'next/link'
 import localFont from 'next/font/local'
 import { notFound, redirect } from 'next/navigation'
-import type { ReactNode } from 'react'
-import { CatalogProductTile } from '@/components/CatalogProductTile'
+import { Suspense, type ReactNode } from 'react'
+import { MobileAccessorySections, MobileAccessorySectionsSkeleton } from '@/components/catalog/MobileAccessorySections'
+import { ProductRecommendations, ProductRecommendationsSkeleton } from '@/components/catalog/ProductRecommendations'
 import { NothingFooter } from '@/components/NothingFooter'
 import { NothingHeader } from '@/components/NothingHeader'
 import { ProductFaqAccordionSection } from '@/components/ProductFaqAccordionSection'
@@ -12,14 +13,12 @@ import { ProductDetailHero } from '@/components/ProductDetailHero'
 import { SeoStructuredData } from '@/components/SeoStructuredData'
 import {
   CATALOG_REVALIDATE_SECONDS,
-  getCollectionBySlug,
-  getMobileAccessoryGroupsByHandle,
   getProductDetailByHandle,
   getProductStaticHandles,
 } from '@/lib/data/catalog-repository'
 import { companyIdentifier, companyLegalName } from '@/lib/data/company'
 import { siteBrandName, siteContactPhone, siteContactWhatsappUrl, siteKeywords } from '@/lib/data/site-content'
-import type { Product } from '@/lib/models/catalog'
+import { getImmediateProductIntro, resolveMigratedHtmlCopy } from '@/lib/data/migrated-html'
 import type {
   ProductDetail,
   ProductDetailFaq,
@@ -225,43 +224,7 @@ function buildOfferStructuredData(productDetail: ProductDetail) {
   }
 }
 
-function isCloudinaryRawHtmlUrl(value: string | null | undefined): value is string {
-  if (!value) return false
-
-  try {
-    const url = new URL(value)
-    return url.hostname === 'res.cloudinary.com' && url.pathname.includes('/raw/upload/') && /\.html(?:$|[?#])/i.test(url.href)
-  } catch {
-    return false
-  }
-}
-
-async function resolveMigratedHtmlCopy(value: string | null | undefined) {
-  if (!isCloudinaryRawHtmlUrl(value)) {
-    return value ?? null
-  }
-
-  try {
-    const response = await fetch(value, {
-      next: { revalidate: CATALOG_REVALIDATE_SECONDS },
-    })
-
-    if (!response.ok) {
-      return null
-    }
-
-    const contentType = response.headers.get('content-type') ?? ''
-    if (contentType && !contentType.includes('text/html') && !contentType.includes('text/plain')) {
-      return null
-    }
-
-    return await response.text()
-  } catch {
-    return null
-  }
-}
-
-function buildProductStructuredData(productDetail: ProductDetail, relatedProducts: Product[] = []) {
+function buildProductStructuredData(productDetail: ProductDetail, relatedProducts: Array<{ name: string; href: string }> = []) {
   const images = uniqueStrings(productDetail.gallery.map((item) => item.url))
   const faqStructuredData = buildFaqStructuredData(
     (productDetail.faqs ?? []).map((faq: ProductDetailFaq) => ({
@@ -401,28 +364,6 @@ function buildProductStructuredData(productDetail: ProductDetail, relatedProduct
   ]
 
   return productEntries.filter((entry): entry is Record<string, unknown> => Boolean(entry))
-}
-
-function buildRecommendedProducts(productGroups: Product[][], currentHandle: string) {
-  const seen = new Set<string>()
-  const output: Product[] = []
-
-  for (const products of productGroups) {
-    for (const product of products) {
-      if (product.handle === currentHandle || seen.has(product.handle)) {
-        continue
-      }
-
-      seen.add(product.handle)
-      output.push(product)
-
-      if (output.length === 8) {
-        return output
-      }
-    }
-  }
-
-  return output
 }
 
 function SectionCard({ title, children }: { title: string; children: ReactNode }) {
@@ -694,37 +635,6 @@ function ReviewCard({ review }: { review: ProductDetailReview }) {
   )
 }
 
-function RecommendationCard({ product }: { product: Product }) {
-  return (
-    <Link href={product.href} prefetch={false} className="group block text-center">
-      <div className="mx-auto w-full max-w-[220px]">
-        {product.image ? (
-          <div className="relative aspect-square w-full">
-            <Image
-              src={product.image}
-              alt={`${product.name} original product price in Pakistan from Nothing Official Store Pakistan`}
-              fill
-              loading="lazy"
-              fetchPriority="low"
-              sizes="(max-width: 768px) 44vw, (max-width: 1200px) 28vw, 18vw"
-              className="object-contain object-center transition-transform duration-300 group-hover:scale-[1.03]"
-            />
-          </div>
-        ) : (
-          <div className="flex aspect-square w-full items-center justify-center text-sm text-slate-400">
-            No image
-          </div>
-        )}
-      </div>
-
-      <div className="mt-5">
-        <h3 className="product-card-name text-[1.05rem] leading-[1.15] text-slate-900 sm:text-[1.18rem]">{product.name}</h3>
-        {product.priceLabel ? <p className="mt-2 text-sm text-slate-500">{product.priceLabel}</p> : null}
-      </div>
-    </Link>
-  )
-}
-
 function PhoneAccessoriesHero({
   productDetail,
   gallery,
@@ -814,7 +724,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: ProductDetailPageProps): Promise<Metadata> {
   const requestedHandle = toSeoHandle(params.handle)
-  const productDetail = await getProductDetailByHandle(requestedHandle, { includeDetailRows: false })
+  const productDetail = await getProductDetailByHandle(requestedHandle, false)
 
   if (!productDetail) {
     return {
@@ -870,7 +780,7 @@ export async function generateMetadata({ params }: ProductDetailPageProps): Prom
 
 export default async function ProductDetailPage({ params }: ProductDetailPageProps) {
   const requestedHandle = toSeoHandle(params.handle)
-  const productDetail = await getProductDetailByHandle(requestedHandle, { includeDetailRows: false })
+  const productDetail = await getProductDetailByHandle(requestedHandle, false)
 
   if (!productDetail) {
     notFound()
@@ -883,11 +793,12 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
   }
 
   const gallery = buildDisplayGallery(productDetail)
-  const resolvedSummary = await resolveMigratedHtmlCopy(productDetail.summary)
-  const detailParagraphs = uniqueStrings([resolvedSummary, productDetail.description]).filter(
-    (paragraph) => !isHtmlSnippet(paragraph),
+  const immediateIntro = getImmediateProductIntro(productDetail.summary, productDetail.description)
+  const resolvedSummary = immediateIntro ? null : await resolveMigratedHtmlCopy(productDetail.summary)
+  const detailParagraphs = uniqueStrings([resolvedSummary, productDetail.summary, productDetail.description]).filter(
+    (paragraph) => paragraph && !isHtmlSnippet(paragraph),
   )
-  const intro = resolvedSummary ?? detailParagraphs[0] ?? null
+  const intro = immediateIntro ?? resolvedSummary ?? detailParagraphs[0] ?? null
   const breadcrumbItems = buildProductBreadcrumbs(productDetail)
   const collectionLabel = productDetail.collections[0]?.title ?? (productDetail.entityType === 'mobile' ? 'Phones' : 'Catalog')
   const deliveryTimeline = getProductDeliveryTimeline()
@@ -895,13 +806,11 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
   const productFeatureSections = productDetail.productFeatureSections ?? []
 
   if (productDetail.entityType === 'mobile') {
-    const mobileAccessoryGroups = await getMobileAccessoryGroupsByHandle(canonicalHandle)
-    const relatedAccessoryProducts = mobileAccessoryGroups.flatMap((group) => group.products)
     const faqs = productDetail.faqs ?? []
     const usesImmersiveHero = Boolean(productDetail.productBackgroundImage)
     return (
       <div className={`${detailFont.className} min-h-screen bg-[#f5f7fb] text-slate-900`}>
-        <SeoStructuredData data={buildProductStructuredData(productDetail, relatedAccessoryProducts)} />
+        <SeoStructuredData data={buildProductStructuredData(productDetail)} />
         <NothingHeader />
 
         <main
@@ -952,27 +861,9 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
           ) : null}
 
           <div className={`mt-6 space-y-10 ${usesImmersiveHero ? 'mx-auto max-w-[1360px] px-1 sm:px-2 lg:px-4' : ''}`}>
-            {mobileAccessoryGroups.length > 0 ? (
-              mobileAccessoryGroups.map((group) => (
-                <section key={group.id}>
-                  <div className="mb-4">
-                    <h2 className="text-[1.35rem] font-medium tracking-[-0.02em] text-slate-900 sm:text-[1.55rem]">{group.title}</h2>
-                  </div>
-                  <div className="grid grid-cols-2 gap-x-4 gap-y-9 md:gap-x-6 md:gap-y-12 lg:grid-cols-5 lg:gap-x-7 lg:gap-y-14">
-                    {group.products.map((product) => (
-                      <CatalogProductTile key={product.id} product={product} tone="shop-all" />
-                    ))}
-                  </div>
-                </section>
-              ))
-            ) : (
-              <div className="rounded-[28px] border border-slate-200 bg-white p-5 shadow-[0_10px_30px_rgba(15,23,42,0.05)] sm:p-7">
-                <h2 className="text-[1.35rem] font-medium tracking-[-0.02em] text-slate-900 sm:text-[1.55rem]">Related Accessories</h2>
-                <p className="mt-5 text-sm leading-6 text-slate-600">
-                  No linked covers, protectors, chargers, or earbuds were found for this phone in the mobile-product connection table yet.
-                </p>
-              </div>
-            )}
+            <Suspense fallback={<MobileAccessorySectionsSkeleton />}>
+              <MobileAccessorySections handle={canonicalHandle} />
+            </Suspense>
           </div>
 
           {faqs.length > 0 ? (
@@ -991,14 +882,6 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
   const reviews = productDetail.reviews ?? []
   const usesImmersiveHero = Boolean(productDetail.productBackgroundImage)
   const primaryCollectionSlug = productDetail.collections[0]?.slug ?? null
-  const [primaryCollection, fallbackCollection] = await Promise.all([
-    primaryCollectionSlug ? getCollectionBySlug(primaryCollectionSlug) : Promise.resolve(null),
-    primaryCollectionSlug === 'shop-all' ? Promise.resolve(null) : getCollectionBySlug('shop-all'),
-  ])
-  const recommendations = buildRecommendedProducts(
-    [primaryCollection?.products ?? [], fallbackCollection?.products ?? []],
-    canonicalHandle,
-  )
   return (
     <div className={`${detailFont.className} min-h-screen bg-[#f5f7fb] text-slate-900`}>
       <SeoStructuredData data={buildProductStructuredData(productDetail)} />
@@ -1076,16 +959,9 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
           </section>
         ) : null}
 
-        {recommendations.length > 0 ? (
-          <section className={usesImmersiveHero ? 'mx-auto mt-10 max-w-[1360px] px-4 sm:px-6 lg:px-8' : 'mt-10'}>
-            <h2 className="text-[1.7rem] font-medium tracking-[-0.03em] text-slate-900">You may also like</h2>
-            <div className="mt-8 grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-5 lg:gap-x-8 lg:gap-y-12">
-              {recommendations.map((product) => (
-                <RecommendationCard key={product.id} product={product} />
-              ))}
-            </div>
-          </section>
-        ) : null}
+        <Suspense fallback={<ProductRecommendationsSkeleton immersive={usesImmersiveHero} />}>
+          <ProductRecommendations handle={canonicalHandle} primaryCollectionSlug={primaryCollectionSlug} immersive={usesImmersiveHero} />
+        </Suspense>
       </main>
 
       <NothingFooter />

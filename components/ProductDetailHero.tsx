@@ -38,7 +38,6 @@ type ColorOption = {
 }
 
 const specIcons = specIconLinks as Record<string, string>
-const plusMinusIconUrl = specIcons['plus-minus'] ?? plusMinusIcon
 const firstBackgroundBadgePositions = [
   'right-[8%] top-[243px] sm:left-[8%] sm:top-[11%] lg:left-[10%] lg:top-[63%]',
   'left-[38%] top-[443px] sm:right-[6%] sm:left-auto sm:top-[36%] lg:right-[2%] lg:top-[38%]',
@@ -689,7 +688,7 @@ function IntroContent({ intro, compact = false }: { intro: string | null; compac
   if (!intro) return null
 
   const className = compact
-    ? 'mt-2 max-h-[4.4rem] overflow-hidden text-[0.56rem] uppercase leading-[1.45] tracking-[0.08em] text-black/66 sm:max-h-[5.2rem] sm:text-[0.62rem] [&_.np-feature-list]:space-y-1.5 [&_.np-feature]:flex [&_.np-feature]:items-center [&_.np-feature]:gap-1.5 [&_.np-feature_img]:h-2.5 [&_.np-feature_img]:w-2.5 [&_.np-feature_img]:shrink-0'
+    ? 'mt-2 max-h-[4.4rem] overflow-hidden text-left text-[0.56rem] uppercase leading-[1.45] tracking-[0.08em] text-black/66 sm:max-h-[5.2rem] sm:text-[0.62rem] [&_.np-feature-list]:space-y-1.5 [&_.np-feature]:flex [&_.np-feature]:items-center [&_.np-feature]:gap-1.5 [&_.np-feature_img]:h-2.5 [&_.np-feature_img]:w-2.5 [&_.np-feature_img]:shrink-0'
     : 'mt-5 text-base leading-7 text-slate-600 [&_.np-feature-list]:space-y-3 [&_.np-feature]:flex [&_.np-feature]:items-center [&_.np-feature]:gap-3 [&_.np-feature_img]:h-4 [&_.np-feature_img]:w-4 [&_.np-feature_img]:shrink-0'
 
   if (isHtmlSnippet(intro)) {
@@ -729,6 +728,14 @@ function formatOfficialProductName(productName: string) {
   return `Phone ( ${model} )`
 }
 
+function ChevronDownIcon({ className = '' }: { className?: string }) {
+  return (
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" className={className}>
+      <path d="M3.5 5.25 7 8.75 10.5 5.25" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
 function ColorNameSelector({
   colorOptions,
   selectedIndex,
@@ -757,30 +764,22 @@ function ColorNameSelector({
         type="button"
         aria-haspopup="listbox"
         aria-expanded={isOpen}
-        className={`grid w-full grid-cols-[1fr_auto] items-center gap-3 rounded-[8px] bg-white px-4 text-black shadow-[0_12px_34px_rgba(17,17,17,0.09)] transition hover:bg-[#f7f7f4] ${
+        className={`grid w-full grid-cols-[minmax(0,1fr)_14px] items-center gap-3 rounded-[8px] border-[0.5px] border-solid border-black bg-white px-4 text-black transition hover:bg-[#f7f7f4] ${
           compact ? 'h-8 text-[0.58rem]' : 'h-10 text-[0.72rem]'
         }`}
         onClick={() => setIsOpen((current) => !current)}
       >
-        <span className="truncate text-center [font-family:var(--font-ntype82)] uppercase tracking-[0.18em]">
+        <span className="truncate text-left [font-family:var(--font-ntype82)] uppercase tracking-[0.18em]">
           {selectedColor.label}
         </span>
-        <Image
-          src={plusMinusIconUrl}
-          alt=""
-          aria-hidden="true"
-          width={14}
-          height={14}
-          unoptimized
-          className={`h-[13px] w-[13px] object-contain opacity-65 transition-transform ${isOpen ? 'rotate-180' : ''}`}
-        />
+        <ChevronDownIcon className={`shrink-0 text-black/70 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
       </button>
 
       {isOpen ? (
         <div
           role="listbox"
           aria-label="Select color"
-          className={`absolute left-0 z-[90] w-full overflow-hidden rounded-[18px] border border-white/25 bg-black/72 py-1.5 text-white shadow-[0_18px_42px_rgba(0,0,0,0.32)] backdrop-blur-xl ${
+          className={`absolute left-0 z-[90] w-full overflow-hidden rounded-[18px] border border-white/15 bg-black py-1.5 text-white shadow-[0_18px_42px_rgba(0,0,0,0.42)] ${
             menuPlacement === 'top' ? 'bottom-[calc(100%+8px)]' : 'top-[calc(100%+8px)]'
           }`}
         >
@@ -793,7 +792,7 @@ function ColorNameSelector({
                 type="button"
                 role="option"
                 aria-selected={isSelected}
-                className="grid min-h-[34px] w-full grid-cols-[22px_minmax(0,1fr)] items-center gap-2 px-3 text-left [font-family:var(--font-ntype82)] text-[0.88rem] leading-none text-white transition hover:bg-white/10"
+                className="grid min-h-[36px] w-full grid-cols-[22px_minmax(0,1fr)] items-center gap-2 px-3 text-left [font-family:var(--font-ntype82)] text-[0.88rem] leading-none text-white transition hover:bg-white/10"
                 onClick={() => {
                   onSelectColor(option.mediaIndex)
                   setIsOpen(false)
@@ -889,26 +888,8 @@ function StickyPurchaseCard({
           </div>
         ) : (
           <>
-            <div className="grid grid-cols-[minmax(0,1fr)_112px] gap-3 sm:grid-cols-[minmax(0,1fr)_150px] sm:gap-5">
-              <div className="min-w-0">
-                <h2 className="[font-family:var(--font-ndot57)] text-[0.94rem] uppercase leading-none tracking-[0.08em] text-black sm:text-[1.18rem]">
-                  {officialName}
-                </h2>
-                <IntroContent intro={intro} compact />
-                <p className="mt-3 [font-family:var(--font-ndot57)] text-[0.9rem] uppercase tracking-[0.08em] text-black sm:text-[1.02rem]">
-                  {formattedPrice}
-                </p>
-                {colorOptions.length > 0 ? (
-                  <ColorNameSelector
-                    colorOptions={colorOptions}
-                    selectedIndex={selectedIndex}
-                    onSelectColor={onSelectColor}
-                    className="mt-3 w-full max-w-[210px]"
-                  />
-                ) : null}
-              </div>
-
-              <div className="min-w-0">
+            <div className="grid grid-cols-[112px_minmax(0,1fr)] items-center gap-3 sm:grid-cols-[150px_minmax(0,1fr)] sm:gap-5">
+              <div className="flex min-w-0 flex-col justify-center">
                 <div className="relative h-[112px] sm:h-[142px]">
                   {selectedMedia ? (
                     <Image
@@ -916,7 +897,7 @@ function StickyPurchaseCard({
                       src={selectedMedia.url}
                       alt={selectedMedia.alt || productName}
                       fill
-                      loading="eager"
+                      loading="lazy"
                       fetchPriority="low"
                       sizes="150px"
                       unoptimized
@@ -924,6 +905,24 @@ function StickyPurchaseCard({
                     />
                   ) : null}
                 </div>
+                <p className="mt-2 text-center [font-family:var(--font-ndot57)] text-[0.9rem] uppercase tracking-[0.08em] text-black sm:mt-3 sm:text-[1.02rem]">
+                  {formattedPrice}
+                </p>
+              </div>
+
+              <div className="flex min-w-0 flex-col justify-center">
+                <h2 className="w-full text-left [font-family:var(--font-ndot57)] text-[0.94rem] uppercase leading-none tracking-[0.08em] text-black sm:text-[1.18rem]">
+                  {officialName}
+                </h2>
+                <IntroContent intro={intro} compact />
+                {colorOptions.length > 0 ? (
+                  <ColorNameSelector
+                    colorOptions={colorOptions}
+                    selectedIndex={selectedIndex}
+                    onSelectColor={onSelectColor}
+                    className="mt-3 w-full max-w-[210px] self-start"
+                  />
+                ) : null}
               </div>
             </div>
 

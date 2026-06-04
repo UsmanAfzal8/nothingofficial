@@ -130,10 +130,6 @@ type CatalogSnapshotReadOptions = {
   includeDetailRows?: boolean
 }
 
-type ProductDetailReadOptions = {
-  includeDetailRows?: boolean
-}
-
 type FallbackProductRow = SupabaseProductRow & {
   piority?: number | null
 }
@@ -927,11 +923,13 @@ async function readCatalogSnapshotFromSupabase(options: CatalogSnapshotReadOptio
     specGroupItemsPromise,
     productFeatureSectionsPromise,
     productFeatureSlidesPromise,
-    supabase
-      .from('reviews')
-      .select('id, related_type, related_id, user_name, rating, comment, created_at, updated_at')
-      .in('related_type', [...STORE_RELATED_TYPE_ENUM])
-      .order('created_at', { ascending: false }),
+    includeDetailRows
+      ? supabase
+          .from('reviews')
+          .select('id, related_type, related_id, user_name, rating, comment, created_at, updated_at')
+          .in('related_type', [...STORE_RELATED_TYPE_ENUM])
+          .order('created_at', { ascending: false })
+      : Promise.resolve({ data: [] as SupabaseReviewRow[], error: null }),
     supabase.from('colors').select('id, name, hex_code, created_at, updated_at'),
     supabase.from('product_mobiles').select('id, product_id, mobile_id, created_at'),
   ])
@@ -2375,7 +2373,7 @@ export async function getProductSitemapEntries(): Promise<SitemapProductEntry[]>
   return [...productEntries, ...mobileEntries]
 }
 
-export async function getCollectionBySlug(slug: string): Promise<Collection | null> {
+async function getCollectionBySlugUncached(slug: string): Promise<Collection | null> {
   const snapshot = await getCatalogSnapshot({ includeDetailRows: false })
 
   if (isVirtualCollectionSlug(slug)) {
@@ -2444,9 +2442,9 @@ export async function getCollectionBySlug(slug: string): Promise<Collection | nu
   }
 }
 
-export async function getProductDetailByHandle(handle: string, options: ProductDetailReadOptions = {}): Promise<ProductDetail | null> {
+async function getProductDetailByHandleUncached(handle: string, includeDetailRows = true): Promise<ProductDetail | null> {
   try {
-    const snapshot = await getCatalogSnapshot(options)
+    const snapshot = await getCatalogSnapshot({ includeDetailRows })
     const product = snapshot.productsBySlug.get(handle)
 
     if (product) {
@@ -2465,7 +2463,7 @@ export async function getProductDetailByHandle(handle: string, options: ProductD
   return buildFallbackProductDetailByHandle(handle)
 }
 
-export async function getMobileAccessoryGroupsByHandle(handle: string): Promise<MobileAccessoryGroup[]> {
+async function getMobileAccessoryGroupsByHandleUncached(handle: string): Promise<MobileAccessoryGroup[]> {
   const snapshot = await getCatalogSnapshot({ includeDetailRows: false })
   const mobile = snapshot.mobilesBySlug.get(handle)
 
@@ -2475,6 +2473,10 @@ export async function getMobileAccessoryGroupsByHandle(handle: string): Promise<
 
   return buildMobileAccessoryGroups(snapshot, mobile.id)
 }
+
+export const getCollectionBySlug = cache(getCollectionBySlugUncached)
+export const getProductDetailByHandle = cache(getProductDetailByHandleUncached)
+export const getMobileAccessoryGroupsByHandle = cache(getMobileAccessoryGroupsByHandleUncached)
 
 export async function getSupportHeroImage(): Promise<SupportHeroImage> {
   const supabase = getSupabaseAdminClient()
