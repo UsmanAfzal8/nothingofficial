@@ -182,29 +182,29 @@ type VirtualCollectionSlug = (typeof ALL_VIRTUAL_COLLECTION_SLUGS)[number]
 const VIRTUAL_COLLECTIONS: Record<VirtualCollectionSlug, VirtualCollectionConfig> = {
   'shop-all': {
     title: 'Shop all',
-    metaTitle: 'Nothing Pakistan Shop All | Chargers, Accessories and CMF',
-    description: 'Browse the full Nothing Pakistan catalog for chargers, earbuds, protectors, CMF devices, and other compatible accessories.',
+    metaTitle: 'Nothing Official Store Pakistan Shop All | Chargers, Accessories and CMF',
+    description: 'Browse the full Nothing Official Store Pakistan catalog for chargers, earbuds, protectors, CMF devices, and other compatible accessories.',
   },
   phones: {
     title: 'Phones',
-    metaTitle: 'Nothing Phones in Pakistan | Compatible Accessories | Nothing Pakistan',
+    metaTitle: 'Nothing Phones in Pakistan | Compatible Accessories | Nothing Official Store Pakistan',
     description: 'Browse Nothing phones and jump into compatible chargers, protectors, earbuds, and support routes in Pakistan.',
   },
   chargers: {
     title: 'Chargers',
-    metaTitle: 'Nothing Chargers in Pakistan | Nothing Pakistan',
+    metaTitle: 'Nothing Chargers in Pakistan | Nothing Official Store Pakistan',
     description: 'Shop Nothing chargers and charging cables in Pakistan with live product pages, pricing, and ordering support.',
     productTypes: ['charger', 'data_cable'],
   },
   protectors: {
     title: 'Protectors',
-    metaTitle: 'Nothing Protectors in Pakistan | Nothing Pakistan',
+    metaTitle: 'Nothing Protectors in Pakistan | Nothing Official Store Pakistan',
     description: 'Browse screen protectors and protective accessories for Nothing devices in Pakistan.',
     productTypes: ['protector', 'screen_protector'],
   },
   earbuds: {
     title: 'Earbuds',
-    metaTitle: 'Nothing Earbuds in Pakistan | Nothing Pakistan',
+    metaTitle: 'Nothing Earbuds in Pakistan | Nothing Official Store Pakistan',
     description: 'Browse Nothing earbuds and audio accessories in Pakistan with live catalog pages and ordering support.',
     productTypes: ['earbuds'],
   },
@@ -370,7 +370,7 @@ function buildMobileSearchKeywords(name: string, extraKeywords: string | null | 
 
 function buildProductMetaDescription(product: SupabaseProductRow, name: string): string {
   const productTypeLabel = product.product_type ? PRODUCT_TYPE_LABELS[product.product_type] ?? product.product_type : 'Nothing accessory'
-  const fallback = `Shop ${name} in Pakistan from Nothing Pakistan. Check ${productTypeLabel.toLowerCase()} details, compatibility, availability, delivery, and WhatsApp support.`
+  const fallback = `Shop ${name} in Pakistan from Nothing Official Store Pakistan. Check ${productTypeLabel.toLowerCase()} details, compatibility, availability, delivery, and WhatsApp support.`
   const source = sanitizeCatalogCopy(product.meta_description || product.short_description || product.seo_description_long || product.description)
 
   return trimSeoDescription(source || fallback)
@@ -422,7 +422,7 @@ function buildFallbackGallery(name: string, schemaJson: Record<string, unknown> 
   return getSchemaImages(schemaJson).map((url, index) => ({
     id: `fallback-media-${index + 1}`,
     url,
-    alt: altText || `${name} original product in Pakistan from Nothing Pakistan`,
+    alt: altText || `${name} original product in Pakistan from Nothing Official Store Pakistan`,
     title: name,
     caption: index === 0 ? 'Product image' : `Product image ${index + 1}`,
     colorName: null,
@@ -526,8 +526,8 @@ function buildFallbackProductDetail(product: FallbackProductRow): ProductDetail 
     canonicalUrl: product.canonical_url || buildAbsoluteUrl(canonicalPath),
     ogImage: gallery[0]?.url ?? null,
     primaryImage: gallery[0]?.url ?? null,
-    productBackgroundImage: null,
-    productBackgroundImages: [],
+    productBackgroundImage: gallery[0] ?? null,
+    productBackgroundImages: gallery[0] ? [gallery[0]] : [],
     gallery,
     collectionSlugs: collections.map((collection) => collection.slug),
     collections,
@@ -606,8 +606,8 @@ function buildFallbackMobileDetail(mobile: FallbackMobileRow): ProductDetail {
     canonicalUrl: mobile.canonical_url || buildAbsoluteUrl(canonicalPath),
     ogImage: gallery[0]?.url ?? null,
     primaryImage: gallery[0]?.url ?? null,
-    productBackgroundImage: null,
-    productBackgroundImages: [],
+    productBackgroundImage: gallery[0] ?? null,
+    productBackgroundImages: gallery[0] ? [gallery[0]] : [],
     gallery,
     collectionSlugs: collections.map((collection) => collection.slug),
     collections,
@@ -1711,7 +1711,7 @@ function buildGallery(
   return images.map((image) => ({
     id: `media-${image.id}`,
     url: image.url,
-    alt: image.alt_text || fallbackAltText || `${name} original product price in Pakistan from Nothing Pakistan`,
+    alt: image.alt_text || fallbackAltText || `${name} original product price in Pakistan from Nothing Official Store Pakistan`,
     title: image.title,
     caption: image.caption,
     colorName: image.color_id ? colorsById.get(image.color_id)?.name ?? null : null,
@@ -1978,9 +1978,10 @@ function buildProductDetailFromProduct(product: SupabaseProductRow, snapshot: Ca
   const priceLabel = formatPrice(price)
   const metaDescription = buildProductMetaDescription(product, name)
   const gallery = buildGallery(name, galleryImages, snapshot, product.image_alt_text || `${name} price in Pakistan`)
+  const fallbackBackgroundMedia = gallery[0] ?? null
   const backgroundMedia = productBackgroundImage
-    ? buildGallery(name, [productBackgroundImage], snapshot, `${name} product background`)[0] ?? null
-    : null
+    ? buildGallery(name, [productBackgroundImage], snapshot, `${name} product background`)[0] ?? fallbackBackgroundMedia
+    : fallbackBackgroundMedia
   const backgroundMediaItems = productBackgroundImages.length > 0
     ? buildGallery(name, productBackgroundImages, snapshot, `${name} product background`)
     : backgroundMedia
@@ -2043,9 +2044,10 @@ function buildProductDetailFromMobile(mobile: SupabaseMobileRow, snapshot: Catal
   const canonicalPath = `/products/${mobile.slug}`
   const metaDescription = buildMobileMetaDescription(mobile)
   const gallery = buildGallery(mobile.name, galleryImages, snapshot, mobile.image_alt_text || `${mobile.name} price in Pakistan`)
+  const fallbackBackgroundMedia = gallery[0] ?? null
   const backgroundMedia = productBackgroundImage
-    ? buildGallery(mobile.name, [productBackgroundImage], snapshot, `${mobile.name} product background`)[0] ?? null
-    : null
+    ? buildGallery(mobile.name, [productBackgroundImage], snapshot, `${mobile.name} product background`)[0] ?? fallbackBackgroundMedia
+    : fallbackBackgroundMedia
   const backgroundMediaItems = productBackgroundImages.length > 0
     ? buildGallery(mobile.name, productBackgroundImages, snapshot, `${mobile.name} product background`)
     : backgroundMedia
@@ -2456,7 +2458,7 @@ export async function getSupportHeroImage(): Promise<SupportHeroImage> {
   if (!supabase) {
     return {
       url: null,
-      alt: 'Nothing Pakistan support',
+      alt: 'Nothing Official Store Pakistan support',
     }
   }
 
@@ -2478,7 +2480,7 @@ export async function getSupportHeroImage(): Promise<SupportHeroImage> {
 
     return {
       url: image.url,
-      alt: image.alt_text || image.title || image.caption || 'Nothing Pakistan support',
+      alt: image.alt_text || image.title || image.caption || 'Nothing Official Store Pakistan support',
     }
   }
 
@@ -2494,6 +2496,6 @@ export async function getSupportHeroImage(): Promise<SupportHeroImage> {
 
   return {
     url: null,
-    alt: 'Nothing Pakistan support',
+    alt: 'Nothing Official Store Pakistan support',
   }
 }

@@ -180,6 +180,18 @@ function restoreSourceUrls(value, replacements) {
   return next
 }
 
+function normalizeStoreCopy(value) {
+  if (typeof value !== 'string') return value
+
+  return value
+    .replace(/Nothing Pakistan/g, 'Nothing Official Store Pakistan')
+    .replace(/nothing pakistan/g, 'nothing official store pakistan')
+    .replace(/Nothing Official Pakistan/g, 'Nothing Official Store Pakistan')
+    .replace(/nothing official pakistan/g, 'nothing official store pakistan')
+    .replace(/Nothing Shop Pakistan/g, 'Nothing Official Store Pakistan')
+    .replace(/\bnothingshop\.pk\b/g, 'nothingofficial.pk')
+}
+
 async function main() {
   const sourceEnv = loadEnvFile(path.join(SOURCE_ROOT, '.env.local'))
   const destEnv = loadEnvFile(path.join(DEST_ROOT, '.env.local'))
@@ -213,7 +225,7 @@ async function main() {
     const rows = sourceRowsByTarget[`${target.table}.${target.field}`]
     for (const row of rows) {
       const exactSourceValue = row[target.field]
-      const nextValue = replaceAllUrls(exactSourceValue, replacements)
+      const nextValue = normalizeStoreCopy(replaceAllUrls(exactSourceValue, replacements))
       const { error } = await dest.from(target.table).update({ [target.field]: nextValue }).eq('id', row.id)
       if (error) throw new Error(`Failed to update ${target.table}.${target.field} id ${row.id}: ${error.message}`)
       updatedRows.push({ table: target.table, field: target.field, id: row.id, slug: row.slug, changed: nextValue !== exactSourceValue })
@@ -228,12 +240,13 @@ async function main() {
     for (const row of destinationRows) {
       const sourceRow = sourceById.get(row.id)
       const restored = restoreSourceUrls(row[target.field], replacements)
+      const expectedSourceValue = normalizeStoreCopy(sourceRow?.[target.field])
       validation.push({
         table: target.table,
         field: target.field,
         id: row.id,
-        exactAfterRestoringUrls: restored === sourceRow?.[target.field],
-        destinationSourceIconUrlHits: collectUrls(row[target.field]).filter((url) => url.includes('cdn.nothingshop.pk/icons/product-detail')).length,
+        exactAfterRestoringUrls: restored === expectedSourceValue,
+        destinationSourceIconUrlHits: collectUrls(row[target.field]).filter((url) => url.includes('cdn.nothingofficial.pk/icons/product-detail')).length,
       })
     }
   }

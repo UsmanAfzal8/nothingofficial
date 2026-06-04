@@ -2,7 +2,7 @@ import { createClient } from '@supabase/supabase-js'
 import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 
-const SITE_URL = 'https://www.nothingshop.pk'
+const SITE_URL = 'https://www.nothingofficial.pk'
 const PRODUCT_SLUG = 'cmf-buds-pro'
 const PRODUCT_NAME = 'CMF Buds Pro'
 
@@ -52,7 +52,7 @@ const seoKeywords = [
   'CMF Buds Pro Pakistan',
   'CMF Buds Pro original Pakistan',
   'CMF Buds Pro buy online Pakistan',
-  'CMF Buds Pro Nothing Pakistan',
+  'CMF Buds Pro Nothing Official Store Pakistan',
   'CMF Buds Pro official store Pakistan',
   'CMF Buds Pro COD Pakistan',
   'CMF Buds Pro Karachi',
@@ -85,7 +85,7 @@ const seoKeywords = [
 const description = [
   'CMF Buds Pro are original CMF by Nothing wireless earbuds for Pakistan, built for deep bass, active noise cancellation, clear calls, and long daily battery life.',
   'They feature up to 45 dB Hybrid Active Noise Cancellation, Ultra Bass sound tuning, 6 HD microphones with Clear Voice Technology, Bluetooth 5.3, fast charging, and up to 39 hours of total playback with the charging case.',
-  'Order CMF Buds Pro from Nothing Pakistan for authentic product sourcing, local support, cash on delivery, and delivery across Karachi, Lahore, Islamabad, Rawalpindi, Faisalabad, Multan, Peshawar, and other cities in Pakistan.',
+  'Order CMF Buds Pro from Nothing Official Store Pakistan for authentic product sourcing, local support, cash on delivery, and delivery across Karachi, Lahore, Islamabad, Rawalpindi, Faisalabad, Multan, Peshawar, and other cities in Pakistan.',
 ].join(' ')
 
 const shortDescription = 'Original CMF by Nothing earbuds with 45 dB Hybrid ANC, Ultra Bass, 6 HD mics, fast charging, and up to 39 hours of total playback.'
@@ -94,7 +94,7 @@ const seoDescriptionLong = [
   `${PRODUCT_NAME} is positioned for Pakistani buyers who want original CMF by Nothing earbuds with strong noise cancellation, bass-forward sound, reliable calling, and practical battery life at a competitive price. The product targets high-intent searches such as CMF Buds Pro price in Pakistan, buy CMF Buds Pro online, original CMF earbuds Pakistan, ANC earbuds Pakistan, and Nothing earbuds price in Pakistan.`,
   `${PRODUCT_NAME} supports up to 45 dB Hybrid Active Noise Cancellation, making it useful for commuting, office work, study sessions, and daily music listening. The Ultra Bass profile and dynamic driver tuning help the product match commercial searches from buyers who want punchy bass, wireless comfort, and a modern CMF design without moving into a premium price bracket.`,
   `Battery search intent is important for this product. Buds Pro can deliver up to 11 hours of music playback from the earbuds with ANC off and up to 39 hours total with the charging case. With ANC on, playback is listed at up to 6.5 hours from the earbuds and up to 22 hours total with the case. Fast charging support also helps answer common buyer questions before checkout.`,
-  `For trust and conversion, this page should make it clear that customers can buy ${PRODUCT_NAME} in Pakistan from Nothing Pakistan with local ordering support, COD availability, visible pricing, and product support. The canonical URL should stay on nothingshop.pk so Google consolidates ranking signals for the official local product page instead of sending authority to another domain.`,
+  `For trust and conversion, this page should make it clear that customers can buy ${PRODUCT_NAME} in Pakistan from Nothing Official Store Pakistan with local ordering support, COD availability, visible pricing, and product support. The canonical URL should stay on nothingofficial.pk so Google consolidates ranking signals for the official local product page instead of sending authority to another domain.`,
   `The FAQ content covers price, authenticity, ANC, battery life, fast charging, water resistance, calling, wireless charging, device connection, app support, and delivery. This helps Google, AI search systems, and shoppers understand the product quickly while keeping the copy natural and useful instead of keyword stuffed.`,
 ].join('\n\n')
 
@@ -138,11 +138,11 @@ function buildSchemaJson(price) {
 const faqs = [
   {
     question: 'What is the price of CMF Buds Pro in Pakistan?',
-    answer: 'The CMF Buds Pro price in Pakistan is Rs 13,000 on Nothing Pakistan. Final stock and delivery availability can be confirmed before ordering.',
+    answer: 'The CMF Buds Pro price in Pakistan is Rs 13,000 on Nothing Official Store Pakistan. Final stock and delivery availability can be confirmed before ordering.',
   },
   {
     question: 'Are CMF Buds Pro original CMF by Nothing earbuds?',
-    answer: 'Yes, CMF Buds Pro are CMF by Nothing wireless earbuds. Nothing Pakistan lists them as an original product with local ordering and support.',
+    answer: 'Yes, CMF Buds Pro are CMF by Nothing wireless earbuds. Nothing Official Store Pakistan lists them as an original product with local ordering and support.',
   },
   {
     question: 'Does CMF Buds Pro support active noise cancellation?',
@@ -174,7 +174,7 @@ const faqs = [
   },
   {
     question: 'Where can I buy CMF Buds Pro online in Pakistan?',
-    answer: 'You can buy CMF Buds Pro online from Nothing Pakistan with delivery support across major cities including Karachi, Lahore, Islamabad, Rawalpindi, Faisalabad, Multan, and Peshawar.',
+    answer: 'You can buy CMF Buds Pro online from Nothing Official Store Pakistan with delivery support across major cities including Karachi, Lahore, Islamabad, Rawalpindi, Faisalabad, Multan, and Peshawar.',
   },
 ]
 
@@ -192,8 +192,8 @@ async function main() {
     name: PRODUCT_NAME,
     description,
     short_description: shortDescription,
-    meta_title: 'CMF Buds Pro Price in Pakistan | Nothing Pakistan',
-    meta_description: 'Buy original CMF Buds Pro in Pakistan for Rs 13,000 with 45 dB ANC, Ultra Bass, 39 hours playback, COD, and local Nothing Pakistan support.',
+    meta_title: 'CMF Buds Pro Price in Pakistan | Nothing Official Store Pakistan',
+    meta_description: 'Buy original CMF Buds Pro in Pakistan for Rs 13,000 with 45 dB ANC, Ultra Bass, 39 hours playback, COD, and local Nothing Official Store Pakistan support.',
     seo_keywords: seoKeywords,
     canonical_url: canonicalUrl,
     schema_json: buildSchemaJson(currentPrice),

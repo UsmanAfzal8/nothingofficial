@@ -34,7 +34,7 @@ const heroImage = '/social/nothing-pakistan-og.jpg'
 const commonTrustSection: BlogSection = {
   title: 'Why company verification matters',
   paragraphs: [
-    `Before buying, customers should check the seller identity, support channel, return policy, payment instructions, and company information. Nothing Pakistan is operated by ${companyLegalName}, an SECP registered Pakistani company. This business identity is published on the Company Verification page so customers can review the legal name, CUIN, incorporation date, and certificate link before ordering.`,
+    `Before buying, customers should check the seller identity, support channel, return policy, payment instructions, and company information. Nothing Official Store Pakistan is operated by ${companyLegalName}, an SECP registered Pakistani company. This business identity is published on the Company Verification page so customers can review the legal name, CUIN, incorporation date, and certificate link before ordering.`,
     'Company registration is not the same as brand distributor authorization. It is a business identity signal that helps customers understand who operates the storefront. Buyers should still review product details, packaging expectations, warranty terms, and support communication before payment. Good purchasing decisions come from clear information rather than rushed checkout or unsupported claims.',
   ],
 }
@@ -45,7 +45,7 @@ export const blogPosts: BlogPost[] = [
     title: 'Where to Buy Original Nothing Products in Pakistan',
     metaTitle: 'Where to Buy Nothing Products in Pakistan',
     metaDescription:
-      'Learn where to buy original Nothing and CMF products in Pakistan, what to verify, and how Nothing Pakistan supports safer online shopping.',
+      'Learn where to buy original Nothing and CMF products in Pakistan, what to verify, and how Nothing Official Store Pakistan supports safer online shopping.',
     excerpt:
       'A practical guide for Pakistan buyers who want Nothing or CMF products with clearer seller identity, support, delivery, and verification checks.',
     author,
@@ -67,7 +67,7 @@ export const blogPosts: BlogPost[] = [
         title: 'Start with seller identity',
         paragraphs: [
           'When searching for Nothing products in Pakistan, the first question is not only which store has stock. It is whether the seller provides enough information for you to verify who you are buying from. A strong product page should show the product name, price in Pakistan, delivery route, support channel, return expectations, and business identity. If any of those details are missing, ask before ordering.',
-          'Nothing Pakistan publishes a dedicated company verification page, contact page, policy pages, and WhatsApp support route. These pages help customers check the registered company name, support details, and certificate link before placing an order. That makes the buying process more transparent for phones, earbuds, chargers, protectors, and CMF products.',
+          'Nothing Official Store Pakistan publishes a dedicated company verification page, contact page, policy pages, and WhatsApp support route. These pages help customers check the registered company name, support details, and certificate link before placing an order. That makes the buying process more transparent for phones, earbuds, chargers, protectors, and CMF products.',
         ],
       },
       {
@@ -90,7 +90,7 @@ export const blogPosts: BlogPost[] = [
       {
         question: 'Where can I buy Nothing products in Pakistan?',
         answer:
-          'You can browse Nothing and CMF products on Nothing Pakistan, including phones, earbuds, chargers, protectors, and accessories. Check company verification and product details before buying.',
+          'You can browse Nothing and CMF products on Nothing Official Store Pakistan, including phones, earbuds, chargers, protectors, and accessories. Check company verification and product details before buying.',
       },
       {
         question: 'What should I verify before ordering?',
@@ -98,9 +98,9 @@ export const blogPosts: BlogPost[] = [
           'Verify the seller identity, product model, price in Pakistan, support channel, delivery terms, return policy, and company verification page before payment.',
       },
       {
-        question: 'Does Nothing Pakistan provide company verification?',
+        question: 'Does Nothing Official Store Pakistan provide company verification?',
         answer:
-          'Yes. Nothing Pakistan links its SECP company verification page and certificate so customers can review the legal business identity.',
+          'Yes. Nothing Official Store Pakistan links its SECP company verification page and certificate so customers can review the legal business identity.',
       },
     ],
   },
@@ -138,7 +138,7 @@ export const blogPosts: BlogPost[] = [
         title: 'Accessories affect real ownership cost',
         paragraphs: [
           'The real cost of owning a phone usually includes a charger, cable, screen protector, cover, and sometimes earbuds. When comparing a Nothing phone price in Pakistan, consider the accessories you will need on day one. A lower phone price can become less useful if compatible accessories are hard to find or support is unclear.',
-          'Nothing Pakistan connects phone pages with related accessories where possible. This helps buyers move from phone interest to compatible products without guessing model names or protector sizes.',
+          'Nothing Official Store Pakistan connects phone pages with related accessories where possible. This helps buyers move from phone interest to compatible products without guessing model names or protector sizes.',
         ],
       },
       {
@@ -217,7 +217,7 @@ export const blogPosts: BlogPost[] = [
       {
         question: 'Where can I browse CMF products in Pakistan?',
         answer:
-          'Use the CMF collection on Nothing Pakistan to browse available CMF products, including earbuds, chargers, and related accessories.',
+          'Use the CMF collection on Nothing Official Store Pakistan to browse available CMF products, including earbuds, chargers, and related accessories.',
       },
       {
         question: 'What should I compare in CMF earbuds?',
@@ -328,7 +328,7 @@ export const blogPosts: BlogPost[] = [
         title: 'Chargers, cables, and protectors',
         paragraphs: [
           'Chargers and cables should be chosen around wattage, USB-C support, portability, and the devices you charge most often. Protectors should be chosen around fit, privacy preference, installation style, and case compatibility. A low-friction buying experience explains those details before checkout.',
-          'Nothing Pakistan groups chargers, protectors, and accessories into collection pages so buyers can compare product types quickly. Product pages also link to support and verification routes for safer ordering.',
+          'Nothing Official Store Pakistan groups chargers, protectors, and accessories into collection pages so buyers can compare product types quickly. Product pages also link to support and verification routes for safer ordering.',
         ],
       },
       {
@@ -353,7 +353,7 @@ export const blogPosts: BlogPost[] = [
       {
         question: 'Where can I browse accessories?',
         answer:
-          'Use the accessories, chargers, protectors, and audio collections on Nothing Pakistan.',
+          'Use the accessories, chargers, protectors, and audio collections on Nothing Official Store Pakistan.',
       },
     ],
   },
@@ -525,7 +525,7 @@ export const blogPosts: BlogPost[] = [
       {
         question: 'Where can I check CMF Buds Pro 2 price in Pakistan?',
         answer:
-          'Open the CMF Buds Pro 2 product page on Nothing Pakistan and confirm current stock and delivery details through support before ordering.',
+          'Open the CMF Buds Pro 2 product page on Nothing Official Store Pakistan and confirm current stock and delivery details through support before ordering.',
       },
       {
         question: 'What matters most in CMF Buds Pro 2?',

@@ -63,7 +63,7 @@ export function SupportCentreContent({ heroImageUrl, heroImageAlt }: SupportCent
                 onChange={(event) => setSearch(event.target.value)}
                 type="search"
                 placeholder="Search"
-                aria-label="Search Nothing Pakistan support"
+                aria-label="Search Nothing Official Store Pakistan support"
               />
             </form>
           </div>
@@ -107,7 +107,7 @@ export function SupportCentreContent({ heroImageUrl, heroImageAlt }: SupportCent
           <section className="support-contact-section" id="contact-us" aria-labelledby="support-contact-title">
             <h2 id="support-contact-title">Contact Us</h2>
             <div className="support-contact-row">
-              <p>Feel free to send us a message for further support. Our Nothing Pakistan team is on-hand to help.</p>
+              <p>Feel free to send us a message for further support. Our Nothing Official Store Pakistan team is on-hand to help.</p>
               <a href={siteContactWhatsappUrl} target="_blank" rel="noopener noreferrer">
                 Send Us A Message
               </a>

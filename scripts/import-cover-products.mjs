@@ -5,7 +5,7 @@ import path from 'node:path'
 
 const ROOT = process.cwd()
 const INPUT_PATH = path.join(ROOT, 'abc')
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.nothingshop.pk'
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.nothingofficial.pk'
 const PRODUCT_TYPE = 'covers'
 const CATEGORY_SLUGS = ['accessories', 'phone-cases']
 
@@ -163,7 +163,7 @@ function buildProductSchema({ entry, imageUrls }) {
     },
     sku: entry.slug,
     category: 'Phone Cover',
-    description: `Buy ${entry.name} in Pakistan from Nothing Pakistan with compatible device support, live stock confirmation, and nationwide ordering help.`,
+    description: `Buy ${entry.name} in Pakistan from Nothing Official Store Pakistan with compatible device support, live stock confirmation, and nationwide ordering help.`,
     image: imageUrls,
     url: `${SITE_URL}/products/${entry.slug}`,
     offers: {
@@ -267,7 +267,7 @@ async function main() {
         related_id: null,
         color_id: null,
         url: publicUrl,
-        alt_text: `${entry.name} original cover in Pakistan from Nothing Pakistan`,
+        alt_text: `${entry.name} original cover in Pakistan from Nothing Official Store Pakistan`,
         title: entry.name,
         caption: `${entry.name} compatible with ${mobile.name}.`,
         file_name: fileName,
@@ -277,13 +277,13 @@ async function main() {
       },
     ]
 
-    const description = `Buy ${entry.name} in Pakistan from Nothing Pakistan. This cover is linked with ${mobile.name} for easier compatibility browsing, with local price, delivery, and WhatsApp stock confirmation support.`
+    const description = `Buy ${entry.name} in Pakistan from Nothing Official Store Pakistan. This cover is linked with ${mobile.name} for easier compatibility browsing, with local price, delivery, and WhatsApp stock confirmation support.`
     const productPayload = {
       name: entry.name,
       slug,
       description,
-      short_description: `${entry.name} for ${mobile.name}, available in Pakistan from Nothing Pakistan.`,
-      meta_title: `${entry.name} Price in Pakistan | Nothing Pakistan`,
+      short_description: `${entry.name} for ${mobile.name}, available in Pakistan from Nothing Official Store Pakistan.`,
+      meta_title: `${entry.name} Price in Pakistan | Nothing Official Store Pakistan`,
       meta_description: `Buy ${entry.name} in Pakistan for Rs ${entry.price.toLocaleString('en-PK')} with compatible ${mobile.name} support and quick order confirmation.`,
       seo_keywords: [
         entry.name,
@@ -292,12 +292,12 @@ async function main() {
         `${mobile.name} cover Pakistan`,
         `${mobile.name} case Pakistan`,
         'Nothing phone cover Pakistan',
-        'Nothing Pakistan accessories',
+        'Nothing Official Store Pakistan accessories',
       ].join(', '),
       canonical_url: `${SITE_URL}/products/${slug}`,
       schema_json: buildProductSchema({ entry, imageUrls: [publicUrl] }),
-      seo_description_long: `${entry.name} is a compatible phone cover for ${mobile.name} buyers in Pakistan. It is listed with a local Nothing Pakistan price of Rs ${entry.price.toLocaleString('en-PK')} and connected to the matching mobile page so shoppers can find the right accessory quickly.`,
-      image_alt_text: `${entry.name} original cover in Pakistan from Nothing Pakistan`,
+      seo_description_long: `${entry.name} is a compatible phone cover for ${mobile.name} buyers in Pakistan. It is listed with a local Nothing Official Store Pakistan price of Rs ${entry.price.toLocaleString('en-PK')} and connected to the matching mobile page so shoppers can find the right accessory quickly.`,
+      image_alt_text: `${entry.name} original cover in Pakistan from Nothing Official Store Pakistan`,
       price: entry.price,
       stock_quantity: 10,
       product_type: PRODUCT_TYPE,

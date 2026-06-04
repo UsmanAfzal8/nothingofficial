@@ -9,7 +9,7 @@ import { companyLegalName } from '@/lib/data/company'
 import { siteBrandName, siteKeywords } from '@/lib/data/site-content'
 import { buildAbsoluteUrl, buildBreadcrumbStructuredData, buildRobotsMetadata, buildSeoKeywords } from '@/lib/utils/seo'
 
-const title = 'Nothing Pakistan Blog | Buying Guides'
+const title = 'Nothing Official Store Pakistan Blog | Buying Guides'
 const description =
   'Read Nothing and CMF buying guides for Pakistan covering prices, accessories, authenticity checks, support, and company verification.'
 
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     absolute: title,
   },
   description,
-  keywords: buildSeoKeywords(siteKeywords, ['Nothing Pakistan blog', 'Nothing buying guides Pakistan', companyLegalName]),
+  keywords: buildSeoKeywords(siteKeywords, ['Nothing Official Store Pakistan blog', 'Nothing buying guides Pakistan', companyLegalName]),
   alternates: {
     canonical: buildAbsoluteUrl('/blog'),
   },
@@ -83,7 +83,7 @@ export default function BlogIndexPage() {
                 Nothing and CMF buying guides for Pakistan.
               </h1>
               <p className="mt-5 max-w-3xl text-base leading-8 text-black/68">
-                Read practical guides about product prices, compatibility, accessories, authenticity checks, seller verification, support, delivery, and safe online shopping from Nothing Pakistan.
+                Read practical guides about product prices, compatibility, accessories, authenticity checks, seller verification, support, delivery, and safe online shopping from Nothing Official Store Pakistan.
               </p>
             </div>
 

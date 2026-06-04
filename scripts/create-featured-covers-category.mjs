@@ -7,7 +7,7 @@ const CATEGORY = {
   name: 'Featured Covers',
   slug: 'featured-covers',
   parentSlug: 'accessories',
-  metaTitle: 'Featured Nothing Phone Covers in Pakistan | Nothing Pakistan',
+  metaTitle: 'Featured Nothing Phone Covers in Pakistan | Nothing Official Store Pakistan',
   metaDescription:
     'Browse featured Nothing phone covers in Pakistan with curated styles for Phone 1, Phone 2, Phone 2a, Phone 2a Plus, Phone 3, and Phone 3a Pro.',
 }

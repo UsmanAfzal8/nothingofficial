@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     absolute: title,
   },
   description,
-  keywords: buildSeoKeywords(siteKeywords, ['Nothing Pakistan support', 'Nothing Pakistan FAQs', 'Nothing Pakistan troubleshooting']),
+  keywords: buildSeoKeywords(siteKeywords, ['Nothing Official Store Pakistan support', 'Nothing Official Store Pakistan FAQs', 'Nothing Official Store Pakistan troubleshooting']),
   alternates: {
     canonical: buildAbsoluteUrl('/support-centre'),
   },

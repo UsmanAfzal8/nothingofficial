@@ -140,7 +140,7 @@ function buildFaqs(product) {
   return [
     [
       `What is the price of ${product.name} in Pakistan?`,
-      `${product.name} price in Pakistan is ${price} on Nothing Pakistan. Final availability and delivery details can be confirmed before placing the order.`,
+      `${product.name} price in Pakistan is ${price} on Nothing Official Store Pakistan. Final availability and delivery details can be confirmed before placing the order.`,
     ],
     [
       `Is ${product.name} compatible with ${mobileName}?`,
@@ -164,11 +164,11 @@ function buildFaqs(product) {
     ],
     [
       `Can I order ${product.name} online in Pakistan?`,
-      `Yes, you can order ${product.name} online from Nothing Pakistan. You can also use WhatsApp support to confirm live stock, current price, and delivery coverage before checkout.`,
+      `Yes, you can order ${product.name} online from Nothing Official Store Pakistan. You can also use WhatsApp support to confirm live stock, current price, and delivery coverage before checkout.`,
     ],
     [
-      `Does Nothing Pakistan deliver ${product.name} across Pakistan?`,
-      `Nothing Pakistan supports delivery queries for ${product.name} across major cities in Pakistan, subject to stock, courier coverage, and order confirmation.`,
+      `Does Nothing Official Store Pakistan deliver ${product.name} across Pakistan?`,
+      `Nothing Official Store Pakistan supports delivery queries for ${product.name} across major cities in Pakistan, subject to stock, courier coverage, and order confirmation.`,
     ],
     [
       `How do I know this is the right cover for my phone?`,

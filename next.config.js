@@ -34,10 +34,54 @@ const nextConfig = {
         has: [
           {
             type: 'host',
+            value: 'nothingofficial.pk',
+          },
+        ],
+        destination: 'https://www.nothingofficial.pk/:path*',
+        permanent: true,
+      },
+      {
+        source: '/:path*',
+        has: [
+          {
+            type: 'host',
             value: 'nothingshop.pk',
           },
         ],
-        destination: 'https://www.nothingshop.pk/:path*',
+        destination: 'https://www.nothingofficial.pk/:path*',
+        permanent: true,
+      },
+      {
+        source: '/:path*',
+        has: [
+          {
+            type: 'host',
+            value: 'www.nothingshop.pk',
+          },
+        ],
+        destination: 'https://www.nothingofficial.pk/:path*',
+        permanent: true,
+      },
+      {
+        source: '/:path*',
+        has: [
+          {
+            type: 'host',
+            value: 'cmfbynothing.pk',
+          },
+        ],
+        destination: 'https://www.nothingofficial.pk/:path*',
+        permanent: true,
+      },
+      {
+        source: '/:path*',
+        has: [
+          {
+            type: 'host',
+            value: 'www.cmfbynothing.pk',
+          },
+        ],
+        destination: 'https://www.nothingofficial.pk/:path*',
         permanent: true,
       },
     ];

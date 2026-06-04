@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: OrderByHandlePageProps): Prom
   if (!productDetail) {
     return {
       title: {
-        absolute: 'Order Product | Nothing Pakistan',
+        absolute: 'Order Product | Nothing Official Store Pakistan',
       },
       alternates: {
         canonical: buildAbsoluteUrl('/order'),
@@ -34,7 +34,7 @@ export async function generateMetadata({ params }: OrderByHandlePageProps): Prom
 
   return {
     title: {
-      absolute: `Order ${productDetail.name} | Nothing Pakistan`,
+      absolute: `Order ${productDetail.name} | Nothing Official Store Pakistan`,
     },
     description: `Place an order for ${productDetail.name}.`,
     alternates: {
@@ -69,7 +69,7 @@ export default async function OrderByHandlePage({ params }: OrderByHandlePagePro
   }
 
   return (
-    <div className="min-h-screen overflow-x-hidden bg-[#f5f7fb] text-slate-900">
+    <div className="min-h-screen overflow-x-hidden bg-[#f4f4f0] text-slate-900">
       <NothingHeader />
 
       <main className="pt-20 lg:pt-24">

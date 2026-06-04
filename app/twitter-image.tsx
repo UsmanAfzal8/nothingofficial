@@ -9,7 +9,7 @@ export const size = {
 
 export const contentType = 'image/png'
 
-const SITE_BRAND_NAME = 'Nothing Pakistan'
+const SITE_BRAND_NAME = 'Nothing Official Store Pakistan'
 
 export default async function TwitterImage(request: Request) {
   return createSocialImage({

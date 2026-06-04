@@ -42,7 +42,7 @@ function buildCollectionSeoDescription(collection: Collection) {
 
   switch (collection.slug) {
     case 'shop-all':
-      return 'Browse the full Nothing Pakistan catalog for chargers, earbuds, protectors, CMF devices, and other compatible accessories.'
+      return 'Browse the full Nothing Official Store Pakistan catalog for chargers, earbuds, protectors, CMF devices, and other compatible accessories.'
     case 'phones':
       return 'Browse Nothing phone model pages and jump into compatible chargers, protectors, earbuds, and support routes in Pakistan.'
     case 'chargers':

@@ -100,30 +100,30 @@ function buildProductFaqs(product) {
   const label = productTypeLabel(type)
   const priceLabel = formatPrice(product.price)
   const priceAnswer = priceLabel
-    ? `${name} price in Pakistan is ${priceLabel} on Nothing Pakistan. Prices are read from the live catalog, so the page updates when the Supabase price is changed.`
-    : `${name} price in Pakistan is shown on the product page when available. You can also contact Nothing Pakistan on WhatsApp for the latest price and stock.`
+    ? `${name} price in Pakistan is ${priceLabel} on Nothing Official Store Pakistan. Prices are read from the live catalog, so the page updates when the Supabase price is changed.`
+    : `${name} price in Pakistan is shown on the product page when available. You can also contact Nothing Official Store Pakistan on WhatsApp for the latest price and stock.`
   const highlight = highlightText(product, `${name} is listed for buyers in Pakistan who want original Nothing or CMF products with local ordering support.`)
 
   return [
     ['What is the price of ' + name + ' in Pakistan?', priceAnswer],
-    ['Where can I buy original ' + name + ' in Pakistan?', `You can buy ${name} from Nothing Pakistan through the product page, order form, or WhatsApp support.`],
-    ['Is ' + name + ' original?', `${name} is listed as an original Nothing Pakistan catalog item. The team can confirm stock, packaging, and availability before order confirmation.`],
-    ['Does Nothing Pakistan offer cash on delivery for ' + name + '?', `Cash on delivery may be available for ${name} in supported cities. Final COD eligibility is confirmed when your order is processed.`],
+    ['Where can I buy original ' + name + ' in Pakistan?', `You can buy ${name} from Nothing Official Store Pakistan through the product page, order form, or WhatsApp support.`],
+    ['Is ' + name + ' original?', `${name} is listed as an original Nothing Official Store Pakistan catalog item. The team can confirm stock, packaging, and availability before order confirmation.`],
+    ['Does Nothing Official Store Pakistan offer cash on delivery for ' + name + '?', `Cash on delivery may be available for ${name} in supported cities. Final COD eligibility is confirmed when your order is processed.`],
     ['How long does delivery take for ' + name + '?', `Estimated delivery for ${name} is usually shown on the product page. Delivery timing can vary by city, courier coverage, and order confirmation time.`],
-    ['Can I order ' + name + ' on WhatsApp?', `Yes, you can contact Nothing Pakistan on WhatsApp to confirm ${name} price, stock, delivery city, and ordering details.`],
+    ['Can I order ' + name + ' on WhatsApp?', `Yes, you can contact Nothing Official Store Pakistan on WhatsApp to confirm ${name} price, stock, delivery city, and ordering details.`],
     ['Is ' + name + ' available in Karachi, Lahore, and Islamabad?', `${name} can be ordered for major Pakistani cities such as Karachi, Lahore, Islamabad, Rawalpindi, Faisalabad, Multan, and Peshawar, subject to courier coverage.`],
     ['What are the key highlights of ' + name + '?', highlight],
     ['Is ' + name + ' suitable for daily use?', `Yes, ${name} is positioned for daily use by buyers who want a reliable ${label} with local ordering support in Pakistan.`],
-    ['Does ' + name + ' come with local support?', `Nothing Pakistan provides order support for ${name}. Warranty, replacement, or after-sales help depends on the item condition and order confirmation details.`],
+    ['Does ' + name + ' come with local support?', `Nothing Official Store Pakistan provides order support for ${name}. Warranty, replacement, or after-sales help depends on the item condition and order confirmation details.`],
     ['Can I return or exchange ' + name + '?', `If ${name} arrives damaged, incorrect, or defective, contact support quickly so the team can review the return or exchange request.`],
     ['How do I confirm stock for ' + name + '?', `Use the product page order button or WhatsApp contact option to confirm live stock for ${name} before finalizing the order.`],
     ['Does the listed price of ' + name + ' include delivery charges?', `The visible price is the product price. Delivery charges, if any, are confirmed during checkout or WhatsApp order confirmation.`],
     ['Is ' + name + ' good value in Pakistan?', `${name} is useful for shoppers comparing original Nothing and CMF products in Pakistan with visible pricing, local delivery, and WhatsApp help.`],
-    ['Can I buy ' + name + ' online from Nothing Pakistan?', `Yes, ${name} can be ordered online from Nothing Pakistan using the Buy Now flow or by contacting support on WhatsApp.`],
+    ['Can I buy ' + name + ' online from Nothing Official Store Pakistan?', `Yes, ${name} can be ordered online from Nothing Official Store Pakistan using the Buy Now flow or by contacting support on WhatsApp.`],
     ['What should I check before ordering ' + name + '?', `Before ordering ${name}, confirm the latest price, stock status, delivery city, color or variant if applicable, and return support details.`],
-    ['Does ' + name + ' work with Nothing and CMF devices?', `${name} is listed in the Nothing Pakistan catalog. Compatibility depends on the product type, so confirm your exact device model before ordering.`],
+    ['Does ' + name + ' work with Nothing and CMF devices?', `${name} is listed in the Nothing Official Store Pakistan catalog. Compatibility depends on the product type, so confirm your exact device model before ordering.`],
     ['Are images of ' + name + ' shown on the product page?', `Yes, the ${name} page shows product images where available so buyers can review the design, color, and product style before ordering.`],
-    ['Why should I order ' + name + ' from Nothing Pakistan?', `Nothing Pakistan keeps ${name} in a local catalog with updated pricing, product details, order support, and delivery guidance for Pakistani buyers.`],
+    ['Why should I order ' + name + ' from Nothing Official Store Pakistan?', `Nothing Official Store Pakistan keeps ${name} in a local catalog with updated pricing, product details, order support, and delivery guidance for Pakistani buyers.`],
     ['How often is the ' + name + ' price updated?', `The ${name} price is managed from Supabase and shown dynamically on the website, so catalog updates can reflect without editing local website files.`],
   ]
 }
@@ -132,24 +132,24 @@ function buildMobileFaqs(mobile) {
   const name = normalizeName(mobile.name)
   const priceLabel = formatPrice(mobile.Price)
   const priceAnswer = priceLabel
-    ? `${name} price in Pakistan is ${priceLabel} on Nothing Pakistan. This price is read from Supabase, so it can be updated from the live catalog.`
-    : `${name} price in Pakistan is shown on the phone page when available. You can contact Nothing Pakistan on WhatsApp for the latest price.`
+    ? `${name} price in Pakistan is ${priceLabel} on Nothing Official Store Pakistan. This price is read from Supabase, so it can be updated from the live catalog.`
+    : `${name} price in Pakistan is shown on the phone page when available. You can contact Nothing Official Store Pakistan on WhatsApp for the latest price.`
   const highlight = highlightText(mobile, `${name} is listed for Pakistani buyers who want Nothing or CMF phone information, accessories, ordering support, and delivery guidance.`)
 
   return [
     ['What is the price of ' + name + ' in Pakistan?', priceAnswer],
-    ['Where can I buy ' + name + ' in Pakistan?', `You can order ${name} from Nothing Pakistan through the phone page or WhatsApp support, subject to stock availability.`],
-    ['Is ' + name + ' available on Nothing Pakistan?', `${name} is listed on Nothing Pakistan. Stock and final availability should be confirmed before placing the order.`],
+    ['Where can I buy ' + name + ' in Pakistan?', `You can order ${name} from Nothing Official Store Pakistan through the phone page or WhatsApp support, subject to stock availability.`],
+    ['Is ' + name + ' available on Nothing Official Store Pakistan?', `${name} is listed on Nothing Official Store Pakistan. Stock and final availability should be confirmed before placing the order.`],
     ['Is ' + name + ' PTA approved?', `PTA approval status for ${name} should be confirmed with support before purchase, because availability and approval details can vary by stock batch.`],
-    ['Does Nothing Pakistan deliver ' + name + ' across Pakistan?', `Nothing Pakistan can support delivery for ${name} to many Pakistani cities, subject to courier coverage and order confirmation.`],
+    ['Does Nothing Official Store Pakistan deliver ' + name + ' across Pakistan?', `Nothing Official Store Pakistan can support delivery for ${name} to many Pakistani cities, subject to courier coverage and order confirmation.`],
     ['Can I buy ' + name + ' on cash on delivery?', `Cash on delivery for ${name} may be available in supported areas. The team confirms COD eligibility during order processing.`],
     ['How long does delivery take for ' + name + '?', `The product page shows an estimated delivery window for ${name}. Actual timing depends on your city, confirmation time, and courier service.`],
-    ['Can I contact WhatsApp for ' + name + '?', `Yes, you can contact Nothing Pakistan on WhatsApp to confirm ${name} price, stock, PTA status, color, and delivery details.`],
+    ['Can I contact WhatsApp for ' + name + '?', `Yes, you can contact Nothing Official Store Pakistan on WhatsApp to confirm ${name} price, stock, PTA status, color, and delivery details.`],
     ['What are the key highlights of ' + name + '?', highlight],
     ['Which accessories are available for ' + name + '?', `Compatible accessories for ${name}, such as chargers, protectors, covers, earbuds, and cables, may appear on the same phone page when linked in the catalog.`],
     ['Does ' + name + ' come with warranty or support?', `Warranty and support for ${name} depend on the confirmed stock and order terms. Ask support before purchase for current coverage details.`],
     ['Can I return or exchange ' + name + '?', `If ${name} arrives damaged, incorrect, or defective, contact support quickly so the team can review the return or exchange request.`],
-    ['Is ' + name + ' original?', `${name} is listed in the Nothing Pakistan catalog. Confirm packaging, stock, and order details with support before finalizing your purchase.`],
+    ['Is ' + name + ' original?', `${name} is listed in the Nothing Official Store Pakistan catalog. Confirm packaging, stock, and order details with support before finalizing your purchase.`],
     ['Which cities can receive ' + name + ' delivery?', `${name} may be delivered to cities such as Karachi, Lahore, Islamabad, Rawalpindi, Faisalabad, Multan, and Peshawar where courier service is available.`],
     ['How do I confirm current stock of ' + name + '?', `Use the WhatsApp contact option or order form to confirm live stock for ${name} before checkout is finalized.`],
     ['Does the ' + name + ' price include delivery?', `The visible price is the phone price. Delivery fees, if any, are confirmed during checkout or WhatsApp order confirmation.`],

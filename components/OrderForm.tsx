@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { type FormEvent, useMemo, useState } from 'react'
 import { CompanyTrustBadge } from '@/components/CompanyTrustBadge'
 import { useCart } from '@/components/CartProvider'
+import { siteContactAddress } from '@/lib/data/site-content'
 import type { CartItem } from '@/lib/models/cart'
 
 type SelectedProduct = {
@@ -33,6 +34,7 @@ type CheckoutItem = {
 }
 
 type PaymentMethod = 'cod' | 'bank_transfer'
+type DeliveryType = 'ship' | 'pickup'
 
 const initialSubmitState: SubmitState = {
   status: 'idle',
@@ -210,13 +212,24 @@ export function OrderForm({ product }: OrderFormProps) {
   const [district, setDistrict] = useState('')
   const [postalCode, setPostalCode] = useState('')
   const [phone, setPhone] = useState('')
+  const [deliveryType, setDeliveryType] = useState<DeliveryType>('ship')
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('cod')
   const [mobileSummaryOpen, setMobileSummaryOpen] = useState(false)
   const [submitState, setSubmitState] = useState<SubmitState>(initialSubmitState)
 
   const canSubmit = useMemo(
-    () => Boolean(name.trim() && address.trim() && city.trim() && district.trim() && phone.trim()),
-    [name, address, city, district, phone],
+    () => {
+      if (!name.trim() || !phone.trim()) {
+        return false
+      }
+
+      if (deliveryType === 'pickup') {
+        return true
+      }
+
+      return Boolean(address.trim() && city.trim() && district.trim())
+    },
+    [address, city, deliveryType, district, name, phone],
   )
 
   const isCartCheckout = !product && cartItems.length > 0
@@ -251,7 +264,7 @@ export function OrderForm({ product }: OrderFormProps) {
     () => Number((paymentMethod === 'cod' ? checkoutSubtotal * GOVT_TAX_RATE : 0).toFixed(2)),
     [checkoutSubtotal, paymentMethod],
   )
-  const shippingFee = paymentMethod === 'bank_transfer' ? 0 : SHIPPING_FEE
+  const shippingFee = deliveryType === 'pickup' || paymentMethod === 'bank_transfer' ? 0 : SHIPPING_FEE
   const totalPrice = useMemo(
     () => Math.max(0, Number((checkoutSubtotal + govtTaxAmount + shippingFee).toFixed(2))),
     [checkoutSubtotal, govtTaxAmount, shippingFee],
@@ -288,7 +301,7 @@ export function OrderForm({ product }: OrderFormProps) {
     if (!canSubmit) {
       setSubmitState({
         status: 'error',
-        message: 'Please fill in name, address, city, district, and phone. Postal code is optional.',
+        message: deliveryType === 'pickup' ? 'Please fill in name and phone for pickup.' : 'Please fill in name, address, city, district, and phone. Postal code is optional.',
         orderNumber: null,
       })
       return
@@ -316,17 +329,18 @@ export function OrderForm({ product }: OrderFormProps) {
         },
         body: JSON.stringify({
           name,
-          address,
-          city,
-          district,
+          address: deliveryType === 'pickup' ? siteContactAddress : address,
+          city: deliveryType === 'pickup' ? 'Lahore' : city,
+          district: deliveryType === 'pickup' ? 'Garden Town' : district,
           postalCode,
           phone,
           items: requestItems,
+          deliveryType,
           paymentMethod,
           shippingFee,
           govtTaxAmount,
           totalPrice,
-          notes: paymentNotes,
+          notes: `${paymentNotes} Delivery type: ${deliveryType === 'pickup' ? 'Pickup from Garden Town Lahore' : 'Ship to customer address'}.`,
         }),
       })
 
@@ -455,11 +469,29 @@ export function OrderForm({ product }: OrderFormProps) {
         </aside>
 
         <section className="order-2 rounded-[28px] border border-slate-200 bg-white p-6 shadow-[0_18px_40px_rgba(15,23,42,0.06)] sm:p-8 lg:order-1">
-          <h2 className="text-2xl font-semibold tracking-[-0.02em] text-slate-900">Delivery details</h2>
-          <p className="mt-2 text-sm leading-7 text-slate-600">Please enter your name, address, and phone number to place the order.</p>
+          <h2 className="dot-heading text-3xl uppercase leading-none tracking-[0.04em] text-black">Order details</h2>
+          <p className="mt-3 text-sm leading-7 text-slate-600">Choose shipping or pickup, then enter the details needed to confirm your order.</p>
 
           <form className="mt-8 grid gap-5" onSubmit={handleSubmit}>
             <div className="grid gap-5">
+              <div className="rounded-[8px] border border-slate-200 bg-[#f4f4f2] p-2">
+                <div className="grid grid-cols-2 gap-2">
+                  {(['ship', 'pickup'] as const).map((type) => (
+                    <button
+                      key={type}
+                      type="button"
+                      onClick={() => setDeliveryType(type)}
+                      className={`h-12 rounded-[4px] text-[0.72rem] uppercase tracking-[0.18em] transition ${
+                        deliveryType === type ? 'bg-black text-white' : 'bg-white text-black hover:bg-slate-100'
+                      }`}
+                      aria-pressed={deliveryType === type}
+                    >
+                      {type === 'ship' ? 'Ship' : 'Pickup'}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
               <label className="grid gap-2">
                 <span className="text-sm font-medium text-slate-700">Full name</span>
                 <input
@@ -471,53 +503,64 @@ export function OrderForm({ product }: OrderFormProps) {
                 />
               </label>
 
-              <label className="grid gap-2">
-                <span className="text-sm font-medium text-slate-700">Address</span>
-                <textarea
-                  required
-                  value={address}
-                  onChange={(event) => setAddress(event.target.value)}
-                  placeholder="House / street / area"
-                  rows={4}
-                  className={`${fieldClassName} min-h-[110px] resize-y`}
-                />
-              </label>
+              {deliveryType === 'ship' ? (
+                <>
+                  <label className="grid gap-2">
+                    <span className="text-sm font-medium text-slate-700">Address</span>
+                    <textarea
+                      required
+                      value={address}
+                      onChange={(event) => setAddress(event.target.value)}
+                      placeholder="House / street / area"
+                      rows={4}
+                      className={`${fieldClassName} min-h-[110px] resize-y`}
+                    />
+                  </label>
 
-              <div className="grid gap-5 md:grid-cols-2">
-                <label className="grid gap-2">
-                  <span className="text-sm font-medium text-slate-700">City</span>
-                  <input
-                    required
-                    value={city}
-                    onChange={(event) => setCity(event.target.value)}
-                    placeholder="City"
-                    className={fieldClassName}
-                  />
-                </label>
+                  <div className="grid gap-5 md:grid-cols-2">
+                    <label className="grid gap-2">
+                      <span className="text-sm font-medium text-slate-700">City</span>
+                      <input
+                        required
+                        value={city}
+                        onChange={(event) => setCity(event.target.value)}
+                        placeholder="City"
+                        className={fieldClassName}
+                      />
+                    </label>
 
-                <label className="grid gap-2">
-                  <span className="text-sm font-medium text-slate-700">District</span>
-                  <input
-                    required
-                    value={district}
-                    onChange={(event) => setDistrict(event.target.value)}
-                    placeholder="District"
-                    className={fieldClassName}
-                  />
-                </label>
-              </div>
+                    <label className="grid gap-2">
+                      <span className="text-sm font-medium text-slate-700">District</span>
+                      <input
+                        required
+                        value={district}
+                        onChange={(event) => setDistrict(event.target.value)}
+                        placeholder="District"
+                        className={fieldClassName}
+                      />
+                    </label>
+                  </div>
 
-              <div className="grid gap-5 md:grid-cols-2">
-                <label className="grid gap-2">
-                  <span className="text-sm font-medium text-slate-700">Postal code <span className="font-normal text-slate-400">(optional)</span></span>
-                  <input
-                    value={postalCode}
-                    onChange={(event) => setPostalCode(event.target.value)}
-                    placeholder="Postal code"
-                    className={fieldClassName}
-                  />
-                </label>
+                  <label className="grid gap-2">
+                    <span className="text-sm font-medium text-slate-700">Postal code <span className="font-normal text-slate-400">(optional)</span></span>
+                    <input
+                      value={postalCode}
+                      onChange={(event) => setPostalCode(event.target.value)}
+                      placeholder="Postal code"
+                      className={fieldClassName}
+                    />
+                  </label>
+                </>
+              ) : (
+                <div className="rounded-[8px] border border-black/10 bg-[#f4f4f2] p-5">
+                  <p className="text-[0.72rem] uppercase tracking-[0.18em] text-black/52">Pickup location</p>
+                  <h3 className="mt-3 [font-family:var(--font-georgia)] text-3xl leading-none text-black">Garden Town, Lahore</h3>
+                  <p className="mt-4 text-sm leading-7 text-black/68">{siteContactAddress}</p>
+                  <p className="mt-3 text-sm leading-7 text-black/58">Pickup is confirmed after stock and payment confirmation.</p>
+                </div>
+              )}
 
+              <div className="grid gap-5">
                 <label className="grid gap-2">
                   <span className="text-sm font-medium text-slate-700">Phone number</span>
                   <input

@@ -52,7 +52,7 @@ const fontSamples = [
 ] as const
 
 const pageTitle = 'Nothing Font Preview'
-const pageDescription = 'Preview every local font file used in the project with the STORE: UNITED KINGDOM sample text.'
+const pageDescription = 'Preview every local font file used in the project with the Our new campaign for Headphone (a) sample text.'
 
 export const metadata: Metadata = {
   title: {
@@ -80,7 +80,7 @@ export default async function FontsPage() {
             <div className="max-w-4xl">
               <p className="text-[10px] uppercase tracking-[0.3em] text-black/48">Font Page</p>
               <h1 className="mt-4 text-5xl font-semibold leading-[0.92] tracking-[-0.04em] text-black sm:text-6xl">
-                STORE: UNITED KINGDOM across every local font file.
+                Our new campaign for Headphone (a) across every local font file.
               </h1>
               <p className="mt-5 max-w-3xl text-base leading-8 text-black/66">
                 Each row uses the real font file from the project&apos;s <span className="font-medium text-black">/fonts</span> folder, with the font name and file name shown beside the preview.
@@ -94,7 +94,7 @@ export default async function FontsPage() {
               </div>
               <div>
                 <p className="text-[10px] uppercase tracking-[0.24em] text-white/56">Preview Text</p>
-                <p className="mt-2 text-sm text-white/82">STORE: UNITED KINGDOM</p>
+                <p className="mt-2 text-sm text-white/82">Our new campaign for Headphone (a)</p>
               </div>
             </div>
           </div>
@@ -123,7 +123,7 @@ export default async function FontsPage() {
                     className={`${sample.font.className} break-words text-[clamp(2rem,5vw,4.75rem)] leading-[1.02] text-black`}
                     style={{ fontFamily: sample.font.style.fontFamily }}
                   >
-                    STORE: UNITED KINGDOM
+                    Our new campaign for Headphone (a)
                   </p>
                 </div>
               </article>

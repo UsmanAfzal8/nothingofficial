@@ -165,7 +165,7 @@ export function CartPageContent() {
           </div>
 
           <p className="mt-5 text-sm leading-6 text-black/62">
-            Checkout stays inside the same Nothing Pakistan flow. We’ll use the items from this cart automatically on the order screen.
+            Checkout stays inside the same Nothing Official Store Pakistan flow. We’ll use the items from this cart automatically on the order screen.
           </p>
 
           <div className="mt-6 grid gap-3">

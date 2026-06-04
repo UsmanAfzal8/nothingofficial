@@ -19,16 +19,16 @@ import {
 import { siteBrandName, siteKeywords } from '@/lib/data/site-content'
 import { buildAbsoluteUrl, buildBreadcrumbStructuredData, buildRobotsMetadata, buildSeoKeywords } from '@/lib/utils/seo'
 
-const title = 'Usman Afzal | CEO of Nothing Pakistan'
+const title = 'Usman Afzal | CEO of Nothing Official Store Pakistan'
 const description =
-  'CEO profile for Usman Afzal of Nothing Pakistan and NOTHING OFFICIAL (SMC-PRIVATE) LIMITED company verification.'
+  'CEO profile for Usman Afzal of Nothing Official Store Pakistan and NOTHING OFFICIAL (SMC-PRIVATE) LIMITED company verification.'
 
 export const metadata: Metadata = {
   title: {
     absolute: title,
   },
   description,
-  keywords: buildSeoKeywords(siteKeywords, [companyOwnerName, companyLegalName, 'Nothing Pakistan CEO']),
+  keywords: buildSeoKeywords(siteKeywords, [companyOwnerName, companyLegalName, 'Nothing Official Store Pakistan CEO']),
   alternates: {
     canonical: buildAbsoluteUrl('/authors/usman-afzal'),
   },
@@ -94,7 +94,7 @@ export default function UsmanAfzalAuthorPage() {
                   {companyOwnerName}
                 </h1>
                 <p className="mt-5 max-w-3xl text-base leading-8 text-black/68">
-                  {companyOwnerName} is the CEO of {siteBrandName}. He leads the store operated by {companyLegalName}, the SECP registered Pakistani company behind the Nothing Pakistan storefront.
+                  {companyOwnerName} is the CEO of {siteBrandName}. He leads the store operated by {companyLegalName}, the SECP registered Pakistani company behind the Nothing Official Store Pakistan storefront.
                 </p>
               </div>
             </div>
@@ -107,7 +107,7 @@ export default function UsmanAfzalAuthorPage() {
                   <p className="text-[10px] uppercase tracking-[0.26em] text-black/42">Direct Answer</p>
                   <h2 className="mt-3 text-xl font-semibold tracking-[-0.02em] text-black">Who is Usman Afzal?</h2>
                   <p className="mt-3 text-sm leading-7 text-black/68">
-                    Usman Afzal is the CEO of Nothing Pakistan and leads the customer experience, support, product availability, and company transparency for the store in Pakistan.
+                    Usman Afzal is the CEO of Nothing Official Store Pakistan and leads the customer experience, support, product availability, and company transparency for the store in Pakistan.
                   </p>
                 </section>
 
@@ -122,10 +122,10 @@ export default function UsmanAfzalAuthorPage() {
                   <h2 className="text-3xl font-semibold tracking-[-0.03em] text-black">Experience With Tech Products and eCommerce</h2>
                   <div className="mt-5 space-y-5 text-sm leading-8 text-black/70">
                     <p>
-                      The Nothing Pakistan content strategy is built around practical eCommerce experience: customers want to know the price in Pakistan, what is in the box, which phone a product supports, how delivery works, what payment methods are available, and what happens if the item is damaged, incorrect, or unsuitable. Product pages and buying guides are written to answer those questions directly.
+                      The Nothing Official Store Pakistan content strategy is built around practical eCommerce experience: customers want to know the price in Pakistan, what is in the box, which phone a product supports, how delivery works, what payment methods are available, and what happens if the item is damaged, incorrect, or unsuitable. Product pages and buying guides are written to answer those questions directly.
                     </p>
                     <p>
-                      This profile helps customers, search engines, and AI assistants understand who leads the business behind the store. Nothing Pakistan connects product guides and trust pages to a visible CEO, a legal company name, and a company verification page.
+                      This profile helps customers, search engines, and AI assistants understand who leads the business behind the store. Nothing Official Store Pakistan connects product guides and trust pages to a visible CEO, a legal company name, and a company verification page.
                     </p>
                   </div>
                 </section>

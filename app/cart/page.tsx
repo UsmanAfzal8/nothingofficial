@@ -6,9 +6,9 @@ import { buildAbsoluteUrl } from '@/lib/utils/seo'
 
 export const metadata: Metadata = {
   title: {
-    absolute: 'Cart | Nothing Pakistan',
+    absolute: 'Cart | Nothing Official Store Pakistan',
   },
-  description: 'Review the products you added from the live Nothing Pakistan catalog before checkout.',
+  description: 'Review the products you added from the live Nothing Official Store Pakistan catalog before checkout.',
   alternates: {
     canonical: buildAbsoluteUrl('/cart'),
   },

@@ -68,7 +68,7 @@ export function HomeFaqTabs({ categories }: HomeFaqTabsProps) {
 
   return (
     <div className="mt-8">
-      <div className="flex flex-wrap gap-2" role="tablist" aria-label="Nothing Pakistan FAQ categories">
+      <div className="flex flex-wrap gap-2" role="tablist" aria-label="Nothing Official Store Pakistan FAQ categories">
         {categories.map((category) => {
           const isActive = category.id === activeCategory.id
 

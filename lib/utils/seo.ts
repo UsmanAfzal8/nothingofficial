@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 
-export const PRODUCTION_SITE_ORIGIN = 'https://www.nothingshop.pk'
+export const PRODUCTION_SITE_ORIGIN = 'https://www.nothingofficial.pk'
 
 function normalizeSiteOrigin(value: string | null | undefined): string | null {
   if (!value) {

@@ -217,7 +217,7 @@ function normalizeBrandCopy(value) {
   return value
     .replace(/https?:\/\/(?:www\.)?nothingshop\.pk/gi, CANONICAL_SITE_URL)
     .replace(/https?:\/\/cdn\.nothingshop\.pk/gi, CANONICAL_SITE_URL)
-    .replace(/\bNothing\s+Pakistan\b/gi, 'Nothing Official Pakistan')
+    .replace(/\bNothing\s+Pakistan\b/gi, 'Nothing Official Store Pakistan')
     .replace(/\bNothing\s+official\s+store\s+Pakistan\b/gi, 'Nothing Official Store Pakistan')
     .replace(/\bNothing\s+Offical\b/gi, 'Nothing Official')
     .replace(/\bnothingshop\.pk\b/gi, 'nothingofficial.pk')
@@ -244,7 +244,7 @@ function buildProductCopy(row, slug) {
       `${name} is prepared for Pakistan buyers comparing ${productType}, current price, stock status, and original product sourcing. Nothing Official Store Pakistan keeps the listing focused on practical purchase questions instead of generic catalogue copy.`,
       `Customers in Karachi, Lahore, Islamabad, Rawalpindi, Faisalabad, Multan, Peshawar, and other cities can use this page to check ${price}, confirm compatibility, review product media, and contact support before ordering.`,
       `The buying intent for ${name} includes authenticity, delivery timing, cash-on-delivery guidance where available, after-sales support, warranty or support expectations, and whether the product fits a specific Nothing or CMF device setup.`,
-      `Internal links should connect ${name} with relevant collections, compatible mobiles, accessories, specifications, images, and FAQs so both shoppers and search engines understand the product context on Nothing Official Pakistan.`,
+      `Internal links should connect ${name} with relevant collections, compatible mobiles, accessories, specifications, images, and FAQs so both shoppers and search engines understand the product context on Nothing Official Store Pakistan.`,
     ].join('\n\n'),
     image_alt_text: `${name} original product in Pakistan from Nothing Official Store Pakistan`,
     seo_keywords: [
@@ -254,7 +254,7 @@ function buildProductCopy(row, slug) {
       `buy ${name} online Pakistan`,
       `original ${name} Pakistan`,
       'Nothing Official Store Pakistan',
-      'Nothing Official Pakistan',
+      'Nothing Official Store Pakistan',
       'Nothing products Pakistan',
       'CMF products Pakistan',
       'authentic Nothing store Pakistan',
@@ -288,7 +288,7 @@ function buildMobileCopy(row, slug) {
       `original ${name} Pakistan`,
       'Nothing phone Pakistan',
       'Nothing Official Store Pakistan',
-      'Nothing Official Pakistan',
+      'Nothing Official Store Pakistan',
     ].join(', '),
     canonical_url: `${CANONICAL_SITE_URL}/products/${slug}`,
   }
@@ -474,9 +474,9 @@ function isOwnedOrAllowedUrl(url, sourceEnv, options) {
   }
 
   const allowedHosts = new Set([
-    'www.nothingshop.pk',
-    'nothingshop.pk',
-    'cdn.nothingshop.pk',
+    'www.nothingofficial.pk',
+    'nothingofficial.pk',
+    'cdn.nothingofficial.pk',
     'www.nothingofficial.pk',
     'nothingofficial.pk',
     String(sourceEnv.BUNNY_CDN_HOSTNAME ?? '').toLowerCase(),

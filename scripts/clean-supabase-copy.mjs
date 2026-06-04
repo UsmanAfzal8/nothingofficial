@@ -44,7 +44,7 @@ function sanitizeCopy(value) {
 
   let next = value
     .replace(/\bPrice:\s*(?:Rs\.?|PKR)\s*[\d,]+(?:\s*\/-)?\.?/gi, '')
-    .replace(/\b(?:currently\s+)?listed\s+at\s+(?:Rs\.?|PKR)\s*[\d,]+(?:\s*\/-)?(?:\s+on\s+Nothing\s+Pakistan)?/gi, 'listed on Nothing Pakistan')
+    .replace(/\b(?:currently\s+)?listed\s+at\s+(?:Rs\.?|PKR)\s*[\d,]+(?:\s*\/-)?(?:\s+on\s+Nothing\s+Pakistan)?/gi, 'listed on Nothing Official Store Pakistan')
     .replace(/\bprice\s+in\s+Pakistan\s+is\s+(?:Rs\.?|PKR)\s*[\d,]+(?:\s*\/-)?/gi, 'price in Pakistan is shown on the product page')
     .replace(/\bprice\s+is\s+(?:Rs\.?|PKR)\s*[\d,]+(?:\s*\/-)?/gi, 'price is shown on the product page')
     .replace(/\bwith updated price\b/gi, 'with live pricing')

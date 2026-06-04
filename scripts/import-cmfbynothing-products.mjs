@@ -10,7 +10,7 @@ import {
 import { extname, join, resolve } from 'node:path'
 
 const ROOT = process.cwd()
-const SITE_URL = 'https://www.nothingshop.pk'
+const SITE_URL = 'https://www.nothingofficial.pk'
 const ENV_FILES = ['.env.local', 'env']
 const MISSING_JSON_PATH = resolve(ROOT, 'database', 'cmfbynothing-missing-products.json')
 const DOWNLOADED_IMAGES_DIR = resolve(ROOT, 'output image', 'cmfbynothing-missing-products')
@@ -422,19 +422,19 @@ function buildShortDescription(record, priceLabel) {
 
   if (record.kind === 'charger' || record.kind === 'data_cable') {
     return trimText(
-      `${record.name} is listed on Nothing Pakistan for buyers who want a clean charging setup, simple ordering, and local support.${priceText}`,
+      `${record.name} is listed on Nothing Official Store Pakistan for buyers who want a clean charging setup, simple ordering, and local support.${priceText}`,
       180,
     )
   }
 
   return trimText(
-    `${record.name} is part of the Nothing Pakistan catalog for shoppers who want original products, updated pricing, and WhatsApp support before ordering.${priceText}`,
+    `${record.name} is part of the Nothing Official Store Pakistan catalog for shoppers who want original products, updated pricing, and WhatsApp support before ordering.${priceText}`,
     180,
   )
 }
 
 function buildMetaTitle(record) {
-  return trimText(`${record.name} Price in Pakistan | Nothing Pakistan`, 68)
+  return trimText(`${record.name} Price in Pakistan | Nothing Official Store Pakistan`, 68)
 }
 
 function buildMetaDescription(record, priceLabel) {
@@ -474,7 +474,7 @@ function buildKeywords(record) {
     `${name} price in Pakistan`,
     `buy ${name} in Pakistan`,
     `${name} Pakistan`,
-    `${name} Nothing Pakistan`,
+    `${name} Nothing Official Store Pakistan`,
     `${name} original Pakistan`,
     `${name} online Pakistan`,
   ]
@@ -510,7 +510,7 @@ function buildKeywords(record) {
 
 function buildLongDescription(record, priceLabel) {
   const priceSentence = priceLabel
-    ? `${record.name} is currently listed at ${priceLabel} on Nothing Pakistan, while live stock confirmation can still be checked on WhatsApp before ordering.`
+    ? `${record.name} is currently listed at ${priceLabel} on Nothing Official Store Pakistan, while live stock confirmation can still be checked on WhatsApp before ordering.`
     : `${record.name} availability and final order confirmation can be checked on WhatsApp before purchase.`
 
   const linkedSentence = record.linkedMobile
@@ -527,10 +527,10 @@ function buildLongDescription(record, priceLabel) {
           : 'This product is presented for Pakistan search intent around price, originality, delivery, and easy support before ordering.'
 
   return [
-    `${record.name} is part of the Nothing Pakistan catalog for shoppers who want original Nothing and CMF products with clear product naming, clean presentation, and straightforward local ordering. ${linkedSentence} ${categorySentence} ${priceSentence}`,
+    `${record.name} is part of the Nothing Official Store Pakistan catalog for shoppers who want original Nothing and CMF products with clear product naming, clean presentation, and straightforward local ordering. ${linkedSentence} ${categorySentence} ${priceSentence}`,
     `This page is optimized for Pakistan buying intent, which usually means customers want the current price, fit or compatibility guidance, real product images, and an easy support route before they place an order. The page structure, FAQs, and product schema are designed to answer those questions directly without making the content feel stuffed or repetitive.`,
     `Search intent around ${record.name} commonly includes price in Pakistan, original product availability, online ordering, and support through WhatsApp. For linked phone accessories, the page should also support searches around the exact phone model, clean fit, and related accessories that match the same device.`,
-    `Overall, ${record.name} should feel like a practical and trustworthy listing for Nothing Pakistan visitors. The content stays minimal, product-led, and useful for customers who want a cleaner buying decision instead of a noisy marketing page.`,
+    `Overall, ${record.name} should feel like a practical and trustworthy listing for Nothing Official Store Pakistan visitors. The content stays minimal, product-led, and useful for customers who want a cleaner buying decision instead of a noisy marketing page.`,
   ].join('\n\n')
 }
 
@@ -539,7 +539,7 @@ function buildDescription(record, priceLabel) {
     buildShortDescription(record, priceLabel),
     record.linkedMobile
       ? `${record.name} is linked with ${record.linkedMobile.name} so buyers can move from the phone page to the right accessory without extra searching.`
-      : `This listing is structured for Nothing Pakistan shoppers who want current pricing, real product images, and support before ordering.`,
+      : `This listing is structured for Nothing Official Store Pakistan shoppers who want current pricing, real product images, and support before ordering.`,
   ].join('\n\n')
 }
 
@@ -595,7 +595,7 @@ function buildSchema(record, finalSlug, firstImageUrl, price, metaDescription, s
 
 function buildFaqs(record, priceLabel) {
   const priceLine = priceLabel
-    ? `${record.name} is currently listed at ${priceLabel} on Nothing Pakistan, while live stock can still be confirmed on WhatsApp before ordering.`
+    ? `${record.name} is currently listed at ${priceLabel} on Nothing Official Store Pakistan, while live stock can still be confirmed on WhatsApp before ordering.`
     : `You can confirm the latest price for ${record.name} on WhatsApp before placing the order.`
 
   if (record.kind === 'cover') {
@@ -607,9 +607,9 @@ function buildFaqs(record, priceLabel) {
       [`Can I use buttons, ports, and camera areas easily with ${record.name}?`, `This product is presented as a model-specific cover, so buyers can order with the expectation of proper access around the matching phone layout.`],
       [`Can I use a screen protector with ${record.name}?`, `In most cases, buyers use a separate protector with a cover. If you want a cleaner combined setup, you can confirm the matching protector on WhatsApp before ordering.`],
       [`Is ${record.name} available with delivery in Pakistan?`, `Yes, the listing is prepared for Pakistan orders with delivery support and WhatsApp confirmation before checkout.`],
-      [`How do I confirm stock for ${record.name}?`, `The fastest way is to message Nothing Pakistan on WhatsApp and confirm live stock, color, and delivery details before placing the order.`],
-      [`Can I order ${record.name} online from Nothing Pakistan?`, `Yes, you can use the product page and WhatsApp support route to place or confirm your order.`],
-      [`Why should I choose ${record.name} from Nothing Pakistan?`, `${record.name} is listed with clean naming, local price context, real product images, and direct support for buyers in Pakistan.`],
+      [`How do I confirm stock for ${record.name}?`, `The fastest way is to message Nothing Official Store Pakistan on WhatsApp and confirm live stock, color, and delivery details before placing the order.`],
+      [`Can I order ${record.name} online from Nothing Official Store Pakistan?`, `Yes, you can use the product page and WhatsApp support route to place or confirm your order.`],
+      [`Why should I choose ${record.name} from Nothing Official Store Pakistan?`, `${record.name} is listed with clean naming, local price context, real product images, and direct support for buyers in Pakistan.`],
     ]
   }
 
@@ -617,43 +617,43 @@ function buildFaqs(record, priceLabel) {
     return [
       [`What is the price of ${record.name} in Pakistan?`, priceLine],
       [`Which phone model is ${record.name} for?`, `${record.name} is linked to ${record.linkedMobile?.name || 'the matching Nothing phone model'} so buyers can choose the correct screen accessory for their device.`],
-      [`Does ${record.name} use the word Protector instead of 9D Glass?`, `Yes. On Nothing Pakistan, this listing is kept clean and professional with Protector-focused naming instead of using 9D Glass wording.`],
+      [`Does ${record.name} use the word Protector instead of 9D Glass?`, `Yes. On Nothing Official Store Pakistan, this listing is kept clean and professional with Protector-focused naming instead of using 9D Glass wording.`],
       [`What kind of protection does ${record.name} offer?`, `${record.name} is positioned for day-to-day screen protection, cleaner fit, and model-matched coverage for the right phone.`],
       [`Is ${record.name} easy to pair with a cover?`, `Buyers usually combine a protector with a matching phone cover. You can confirm the related cover or other accessories on WhatsApp before ordering.`],
       [`Will ${record.name} affect daily touch use?`, `${record.name} is listed as a practical screen accessory, and buyers can confirm the right variant for daily use on WhatsApp before purchase.`],
-      [`Can I choose between Jelly Sheet, UV Protector, and Protector versions?`, `Yes. Nothing Pakistan separates these variants clearly so buyers can choose the protection style that matches their preference.`],
+      [`Can I choose between Jelly Sheet, UV Protector, and Protector versions?`, `Yes. Nothing Official Store Pakistan separates these variants clearly so buyers can choose the protection style that matches their preference.`],
       [`How do I know ${record.name} fits my phone correctly?`, `${record.name} is mapped to the related phone model in the catalog, which helps buyers avoid guesswork around compatibility.`],
       [`Is ${record.name} available for delivery in Pakistan?`, `Yes, this listing is intended for Pakistan delivery with local ordering support and WhatsApp confirmation.`],
-      [`How can I place an order for ${record.name}?`, `You can order through the product page or message Nothing Pakistan on WhatsApp to confirm stock, price, and delivery details first.`],
+      [`How can I place an order for ${record.name}?`, `You can order through the product page or message Nothing Official Store Pakistan on WhatsApp to confirm stock, price, and delivery details first.`],
     ]
   }
 
   if (record.kind === 'charger' || record.kind === 'data_cable') {
     return [
       [`What is the price of ${record.name} in Pakistan?`, priceLine],
-      [`Is ${record.name} available on Nothing Pakistan?`, `Yes, ${record.name} is part of the Nothing Pakistan catalog for buyers who want local pricing and WhatsApp support before ordering.`],
-      [`Is ${record.name} an original product?`, `The listing is positioned around original Nothing and CMF product sourcing with direct support through Nothing Pakistan.`],
+      [`Is ${record.name} available on Nothing Official Store Pakistan?`, `Yes, ${record.name} is part of the Nothing Official Store Pakistan catalog for buyers who want local pricing and WhatsApp support before ordering.`],
+      [`Is ${record.name} an original product?`, `The listing is positioned around original Nothing and CMF product sourcing with direct support through Nothing Official Store Pakistan.`],
       [`Who should buy ${record.name}?`, `${record.name} is suitable for buyers who want a cleaner charging setup, simple product guidance, and a reliable local order route in Pakistan.`],
-      [`Can I confirm compatibility for ${record.name} before ordering?`, `Yes, you can message Nothing Pakistan on WhatsApp and confirm compatibility with your phone or accessory before checkout.`],
+      [`Can I confirm compatibility for ${record.name} before ordering?`, `Yes, you can message Nothing Official Store Pakistan on WhatsApp and confirm compatibility with your phone or accessory before checkout.`],
       [`Does ${record.name} have live images on the product page?`, `Yes, the page uses real product images so buyers can review the product before ordering.`],
       [`How do I confirm stock for ${record.name}?`, `Use the WhatsApp support route to confirm live stock and final availability before placing the order.`],
-      [`Can I order ${record.name} online in Pakistan?`, `Yes, Nothing Pakistan supports online ordering with local delivery guidance and direct product support.`],
-      [`Does Nothing Pakistan deliver ${record.name} across Pakistan?`, `Yes, the listing is structured for Pakistan-wide ordering and delivery support.`],
-      [`Why buy ${record.name} from Nothing Pakistan?`, `${record.name} is shown with updated pricing, clear naming, direct support, and a cleaner buying path for Pakistan customers.`],
+      [`Can I order ${record.name} online in Pakistan?`, `Yes, Nothing Official Store Pakistan supports online ordering with local delivery guidance and direct product support.`],
+      [`Does Nothing Official Store Pakistan deliver ${record.name} across Pakistan?`, `Yes, the listing is structured for Pakistan-wide ordering and delivery support.`],
+      [`Why buy ${record.name} from Nothing Official Store Pakistan?`, `${record.name} is shown with updated pricing, clear naming, direct support, and a cleaner buying path for Pakistan customers.`],
     ]
   }
 
   return [
     [`What is the price of ${record.name} in Pakistan?`, priceLine],
-    [`Is ${record.name} available on Nothing Pakistan?`, `Yes, ${record.name} is part of the Nothing Pakistan catalog for buyers who want local pricing and support before ordering.`],
+    [`Is ${record.name} available on Nothing Official Store Pakistan?`, `Yes, ${record.name} is part of the Nothing Official Store Pakistan catalog for buyers who want local pricing and support before ordering.`],
     [`Is ${record.name} an original product?`, `The product page is positioned for original Nothing and CMF product sourcing with local support routes.`],
     [`Who should consider buying ${record.name}?`, `${record.name} is aimed at buyers in Pakistan who want a cleaner product page, updated price context, and direct WhatsApp help before purchase.`],
-    [`Can I confirm stock for ${record.name} before ordering?`, `Yes, Nothing Pakistan supports WhatsApp confirmation for live stock and final order details.`],
+    [`Can I confirm stock for ${record.name} before ordering?`, `Yes, Nothing Official Store Pakistan supports WhatsApp confirmation for live stock and final order details.`],
     [`Does ${record.name} have real product images on the page?`, `Yes, the listing uses product images so buyers can review the item before ordering.`],
-    [`How do I place an order for ${record.name}?`, `You can use the product page or contact Nothing Pakistan on WhatsApp to confirm the latest ordering details.`],
-    [`Does Nothing Pakistan deliver ${record.name} across Pakistan?`, `Yes, the listing is structured for Pakistan orders with delivery support and local assistance.`],
+    [`How do I place an order for ${record.name}?`, `You can use the product page or contact Nothing Official Store Pakistan on WhatsApp to confirm the latest ordering details.`],
+    [`Does Nothing Official Store Pakistan deliver ${record.name} across Pakistan?`, `Yes, the listing is structured for Pakistan orders with delivery support and local assistance.`],
     [`Can I ask for the latest price of ${record.name} on WhatsApp?`, `Yes, WhatsApp is the fastest route for live stock, latest price confirmation, and order help.`],
-    [`Why is ${record.name} listed on Nothing Pakistan?`, `${record.name} is included for buyers who want a minimal, product-first shopping experience with local support and clean catalog structure.`],
+    [`Why is ${record.name} listed on Nothing Official Store Pakistan?`, `${record.name} is included for buyers who want a minimal, product-first shopping experience with local support and clean catalog structure.`],
   ]
 }
 
@@ -713,7 +713,7 @@ async function replaceImages(productId, productName, finalSlug, localFiles) {
       related_type: 'product',
       related_id: productId,
       url: publicUrl,
-      alt_text: `${productName} in Pakistan from Nothing Pakistan`,
+      alt_text: `${productName} in Pakistan from Nothing Official Store Pakistan`,
       title: productName,
       caption: `${productName} product image ${index + 1}`,
       file_name: fileName,
@@ -898,7 +898,7 @@ async function main() {
       seo_keywords: seoKeywords,
       canonical_url: canonicalUrl,
       seo_description_long: buildLongDescription(record, priceLabel),
-      image_alt_text: `${record.name} in Pakistan from Nothing Pakistan`,
+      image_alt_text: `${record.name} in Pakistan from Nothing Official Store Pakistan`,
       price: record.price,
       product_type: record.productType,
       updated_at: new Date().toISOString(),

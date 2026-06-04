@@ -1,9 +1,9 @@
 export const supportHero = {
   title: 'Support Centre',
   description:
-    'Learn more about your Nothing Pakistan products, find answers, troubleshoot problems, request help and more.',
-  imageUrl: 'https://cdn.nothingshop.pk/support-centre/support-centre-title-update-2160x1200.webp',
-  imageAlt: 'Nothing Pakistan Support Centre hero with Nothing phone and audio products',
+    'Learn more about your Nothing Official Store Pakistan products, find answers, troubleshoot problems, request help and more.',
+  imageUrl: 'https://cdn.nothingofficial.pk/support-centre/support-centre-title-update-2160x1200.webp',
+  imageAlt: 'Nothing Official Store Pakistan Support Centre hero with Nothing phone and audio products',
 }
 
 export const supportQuickLinks: Array<{ label: string; href: string; external?: boolean }> = [

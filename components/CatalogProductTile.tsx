@@ -10,7 +10,7 @@ type CatalogProductTileProps = {
 
 export function CatalogProductTile({ product, priority = false, tone = 'default' }: CatalogProductTileProps) {
   const isShopAll = tone === 'shop-all'
-  const imageAlt = `${product.name} original product price in Pakistan from Nothing Pakistan`
+  const imageAlt = `${product.name} original product price in Pakistan from Nothing Official Store Pakistan`
 
   return (
     <Link href={product.href} prefetch={false} className="group block">

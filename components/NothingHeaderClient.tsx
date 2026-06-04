@@ -37,9 +37,9 @@ export function NothingHeaderClient({ menuItems }: NothingHeaderClientProps) {
   return (
     <>
       <header className="fixed inset-x-0 top-0 z-50 flex justify-center px-3 pt-4 md:px-6 md:pt-5">
-        <div className="w-full max-w-[500px] lg:max-w-[470px]">
+        <div className="w-full max-w-[500px] lg:max-w-[480px]">
           <div
-            className={`grid h-12 grid-cols-[44px_minmax(0,1fr)_44px] items-center rounded-[10px] border border-black/8 bg-white/[0.97] px-2 text-[#111] shadow-[0_16px_40px_rgba(17,17,17,0.12)] transition-opacity duration-200 md:h-11 md:grid-cols-[40px_minmax(0,1fr)_40px] md:px-3 ${
+            className={`grid h-12 grid-cols-[44px_minmax(0,1fr)_44px] items-center rounded-[10px] border border-black/8 bg-white/[0.97] px-2 text-[#111] shadow-[0_16px_40px_rgba(17,17,17,0.12)] transition-opacity duration-200 md:grid-cols-[44px_minmax(0,1fr)_44px] md:px-3 ${
               isDrawerOpen ? 'pointer-events-none opacity-0' : 'opacity-100'
             }`}
           >
@@ -47,7 +47,7 @@ export function NothingHeaderClient({ menuItems }: NothingHeaderClientProps) {
               type="button"
               aria-expanded={isDrawerOpen}
               aria-label={isDrawerOpen ? 'Close menu' : 'Open menu'}
-              className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-[8px] transition-opacity hover:opacity-65 md:h-8 md:w-8"
+              className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-[8px] transition-opacity hover:opacity-65"
               onClick={() => setIsDrawerOpen((current) => !current)}
             >
               {isDrawerOpen ? (
@@ -55,14 +55,14 @@ export function NothingHeaderClient({ menuItems }: NothingHeaderClientProps) {
                   src={cancelIcon}
                   alt=""
                   aria-hidden="true"
-                  className="h-[18px] w-[18px] object-contain opacity-70 md:h-[18px] md:w-[18px]"
+                  className="h-[18px] w-[18px] object-contain opacity-70"
                 />
               ) : (
                 <Image
                   src={menuIcon}
                   alt=""
                   aria-hidden="true"
-                  className="h-[18px] w-[18px] object-contain opacity-70 md:h-[18px] md:w-[18px]"
+                  className="h-[18px] w-[18px] object-contain opacity-70"
                 />
               )}
             </button>
@@ -72,20 +72,20 @@ export function NothingHeaderClient({ menuItems }: NothingHeaderClientProps) {
                 src={nothingLogo}
                 alt="Nothing"
                 priority
-                className="h-auto w-[100px] max-w-none object-contain opacity-90 md:w-[100px]"
+                className="h-auto w-[100px] max-w-none object-contain opacity-90"
               />
             </Link>
 
             <Link
               href="/cart"
-              className="relative inline-flex h-11 w-11 shrink-0 items-center justify-center justify-self-end rounded-[8px] transition-opacity hover:opacity-65 md:h-8 md:w-8"
+              className="relative inline-flex h-11 w-11 shrink-0 items-center justify-center justify-self-end rounded-[8px] transition-opacity hover:opacity-65"
               aria-label={itemCount > 0 ? `Open cart with ${itemCount} items` : 'Open cart'}
             >
               <Image
                 src={cartIcon}
                 alt=""
                 aria-hidden="true"
-                className="h-[19px] w-[19px] object-contain opacity-70 md:h-[19px] md:w-[19px]"
+                className="h-[19px] w-[19px] object-contain opacity-70"
               />
               {itemCount > 0 ? (
                 <span className="absolute -right-1 -top-1 inline-flex h-4 min-w-4 items-center justify-center rounded-full bg-black px-1 text-[9px] text-white">

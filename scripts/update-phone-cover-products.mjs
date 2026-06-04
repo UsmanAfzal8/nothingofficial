@@ -4,7 +4,7 @@ import { existsSync, readFileSync } from 'node:fs'
 import path from 'node:path'
 
 const ROOT = process.cwd()
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.nothingshop.pk'
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.nothingofficial.pk'
 const CATEGORY_SLUGS = ['accessories', 'phone-cases', 'featured-covers']
 
 const COVER_PRODUCTS = [
@@ -110,7 +110,7 @@ function buildKeywords(productName, mobileName) {
     `${productName} price in Pakistan`,
     `${productName} Pakistan`,
     `buy ${productName} in Pakistan`,
-    `${productName} Nothing Pakistan`,
+    `${productName} Nothing Official Store Pakistan`,
     `${productName} original Pakistan`,
     `${productName} online Pakistan`,
     `${mobileName} cover Pakistan`,
@@ -119,18 +119,18 @@ function buildKeywords(productName, mobileName) {
     'Nothing phone cover Pakistan',
     'Nothing phone case Pakistan',
     'Nothing accessories Pakistan',
-    'Nothing Pakistan accessories',
+    'Nothing Official Store Pakistan accessories',
     'original Nothing cover Pakistan',
     'phone cover with COD Pakistan',
   ].join(', ')
 }
 
 function buildDescription(productName, mobileName, priceLabel) {
-  return `${productName} is a model-matched phone cover for ${mobileName}, made for everyday grip, back protection, and a clean fit without hiding the Nothing design language. Price: ${priceLabel}.\n\nThis cover is linked with ${mobileName} so Nothing Pakistan buyers can find the right accessory from the matching phone page and confirm stock, delivery, and order details before checkout.`
+  return `${productName} is a model-matched phone cover for ${mobileName}, made for everyday grip, back protection, and a clean fit without hiding the Nothing design language. Price: ${priceLabel}.\n\nThis cover is linked with ${mobileName} so Nothing Official Store Pakistan buyers can find the right accessory from the matching phone page and confirm stock, delivery, and order details before checkout.`
 }
 
 function buildSeoLong(productName, mobileName, priceLabel) {
-  return `${productName} is listed on Nothing Pakistan for buyers who want a clean, compatible phone cover for ${mobileName}. It is positioned for customers in Pakistan who care about model-specific fit, daily back protection, clear local pricing, and a simple order route. The current listed price is ${priceLabel}, while live availability can still be confirmed through WhatsApp before payment or dispatch.\n\nThis page is optimized for high-intent searches such as ${productName} price in Pakistan, ${mobileName} cover Pakistan, Nothing phone case Pakistan, and buy original Nothing cover online. The content focuses on compatibility, practical use, delivery support, and local ordering confidence instead of generic accessory copy.\n\nFor buyers comparing cases, the important details are fit, camera cutout alignment, button access, grip, and whether the cover pairs cleanly with a screen protector. This product page connects the cover with ${mobileName} through the catalog so customers can move between the phone and the matching accessory without guessing.\n\nNothing Pakistan supports customers with product images, visible pricing, FAQs, checkout, and WhatsApp confirmation. This helps shoppers in Lahore, Karachi, Islamabad, Rawalpindi, Faisalabad, Multan, Peshawar, and other cities confirm the right cover before ordering.\n\nOverall, ${productName} should feel like a practical accessory page for ${mobileName} owners who want original-style presentation, clear compatibility, local support, and a smooth buying experience from Nothing Pakistan.`
+  return `${productName} is listed on Nothing Official Store Pakistan for buyers who want a clean, compatible phone cover for ${mobileName}. It is positioned for customers in Pakistan who care about model-specific fit, daily back protection, clear local pricing, and a simple order route. The current listed price is ${priceLabel}, while live availability can still be confirmed through WhatsApp before payment or dispatch.\n\nThis page is optimized for high-intent searches such as ${productName} price in Pakistan, ${mobileName} cover Pakistan, Nothing phone case Pakistan, and buy original Nothing cover online. The content focuses on compatibility, practical use, delivery support, and local ordering confidence instead of generic accessory copy.\n\nFor buyers comparing cases, the important details are fit, camera cutout alignment, button access, grip, and whether the cover pairs cleanly with a screen protector. This product page connects the cover with ${mobileName} through the catalog so customers can move between the phone and the matching accessory without guessing.\n\nNothing Official Store Pakistan supports customers with product images, visible pricing, FAQs, checkout, and WhatsApp confirmation. This helps shoppers in Lahore, Karachi, Islamabad, Rawalpindi, Faisalabad, Multan, Peshawar, and other cities confirm the right cover before ordering.\n\nOverall, ${productName} should feel like a practical accessory page for ${mobileName} owners who want original-style presentation, clear compatibility, local support, and a smooth buying experience from Nothing Official Store Pakistan.`
 }
 
 function buildProductSchema({ productName, slug, mobileName, mobileSlug, price, imageUrl }) {
@@ -174,8 +174,8 @@ function buildFaqs(productName, mobileName, priceLabel) {
       answer: `${productName} is made for ${mobileName}. The product is linked with the matching phone page so buyers can avoid confusion around compatibility.`,
     },
     {
-      question: `Is ${productName} available from Nothing Pakistan?`,
-      answer: `Yes, ${productName} is listed on Nothing Pakistan with local product information, pricing, and order support for Pakistan customers.`,
+      question: `Is ${productName} available from Nothing Official Store Pakistan?`,
+      answer: `Yes, ${productName} is listed on Nothing Official Store Pakistan with local product information, pricing, and order support for Pakistan customers.`,
     },
     {
       question: `Does ${productName} protect the back of ${mobileName}?`,
@@ -187,7 +187,7 @@ function buildFaqs(productName, mobileName, priceLabel) {
     },
     {
       question: `Can I use a screen protector with ${productName}?`,
-      answer: `Most buyers pair a cover with a screen protector for fuller daily protection. You can confirm the best matching protector for ${mobileName} with Nothing Pakistan support.`,
+      answer: `Most buyers pair a cover with a screen protector for fuller daily protection. You can confirm the best matching protector for ${mobileName} with Nothing Official Store Pakistan support.`,
     },
     {
       question: `Is ${productName} good for daily use?`,
@@ -195,11 +195,11 @@ function buildFaqs(productName, mobileName, priceLabel) {
     },
     {
       question: `How do I order ${productName}?`,
-      answer: `You can order ${productName} through the product page or contact Nothing Pakistan on WhatsApp to confirm stock, delivery timing, and payment details first.`,
+      answer: `You can order ${productName} through the product page or contact Nothing Official Store Pakistan on WhatsApp to confirm stock, delivery timing, and payment details first.`,
     },
     {
-      question: `Does Nothing Pakistan deliver ${productName} outside Lahore?`,
-      answer: `Yes, Nothing Pakistan supports delivery across Pakistan. Delivery timing and charges can be confirmed during checkout or through WhatsApp support.`,
+      question: `Does Nothing Official Store Pakistan deliver ${productName} outside Lahore?`,
+      answer: `Yes, Nothing Official Store Pakistan supports delivery across Pakistan. Delivery timing and charges can be confirmed during checkout or through WhatsApp support.`,
     },
     {
       question: `Why should I choose the exact ${mobileName} cover instead of a generic case?`,
@@ -338,7 +338,7 @@ async function main() {
       slug: item.slug,
       description,
       short_description: shortDescription,
-      meta_title: `${item.name} Price in Pakistan | Nothing Pakistan`,
+      meta_title: `${item.name} Price in Pakistan | Nothing Official Store Pakistan`,
       meta_description: `Buy ${item.name} in Pakistan for ${mobile.name}. Original-style phone cover with clean fit, local price ${priceLabel}, delivery, and WhatsApp support.`,
       seo_keywords: buildKeywords(item.name, mobile.name),
       canonical_url: `${SITE_URL}/products/${item.slug}`,
@@ -351,7 +351,7 @@ async function main() {
         imageUrl: productImageUrl,
       }),
       seo_description_long: buildSeoLong(item.name, mobile.name, priceLabel),
-      image_alt_text: `${item.name} original phone cover for ${mobile.name} in Pakistan from Nothing Pakistan`,
+      image_alt_text: `${item.name} original phone cover for ${mobile.name} in Pakistan from Nothing Official Store Pakistan`,
       price,
       stock_quantity: Number(existingProduct?.stock_quantity ?? 10),
       product_type: 'covers',

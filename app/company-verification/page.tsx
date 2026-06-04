@@ -11,6 +11,7 @@ import {
   companyCertificateUrl,
   companyCuin,
   companyIdentifier,
+  companyOfficialDomains,
   companyLegalName,
   companyRegisteredAuthority,
   companyVerificationFaqs,
@@ -19,7 +20,7 @@ import {
 import { siteContactDisplayPhone } from '@/lib/data/site-content'
 import { buildAbsoluteUrl, buildBreadcrumbStructuredData, buildFaqStructuredData, buildRobotsMetadata } from '@/lib/utils/seo'
 
-const pageTitle = 'Company Verification | Nothing Pakistan SECP Registered'
+const pageTitle = 'Company Verification | Nothing Official Store Pakistan SECP Registered'
 const pageDescription =
   'Verify NOTHING OFFICIAL (SMC-PRIVATE) LIMITED, an SECP registered company in Pakistan with CUIN 0337422. View certificate and company details.'
 
@@ -41,7 +42,7 @@ export const metadata: Metadata = {
         url: buildAbsoluteUrl('/social/nothing-pakistan-og.jpg'),
         width: 1200,
         height: 630,
-        alt: 'Nothing Pakistan company verification',
+        alt: 'Nothing Official Store Pakistan company verification',
       },
     ],
   },
@@ -67,7 +68,7 @@ export default function CompanyVerificationPage() {
       '@context': 'https://schema.org',
       '@type': 'WebPage',
       '@id': buildAbsoluteUrl('/company-verification#webpage'),
-      name: 'Company Verification | Nothing Pakistan',
+      name: 'Company Verification | Nothing Official Store Pakistan',
       url: buildAbsoluteUrl('/company-verification'),
       description: pageDescription,
       about: {
@@ -90,9 +91,9 @@ export default function CompanyVerificationPage() {
         <section className="support-hero company-verification-hero">
           <div className="support-hero-copy">
             <p className="company-verification-kicker">Company Verification</p>
-            <h1>Nothing Pakistan is a registered Pakistani company.</h1>
+            <h1>Nothing Official Store Pakistan is a registered Pakistani company.</h1>
             <p>
-              Nothing Pakistan is operated by {companyLegalName}. The company is registered with the {companyRegisteredAuthority} under CUIN {companyCuin}.
+              Nothing Official Store Pakistan is operated by {companyLegalName}. The company is registered with the {companyRegisteredAuthority} under CUIN {companyCuin}.
             </p>
           </div>
         </section>
@@ -106,7 +107,7 @@ export default function CompanyVerificationPage() {
                   {companyBusinessInfoRows.map((row) => (
                     <tr key={row.label}>
                       <th>{row.label}</th>
-                      <td>{row.value}</td>
+                      <td className="whitespace-pre-line">{row.value}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -140,7 +141,7 @@ export default function CompanyVerificationPage() {
             <h2 id="company-meaning-title">What this means for customers</h2>
             <div className="company-verification-copy">
               <p>
-                When you shop from Nothing Pakistan, you are dealing with a named Pakistani company, not an anonymous page. The registered company name, CUIN, contact details, and certificate are published openly for transparency.
+                When you shop from Nothing Official Store Pakistan, you are dealing with a named Pakistani company, not an anonymous page. The registered company name, CUIN, contact details, and certificate are published openly for transparency.
               </p>
               <p>
                 Company registration verifies the Pakistani business identity. Product availability, pricing, delivery, returns, and support are still handled through the product pages, checkout, WhatsApp, and policy pages.
@@ -162,6 +163,10 @@ export default function CompanyVerificationPage() {
               <div>
                 <dt>Website</dt>
                 <dd>{companyWebsite}</dd>
+              </div>
+              <div>
+                <dt>Official Domains</dt>
+                <dd className="whitespace-pre-line">{companyOfficialDomains.join('\n')}</dd>
               </div>
               <div>
                 <dt>Support Phone</dt>

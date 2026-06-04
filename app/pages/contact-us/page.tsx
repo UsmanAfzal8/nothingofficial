@@ -14,7 +14,7 @@ import {
 } from '@/lib/data/site-content'
 import { buildAbsoluteUrl, buildBreadcrumbStructuredData, buildSeoKeywords } from '@/lib/utils/seo'
 
-const lahoreStoreName = 'Nothing Pakistan'
+const lahoreStoreName = 'Nothing Official Store Pakistan'
 const lahoreStoreMapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(siteContactAddress)}`
 const lahoreStoreEmbedUrl = `https://www.google.com/maps?q=${encodeURIComponent(siteContactAddress)}&z=16&output=embed`
 
@@ -23,15 +23,15 @@ export const metadata: Metadata = {
     absolute: `Contact ${siteBrandName} | Support, Orders and Policy Help`,
   },
   description:
-    'Find the main support, order, and policy routes for Nothing Pakistan so customers and search engines can clearly discover help and business information.',
-  keywords: buildSeoKeywords(siteKeywords, ['Contact Nothing Pakistan', 'Nothing Pakistan support', 'Nothing Pakistan order help']),
+    'Find the main support, order, and policy routes for Nothing Official Store Pakistan so customers and search engines can clearly discover help and business information.',
+  keywords: buildSeoKeywords(siteKeywords, ['Contact Nothing Official Store Pakistan', 'Nothing Official Store Pakistan support', 'Nothing Official Store Pakistan order help']),
   alternates: {
     canonical: buildAbsoluteUrl('/pages/contact-us'),
   },
   openGraph: {
     title: `Contact ${siteBrandName} | Support, Orders and Policy Help`,
     description:
-      'Find the main support, order, and policy routes for Nothing Pakistan so customers and search engines can clearly discover help and business information.',
+      'Find the main support, order, and policy routes for Nothing Official Store Pakistan so customers and search engines can clearly discover help and business information.',
     url: buildAbsoluteUrl('/pages/contact-us'),
     type: 'website',
   },
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     card: 'summary',
     title: `Contact ${siteBrandName} | Support, Orders and Policy Help`,
     description:
-      'Find the main support, order, and policy routes for Nothing Pakistan so customers and search engines can clearly discover help and business information.',
+      'Find the main support, order, and policy routes for Nothing Official Store Pakistan so customers and search engines can clearly discover help and business information.',
   },
 }
 
@@ -158,7 +158,7 @@ export default function ContactUsPage() {
                         <p className="text-[10px] uppercase tracking-[0.24em] text-black/42">Location on map</p>
                       </div>
                       <iframe
-                        title="Nothing Pakistan Lahore store map"
+                        title="Nothing Official Store Pakistan Lahore store map"
                         src={lahoreStoreEmbedUrl}
                         loading="lazy"
                         referrerPolicy="no-referrer-when-downgrade"

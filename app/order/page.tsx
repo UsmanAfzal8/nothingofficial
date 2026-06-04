@@ -25,7 +25,7 @@ function normalizeHandle(value: string | string[] | undefined): string | null {
 
 export const metadata: Metadata = {
   title: {
-    absolute: 'Place Order | Nothing Pakistan',
+    absolute: 'Place Order | Nothing Official Store Pakistan',
   },
   description: 'Order screen for customer details and live catalog orders.',
   alternates: {
@@ -45,7 +45,7 @@ export default async function OrderPage({ searchParams }: OrderPageProps) {
   }
 
   return (
-    <div className="min-h-screen overflow-x-hidden bg-[#f5f7fb] text-slate-900">
+    <div className="min-h-screen overflow-x-hidden bg-[#f4f4f0] text-slate-900">
       <NothingHeader />
 
       <main className="pt-20 lg:pt-24">
