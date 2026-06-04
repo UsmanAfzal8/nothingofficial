@@ -153,6 +153,42 @@ function buildProductSeoDescription(productDetail: ProductDetail) {
   )
 }
 
+function isCloudinaryRawHtmlUrl(value: string | null | undefined): value is string {
+  if (!value) return false
+
+  try {
+    const url = new URL(value)
+    return url.hostname === 'res.cloudinary.com' && url.pathname.includes('/raw/upload/') && /\.html(?:$|[?#])/i.test(url.href)
+  } catch {
+    return false
+  }
+}
+
+async function resolveMigratedHtmlCopy(value: string | null | undefined) {
+  if (!isCloudinaryRawHtmlUrl(value)) {
+    return value ?? null
+  }
+
+  try {
+    const response = await fetch(value, {
+      next: { revalidate: CATALOG_REVALIDATE_SECONDS },
+    })
+
+    if (!response.ok) {
+      return null
+    }
+
+    const contentType = response.headers.get('content-type') ?? ''
+    if (contentType && !contentType.includes('text/html') && !contentType.includes('text/plain')) {
+      return null
+    }
+
+    return await response.text()
+  } catch {
+    return null
+  }
+}
+
 function buildProductStructuredData(productDetail: ProductDetail, relatedProducts: Product[] = []) {
   const images = uniqueStrings(productDetail.gallery.map((item) => item.url))
   const faqStructuredData = buildFaqStructuredData(
@@ -773,9 +809,11 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
   }
 
   const gallery = buildDisplayGallery(productDetail)
-  const detailParagraphs = uniqueStrings([productDetail.summary, productDetail.description]).filter(
+  const resolvedSummary = await resolveMigratedHtmlCopy(productDetail.summary)
+  const detailParagraphs = uniqueStrings([resolvedSummary, productDetail.description]).filter(
     (paragraph) => !isHtmlSnippet(paragraph),
   )
+  const intro = resolvedSummary ?? detailParagraphs[0] ?? null
   const breadcrumbItems = buildProductBreadcrumbs(productDetail)
   const collectionLabel = productDetail.collections[0]?.title ?? (productDetail.entityType === 'mobile' ? 'Phones' : 'Catalog')
   const deliveryTimeline = getProductDeliveryTimeline()
@@ -821,7 +859,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
           <PhoneAccessoriesHero
             productDetail={productDetail}
             gallery={gallery}
-            intro={productDetail.summary ?? detailParagraphs[0] ?? null}
+            intro={intro}
             deliveryTimeline={deliveryTimeline}
             specGroups={specGroups}
             featureSections={productFeatureSections}
@@ -917,7 +955,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
           canonicalHandle={canonicalHandle}
           collectionLabel={collectionLabel}
           gallery={gallery}
-          intro={productDetail.summary ?? detailParagraphs[0] ?? null}
+          intro={intro}
           deliveryTimeline={deliveryTimeline}
           specGroups={specGroups}
           featureSections={productFeatureSections}

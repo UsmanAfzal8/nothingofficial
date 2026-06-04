@@ -8,7 +8,14 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "migrate:preflight": "node scripts/migrate-supabase-to-cloudinary.mjs --preflight",
+    "migrate:dry-run": "node scripts/migrate-supabase-to-cloudinary.mjs --dry-run --prune-orphans --drop-skipped-media",
+    "migrate:replace:safe": "node scripts/migrate-supabase-to-cloudinary.mjs --replace --confirm-replace --prune-orphans --drop-skipped-media",
+    "migrate:replace:planned": "node scripts/migrate-supabase-to-cloudinary.mjs --replace --confirm-replace --prune-orphans --drop-skipped-media --use-planned-cloudinary-urls",
+    "migrate:summary": "node scripts/migrate-supabase-to-cloudinary.mjs --summary",
+    "migrate:summary:dry-run": "node scripts/migrate-supabase-to-cloudinary.mjs --summary-dry-run",
+    "migrate:summary:preflight": "node scripts/migrate-supabase-to-cloudinary.mjs --summary-preflight"
   },
   "dependencies": {
     "@supabase/auth-helpers-nextjs": "^0.10.0",
@@ -18,7 +25,8 @@
     "hls.js": "^1.6.16",
     "next": "^14.0.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "sharp": "^0.34.5"
   },
   "devDependencies": {
     "@types/node": "^20.0.0",

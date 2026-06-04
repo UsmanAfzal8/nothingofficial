@@ -11,3 +11,5 @@ node_modules
 dist
 build
 coverage
+migration-reports/
+supabase/.temp/

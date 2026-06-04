@@ -33,3 +33,5 @@ SQL files in this folder:
 - `products.sql` creates the `public.products` table.
 - `reviews.sql` creates the `public.reviews` table.
 - `users.sql` creates the `public.users` table.
+- `migration-sequence-reset.sql` creates the narrow RPC helper used by `scripts/migrate-supabase-to-cloudinary.mjs` to reset serial sequences after preserving numeric IDs during replacement.
+- `migrations/20260603225600_nothing_official_migration_sequence_reset.sql` provides the same helper in Supabase CLI migration format.
