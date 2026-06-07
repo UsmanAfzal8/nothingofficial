@@ -63,69 +63,69 @@ const guideCards: SupportGuideCard[] = [
     title: 'Phone (3a) Pro',
     category: 'Phones',
     description: 'Setup, Nothing OS updates, camera, charging, accessories, and Pakistan order support.',
-    href: '/products/phone-3a-pro',
-    imageUrl: 'https://cdn.nothingofficial.pk/mobiles/phone-3a-pro-grey.webp',
-    imageAlt: 'Phone 3a Pro support guide for Nothing Official Store Pakistan',
+    href: '/products/nothing-pakistan-phone-3a-pro',
+    imageUrl: 'https://cdn.cmfbynothing.pk/mobiles/phone-3a-pro-grey.webp',
+    imageAlt: 'Phone 3a Pro support guide for Nothing Pakistan',
   },
   {
     title: 'Phone (3a)',
     category: 'Phones',
     description: 'Quick help for first setup, display, battery, SIM, software, and compatible accessories.',
-    href: '/products/phone-3a',
-    imageUrl: 'https://cdn.nothingofficial.pk/mobiles/phone-3a-white.webp',
-    imageAlt: 'Phone 3a support guide for Nothing Official Store Pakistan',
+    href: '/products/nothing-pakistan-phone-3a',
+    imageUrl: 'https://cdn.cmfbynothing.pk/mobiles/phone-3a-white.webp',
+    imageAlt: 'Phone 3a support guide for Nothing Pakistan',
   },
   {
     title: 'Phone (3a) Lite',
     category: 'Phones',
     description: 'Everyday guidance for Nothing OS, data transfer, updates, camera, and local support.',
-    href: '/products/phone-3a-lite',
-    imageUrl: 'https://cdn.nothingofficial.pk/mobiles/phone-3a-lite-white.webp',
-    imageAlt: 'Phone 3a Lite support guide for Nothing Official Store Pakistan',
+    href: '/products/nothing-pakistan-phone-3a-lite',
+    imageUrl: 'https://cdn.cmfbynothing.pk/mobiles/phone-3a-lite-white.webp',
+    imageAlt: 'Phone 3a Lite support guide for Nothing Pakistan',
   },
   {
     title: 'Phone (3)',
     category: 'Phones',
     description: 'Product help for setup, charging, Nothing OS, accessories, and troubleshooting.',
-    href: '/products/phone-3',
-    imageUrl: 'https://cdn.nothingofficial.pk/mobiles/phone-3-white.webp',
-    imageAlt: 'Phone 3 support guide for Nothing Official Store Pakistan',
+    href: '/products/nothing-pakistan-phone-3',
+    imageUrl: 'https://cdn.cmfbynothing.pk/mobiles/phone-3-white.webp',
+    imageAlt: 'Phone 3 support guide for Nothing Pakistan',
   },
   {
     title: 'Phone (2)',
     category: 'Phones',
     description: 'Find help for software updates, Bluetooth, battery, display, and device care.',
-    href: '/products/phone-2',
-    imageUrl: 'https://cdn.nothingofficial.pk/mobiles/phone-2-white.webp',
-    imageAlt: 'Phone 2 support guide for Nothing Official Store Pakistan',
+    href: '/products/nothing-pakistan-phone-2',
+    imageUrl: 'https://cdn.cmfbynothing.pk/mobiles/phone-2-white.webp',
+    imageAlt: 'Phone 2 support guide for Nothing Pakistan',
   },
   {
     title: 'Phone (1)',
     category: 'Phones',
     description: 'Setup, repair guidance, accessory compatibility, updates, and common questions.',
-    href: '/products/phone-1',
-    imageUrl: 'https://cdn.nothingofficial.pk/mobiles/phone-1-white.webp',
-    imageAlt: 'Phone 1 support guide for Nothing Official Store Pakistan',
+    href: '/products/nothing-pakistan-phone-1',
+    imageUrl: 'https://cdn.cmfbynothing.pk/mobiles/phone-1-white.webp',
+    imageAlt: 'Phone 1 support guide for Nothing Pakistan',
   },
   {
     title: 'CMF Phone 2 Pro',
     category: 'Phones',
     description: 'Get support for CMF setup, accessories, display, battery, and update checks.',
-    href: '/products/cmf-phone-2-pro',
-    imageUrl: 'https://cdn.nothingofficial.pk/mobiles/cmf-phone-2-pro-orange.webp',
-    imageAlt: 'CMF Phone 2 Pro support guide for Nothing Official Store Pakistan',
+    href: '/products/nothing-pakistan-cmf-phone-2-pro',
+    imageUrl: 'https://cdn.cmfbynothing.pk/mobiles/cmf-phone-2-pro-orange.webp',
+    imageAlt: 'CMF Phone 2 Pro support guide for Nothing Pakistan',
   },
   {
     title: 'CMF Buds 2 Plus',
     category: 'Audio',
     description: 'Pairing, app controls, ANC, call quality, charging case, and reset support.',
-    href: '/products/cmf-buds-2-plus',
+    href: '/products/nothing-pakistan-cmf-buds-2-plus',
   },
   {
     title: 'CMF Watch 3 Pro',
     category: 'Watches',
     description: 'Watch setup, app pairing, health data sync, notifications, and charging help.',
-    href: '/products/cmf-watch-3-pro',
+    href: '/products/nothing-pakistan-cmf-watch-3-pro',
   },
 ]
 
@@ -134,11 +134,11 @@ export const supportPages: SupportPageData[] = [
     slug: 'product-guide',
     title: 'Product Guide',
     eyebrow: 'NOTHING (R) Support Centre',
-    description: 'Tips, quick-start help, product pages, and setup guidance for Nothing Official Store Pakistan customers.',
-    metaTitle: 'Product Guide | Nothing Official Store Pakistan Support Centre',
+    description: 'Tips, quick-start help, product pages, and setup guidance for Nothing Pakistan customers.',
+    metaTitle: 'Product Guide | Nothing Pakistan Support Centre',
     metaDescription:
-      'Browse Nothing Official Store Pakistan product guides for phones, audio, watches, accessories, setup, updates, and product help.',
-    keywords: ['Nothing Official Store Pakistan product guide', 'Nothing phone guide Pakistan', 'Nothing support Pakistan'],
+      'Browse Nothing Pakistan product guides for phones, audio, watches, accessories, setup, updates, and product help.',
+    keywords: ['Nothing Pakistan product guide', 'Nothing phone guide Pakistan', 'Nothing support Pakistan'],
     kind: 'cards',
     sections: [
       {
@@ -153,9 +153,9 @@ export const supportPages: SupportPageData[] = [
     title: 'Troubleshooting',
     eyebrow: 'NOTHING (R) Support Centre',
     description: 'Step-by-step help for common phone, audio, watch, ordering, and accessory issues in Pakistan.',
-    metaTitle: 'Troubleshooting | Nothing Official Store Pakistan Support Centre',
+    metaTitle: 'Troubleshooting | Nothing Pakistan Support Centre',
     metaDescription:
-      'Troubleshoot Nothing phones, CMF audio, watches, charging, Bluetooth, orders, delivery, and accessories with Nothing Official Store Pakistan.',
+      'Troubleshoot Nothing phones, CMF audio, watches, charging, Bluetooth, orders, delivery, and accessories with Nothing Pakistan.',
     keywords: ['Nothing troubleshooting Pakistan', 'Nothing phone issue Pakistan', 'CMF troubleshooting Pakistan'],
     kind: 'rows',
     sections: [
@@ -167,7 +167,7 @@ export const supportPages: SupportPageData[] = [
             description:
               'Use the original or compatible PD charger and cable, clean the port gently, restart the phone, and check battery settings. Share your model on WhatsApp if the issue continues.',
             actionLabel: 'Get WhatsApp Help',
-            whatsappMessage: 'Hi Nothing Official Store Pakistan, I need help because my Nothing phone is not charging properly.',
+            whatsappMessage: 'Hi Nothing Pakistan, I need help because my Nothing phone is not charging properly.',
           },
           {
             title: 'Phone OS update is not showing',
@@ -214,14 +214,14 @@ export const supportPages: SupportPageData[] = [
             description:
               'Check the exact phone model before installing a case, UV glass, jelly sheet, or privacy glass. Send us your product photo on WhatsApp for confirmation.',
             actionLabel: 'Check Compatibility',
-            whatsappMessage: 'Hi Nothing Official Store Pakistan, please confirm accessory compatibility for my Nothing product.',
+            whatsappMessage: 'Hi Nothing Pakistan, please confirm accessory compatibility for my Nothing product.',
           },
           {
             title: 'Order, delivery, or replacement support',
             description:
               'Share your name, city, product, and order details on WhatsApp so our team can check the case quickly.',
             actionLabel: 'Message Support',
-            whatsappMessage: 'Hi Nothing Official Store Pakistan, I need support for my order or replacement request.',
+            whatsappMessage: 'Hi Nothing Pakistan, I need support for my order or replacement request.',
           },
         ],
       },
@@ -231,22 +231,22 @@ export const supportPages: SupportPageData[] = [
     slug: 'faqs',
     title: 'FAQ General',
     eyebrow: 'NOTHING (R) Support Centre',
-    description: 'Answers to the most common Nothing Official Store Pakistan questions about products, orders, warranty, delivery, and support.',
-    metaTitle: 'FAQs | Nothing Official Store Pakistan Support Centre',
+    description: 'Answers to the most common Nothing Pakistan questions about products, orders, warranty, delivery, and support.',
+    metaTitle: 'FAQs | Nothing Pakistan Support Centre',
     metaDescription:
-      'Read Nothing Official Store Pakistan FAQs for product authenticity, order support, delivery, warranty, returns, updates, and WhatsApp help.',
-    keywords: ['Nothing Official Store Pakistan FAQ', 'Nothing Official Store Pakistan warranty', 'Nothing Official Store Pakistan delivery'],
+      'Read Nothing Pakistan FAQs for product authenticity, order support, delivery, warranty, returns, updates, and WhatsApp help.',
+    keywords: ['Nothing Pakistan FAQ', 'Nothing Pakistan warranty', 'Nothing Pakistan delivery'],
     kind: 'faqs',
     faqs: [
       {
-        question: 'How can I contact Nothing Official Store Pakistan support?',
+        question: 'How can I contact Nothing Pakistan support?',
         answer:
           'Use the WhatsApp contact button on this support centre. Share your product name, order details, city, and a clear description of the issue.',
       },
       {
-        question: 'Are products listed on Nothing Official Store Pakistan original?',
+        question: 'Are products listed on Nothing Pakistan original?',
         answer:
-          'Nothing Official Store Pakistan focuses on original Nothing and CMF products with local product pages, company verification, and direct WhatsApp support before and after purchase.',
+          'Nothing Pakistan focuses on original Nothing and CMF products with local product pages, company verification, and direct WhatsApp support before and after purchase.',
       },
       {
         question: 'How do I check product availability?',
@@ -286,10 +286,10 @@ export const supportPages: SupportPageData[] = [
     eyebrow: 'NOTHING (R) Support Centre',
     description:
       'Get ongoing support after your purchase. Request help, replacements, compatibility checks, and service guidance through WhatsApp.',
-    metaTitle: 'After-Sales Service | Nothing Official Store Pakistan Support Centre',
+    metaTitle: 'After-Sales Service | Nothing Pakistan Support Centre',
     metaDescription:
-      'Request Nothing Official Store Pakistan after-sales service, replacement guidance, accessory compatibility checks, and product support through WhatsApp.',
-    keywords: ['Nothing Official Store Pakistan after sales', 'Nothing Official Store Pakistan replacement', 'Nothing Official Store Pakistan service'],
+      'Request Nothing Pakistan after-sales service, replacement guidance, accessory compatibility checks, and product support through WhatsApp.',
+    keywords: ['Nothing Pakistan after sales', 'Nothing Pakistan replacement', 'Nothing Pakistan service'],
     kind: 'rows',
     sections: [
       {
@@ -300,14 +300,14 @@ export const supportPages: SupportPageData[] = [
             description:
               'For product issues, order support, replacements, accessory fit checks, or service guidance, message our team on WhatsApp.',
             actionLabel: 'Submit Request',
-            whatsappMessage: 'Hi Nothing Official Store Pakistan, I want to submit an after-sales support request.',
+            whatsappMessage: 'Hi Nothing Pakistan, I want to submit an after-sales support request.',
           },
           {
             title: 'Track request status',
             description:
               'Already contacted us? Send your name, city, product, and previous chat details so we can check your request status.',
             actionLabel: 'Track Now',
-            whatsappMessage: 'Hi Nothing Official Store Pakistan, please help me track my after-sales support request.',
+            whatsappMessage: 'Hi Nothing Pakistan, please help me track my after-sales support request.',
           },
         ],
       },
@@ -337,9 +337,9 @@ export const supportPages: SupportPageData[] = [
     title: 'Software Download',
     eyebrow: 'NOTHING (R) Support Centre',
     description: 'Get the latest official Nothing and CMF apps for phones, earbuds, and watches.',
-    metaTitle: 'Software Download | Nothing Official Store Pakistan Support Centre',
+    metaTitle: 'Software Download | Nothing Pakistan Support Centre',
     metaDescription:
-      'Download Nothing X and CMF Watch apps for iOS and Android, with WhatsApp support from Nothing Official Store Pakistan.',
+      'Download Nothing X and CMF Watch apps for iOS and Android, with WhatsApp support from Nothing Pakistan.',
     keywords: ['Nothing X app Pakistan', 'CMF Watch app Pakistan', 'Nothing software download'],
     kind: 'downloads',
     downloads: [
@@ -369,7 +369,7 @@ export const supportPages: SupportPageData[] = [
             description:
               'If your app, update, or firmware pairing is not working, send your device model and screenshot on WhatsApp.',
             actionLabel: 'Message Support',
-            whatsappMessage: 'Hi Nothing Official Store Pakistan, I need help with Nothing or CMF software.',
+            whatsappMessage: 'Hi Nothing Pakistan, I need help with Nothing or CMF software.',
           },
         ],
       },
@@ -379,10 +379,10 @@ export const supportPages: SupportPageData[] = [
     slug: 'product-status',
     title: 'Product Status',
     eyebrow: 'NOTHING (R) Support Centre',
-    description: 'Check information about your product with your IMEI or serial number through Nothing Official Store Pakistan WhatsApp support.',
-    metaTitle: 'Product Status | Nothing Official Store Pakistan Support Centre',
+    description: 'Check information about your product with your IMEI or serial number through Nothing Pakistan WhatsApp support.',
+    metaTitle: 'Product Status | Nothing Pakistan Support Centre',
     metaDescription:
-      'Check Nothing product status in Pakistan by sharing your IMEI or serial number with Nothing Official Store Pakistan support on WhatsApp.',
+      'Check Nothing product status in Pakistan by sharing your IMEI or serial number with Nothing Pakistan support on WhatsApp.',
     keywords: ['Nothing IMEI check Pakistan', 'Nothing serial number Pakistan', 'Nothing product status'],
     kind: 'status',
     sections: [

@@ -4,6 +4,7 @@ export interface OrderItem {
   product_handle: string | null
   product_name: string
   image_url?: string | null
+  color_name?: string | null
   quantity: number
   unit_price: number
   currency?: string | null

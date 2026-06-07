@@ -11,21 +11,22 @@ import {
   companyCertificateUrl,
   companyIdentifier,
   companyLegalName,
+  companyOfficialDomains,
   companyVerificationPath,
 } from '@/lib/data/company'
 import { siteBrandName, siteContactAddress, siteContactWhatsappUrl, siteKeywords } from '@/lib/data/site-content'
 import { buildAbsoluteUrl, buildBreadcrumbStructuredData, buildRobotsMetadata, buildSeoKeywords } from '@/lib/utils/seo'
 
-const title = 'About Nothing Official Store Pakistan | Official Storefront'
+const title = 'About Nothing Pakistan | Official Storefront'
 const description =
-  'Learn about Nothing Official Store Pakistan, the verified Pakistan storefront operated by NOTHING OFFICIAL (SMC-PRIVATE) LIMITED.'
+  'Learn about Nothing Pakistan, the verified Pakistan storefront operated by NOTHING PAKISTAN (SMC-PRIVATE) LIMITED.'
 
 export const metadata: Metadata = {
   title: {
     absolute: title,
   },
   description,
-  keywords: buildSeoKeywords(siteKeywords, ['About Nothing Official Store Pakistan', companyLegalName, 'SECP registered Pakistani company']),
+  keywords: buildSeoKeywords(siteKeywords, ['About Nothing Pakistan', companyLegalName, 'SECP registered Pakistani company']),
   alternates: {
     canonical: buildAbsoluteUrl('/about-us'),
   },
@@ -49,12 +50,12 @@ const sections = [
   {
     title: 'Who We Are',
     body:
-      `Nothing Official Store Pakistan is an online storefront created for customers in Pakistan who want a clearer way to discover Nothing and CMF phones, earbuds, chargers, cables, screen protectors, covers, and accessories. The storefront is operated by ${companyLegalName}, an SECP registered Pakistani company with ${companyIdentifier}. We publish this legal identity because customers deserve to know the business behind the website before they place an order, request support, or rely on product information.`,
+      `Nothing Pakistan is an online storefront created for customers in Pakistan who want a clearer way to discover Nothing and CMF phones, earbuds, chargers, cables, screen protectors, covers, and accessories. The storefront is operated by ${companyLegalName}, an SECP registered Pakistani company with ${companyIdentifier}. We publish this legal identity because customers deserve to know the business behind the website before they place an order, request support, or rely on product information.`,
   },
   {
-    title: 'Why Nothing Official Store Pakistan Exists',
+    title: 'Why Nothing Pakistan Exists',
     body:
-      'Nothing and CMF products have a distinctive design language, strong demand, and an active community of buyers who care about compatibility, packaging, charging standards, audio features, and model-specific accessories. In Pakistan, shoppers often need help checking which charger suits a phone, which protector fits a device, or whether an earbud model matches their usage. Nothing Official Store Pakistan exists to make that buying journey easier, more organized, and more transparent.',
+      'Nothing and CMF products have a distinctive design language, strong demand, and an active community of buyers who care about compatibility, packaging, charging standards, audio features, and model-specific accessories. In Pakistan, shoppers often need help checking which charger suits a phone, which protector fits a device, or whether an earbud model matches their usage. Nothing Pakistan exists to make that buying journey easier, more organized, and more transparent.',
   },
   {
     title: 'Our Product Authenticity Approach',
@@ -64,7 +65,7 @@ const sections = [
   {
     title: 'Pakistan-Based Support',
     body:
-      'Customers in Lahore, Karachi, Islamabad, Rawalpindi, Faisalabad, Multan, Peshawar, Quetta, and other cities need support that understands local delivery expectations and payment preferences. Nothing Official Store Pakistan provides WhatsApp-first communication, order confirmation, product compatibility help, and delivery guidance for Pakistani customers. Our goal is to reduce confusion before dispatch so customers receive the right product for the right device.',
+      'Customers in Lahore, Karachi, Islamabad, Rawalpindi, Faisalabad, Multan, Peshawar, Quetta, and other cities need support that understands local delivery expectations and payment preferences. Nothing Pakistan provides WhatsApp-first communication, order confirmation, product compatibility help, and delivery guidance for Pakistani customers. Our goal is to reduce confusion before dispatch so customers receive the right product for the right device.',
   },
   {
     title: 'Customer-First Policy',
@@ -114,13 +115,13 @@ export default function AboutUsPage() {
               <div>
                 <div className="h-4 w-4 bg-[#c8343b]" aria-hidden="true" />
                 <h1 className="mt-6 max-w-5xl [font-family:var(--font-georgia)] text-[clamp(3.1rem,7vw,7.4rem)] leading-[0.94] text-black">
-                  Nothing Official Store Pakistan brings Nothing and CMF products closer to customers in Pakistan.
+                  Nothing Pakistan brings Nothing and CMF products closer to customers in Pakistan.
                 </h1>
               </div>
               <div className="relative min-h-[360px] overflow-hidden rounded-[8px] bg-black lg:min-h-[620px]">
                 <Image
                   src={aboutImages.hero}
-                  alt="Nothing Official Store Pakistan brand story"
+                  alt="Nothing Pakistan brand story"
                   fill
                   priority
                   fetchPriority="high"
@@ -148,7 +149,7 @@ export default function AboutUsPage() {
                 <section className="relative min-h-[420px] overflow-hidden rounded-[8px] bg-black">
                   <Image
                     src={aboutImages.event}
-                    alt="Nothing Official Store Pakistan community and brand event"
+                    alt="Nothing Pakistan community and brand event"
                     fill
                     loading="lazy"
                     fetchPriority="low"
@@ -178,7 +179,7 @@ export default function AboutUsPage() {
                 </section>
                 <section className="rounded-[8px] border border-black/10 bg-white p-5">
                   <p className="text-[10px] uppercase tracking-[0.24em] text-black/42">Official domains</p>
-                  <p className="mt-3 whitespace-pre-line text-sm leading-7 text-black/72">nothingshop.pk{'\n'}nothingofficial.pk{'\n'}cmfbynothing.pk</p>
+                  <p className="mt-3 whitespace-pre-line text-sm leading-7 text-black/72">{companyOfficialDomains.join('\n')}</p>
                 </section>
                 <div className="grid gap-2">
                   <Link href={companyVerificationPath} className="inline-flex h-11 items-center justify-center rounded-[4px] bg-black px-5 text-[10px] uppercase tracking-[0.2em] text-white transition-opacity hover:opacity-85">

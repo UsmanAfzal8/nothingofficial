@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 
-export const PRODUCTION_SITE_ORIGIN = 'https://www.nothingofficial.pk'
+export const PRODUCTION_SITE_ORIGIN = 'https://www.cmfbynothing.pk'
+const CANONICAL_SITE_HOSTS = new Set(['cmfbynothing.pk', 'www.cmfbynothing.pk'])
 
 function normalizeSiteOrigin(value: string | null | undefined): string | null {
   if (!value) {
@@ -50,6 +51,16 @@ export function getSiteOrigin(): string {
     const normalizedValue = normalizeSiteOrigin(candidate)
 
     if (normalizedValue) {
+      try {
+        const parsedValue = new URL(normalizedValue)
+
+        if (CANONICAL_SITE_HOSTS.has(parsedValue.hostname.toLowerCase())) {
+          return PRODUCTION_SITE_ORIGIN
+        }
+      } catch {
+        // normalizeSiteOrigin already validates candidates.
+      }
+
       return normalizedValue
     }
   }
@@ -82,6 +93,10 @@ export function toSeoHandle(rawValue: string): string {
     .replace(/[^a-z0-9-]/g, '-')
     .replace(/-+/g, '-')
     .replace(/^-|-$/g, '')
+}
+
+export function stripNothingPakistanSlugPrefix(slug: string): string {
+  return slug.replace(/^nothing-pakistan-/, '')
 }
 
 export function buildAbsoluteUrl(pathname: string): string {

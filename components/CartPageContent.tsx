@@ -39,13 +39,13 @@ export function CartPageContent() {
 
         <div className="mt-8 flex flex-wrap gap-3">
           <Link
-            href="/collections/shop-all"
+            href="/collections/nothing-pakistan-shop-all"
             className="inline-flex h-11 items-center justify-center rounded-xl bg-black px-5 text-[10px] uppercase tracking-[0.24em] text-white transition-opacity hover:opacity-85"
           >
             Browse catalog
           </Link>
           <Link
-            href="/collections/phones"
+            href="/collections/nothing-pakistan-phones"
             className="inline-flex h-11 items-center justify-center rounded-xl border border-black/10 bg-white px-5 text-[10px] uppercase tracking-[0.24em] text-black/65 transition-colors hover:bg-black hover:text-white"
           >
             View phones
@@ -99,6 +99,9 @@ export function CartPageContent() {
                       <h2 className="collection-product-name mt-2 text-[1.7rem] leading-tight text-black/92 md:text-[2rem]">
                         {item.name}
                       </h2>
+                      {item.colorName ? (
+                        <p className="mt-2 text-[10px] uppercase tracking-[0.22em] text-black/48">Colour: {item.colorName}</p>
+                      ) : null}
                       <p className="mt-2 text-[10px] uppercase tracking-[0.22em] text-black/48">
                         {item.priceLabel || formatPrice(item.price) || 'Price on request'}
                       </p>
@@ -165,7 +168,7 @@ export function CartPageContent() {
           </div>
 
           <p className="mt-5 text-sm leading-6 text-black/62">
-            Checkout stays inside the same Nothing Official Store Pakistan flow. We’ll use the items from this cart automatically on the order screen.
+            Checkout stays inside the same Nothing Pakistan flow. We’ll use the items from this cart automatically on the order screen.
           </p>
 
           <div className="mt-6 grid gap-3">
@@ -176,7 +179,7 @@ export function CartPageContent() {
               Continue to checkout
             </Link>
             <Link
-              href="/collections/shop-all"
+              href="/collections/nothing-pakistan-shop-all"
               className="inline-flex h-11 items-center justify-center rounded-xl border border-black/10 bg-white px-5 text-[10px] uppercase tracking-[0.24em] text-black/65 transition-colors hover:bg-black hover:text-white"
             >
               Keep shopping

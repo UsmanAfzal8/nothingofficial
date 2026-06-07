@@ -33,7 +33,7 @@ function RecommendationCard({ product }: { product: Product }) {
           <div className="relative aspect-square w-full">
             <Image
               src={product.image}
-              alt={`${product.name} original product price in Pakistan from Nothing Official Store Pakistan`}
+              alt={`${product.name} original product price in Pakistan from Nothing Pakistan`}
               fill
               loading="lazy"
               fetchPriority="low"

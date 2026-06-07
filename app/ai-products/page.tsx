@@ -40,11 +40,11 @@ export const metadata: Metadata = {
 }
 
 const phoneLinks = [
-  { label: 'Phone (4a) Pro', href: '/products/phone-4a-pro' },
-  { label: 'Phone (4a)', href: '/products/phone-4a' },
-  { label: 'Phone (3)', href: '/products/phone-3' },
-  { label: 'Phone (3a) Pro', href: '/products/phone-3a-pro' },
-  { label: 'Phone (3a)', href: '/products/phone-3a' },
+  { label: 'Phone (4a) Pro', href: '/products/nothing-pakistan-phone-4a-pro' },
+  { label: 'Phone (4a)', href: '/products/nothing-pakistan-phone-4a' },
+  { label: 'Phone (3)', href: '/products/nothing-pakistan-phone-3' },
+  { label: 'Phone (3a) Pro', href: '/products/nothing-pakistan-phone-3a-pro' },
+  { label: 'Phone (3a)', href: '/products/nothing-pakistan-phone-3a' },
 ] as const
 
 function buildAiProductsStructuredData(): Record<string, unknown>[] {

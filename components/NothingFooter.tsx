@@ -22,7 +22,7 @@ const footerPanels = [
 
 const footerSocialLinks = [
   { label: 'Facebook', href: 'https://www.facebook.com/share/1CDYdBibov/?mibextid=wwXIfr' },
-  { label: 'TikTok', href: 'https://www.tiktok.com/@nothingshop.pk?_r=1&_t=ZS-96UU9QJl59R' },
+  { label: 'TikTok', href: 'https://www.tiktok.com/@cmfbynothing.pk?_r=1&_t=ZS-96UU9QJl59R' },
 ] as const
 
 const footerUtilityLinks = [
@@ -43,7 +43,7 @@ const footerUtilityLinks = [
 export async function NothingFooter() {
   const [menuItems] = await Promise.all([getNavigationMenuItems()])
 
-  const headerItems = menuItems.filter((item) => item.slug !== 'trending-picks')
+  const headerItems = menuItems.filter((item) => !item.slug.endsWith('trending-picks'))
   const storeLabel = 'Pakistan'
 
   return (

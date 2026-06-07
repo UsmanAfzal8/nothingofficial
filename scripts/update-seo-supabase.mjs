@@ -2,7 +2,7 @@ import { createClient } from '@supabase/supabase-js'
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 
-const SITE_URL = 'https://www.nothingofficial.pk'
+const SITE_URL = 'https://www.cmfbynothing.pk'
 const REPORT_DIR = resolve(process.cwd(), 'seo-output')
 const REPORT_FILE = resolve(REPORT_DIR, 'supabase-seo-update-report.json')
 
@@ -45,7 +45,7 @@ const supabase = createClient(supabaseUrl, supabaseKey, {
 const RESEARCH_SOURCES = [
   'Google Ads Keyword Planner intent framework',
   'Pakistan SERP review for Nothing and CMF phone price queries',
-  'Nothing Official Store Pakistan product catalog',
+  'Nothing Pakistan product catalog',
   'Nothing official support/product specs',
   'Price comparison snippets for Pakistan purchase intent',
 ]
@@ -67,8 +67,8 @@ const MARKET_KEYWORDS = [
   'official warranty Pakistan',
   'original Pakistan',
   'COD delivery Pakistan',
-  'Nothing Official Store Pakistan',
-  'Nothing official store Pakistan',
+  'Nothing Pakistan',
+  'Nothing Pakistan',
 ]
 
 const MOBILE_RESEARCH = {
@@ -192,7 +192,7 @@ const CATEGORY_KEYWORDS = {
     'Nothing phones with COD Pakistan',
   ],
   default: [
-    'Nothing Official Store Pakistan',
+    'Nothing Pakistan',
     'Nothing accessories Pakistan',
     'CMF Pakistan',
     'Nothing products Pakistan',
@@ -239,15 +239,15 @@ function buildMetaTitle(item, name, category, entityType) {
     const primaryAlias = research?.aliases?.[1] || name
     const mobileTitle = `${primaryAlias} Price in Pakistan | PTA Approved`
 
-    return mobileTitle.length <= 70 ? mobileTitle : `${name} Price in Pakistan | Nothing Official Store Pakistan`
+    return mobileTitle.length <= 70 ? mobileTitle : `${name} Price in Pakistan | Nothing Pakistan`
   }
 
   const candidates = {
-    earbuds: `${name} Price in Pakistan | Nothing Official Store Pakistan`,
+    earbuds: `${name} Price in Pakistan | Nothing Pakistan`,
     charger: `${name} Price in Pakistan | Original Charger`,
     protector: `${name} in Pakistan | Screen Protector`,
-    phone: `${name} Price in Pakistan | Nothing Official Store Pakistan`,
-    default: `${name} in Pakistan | Nothing Official Store Pakistan`,
+    phone: `${name} Price in Pakistan | Nothing Pakistan`,
+    default: `${name} in Pakistan | Nothing Pakistan`,
   }
 
   const fallback = `${name} Pakistan | Nothing`
@@ -354,7 +354,7 @@ function buildLongDescription(item, name, category, priceLabel, entityType) {
   const productName = normalizeName(name)
   const mobileResearch = entityType === 'mobile' ? getMobileResearch(item) : null
   const priceSentence = priceLabel
-    ? `${productName} is currently listed at ${priceLabel} on Nothing Official Store Pakistan, while final availability can still depend on stock confirmation and order timing.`
+    ? `${productName} is currently listed at ${priceLabel} on Nothing Pakistan, while final availability can still depend on stock confirmation and order timing.`
     : `${productName} pricing and availability can be confirmed from the live product page or WhatsApp support before ordering.`
   const categoryLead = {
     earbuds:
@@ -373,14 +373,14 @@ function buildLongDescription(item, name, category, priceLabel, entityType) {
     : `Keyword research for this item is focused on commercial Pakistan queries around price, originality, compatibility, COD, fast delivery, and local support.`
 
   return [
-    `${productName} is part of the Nothing Official Store Pakistan catalog for customers who want reliable Nothing and CMF products with local pricing, support, and a simple online order flow. ${categoryLead} ${priceSentence} ${researchSentence}`,
+    `${productName} is part of the Nothing Pakistan catalog for customers who want reliable Nothing and CMF products with local pricing, support, and a simple online order flow. ${categoryLead} ${priceSentence} ${researchSentence}`,
     `When people search for ${productName} in Pakistan, they usually want three things: a trusted seller, clear product information, and confidence that the item will match their device or daily use case. This page is optimized to answer those questions directly. It includes product naming, price context, compatibility signals, delivery expectations, and support routes so the buyer does not need to jump across multiple websites before making a decision.`,
     `For search intent, this product targets phrases such as ${productName} price in Pakistan, buy ${productName} online Pakistan, original ${productName} Pakistan, Nothing accessories Pakistan, and CMF products Pakistan. It also supports regional searches from Lahore, Karachi, Islamabad, Rawalpindi, Faisalabad, Multan, Peshawar, Quetta, Sialkot, and other cities where buyers commonly look for mobile accessories and Nothing products online.`,
-    `The main buying advantage is convenience. Customers can review the product page, compare related products, check the visible price, and use the order or WhatsApp route for confirmation. Nothing Official Store Pakistan also highlights helpful trust signals such as cash on delivery, free delivery where applicable, seven day return guidance, product support, and original product sourcing. These details help both shoppers and search engines understand that the page is focused on transactional buying intent, not only product browsing.`,
-    `For AEO and voice-search coverage, this page should answer direct questions naturally. Buyers may ask: What is the price of ${productName} in Pakistan? Is ${productName} original? Where can I buy ${productName} online? Does Nothing Official Store Pakistan deliver ${productName} to my city? Which accessory is compatible with my Nothing phone? The content, FAQ schema, product schema, and internal links should make those answers easy for Google, AI search systems, and users to understand.`,
-    `The product image should use descriptive alt text such as "${productName} original product in Pakistan" so image search and accessibility tools can understand the page. The canonical URL should point to the live product URL on nothingofficial.pk to avoid duplicate content. The meta title and description should stay concise, readable, and focused on Pakistan purchase intent.`,
+    `The main buying advantage is convenience. Customers can review the product page, compare related products, check the visible price, and use the order or WhatsApp route for confirmation. Nothing Pakistan also highlights helpful trust signals such as cash on delivery, free delivery where applicable, seven day return guidance, product support, and original product sourcing. These details help both shoppers and search engines understand that the page is focused on transactional buying intent, not only product browsing.`,
+    `For AEO and voice-search coverage, this page should answer direct questions naturally. Buyers may ask: What is the price of ${productName} in Pakistan? Is ${productName} original? Where can I buy ${productName} online? Does Nothing Pakistan deliver ${productName} to my city? Which accessory is compatible with my Nothing phone? The content, FAQ schema, product schema, and internal links should make those answers easy for Google, AI search systems, and users to understand.`,
+    `The product image should use descriptive alt text such as "${productName} original product in Pakistan" so image search and accessibility tools can understand the page. The canonical URL should point to the live product URL on www.cmfbynothing.pk to avoid duplicate content. The meta title and description should stay concise, readable, and focused on Pakistan purchase intent.`,
     `Internal linking should connect ${productName} to relevant collections such as Shop All, Audio, Chargers, Protectors, Accessories, CMF, or Phones depending on the product type. Related product cards should also link to complementary accessories, for example chargers with phones, protectors with phone models, and earbuds with audio collections. This structure helps crawl depth, improves topical authority, and gives customers a smoother shopping path.`,
-    `Overall, ${productName} should be positioned as a trusted local option for Nothing Official Store Pakistan shoppers who care about original products, current pricing, simple checkout, and support before and after purchase. The page should keep the language clear, avoid overstuffed keywords, and use helpful product information to match both commercial and informational search intent.`,
+    `Overall, ${productName} should be positioned as a trusted local option for Nothing Pakistan shoppers who care about original products, current pricing, simple checkout, and support before and after purchase. The page should keep the language clear, avoid overstuffed keywords, and use helpful product information to match both commercial and informational search intent.`,
   ].join('\n\n')
 }
 
@@ -478,7 +478,7 @@ async function updateTable({ table, entityType, imageType, selectColumns }) {
     const seoKeywords = buildKeywords(item, name, category, entityType)
     const canonicalUrl = `${SITE_URL}/products/${item.slug}`
     const images = imagesByRelatedId.get(item.id) || []
-    const imageAltText = `${name} original ${category === 'phone' ? 'phone' : 'product'} in Pakistan from Nothing Official Store Pakistan`
+    const imageAltText = `${name} original ${category === 'phone' ? 'phone' : 'product'} in Pakistan from Nothing Pakistan`
     const schemaJson = buildSchema({
       item,
       name,

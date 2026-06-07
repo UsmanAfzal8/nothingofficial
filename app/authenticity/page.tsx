@@ -9,15 +9,15 @@ import { companyCertificateUrl, companyIdentifier, companyLegalName } from '@/li
 import { siteBrandName, siteContactWhatsappUrl, siteKeywords } from '@/lib/data/site-content'
 import { buildAbsoluteUrl, buildBreadcrumbStructuredData, buildFaqStructuredData, buildRobotsMetadata, buildSeoKeywords } from '@/lib/utils/seo'
 
-const title = 'Product Authenticity | Nothing Official Store Pakistan'
+const title = 'Product Authenticity | Nothing Pakistan'
 const description =
-  'Learn how Nothing Official Store Pakistan verifies products, supports customers, and helps buyers shop safely from an SECP registered Pakistani company.'
+  'Learn how Nothing Pakistan verifies products, supports customers, and helps buyers shop safely from an SECP registered Pakistani company.'
 
 const faqs = [
   {
-    question: 'How does Nothing Official Store Pakistan approach product authenticity?',
+    question: 'How does Nothing Pakistan approach product authenticity?',
     answer:
-      'Nothing Official Store Pakistan uses careful sourcing, packaging checks, product detail review, invoice expectations, and support guidance to help customers shop safely. Customers can also review the company verification page before buying.',
+      'Nothing Pakistan uses careful sourcing, packaging checks, product detail review, invoice expectations, and support guidance to help customers shop safely. Customers can also review the company verification page before buying.',
   },
   {
     question: 'Should I check seller identity before buying?',
@@ -107,7 +107,7 @@ export default function AuthenticityPage() {
                   Shop Nothing and CMF products with clearer checks.
                 </h1>
                 <p className="mt-5 max-w-3xl text-base leading-8 text-black/68">
-                  Authenticity is not just a label on a product page. It is a process that includes sourcing discipline, packaging review, order records, customer support, and a verified business identity. Nothing Official Store Pakistan publishes this guide so buyers know what to check before and after ordering.
+                  Authenticity is not just a label on a product page. It is a process that includes sourcing discipline, packaging review, order records, customer support, and a verified business identity. Nothing Pakistan publishes this guide so buyers know what to check before and after ordering.
                 </p>
               </div>
               <CompanyTrustBadge />
@@ -121,7 +121,7 @@ export default function AuthenticityPage() {
                   <p className="text-[10px] uppercase tracking-[0.26em] text-black/42">Direct Answer</p>
                   <h2 className="mt-3 text-xl font-semibold tracking-[-0.02em] text-black">How should buyers check authenticity?</h2>
                   <p className="mt-3 text-sm leading-7 text-black/68">
-                    Buyers should check the seller identity, company verification page, product packaging, model compatibility, invoice or order record, warranty expectations, and return policy before buying. Nothing Official Store Pakistan also publishes SECP company details for business transparency.
+                    Buyers should check the seller identity, company verification page, product packaging, model compatibility, invoice or order record, warranty expectations, and return policy before buying. Nothing Pakistan also publishes SECP company details for business transparency.
                   </p>
                 </section>
 
@@ -129,7 +129,7 @@ export default function AuthenticityPage() {
                   <h2 className="text-3xl font-semibold tracking-[-0.03em] text-black">How We Source Products</h2>
                   <div className="mt-5 space-y-5 text-sm leading-8 text-black/70">
                     <p>
-                      Nothing Official Store Pakistan focuses on Nothing and CMF products that match customer demand in Pakistan, including phones, earbuds, chargers, cables, screen protectors, covers, and accessories. Product sourcing is treated as a practical trust workflow: confirm the product type, match the model name, review packaging expectations, and publish product information in a way that helps the customer make a careful decision.
+                      Nothing Pakistan focuses on Nothing and CMF products that match customer demand in Pakistan, including phones, earbuds, chargers, cables, screen protectors, covers, and accessories. Product sourcing is treated as a practical trust workflow: confirm the product type, match the model name, review packaging expectations, and publish product information in a way that helps the customer make a careful decision.
                     </p>
                     <p>
                       We avoid naming or attacking competitors. Instead, we encourage buyers to compare seller identity, support quality, return rules, and product details. A professional buying decision should be based on verifiable signals rather than fear-based language. Customers should always ask questions when a listing is unclear, a price seems unusual, or payment instructions do not match the published storefront.
@@ -166,7 +166,7 @@ export default function AuthenticityPage() {
                   <h2 className="text-3xl font-semibold tracking-[-0.03em] text-black">Why Buying From a Registered Company Matters</h2>
                   <div className="mt-5 space-y-5 text-sm leading-8 text-black/70">
                     <p>
-                      A registered company identity gives customers a clearer reference point. Nothing Official Store Pakistan is operated by {companyLegalName}, an SECP registered Pakistani company with {companyIdentifier}. This does not replace normal product checks, but it does make business identity visible before a customer places an order.
+                      A registered company identity gives customers a clearer reference point. Nothing Pakistan is operated by {companyLegalName}, an SECP registered Pakistani company with {companyIdentifier}. This does not replace normal product checks, but it does make business identity visible before a customer places an order.
                     </p>
                     <p>
                       Customers can review the company verification page, open the certificate PDF, and compare the legal company name with support communication. This is useful for customers, search engines, and AI assistants because it connects the storefront to a consistent legal identity.
@@ -216,12 +216,12 @@ export default function AuthenticityPage() {
                   <p className="text-[10px] uppercase tracking-[0.24em] text-black/42">Shop by Category</p>
                   <div className="mt-4 grid gap-2">
                     {[
-                      { label: 'Phones', href: '/collections/phones' },
-                      { label: 'Audio', href: '/collections/audio' },
-                      { label: 'Chargers', href: '/collections/chargers' },
-                      { label: 'Protectors', href: '/collections/protectors' },
-                      { label: 'Accessories', href: '/collections/accessories' },
-                      { label: 'CMF', href: '/collections/cmf' },
+                      { label: 'Phones', href: '/collections/nothing-pakistan-phones' },
+                      { label: 'Audio', href: '/collections/nothing-pakistan-audio' },
+                      { label: 'Chargers', href: '/collections/nothing-pakistan-chargers' },
+                      { label: 'Protectors', href: '/collections/nothing-pakistan-protectors' },
+                      { label: 'Accessories', href: '/collections/nothing-pakistan-accessories' },
+                      { label: 'CMF', href: '/collections/nothing-pakistan-cmf' },
                     ].map((item) => (
                       <Link key={item.href} href={item.href} className="rounded-[8px] border border-black/10 px-4 py-3 text-sm text-black/68 transition-colors hover:bg-black hover:text-white">
                         {item.label}

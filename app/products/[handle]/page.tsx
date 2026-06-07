@@ -10,6 +10,7 @@ import { NothingFooter } from '@/components/NothingFooter'
 import { NothingHeader } from '@/components/NothingHeader'
 import { ProductFaqAccordionSection } from '@/components/ProductFaqAccordionSection'
 import { ProductDetailHero } from '@/components/ProductDetailHero'
+import { ProductReviewsSection } from '@/components/ProductReviewsSection'
 import { SeoStructuredData } from '@/components/SeoStructuredData'
 import {
   CATALOG_REVALIDATE_SECONDS,
@@ -23,7 +24,6 @@ import type {
   ProductDetail,
   ProductDetailFaq,
   ProductDetailMedia,
-  ProductDetailReview,
   ProductDetailSpecGroup,
   ProductFeatureSection,
 } from '@/lib/models/product-detail'
@@ -41,6 +41,27 @@ type ProductDetailPageProps = {
   params: {
     handle: string
   }
+  searchParams?: {
+    color?: string | string[]
+    media?: string | string[]
+  }
+}
+
+function normalizeSearchParam(value: string | string[] | undefined): string | null {
+  if (Array.isArray(value)) return value[0]?.trim() || null
+  return value?.trim() || null
+}
+
+function buildCanonicalProductPath(handle: string, searchParams: ProductDetailPageProps['searchParams']) {
+  const params = new URLSearchParams()
+  const color = normalizeSearchParam(searchParams?.color)
+  const media = normalizeSearchParam(searchParams?.media)
+
+  if (color) params.set('color', color)
+  if (media) params.set('media', media)
+
+  const query = params.toString()
+  return `/products/${handle}${query ? `?${query}` : ''}`
 }
 
 function getPakistanCalendarDate(date: Date) {
@@ -108,7 +129,7 @@ function isHtmlSnippet(value: string) {
 
 function buildDisplayGallery(productDetail: ProductDetail): ProductDetailMedia[] {
   if (productDetail.gallery.length > 0) {
-    return productDetail.gallery.slice(0, 5)
+    return productDetail.gallery
   }
 
   return uniqueStrings([productDetail.primaryImage, productDetail.ogImage, ...productDetail.heroImages]).slice(0, 5).map((url, index) => ({
@@ -224,6 +245,41 @@ function buildOfferStructuredData(productDetail: ProductDetail) {
   }
 }
 
+function attachReviewStructuredData(productSchema: Record<string, unknown>, productDetail: ProductDetail) {
+  const genuineReviews = (productDetail.reviews ?? []).filter((review) => !review.userName.endsWith('(Sample review)'))
+  const genuineRatings = genuineReviews
+    .map((review) => review.rating)
+    .filter((rating): rating is number => typeof rating === 'number')
+
+  if (genuineRatings.length > 0) {
+    productSchema.aggregateRating = {
+      '@type': 'AggregateRating',
+      ratingValue: Number((genuineRatings.reduce((total, rating) => total + rating, 0) / genuineRatings.length).toFixed(1)),
+      reviewCount: genuineRatings.length,
+    }
+  }
+
+  if (genuineReviews.length > 0) {
+    productSchema.review = genuineReviews.slice(0, 5).map((review) => ({
+      '@type': 'Review',
+      author: {
+        '@type': 'Person',
+        name: review.userName,
+      },
+      reviewBody: review.comment || undefined,
+      reviewRating:
+        typeof review.rating === 'number'
+          ? {
+              '@type': 'Rating',
+              ratingValue: review.rating,
+              bestRating: 5,
+              worstRating: 1,
+            }
+          : undefined,
+    }))
+  }
+}
+
 function buildProductStructuredData(productDetail: ProductDetail, relatedProducts: Array<{ name: string; href: string }> = []) {
   const images = uniqueStrings(productDetail.gallery.map((item) => item.url))
   const faqStructuredData = buildFaqStructuredData(
@@ -279,6 +335,8 @@ function buildProductStructuredData(productDetail: ProductDetail, relatedProduct
         })) ?? undefined,
     }
 
+    attachReviewStructuredData(mobileProductSchema, productDetail)
+
     const mobileEntries: Array<Record<string, unknown> | null> = [
       mobileProductSchema,
       buildBreadcrumbStructuredData(buildProductBreadcrumbs(productDetail)),
@@ -321,33 +379,7 @@ function buildProductStructuredData(productDetail: ProductDetail, relatedProduct
     offers: buildOfferStructuredData(productDetail),
   }
 
-  if (productDetail.aggregateRating) {
-    productSchema.aggregateRating = {
-      '@type': 'AggregateRating',
-      ratingValue: productDetail.aggregateRating.ratingValue,
-      reviewCount: productDetail.aggregateRating.reviewCount,
-    }
-  }
-
-  if (productDetail.reviews && productDetail.reviews.length > 0) {
-    productSchema.review = productDetail.reviews.slice(0, 5).map((review) => ({
-      '@type': 'Review',
-      author: {
-        '@type': 'Person',
-        name: review.userName,
-      },
-      reviewBody: review.comment || undefined,
-      reviewRating:
-        typeof review.rating === 'number'
-          ? {
-              '@type': 'Rating',
-              ratingValue: review.rating,
-              bestRating: 5,
-              worstRating: 1,
-            }
-          : undefined,
-    }))
-  }
+  attachReviewStructuredData(productSchema, productDetail)
 
   if (productDetail.specs && productDetail.specs.length > 0) {
     productSchema.additionalProperty = productDetail.specs.slice(0, 10).map((spec) => ({
@@ -618,23 +650,6 @@ function ProductFeatureSectionsSection({ sections }: { sections: ProductFeatureS
   )
 }
 
-function ReviewCard({ review }: { review: ProductDetailReview }) {
-  return (
-    <article className="rounded-[22px] border border-slate-200 bg-slate-50 p-5">
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <p className="text-sm font-medium text-slate-900">{review.userName}</p>
-          {review.createdAt ? <p className="mt-1 text-xs text-slate-500">{review.createdAt}</p> : null}
-        </div>
-        {typeof review.rating === 'number' ? (
-          <span className="rounded-full bg-white px-3 py-1 text-xs font-medium text-slate-700">{review.rating}/5</span>
-        ) : null}
-      </div>
-      <p className="mt-4 text-sm leading-6 text-slate-600">{review.comment || 'No written review provided.'}</p>
-    </article>
-  )
-}
-
 function PhoneAccessoriesHero({
   productDetail,
   gallery,
@@ -642,6 +657,8 @@ function PhoneAccessoriesHero({
   deliveryTimeline,
   specGroups,
   featureSections,
+  initialColor,
+  initialMediaId,
 }: {
   productDetail: ProductDetail
   gallery: ProductDetailMedia[]
@@ -649,6 +666,8 @@ function PhoneAccessoriesHero({
   deliveryTimeline: ReturnType<typeof getProductDeliveryTimeline>
   specGroups: ProductDetailSpecGroup[]
   featureSections: ProductFeatureSection[]
+  initialColor?: string | null
+  initialMediaId?: string | null
 }) {
   const labels = [...new Set([productDetail.variants[0]?.label, ...productDetail.widgets.map((item) => item.text)].filter(Boolean))].slice(0, 4)
   const hasSpecs = specGroups.length > 0
@@ -664,6 +683,8 @@ function PhoneAccessoriesHero({
       intro={intro}
       priceLabel={productDetail.priceLabel}
       canonicalHandle={productDetail.handle}
+      initialColor={initialColor}
+      initialMediaId={initialMediaId}
       labels={labels}
       deliveryTimeline={deliveryTimeline}
       hasSpecs={hasSpecs}
@@ -682,6 +703,8 @@ function PrimaryCatalogPanel({
   deliveryTimeline,
   specGroups,
   featureSections,
+  initialColor,
+  initialMediaId,
 }: {
   productDetail: ProductDetail
   canonicalHandle: string
@@ -691,6 +714,8 @@ function PrimaryCatalogPanel({
   deliveryTimeline: ReturnType<typeof getProductDeliveryTimeline>
   specGroups: ProductDetailSpecGroup[]
   featureSections: ProductFeatureSection[]
+  initialColor?: string | null
+  initialMediaId?: string | null
 }) {
   const hasSpecs = specGroups.length > 0
 
@@ -705,6 +730,8 @@ function PrimaryCatalogPanel({
       intro={intro}
       priceLabel={productDetail.priceLabel}
       canonicalHandle={canonicalHandle}
+      initialColor={initialColor}
+      initialMediaId={initialMediaId}
       labels={productDetail.widgets.map((item) => item.text)}
       deliveryTimeline={deliveryTimeline}
       hasSpecs={hasSpecs}
@@ -778,9 +805,9 @@ export async function generateMetadata({ params }: ProductDetailPageProps): Prom
   }
 }
 
-export default async function ProductDetailPage({ params }: ProductDetailPageProps) {
+export default async function ProductDetailPage({ params, searchParams }: ProductDetailPageProps) {
   const requestedHandle = toSeoHandle(params.handle)
-  const productDetail = await getProductDetailByHandle(requestedHandle, false)
+  const productDetail = await getProductDetailByHandle(requestedHandle, true)
 
   if (!productDetail) {
     notFound()
@@ -789,7 +816,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
   const canonicalHandle = toSeoHandle(productDetail.handle)
 
   if (params.handle !== canonicalHandle) {
-    redirect(`/products/${canonicalHandle}`)
+    redirect(buildCanonicalProductPath(canonicalHandle, searchParams))
   }
 
   const gallery = buildDisplayGallery(productDetail)
@@ -804,9 +831,12 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
   const deliveryTimeline = getProductDeliveryTimeline()
   const specGroups = productDetail.specGroups ?? []
   const productFeatureSections = productDetail.productFeatureSections ?? []
+  const initialColor = normalizeSearchParam(searchParams?.color)
+  const initialMediaId = normalizeSearchParam(searchParams?.media)
 
   if (productDetail.entityType === 'mobile') {
     const faqs = productDetail.faqs ?? []
+    const reviews = productDetail.reviews ?? []
     const usesImmersiveHero = Boolean(productDetail.productBackgroundImage)
     return (
       <div className={`${detailFont.className} min-h-screen bg-[#f5f7fb] text-slate-900`}>
@@ -846,6 +876,8 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
             deliveryTimeline={deliveryTimeline}
             specGroups={specGroups}
             featureSections={productFeatureSections}
+            initialColor={initialColor}
+            initialMediaId={initialMediaId}
           />
 
           {!usesImmersiveHero ? (
@@ -865,6 +897,15 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
               <MobileAccessorySections handle={canonicalHandle} />
             </Suspense>
           </div>
+
+          <ProductReviewsSection
+            reviews={reviews}
+            aggregateRating={productDetail.aggregateRating}
+            productHandle={canonicalHandle}
+            productImage={gallery[0]?.url ?? productDetail.primaryImage ?? productDetail.ogImage}
+            productName={productDetail.name}
+            className={usesImmersiveHero ? 'mx-auto mt-12 max-w-[1280px]' : 'mt-12'}
+          />
 
           {faqs.length > 0 ? (
             <section className={usesImmersiveHero ? 'mx-auto mt-12 max-w-[1180px] px-1 sm:px-2 lg:px-4' : 'mt-12'}>
@@ -916,6 +957,8 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
           deliveryTimeline={deliveryTimeline}
           specGroups={specGroups}
           featureSections={productFeatureSections}
+          initialColor={initialColor}
+          initialMediaId={initialMediaId}
         />
 
         {!usesImmersiveHero ? (
@@ -938,20 +981,17 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
 
           <ProductFeatureSectionsSection sections={productFeatureSections} />
 
-          <SectionCard title="Reviews">
-            {reviews.length > 0 ? (
-              <div className="grid gap-4 lg:grid-cols-2">
-                {reviews.map((review) => (
-                  <ReviewCard key={review.id} review={review} />
-                ))}
-              </div>
-            ) : (
-              <p className="text-sm leading-6 text-slate-600">No reviews yet.</p>
-            )}
-          </SectionCard>
-
         </div>
         ) : null}
+
+        <ProductReviewsSection
+          reviews={reviews}
+          aggregateRating={productDetail.aggregateRating}
+          productHandle={canonicalHandle}
+          productImage={gallery[0]?.url ?? productDetail.primaryImage ?? productDetail.ogImage}
+          productName={productDetail.name}
+          className={usesImmersiveHero ? 'mx-auto mt-12 max-w-[1280px] px-0' : 'mt-10'}
+        />
 
         {faqs.length > 0 ? (
           <section className={usesImmersiveHero ? 'mx-auto mt-12 max-w-[1180px] px-4 sm:px-6 lg:px-8' : 'mt-10'}>

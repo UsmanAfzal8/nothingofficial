@@ -4,6 +4,7 @@ export interface CartItemInput {
   handle: string
   name: string
   image: string | null
+  colorName?: string | null
   price: number | null
   priceLabel?: string | null
   subtitle?: string | null

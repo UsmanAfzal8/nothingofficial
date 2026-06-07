@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   },
   description:
     'Learn more about Nothing products, troubleshoot issues, browse FAQs, and find support information in Pakistan.',
-  keywords: buildSeoKeywords(siteKeywords, ['Nothing Official Store Pakistan support', 'Nothing Official Store Pakistan FAQs', 'Nothing Official Store Pakistan troubleshooting']),
+  keywords: buildSeoKeywords(siteKeywords, ['Nothing Pakistan support', 'Nothing Pakistan FAQs', 'Nothing Pakistan troubleshooting']),
   alternates: {
     canonical: buildAbsoluteUrl('/pages/support-centre'),
   },

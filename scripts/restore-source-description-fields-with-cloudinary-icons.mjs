@@ -122,11 +122,11 @@ async function uploadSvgToCloudinary(destEnv, sourceUrl) {
   const basename = path.basename(new URL(sourceUrl).pathname, path.extname(new URL(sourceUrl).pathname))
   const publicId = slugify(basename)
   const folder = 'nothing-official-store-pakistan/icons/product-detail'
-  const tags = ['nothing-official-store-pakistan', 'nothing-official-pakistan', 'pakistan-store', 'product-detail-icon', publicId]
+  const tags = ['nothing-pakistan', 'nothing-pakistan', 'pakistan-store', 'product-detail-icon', publicId]
   const context = [
-    contextPair('brand', 'Nothing Official Store Pakistan'),
-    contextPair('title', `${basename} icon | Nothing Official Store Pakistan`),
-    contextPair('description', `${basename} SVG icon used in product and mobile description content for Nothing Official Store Pakistan.`),
+    contextPair('brand', 'Nothing Pakistan'),
+    contextPair('title', `${basename} icon | Nothing Pakistan`),
+    contextPair('description', `${basename} SVG icon used in product and mobile description content for Nothing Pakistan.`),
     contextPair('source_url', sourceUrl),
   ].filter(Boolean).join('|')
   const timestamp = Math.floor(Date.now() / 1000)
@@ -184,12 +184,12 @@ function normalizeStoreCopy(value) {
   if (typeof value !== 'string') return value
 
   return value
-    .replace(/Nothing Pakistan/g, 'Nothing Official Store Pakistan')
-    .replace(/nothing pakistan/g, 'nothing official store pakistan')
-    .replace(/Nothing Official Pakistan/g, 'Nothing Official Store Pakistan')
-    .replace(/nothing official pakistan/g, 'nothing official store pakistan')
-    .replace(/Nothing Shop Pakistan/g, 'Nothing Official Store Pakistan')
-    .replace(/\bnothingshop\.pk\b/g, 'nothingofficial.pk')
+    .replace(/Nothing Pakistan/g, 'Nothing Pakistan')
+    .replace(/nothing pakistan/g, 'nothing pakistan')
+    .replace(/Nothing Pakistan/g, 'Nothing Pakistan')
+    .replace(/nothing pakistan/g, 'nothing pakistan')
+    .replace(/Nothing Shop Pakistan/g, 'Nothing Pakistan')
+    .replace(/\bnothingshop\.pk\b/g, 'www.cmfbynothing.pk')
 }
 
 async function main() {
@@ -246,7 +246,7 @@ async function main() {
         field: target.field,
         id: row.id,
         exactAfterRestoringUrls: restored === expectedSourceValue,
-        destinationSourceIconUrlHits: collectUrls(row[target.field]).filter((url) => url.includes('cdn.nothingofficial.pk/icons/product-detail')).length,
+        destinationSourceIconUrlHits: collectUrls(row[target.field]).filter((url) => url.includes('cdn.cmfbynothing.pk/icons/product-detail')).length,
       })
     }
   }

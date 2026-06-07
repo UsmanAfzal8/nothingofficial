@@ -506,7 +506,7 @@ function onlyMissingMediaPatch(existing, incoming, fields) {
 
 async function uploadFeatureImage(bunny, sourceUrl, remotePath) {
   if (!sourceUrl) return null
-  if (sourceUrl.includes('cdn.nothingofficial.pk/')) return sourceUrl
+  if (sourceUrl.includes('cdn.cmfbynothing.pk/')) return sourceUrl
 
   return bunny.uploadRemoteFile(sourceUrl, remotePath)
 }
@@ -514,13 +514,13 @@ async function uploadFeatureImage(bunny, sourceUrl, remotePath) {
 async function prepareFeatureMedia(bunny, source, feature, report) {
   const featureDir = `${REMOTE_FEATURE_BASE_DIR}/${source.handle}/${feature.feature_key}`
 
-  if (feature.cover_image_url && !feature.cover_image_url.includes('cdn.nothingofficial.pk/')) {
+  if (feature.cover_image_url && !feature.cover_image_url.includes('cdn.cmfbynothing.pk/')) {
     const ext = extensionForUrl(feature.cover_image_url)
     feature.cover_image_url = await uploadFeatureImage(bunny, feature.cover_image_url, `${featureDir}/cover${ext}`)
     report.images_uploaded += 1
   }
 
-  if (feature.cover_thumbnail_url && !feature.cover_thumbnail_url.includes('cdn.nothingofficial.pk/') && !feature.cover_thumbnail_url.includes('image.mux.com/')) {
+  if (feature.cover_thumbnail_url && !feature.cover_thumbnail_url.includes('cdn.cmfbynothing.pk/') && !feature.cover_thumbnail_url.includes('image.mux.com/')) {
     feature.cover_thumbnail_url = await uploadFeatureImage(bunny, feature.cover_thumbnail_url, `${featureDir}/cover-thumb.jpg`)
     report.images_uploaded += 1
   }
@@ -529,13 +529,13 @@ async function prepareFeatureMedia(bunny, source, feature, report) {
     const slideSlug = `${String(slide.sort_order ?? 0).padStart(2, '0')}-${slugify(slide.title)}`
     const slideDir = `${featureDir}/${slideSlug}`
 
-    if (slide.image_url && !slide.image_url.includes('cdn.nothingofficial.pk/')) {
+    if (slide.image_url && !slide.image_url.includes('cdn.cmfbynothing.pk/')) {
       const ext = extensionForUrl(slide.image_url)
       slide.image_url = await uploadFeatureImage(bunny, slide.image_url, `${slideDir}/image${ext}`)
       report.images_uploaded += 1
     }
 
-    if (slide.thumbnail_url && !slide.thumbnail_url.includes('cdn.nothingofficial.pk/') && !slide.thumbnail_url.includes('image.mux.com/')) {
+    if (slide.thumbnail_url && !slide.thumbnail_url.includes('cdn.cmfbynothing.pk/') && !slide.thumbnail_url.includes('image.mux.com/')) {
       slide.thumbnail_url = await uploadFeatureImage(bunny, slide.thumbnail_url, `${slideDir}/thumb.jpg`)
       report.images_uploaded += 1
     }

@@ -21,9 +21,10 @@ export default function robots(): MetadataRoute.Robots {
           '/support-centre',
           '/contact-us',
         ],
+        disallow: ['/cart/', '/checkout/', '/account/', '/search', '/dashboard/'],
       },
     ],
-    sitemap: [buildAbsoluteUrl('/sitemap.xml'), buildAbsoluteUrl('/server-sitemap.xml')],
+    sitemap: buildAbsoluteUrl('/sitemap.xml'),
     host: baseUrl,
   }
 }

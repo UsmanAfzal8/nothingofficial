@@ -2,9 +2,9 @@
   {
     "id": 1,
     "name": "Offers",
-    "slug": "offers",
-    "meta_title": "Mobile Phone Offers in Pakistan | Nothing Official Store Pakistan",
-    "meta_description": "Explore the latest mobile phone offers in Pakistan at Nothing Official Store Pakistan. Discover special deals, discounts, and limited-time offers on Nothing Phones and CMF smartphones.",
+    "slug": "nothing-pakistan-offers",
+    "meta_title": "Mobile Phone Offers in Pakistan | Nothing Pakistan",
+    "meta_description": "Explore the latest mobile phone offers in Pakistan at Nothing Pakistan. Discover special deals, discounts, and limited-time offers on Nothing Phones and CMF smartphones.",
     "created_at": "2026-03-14T00:43:02.999519",
     "updated_at": "2026-03-14T00:43:02.999519",
     "parent_id": null
@@ -12,9 +12,9 @@
   {
     "id": 2,
     "name": "Audio",
-    "slug": "audio",
-    "meta_title": "Audio Devices Price in Pakistan | Nothing Official Store Pakistan",
-    "meta_description": "Explore the latest audio devices in Pakistan including wireless earbuds, headphones, and audio accessories from Nothing and CMF. Discover features, sound quality, and prices at Nothing Official Store Pakistan.",
+    "slug": "nothing-pakistan-audio",
+    "meta_title": "Audio Devices Price in Pakistan | Nothing Pakistan",
+    "meta_description": "Explore the latest audio devices in Pakistan including wireless earbuds, headphones, and audio accessories from Nothing and CMF. Discover features, sound quality, and prices at Nothing Pakistan.",
     "created_at": "2026-03-14T00:43:46.686661",
     "updated_at": "2026-03-14T00:43:46.686661",
     "parent_id": null
@@ -22,9 +22,9 @@
   {
     "id": 3,
     "name": "Watches",
-    "slug": "watches",
-    "meta_title": "Smart Watches Price in Pakistan | Nothing Official Store Pakistan",
-    "meta_description": "Explore the latest smart watches in Pakistan including CMF and Nothing wearable devices. Discover features, battery life, health tracking, and prices at Nothing Official Store Pakistan.",
+    "slug": "nothing-pakistan-watches",
+    "meta_title": "Smart Watches Price in Pakistan | Nothing Pakistan",
+    "meta_description": "Explore the latest smart watches in Pakistan including CMF and Nothing wearable devices. Discover features, battery life, health tracking, and prices at Nothing Pakistan.",
     "created_at": "2026-03-14T00:44:15.175075",
     "updated_at": "2026-03-14T00:44:15.175075",
     "parent_id": null
@@ -32,9 +32,9 @@
   {
     "id": 4,
     "name": "Accessories",
-    "slug": "accessories",
-    "meta_title": "Mobile Accessories Price in Pakistan | Nothing Official Store Pakistan",
-    "meta_description": "Shop the latest mobile accessories in Pakistan including chargers, cables, cases, power adapters, and other smartphone accessories from Nothing and CMF. Discover prices and features at Nothing Official Store Pakistan.",
+    "slug": "nothing-pakistan-accessories",
+    "meta_title": "Mobile Accessories Price in Pakistan | Nothing Pakistan",
+    "meta_description": "Shop the latest mobile accessories in Pakistan including chargers, cables, cases, power adapters, and other smartphone accessories from Nothing and CMF. Discover prices and features at Nothing Pakistan.",
     "created_at": "2026-03-14T00:44:59.688842",
     "updated_at": "2026-03-14T00:44:59.688842",
     "parent_id": null
@@ -42,9 +42,9 @@
   {
     "id": 5,
     "name": "CMF",
-    "slug": "cmf",
-    "meta_title": "CMF Products Price in Pakistan | Nothing Official Store Pakistan",
-    "meta_description": "Explore CMF products in Pakistan including CMF phones, earbuds, smart watches, and accessories. Discover prices, features, and the latest CMF devices at Nothing Official Store Pakistan.",
+    "slug": "nothing-pakistan-cmf",
+    "meta_title": "CMF Products Price in Pakistan | Nothing Pakistan",
+    "meta_description": "Explore CMF products in Pakistan including CMF phones, earbuds, smart watches, and accessories. Discover prices, features, and the latest CMF devices at Nothing Pakistan.",
     "created_at": "2026-03-14T00:46:12.04413",
     "updated_at": "2026-03-14T00:46:12.04413",
     "parent_id": null
@@ -52,9 +52,9 @@
   {
     "id": 6,
     "name": "Chargers",
-    "slug": "chargers",
-    "meta_title": "Mobile Chargers Price in Pakistan | Nothing Official Store Pakistan",
-    "meta_description": "Buy fast chargers and power adapters for smartphones at Nothing Official Store Pakistan.",
+    "slug": "nothing-pakistan-chargers",
+    "meta_title": "Mobile Chargers Price in Pakistan | Nothing Pakistan",
+    "meta_description": "Buy fast chargers and power adapters for smartphones at Nothing Pakistan.",
     "created_at": "2026-03-14T00:48:42.467288",
     "updated_at": "2026-03-14T00:48:42.467288",
     "parent_id": 4
@@ -62,9 +62,9 @@
   {
     "id": 7,
     "name": "Cables",
-    "slug": "cables",
-    "meta_title": "Mobile Charging Cables Price in Pakistan | Nothing Official Store Pakistan",
-    "meta_description": "Shop USB-C cables and fast charging cables for smartphones at Nothing Official Store Pakistan.",
+    "slug": "nothing-pakistan-cables",
+    "meta_title": "Mobile Charging Cables Price in Pakistan | Nothing Pakistan",
+    "meta_description": "Shop USB-C cables and fast charging cables for smartphones at Nothing Pakistan.",
     "created_at": "2026-03-14T00:48:42.467288",
     "updated_at": "2026-03-14T00:48:42.467288",
     "parent_id": 4
@@ -72,9 +72,9 @@
   {
     "id": 8,
     "name": "Phone Cases",
-    "slug": "phone-cases",
-    "meta_title": "Phone Cases Price in Pakistan | Nothing Official Store Pakistan",
-    "meta_description": "Explore protective phone cases for Nothing and CMF smartphones at Nothing Official Store Pakistan.",
+    "slug": "nothing-pakistan-phone-cases",
+    "meta_title": "Phone Cases Price in Pakistan | Nothing Pakistan",
+    "meta_description": "Explore protective phone cases for Nothing and CMF smartphones at Nothing Pakistan.",
     "created_at": "2026-03-14T00:48:42.467288",
     "updated_at": "2026-03-14T00:48:42.467288",
     "parent_id": 4
@@ -82,9 +82,9 @@
   {
     "id": 9,
     "name": "Phone Protectors",
-    "slug": "phone-protectors",
-    "meta_title": "Screen Protectors Price in Pakistan | Nothing Official Store Pakistan",
-    "meta_description": "Buy tempered glass and screen protectors for smartphones at Nothing Official Store Pakistan.",
+    "slug": "nothing-pakistan-phone-protectors",
+    "meta_title": "Screen Protectors Price in Pakistan | Nothing Pakistan",
+    "meta_description": "Buy tempered glass and screen protectors for smartphones at Nothing Pakistan.",
     "created_at": "2026-03-14T00:48:42.467288",
     "updated_at": "2026-03-14T00:48:42.467288",
     "parent_id": 4
@@ -92,9 +92,9 @@
   {
     "id": 10,
     "name": "Trending Picks",
-    "slug": "trending-picks",
-    "meta_title": "Trending Picks | Nothing Official Store Pakistan",
-    "meta_description": "Trending Nothing and CMF products picked from the live Nothing Official Store Pakistan catalog.",
+    "slug": "nothing-pakistan-trending-picks",
+    "meta_title": "Trending Picks | Nothing Pakistan",
+    "meta_description": "Trending Nothing and CMF products picked from the live Nothing Pakistan catalog.",
     "created_at": "2026-05-06T08:00:03.284097",
     "updated_at": "2026-05-06T08:00:02.893",
     "parent_id": null

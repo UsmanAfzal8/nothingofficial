@@ -1,0 +1,112 @@
+[
+  {
+    "id": 1,
+    "name": "Offers",
+    "slug": "offers",
+    "meta_title": "Offers | Nothing Official Store Pakistan",
+    "meta_description": "Shop Offers from Nothing Official Store Pakistan with original Nothing and CMF products, Pakistan delivery support, stock confirmation, and local buying help.",
+    "created_at": "2026-03-14T00:43:02.999519",
+    "updated_at": "2026-03-14T00:43:02.999519",
+    "parent_id": null
+  },
+  {
+    "id": 2,
+    "name": "Audio",
+    "slug": "audio",
+    "meta_title": "Audio | Nothing Official Store Pakistan",
+    "meta_description": "Shop Audio from Nothing Official Store Pakistan with original Nothing and CMF products, Pakistan delivery support, stock confirmation, and local buying help.",
+    "created_at": "2026-03-14T00:43:46.686661",
+    "updated_at": "2026-03-14T00:43:46.686661",
+    "parent_id": null
+  },
+  {
+    "id": 3,
+    "name": "Watches",
+    "slug": "watches",
+    "meta_title": "Watches | Nothing Official Store Pakistan",
+    "meta_description": "Shop Watches from Nothing Official Store Pakistan with original Nothing and CMF products, Pakistan delivery support, stock confirmation, and local buying",
+    "created_at": "2026-03-14T00:44:15.175075",
+    "updated_at": "2026-03-14T00:44:15.175075",
+    "parent_id": null
+  },
+  {
+    "id": 4,
+    "name": "Accessories",
+    "slug": "accessories",
+    "meta_title": "Accessories | Nothing Official Store Pakistan",
+    "meta_description": "Shop Accessories from Nothing Official Store Pakistan with original Nothing and CMF products, Pakistan delivery support, stock confirmation, and local",
+    "created_at": "2026-03-14T00:44:59.688842",
+    "updated_at": "2026-03-14T00:44:59.688842",
+    "parent_id": null
+  },
+  {
+    "id": 5,
+    "name": "CMF",
+    "slug": "cmf",
+    "meta_title": "CMF | Nothing Official Store Pakistan",
+    "meta_description": "Shop CMF from Nothing Official Store Pakistan with original Nothing and CMF products, Pakistan delivery support, stock confirmation, and local buying help.",
+    "created_at": "2026-03-14T00:46:12.04413",
+    "updated_at": "2026-03-14T00:46:12.04413",
+    "parent_id": null
+  },
+  {
+    "id": 10,
+    "name": "Trending Picks",
+    "slug": "trending-picks",
+    "meta_title": "Trending Picks | Nothing Official Store Pakistan",
+    "meta_description": "Shop Trending Picks from Nothing Official Store Pakistan with original Nothing and CMF products, Pakistan delivery support, stock confirmation, and local",
+    "created_at": "2026-05-06T08:00:03.284097",
+    "updated_at": "2026-05-06T08:00:02.893",
+    "parent_id": null
+  },
+  {
+    "id": 6,
+    "name": "Chargers",
+    "slug": "chargers",
+    "meta_title": "Chargers | Nothing Official Store Pakistan",
+    "meta_description": "Shop Chargers from Nothing Official Store Pakistan with original Nothing and CMF products, Pakistan delivery support, stock confirmation, and local buying",
+    "created_at": "2026-03-14T00:48:42.467288",
+    "updated_at": "2026-03-14T00:48:42.467288",
+    "parent_id": 4
+  },
+  {
+    "id": 7,
+    "name": "Cables",
+    "slug": "cables",
+    "meta_title": "Cables | Nothing Official Store Pakistan",
+    "meta_description": "Shop Cables from Nothing Official Store Pakistan with original Nothing and CMF products, Pakistan delivery support, stock confirmation, and local buying help.",
+    "created_at": "2026-03-14T00:48:42.467288",
+    "updated_at": "2026-03-14T00:48:42.467288",
+    "parent_id": 4
+  },
+  {
+    "id": 8,
+    "name": "Phone Cases",
+    "slug": "phone-cases",
+    "meta_title": "Phone Cases | Nothing Official Store Pakistan",
+    "meta_description": "Shop Phone Cases from Nothing Official Store Pakistan with original Nothing and CMF products, Pakistan delivery support, stock confirmation, and local",
+    "created_at": "2026-03-14T00:48:42.467288",
+    "updated_at": "2026-03-14T00:48:42.467288",
+    "parent_id": 4
+  },
+  {
+    "id": 9,
+    "name": "Phone Protectors",
+    "slug": "phone-protectors",
+    "meta_title": "Phone Protectors | Nothing Official Store Pakistan",
+    "meta_description": "Shop Phone Protectors from Nothing Official Store Pakistan with original Nothing and CMF products, Pakistan delivery support, stock confirmation, and local",
+    "created_at": "2026-03-14T00:48:42.467288",
+    "updated_at": "2026-03-14T00:48:42.467288",
+    "parent_id": 4
+  },
+  {
+    "id": 11,
+    "name": "Featured Covers",
+    "slug": "featured-covers",
+    "meta_title": "Featured Covers | Nothing Official Store Pakistan",
+    "meta_description": "Shop Featured Covers from Nothing Official Store Pakistan with original Nothing and CMF products, Pakistan delivery support, stock confirmation, and local",
+    "created_at": "2026-05-19T12:08:29.856842",
+    "updated_at": "2026-05-19T12:08:28.511",
+    "parent_id": 4
+  }
+]

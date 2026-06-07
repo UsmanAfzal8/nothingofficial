@@ -68,7 +68,7 @@ export function HomeFaqTabs({ categories }: HomeFaqTabsProps) {
 
   return (
     <div className="mt-8">
-      <div className="flex flex-wrap gap-2" role="tablist" aria-label="Nothing Official Store Pakistan FAQ categories">
+      <div className="flex flex-wrap gap-2" role="tablist" aria-label="Nothing Pakistan FAQ categories">
         {categories.map((category) => {
           const isActive = category.id === activeCategory.id
 
@@ -81,8 +81,8 @@ export function HomeFaqTabs({ categories }: HomeFaqTabsProps) {
               onClick={() => setActiveTab(category.id)}
               aria-selected={isActive}
               aria-controls={`home-faq-panel-${category.id}`}
-              className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-[10px] uppercase tracking-[0.24em] transition-colors ${
-                isActive ? 'bg-black text-white' : 'border border-black/12 bg-white text-black/58 hover:bg-black hover:text-white'
+              className={`inline-flex items-center gap-2 rounded-full border border-black px-4 py-2 [font-family:var(--font-lettera-regular)] text-[12px] uppercase tracking-[0.12em] transition-colors ${
+                isActive ? 'bg-black text-white' : 'bg-transparent text-black/68 hover:bg-black hover:text-white'
               }`}
             >
               <TabIcon id={category.id} />
@@ -92,27 +92,27 @@ export function HomeFaqTabs({ categories }: HomeFaqTabsProps) {
         })}
       </div>
 
-      <div className="mt-5 rounded-[28px] border border-black/10 bg-white p-5 shadow-[0_20px_55px_rgba(17,17,17,0.04)] md:p-7">
+      <div className="mt-8 border-y border-dotted border-black/55 py-7 [font-family:var(--font-ntype82)]">
         <div id={`home-faq-panel-${activeCategory.id}`} role="tabpanel" aria-labelledby={`home-faq-tab-${activeCategory.id}`}>
-          <p className="text-[10px] uppercase tracking-[0.24em] text-black/42">{activeCategory.label}</p>
-        <p className="mt-3 max-w-3xl font-sans text-sm leading-7 text-black/68">{activeCategory.description}</p>
+          <p className="[font-family:var(--font-lettera-regular)] text-[12px] uppercase leading-none tracking-[0.18em] text-black/46">{activeCategory.label}</p>
+          <p className="mt-5 max-w-3xl text-[15px] leading-[1.55] text-black/70">{activeCategory.description}</p>
 
-        <div className="mt-6 border-t border-black/10">
-          {activeCategory.items.map((item, index) => (
-            <details key={item.question} className="group border-b border-black/10 py-5" open={index === 0}>
-              <summary className="flex cursor-pointer list-none items-start justify-between gap-4 text-sm leading-6 text-black/84 md:text-base">
-                <span>{item.question}</span>
-                <span className="mt-1 inline-flex h-5 w-5 shrink-0 items-center justify-center border border-black/14 text-black/50 group-open:hidden">
-                  +
-                </span>
-                <span className="mt-1 hidden h-5 w-5 shrink-0 items-center justify-center border border-black/14 text-black/50 group-open:inline-flex">
-                  -
-                </span>
-              </summary>
-              <p className="mt-4 max-w-4xl font-sans text-sm leading-7 text-black/68">{item.answer}</p>
-            </details>
-          ))}
-        </div>
+          <div className="mt-7 border-t border-dotted border-black/35">
+            {activeCategory.items.map((item, index) => (
+              <details key={item.question} className="group border-b border-dotted border-black/35 py-5" open={index === 0}>
+                <summary className="flex cursor-pointer list-none items-start justify-between gap-4 text-[16px] font-normal leading-[1.45] text-black/84">
+                  <span>{item.question}</span>
+                  <span className="mt-1 [font-family:var(--font-lettera-regular)] text-[13px] text-black/50 group-open:hidden">
+                    ( Read More )
+                  </span>
+                  <span className="mt-1 hidden [font-family:var(--font-lettera-regular)] text-[13px] text-black/50 group-open:inline">
+                    ( Read Less )
+                  </span>
+                </summary>
+                <p className="mt-4 max-w-4xl text-[15px] leading-[1.55] text-black/68">{item.answer}</p>
+              </details>
+            ))}
+          </div>
         </div>
       </div>
     </div>

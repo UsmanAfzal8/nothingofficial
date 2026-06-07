@@ -32,6 +32,7 @@ type CreateOrderPayload = {
   productHandle?: unknown
   productName?: unknown
   imageUrl?: unknown
+  colorName?: unknown
   quantity?: unknown
   unitPrice?: unknown
   currency?: unknown
@@ -39,12 +40,14 @@ type CreateOrderPayload = {
   shippingFee?: unknown
   govtTaxAmount?: unknown
   totalPrice?: unknown
+  deliveryType?: unknown
 }
 
 type NormalizedOrderItem = {
   product_handle: string | null
   product_name: string
   image_url: string | null
+  color_name: string | null
   quantity: number
   unit_price: number
   currency: string
@@ -61,6 +64,7 @@ type NormalizedOrderUser = {
 }
 
 type PaymentMethod = 'cod' | 'bank_transfer'
+type DeliveryType = 'ship' | 'pickup'
 
 const SHIPPING_FEE = 450
 const GOVT_TAX_RATE = 0.04
@@ -92,6 +96,10 @@ function normalizePaymentMethod(value: unknown): PaymentMethod {
   return value === 'bank_transfer' ? 'bank_transfer' : 'cod'
 }
 
+function normalizeDeliveryType(value: unknown): DeliveryType {
+  return value === 'pickup' ? 'pickup' : 'ship'
+}
+
 function normalizeOrderItems(body: CreateOrderPayload): NormalizedOrderItem[] {
   if (Array.isArray(body.items)) {
     const parsedItems = body.items
@@ -108,6 +116,7 @@ function normalizeOrderItems(body: CreateOrderPayload): NormalizedOrderItem[] {
             product_handle: toOptionalString(item.productHandle),
             product_name: productName,
             image_url: toOptionalString(item.imageUrl),
+            color_name: toOptionalString(item.colorName),
             quantity: toPositiveInteger(item.quantity, 1),
             unit_price: toNonNegativeNumber(item.unitPrice, 0),
             currency: toTrimmedString(item.currency) || 'PKR',
@@ -127,6 +136,7 @@ function normalizeOrderItems(body: CreateOrderPayload): NormalizedOrderItem[] {
       product_handle: toOptionalString(body.productHandle),
       product_name: toTrimmedString(body.productName) || 'General Product Order',
       image_url: toOptionalString(body.imageUrl),
+      color_name: toOptionalString(body.colorName),
       quantity: toPositiveInteger(body.quantity, 1),
       unit_price: toNonNegativeNumber(body.unitPrice, 0),
       currency: toTrimmedString(body.currency) || 'PKR',
@@ -208,17 +218,22 @@ export async function POST(request: NextRequest) {
     const postalCode = toOptionalString(body.postalCode)
     const orderItems = normalizeOrderItems(body)
     const paymentMethod = normalizePaymentMethod(body.paymentMethod)
+    const deliveryType = normalizeDeliveryType(body.deliveryType)
     const lineTotal = Number(orderItems.reduce((total, item) => total + item.quantity * item.unit_price, 0).toFixed(2))
-    const shippingFee = paymentMethod === 'bank_transfer' ? 0 : SHIPPING_FEE
+    const shippingFee = deliveryType === 'pickup' || paymentMethod === 'bank_transfer' ? 0 : SHIPPING_FEE
     const govtTaxAmount = paymentMethod === 'cod' ? Number((lineTotal * GOVT_TAX_RATE).toFixed(2)) : 0
     const finalTotal = Number((lineTotal + govtTaxAmount + shippingFee).toFixed(2))
     const paymentNotes =
-      paymentMethod === 'bank_transfer'
+      deliveryType === 'pickup'
+        ? 'Store pickup order: no shipping fee. 4% govt tax applied.'
+        : paymentMethod === 'bank_transfer'
         ? 'Non COD: Bank transfer customer gets free shipping and 0% tax. We pay the 4% govt tax. Express next-day delivery. User will send online payment screenshot to 03361070111.'
         : 'COD order: Rs 450 shipping fee and 4% govt tax applied.'
     const orderItemsWithNotes = orderItems.map((item) => ({
       ...item,
-      notes: item.notes ? `${item.notes} | ${paymentNotes}` : paymentNotes,
+      notes: [item.notes, paymentNotes, `Delivery: ${deliveryType === 'pickup' ? 'Store pickup' : 'Ship to customer'}`]
+        .filter(Boolean)
+        .join(' | '),
     }))
 
     if (!name || !address || !city || !district || !phone) {

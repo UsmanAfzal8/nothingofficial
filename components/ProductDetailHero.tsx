@@ -20,6 +20,8 @@ type ProductDetailHeroProps = {
   intro: string | null
   priceLabel?: string | null
   canonicalHandle: string
+  initialColor?: string | null
+  initialMediaId?: string | null
   labels?: string[]
   deliveryTimeline?: {
     processDateLabel: string
@@ -118,6 +120,39 @@ function buildColorOptions(gallery: ProductDetailMedia[]) {
   })
 
   return options
+}
+
+function resolveInitialMediaIndex(
+  gallery: ProductDetailMedia[],
+  initialColor?: string | null,
+  initialMediaId?: string | null,
+) {
+  if (initialMediaId) {
+    const mediaIndex = gallery.findIndex((media) => media.id === initialMediaId)
+    if (mediaIndex >= 0) return mediaIndex
+  }
+
+  if (initialColor) {
+    const colorKey = normalizeColorName(initialColor)
+    const colorIndex = gallery.findIndex((media) => {
+      const mediaColor = inferColorName(media)
+      return mediaColor ? normalizeColorName(mediaColor) === colorKey : false
+    })
+    if (colorIndex >= 0) return colorIndex
+  }
+
+  return 0
+}
+
+function buildOrderHref(canonicalHandle: string, selectedMedia: ProductDetailMedia | null) {
+  const searchParams = new URLSearchParams()
+  const colorName = selectedMedia ? inferColorName(selectedMedia) : null
+
+  if (colorName) searchParams.set('color', colorName)
+  if (selectedMedia?.id) searchParams.set('media', selectedMedia.id)
+
+  const query = searchParams.toString()
+  return `/order/${canonicalHandle}${query ? `?${query}` : ''}`
 }
 
 function WhatsAppIcon() {
@@ -960,13 +995,17 @@ export function ProductDetailHero({
   intro,
   priceLabel,
   canonicalHandle,
+  initialColor,
+  initialMediaId,
   labels = [],
   hasSpecs,
   specGroups = [],
   featureSections = [],
 }: ProductDetailHeroProps) {
   const immersiveRef = useRef<HTMLElement | null>(null)
-  const [selectedIndex, setSelectedIndex] = useState(0)
+  const [selectedIndex, setSelectedIndex] = useState(() =>
+    resolveInitialMediaIndex(gallery, initialColor, initialMediaId),
+  )
   const [isSpecsOpen, setIsSpecsOpen] = useState(false)
   const [loadedSpecGroups, setLoadedSpecGroups] = useState(specGroups)
   const [isSpecsLoading, setIsSpecsLoading] = useState(false)
@@ -998,11 +1037,15 @@ export function ProductDetailHero({
     entityType === 'mobile'
       ? `https://api.whatsapp.com/send?phone=923361070111&text=${encodeURIComponent(`Hi, I want to purchase this phone if available. Kindly tell me the price: ${productName}`)}`
       : 'https://api.whatsapp.com/send?phone=923361070111'
-  const buyHref = `/order/${canonicalHandle}`
+  const buyHref = buildOrderHref(canonicalHandle, selectedMedia)
   const hasSpecGroups = hasSpecs ?? loadedSpecGroups.length > 0
   const immersiveBackgroundImages = backgroundImages.length > 0 ? backgroundImages : backgroundImage ? [backgroundImage] : []
   const firstHeroFeatureSections = immersiveBackgroundImages.length > 1 ? displayedFeatureSections.slice(0, 5) : displayedFeatureSections
   const secondHeroFeatureSections = immersiveBackgroundImages.length > 1 ? displayedFeatureSections.slice(5) : []
+
+  useEffect(() => {
+    setSelectedIndex(resolveInitialMediaIndex(gallery, initialColor, initialMediaId))
+  }, [canonicalHandle, gallery, initialColor, initialMediaId])
 
   useEffect(() => {
     setLoadedSpecGroups(specGroups)
@@ -1355,7 +1398,7 @@ export function ProductDetailHero({
           {entityType === 'product' ? (
             <div className="mt-6 grid gap-3 sm:grid-cols-2">
               <Link
-                href={`/order/${canonicalHandle}`}
+                href={buyHref}
                 className="inline-flex h-12 items-center justify-center rounded-[16px] bg-slate-900 px-5 font-sans text-base font-bold text-white transition-colors hover:bg-slate-800 sm:text-lg"
               >
                 Buy Now

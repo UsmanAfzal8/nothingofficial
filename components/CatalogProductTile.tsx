@@ -10,10 +10,13 @@ type CatalogProductTileProps = {
 
 export function CatalogProductTile({ product, priority = false, tone = 'default' }: CatalogProductTileProps) {
   const isShopAll = tone === 'shop-all'
-  const imageAlt = `${product.name} original product price in Pakistan from Nothing Official Store Pakistan`
+  const imageAlt = `${product.name} original product price in Pakistan from Nothing Pakistan`
+  const productHref = product.colorName
+    ? `${product.href}${product.href.includes('?') ? '&' : '?'}color=${encodeURIComponent(product.colorName)}`
+    : product.href
 
   return (
-    <Link href={product.href} prefetch={false} className="group block">
+    <Link href={productHref} prefetch={false} className="group block">
       <article className="flex h-full flex-col">
         <div className={`relative overflow-hidden ${isShopAll ? 'aspect-[4/5]' : 'aspect-[4/5]'}`}>
           {product.image ? (

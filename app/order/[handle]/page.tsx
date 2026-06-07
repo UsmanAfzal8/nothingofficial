@@ -10,10 +10,23 @@ type OrderByHandlePageProps = {
   params: {
     handle: string
   }
+  searchParams?: {
+    color?: string | string[]
+    media?: string | string[]
+  }
 }
 
 export const dynamic = 'force-dynamic'
 export const revalidate = 0
+
+function normalizeSearchParam(value: string | string[] | undefined): string | null {
+  if (Array.isArray(value)) return value[0]?.trim() || null
+  return value?.trim() || null
+}
+
+function normalizeColor(value: string | null) {
+  return value?.trim().replace(/[-_]+/g, ' ').replace(/\s+/g, ' ').toLowerCase() ?? null
+}
 
 export async function generateMetadata({ params }: OrderByHandlePageProps): Promise<Metadata> {
   const requestedHandle = toSeoHandle(params.handle)
@@ -22,7 +35,7 @@ export async function generateMetadata({ params }: OrderByHandlePageProps): Prom
   if (!productDetail) {
     return {
       title: {
-        absolute: 'Order Product | Nothing Official Store Pakistan',
+        absolute: 'Order Product | Nothing Pakistan',
       },
       alternates: {
         canonical: buildAbsoluteUrl('/order'),
@@ -34,7 +47,7 @@ export async function generateMetadata({ params }: OrderByHandlePageProps): Prom
 
   return {
     title: {
-      absolute: `Order ${productDetail.name} | Nothing Official Store Pakistan`,
+      absolute: `Order ${productDetail.name} | Nothing Pakistan`,
     },
     description: `Place an order for ${productDetail.name}.`,
     alternates: {
@@ -47,7 +60,7 @@ export async function generateMetadata({ params }: OrderByHandlePageProps): Prom
   }
 }
 
-export default async function OrderByHandlePage({ params }: OrderByHandlePageProps) {
+export default async function OrderByHandlePage({ params, searchParams }: OrderByHandlePageProps) {
   const requestedHandle = toSeoHandle(params.handle)
   const productDetail = await getProductDetailByHandle(requestedHandle)
 
@@ -58,13 +71,28 @@ export default async function OrderByHandlePage({ params }: OrderByHandlePagePro
   const canonicalHandle = toSeoHandle(productDetail.handle)
 
   if (params.handle !== canonicalHandle) {
-    redirect(`/order/${canonicalHandle}`)
+    const selectionParams = new URLSearchParams()
+    const requestedColor = normalizeSearchParam(searchParams?.color)
+    const requestedMediaId = normalizeSearchParam(searchParams?.media)
+    if (requestedColor) selectionParams.set('color', requestedColor)
+    if (requestedMediaId) selectionParams.set('media', requestedMediaId)
+    const query = selectionParams.toString()
+    redirect(`/order/${canonicalHandle}${query ? `?${query}` : ''}`)
   }
 
+  const requestedColor = normalizeSearchParam(searchParams?.color)
+  const requestedMediaId = normalizeSearchParam(searchParams?.media)
+  const normalizedRequestedColor = normalizeColor(requestedColor)
+  const selectedMedia =
+    productDetail.gallery.find((media) => media.id === requestedMediaId) ??
+    productDetail.gallery.find((media) => normalizeColor(media.colorName ?? null) === normalizedRequestedColor) ??
+    productDetail.gallery[0] ??
+    null
   const selectedProduct = {
     handle: productDetail.handle,
     name: productDetail.name,
-    image: productDetail.primaryImage ?? productDetail.ogImage,
+    image: selectedMedia?.url ?? productDetail.primaryImage ?? productDetail.ogImage,
+    colorName: selectedMedia?.colorName ?? requestedColor,
     price: productDetail.price ?? null,
   }
 

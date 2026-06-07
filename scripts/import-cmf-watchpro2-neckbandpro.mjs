@@ -4,7 +4,7 @@ import { existsSync, readFileSync } from 'node:fs'
 import path from 'node:path'
 
 const ROOT = process.cwd()
-const SITE_URL = 'https://www.nothingofficial.pk'
+const SITE_URL = 'https://www.cmfbynothing.pk'
 
 function loadEnv() {
   for (const envPath of ['.env.local', 'env']) {
@@ -136,20 +136,20 @@ const PRODUCT_RECORDS = [
       localPath: 'assets/nothing products/watchpro2/cmf-watch-pro-2-background.avif',
       fileName: 'cmf-watch-pro-2-background.avif',
     },
-    metaTitle: 'CMF Watch Pro 2 Price in Pakistan | Nothing Official Store Pakistan',
+    metaTitle: 'CMF Watch Pro 2 Price in Pakistan | Nothing Pakistan',
     metaDescription:
-      'Buy CMF Watch Pro 2 in Pakistan for Rs 14,500 with AMOLED display, health tracking, Bluetooth calling, long battery life, and local Nothing Official Store Pakistan support.',
+      'Buy CMF Watch Pro 2 in Pakistan for Rs 14,500 with AMOLED display, health tracking, Bluetooth calling, long battery life, and local Nothing Pakistan support.',
     shortDescription:
       'CMF Watch Pro 2 is a smart wearable for Pakistan buyers who want AMOLED clarity, fitness tracking, and Bluetooth calling in the CMF ecosystem.',
     description:
-      'CMF Watch Pro 2 is a CMF by Nothing smartwatch for Pakistan buyers who want a premium-looking wearable with AMOLED display quality, fitness and health tracking, Bluetooth calling, and practical battery life. Nothing Official Store Pakistan lists CMF Watch Pro 2 with local pricing, product images, ordering support, and WhatsApp confirmation before checkout.',
+      'CMF Watch Pro 2 is a CMF by Nothing smartwatch for Pakistan buyers who want a premium-looking wearable with AMOLED display quality, fitness and health tracking, Bluetooth calling, and practical battery life. Nothing Pakistan lists CMF Watch Pro 2 with local pricing, product images, ordering support, and WhatsApp confirmation before checkout.',
     seoDescriptionLong: [
-      'CMF Watch Pro 2 is positioned for Pakistani buyers who want a smartwatch with a cleaner CMF design, visible local pricing, and a direct route to ordering from Nothing Official Store Pakistan. The page is built for high-intent searches such as CMF Watch Pro 2 price in Pakistan, CMF Watch Pro 2 smartwatch Pakistan, original CMF Watch Pro 2, and buy CMF Watch Pro 2 online in Pakistan.',
+      'CMF Watch Pro 2 is positioned for Pakistani buyers who want a smartwatch with a cleaner CMF design, visible local pricing, and a direct route to ordering from Nothing Pakistan. The page is built for high-intent searches such as CMF Watch Pro 2 price in Pakistan, CMF Watch Pro 2 smartwatch Pakistan, original CMF Watch Pro 2, and buy CMF Watch Pro 2 online in Pakistan.',
       'The product is relevant to shoppers comparing smartwatch display quality, battery life, health tracking, workout support, Bluetooth calling, and CMF ecosystem value. The page should answer those commercial questions clearly while keeping the product experience simple and easy to trust.',
       'For local SEO, the page is written for shoppers across Karachi, Lahore, Islamabad, Rawalpindi, Faisalabad, Multan, and other Pakistani cities where customers want original product sourcing, live price confirmation, and support before placing an order.',
-      'Internal linking should connect CMF Watch Pro 2 with CMF collections, the watches collection, and compatible CMF phones so users can move from wearables into the broader ecosystem. That structure also helps search engines understand the product as part of the CMF lineup on Nothing Official Store Pakistan.',
+      'Internal linking should connect CMF Watch Pro 2 with CMF collections, the watches collection, and compatible CMF phones so users can move from wearables into the broader ecosystem. That structure also helps search engines understand the product as part of the CMF lineup on Nothing Pakistan.',
     ].join('\n\n'),
-    imageAltText: 'CMF Watch Pro 2 original smartwatch in Pakistan from Nothing Official Store Pakistan',
+    imageAltText: 'CMF Watch Pro 2 original smartwatch in Pakistan from Nothing Pakistan',
     seoKeywords: [
       'CMF Watch Pro 2',
       'CMF Watch Pro 2 price in Pakistan',
@@ -159,7 +159,7 @@ const PRODUCT_RECORDS = [
       'original CMF Watch Pro 2 Pakistan',
       'CMF watch price in Pakistan',
       'CMF smartwatch Pakistan',
-      'Nothing Official Store Pakistan watch',
+      'Nothing Pakistan watch',
       'CMF by Nothing smartwatch',
       'smart watch Pakistan',
       'Bluetooth calling watch Pakistan',
@@ -170,16 +170,16 @@ const PRODUCT_RECORDS = [
     categorySlugs: ['cmf', 'watches'],
     mobileSlugs: ['cmf-phone-1', 'cmf-phone-2-pro'],
     faqs: [
-      ['What is the price of CMF Watch Pro 2 in Pakistan?', 'CMF Watch Pro 2 price in Pakistan is Rs 14,500 on Nothing Official Store Pakistan. Final stock and delivery confirmation can be checked before ordering.'],
-      ['Is CMF Watch Pro 2 an original CMF by Nothing smartwatch?', 'Yes, CMF Watch Pro 2 is listed as a CMF by Nothing wearable on Nothing Official Store Pakistan with local product support and ordering help.'],
-      ['Where can I buy CMF Watch Pro 2 online in Pakistan?', 'You can buy CMF Watch Pro 2 online from Nothing Official Store Pakistan through the product page, the order flow, or WhatsApp support for quick confirmation.'],
+      ['What is the price of CMF Watch Pro 2 in Pakistan?', 'CMF Watch Pro 2 price in Pakistan is Rs 14,500 on Nothing Pakistan. Final stock and delivery confirmation can be checked before ordering.'],
+      ['Is CMF Watch Pro 2 an original CMF by Nothing smartwatch?', 'Yes, CMF Watch Pro 2 is listed as a CMF by Nothing wearable on Nothing Pakistan with local product support and ordering help.'],
+      ['Where can I buy CMF Watch Pro 2 online in Pakistan?', 'You can buy CMF Watch Pro 2 online from Nothing Pakistan through the product page, the order flow, or WhatsApp support for quick confirmation.'],
       ['Does CMF Watch Pro 2 support Bluetooth calling?', 'Yes, CMF Watch Pro 2 is positioned as a smartwatch for buyers who want modern wearable convenience including calling support and connected daily use.'],
       ['Is CMF Watch Pro 2 good for fitness and health tracking?', 'Yes, CMF Watch Pro 2 is suited to buyers who want workout support, daily health tracking, and a clean smartwatch interface in one wearable.'],
-      ['Does Nothing Official Store Pakistan deliver CMF Watch Pro 2 across Pakistan?', 'Yes, Nothing Official Store Pakistan supports delivery queries for CMF Watch Pro 2 across major cities in Pakistan, subject to courier coverage and stock confirmation.'],
+      ['Does Nothing Pakistan deliver CMF Watch Pro 2 across Pakistan?', 'Yes, Nothing Pakistan supports delivery queries for CMF Watch Pro 2 across major cities in Pakistan, subject to courier coverage and stock confirmation.'],
       ['Can I confirm CMF Watch Pro 2 stock on WhatsApp before ordering?', 'Yes, WhatsApp is one of the fastest ways to confirm live stock, latest price, and order details for CMF Watch Pro 2.'],
-      ['What colors are available for CMF Watch Pro 2?', 'CMF Watch Pro 2 is being added with Ash Grey, Blue, Dark Grey, and Orange color options on Nothing Official Store Pakistan.'],
+      ['What colors are available for CMF Watch Pro 2?', 'CMF Watch Pro 2 is being added with Ash Grey, Blue, Dark Grey, and Orange color options on Nothing Pakistan.'],
       ['Why is CMF Watch Pro 2 listed in the watches and CMF collections?', 'CMF Watch Pro 2 is part of the CMF wearable lineup, so it belongs in the dedicated watches collection and the broader CMF collection for easier browsing.'],
-      ['Can CMF Watch Pro 2 be explored with CMF phones on Nothing Official Store Pakistan?', 'Yes, Nothing Official Store Pakistan can link CMF Watch Pro 2 with CMF phone pages so shoppers can browse the ecosystem more easily.'],
+      ['Can CMF Watch Pro 2 be explored with CMF phones on Nothing Pakistan?', 'Yes, Nothing Pakistan can link CMF Watch Pro 2 with CMF phone pages so shoppers can browse the ecosystem more easily.'],
     ],
     schemaCategory: 'Smart Watch',
     schemaAdditionalProperty: [
@@ -219,20 +219,20 @@ const PRODUCT_RECORDS = [
       localPath: 'assets/nothing products/nechbandpro/cmf_neckban_pro_background.webp',
       fileName: 'cmf-neckband-pro-background.webp',
     },
-    metaTitle: 'CMF Neckband Pro Price in Pakistan | Nothing Official Store Pakistan',
+    metaTitle: 'CMF Neckband Pro Price in Pakistan | Nothing Pakistan',
     metaDescription:
-      'Buy CMF Neckband Pro in Pakistan for Rs 8,999 with wireless neckband comfort, strong daily audio performance, ANC-focused listening, and local Nothing Official Store Pakistan support.',
+      'Buy CMF Neckband Pro in Pakistan for Rs 8,999 with wireless neckband comfort, strong daily audio performance, ANC-focused listening, and local Nothing Pakistan support.',
     shortDescription:
       'CMF Neckband Pro is a wireless neckband for Pakistan buyers who want comfortable all-day audio, noise-focused listening, and practical battery life at a sharp price.',
     description:
-      'CMF Neckband Pro is a CMF by Nothing wireless neckband for Pakistan buyers who want dependable daily audio, comfortable around-the-neck wear, and a cleaner alternative to true wireless earbuds. Nothing Official Store Pakistan lists CMF Neckband Pro with local pricing, real product images, ordering support, and WhatsApp confirmation before checkout.',
+      'CMF Neckband Pro is a CMF by Nothing wireless neckband for Pakistan buyers who want dependable daily audio, comfortable around-the-neck wear, and a cleaner alternative to true wireless earbuds. Nothing Pakistan lists CMF Neckband Pro with local pricing, real product images, ordering support, and WhatsApp confirmation before checkout.',
     seoDescriptionLong: [
-      'CMF Neckband Pro is built for Pakistani shoppers who want original CMF audio at an accessible price with local support through Nothing Official Store Pakistan. The page is optimized for searches such as CMF Neckband Pro price in Pakistan, original CMF neckband Pakistan, buy CMF Neckband Pro online, and CMF audio products Pakistan.',
+      'CMF Neckband Pro is built for Pakistani shoppers who want original CMF audio at an accessible price with local support through Nothing Pakistan. The page is optimized for searches such as CMF Neckband Pro price in Pakistan, original CMF neckband Pakistan, buy CMF Neckband Pro online, and CMF audio products Pakistan.',
       'The product is especially relevant for users comparing wireless neckband comfort, daily music use, ANC-oriented listening, call convenience, and battery life without moving into higher-priced audio categories. That makes it a strong fit for practical audio shoppers and students in Pakistan.',
       'For local search intent, the listing is positioned for buyers in Karachi, Lahore, Islamabad, Rawalpindi, Faisalabad, Multan, and other cities who want clear price visibility, original product sourcing, and easy order confirmation before purchase.',
-      'Internal linking should connect CMF Neckband Pro to the audio collection, the CMF collection, and compatible CMF phone pages so users can discover it naturally from both audio and ecosystem routes on Nothing Official Store Pakistan.',
+      'Internal linking should connect CMF Neckband Pro to the audio collection, the CMF collection, and compatible CMF phone pages so users can discover it naturally from both audio and ecosystem routes on Nothing Pakistan.',
     ].join('\n\n'),
-    imageAltText: 'CMF Neckband Pro original wireless neckband in Pakistan from Nothing Official Store Pakistan',
+    imageAltText: 'CMF Neckband Pro original wireless neckband in Pakistan from Nothing Pakistan',
     seoKeywords: [
       'CMF Neckband Pro',
       'CMF Neckband Pro price in Pakistan',
@@ -241,7 +241,7 @@ const PRODUCT_RECORDS = [
       'original CMF Neckband Pro Pakistan',
       'CMF neckband Pakistan',
       'CMF audio Pakistan',
-      'Nothing Official Store Pakistan neckband',
+      'Nothing Pakistan neckband',
       'wireless neckband Pakistan',
       'Bluetooth neckband Pakistan',
       'neckband with ANC Pakistan',
@@ -253,14 +253,14 @@ const PRODUCT_RECORDS = [
     categorySlugs: ['cmf', 'audio'],
     mobileSlugs: ['cmf-phone-1', 'cmf-phone-2-pro'],
     faqs: [
-      ['What is the price of CMF Neckband Pro in Pakistan?', 'CMF Neckband Pro price in Pakistan is Rs 8,999 on Nothing Official Store Pakistan. Final stock, city coverage, and delivery details can be confirmed before ordering.'],
-      ['Is CMF Neckband Pro an original CMF by Nothing product?', 'Yes, CMF Neckband Pro is listed as a CMF by Nothing audio product on Nothing Official Store Pakistan with local support routes and ordering help.'],
-      ['Where can I buy CMF Neckband Pro online in Pakistan?', 'You can buy CMF Neckband Pro online from Nothing Official Store Pakistan through the product page, order flow, or WhatsApp support for fast confirmation.'],
+      ['What is the price of CMF Neckband Pro in Pakistan?', 'CMF Neckband Pro price in Pakistan is Rs 8,999 on Nothing Pakistan. Final stock, city coverage, and delivery details can be confirmed before ordering.'],
+      ['Is CMF Neckband Pro an original CMF by Nothing product?', 'Yes, CMF Neckband Pro is listed as a CMF by Nothing audio product on Nothing Pakistan with local support routes and ordering help.'],
+      ['Where can I buy CMF Neckband Pro online in Pakistan?', 'You can buy CMF Neckband Pro online from Nothing Pakistan through the product page, order flow, or WhatsApp support for fast confirmation.'],
       ['Who should consider CMF Neckband Pro?', 'CMF Neckband Pro is a good fit for buyers who prefer wireless neckband comfort, practical daily audio, and value-focused CMF design in Pakistan.'],
-      ['Does CMF Neckband Pro belong in the audio collection?', 'Yes, CMF Neckband Pro is an audio product, so it is being added to the audio collection as well as the broader CMF collection on Nothing Official Store Pakistan.'],
+      ['Does CMF Neckband Pro belong in the audio collection?', 'Yes, CMF Neckband Pro is an audio product, so it is being added to the audio collection as well as the broader CMF collection on Nothing Pakistan.'],
       ['Can I confirm CMF Neckband Pro stock on WhatsApp?', 'Yes, WhatsApp is one of the easiest ways to confirm live stock, latest price, and order details for CMF Neckband Pro.'],
-      ['Does Nothing Official Store Pakistan deliver CMF Neckband Pro across Pakistan?', 'Yes, Nothing Official Store Pakistan supports delivery queries for CMF Neckband Pro across major Pakistani cities, subject to stock and courier availability.'],
-      ['What colors are available for CMF Neckband Pro?', 'CMF Neckband Pro is being added with Black, Light Grey, and Orange color options on Nothing Official Store Pakistan.'],
+      ['Does Nothing Pakistan deliver CMF Neckband Pro across Pakistan?', 'Yes, Nothing Pakistan supports delivery queries for CMF Neckband Pro across major Pakistani cities, subject to stock and courier availability.'],
+      ['What colors are available for CMF Neckband Pro?', 'CMF Neckband Pro is being added with Black, Light Grey, and Orange color options on Nothing Pakistan.'],
       ['Why is CMF Neckband Pro linked with CMF phones?', 'CMF Neckband Pro is part of the CMF ecosystem, so linking it with CMF phones helps shoppers discover compatible audio products more easily.'],
       ['Is CMF Neckband Pro suitable for everyday use?', 'Yes, CMF Neckband Pro is positioned as a practical everyday audio option for music, calls, commuting, and general wireless listening.'],
     ],
@@ -463,9 +463,9 @@ async function main() {
         related_id: productId,
         color_id: colorId,
         url: publicUrl,
-        alt_text: `${record.name} ${item.colorName} original product in Pakistan from Nothing Official Store Pakistan`,
+        alt_text: `${record.name} ${item.colorName} original product in Pakistan from Nothing Pakistan`,
         title: `${record.name} ${item.colorName}`,
-        caption: `${record.name} ${item.colorName} available on Nothing Official Store Pakistan.`,
+        caption: `${record.name} ${item.colorName} available on Nothing Pakistan.`,
         file_name: fileName,
         slug: `${record.slug}-${slugify(item.colorName)}`,
         sort_order: index,

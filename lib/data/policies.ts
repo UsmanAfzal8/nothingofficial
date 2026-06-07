@@ -28,63 +28,63 @@ const policies: PolicyDocument[] = [
     slug: 'privacy-policy',
     title: 'Privacy Policy',
     summary:
-      'This Privacy Policy explains how the Nothing Official Store Pakistan collects, uses, stores, and protects your personal information when you browse, order, or request support.',
+      'This Privacy Policy explains how the Nothing Pakistan collects, uses, stores, and protects your personal information when you browse, order, or request support.',
     effectiveDate: 'May 19, 2026',
     lastUpdated: 'May 19, 2026',
     sections: [
       {
         title: '1. Scope',
         paragraphs: [
-          'This Privacy Policy applies to all services, pages, and checkout flows operated by the Nothing Official Store Pakistan.',
-          'By using this website, you agree that the Nothing Official Store Pakistan may process your information as described in this policy and applicable law.',
+          'This Privacy Policy applies to all services, pages, and checkout flows operated by the Nothing Pakistan.',
+          'By using this website, you agree that the Nothing Pakistan may process your information as described in this policy and applicable law.',
         ],
       },
       {
         title: '2. Information We Collect',
         paragraphs: [
-          'The Nothing Official Store Pakistan may collect your name, phone number, shipping address, city, district, and optional postal code to fulfill orders.',
+          'The Nothing Pakistan may collect your name, phone number, shipping address, city, district, and optional postal code to fulfill orders.',
           'We may also collect technical information such as device type, browser, IP address, and usage events to improve performance and prevent abuse.',
         ],
       },
       {
         title: '3. How We Use Information',
         paragraphs: [
-          'The Nothing Official Store Pakistan uses your data to confirm orders, arrange delivery, provide support, and manage returns or warranty requests.',
+          'The Nothing Pakistan uses your data to confirm orders, arrange delivery, provide support, and manage returns or warranty requests.',
           'We may use aggregated and de-identified analytics for service optimization, fraud prevention, and customer experience improvements.',
         ],
       },
       {
         title: '4. Sharing and Disclosure',
         paragraphs: [
-          'The Nothing Official Store Pakistan may share relevant order data with logistics, payment, and support partners only to deliver services.',
+          'The Nothing Pakistan may share relevant order data with logistics, payment, and support partners only to deliver services.',
           'We do not sell personal data to unrelated third parties for independent marketing purposes.',
         ],
       },
       {
         title: '5. Cookies and Tracking',
         paragraphs: [
-          'The Nothing Official Store Pakistan uses cookies and similar technologies for session continuity, cart behavior, and website analytics.',
+          'The Nothing Pakistan uses cookies and similar technologies for session continuity, cart behavior, and website analytics.',
           'You can control cookie settings in your browser, but disabling some cookies may reduce website functionality.',
         ],
       },
       {
         title: '6. Data Retention and Security',
         paragraphs: [
-          'The Nothing Official Store Pakistan retains personal information only as long as needed for order completion, legal obligations, and dispute handling.',
+          'The Nothing Pakistan retains personal information only as long as needed for order completion, legal obligations, and dispute handling.',
           'We apply reasonable technical and organizational safeguards, but no internet system can be guaranteed as fully secure.',
         ],
       },
       {
         title: '7. Your Rights',
         paragraphs: [
-          'Subject to applicable law, you may request access, correction, or deletion of personal information held by the Nothing Official Store Pakistan.',
+          'Subject to applicable law, you may request access, correction, or deletion of personal information held by the Nothing Pakistan.',
           'To make a request, contact our support team and include enough detail for account verification.',
         ],
       },
       {
         title: '8. Contact',
         paragraphs: [
-          'For privacy questions, contact the Nothing Official Store Pakistan through the support centre or the contact methods shown on this website.',
+          'For privacy questions, contact the Nothing Pakistan through the support centre or the contact methods shown on this website.',
         ],
       },
     ],
@@ -93,56 +93,56 @@ const policies: PolicyDocument[] = [
     slug: 'terms-of-sale',
     title: 'Terms of Sale',
     summary:
-      'These Terms of Sale govern product purchases made through the Nothing Official Store Pakistan, including pricing, delivery, returns, and warranty handling.',
+      'These Terms of Sale govern product purchases made through the Nothing Pakistan, including pricing, delivery, returns, and warranty handling.',
     effectiveDate: 'May 19, 2026',
     lastUpdated: 'May 19, 2026',
     sections: [
       {
         title: '1. Seller Identity',
         paragraphs: [
-          'All orders placed on this website are processed by the Nothing Official Store Pakistan.',
+          'All orders placed on this website are processed by the Nothing Pakistan.',
           'These terms apply to every product order confirmed through this storefront.',
         ],
       },
       {
         title: '2. Order Placement and Acceptance',
         paragraphs: [
-          'When you place an order, you submit a purchase offer to the Nothing Official Store Pakistan.',
+          'When you place an order, you submit a purchase offer to the Nothing Pakistan.',
           'Order acceptance occurs after confirmation and availability checks; we may cancel or limit quantities for stock, payment, or risk reasons.',
         ],
       },
       {
         title: '3. Pricing and Payments',
         paragraphs: [
-          'Prices shown by the Nothing Official Store Pakistan are listed in the currency shown at checkout and may include or exclude taxes as indicated.',
+          'Prices shown by the Nothing Pakistan are listed in the currency shown at checkout and may include or exclude taxes as indicated.',
           'You agree to provide valid payment details and authorize charges related to your order, including delivery charges where applicable.',
         ],
       },
       {
         title: '4. Shipping and Delivery',
         paragraphs: [
-          'The Nothing Official Store Pakistan arranges shipping through delivery partners and provides estimated timelines where available.',
+          'The Nothing Pakistan arranges shipping through delivery partners and provides estimated timelines where available.',
           'Delivery dates are estimates and may be affected by weather, public holidays, logistics constraints, or address verification issues.',
         ],
       },
       {
         title: '5. Returns, Replacements, and Refunds',
         paragraphs: [
-          'Return and replacement eligibility at the Nothing Official Store Pakistan depends on product condition, proof of purchase, and return window rules.',
+          'Return and replacement eligibility at the Nothing Pakistan depends on product condition, proof of purchase, and return window rules.',
           'Approved refunds are processed through the original payment method or another compliant method offered at the time of refund.',
         ],
       },
       {
         title: '6. Warranty and Product Support',
         paragraphs: [
-          'Products sold by the Nothing Official Store Pakistan may include manufacturer or seller warranty terms shown in product or support documentation.',
+          'Products sold by the Nothing Pakistan may include manufacturer or seller warranty terms shown in product or support documentation.',
           'Warranty coverage can be refused for unauthorized repairs, accidental damage outside coverage, or policy violations.',
         ],
       },
       {
         title: '7. Limitation of Liability',
         paragraphs: [
-          'To the maximum extent permitted by law, the Nothing Official Store Pakistan is not liable for indirect, incidental, or consequential damages.',
+          'To the maximum extent permitted by law, the Nothing Pakistan is not liable for indirect, incidental, or consequential damages.',
           'Nothing in these terms excludes rights that cannot be waived under applicable law.',
         ],
       },
@@ -150,7 +150,7 @@ const policies: PolicyDocument[] = [
         title: '8. Governing Rules',
         paragraphs: [
           'These Terms of Sale are interpreted in line with applicable legal requirements in Pakistan unless mandatory law requires otherwise.',
-          'Disputes should first be raised with the Nothing Official Store Pakistan support team for resolution.',
+          'Disputes should first be raised with the Nothing Pakistan support team for resolution.',
         ],
       },
     ],
@@ -159,14 +159,14 @@ const policies: PolicyDocument[] = [
     slug: 'shipping-and-delivery-policy',
     title: 'Shipping and Delivery Policy',
     summary:
-      'This Shipping and Delivery Policy explains how the Nothing Official Store Pakistan handles dispatch timing, delivery expectations, address validation, and fulfillment communication.',
+      'This Shipping and Delivery Policy explains how the Nothing Pakistan handles dispatch timing, delivery expectations, address validation, and fulfillment communication.',
     effectiveDate: 'May 19, 2026',
     lastUpdated: 'May 19, 2026',
     sections: [
       {
         title: '1. Delivery Coverage',
         paragraphs: [
-          'The Nothing Official Store Pakistan accepts orders for delivery to serviceable locations within Pakistan, subject to courier coverage and operational limitations.',
+          'The Nothing Pakistan accepts orders for delivery to serviceable locations within Pakistan, subject to courier coverage and operational limitations.',
           'Some remote areas may require additional verification time or may not be eligible for standard delivery timelines.',
         ],
       },
@@ -180,7 +180,7 @@ const policies: PolicyDocument[] = [
       {
         title: '3. Delivery Timelines',
         paragraphs: [
-          'Estimated delivery windows shown by the Nothing Official Store Pakistan are guidance only and are not guaranteed unless stated otherwise.',
+          'Estimated delivery windows shown by the Nothing Pakistan are guidance only and are not guaranteed unless stated otherwise.',
           'Delays may occur due to courier disruption, weather events, incomplete addresses, verification holds, or force majeure circumstances.',
         ],
       },
@@ -188,7 +188,7 @@ const policies: PolicyDocument[] = [
         title: '4. Customer Responsibilities',
         paragraphs: [
           'Customers must provide accurate delivery details including name, phone number, city, district, and complete address.',
-          'If our team cannot confirm the order or the delivery information is incomplete, the Nothing Official Store Pakistan may delay, suspend, or cancel fulfillment.',
+          'If our team cannot confirm the order or the delivery information is incomplete, the Nothing Pakistan may delay, suspend, or cancel fulfillment.',
         ],
       },
       {
@@ -201,7 +201,7 @@ const policies: PolicyDocument[] = [
       {
         title: '6. Delivery Issues',
         paragraphs: [
-          'If a parcel arrives damaged, incomplete, or significantly delayed, customers should contact the Nothing Official Store Pakistan support team as soon as possible.',
+          'If a parcel arrives damaged, incomplete, or significantly delayed, customers should contact the Nothing Pakistan support team as soon as possible.',
           'We may request order details, photos, or courier information to investigate the issue.',
         ],
       },
@@ -211,14 +211,14 @@ const policies: PolicyDocument[] = [
     slug: 'return-and-refund-policy',
     title: 'Return and Refund Policy',
     summary:
-      'This Return and Refund Policy explains how the Nothing Official Store Pakistan reviews return eligibility, replacements, rejected deliveries, and approved refunds.',
+      'This Return and Refund Policy explains how the Nothing Pakistan reviews return eligibility, replacements, rejected deliveries, and approved refunds.',
     effectiveDate: 'May 19, 2026',
     lastUpdated: 'May 19, 2026',
     sections: [
       {
         title: '1. Eligibility Window',
         paragraphs: [
-          'Return requests to the Nothing Official Store Pakistan must be made within the applicable return window communicated for the product or order type.',
+          'Return requests to the Nothing Pakistan must be made within the applicable return window communicated for the product or order type.',
           'Products returned outside the allowed period may be refused unless required by applicable law or warranty obligations.',
         ],
       },
@@ -226,20 +226,20 @@ const policies: PolicyDocument[] = [
         title: '2. Product Condition',
         paragraphs: [
           'Returned items must generally be unused, complete, and accompanied by original packaging, accessories, and proof of purchase unless the item is faulty.',
-          'The Nothing Official Store Pakistan may reject returns for damage caused after delivery, misuse, or missing components not attributable to the seller.',
+          'The Nothing Pakistan may reject returns for damage caused after delivery, misuse, or missing components not attributable to the seller.',
         ],
       },
       {
         title: '3. Faulty, Damaged, or Incorrect Items',
         paragraphs: [
-          'If you receive a defective, damaged, or incorrect product, contact support promptly so the Nothing Official Store Pakistan can review replacement or refund options.',
+          'If you receive a defective, damaged, or incorrect product, contact support promptly so the Nothing Pakistan can review replacement or refund options.',
           'We may request photos, serial information, packaging details, or a courier incident summary before approving the claim.',
         ],
       },
       {
         title: '4. Refund Processing',
         paragraphs: [
-          'Approved refunds are processed through the original payment method or another compliant method communicated by the Nothing Official Store Pakistan.',
+          'Approved refunds are processed through the original payment method or another compliant method communicated by the Nothing Pakistan.',
           'Refund timing depends on internal review, banking timelines, payment provider processing, and successful return verification where applicable.',
         ],
       },
@@ -253,7 +253,7 @@ const policies: PolicyDocument[] = [
       {
         title: '6. Policy Abuse and Exceptions',
         paragraphs: [
-          'The Nothing Official Store Pakistan may deny claims that appear fraudulent, repetitive, abusive, or inconsistent with the condition and order history of the item.',
+          'The Nothing Pakistan may deny claims that appear fraudulent, repetitive, abusive, or inconsistent with the condition and order history of the item.',
           'Nothing in this policy removes rights that cannot be excluded under applicable law.',
         ],
       },
@@ -263,14 +263,14 @@ const policies: PolicyDocument[] = [
     slug: 'warranty-policy',
     title: 'Warranty Policy',
     summary:
-      'This Warranty Policy explains how Nothing Official Store Pakistan reviews warranty expectations, seller support, manufacturer support, proof of purchase, and product issue reports.',
+      'This Warranty Policy explains how Nothing Pakistan reviews warranty expectations, seller support, manufacturer support, proof of purchase, and product issue reports.',
     effectiveDate: 'May 19, 2026',
     lastUpdated: 'May 19, 2026',
     sections: [
       {
         title: '1. Scope',
         paragraphs: [
-          'This Warranty Policy applies to products purchased through Nothing Official Store Pakistan and operated by NOTHING OFFICIAL (SMC-PRIVATE) LIMITED.',
+          'This Warranty Policy applies to products purchased through Nothing Pakistan and operated by NOTHING PAKISTAN (SMC-PRIVATE) LIMITED.',
           'Warranty handling depends on the product type, order record, product condition, and any warranty terms communicated on the product page or during support confirmation.',
         ],
       },
@@ -292,7 +292,7 @@ const policies: PolicyDocument[] = [
         title: '4. Reporting a Warranty Issue',
         paragraphs: [
           'Contact support as soon as an issue is noticed and provide order details, product photos, packaging photos, videos where useful, and a clear description of the problem.',
-          'Nothing Official Store Pakistan may ask for additional evidence before approving inspection, replacement, repair guidance, or another support outcome.',
+          'Nothing Pakistan may ask for additional evidence before approving inspection, replacement, repair guidance, or another support outcome.',
         ],
       },
       {
@@ -305,7 +305,7 @@ const policies: PolicyDocument[] = [
       {
         title: '6. Contact',
         paragraphs: [
-          'For warranty help, contact Nothing Official Store Pakistan through the support centre, contact page, or WhatsApp support route published on this website.',
+          'For warranty help, contact Nothing Pakistan through the support centre, contact page, or WhatsApp support route published on this website.',
         ],
       },
     ],
@@ -314,21 +314,21 @@ const policies: PolicyDocument[] = [
     slug: 'acceptable-use-policy',
     title: 'Acceptable Use Policy',
     summary:
-      'This Acceptable Use Policy sets behavior rules for use of the Nothing Official Store Pakistan website, support features, and account tools.',
+      'This Acceptable Use Policy sets behavior rules for use of the Nothing Pakistan website, support features, and account tools.',
     effectiveDate: 'May 19, 2026',
     lastUpdated: 'May 19, 2026',
     sections: [
       {
         title: '1. Purpose',
         paragraphs: [
-          'This policy protects customers, systems, and staff of the Nothing Official Store Pakistan from abuse, fraud, and unlawful activity.',
+          'This policy protects customers, systems, and staff of the Nothing Pakistan from abuse, fraud, and unlawful activity.',
           'By using this website, you agree to follow this Acceptable Use Policy at all times.',
         ],
       },
       {
         title: '2. Permitted Use',
         paragraphs: [
-          'You may use the Nothing Official Store Pakistan website for lawful product browsing, purchasing, support requests, and account management.',
+          'You may use the Nothing Pakistan website for lawful product browsing, purchasing, support requests, and account management.',
           'Any use must be honest, accurate, and consistent with these policies.',
         ],
       },
@@ -342,28 +342,28 @@ const policies: PolicyDocument[] = [
       {
         title: '4. Account and Checkout Integrity',
         paragraphs: [
-          'The Nothing Official Store Pakistan may suspend accounts or block orders that appear fraudulent, automated, or policy-violating.',
+          'The Nothing Pakistan may suspend accounts or block orders that appear fraudulent, automated, or policy-violating.',
           'Repeated invalid transactions or abuse of promotions may result in permanent restrictions.',
         ],
       },
       {
         title: '5. Security Testing and Automation',
         paragraphs: [
-          'Any automated testing, scraping, crawling, or bot traffic against the Nothing Official Store Pakistan requires prior written authorization.',
+          'Any automated testing, scraping, crawling, or bot traffic against the Nothing Pakistan requires prior written authorization.',
           'Unauthorized load generation, vulnerability probing, or bypass attempts are strictly prohibited.',
         ],
       },
       {
         title: '6. Enforcement',
         paragraphs: [
-          'The Nothing Official Store Pakistan may investigate violations and take action including warning, suspension, cancellation, and legal escalation where needed.',
+          'The Nothing Pakistan may investigate violations and take action including warning, suspension, cancellation, and legal escalation where needed.',
           'We may cooperate with lawful requests from authorities consistent with applicable law.',
         ],
       },
       {
         title: '7. Reporting Abuse',
         paragraphs: [
-          'If you discover misuse or security concerns affecting the Nothing Official Store Pakistan, report it via the support centre as soon as possible.',
+          'If you discover misuse or security concerns affecting the Nothing Pakistan, report it via the support centre as soon as possible.',
         ],
       },
     ],
@@ -372,63 +372,63 @@ const policies: PolicyDocument[] = [
     slug: 'user-agreement',
     title: 'User Agreement',
     summary:
-      'This User Agreement defines the general terms for accessing and using the Nothing Official Store Pakistan website and related support services.',
+      'This User Agreement defines the general terms for accessing and using the Nothing Pakistan website and related support services.',
     effectiveDate: 'May 19, 2026',
     lastUpdated: 'May 19, 2026',
     sections: [
       {
         title: '1. Agreement to Terms',
         paragraphs: [
-          'By visiting or using this website, you agree to this User Agreement with the Nothing Official Store Pakistan.',
+          'By visiting or using this website, you agree to this User Agreement with the Nothing Pakistan.',
           'If you do not agree, you must stop using the website and related services.',
         ],
       },
       {
         title: '2. Eligibility and Accuracy',
         paragraphs: [
-          'You confirm that information provided to the Nothing Official Store Pakistan is true, complete, and updated when required.',
+          'You confirm that information provided to the Nothing Pakistan is true, complete, and updated when required.',
           'You are responsible for keeping account and contact details accurate for delivery and support purposes.',
         ],
       },
       {
         title: '3. Product and Content Information',
         paragraphs: [
-          'The Nothing Official Store Pakistan works to keep product details accurate, but images, availability, and technical specs may change without notice.',
+          'The Nothing Pakistan works to keep product details accurate, but images, availability, and technical specs may change without notice.',
           'Pricing, offers, and stock status are not guaranteed until order confirmation.',
         ],
       },
       {
         title: '4. Intellectual Property',
         paragraphs: [
-          'All trademarks, logos, text, graphics, and site design used by the Nothing Official Store Pakistan remain protected intellectual property.',
+          'All trademarks, logos, text, graphics, and site design used by the Nothing Pakistan remain protected intellectual property.',
           'You may not copy, republish, reverse engineer, or commercially exploit site content without written permission.',
         ],
       },
       {
         title: '5. Third-Party Services',
         paragraphs: [
-          'The Nothing Official Store Pakistan may link to external services for payments, support, or social channels; those services follow their own terms.',
+          'The Nothing Pakistan may link to external services for payments, support, or social channels; those services follow their own terms.',
           'We are not responsible for policies or outages on third-party platforms beyond our control.',
         ],
       },
       {
         title: '6. Service Changes and Availability',
         paragraphs: [
-          'The Nothing Official Store Pakistan may update, suspend, or discontinue site features, promotions, or pages at any time.',
+          'The Nothing Pakistan may update, suspend, or discontinue site features, promotions, or pages at any time.',
           'Planned and unplanned downtime may occur for maintenance, upgrades, or infrastructure events.',
         ],
       },
       {
         title: '7. Limitation and Indemnity',
         paragraphs: [
-          'To the extent permitted by law, the Nothing Official Store Pakistan is not responsible for indirect or consequential losses arising from website use.',
-          'You agree to indemnify the Nothing Official Store Pakistan against losses caused by your violation of this User Agreement.',
+          'To the extent permitted by law, the Nothing Pakistan is not responsible for indirect or consequential losses arising from website use.',
+          'You agree to indemnify the Nothing Pakistan against losses caused by your violation of this User Agreement.',
         ],
       },
       {
         title: '8. Updates to This Agreement',
         paragraphs: [
-          'The Nothing Official Store Pakistan may revise this User Agreement periodically, and updated terms become effective when posted.',
+          'The Nothing Pakistan may revise this User Agreement periodically, and updated terms become effective when posted.',
           'Continuing to use the website after updates means you accept the revised agreement.',
         ],
       },

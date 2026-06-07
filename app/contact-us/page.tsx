@@ -23,9 +23,9 @@ import {
 } from '@/lib/data/site-content'
 import { buildAbsoluteUrl, buildBreadcrumbStructuredData, buildRobotsMetadata, buildSeoKeywords } from '@/lib/utils/seo'
 
-const title = 'Contact Nothing Official Store Pakistan | Support & Verification'
+const title = 'Contact Nothing Pakistan | Support & Verification'
 const description =
-  'Contact Nothing Official Store Pakistan for orders, WhatsApp support, Lahore location, SECP company details, customer safety, delivery, and return guidance.'
+  'Contact Nothing Pakistan for orders, WhatsApp support, Lahore location, SECP company details, customer safety, delivery, and return guidance.'
 
 const lahoreStoreMapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(siteContactAddress)}`
 const lahoreStoreEmbedUrl = `https://www.google.com/maps?q=${encodeURIComponent(siteContactAddress)}&z=16&output=embed`
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     absolute: title,
   },
   description,
-  keywords: buildSeoKeywords(siteKeywords, ['Contact Nothing Official Store Pakistan', 'Nothing Official Store Pakistan WhatsApp', companyLegalName]),
+  keywords: buildSeoKeywords(siteKeywords, ['Contact Nothing Pakistan', 'Nothing Pakistan WhatsApp', companyLegalName]),
   alternates: {
     canonical: buildAbsoluteUrl('/contact-us'),
   },
@@ -89,7 +89,7 @@ export default function ContactUsPage() {
                   Support, orders, and verified business information.
                 </h1>
                 <p className="mt-5 max-w-3xl text-base leading-8 text-black/68">
-                  Use this page to contact Nothing Official Store Pakistan for product questions, order support, delivery guidance, return expectations, and company verification. The storefront is operated by {companyLegalName}, an SECP registered Pakistani company with {companyIdentifier}.
+                  Use this page to contact Nothing Pakistan for product questions, order support, delivery guidance, return expectations, and company verification. The storefront is operated by {companyLegalName}, an SECP registered Pakistani company with {companyIdentifier}.
                 </p>
               </div>
               <CompanyTrustBadge />
@@ -101,9 +101,9 @@ export default function ContactUsPage() {
               <article className="space-y-8">
                 <section className="rounded-[8px] border border-black/10 bg-white p-5">
                   <p className="text-[10px] uppercase tracking-[0.26em] text-black/42">Direct Answer</p>
-                  <h2 className="mt-3 text-xl font-semibold tracking-[-0.02em] text-black">How can I contact Nothing Official Store Pakistan?</h2>
+                  <h2 className="mt-3 text-xl font-semibold tracking-[-0.02em] text-black">How can I contact Nothing Pakistan?</h2>
                   <p className="mt-3 text-sm leading-7 text-black/68">
-                    You can contact Nothing Official Store Pakistan by phone or WhatsApp at {siteContactDisplayPhone}. For order questions, product compatibility, delivery information, returns, and company verification, use WhatsApp first so the support team can review your product and city details clearly.
+                    You can contact Nothing Pakistan by phone or WhatsApp at {siteContactDisplayPhone}. For order questions, product compatibility, delivery information, returns, and company verification, use WhatsApp first so the support team can review your product and city details clearly.
                   </p>
                 </section>
 
@@ -160,7 +160,7 @@ export default function ContactUsPage() {
                 <section className="border-t border-black/10 pt-8">
                   <h2 className="text-3xl font-semibold tracking-[-0.03em] text-black">Customer Safety Note</h2>
                   <p className="mt-5 text-sm leading-8 text-black/70">
-                    Before buying any Nothing or CMF product online, customers should verify seller authenticity, business identity, support channels, payment instructions, delivery terms, and return expectations. Nothing Official Store Pakistan publishes its SECP company information and certificate link so customers can review the registered Pakistani business behind the storefront.
+                    Before buying any Nothing or CMF product online, customers should verify seller authenticity, business identity, support channels, payment instructions, delivery terms, and return expectations. Nothing Pakistan publishes its SECP company information and certificate link so customers can review the registered Pakistani business behind the storefront.
                   </p>
                 </section>
               </article>
@@ -169,11 +169,11 @@ export default function ContactUsPage() {
                 <section className="overflow-hidden rounded-[8px] border border-black/10 bg-white">
                   <div className="border-b border-black/10 p-5">
                     <p className="text-[10px] uppercase tracking-[0.24em] text-black/42">Lahore Location</p>
-                    <h2 className="mt-3 text-2xl font-semibold tracking-[-0.03em] text-black">Nothing Official Store Pakistan</h2>
+                    <h2 className="mt-3 text-2xl font-semibold tracking-[-0.03em] text-black">Nothing Pakistan</h2>
                     <p className="mt-3 text-sm leading-7 text-black/68">{siteContactAddress}</p>
                   </div>
                   <iframe
-                    title="Nothing Official Store Pakistan Lahore location map"
+                    title="Nothing Pakistan Lahore location map"
                     src={lahoreStoreEmbedUrl}
                     loading="lazy"
                     referrerPolicy="no-referrer-when-downgrade"

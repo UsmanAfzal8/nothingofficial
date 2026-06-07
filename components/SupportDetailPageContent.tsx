@@ -52,8 +52,8 @@ function ProductStatusForm() {
   const trimmedValue = value.trim()
   const whatsappUrl = useMemo(() => {
     const baseMessage = trimmedValue
-      ? `Hi Nothing Official Store Pakistan, please check product status for this IMEI/SN: ${trimmedValue}`
-      : 'Hi Nothing Official Store Pakistan, I want to check my Nothing product status.'
+      ? `Hi Nothing Pakistan, please check product status for this IMEI/SN: ${trimmedValue}`
+      : 'Hi Nothing Pakistan, I want to check my Nothing product status.'
     return buildWhatsappUrl(baseMessage)
   }, [trimmedValue])
 
@@ -216,8 +216,8 @@ export function SupportDetailPageContent({ page }: SupportDetailPageContentProps
         <section className="support-detail-section support-detail-contact">
           <h2>Contact Us</h2>
           <div className="support-contact-row">
-            <p>Need more help? Message Nothing Official Store Pakistan on WhatsApp and our team will guide you with the next step.</p>
-            <a href={buildWhatsappUrl(`Hi Nothing Official Store Pakistan, I need help with ${page.title}.`)} target="_blank" rel="noopener noreferrer">
+            <p>Need more help? Message Nothing Pakistan on WhatsApp and our team will guide you with the next step.</p>
+            <a href={buildWhatsappUrl(`Hi Nothing Pakistan, I need help with ${page.title}.`)} target="_blank" rel="noopener noreferrer">
               Send Us A Message
             </a>
           </div>

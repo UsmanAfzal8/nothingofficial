@@ -25,7 +25,7 @@ function normalizeHandle(value: string | string[] | undefined): string | null {
 
 export const metadata: Metadata = {
   title: {
-    absolute: 'Place Order | Nothing Official Store Pakistan',
+    absolute: 'Place Order | Nothing Pakistan',
   },
   description: 'Order screen for customer details and live catalog orders.',
   alternates: {

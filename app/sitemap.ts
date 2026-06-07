@@ -3,7 +3,7 @@ import { getCollectionSitemapEntries, getProductSitemapEntries } from '@/lib/dat
 import { blogPosts } from '@/lib/data/blog'
 import { allPolicies } from '@/lib/data/policies'
 import { supportPageSlugs } from '@/lib/data/support-pages'
-import { buildAbsoluteUrl, getLastModifiedDate } from '@/lib/utils/seo'
+import { buildAbsoluteUrl, getLastModifiedDate, stripNothingPakistanSlugPrefix } from '@/lib/utils/seo'
 
 type SitemapItem = MetadataRoute.Sitemap[number]
 
@@ -24,7 +24,9 @@ function uniqueRoutes(routes: MetadataRoute.Sitemap): MetadataRoute.Sitemap {
 }
 
 function collectionPriority(entry: Awaited<ReturnType<typeof getCollectionSitemapEntries>>[number]): number {
-  if (['shop-all', 'phones', 'audio', 'chargers', 'protectors', 'accessories', 'cmf'].includes(entry.slug)) return 0.8
+  const slug = stripNothingPakistanSlugPrefix(entry.slug)
+
+  if (['shop-all', 'phones', 'audio', 'chargers', 'protectors', 'accessories', 'cmf'].includes(slug)) return 0.8
 
   return entry.depth === 0 ? 0.72 : 0.62
 }

@@ -10,7 +10,7 @@ import { CATALOG_REVALIDATE_SECONDS, getCollectionBySlug } from '@/lib/data/cata
 import { companyIdentifier, companyLegalName } from '@/lib/data/company'
 import { collectionSeoFaqs, siteBrandName, siteKeywords, siteTrustLinks } from '@/lib/data/site-content'
 import type { Collection } from '@/lib/models/catalog'
-import { buildAbsoluteUrl, buildBreadcrumbStructuredData, buildFaqStructuredData, buildRobotsMetadata, buildSeoKeywords } from '@/lib/utils/seo'
+import { buildAbsoluteUrl, buildBreadcrumbStructuredData, buildFaqStructuredData, buildRobotsMetadata, buildSeoKeywords, stripNothingPakistanSlugPrefix } from '@/lib/utils/seo'
 
 type CollectionPageProps = {
   params: {
@@ -40,9 +40,9 @@ function buildCollectionSeoDescription(collection: Collection) {
     return collection.metaDescription
   }
 
-  switch (collection.slug) {
+  switch (stripNothingPakistanSlugPrefix(collection.slug)) {
     case 'shop-all':
-      return 'Browse the full Nothing Official Store Pakistan catalog for chargers, earbuds, protectors, CMF devices, and other compatible accessories.'
+      return 'Browse the full Nothing Pakistan catalog for chargers, earbuds, protectors, CMF devices, and other compatible accessories.'
     case 'phones':
       return 'Browse Nothing phone model pages and jump into compatible chargers, protectors, earbuds, and support routes in Pakistan.'
     case 'chargers':
@@ -69,7 +69,8 @@ function buildCollectionBreadcrumbs(collection: Collection) {
 function buildCollectionStructuredData(collection: Collection) {
   const breadcrumbItems = buildCollectionBreadcrumbs(collection)
   const topProducts = uniqueProductsByHandle(collection.products).slice(0, 12)
-  const faqStructuredData = buildFaqStructuredData(collectionSeoFaqs[collection.slug] ?? [])
+  const collectionSeoKey = stripNothingPakistanSlugPrefix(collection.slug)
+  const faqStructuredData = buildFaqStructuredData(collectionSeoFaqs[collectionSeoKey] ?? [])
 
   const structuredData: Record<string, unknown>[] = [
     {
@@ -154,53 +155,54 @@ function buildCollectionAnswerSections(collection: Collection, seoDescription: s
 
 function CollectionAeoSection({ collection, seoDescription }: { collection: Collection; seoDescription: string }) {
   const answerSections = buildCollectionAnswerSections(collection, seoDescription)
-  const faqs = collectionSeoFaqs[collection.slug] ?? []
+  const collectionSeoKey = stripNothingPakistanSlugPrefix(collection.slug)
+  const faqs = collectionSeoFaqs[collectionSeoKey] ?? []
 
   return (
-    <section className="mt-12 border-t border-black/10 pt-10">
+    <section className="mt-12 border-t border-dotted border-black/45 pt-10 [font-family:var(--font-ntype82)]">
       <div className="grid gap-5 lg:grid-cols-3">
         {answerSections.map((section) => (
-          <article key={section.eyebrow} className="rounded-[8px] border border-black/10 bg-white p-5">
-            <p className="text-[10px] uppercase tracking-[0.28em] text-black/42">{section.eyebrow}</p>
-            <h2 className="mt-4 text-2xl leading-tight tracking-[-0.03em] text-black">{section.title}</h2>
-            <p className="mt-4 text-sm leading-7 text-black/62">{section.body}</p>
+          <article key={section.eyebrow} className="border-t border-dotted border-black/35 pt-5">
+            <p className="[font-family:var(--font-lettera-medium)] text-[11px] uppercase tracking-[0.18em] text-black/48">{section.eyebrow}</p>
+            <h2 className="mt-4 [font-family:var(--font-lettera-medium)] text-xl leading-tight tracking-normal text-black">{section.title}</h2>
+            <p className="mt-4 text-[15px] leading-[1.55] text-black/68">{section.body}</p>
           </article>
         ))}
       </div>
 
       {faqs.length > 0 ? (
-        <div className="mt-10 grid gap-6 lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1fr)]">
+        <div className="mt-14 grid gap-6 border-t border-dotted border-black/45 pt-10 lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1fr)]">
           <div>
-            <p className="text-[10px] uppercase tracking-[0.28em] text-black/42">Collection Answers</p>
-            <h2 className="mt-3 text-3xl leading-tight tracking-[-0.04em] text-black">Direct answers for {collection.title}</h2>
+            <p className="[font-family:var(--font-lettera-medium)] text-[11px] uppercase tracking-[0.18em] text-black/48">Collection Answers</p>
+            <h2 className="mt-4 [font-family:var(--font-lettera-medium)] text-2xl leading-tight tracking-normal text-black">Direct answers for {collection.title}</h2>
           </div>
-          <div className="divide-y divide-black/10 rounded-[8px] border border-black/10 bg-white">
+          <div className="divide-y divide-dotted divide-black/35 border-y border-dotted border-black/35">
             {faqs.map((faq) => (
-              <details key={faq.question} className="group px-5 py-4">
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-sm font-medium text-black">
+              <details key={faq.question} className="group py-5">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 [font-family:var(--font-lettera-medium)] text-sm text-black">
                   {faq.question}
-                  <span className="text-lg leading-none text-black/38 group-open:hidden">+</span>
-                  <span className="hidden text-lg leading-none text-black/38 group-open:block">-</span>
+                  <span className="[font-family:var(--font-lettera-medium)] text-lg leading-none text-black/38 group-open:hidden">+</span>
+                  <span className="hidden [font-family:var(--font-lettera-medium)] text-lg leading-none text-black/38 group-open:block">-</span>
                 </summary>
-                <p className="mt-3 text-sm leading-7 text-black/62">{faq.answer}</p>
+                <p className="mt-3 text-[15px] leading-[1.55] text-black/68">{faq.answer}</p>
               </details>
             ))}
           </div>
         </div>
       ) : null}
 
-      <div className="mt-10 rounded-[8px] border border-black/10 bg-white p-5">
-        <p className="text-[10px] uppercase tracking-[0.28em] text-black/42">Support Routes</p>
-        <h2 className="mt-3 text-3xl leading-tight tracking-[-0.04em] text-black">Need help before ordering?</h2>
-        <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+      <div className="mt-14 border-t border-dotted border-black/45 pt-10">
+        <p className="[font-family:var(--font-lettera-medium)] text-[11px] uppercase tracking-[0.18em] text-black/48">Support Routes</p>
+        <h2 className="mt-4 [font-family:var(--font-lettera-medium)] text-2xl leading-tight tracking-normal text-black">Need help before ordering?</h2>
+        <div className="mt-6 grid border-t border-dotted border-black/35 sm:grid-cols-2 lg:grid-cols-5">
           {siteTrustLinks.slice(0, 5).map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className="rounded-[8px] border border-black/10 bg-[#f8f8f4] p-4 transition-colors hover:bg-black hover:text-white"
+              className="border-b border-dotted border-black/35 py-5 pr-5 transition-opacity hover:opacity-55 sm:[&:nth-child(even)]:pl-5 lg:[&:not(:first-child)]:pl-5"
             >
-              <span className="block text-sm font-medium">{link.title}</span>
-              <span className="mt-2 block text-xs leading-5 opacity-65">{link.description}</span>
+              <span className="block [font-family:var(--font-lettera-medium)] text-sm">{link.title}</span>
+              <span className="mt-2 block text-sm leading-[1.5] opacity-65">{link.description}</span>
             </Link>
           ))}
         </div>
@@ -219,8 +221,9 @@ export async function generateMetadata({ params }: CollectionPageProps): Promise
   }
 
   const description = buildCollectionSeoDescription(collection)
+  const collectionSeoKey = stripNothingPakistanSlugPrefix(collection.slug)
   const title = collection.metaTitle || `${collection.title} in Pakistan | ${siteBrandName}`
-  const hasIndexableContent = collection.products.length > 0 || INDEXABLE_CONTENT_COLLECTION_SLUGS.has(collection.slug)
+  const hasIndexableContent = collection.products.length > 0 || INDEXABLE_CONTENT_COLLECTION_SLUGS.has(collectionSeoKey)
   const keywords = buildSeoKeywords(
     siteKeywords,
     [
@@ -270,8 +273,9 @@ export default async function CollectionPage({ params }: CollectionPageProps) {
   }
 
   const breadcrumbItems = buildCollectionBreadcrumbs(collection)
-  const isShopStyleCollection = SHOP_STYLE_SLUGS.has(collection.slug)
-  const isOffersCollection = collection.slug === 'offers'
+  const collectionSeoKey = stripNothingPakistanSlugPrefix(collection.slug)
+  const isShopStyleCollection = SHOP_STYLE_SLUGS.has(collectionSeoKey)
+  const isOffersCollection = collectionSeoKey === 'offers'
   const seoDescription = buildCollectionSeoDescription(collection)
   const relatedCollectionLinks = collection.childCollections?.length ? collection.childCollections : []
 
@@ -286,7 +290,7 @@ export default async function CollectionPage({ params }: CollectionPageProps) {
 
           <section className="relative mx-auto flex min-h-[calc(100vh-7rem)] max-w-[1360px] flex-col justify-center">
             <div className="mx-auto max-w-[960px] py-6 text-center md:py-8">
-              <h1 className="dot-heading text-[1.45rem] leading-[0.94] tracking-[0.2em] text-white sm:text-[2rem] lg:text-[2.8rem]">
+              <h1 className="[font-family:var(--font-lettera-medium)] text-[1.45rem] font-medium leading-[0.94] tracking-normal text-white sm:text-[2rem] lg:text-[2.8rem]">
                 OFFERS
               </h1>
             </div>
@@ -294,7 +298,7 @@ export default async function CollectionPage({ params }: CollectionPageProps) {
             <div className="mx-auto flex w-full max-w-[960px] flex-col items-center gap-4">
               <article className="w-full max-w-[720px] rounded-[22px] bg-[#3f3f3f] px-4 py-4 shadow-[0_28px_80px_rgba(0,0,0,0.36)] sm:px-5 sm:py-5 lg:max-w-[680px] lg:px-6 lg:py-6">
                 <div className="max-w-[560px]">
-                  <p className="dot-heading text-[1.8rem] leading-[0.95] tracking-[0.08em] text-white sm:text-[2.2rem] lg:text-[2.7rem]">
+                  <p className="[font-family:var(--font-lettera-medium)] text-[1.8rem] font-medium leading-[0.95] tracking-normal text-white sm:text-[2.2rem] lg:text-[2.7rem]">
                     Non COD offer
                   </p>
                   <InterTypographyScope className="mt-4 space-y-1.5 text-[0.92rem] leading-7 text-white/92 sm:text-[1rem] lg:mt-5 lg:text-[1.02rem] lg:leading-8">
@@ -304,7 +308,7 @@ export default async function CollectionPage({ params }: CollectionPageProps) {
                   </InterTypographyScope>
                   <div className="mt-5 lg:mt-6">
                     <Link
-                      href="/collections/shop-all"
+                      href="/collections/nothing-pakistan-shop-all"
                       className="inline-flex h-9 items-center justify-center rounded-full bg-[#5b5b5b] px-4 text-[10px] uppercase tracking-[0.2em] text-white transition-colors hover:bg-white hover:text-black"
                     >
                       Claim offer
@@ -315,7 +319,7 @@ export default async function CollectionPage({ params }: CollectionPageProps) {
 
               <article className="w-full max-w-[720px] rounded-[22px] bg-[#3f3f3f] px-4 py-4 shadow-[0_28px_80px_rgba(0,0,0,0.36)] sm:px-5 sm:py-5 lg:max-w-[680px] lg:px-6 lg:py-6">
                 <div className="max-w-[600px]">
-                  <p className="dot-heading text-[1.8rem] leading-[0.95] tracking-[0.08em] text-white sm:text-[2.2rem] lg:text-[2.7rem]">
+                  <p className="[font-family:var(--font-lettera-medium)] text-[1.8rem] font-medium leading-[0.95] tracking-normal text-white sm:text-[2.2rem] lg:text-[2.7rem]">
                     Student program
                   </p>
                   <InterTypographyScope className="mt-4 space-y-1.5 text-[0.92rem] leading-7 text-white/92 sm:text-[1rem] lg:mt-5 lg:text-[1.02rem] lg:leading-8">
@@ -324,7 +328,7 @@ export default async function CollectionPage({ params }: CollectionPageProps) {
                   </InterTypographyScope>
                   <div className="mt-5 lg:mt-6">
                     <Link
-                      href="/collections/shop-all"
+                      href="/collections/nothing-pakistan-shop-all"
                       className="inline-flex h-9 items-center justify-center rounded-full bg-[#5b5b5b] px-4 text-[10px] uppercase tracking-[0.2em] text-white transition-colors hover:bg-white hover:text-black"
                     >
                       Apply now
@@ -369,18 +373,18 @@ export default async function CollectionPage({ params }: CollectionPageProps) {
             {isShopStyleCollection ? (
               <div className="flex items-center justify-center py-2 sm:py-4">
                 <div className="max-w-4xl text-center">
-                  <h1 className="dot-heading text-center text-[2.15rem] leading-[0.95] tracking-[0.2em] text-black sm:text-[2.9rem] lg:text-[3.45rem]">
-                    {collection.slug === 'shop-all' ? 'All products' : collection.title}
+                  <h1 className="text-center [font-family:var(--font-lettera-medium)] text-[2.15rem] font-medium leading-[0.95] tracking-normal text-black sm:text-[2.9rem] lg:text-[3.45rem]">
+                    {collectionSeoKey === 'shop-all' ? 'All products' : collection.title}
                   </h1>
-                  <p className="mx-auto mt-4 max-w-3xl text-sm leading-7 text-black/62 md:text-base">{seoDescription}</p>
+                  <p className="mx-auto mt-4 max-w-3xl [font-family:var(--font-ntype82)] text-sm leading-7 text-black/62 md:text-base">{seoDescription}</p>
                 </div>
               </div>
             ) : (
               <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
                 <div className="max-w-3xl">
-                  <p className="mb-3 text-[10px] uppercase tracking-[0.34em] text-black/45 md:text-xs">Catalog Collection</p>
-                  <h1 className="text-4xl leading-[0.95] tracking-[-0.04em] text-black md:text-6xl">{collection.title}</h1>
-                  <p className="mt-4 max-w-2xl text-sm leading-6 text-black/62 md:text-base">{seoDescription}</p>
+                  <p className="mb-3 [font-family:var(--font-lettera-medium)] text-[10px] uppercase tracking-[0.18em] text-black/45 md:text-xs">Catalog Collection</p>
+                  <h1 className="[font-family:var(--font-lettera-medium)] text-4xl font-medium leading-[0.95] tracking-normal text-black md:text-6xl">{collection.title}</h1>
+                  <p className="mt-4 max-w-2xl [font-family:var(--font-ntype82)] text-sm leading-6 text-black/62 md:text-base">{seoDescription}</p>
                 </div>
 
                 {collection.products.length > 0 ? (

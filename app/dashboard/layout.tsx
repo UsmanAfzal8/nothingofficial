@@ -3,7 +3,7 @@ import { buildAbsoluteUrl } from '@/lib/utils/seo'
 
 export const metadata: Metadata = {
   title: {
-    absolute: 'Dashboard Preview | Nothing Official Store Pakistan',
+    absolute: 'Dashboard Preview | Nothing Pakistan',
   },
   alternates: {
     canonical: buildAbsoluteUrl('/dashboard'),

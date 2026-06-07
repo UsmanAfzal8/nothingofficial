@@ -36,7 +36,7 @@ import type {
 import { DETAIL_IMAGE_RELATED_TYPE_ENUM, STORE_RELATED_TYPE_ENUM } from '@/lib/models/supabase-enums'
 import type { ProductType } from '@/lib/models/supabase-enums'
 import { getSupabaseAdminClient } from '@/lib/supabase-admin'
-import { buildAbsoluteUrl, splitSeoKeywords, trimSeoDescription } from '@/lib/utils/seo'
+import { buildAbsoluteUrl, splitSeoKeywords, stripNothingPakistanSlugPrefix, trimSeoDescription } from '@/lib/utils/seo'
 import fallbackMobiles from '@/database/mobile.json'
 import fallbackProducts from '@/database/prodcuts.json'
 
@@ -158,6 +158,20 @@ const TRENDING_PICK_PRODUCT_SLUGS = [
   'nothing-power-45w',
   'cmf-power-100w-gan',
 ] as const
+const PRODUCT_HANDLE_ALIASES: Readonly<Record<string, string>> = {
+  'nothing-pakistan-phone-4a-pro': 'nothing-pakistan-nothing-4a-pro',
+}
+const PREFERRED_PRODUCT_HANDLES: Readonly<Record<string, string>> = {
+  'nothing-pakistan-nothing-4a-pro': 'nothing-pakistan-phone-4a-pro',
+}
+
+function resolveProductHandleAlias(handle: string) {
+  return PRODUCT_HANDLE_ALIASES[handle] ?? handle
+}
+
+function getPreferredProductHandle(handle: string) {
+  return PREFERRED_PRODUCT_HANDLES[resolveProductHandleAlias(handle)] ?? handle
+}
 
 const FEATURED_COVERS_CATEGORY_SLUG = 'featured-covers'
 const FEATURED_COVER_PRODUCT_SLUGS = [
@@ -178,29 +192,29 @@ type VirtualCollectionSlug = (typeof ALL_VIRTUAL_COLLECTION_SLUGS)[number]
 const VIRTUAL_COLLECTIONS: Record<VirtualCollectionSlug, VirtualCollectionConfig> = {
   'shop-all': {
     title: 'Shop all',
-    metaTitle: 'Nothing Official Store Pakistan Shop All | Chargers, Accessories and CMF',
-    description: 'Browse the full Nothing Official Store Pakistan catalog for chargers, earbuds, protectors, CMF devices, and other compatible accessories.',
+    metaTitle: 'Nothing Pakistan Shop All | Chargers, Accessories and CMF',
+    description: 'Browse the full Nothing Pakistan catalog for chargers, earbuds, protectors, CMF devices, and other compatible accessories.',
   },
   phones: {
     title: 'Phones',
-    metaTitle: 'Nothing Phones in Pakistan | Compatible Accessories | Nothing Official Store Pakistan',
+    metaTitle: 'Nothing Phones in Pakistan | Compatible Accessories | Nothing Pakistan',
     description: 'Browse Nothing phones and jump into compatible chargers, protectors, earbuds, and support routes in Pakistan.',
   },
   chargers: {
     title: 'Chargers',
-    metaTitle: 'Nothing Chargers in Pakistan | Nothing Official Store Pakistan',
+    metaTitle: 'Nothing Chargers in Pakistan | Nothing Pakistan',
     description: 'Shop Nothing chargers and charging cables in Pakistan with live product pages, pricing, and ordering support.',
     productTypes: ['charger', 'data_cable'],
   },
   protectors: {
     title: 'Protectors',
-    metaTitle: 'Nothing Protectors in Pakistan | Nothing Official Store Pakistan',
+    metaTitle: 'Nothing Protectors in Pakistan | Nothing Pakistan',
     description: 'Browse screen protectors and protective accessories for Nothing devices in Pakistan.',
     productTypes: ['protector', 'screen_protector'],
   },
   earbuds: {
     title: 'Earbuds',
-    metaTitle: 'Nothing Earbuds in Pakistan | Nothing Official Store Pakistan',
+    metaTitle: 'Nothing Earbuds in Pakistan | Nothing Pakistan',
     description: 'Browse Nothing earbuds and audio accessories in Pakistan with live catalog pages and ordering support.',
     productTypes: ['earbuds'],
   },
@@ -366,7 +380,7 @@ function buildMobileSearchKeywords(name: string, extraKeywords: string | null | 
 
 function buildProductMetaDescription(product: SupabaseProductRow, name: string): string {
   const productTypeLabel = product.product_type ? PRODUCT_TYPE_LABELS[product.product_type] ?? product.product_type : 'Nothing accessory'
-  const fallback = `Shop ${name} in Pakistan from Nothing Official Store Pakistan. Check ${productTypeLabel.toLowerCase()} details, compatibility, availability, delivery, and WhatsApp support.`
+  const fallback = `Shop ${name} in Pakistan from Nothing Pakistan. Check ${productTypeLabel.toLowerCase()} details, compatibility, availability, delivery, and WhatsApp support.`
   const source = sanitizeCatalogCopy(product.meta_description || product.short_description || product.seo_description_long || product.description)
 
   return trimSeoDescription(source || fallback)
@@ -418,7 +432,7 @@ function buildFallbackGallery(name: string, schemaJson: Record<string, unknown> 
   return getSchemaImages(schemaJson).map((url, index) => ({
     id: `fallback-media-${index + 1}`,
     url,
-    alt: altText || `${name} original product in Pakistan from Nothing Official Store Pakistan`,
+    alt: altText || `${name} original product in Pakistan from Nothing Pakistan`,
     title: name,
     caption: index === 0 ? 'Product image' : `Product image ${index + 1}`,
     colorName: null,
@@ -519,7 +533,7 @@ function buildFallbackProductDetail(product: FallbackProductRow): ProductDetail 
     description: sanitizeCatalogCopy(product.seo_description_long) || sanitizeCatalogCopy(product.description),
     sourceHref: canonicalPath,
     sourceUrl: buildAbsoluteUrl(canonicalPath),
-    canonicalUrl: product.canonical_url || buildAbsoluteUrl(canonicalPath),
+    canonicalUrl: buildAbsoluteUrl(canonicalPath),
     ogImage: gallery[0]?.url ?? null,
     primaryImage: gallery[0]?.url ?? null,
     productBackgroundImage: gallery[0] ?? null,
@@ -567,7 +581,8 @@ function buildFallbackMobileDetail(mobile: FallbackMobileRow): ProductDetail {
   const schemaJson = mobile.schema_json ?? null
   const gallery = buildFallbackGallery(mobile.name, schemaJson, mobile.image_alt_text)
   const collections = buildFallbackCollections('mobile')
-  const canonicalPath = `/products/${mobile.slug}`
+  const publicHandle = getPreferredProductHandle(mobile.slug)
+  const canonicalPath = `/products/${publicHandle}`
   const specs: ProductDetailSpec[] = [
     mobile.release_date
       ? {
@@ -588,7 +603,7 @@ function buildFallbackMobileDetail(mobile: FallbackMobileRow): ProductDetail {
   return {
     id: `mobile-${mobile.id}`,
     entityType: 'mobile',
-    handle: mobile.slug,
+    handle: publicHandle,
     name: mobile.name,
     brandName: resolveBrandName(mobile.name),
     pageTitle: mobile.meta_title || mobile.name,
@@ -599,7 +614,7 @@ function buildFallbackMobileDetail(mobile: FallbackMobileRow): ProductDetail {
     description: sanitizeCatalogCopy(mobile.seo_description_long) || sanitizeCatalogCopy(mobile.description),
     sourceHref: canonicalPath,
     sourceUrl: buildAbsoluteUrl(canonicalPath),
-    canonicalUrl: mobile.canonical_url || buildAbsoluteUrl(canonicalPath),
+    canonicalUrl: buildAbsoluteUrl(canonicalPath),
     ogImage: gallery[0]?.url ?? null,
     primaryImage: gallery[0]?.url ?? null,
     productBackgroundImage: gallery[0] ?? null,
@@ -642,12 +657,13 @@ function buildFallbackMobileDetail(mobile: FallbackMobileRow): ProductDetail {
 }
 
 function buildFallbackProductDetailByHandle(handle: string): ProductDetail | null {
-  const fallbackProduct = (fallbackProducts as unknown as FallbackProductRow[]).find((product) => product.slug === handle)
+  const resolvedHandle = resolveProductHandleAlias(handle)
+  const fallbackProduct = (fallbackProducts as unknown as FallbackProductRow[]).find((product) => product.slug === resolvedHandle)
   if (fallbackProduct) {
     return buildFallbackProductDetail(fallbackProduct)
   }
 
-  const fallbackMobile = (fallbackMobiles as unknown as FallbackMobileRow[]).find((mobile) => mobile.slug === handle)
+  const fallbackMobile = (fallbackMobiles as unknown as FallbackMobileRow[]).find((mobile) => mobile.slug === resolvedHandle)
   if (fallbackMobile) {
     return buildFallbackMobileDetail(fallbackMobile)
   }
@@ -924,11 +940,15 @@ async function readCatalogSnapshotFromSupabase(options: CatalogSnapshotReadOptio
     productFeatureSectionsPromise,
     productFeatureSlidesPromise,
     includeDetailRows
-      ? supabase
-          .from('reviews')
-          .select('id, related_type, related_id, user_name, rating, comment, created_at, updated_at')
-          .in('related_type', [...STORE_RELATED_TYPE_ENUM])
-          .order('created_at', { ascending: false })
+      ? fetchPagedSupabaseRows<SupabaseReviewRow>((from, to) =>
+          supabase
+            .from('reviews')
+            .select('id, related_type, related_id, user_name, rating, comment, created_at, updated_at')
+            .in('related_type', [...STORE_RELATED_TYPE_ENUM])
+            .order('created_at', { ascending: false })
+            .order('id', { ascending: false })
+            .range(from, to),
+        )
       : Promise.resolve({ data: [] as SupabaseReviewRow[], error: null }),
     supabase.from('colors').select('id, name, hex_code, created_at, updated_at'),
     supabase.from('product_mobiles').select('id, product_id, mobile_id, created_at'),
@@ -1142,15 +1162,14 @@ async function readLiteCatalogSnapshotFromSupabase() {
   return readCatalogSnapshotFromSupabase({ includeDetailRows: false })
 }
 
-const readCachedCatalogSnapshotPayload = unstable_cache(readFullCatalogSnapshotFromSupabase, ['catalog-snapshot-v4'], {
-  revalidate: CATALOG_REVALIDATE_SECONDS,
-})
-
 const readCachedLiteCatalogSnapshotPayload = unstable_cache(readLiteCatalogSnapshotFromSupabase, ['catalog-snapshot-lite-v5'], {
   revalidate: CATALOG_REVALIDATE_SECONDS,
+  tags: ['catalog-snapshot-lite'],
 })
 
-const readCatalogSnapshotForRequest = cache(readCachedCatalogSnapshotPayload)
+// The full detail payload can exceed Next.js' 2 MB data-cache item limit.
+// React cache still deduplicates it within a request without triggering cache write failures.
+const readCatalogSnapshotForRequest = cache(readFullCatalogSnapshotFromSupabase)
 const readLiteCatalogSnapshotForRequest = cache(readCachedLiteCatalogSnapshotPayload)
 
 async function getCatalogSnapshot(options: CatalogSnapshotReadOptions = {}): Promise<CatalogSnapshot> {
@@ -1353,7 +1372,10 @@ function getImageColors(snapshot: CatalogSnapshot, images: SupabaseImageRow[]): 
 }
 
 function buildAggregateRating(reviews: ProductDetailReview[]): ProductDetailAggregateRating | null {
-  const numericRatings = reviews.map((review) => review.rating).filter((rating): rating is number => typeof rating === 'number')
+  const numericRatings = reviews
+    .filter((review) => !review.userName.endsWith('(Sample review)'))
+    .map((review) => review.rating)
+    .filter((rating): rating is number => typeof rating === 'number')
 
   if (numericRatings.length === 0) {
     return null
@@ -1398,14 +1420,15 @@ function buildProductCard(product: SupabaseProductRow, snapshot: CatalogSnapshot
 function buildMobileCard(mobile: SupabaseMobileRow, snapshot: CatalogSnapshot): Product {
   const images = getMobileImages(snapshot, mobile.id)
   const colors = getImageColors(snapshot, images)
+  const publicHandle = getPreferredProductHandle(mobile.slug)
   const variant =
     colors.length > 0 ? `${colors.length} colour${colors.length === 1 ? '' : 's'}` : images[0]?.caption ?? null
 
   return {
     id: `mobile-${mobile.id}`,
     name: mobile.name,
-    handle: mobile.slug,
-    href: `/products/${mobile.slug}`,
+    handle: publicHandle,
+    href: `/products/${publicHandle}`,
     image: images[0]?.url ?? null,
     description: buildMobileMetaDescription(mobile),
     variant,
@@ -1664,8 +1687,8 @@ function buildBreadcrumbItems(
 
   breadcrumbItems.push(
     itemType === 'mobile'
-      ? { label: 'Phones', href: '/collections/phones' }
-      : { label: 'Shop all', href: '/collections/shop-all' },
+      ? { label: 'Phones', href: '/collections/nothing-pakistan-phones' }
+      : { label: 'Shop all', href: '/collections/nothing-pakistan-shop-all' },
   )
 
   return breadcrumbItems
@@ -1733,7 +1756,7 @@ function buildGallery(
   return images.map((image) => ({
     id: `media-${image.id}`,
     url: image.url,
-    alt: image.alt_text || fallbackAltText || `${name} original product price in Pakistan from Nothing Official Store Pakistan`,
+    alt: image.alt_text || fallbackAltText || `${name} original product price in Pakistan from Nothing Pakistan`,
     title: image.title,
     caption: image.caption,
     colorName: image.color_id ? colorsById.get(image.color_id)?.name ?? null : null,
@@ -1903,13 +1926,17 @@ function getMobileReviews(snapshot: CatalogSnapshot, mobileId: number): Supabase
   return snapshot.reviewsByEntryKey.get(buildEntryKey('mobile', mobileId)) ?? []
 }
 
-function buildReviews(reviews: SupabaseReviewRow[]): ProductDetailReview[] {
+function stripReviewMetadata(comment: string | null): string | null {
+  if (!comment) return comment
+  return comment.replace(/\s*<!-- verified-order-review:[a-f0-9]{64} -->\s*$/i, '').trim()
+}
 
+function buildReviews(reviews: SupabaseReviewRow[]): ProductDetailReview[] {
   return reviews.map((review) => ({
     id: `review-${review.id}`,
     userName: review.user_name,
     rating: review.rating,
-    comment: review.comment,
+    comment: stripReviewMetadata(review.comment),
     createdAt: formatCatalogDate(review.created_at),
   }))
 }
@@ -1924,7 +1951,7 @@ function buildRelatedMobiles(snapshot: CatalogSnapshot, productId: number): Prod
       .map((mobile) => ({
         id: mobile.id,
         name: mobile.name,
-        slug: mobile.slug,
+        slug: getPreferredProductHandle(mobile.slug),
         image: getMobileImages(snapshot, mobile.id)[0]?.url ?? null,
         priceLabel: formatPrice(mobile.Price),
         subtitle: formatCatalogDate(mobile.release_date),
@@ -2026,7 +2053,7 @@ function buildProductDetailFromProduct(product: SupabaseProductRow, snapshot: Ca
     description: sanitizeCatalogCopy(product.seo_description_long) || sanitizeCatalogCopy(product.description),
     sourceHref: canonicalPath,
     sourceUrl: buildAbsoluteUrl(canonicalPath),
-    canonicalUrl: product.canonical_url || buildAbsoluteUrl(canonicalPath),
+    canonicalUrl: buildAbsoluteUrl(canonicalPath),
     ogImage: galleryImages[0]?.url ?? productBackgroundImage?.url ?? null,
     primaryImage: galleryImages[0]?.url ?? null,
     productBackgroundImage: backgroundMedia,
@@ -2063,7 +2090,8 @@ function buildProductDetailFromMobile(mobile: SupabaseMobileRow, snapshot: Catal
   const faqs = getMobileFaqs(snapshot, mobile.id)
   const categories = getMobileCategories(snapshot, mobile.id)
   const collections = buildProductCollections(categories, snapshot)
-  const canonicalPath = `/products/${mobile.slug}`
+  const publicHandle = getPreferredProductHandle(mobile.slug)
+  const canonicalPath = `/products/${publicHandle}`
   const metaDescription = buildMobileMetaDescription(mobile)
   const gallery = buildGallery(mobile.name, galleryImages, snapshot, mobile.image_alt_text || `${mobile.name} price in Pakistan`)
   const fallbackBackgroundMedia = gallery[0] ?? null
@@ -2084,7 +2112,7 @@ function buildProductDetailFromMobile(mobile: SupabaseMobileRow, snapshot: Catal
   return {
     id: `mobile-${mobile.id}`,
     entityType: 'mobile',
-    handle: mobile.slug,
+    handle: publicHandle,
     name: mobile.name,
     brandName: resolveBrandName(mobile.name),
     pageTitle: mobile.meta_title || mobile.name,
@@ -2095,7 +2123,7 @@ function buildProductDetailFromMobile(mobile: SupabaseMobileRow, snapshot: Catal
     description: sanitizeCatalogCopy(mobile.seo_description_long) || sanitizeCatalogCopy(mobile.description),
     sourceHref: canonicalPath,
     sourceUrl: buildAbsoluteUrl(canonicalPath),
-    canonicalUrl: mobile.canonical_url || buildAbsoluteUrl(canonicalPath),
+    canonicalUrl: buildAbsoluteUrl(canonicalPath),
     ogImage: galleryImages[0]?.url ?? productBackgroundImage?.url ?? null,
     primaryImage: galleryImages[0]?.url ?? null,
     productBackgroundImage: backgroundMedia,
@@ -2104,7 +2132,7 @@ function buildProductDetailFromMobile(mobile: SupabaseMobileRow, snapshot: Catal
     collectionSlugs: collections.map((collection) => collection.slug),
     collections,
     variantUrls: galleryImages.map((image) => image.url),
-    variants: buildVariants(galleryImages, snapshot, mobile.slug),
+    variants: buildVariants(galleryImages, snapshot, publicHandle),
     heroImages: galleryImages.map((image) => image.url),
     widgets: buildWidgets('mobile', null, galleryImages, snapshot),
     price: mobile.Price,
@@ -2228,9 +2256,9 @@ export async function getAllProductHandles(): Promise<string[]> {
     const snapshot = await getCatalogSnapshot({ includeDetailRows: false })
     const handles = [...snapshot.products.map((product) => product.slug), ...snapshot.mobiles.map((mobile) => mobile.slug)]
 
-    return [...new Set([...handles, ...getFallbackProductHandles()])]
+    return [...new Set([...handles, ...getFallbackProductHandles(), ...Object.keys(PRODUCT_HANDLE_ALIASES)])]
   } catch {
-    return getFallbackProductHandles()
+    return [...new Set([...getFallbackProductHandles(), ...Object.keys(PRODUCT_HANDLE_ALIASES)])]
   }
 }
 
@@ -2350,7 +2378,7 @@ export async function getProductSitemapEntries(): Promise<SitemapProductEntry[]>
     const categories = getMobileCategories(snapshot, mobile.id)
 
     return {
-      handle: mobile.slug,
+      handle: getPreferredProductHandle(mobile.slug),
       title: mobile.meta_title || mobile.name,
       description: mobile.meta_description || mobile.description,
       image: images[0]?.url ?? null,
@@ -2375,12 +2403,13 @@ export async function getProductSitemapEntries(): Promise<SitemapProductEntry[]>
 
 async function getCollectionBySlugUncached(slug: string): Promise<Collection | null> {
   const snapshot = await getCatalogSnapshot({ includeDetailRows: false })
+  const normalizedSlug = stripNothingPakistanSlugPrefix(slug)
 
-  if (isVirtualCollectionSlug(slug)) {
-    return buildVirtualCollection(slug, snapshot)
+  if (isVirtualCollectionSlug(normalizedSlug)) {
+    return buildVirtualCollection(normalizedSlug, snapshot)
   }
 
-  const category = snapshot.categoriesBySlug.get(slug)
+  const category = snapshot.categoriesBySlug.get(slug) ?? snapshot.categoriesBySlug.get(normalizedSlug)
 
   if (!category) {
     return null
@@ -2423,7 +2452,7 @@ async function getCollectionBySlugUncached(slug: string): Promise<Collection | n
     metaTitle: category.meta_title,
     metaDescription: category.meta_description || category.seo_description_long,
     description: category.seo_description_long || category.meta_description,
-    canonicalUrl: category.canonical_url || buildAbsoluteUrl(`/collections/${category.slug}`),
+    canonicalUrl: buildAbsoluteUrl(`/collections/${category.slug}`),
     schemaJson: category.schema_json,
     sourceUrl: buildAbsoluteUrl(`/collections/${category.slug}`),
     heroImage: getCollectionHeroImage(products),
@@ -2443,15 +2472,17 @@ async function getCollectionBySlugUncached(slug: string): Promise<Collection | n
 }
 
 async function getProductDetailByHandleUncached(handle: string, includeDetailRows = true): Promise<ProductDetail | null> {
+  const resolvedHandle = resolveProductHandleAlias(handle)
+
   try {
     const snapshot = await getCatalogSnapshot({ includeDetailRows })
-    const product = snapshot.productsBySlug.get(handle)
+    const product = snapshot.productsBySlug.get(resolvedHandle)
 
     if (product) {
       return buildProductDetailFromProduct(product, snapshot)
     }
 
-    const mobile = snapshot.mobilesBySlug.get(handle)
+    const mobile = snapshot.mobilesBySlug.get(resolvedHandle)
 
     if (mobile) {
       return buildProductDetailFromMobile(mobile, snapshot)
@@ -2460,12 +2491,12 @@ async function getProductDetailByHandleUncached(handle: string, includeDetailRow
     console.warn('[catalog-repository] product detail snapshot unavailable, using fallback catalog:', error)
   }
 
-  return buildFallbackProductDetailByHandle(handle)
+  return buildFallbackProductDetailByHandle(resolvedHandle)
 }
 
 async function getMobileAccessoryGroupsByHandleUncached(handle: string): Promise<MobileAccessoryGroup[]> {
   const snapshot = await getCatalogSnapshot({ includeDetailRows: false })
-  const mobile = snapshot.mobilesBySlug.get(handle)
+  const mobile = snapshot.mobilesBySlug.get(resolveProductHandleAlias(handle))
 
   if (!mobile) {
     return []
@@ -2484,7 +2515,7 @@ export async function getSupportHeroImage(): Promise<SupportHeroImage> {
   if (!supabase) {
     return {
       url: null,
-      alt: 'Nothing Official Store Pakistan support',
+      alt: 'Nothing Pakistan support',
     }
   }
 
@@ -2506,7 +2537,7 @@ export async function getSupportHeroImage(): Promise<SupportHeroImage> {
 
     return {
       url: image.url,
-      alt: image.alt_text || image.title || image.caption || 'Nothing Official Store Pakistan support',
+      alt: image.alt_text || image.title || image.caption || 'Nothing Pakistan support',
     }
   }
 
@@ -2522,6 +2553,6 @@ export async function getSupportHeroImage(): Promise<SupportHeroImage> {
 
   return {
     url: null,
-    alt: 'Nothing Official Store Pakistan support',
+    alt: 'Nothing Pakistan support',
   }
 }

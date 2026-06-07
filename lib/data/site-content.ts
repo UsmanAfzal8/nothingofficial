@@ -8,16 +8,16 @@ import {
   companyWebsite,
 } from '@/lib/data/company'
 
-export const siteBrandName = 'Nothing Official Store Pakistan'
+export const siteBrandName = 'Nothing Pakistan'
 export const siteTagline = 'Tech is fun again.'
 export const siteDescription =
-  'Nothing Official Store Pakistan is a storefront for Nothing and CMF phones, earbuds, chargers, cables, and screen protectors with PKR pricing, nationwide delivery, WhatsApp support, and SECP registered company information.'
+  'Nothing Pakistan is a storefront for Nothing and CMF phones, earbuds, chargers, cables, and screen protectors with PKR pricing, nationwide delivery, WhatsApp support, and SECP registered company information.'
 export const siteSeoTitle = 'Nothing Products in Pakistan | Phones, CMF & Accessories'
 export const siteKeywords = [
-  'Nothing Official Store Pakistan',
+  'Nothing Pakistan',
   'Nothing products Pakistan',
-  'SECP registered Nothing Official Store Pakistan',
-  'Nothing Official Store Pakistan',
+  'SECP registered Nothing Pakistan',
+  'Nothing Pakistan',
   'Nothing store Pakistan',
   'Nothing phone price in Pakistan',
   'Nothing phones price in Pakistan',
@@ -43,7 +43,7 @@ export const siteKeywords = [
   'Nothing phone accessories Pakistan',
   'Nothing mobile accessories Pakistan',
   'CMF Pakistan',
-  'CMF by Nothing Official Store Pakistan',
+  'CMF by Nothing Pakistan',
   'CMF buds Pakistan',
   'Nothing audio Pakistan',
   'Nothing AI phone Pakistan',
@@ -112,14 +112,14 @@ export const homeSeoHighlights = [
     title: 'Original Nothing and CMF chargers in Pakistan',
     description:
       'Browse original Nothing chargers, CMF Power GaN chargers, and cable pages with PKR pricing, delivery support, and direct links into the ordering flow.',
-    href: '/collections/chargers',
+    href: '/collections/nothing-pakistan-chargers',
     label: 'Shop chargers',
   },
   {
     title: 'Nothing phone prices with compatible accessories',
     description:
       'Use the phone pages to review Nothing phones and discover compatible chargers, protectors, earbuds, and support routes across Pakistan.',
-    href: '/collections/phones',
+    href: '/collections/nothing-pakistan-phones',
     label: 'Browse phones',
   },
   {
@@ -133,19 +133,19 @@ export const homeSeoHighlights = [
 
 export const homeSeoFaqs = [
   {
-    question: 'Where can I find Nothing products in Pakistan?',
+    question: 'What is the official website address for this store?',
     answer:
-      'Nothing Official Store Pakistan brings together Nothing phones, compatible chargers, earbuds, protectors, CMF products, and support routes for customers in Pakistan.',
+      'The store website is https://www.cmfbynothing.pk. Product, collection, support, company verification, policy, cart, and order pages should all remain on this domain.',
   },
   {
-    question: 'Does Nothing Official Store Pakistan have a page for Nothing chargers?',
+    question: 'What products are listed on cmfbynothing.pk?',
     answer:
-      'Yes. The site includes a dedicated chargers collection so users can browse Nothing chargers and charging cables in Pakistan through focused landing pages.',
+      'The catalog includes Nothing and CMF phones, earbuds, headphones, watches, chargers, cables, screen protectors, covers, and compatible accessories for shoppers in Pakistan.',
   },
   {
-    question: 'Can I browse accessories for a specific Nothing phone?',
+    question: 'How can I get help before placing an order?',
     answer:
-      'Yes. Phone pages on Nothing Official Store Pakistan link to compatible chargers, protectors, earbuds, and other accessories so shoppers can move from the device to the right add-ons.',
+      'Use the WhatsApp or Contact Us route on www.cmfbynothing.pk to ask about current stock, colour, compatibility, delivery, bank transfer, cash on delivery, or Lahore store pickup.',
   },
 ] as const
 
@@ -167,7 +167,7 @@ export const aiProductHighlights = [
     title: 'Nothing OS with Essential AI tools',
     description:
       'Nothing phones can include Essential Space, Essential Search, AI summaries, reminders, and other Nothing OS intelligence features depending on the model and software region.',
-    href: '/collections/phones',
+    href: '/collections/nothing-pakistan-phones',
   },
   {
     title: 'ChatGPT voice routes for Nothing devices',
@@ -179,7 +179,7 @@ export const aiProductHighlights = [
     title: 'Gemini and modern AI assistant use',
     description:
       'Newer Nothing phone pages highlight built-in Google Gemini and AI assistant experiences, making phone pages relevant for shoppers comparing AI-capable Android phones in Pakistan.',
-    href: '/collections/phones',
+    href: '/collections/nothing-pakistan-phones',
   },
 ] as const
 
@@ -202,7 +202,7 @@ export const aiProductFaqs = [
   {
     question: 'Can I buy accessories for an AI-focused Nothing phone?',
     answer:
-      'Yes. Nothing Official Store Pakistan connects phone pages with compatible chargers, protectors, earbuds, and other accessories so shoppers can prepare the full device setup.',
+      'Yes. Nothing Pakistan connects phone pages with compatible chargers, protectors, earbuds, and other accessories so shoppers can prepare the full device setup.',
   },
 ] as const
 
@@ -216,14 +216,14 @@ export const collectionSeoFaqs: Record<string, Array<{ question: string; answer:
     {
       question: 'Can I verify the business before buying from Shop All?',
       answer:
-        'Yes. Nothing Official Store Pakistan links its company verification page, SECP certificate, support centre, contact page, and policy pages so customers can review trust details before ordering.',
+        'Yes. Nothing Pakistan links its company verification page, SECP certificate, support centre, contact page, and policy pages so customers can review trust details before ordering.',
     },
   ],
   audio: [
     {
       question: 'Where can I buy Nothing and CMF audio products in Pakistan?',
       answer:
-        'Use the Audio collection on Nothing Official Store Pakistan to browse earbuds and audio products with product pages, PKR pricing, support links, and ordering guidance.',
+        'Use the Audio collection on Nothing Pakistan to browse earbuds and audio products with product pages, PKR pricing, support links, and ordering guidance.',
     },
     {
       question: 'What should I compare before buying earbuds?',
@@ -233,7 +233,7 @@ export const collectionSeoFaqs: Record<string, Array<{ question: string; answer:
   ],
   accessories: [
     {
-      question: 'Does Nothing Official Store Pakistan have a page for Nothing accessories?',
+      question: 'Does Nothing Pakistan have a page for Nothing accessories?',
       answer:
         'Yes. The accessories collection groups chargers, cables, phone cases, screen protectors, glass, and other compatible Nothing and CMF add-ons for shoppers in Pakistan.',
     },
@@ -247,7 +247,7 @@ export const collectionSeoFaqs: Record<string, Array<{ question: string; answer:
     {
       question: 'Where can I buy Nothing chargers in Pakistan?',
       answer:
-        'Use the chargers collection on Nothing Official Store Pakistan to browse live charger and charging-cable pages with current pricing and direct order routes.',
+        'Use the chargers collection on Nothing Pakistan to browse live charger and charging-cable pages with current pricing and direct order routes.',
     },
     {
       question: 'Does the chargers page include CMF charging products too?',
@@ -274,7 +274,7 @@ export const collectionSeoFaqs: Record<string, Array<{ question: string; answer:
         'Yes. The phones collection links shoppers from phone pages into compatible chargers, protectors, earbuds, and support routes in Pakistan.',
     },
     {
-      question: 'Does Nothing Official Store Pakistan sell the phone or just show accessories?',
+      question: 'Does Nothing Pakistan sell the phone or just show accessories?',
       answer:
         'Phone model pages work as compatibility hubs first, helping shoppers discover the right accessories and support information for each device.',
     },
@@ -497,244 +497,129 @@ export const homeFeatureHighlights: HomeFeatureEntry[] = [
 export const homeFaqCategories: HomeFaqCategory[] = [
   {
     id: 'general',
-    label: 'General',
-    description: 'Quick answers about Nothing Official Store Pakistan, shopping flow, pricing, and store trust signals.',
+    label: 'Store',
+    description: 'Clear answers about www.cmfbynothing.pk, the catalog, pricing, and business verification.',
     items: [
       {
-        question: 'What is Nothing Official Store Pakistan?',
+        question: 'What is www.cmfbynothing.pk?',
         answer:
-          `Nothing Official Store Pakistan is an online storefront operated by ${companyLegalName}, an SECP registered Pakistani company with ${companyIdentifier}. It focuses on Nothing phones, CMF accessories, chargers, protectors, earbuds, and shopping support for customers in Pakistan.`,
+          `www.cmfbynothing.pk is the online storefront operated by ${companyLegalName}. It lists Nothing and CMF products for customers in Pakistan and connects each product to ordering and support routes.`,
       },
       {
-        question: 'Is Nothing Official Store Pakistan a registered company?',
+        question: 'Is the business behind cmfbynothing.pk registered in Pakistan?',
         answer:
-          `Yes. Nothing Official Store Pakistan is operated by ${companyLegalName}, an SECP registered Pakistani company with ${companyIdentifier}. Customers can view the Company Verification page and SECP certificate before buying.`,
+          `Yes. The store is operated by ${companyLegalName}, an SECP registered Pakistani company with ${companyIdentifier}. The Company Verification page publishes the registration details and certificate link.`,
       },
       {
-        question: 'What is the legal company name?',
+        question: 'How can I confirm I am using the correct website?',
         answer:
-          `The official registered company name behind the Nothing Official Store Pakistan storefront is ${companyLegalName}. The company details are published for transparency on the Company Verification page.`,
+          'Check that the address bar shows https://www.cmfbynothing.pk before sharing order details. Product, collection, support, policy, cart, and checkout pages should stay on this domain.',
       },
       {
-        question: 'How can I verify the company?',
+        question: 'Are prices shown in Pakistani Rupees?',
         answer:
-          `You can verify the company by checking the legal name, ${companyIdentifier}, incorporation date, and certificate PDF linked from the Company Verification page and footer.`,
+          'Yes. Product and order pages display prices in PKR so you can review the item price, shipping charge, applicable tax, and total before placing a delivery order.',
       },
       {
-        question: 'Is Nothing Official Store Pakistan only an online store?',
+        question: 'Can the catalog price or stock change?',
         answer:
-          'The website works as an online-first store where customers can browse products, compare options, and move into ordering without visiting a physical outlet first.',
-      },
-      {
-        question: 'Which cities does Nothing Official Store Pakistan serve?',
-        answer:
-          'Nothing Official Store Pakistan serves customers across Pakistan through online ordering, including Lahore, Karachi, Islamabad, Rawalpindi, Faisalabad, Multan, and other major cities.',
-      },
-      {
-        question: 'Are prices on Nothing Official Store Pakistan shown in PKR?',
-        answer:
-          'Yes, product prices on Nothing Official Store Pakistan are displayed in Pakistani Rupees so customers can review local pricing before placing an order.',
-      },
-      {
-        question: 'Can I browse Nothing Official Store Pakistan on mobile and laptop?',
-        answer:
-          'Yes, the store is designed to be easy to browse on both mobile phones and desktop devices for product discovery and ordering.',
-      },
-      {
-        question: 'Does Nothing Official Store Pakistan show live product availability?',
-        answer:
-          'Product pages and collections are built to show current catalog listings, pricing, and ordering routes so shoppers can make decisions faster.',
-      },
-      {
-        question: 'Why do people shop Nothing accessories online in Pakistan?',
-        answer:
-          'Customers prefer online accessory shopping because it makes model matching, price checking, and delivery support easier from one place.',
-      },
-      {
-        question: 'Can I find policy pages on Nothing Official Store Pakistan?',
-        answer:
-          'Yes, the website includes support, shipping, returns, and other policy pages so users can review important store information before ordering.',
-      },
-      {
-        question: 'Does Nothing Official Store Pakistan help with product compatibility?',
-        answer:
-          'Yes, the store structure is designed to help shoppers find accessories such as protectors, chargers, and earbuds that match their device.',
-      },
-      {
-        question: 'How often can the Nothing Official Store Pakistan catalog change?',
-        answer:
-          'The product catalog can update as stock, new launches, and pricing change, so customers should review the latest listing before checkout.',
+          'Yes. Prices, colours, models, and availability can change when stock is updated. Review the current product page or contact the store on WhatsApp before ordering if availability is important.',
       },
     ],
   },
   {
     id: 'products',
     label: 'Products',
-    description: 'Answers about chargers, protectors, earbuds, and choosing the right Nothing accessory.',
+    description: 'Answers about finding the right Nothing or CMF model, colour, charger, protector, or audio product.',
     items: [
       {
-        question: 'What products can I buy from Nothing Official Store Pakistan?',
+        question: 'What product types can I browse?',
         answer:
-          'You can browse Nothing and CMF chargers, cables, protectors, earbuds, and phone-related accessories through the live product catalog.',
+          'You can browse Nothing and CMF phones, earbuds, headphones, watches, chargers, cables, screen protectors, covers, and other compatible accessories.',
       },
       {
-        question: 'Does Nothing Official Store Pakistan sell CMF accessories too?',
+        question: 'How do I find products for a specific phone?',
         answer:
-          'Yes, Nothing Official Store Pakistan lists CMF audio and charging products alongside other compatible accessories for Pakistan shoppers.',
+          'Open the Phones, Protectors, Covers, Chargers, or Shop All collection and match the full model name. If you are unsure, send the product link and your phone model through WhatsApp before ordering.',
       },
       {
-        question: 'Can I shop protectors for different Nothing phones?',
+        question: 'Can I choose a product colour before ordering?',
         answer:
-          'Yes, the store includes protector listings for multiple Nothing phones so customers can choose the right fit for their device.',
+          'When colour options are available, select the colour on the product page before opening the order screen. The selected colour is carried into the order summary.',
       },
       {
-        question: 'How do I find the right charger for my Nothing device?',
+        question: 'How do I check charger compatibility?',
         answer:
-          'Open the charger collection or the relevant product page to compare charging accessories and choose the option that matches your usage needs.',
+          'Review the charger wattage, connector type, cable requirements, and your device charging specification. Contact support with the exact device model if you need confirmation.',
       },
       {
-        question: 'Are product images available before ordering?',
+        question: 'Where can I compare all current products?',
         answer:
-          'Yes, product cards and detail pages include images to help customers review design, finish, and item type before buying.',
-      },
-      {
-        question: 'Does Nothing Official Store Pakistan list earbuds and audio products?',
-        answer:
-          'Yes, audio listings such as Nothing and CMF earbuds are available so users can compare options from one page.',
-      },
-      {
-        question: 'Can I check product prices before checkout?',
-        answer:
-          'Yes, pricing is shown on collection cards and product pages so customers can compare products before moving to the order form.',
-      },
-      {
-        question: 'Does Nothing Official Store Pakistan offer screen protection options?',
-        answer:
-          'Yes, the store includes UV protectors, jelly sheets, and standard protectors for supported phones.',
-      },
-      {
-        question: 'Can I browse all products in one place?',
-        answer:
-          'Yes, the Shop All collection brings together the currently listed accessories so users can scan the full catalog from one page.',
-      },
-      {
-        question: 'Are Nothing Official Store Pakistan products shown with category grouping?',
-        answer:
-          'Yes, products are organized into helpful groups such as products, chargers, protectors, and earbuds for easier discovery.',
+          'Use the All Products collection on www.cmfbynothing.pk to view the current catalog, then open a product page for images, variants, price, specifications, reviews, and ordering options.',
       },
     ],
   },
   {
     id: 'orders',
     label: 'Orders',
-    description: 'Helpful order-related answers for delivery, checkout, returns, and payment expectations.',
+    description: 'Answers about delivery orders, cash on delivery, bank transfer, totals, and Lahore store pickup.',
     items: [
       {
-        question: 'How do I place an order on Nothing Official Store Pakistan?',
+        question: 'How do I place a delivery order?',
         answer:
-          'Open any product page or the order route, confirm the item you want, and submit your contact and delivery details through the checkout form.',
+          'Open a product, choose the available colour if needed, select Order Now, enter your delivery details, choose cash on delivery or bank transfer, review the total, and submit the order.',
       },
       {
-        question: 'Does Nothing Official Store Pakistan offer cash on delivery?',
+        question: 'When are bank details shown?',
         answer:
-          'Yes, cash on delivery is available as a convenient payment option for customers who prefer paying at the time of delivery.',
+          'Bank details appear only after you select Bank Transfer on the order page. They stay hidden when Cash on Delivery is selected.',
       },
       {
-        question: 'Can I order from mobile without creating an account?',
+        question: 'What charges apply to cash on delivery?',
         answer:
-          'The ordering flow is designed to be simple so customers can move quickly from product browsing to checkout.',
+          'The order page shows the current cash-on-delivery shipping charge and applicable government tax separately before displaying the final total.',
       },
       {
-        question: 'How will I know my order was received?',
+        question: 'How do I request store pickup?',
         answer:
-          'After submitting the order form, customers can expect confirmation and follow-up through the store support process.',
+          'Choose Pickup on the order page, enter your name and phone number, and select Confirm Store Pickup. WhatsApp opens with your selected product names so you can ask when to visit the Garden Town, Lahore location.',
       },
       {
-        question: 'How long does delivery usually take in Pakistan?',
+        question: 'How do I know my delivery order was submitted?',
         answer:
-          'Delivery timelines can vary by city and order confirmation timing, but customers should review the support and shipping guidance for the latest expectation.',
-      },
-      {
-        question: 'Can I order more than one product together?',
-        answer:
-          'Yes, customers can shop multiple accessories and move them through the store flow based on the checkout experience available on the site.',
-      },
-      {
-        question: 'What should I do if I order the wrong product?',
-        answer:
-          'Contact support as soon as possible so the team can guide you on whether the order can be corrected, replaced, or handled through the return process.',
-      },
-      {
-        question: 'Does Nothing Official Store Pakistan have a return policy?',
-        answer:
-          'Yes, the website highlights a 7 days return policy and also links to detailed return and refund information for customers.',
-      },
-      {
-        question: 'Can I review product pricing before confirming my order?',
-        answer:
-          'Yes, collection and product pages show product pricing so you can confirm the amount before moving ahead with the order.',
-      },
-      {
-        question: 'Where can I find shipping and delivery details?',
-        answer:
-          'Shipping and delivery information is available through the linked policy and support pages in the website footer and support routes.',
+          'A successful submission shows an order confirmation screen and order number. Keep that number for delivery questions or a verified product review after purchase.',
       },
     ],
   },
   {
     id: 'support',
     label: 'Support',
-    description: 'Support-focused answers about WhatsApp, contact options, policy pages, and after-sales help.',
+    description: 'Answers about WhatsApp support, company verification, returns, and help after an order.',
     items: [
       {
-        question: 'How can I contact Nothing Official Store Pakistan support?',
+        question: 'What is the fastest way to contact the store?',
         answer:
-          'You can contact support through the website support pages, WhatsApp contact route, and the available contact information shared across the store.',
+          'Use the WhatsApp button on www.cmfbynothing.pk for product, compatibility, stock, payment, pickup, or order questions. You can also use the Contact Us and Support Centre pages.',
       },
       {
-        question: 'Does Nothing Official Store Pakistan have WhatsApp support?',
+        question: 'What information should I send for compatibility help?',
         answer:
-          'Yes, WhatsApp support is available so customers can quickly ask about products, order status, and compatibility before purchase.',
+          'Send the exact phone or device model, the product link, and the accessory type you need. A screenshot can help when model names or colour options are similar.',
       },
       {
-        question: 'Where can I ask about product compatibility?',
+        question: 'Where can I read the return and shipping policies?',
         answer:
-          'For compatibility help, use the support route or WhatsApp contact option and share your phone model before ordering.',
+          'Open the Shipping Policy and Returns Policy links from the footer or support routes before placing an order. These pages explain the current store guidance.',
       },
       {
-        question: 'Can support help me choose between earbuds models?',
+        question: 'What should I do if the delivered item is damaged or incorrect?',
         answer:
-          'Yes, support can guide you on available audio options and help you compare listed products before checkout.',
+          'Contact support promptly with your order number, phone number, photos or video of the item and packaging, and a clear description of the issue so the team can review it.',
       },
       {
-        question: 'What if my delivered product has an issue?',
+        question: 'Can I verify the company before sending payment?',
         answer:
-          'If a product arrives damaged, incorrect, or defective, contact support quickly so the team can review the return or replacement options.',
-      },
-      {
-        question: 'Does Nothing Official Store Pakistan have a help centre or FAQ section?',
-        answer:
-          'Yes, the site includes FAQ-style content and support pages to answer common shopping, order, and policy questions.',
-      },
-      {
-        question: 'Can I get help after placing my order?',
-        answer:
-          'Yes, after-sales support is available for order follow-up, delivery coordination, and issue reporting when needed.',
-      },
-      {
-        question: 'Where can I read return and refund details?',
-        answer:
-          'You can open the return and refund policy page from the footer or support routes to review the store terms in more detail.',
-      },
-      {
-        question: 'Does Nothing Official Store Pakistan offer 24/7 support?',
-        answer:
-          'The homepage highlights 24/7 support to reassure shoppers that help is available when they need order or product guidance.',
-      },
-      {
-        question: 'What is the fastest way to reach the store team?',
-        answer:
-          'For quick assistance, the WhatsApp contact route is one of the easiest ways to connect with the store team about shopping questions.',
+          `Yes. Review the Company Verification page for ${companyLegalName}, ${companyIdentifier}, incorporation information, and the SECP certificate link before making a bank transfer.`,
       },
     ],
   },
@@ -782,17 +667,17 @@ export function buildOrganizationStructuredData() {
         {
           '@type': 'OfferCatalog',
           name: 'Nothing chargers',
-          url: buildAbsoluteUrl('/collections/chargers'),
+          url: buildAbsoluteUrl('/collections/nothing-pakistan-chargers'),
         },
         {
           '@type': 'OfferCatalog',
           name: 'Nothing phones',
-          url: buildAbsoluteUrl('/collections/phones'),
+          url: buildAbsoluteUrl('/collections/nothing-pakistan-phones'),
         },
         {
           '@type': 'OfferCatalog',
           name: 'Nothing accessories',
-          url: buildAbsoluteUrl('/collections/shop-all'),
+          url: buildAbsoluteUrl('/collections/nothing-pakistan-shop-all'),
         },
       ],
     },
@@ -805,7 +690,7 @@ export function buildWebsiteStructuredData() {
     '@type': 'WebSite',
     '@id': buildAbsoluteUrl('/#website'),
     name: siteBrandName,
-    alternateName: 'Nothing Official Store Pakistan storefront',
+    alternateName: 'Nothing Pakistan storefront',
     url: companyWebsite,
     description: siteDescription,
     inLanguage: 'en-PK',
@@ -814,7 +699,7 @@ export function buildWebsiteStructuredData() {
     },
     potentialAction: {
       '@type': 'SearchAction',
-      target: `${buildAbsoluteUrl('/collections/shop-all')}?q={search_term_string}`,
+      target: `${buildAbsoluteUrl('/collections/nothing-pakistan-shop-all')}?q={search_term_string}`,
       'query-input': 'required name=search_term_string',
     },
   }
@@ -828,7 +713,7 @@ export function buildContactPageStructuredData() {
     name: `Contact ${siteBrandName}`,
     url: buildAbsoluteUrl('/contact-us'),
     description:
-      'Find support, order, delivery, and policy routes for Nothing Official Store Pakistan from one clear contact page.',
+      'Find support, order, delivery, and policy routes for Nothing Pakistan from one clear contact page.',
     about: {
       '@id': buildAbsoluteUrl('/#organization'),
     },

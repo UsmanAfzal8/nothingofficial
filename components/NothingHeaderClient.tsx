@@ -20,7 +20,7 @@ export function NothingHeaderClient({ menuItems }: NothingHeaderClientProps) {
   const pathname = usePathname()
   const { itemCount } = useCart()
   const cartCountLabel = itemCount > 9 ? '9+' : String(itemCount)
-  const visibleMenuItems = menuItems.filter((item) => item.slug !== 'trending-picks')
+  const visibleMenuItems = menuItems.filter((item) => !item.slug.endsWith('trending-picks'))
 
   useEffect(() => {
     setIsDrawerOpen(false)

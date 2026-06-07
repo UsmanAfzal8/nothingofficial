@@ -211,12 +211,12 @@ async function main() {
       const relatedSlug = `${row.related_type}-${row.related_id}`
       const publicId = slugify(`${relatedSlug}-${row.id}-${title}-${sourceBaseName}`).slice(0, 120)
       const folder = `nothing-official-store-pakistan/spec-groups/${slugify(relatedSlug)}/${kind.resourceType}`
-      const tags = ['nothing-official-store-pakistan', 'nothing-official-pakistan', 'pakistan-store', 'spec-groups', kind.resourceType]
+      const tags = ['nothing-pakistan', 'nothing-pakistan', 'pakistan-store', 'spec-groups', kind.resourceType]
       const context = [
-        contextPair('brand', 'Nothing Official Store Pakistan'),
-        contextPair('title', `${title} specification media | Nothing Official Store Pakistan`, 240),
-        contextPair('description', `${kind.resourceType} asset for the ${title} specification group, prepared for Nothing Official Store Pakistan in Pakistan.`, 900),
-        contextPair('alt', row.media_alt || `${title} specification media for Nothing Official Store Pakistan`, 240),
+        contextPair('brand', 'Nothing Pakistan'),
+        contextPair('title', `${title} specification media | Nothing Pakistan`, 240),
+        contextPair('description', `${kind.resourceType} asset for the ${title} specification group, prepared for Nothing Pakistan in Pakistan.`, 900),
+        contextPair('alt', row.media_alt || `${title} specification media for Nothing Pakistan`, 240),
         contextPair('source_table', 'spec_groups'),
         contextPair('source_row_id', row.id),
         contextPair('related_type', row.related_type),

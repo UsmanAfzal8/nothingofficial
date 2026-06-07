@@ -36,7 +36,7 @@ export function NewsletterSignupContent() {
             Stay close to new drops, support updates, and live catalog releases.
           </h1>
           <p className="mt-6 max-w-2xl text-sm leading-7 text-black/62 md:text-base">
-            Sign up to get product launches, accessory restocks, support updates, and Nothing Official Store Pakistan store news in one clean feed.
+            Sign up to get product launches, accessory restocks, support updates, and Nothing Pakistan store news in one clean feed.
           </p>
         </div>
 

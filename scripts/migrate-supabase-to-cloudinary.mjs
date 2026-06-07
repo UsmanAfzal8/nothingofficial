@@ -11,7 +11,7 @@ const SOURCE_ROOT = '/Users/mosin/projects/nothingPakistan'
 const SOURCE_ENV_PATH = path.join(SOURCE_ROOT, '.env.local')
 const DEST_ENV_PATH = path.join(DEST_ROOT, '.env.local')
 const REPORT_DIR = path.join(DEST_ROOT, 'migration-reports')
-const CANONICAL_SITE_URL = 'https://www.nothingofficial.pk'
+const CANONICAL_SITE_URL = 'https://www.cmfbynothing.pk'
 const PAGE_SIZE = 1000
 const FETCH_TIMEOUT_MS = 45000
 const MAX_PARALLEL_MEDIA_CHECKS = 8
@@ -217,10 +217,10 @@ function normalizeBrandCopy(value) {
   return value
     .replace(/https?:\/\/(?:www\.)?nothingshop\.pk/gi, CANONICAL_SITE_URL)
     .replace(/https?:\/\/cdn\.nothingshop\.pk/gi, CANONICAL_SITE_URL)
-    .replace(/\bNothing\s+Pakistan\b/gi, 'Nothing Official Store Pakistan')
-    .replace(/\bNothing\s+official\s+store\s+Pakistan\b/gi, 'Nothing Official Store Pakistan')
-    .replace(/\bNothing\s+Offical\b/gi, 'Nothing Official')
-    .replace(/\bnothingshop\.pk\b/gi, 'nothingofficial.pk')
+    .replace(/\bNothing\s+Pakistan\b/gi, 'Nothing Pakistan')
+    .replace(/\bNothing\s+official\s+store\s+Pakistan\b/gi, 'Nothing Pakistan')
+    .replace(/\bNothing\s+Offical\b/gi, 'Nothing Pakistan')
+    .replace(/\bnothingshop\.pk\b/gi, 'www.cmfbynothing.pk')
 }
 
 function buildProductCopy(row, slug) {
@@ -231,30 +231,27 @@ function buildProductCopy(row, slug) {
 
   return {
     slug,
-    meta_title: truncate(`${name} Price in Pakistan | Nothing Official Store Pakistan`, 255),
-    meta_description: truncate(
-      `Buy original ${name} in Pakistan from Nothing Official Store Pakistan with ${price}, delivery support, authenticity guidance, compatibility help, and ${stockLine}.`,
-      158,
-    ),
-    description: `${name} is listed by Nothing Official Store Pakistan for shoppers who want original Nothing and CMF products with clear Pakistan buying guidance. The page focuses on authenticity, compatibility, delivery expectations, support routes, and live stock confirmation so customers can make a confident purchase decision.`,
+    meta_title: truncate(`${name} Price in Pakistan | Nothing Pakistan`, 255),
+    meta_description: `Buy ${name} in Pakistan. Check ${price}, product details, compatibility, stock, delivery, and ordering support.`,
+    description: `${name} is listed by Nothing Pakistan for shoppers who want original Nothing and CMF products with clear Pakistan buying guidance. The page focuses on authenticity, compatibility, delivery expectations, support routes, and live stock confirmation so customers can make a confident purchase decision.`,
     short_description: row.short_description && HTML_FIELD_RE.test(row.short_description)
       ? row.short_description
-      : `${name} from Nothing Official Store Pakistan with Pakistan delivery support, authenticity guidance, and ${stockLine}.`,
+      : `${name} from Nothing Pakistan with Pakistan delivery support, authenticity guidance, and ${stockLine}.`,
     seo_description_long: [
-      `${name} is prepared for Pakistan buyers comparing ${productType}, current price, stock status, and original product sourcing. Nothing Official Store Pakistan keeps the listing focused on practical purchase questions instead of generic catalogue copy.`,
+      `${name} is prepared for Pakistan buyers comparing ${productType}, current price, stock status, and original product sourcing. Nothing Pakistan keeps the listing focused on practical purchase questions instead of generic catalogue copy.`,
       `Customers in Karachi, Lahore, Islamabad, Rawalpindi, Faisalabad, Multan, Peshawar, and other cities can use this page to check ${price}, confirm compatibility, review product media, and contact support before ordering.`,
       `The buying intent for ${name} includes authenticity, delivery timing, cash-on-delivery guidance where available, after-sales support, warranty or support expectations, and whether the product fits a specific Nothing or CMF device setup.`,
-      `Internal links should connect ${name} with relevant collections, compatible mobiles, accessories, specifications, images, and FAQs so both shoppers and search engines understand the product context on Nothing Official Store Pakistan.`,
+      `Internal links should connect ${name} with relevant collections, compatible mobiles, accessories, specifications, images, and FAQs so both shoppers and search engines understand the product context on Nothing Pakistan.`,
     ].join('\n\n'),
-    image_alt_text: `${name} original product in Pakistan from Nothing Official Store Pakistan`,
+    image_alt_text: `${name} original product in Pakistan from Nothing Pakistan`,
     seo_keywords: [
       name,
       `${name} price in Pakistan`,
       `${name} Pakistan`,
       `buy ${name} online Pakistan`,
       `original ${name} Pakistan`,
-      'Nothing Official Store Pakistan',
-      'Nothing Official Store Pakistan',
+      'Nothing Pakistan',
+      'Nothing Pakistan',
       'Nothing products Pakistan',
       'CMF products Pakistan',
       'authentic Nothing store Pakistan',
@@ -268,18 +265,15 @@ function buildMobileCopy(row, slug) {
   const price = priceLabel(row)
   return {
     slug,
-    meta_title: truncate(`${name} Price in Pakistan | Nothing Official Store Pakistan`, 255),
-    meta_description: truncate(
-      `Check ${name} price in Pakistan at Nothing Official Store Pakistan with PTA guidance, authenticity checks, delivery support, stock confirmation, and local buying help.`,
-      158,
-    ),
-    description: `${name} is listed for Pakistan buyers who want clear phone pricing, PTA and non-PTA context where applicable, stock confirmation, and support before ordering from Nothing Official Store Pakistan.`,
+    meta_title: truncate(`${name} Price in Pakistan | Nothing Pakistan`, 255),
+    meta_description: `Check ${name} price in Pakistan. Review ${price}, PTA status, specifications, stock, delivery, and ordering support.`,
+    description: `${name} is listed for Pakistan buyers who want clear phone pricing, PTA and non-PTA context where applicable, stock confirmation, and support before ordering from Nothing Pakistan.`,
     seo_description_long: [
       `${name} is positioned for high-intent Pakistan searches around Nothing phone price, PTA status, original stock, delivery, and local support. The listing keeps ${price} visible while encouraging final stock and variant confirmation before checkout.`,
       `Buyers comparing Nothing phones in Karachi, Lahore, Islamabad, Rawalpindi, Faisalabad, Multan, and other cities can use this page to review specs, product media, compatibility, warranty or support guidance, and order routes.`,
-      `Nothing Official Store Pakistan writes this page for practical mobile buying questions: whether the device is authentic, how delivery works, what support is available, which accessories are compatible, and how stock is confirmed.`,
+      `Nothing Pakistan writes this page for practical mobile buying questions: whether the device is authentic, how delivery works, what support is available, which accessories are compatible, and how stock is confirmed.`,
     ].join('\n\n'),
-    image_alt_text: `${name} original Nothing phone in Pakistan from Nothing Official Store Pakistan`,
+    image_alt_text: `${name} original Nothing phone in Pakistan from Nothing Pakistan`,
     seo_keywords: [
       name,
       `${name} price in Pakistan`,
@@ -287,8 +281,8 @@ function buildMobileCopy(row, slug) {
       `buy ${name} online Pakistan`,
       `original ${name} Pakistan`,
       'Nothing phone Pakistan',
-      'Nothing Official Store Pakistan',
-      'Nothing Official Store Pakistan',
+      'Nothing Pakistan',
+      'Nothing Pakistan',
     ].join(', '),
     canonical_url: `${CANONICAL_SITE_URL}/products/${slug}`,
   }
@@ -298,11 +292,8 @@ function buildCategoryCopy(row, slug) {
   const name = compactText(row.name)
   return {
     slug,
-    meta_title: truncate(`${name} | Nothing Official Store Pakistan`, 255),
-    meta_description: truncate(
-      `Shop ${name} from Nothing Official Store Pakistan with original Nothing and CMF products, Pakistan delivery support, stock confirmation, and local buying help.`,
-      158,
-    ),
+    meta_title: truncate(`${name} | Nothing Pakistan`, 255),
+    meta_description: `Shop ${name} in Pakistan with current prices, product details, compatibility guidance, delivery, and ordering support.`,
     canonical_url: `${CANONICAL_SITE_URL}/collections/${slug}`,
   }
 }
@@ -311,9 +302,9 @@ function buildBlogCopy(row, slug) {
   const title = compactText(row.title)
   return {
     slug,
-    meta_title: truncate(`${title} | Nothing Official Store Pakistan`, 255),
+    meta_title: truncate(`${title} | Nothing Pakistan`, 255),
     meta_description: truncate(
-      `Read ${title} from Nothing Official Store Pakistan for Pakistan buying guidance, product support, compatibility notes, delivery context, and authenticity tips.`,
+      `Read ${title} from Nothing Pakistan for Pakistan buying guidance, product support, compatibility notes, delivery context, and authenticity tips.`,
       158,
     ),
   }
@@ -474,11 +465,11 @@ function isOwnedOrAllowedUrl(url, sourceEnv, options) {
   }
 
   const allowedHosts = new Set([
-    'www.nothingofficial.pk',
-    'nothingofficial.pk',
-    'cdn.nothingofficial.pk',
-    'www.nothingofficial.pk',
-    'nothingofficial.pk',
+    'www.cmfbynothing.pk',
+    'cmfbynothing.pk',
+    'cdn.cmfbynothing.pk',
+    'www.cmfbynothing.pk',
+    'cmfbynothing.pk',
     String(sourceEnv.BUNNY_CDN_HOSTNAME ?? '').toLowerCase(),
   ].filter(Boolean))
 
@@ -614,9 +605,9 @@ function buildCloudinaryAssetCopy({ table, row, fieldPath, mediaType, relatedSlu
   const fieldLabel = compactText(String(fieldPath || 'asset').replace(/[._-]+/g, ' '))
   const readableTable = compactText(String(table).replace(/_/g, ' '))
   const readableMedia = mediaType === 'html' ? 'HTML content' : mediaType
-  const title = `${entityName} ${fieldLabel} | Nothing Official Store Pakistan`
-  const description = `${readableMedia} asset for ${entityName} from the ${readableTable} catalogue, prepared for Nothing Official Store Pakistan in Pakistan with clean Cloudinary delivery metadata.`
-  const alt = `${entityName} ${fieldLabel} for Nothing Official Store Pakistan`
+  const title = `${entityName} ${fieldLabel} | Nothing Pakistan`
+  const description = `${readableMedia} asset for ${entityName} from the ${readableTable} catalogue, prepared for Nothing Pakistan in Pakistan with clean Cloudinary delivery metadata.`
+  const alt = `${entityName} ${fieldLabel} for Nothing Pakistan`
 
   return {
     title,
@@ -632,10 +623,10 @@ function buildCloudinaryTarget({ table, row, fieldPath, url, mediaType, relatedS
   const sourceLabel = sanitizePublicId(path.basename(url.split('?')[0], path.extname(url.split('?')[0])) || rowLabel)
   const folder = `nothing-official-store-pakistan/${sanitizePublicId(table)}/${sanitizePublicId(relatedSlug)}/${sanitizePublicId(mediaType)}`
   const publicId = sanitizePublicId(`${rowLabel}-${fieldLabel}-${sourceLabel}`)
-  const tags = ['nothing-official-store-pakistan', 'nothing-official-pakistan', 'pakistan-store', table, mediaType]
+  const tags = ['nothing-pakistan', 'nothing-pakistan', 'pakistan-store', table, mediaType]
   const assetCopy = buildCloudinaryAssetCopy({ table, row, fieldPath, mediaType, relatedSlug })
   const context = [
-    cloudinaryContextPair('brand', 'Nothing Official Store Pakistan'),
+    cloudinaryContextPair('brand', 'Nothing Pakistan'),
     cloudinaryContextPair('title', assetCopy.title, 240),
     cloudinaryContextPair('description', assetCopy.description, 900),
     cloudinaryContextPair('alt', assetCopy.alt, 240),
@@ -897,7 +888,7 @@ function rewriteFaqQuestion(question, row, rowsByTable) {
   const normalized = normalizeBrandCopy(question)
   const entity = relatedFaqEntity(row, rowsByTable)
   if (!normalized) {
-    return `What should I confirm before buying ${entity.name} from Nothing Official Store Pakistan?`
+    return `What should I confirm before buying ${entity.name} from Nothing Pakistan?`
   }
   return normalized
 }
@@ -908,18 +899,18 @@ function faqIntentSentence(question, answer, entity) {
     return `For ${entity.name}, confirm the live ${entity.price ?? 'Pakistan price'} before checkout because stock, variant, and offer changes can affect the final total.`
   }
   if (/\b(compatible|compatibility|fit|supports?|charger|charging|model|phone)\b/.test(text)) {
-    return `For ${entity.name}, Nothing Official Store Pakistan recommends checking device compatibility, connector support, and variant details before ordering in Pakistan.`
+    return `For ${entity.name}, Nothing Pakistan recommends checking device compatibility, connector support, and variant details before ordering in Pakistan.`
   }
   if (/\b(deliver|delivery|shipping|order|buy|cash on delivery|cod|checkout|online)\b/.test(text)) {
-    return `For ${entity.name}, Pakistan delivery timing, checkout options, and current stock should be confirmed at order time with Nothing Official Store Pakistan.`
+    return `For ${entity.name}, Pakistan delivery timing, checkout options, and current stock should be confirmed at order time with Nothing Pakistan.`
   }
   if (/\b(original|authentic|genuine|warranty|support|replace|return)\b/.test(text)) {
-    return `For ${entity.name}, buyers should confirm authenticity, support routes, and warranty or after-sales guidance with Nothing Official Store Pakistan before purchase.`
+    return `For ${entity.name}, buyers should confirm authenticity, support routes, and warranty or after-sales guidance with Nothing Pakistan before purchase.`
   }
   if (/\b(stock|available|availability|variant|color)\b/.test(text)) {
     return `For ${entity.name}, available stock, color, and variant details can change, so confirm the current listing before placing an order in Pakistan.`
   }
-  return `For ${entity.name}, Nothing Official Store Pakistan can help confirm authenticity, compatibility, delivery options, current stock, and support guidance before you place an order.`
+  return `For ${entity.name}, Nothing Pakistan can help confirm authenticity, compatibility, delivery options, current stock, and support guidance before you place an order.`
 }
 
 function rewriteFaqAnswer(answer, row, rowsByTable) {

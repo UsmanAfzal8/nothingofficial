@@ -12,6 +12,7 @@ type SelectedProduct = {
   handle: string
   name: string
   image: string | null
+  colorName: string | null
   price: number | null
 }
 
@@ -29,6 +30,7 @@ type CheckoutItem = {
   handle: string | null
   name: string
   image: string | null
+  colorName: string | null
   price: number | null
   quantity: number
 }
@@ -43,13 +45,13 @@ const initialSubmitState: SubmitState = {
 }
 
 const fieldClassName =
-  'w-full rounded-[16px] border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-slate-400 focus:ring-2 focus:ring-slate-200'
+  'w-full rounded-[5px] border border-black/18 bg-white px-4 py-3 [font-family:var(--font-ntype82)] text-sm text-black outline-none transition placeholder:text-black/32 focus:border-black focus:ring-2 focus:ring-black/10'
 
 const SHIPPING_FEE = 450
 const GOVT_TAX_RATE = 0.04
 const BANK_ACCOUNT = {
   bank: 'BANK ALFALAH',
-  accountName: 'NOTHING OFFICIAL',
+  accountName: 'NOTHING PAKISTAN',
   accountNumber: '57065002935977',
   iban: 'PK35ALFH5706005002935977',
   whatsapp: '03361070111',
@@ -67,59 +69,6 @@ function formatPrice(value: number | null | undefined): string | null {
     currency: 'PKR',
     maximumFractionDigits: 0,
   }).format(value)
-}
-
-function getPakistanCalendarDate(date: Date) {
-  const parts = new Intl.DateTimeFormat('en-CA', {
-    timeZone: 'Asia/Karachi',
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-  }).formatToParts(date)
-
-  return {
-    year: Number(parts.find((part) => part.type === 'year')?.value ?? date.getUTCFullYear()),
-    month: Number(parts.find((part) => part.type === 'month')?.value ?? date.getUTCMonth() + 1),
-    day: Number(parts.find((part) => part.type === 'day')?.value ?? date.getUTCDate()),
-  }
-}
-
-function createUtcDate(year: number, month: number, day: number) {
-  return new Date(Date.UTC(year, month - 1, day))
-}
-
-function addUtcDays(date: Date, days: number) {
-  const nextDate = new Date(date)
-  nextDate.setUTCDate(nextDate.getUTCDate() + days)
-  return nextDate
-}
-
-function formatShortMonthDay(date: Date) {
-  return new Intl.DateTimeFormat('en-US', {
-    month: 'short',
-    day: 'numeric',
-    timeZone: 'UTC',
-  }).format(date)
-}
-
-function formatDeliveryRangeLabel(startDate: Date, endDate: Date) {
-  const startLabel = formatShortMonthDay(startDate)
-  const endLabel = formatShortMonthDay(endDate)
-
-  return startLabel === endLabel ? startLabel : `${startLabel} - ${endLabel}`
-}
-
-function getDeliveryTimeline(paymentMethod: PaymentMethod) {
-  const pakistanToday = getPakistanCalendarDate(new Date())
-  const orderDate = createUtcDate(pakistanToday.year, pakistanToday.month, pakistanToday.day)
-  const processDate = addUtcDays(orderDate, 1)
-  const deliveryStartDate = paymentMethod === 'bank_transfer' ? addUtcDays(processDate, 1) : addUtcDays(processDate, 2)
-  const deliveryEndDate = paymentMethod === 'bank_transfer' ? deliveryStartDate : addUtcDays(processDate, 3)
-
-  return {
-    processDateLabel: formatShortMonthDay(processDate),
-    deliveryRangeLabel: formatDeliveryRangeLabel(deliveryStartDate, deliveryEndDate),
-  }
 }
 
 function PlusMinusIcon({ open }: { open: boolean }) {
@@ -150,6 +99,7 @@ function mapProductToCheckoutItem(product: SelectedProduct): CheckoutItem {
     handle: product.handle,
     name: product.name,
     image: product.image,
+    colorName: product.colorName,
     price: product.price,
     quantity: 1,
   }
@@ -160,6 +110,7 @@ function mapCartItemToCheckoutItem(item: CartItem): CheckoutItem {
     handle: item.handle,
     name: item.name,
     image: item.image,
+    colorName: item.colorName ?? null,
     price: item.price,
     quantity: item.quantity,
   }
@@ -177,12 +128,12 @@ function OrderSuccessScreen({
   orderNumber: string | null
 }) {
   return (
-    <section className="mx-auto max-w-2xl rounded-[28px] border border-slate-200 bg-white px-6 py-12 text-center font-sans shadow-[0_18px_40px_rgba(15,23,42,0.06)] sm:px-10">
-      <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-emerald-50">
+    <section className="mx-auto max-w-2xl rounded-[8px] border border-black bg-white px-6 py-12 text-center sm:px-10">
+      <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-[5px] bg-black">
         <svg width="36" height="36" viewBox="0 0 24 24" fill="none" aria-hidden="true">
           <path
             d="M5 12.5L9.5 17L19 7.5"
-            stroke="#059669"
+            stroke="#ffffff"
             strokeWidth="2.2"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -190,14 +141,14 @@ function OrderSuccessScreen({
         </svg>
       </div>
 
-      <p className="mt-6 text-sm font-medium text-emerald-700">Order Confirmed</p>
-      <h1 className="mt-3 text-3xl font-semibold tracking-[-0.03em] text-slate-900 sm:text-4xl">Order is done</h1>
-      <p className="mx-auto mt-4 max-w-lg text-sm leading-7 text-slate-600 sm:text-base">{message}</p>
-      {orderNumber ? <p className="mt-4 text-sm font-medium text-slate-900">Order #{orderNumber}</p> : null}
+      <p className="dot-heading mt-6 text-[0.68rem] uppercase tracking-[0.18em] text-black/48">Order confirmed</p>
+      <h1 className="collection-product-name mt-3 text-4xl leading-none text-black sm:text-5xl">Order is done</h1>
+      <p className="mx-auto mt-4 max-w-lg [font-family:var(--font-ntype82)] text-sm leading-7 text-black/62 sm:text-base">{message}</p>
+      {orderNumber ? <p className="mt-4 [font-family:var(--font-lettera-regular)] text-[0.72rem] uppercase tracking-[0.15em] text-black">Order #{orderNumber}</p> : null}
 
       <Link
         href="/"
-        className="mt-8 inline-flex h-12 items-center justify-center rounded-[16px] bg-slate-900 px-6 text-sm font-medium text-white transition-colors hover:bg-slate-800"
+        className="mt-8 inline-flex h-12 items-center justify-center rounded-[5px] bg-black px-6 [font-family:var(--font-lettera-regular)] text-[0.68rem] uppercase tracking-[0.16em] text-white transition-opacity hover:opacity-82"
       >
         Continue Shopping
       </Link>
@@ -260,7 +211,16 @@ export function OrderForm({ product }: OrderFormProps) {
 
   const itemCount = getCheckoutItemCount(checkoutItems)
   const previewImage = product?.image ?? checkoutItems[0]?.image ?? null
-  const deliveryTimeline = useMemo(() => getDeliveryTimeline(paymentMethod), [paymentMethod])
+  const pickupWhatsappUrl = useMemo(() => {
+    const productNames = checkoutItems.length > 0
+      ? checkoutItems
+          .map((item) => `${item.name}${item.colorName ? ` (${item.colorName})` : ''}`)
+          .join(', ')
+      : 'the selected product'
+    const message = `Sir, I need to pick up ${productNames} from your location. When can I come?`
+
+    return `${BANK_ACCOUNT.whatsappUrl}?text=${encodeURIComponent(message)}`
+  }, [checkoutItems])
   const govtTaxAmount = useMemo(
     () => Number((paymentMethod === 'cod' ? checkoutSubtotal * GOVT_TAX_RATE : 0).toFixed(2)),
     [checkoutSubtotal, paymentMethod],
@@ -271,23 +231,25 @@ export function OrderForm({ product }: OrderFormProps) {
     [checkoutSubtotal, govtTaxAmount, shippingFee],
   )
   const paymentNotes =
-    paymentMethod === 'bank_transfer'
+    deliveryType === 'pickup'
+      ? 'Store pickup order: no shipping fee. 4% govt tax applied.'
+      : paymentMethod === 'bank_transfer'
       ? `Non COD: Bank transfer customer gets free shipping and 0% tax. We pay the 4% govt tax. Express next-day delivery. After payment send screenshot to ${BANK_ACCOUNT.whatsapp}.`
       : 'COD order: Rs 450 shipping fee and 4% govt tax applied.'
 
   if (!product && !isCartCheckout) {
     return (
-      <section className="mx-auto max-w-2xl rounded-[28px] border border-slate-200 bg-white px-6 py-12 text-center shadow-[0_18px_40px_rgba(15,23,42,0.06)] sm:px-10">
-        <p className="text-sm font-medium text-slate-500">Order request</p>
-        <h1 className="mt-3 text-3xl font-semibold tracking-[-0.03em] text-slate-900 sm:text-4xl">Choose a product first</h1>
-        <p className="mx-auto mt-4 max-w-lg text-sm leading-7 text-slate-600 sm:text-base">
+      <section className="mx-auto max-w-2xl rounded-[8px] border border-black bg-white px-6 py-12 text-center sm:px-10">
+        <p className="dot-heading text-[0.68rem] uppercase tracking-[0.18em] text-black/48">Order request</p>
+        <h1 className="collection-product-name mt-3 text-4xl leading-none text-black sm:text-5xl">Choose a product first</h1>
+        <p className="mx-auto mt-4 max-w-lg [font-family:var(--font-ntype82)] text-sm leading-7 text-black/62 sm:text-base">
           The standalone order page is only shown when a product is selected. Browse the catalog, open a product page, and then continue to order.
         </p>
 
         <div className="mt-8 flex flex-wrap justify-center gap-3">
           <Link
-            href="/collections/shop-all"
-            className="inline-flex h-12 items-center justify-center rounded-[16px] bg-slate-900 px-6 text-sm font-medium text-white transition-colors hover:bg-slate-800"
+            href="/collections/nothing-pakistan-shop-all"
+            className="inline-flex h-12 items-center justify-center rounded-[5px] bg-black px-6 [font-family:var(--font-lettera-regular)] text-[0.68rem] uppercase tracking-[0.16em] text-white transition-opacity hover:opacity-82"
           >
             Browse Products
           </Link>
@@ -317,6 +279,7 @@ export function OrderForm({ product }: OrderFormProps) {
               productHandle: item.handle,
               productName: item.name,
               imageUrl: item.image,
+              colorName: item.colorName,
               quantity: item.quantity,
               unitPrice: item.price ?? 0,
               currency: 'PKR',
@@ -373,14 +336,29 @@ export function OrderForm({ product }: OrderFormProps) {
     }
   }
 
+  function handlePickupWhatsApp() {
+    if (!canSubmit) {
+      setSubmitState({
+        status: 'error',
+        message: 'Please fill in name and phone for pickup.',
+        orderNumber: null,
+      })
+      return
+    }
+
+    setSubmitState(initialSubmitState)
+    window.open(pickupWhatsappUrl, '_blank', 'noopener,noreferrer')
+  }
+
   if (submitState.status === 'success') {
     return <OrderSuccessScreen message={submitState.message} orderNumber={submitState.orderNumber} />
   }
 
   return (
-    <div className="grid gap-6 font-sans">
+    <div className="relative grid gap-6 [font-family:var(--font-ntype82)]">
+      <div className="dot-mesh-background pointer-events-none absolute inset-0 -z-10 opacity-20" />
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_360px]">
-        <aside className="order-1 rounded-[28px] border border-slate-200 bg-white p-6 shadow-[0_18px_40px_rgba(15,23,42,0.06)] sm:p-8 lg:order-2">
+        <aside className="order-1 rounded-[8px] border border-black/16 bg-white p-5 sm:p-7 lg:order-2">
           <div className="lg:hidden">
             <button
               type="button"
@@ -390,8 +368,8 @@ export function OrderForm({ product }: OrderFormProps) {
               aria-controls="order-summary-panel"
             >
               <div>
-                <h2 className="text-left text-2xl font-semibold tracking-[-0.02em] text-slate-900">Order summary</h2>
-                <p className="mt-1 text-left text-sm text-slate-500">{itemCount} item{itemCount === 1 ? '' : 's'} in this order</p>
+                <h2 className="collection-product-name text-left text-2xl text-black">Order summary</h2>
+                <p className="mt-1 text-left text-sm text-black/48">{itemCount} item{itemCount === 1 ? '' : 's'} in this order</p>
               </div>
               <PlusMinusIcon open={mobileSummaryOpen} />
             </button>
@@ -399,11 +377,13 @@ export function OrderForm({ product }: OrderFormProps) {
 
           <div id="order-summary-panel" className={`${mobileSummaryOpen ? 'mt-6 block' : 'hidden'} lg:mt-0 lg:block`}>
             <div className="hidden lg:block">
-              <h2 className="text-2xl font-semibold tracking-[-0.02em] text-slate-900">Order summary</h2>
+              <p className="dot-heading text-[0.62rem] uppercase tracking-[0.18em] text-black/42">Checkout</p>
+              <h2 className="collection-product-name mt-2 text-3xl text-black">Order summary</h2>
             </div>
 
             {previewImage ? (
-              <div className="mt-6 rounded-[22px] border border-slate-200 bg-slate-50 p-4">
+              <div className="relative mt-6 overflow-hidden rounded-[5px] border border-black/12 bg-[#efefec] p-4">
+                <div className="dot-mesh-background pointer-events-none absolute inset-0 opacity-20" />
                 <div className="relative h-48 w-full">
                   <Image
                     src={previewImage}
@@ -424,40 +404,41 @@ export function OrderForm({ product }: OrderFormProps) {
                     return (
                       <div
                         key={`${item.handle || 'general'}-${item.name}`}
-                        className="rounded-[18px] border border-slate-200 bg-slate-50 p-4"
+                        className="rounded-[5px] border border-black/12 bg-[#f5f5f2] p-4"
                       >
                         <div className="flex items-start justify-between gap-4">
                           <div>
-                            <h3 className="product-card-name text-base text-slate-900">{item.name}</h3>
-                            <p className="mt-1 text-sm text-slate-500">Qty {item.quantity}</p>
+                            <h3 className="product-card-name text-base text-black">{item.name}</h3>
+                            {item.colorName ? <p className="mt-2 text-[0.64rem] uppercase tracking-[0.14em] text-black/52">Colour: {item.colorName}</p> : null}
+                            <p className="mt-1 text-[0.64rem] uppercase tracking-[0.14em] text-black/52">Qty {item.quantity}</p>
                           </div>
-                          <p className="text-sm font-medium text-slate-900">{itemTotal !== null ? formatPrice(itemTotal) : 'Pending'}</p>
+                          <p className="text-sm text-black">{itemTotal !== null ? formatPrice(itemTotal) : 'Pending'}</p>
                         </div>
-                        {typeof item.price === 'number' ? <p className="mt-2 text-sm text-slate-500">{formatPrice(item.price)} each</p> : null}
+                        {typeof item.price === 'number' ? <p className="mt-2 text-sm text-black/48">{formatPrice(item.price)} each</p> : null}
                       </div>
                     )
                   })
                 : null}
             </div>
 
-            <div className="mt-6 rounded-[22px] border border-slate-200 bg-[linear-gradient(180deg,#fbfcff_0%,#f4f7fb_100%)] p-5">
+            <div className="mt-6 rounded-[5px] border border-black bg-black p-5 text-white">
               <div className="space-y-3">
-                <div className="flex items-center justify-between text-sm text-slate-600">
+                <div className="flex items-center justify-between text-sm text-white/62">
                   <span>Subtotal</span>
-                  <span className="font-medium text-slate-900">{checkoutSubtotal > 0 ? formatPrice(checkoutSubtotal) : 'Confirm on call'}</span>
+                  <span className="text-white">{checkoutSubtotal > 0 ? formatPrice(checkoutSubtotal) : 'Confirm on call'}</span>
                 </div>
-                <div className="flex items-center justify-between text-sm text-slate-600">
+                <div className="flex items-center justify-between text-sm text-white/62">
                   <span>Shipping fee</span>
-                  <span className="font-medium text-slate-900">{formatPrice(shippingFee)}</span>
+                  <span className="text-white">{formatPrice(shippingFee)}</span>
                 </div>
-                <div className="flex items-center justify-between text-sm text-slate-600">
+                <div className="flex items-center justify-between text-sm text-white/62">
                   <span>Govt Tax</span>
-                  <span className="font-medium text-slate-900">{formatPrice(govtTaxAmount)}</span>
+                  <span className="text-white">{formatPrice(govtTaxAmount)}</span>
                 </div>
-                <div className="border-t border-slate-200 pt-3">
+                <div className="border-t border-white/18 pt-3">
                   <div className="flex items-center justify-between">
-                    <span className="text-sm font-medium text-slate-600">Total</span>
-                    <span className="text-xl font-semibold tracking-[-0.03em] text-slate-900">
+                    <span className="text-sm text-white/62">Total</span>
+                    <span className="collection-product-name text-2xl text-white">
                       {totalPrice > 0 ? formatPrice(totalPrice) : 'Confirm on call'}
                     </span>
                   </div>
@@ -469,9 +450,9 @@ export function OrderForm({ product }: OrderFormProps) {
           </div>
         </aside>
 
-        <section className="order-2 rounded-[28px] border border-slate-200 bg-white p-6 shadow-[0_18px_40px_rgba(15,23,42,0.06)] sm:p-8 lg:order-1">
+        <section className="order-2 rounded-[8px] border border-black/16 bg-white p-6 sm:p-8 lg:order-1">
           <h2 className="dot-heading text-3xl uppercase leading-none tracking-[0.04em] text-black">Order details</h2>
-          <p className="mt-3 text-sm leading-7 text-slate-600">Choose shipping or pickup, then enter the details needed to confirm your order.</p>
+          <p className="mt-3 text-sm leading-7 text-black/62">Choose shipping or pickup, then enter the details needed to confirm your order.</p>
 
           <form className="mt-8 grid gap-5" onSubmit={handleSubmit}>
             <div className="grid gap-5">
@@ -496,7 +477,7 @@ export function OrderForm({ product }: OrderFormProps) {
               {deliveryType === 'ship' ? (
                 <>
                   <label className="grid gap-2">
-                    <span className="text-sm font-medium text-slate-700">Full name</span>
+                    <span className="text-sm text-black/68">Full name</span>
                     <input
                       required
                       value={name}
@@ -507,7 +488,7 @@ export function OrderForm({ product }: OrderFormProps) {
                   </label>
 
                   <label className="grid gap-2">
-                    <span className="text-sm font-medium text-slate-700">Address</span>
+                    <span className="text-sm text-black/68">Address</span>
                     <textarea
                       required
                       value={address}
@@ -520,7 +501,7 @@ export function OrderForm({ product }: OrderFormProps) {
 
                   <div className="grid gap-5 md:grid-cols-2">
                     <label className="grid gap-2">
-                      <span className="text-sm font-medium text-slate-700">City</span>
+                      <span className="text-sm text-black/68">City</span>
                       <input
                         required
                         value={city}
@@ -531,7 +512,7 @@ export function OrderForm({ product }: OrderFormProps) {
                     </label>
 
                     <label className="grid gap-2">
-                      <span className="text-sm font-medium text-slate-700">District</span>
+                      <span className="text-sm text-black/68">District</span>
                       <input
                         required
                         value={district}
@@ -543,7 +524,7 @@ export function OrderForm({ product }: OrderFormProps) {
                   </div>
 
                   <label className="grid gap-2">
-                    <span className="text-sm font-medium text-slate-700">Postal code <span className="font-normal text-slate-400">(optional)</span></span>
+                    <span className="text-sm text-black/68">Postal code <span className="font-normal text-black/38">(optional)</span></span>
                     <input
                       value={postalCode}
                       onChange={(event) => setPostalCode(event.target.value)}
@@ -554,7 +535,7 @@ export function OrderForm({ product }: OrderFormProps) {
 
                   <div className="grid gap-5">
                     <label className="grid gap-2">
-                      <span className="text-sm font-medium text-slate-700">Phone number</span>
+                      <span className="text-sm text-black/68">Phone number</span>
                       <input
                         required
                         value={phone}
@@ -565,15 +546,15 @@ export function OrderForm({ product }: OrderFormProps) {
                     </label>
                   </div>
 
-                  <div className="rounded-[24px] border border-slate-200 bg-[linear-gradient(180deg,#ffffff_0%,#f8fafc_100%)] p-5 sm:p-6">
+                  <div className="rounded-[8px] border border-black/14 bg-[#f3f3f0] p-5 sm:p-6">
                     <div className="flex items-start justify-between gap-4">
                       <div>
-                        <h3 className="text-lg font-semibold tracking-[-0.02em] text-slate-900">Payment method</h3>
-                        <p className="mt-1 text-sm leading-6 text-slate-600">COD orders = Rs 450 Shipping fee + 4% Govt Tax. Non COD bank transfer gets free shipping and 0% tax.</p>
+                        <h3 className="collection-product-name text-xl text-black">Payment method</h3>
+                        <p className="mt-1 text-sm leading-6 text-black/62">COD orders = Rs 450 Shipping fee + 4% Govt Tax. Non COD bank transfer gets free shipping and 0% tax.</p>
                       </div>
                     </div>
 
-                    <div className="mt-4 rounded-[18px] border border-amber-200 bg-amber-50 px-4 py-3 text-sm leading-6 text-amber-900">
+                    <div className="mt-4 rounded-[5px] border border-black/14 bg-white px-4 py-3 text-sm leading-6 text-black/68">
                       For the safety and accountability of high-value shipments, we operate exclusively on a pre-payment basis. We do not offer a COD option for these high value items, ensuring every delivery is fully documented and secure.
                     </div>
 
@@ -581,16 +562,16 @@ export function OrderForm({ product }: OrderFormProps) {
                       <button
                         type="button"
                         onClick={() => setPaymentMethod('cod')}
-                        className={`rounded-[20px] border p-0 text-left transition ${
+                        className={`rounded-[5px] border p-0 text-left transition ${
                           paymentMethod === 'cod'
                             ? 'border-slate-900 bg-slate-900 text-white shadow-[0_18px_32px_rgba(15,23,42,0.18)]'
-                            : 'border-slate-200 bg-white text-slate-900 hover:border-slate-300'
+                            : 'border-black/14 bg-white text-black hover:border-black/42'
                         }`}
                       >
                         <div className="flex items-center justify-between gap-4 p-3 sm:p-4">
                           <div>
                             <p className="text-sm font-semibold uppercase tracking-[0.16em]">Cash on delivery</p>
-                            <p className={`mt-2 text-sm leading-6 ${paymentMethod === 'cod' ? 'text-white/80' : 'text-slate-600'}`}>
+                            <p className={`mt-2 text-sm leading-6 ${paymentMethod === 'cod' ? 'text-white/80' : 'text-black/62'}`}>
                               COD orders = Rs 450 Shipping fee + 4% Govt Tax.
                             </p>
                           </div>
@@ -600,27 +581,32 @@ export function OrderForm({ product }: OrderFormProps) {
                         </div>
                       </button>
 
-                      <button
-                        type="button"
-                        onClick={() => setPaymentMethod('bank_transfer')}
-                        className={`rounded-[22px] border p-0 text-left transition ${
+                      <div
+                        className={`rounded-[5px] border transition ${
                           paymentMethod === 'bank_transfer'
-                            ? 'border-emerald-500 bg-[linear-gradient(180deg,#f0fdf4_0%,#ecfdf5_100%)] text-slate-900 shadow-[0_18px_32px_rgba(16,185,129,0.12)]'
-                            : 'border-slate-200 bg-white text-slate-900 hover:border-slate-300'
+                            ? 'border-black bg-white text-black shadow-[inset_0_0_0_2px_#000]'
+                            : 'border-black/14 bg-white text-black'
                         }`}
                       >
+                        <button
+                          type="button"
+                          onClick={() => setPaymentMethod('bank_transfer')}
+                          className="w-full text-left"
+                        >
                         <div className="flex items-start justify-between gap-4 p-3 sm:p-4">
                           <div>
                             <p className="text-sm font-semibold uppercase tracking-[0.16em]">Bank transfer</p>
-                            <p className="mt-2 text-sm leading-6 text-slate-600">Non COD: Bank Transfer customers get Free Shipping, 0% Tax. We pay your 4% govt tax. Plus, get Express Next-Day Delivery.</p>
+                            <p className="mt-2 text-sm leading-6 text-black/62">Non COD: Bank Transfer customers get Free Shipping, 0% Tax. We pay your 4% govt tax. Plus, get Express Next-Day Delivery.</p>
                           </div>
-                          <span className={`inline-flex h-5 w-5 rounded-full border ${paymentMethod === 'bank_transfer' ? 'border-emerald-600 bg-emerald-600' : 'border-slate-300'}`}>
+                          <span className={`inline-flex h-5 w-5 rounded-full border ${paymentMethod === 'bank_transfer' ? 'border-black bg-black' : 'border-black/24'}`}>
                             {paymentMethod === 'bank_transfer' ? <span className="m-auto h-2.5 w-2.5 rounded-full bg-white" /> : null}
                           </span>
                         </div>
+                        </button>
 
-                        <div className="mx-3 mb-3 mt-1 rounded-[18px] border border-emerald-100 bg-white/90 p-3 text-sm leading-6 text-slate-700 sm:mx-4 sm:mb-4 sm:p-4">
-                          <p className="font-semibold text-slate-900">{BANK_ACCOUNT.bank}</p>
+                        {paymentMethod === 'bank_transfer' ? (
+                        <div className="mx-3 mb-3 mt-1 rounded-[5px] border border-black/12 bg-[#f3f3f0] p-3 text-sm leading-6 text-black/68 sm:mx-4 sm:mb-4 sm:p-4">
+                          <p className="dot-heading text-[0.68rem] uppercase tracking-[0.14em] text-black">{BANK_ACCOUNT.bank}</p>
                           <p className="mt-2"><span className="font-medium">Name:</span> {BANK_ACCOUNT.accountName}</p>
                           <p><span className="font-medium">ACC#</span> {BANK_ACCOUNT.accountNumber}</p>
                           <p><span className="font-medium">IBAN:</span> {BANK_ACCOUNT.iban}</p>
@@ -637,12 +623,14 @@ export function OrderForm({ product }: OrderFormProps) {
                             </Link>
                           </div>
                         </div>
-                      </button>
+                        ) : null}
+                      </div>
                     </div>
                   </div>
                 </>
               ) : (
-                <div className="rounded-[20px] border border-black/10 bg-[#f4f4f2] p-5 sm:p-6">
+                <div className="grid gap-5">
+                  <div className="rounded-[8px] border border-black/12 bg-[#f4f4f2] p-5 sm:p-6">
                   <p className="text-[0.72rem] uppercase tracking-[0.18em] text-black/52">Pickup location</p>
                   <h3 className="mt-3 [font-family:var(--font-georgia)] text-3xl leading-none text-black sm:text-4xl">Garden Town, Lahore</h3>
                   <p className="mt-4 text-sm leading-7 text-black/68">{siteContactAddress}</p>
@@ -654,6 +642,41 @@ export function OrderForm({ product }: OrderFormProps) {
                   >
                     Open Map
                   </Link>
+                  </div>
+
+                  <label className="grid gap-2">
+                    <span className="text-sm text-black/68">Full name</span>
+                    <input
+                      required
+                      value={name}
+                      onChange={(event) => setName(event.target.value)}
+                      placeholder="Your full name"
+                      className={fieldClassName}
+                    />
+                  </label>
+
+                  <label className="grid gap-2">
+                    <span className="text-sm text-black/68">Phone number</span>
+                    <input
+                      required
+                      value={phone}
+                      onChange={(event) => setPhone(event.target.value)}
+                      placeholder="+92 300 0000000"
+                      className={fieldClassName}
+                    />
+                  </label>
+
+                  {submitState.status === 'error' ? (
+                    <div className="rounded-[5px] border border-red-300 bg-red-50 px-4 py-3 text-sm text-red-700">{submitState.message}</div>
+                  ) : null}
+
+                  <button
+                    type="button"
+                    onClick={handlePickupWhatsApp}
+                    className="inline-flex h-12 w-full items-center justify-center rounded-[5px] bg-black px-6 [font-family:var(--font-lettera-regular)] text-[0.68rem] uppercase tracking-[0.16em] text-white transition-opacity hover:opacity-82 disabled:cursor-not-allowed disabled:opacity-60"
+                  >
+                    Confirm store pickup
+                  </button>
                 </div>
               )}
             </div>
@@ -695,18 +718,11 @@ export function OrderForm({ product }: OrderFormProps) {
                   <button
                     type="submit"
                     disabled={submitState.status === 'submitting'}
-                    className="mt-5 inline-flex h-12 w-full items-center justify-center rounded-[16px] bg-slate-900 px-6 text-sm font-medium text-white transition-colors hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-60"
+                    className="mt-5 inline-flex h-12 w-full items-center justify-center rounded-[5px] bg-black px-6 [font-family:var(--font-lettera-regular)] text-[0.68rem] uppercase tracking-[0.16em] text-white transition-opacity hover:opacity-82 disabled:cursor-not-allowed disabled:opacity-60"
                   >
                     {submitState.status === 'submitting' ? 'Placing order...' : 'Place Order'}
                   </button>
 
-                  <div className="mt-5 rounded-[18px] border border-[#f7d9b7] bg-[linear-gradient(180deg,#fffdfa_0%,#ffffff_100%)] px-4 py-4">
-                    <p className="text-[0.82rem] font-black uppercase tracking-normal text-[#8d8d8d]">Estimated delivery</p>
-                    <p className="mt-1 text-[1.55rem] font-bold leading-none text-[#ff6f00]">{deliveryTimeline.deliveryRangeLabel}</p>
-                    <p className="mt-2 text-sm leading-6 text-slate-600">
-                      Processing starts by {deliveryTimeline.processDateLabel}. {paymentMethod === 'bank_transfer' ? 'Online payment orders are expected the next day after processing.' : 'Final timing may vary slightly by city and confirmation time.'}
-                    </p>
-                  </div>
                 </div>
               </>
             ) : null}
