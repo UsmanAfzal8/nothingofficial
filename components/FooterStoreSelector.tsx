@@ -127,12 +127,12 @@ export function FooterStoreSelector({
       </button>
 
       {isOpen ? (
-        <div className="fixed inset-0 z-[100] overflow-hidden bg-[#090909] text-black normal-case">
+        <div className="fixed inset-0 z-[100] overflow-hidden bg-[#0d0d0d] text-black normal-case">
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute inset-0 opacity-95 [background-image:radial-gradient(circle,rgba(255,255,255,0.82)_1px,transparent_1.8px)] [background-position:42px_42px] [background-size:164px_164px]"
+            className="pointer-events-none absolute inset-0 opacity-95 [background-image:radial-gradient(circle,rgba(255,255,255,1)_1px,transparent_1.8px)] [background-position:-35px_-35px] [background-size:116px_116px]"
           />
-          <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-[#101010] to-transparent" />
+          <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#111111] to-transparent" />
 
           <button
             type="button"
@@ -147,38 +147,35 @@ export function FooterStoreSelector({
             aria-labelledby={titleId}
             ref={dialogRef}
             tabIndex={-1}
-            className="relative mx-auto flex h-[min(82dvh,760px)] w-[min(calc(100vw-1.25rem),560px)] flex-col gap-3 px-3 py-5 sm:px-0"
+            className="relative mx-auto flex h-dvh w-[min(calc(100vw-1rem),384px)] flex-col gap-[13px] pb-3 pt-[11px]"
           >
-            <div className="grid h-[54px] shrink-0 grid-cols-[44px_minmax(0,1fr)_44px] items-center rounded-[10px] bg-[#d7d7d7] text-[#171717] shadow-[0_20px_60px_rgba(0,0,0,0.2)]">
+            <div className="grid h-[38px] shrink-0 grid-cols-[38px_minmax(0,1fr)_38px] items-center rounded-[6px] bg-[#d3d3d3] text-black shadow-[0_20px_60px_rgba(0,0,0,0.2)]">
               <button
                 type="button"
                 aria-label="Close shipping location selector"
-                className="flex h-full items-center justify-center rounded-l-[10px] transition-opacity hover:opacity-60"
+                className="flex h-full items-center justify-center rounded-l-[6px] transition-opacity hover:opacity-60"
                 onClick={closeDialog}
               >
-                <Image src={cancelIcon} alt="" aria-hidden="true" className="h-[15px] w-[15px] object-contain opacity-70" />
+                <Image src={cancelIcon} alt="" aria-hidden="true" className="h-[13px] w-[13px] object-contain opacity-60" />
               </button>
-              <p className="text-center [font-family:var(--font-ndot57-caps)] text-[0.88rem] uppercase leading-none tracking-[0.18em] text-black/72">
+              <p className="text-center [font-family:var(--font-ndot57-caps)] text-[0.88rem] uppercase leading-none tracking-[0.08em] text-black">
                 Ship To
               </p>
               <span aria-hidden="true" />
             </div>
 
-            <div className="min-h-0 flex-1 overflow-y-auto rounded-[10px] bg-[#d7d7d7] px-5 pb-7 pt-5 shadow-[0_20px_70px_rgba(0,0,0,0.24)] sm:px-7">
-              <h2 id={titleId} className="[font-family:var(--font-ntype82-mono)] text-[1.24rem] leading-tight text-black/48 sm:text-[1.46rem]">
-                Shipping Location
+            <div className="min-h-0 flex-1 overflow-y-auto rounded-[6px] bg-[#d3d3d3] px-[19px] pb-0 pt-3 shadow-[0_20px_70px_rgba(0,0,0,0.24)]">
+              <h2 id={titleId} className="ml-4 -translate-y-[3px] [font-family:var(--font-georgia)] text-[1.46rem] leading-tight text-[#595959]">
+                Select Your Shipping Location
               </h2>
-              <p className="mt-2 [font-family:var(--font-ntype82)] text-[0.72rem] leading-5 text-black/42">
-                {activeCountry} is the active store for this website. Choose a region to update your store preference.
-              </p>
 
-              <div className="mt-6 grid gap-6">
+              <div className="mt-[18px] grid gap-6">
                 {shippingRegions.map((region) => (
                   <section key={region.name}>
-                    <h3 className="[font-family:var(--font-ntype82)] text-[0.86rem] leading-none text-black/45">
+                    <h3 className="[font-family:var(--font-ntype82)] text-[0.8rem] leading-none text-[#595959]">
                       {region.name}
                     </h3>
-                    <div className="mt-3 grid gap-1">
+                    <div className="mt-[7px] grid gap-[2px]">
                       {region.locations.map((location) => {
                         const isSelected = location.country === activeCountry
 
@@ -187,15 +184,15 @@ export function FooterStoreSelector({
                             key={`${region.name}-${location.country}`}
                             type="button"
                             aria-pressed={isSelected}
-                            className={`grid min-h-[38px] grid-cols-[minmax(0,1fr)_auto] items-center gap-3 rounded-[6px] px-3 text-left transition-colors hover:bg-black/5 ${
+                            className={`grid min-h-[38px] grid-cols-[minmax(0,1fr)_auto] items-center gap-3 rounded-[4px] px-[6px] text-left transition-colors hover:bg-black/5 ${
                               isSelected ? 'bg-black/8' : ''
                             }`}
                             onClick={() => handleLocationSelect(location)}
                           >
-                            <span className="[font-family:var(--font-ntype82)] text-[0.88rem] leading-tight text-black/82 sm:text-[0.98rem]">
+                            <span className="[font-family:var(--font-ntype82)] text-[0.8rem] leading-tight text-black">
                               {location.country}
                             </span>
-                            <span className="[font-family:var(--font-ntype82)] text-right text-[0.76rem] leading-tight text-black/42 sm:text-[0.86rem]">
+                            <span className="[font-family:var(--font-ntype82)] text-right text-[0.8rem] leading-tight text-[#595959]">
                               {location.locale}
                             </span>
                           </button>

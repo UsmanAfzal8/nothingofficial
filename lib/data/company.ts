@@ -9,7 +9,7 @@ export const companyFoundingDate = '2026-05-16'
 export const companyType = 'SMC-Private Limited'
 export const companyCountry = 'Pakistan'
 export const companyWebsite = 'https://www.cmfbynothing.pk'
-export const companyOfficialDomains = ['www.cmfbynothing.pk'] as const
+export const companyOfficialDomains = ['www.cmfbynothing.pk', 'www.nothingshop.pk'] as const
 export const companyVerificationPath = '/company-verification'
 export const companyVerificationUrl = `${companyWebsite}${companyVerificationPath}`
 export const companyCertificateUrl = 'https://cdn.nothingshop.pk/nothing-official-pakistan-secp-certificate.pdf'
@@ -38,54 +38,54 @@ export const companyBusinessInfoRows = [
 
 export const companyVerificationFaqs = [
   {
-    question: 'Is Nothing Pakistan a registered company?',
+    question: 'What is CMF by Nothing Pakistan?',
     answer:
-      `Yes. Nothing Pakistan is operated by ${companyLegalName}, an SECP registered Pakistani company with ${companyIdentifier}. This verification page is published so customers can confidently confirm the registered business identity behind the website before placing an order.`,
+      `CMF by Nothing Pakistan is the online storefront at ${companyWebsite} for customers shopping for Nothing and CMF products in Pakistan. It is operated by ${companyLegalName}, a Pakistani company registered with the Securities and Exchange Commission of Pakistan.`,
   },
   {
-    question: 'What is the legal company name behind Nothing Pakistan?',
+    question: 'Who operates the CMF by Nothing Pakistan website?',
     answer:
-      `The official registered company name is ${companyLegalName}. Nothing Pakistan is the customer-facing storefront for the company, used for product discovery, online shopping, customer support, delivery updates, and after-sales communication in Pakistan.`,
+      `${companyWebsite} is operated by ${companyLegalName}. The registered company is responsible for the storefront, order communication, customer support, and the business information published on this verification page.`,
   },
   {
-    question: 'Is Nothing Pakistan the official registered Nothing business in Pakistan?',
+    question: 'Is CMF by Nothing Pakistan registered with SECP?',
     answer:
-      `Nothing Pakistan is operated by ${companyLegalName}, whose registered company name includes Nothing Pakistan and whose SECP registration is published openly on this website. Customers can use this page to verify the company name, CUIN, certificate, and business information.`,
+      `Yes. ${companyLegalName} is registered with the Securities and Exchange Commission of Pakistan under ${companyIdentifier}. The legal company name, CUIN, incorporation date, and company type are displayed on this page for customer verification.`,
   },
   {
-    question: 'How can customers verify the company registration?',
+    question: 'How can I verify CMF by Nothing Pakistan before ordering?',
     answer:
-      `Customers can verify the company by checking the legal name ${companyLegalName}, ${companyIdentifier}, incorporation date, and SECP certificate linked on this page. The same verification link is also available from the website footer for quick access.`,
+      `Review the company information on this page and match the legal name ${companyLegalName} with ${companyIdentifier}. You can also open the linked SECP certificate and use the Company Verification link in the website footer whenever you need to confirm the business details.`,
   },
   {
-    question: 'Why should customers buy from Nothing Pakistan?',
+    question: 'Which websites are operated by Nothing Pakistan?',
     answer:
-      'Customers choose Nothing Pakistan because the store shows a clear Pakistani business identity, product information, support channels, delivery expectations, and company verification. The goal is to make Nothing and CMF shopping in Pakistan more transparent and easier to trust.',
+      `The company domains listed on this verification page are ${companyOfficialDomains.join(' and ')}. Customers should confirm the website address before ordering or sharing payment and delivery information.`,
   },
   {
-    question: 'Who is the CEO of Nothing Pakistan?',
+    question: 'Can I view the SECP certificate online?',
     answer:
-      'Usman Afzal is the CEO of Nothing Pakistan. He leads the company focus on verified business identity, clear customer support, transparent product listings, and a reliable shopping experience for customers across Pakistan.',
+      'Yes. Select the View SECP Certificate button on this page to open the company certificate. It is published so customers can review the registered legal name and incorporation details directly.',
   },
   {
-    question: 'Does Nothing Pakistan provide support after purchase?',
+    question: 'What can I shop for on CMF by Nothing Pakistan?',
     answer:
-      'Yes. Nothing Pakistan provides customer support through the website, WhatsApp, phone, and email channels listed on the contact page. Customers can contact the team for order updates, product questions, delivery details, and return or replacement guidance.',
+      'The storefront lists Nothing and CMF phones, audio products, wearables, chargers, cables, protectors, covers, and compatible accessories available for customers in Pakistan. Product availability and current PKR pricing are shown on the relevant product pages.',
   },
   {
-    question: 'Can customers view the SECP certificate?',
+    question: 'Does CMF by Nothing Pakistan deliver across Pakistan?',
     answer:
-      'Yes. The SECP certificate is available from this Company Verification page through the View SECP Certificate button. Publishing the certificate helps customers confirm the registered company information without needing to search across multiple pages.',
+      'Orders can be delivered to supported locations across Pakistan, subject to product availability, address coverage, and order confirmation. Delivery timing and payment details are provided during checkout or confirmed by the support team.',
   },
   {
-    question: 'Does Nothing Pakistan deliver across Pakistan?',
+    question: 'Does CMF by Nothing Pakistan provide after-sales support?',
     answer:
-      'Yes. Nothing Pakistan serves customers across Pakistan, subject to product availability, delivery coverage, and order confirmation. Delivery details are shared during checkout or support communication so customers know what to expect before payment and dispatch.',
+      'Yes. Customers can contact the support team for product questions, order updates, delivery information, and return or replacement guidance. The applicable support and policy details depend on the product and order.',
   },
   {
-    question: 'How does company verification help customers shop safely?',
+    question: 'How can I contact CMF by Nothing Pakistan?',
     answer:
-      'Company verification helps customers know the registered Pakistani business behind the website, the legal company name, and the support channels before ordering. It adds accountability and makes the buying process clearer from product selection to delivery and support.',
+      `Use the contact options published on ${companyWebsite}, including the contact page and ${companySupportEmail}. Support is available ${companySupportHours}.`,
   },
 ] as const
 
