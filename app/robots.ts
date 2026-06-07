@@ -8,20 +8,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: [
       {
         userAgent: '*',
-        allow: [
-          '/',
-          '/llms.txt',
-          '/ai-products',
-          '/collections/',
-          '/products/',
-          '/blog/',
-          '/company-verification',
-          '/about-us',
-          '/authenticity',
-          '/support-centre',
-          '/contact-us',
-        ],
-        disallow: ['/cart/', '/checkout/', '/account/', '/search', '/dashboard/'],
+        allow: '/',
       },
     ],
     sitemap: buildAbsoluteUrl('/sitemap.xml'),

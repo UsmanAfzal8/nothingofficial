@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { notFound } from 'next/navigation'
+import { notFound, redirect } from 'next/navigation'
 import { CatalogProductTile } from '@/components/CatalogProductTile'
 import { InterTypographyScope } from '@/components/InterTypographyScope'
 import { NothingFooter } from '@/components/NothingFooter'
@@ -270,6 +270,10 @@ export default async function CollectionPage({ params }: CollectionPageProps) {
 
   if (!collection) {
     notFound()
+  }
+
+  if (params.slug !== collection.slug) {
+    redirect(`/collections/${collection.slug}`)
   }
 
   const breadcrumbItems = buildCollectionBreadcrumbs(collection)

@@ -30,6 +30,31 @@ const nextConfig = {
         permanent: true,
       },
       {
+        source: '/collections/nothing-pakistan-shop-all',
+        destination: '/collections/shop-all',
+        permanent: true,
+      },
+      {
+        source: '/collections/nothing-pakistan-phones',
+        destination: '/collections/phones',
+        permanent: true,
+      },
+      {
+        source: '/collections/nothing-pakistan-chargers',
+        destination: '/collections/chargers',
+        permanent: true,
+      },
+      {
+        source: '/collections/nothing-pakistan-protectors',
+        destination: '/collections/protectors',
+        permanent: true,
+      },
+      {
+        source: '/collections/nothing-pakistan-earbuds',
+        destination: '/collections/earbuds',
+        permanent: true,
+      },
+      {
         source: '/:path*',
         has: [
           {

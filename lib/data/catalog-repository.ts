@@ -2302,6 +2302,10 @@ export async function getCollectionSitemapEntries(): Promise<SitemapCollectionEn
   }).filter((entry) => Boolean(entry.image || entry.updatedAt))
 
   for (const category of snapshot.categories) {
+    if (isVirtualCollectionSlug(stripNothingPakistanSlugPrefix(category.slug))) {
+      continue
+    }
+
     const categoryTreeIds = getCategoryTreeIds(snapshot, category.id)
     const rawProducts = getCatalogCardsForCategoryIds(snapshot, categoryTreeIds)
     const products = category.slug === 'accessories' ? filterAccessoriesCollectionCards(snapshot, rawProducts) : rawProducts
