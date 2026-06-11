@@ -35,6 +35,7 @@ import type {
 } from '@/lib/models/supabase-store'
 import { DETAIL_IMAGE_RELATED_TYPE_ENUM, STORE_RELATED_TYPE_ENUM } from '@/lib/models/supabase-enums'
 import type { ProductType } from '@/lib/models/supabase-enums'
+import { getLegacyProductHandleCandidates } from '@/lib/legacy-slugs'
 import { getSupabaseAdminClient } from '@/lib/supabase-admin'
 import { buildAbsoluteUrl, splitSeoKeywords, stripNothingPakistanSlugPrefix, trimSeoDescription } from '@/lib/utils/seo'
 import fallbackMobiles from '@/database/mobile.json'
@@ -166,11 +167,26 @@ const PREFERRED_PRODUCT_HANDLES: Readonly<Record<string, string>> = {
 }
 
 function resolveProductHandleAlias(handle: string) {
-  return PRODUCT_HANDLE_ALIASES[handle] ?? handle
+  return getProductHandleCandidates(handle)[0] ?? handle
 }
 
 function getPreferredProductHandle(handle: string) {
   return PREFERRED_PRODUCT_HANDLES[resolveProductHandleAlias(handle)] ?? handle
+}
+
+function getProductHandleCandidates(handle: string): string[] {
+  const legacyCandidates = getLegacyProductHandleCandidates(handle)
+  const aliasCandidates = legacyCandidates.map((candidate) => PRODUCT_HANDLE_ALIASES[candidate])
+  const seen = new Set<string>()
+  const output: string[] = []
+
+  for (const candidate of [...aliasCandidates, ...legacyCandidates]) {
+    if (!candidate || seen.has(candidate)) continue
+    seen.add(candidate)
+    output.push(candidate)
+  }
+
+  return output
 }
 
 const FEATURED_COVERS_CATEGORY_SLUG = 'featured-covers'
@@ -657,15 +673,16 @@ function buildFallbackMobileDetail(mobile: FallbackMobileRow): ProductDetail {
 }
 
 function buildFallbackProductDetailByHandle(handle: string): ProductDetail | null {
-  const resolvedHandle = resolveProductHandleAlias(handle)
-  const fallbackProduct = (fallbackProducts as unknown as FallbackProductRow[]).find((product) => product.slug === resolvedHandle)
-  if (fallbackProduct) {
-    return buildFallbackProductDetail(fallbackProduct)
-  }
+  for (const resolvedHandle of getProductHandleCandidates(handle)) {
+    const fallbackProduct = (fallbackProducts as unknown as FallbackProductRow[]).find((product) => product.slug === resolvedHandle)
+    if (fallbackProduct) {
+      return buildFallbackProductDetail(fallbackProduct)
+    }
 
-  const fallbackMobile = (fallbackMobiles as unknown as FallbackMobileRow[]).find((mobile) => mobile.slug === resolvedHandle)
-  if (fallbackMobile) {
-    return buildFallbackMobileDetail(fallbackMobile)
+    const fallbackMobile = (fallbackMobiles as unknown as FallbackMobileRow[]).find((mobile) => mobile.slug === resolvedHandle)
+    if (fallbackMobile) {
+      return buildFallbackMobileDetail(fallbackMobile)
+    }
   }
 
   return null
@@ -2476,31 +2493,36 @@ async function getCollectionBySlugUncached(slug: string): Promise<Collection | n
 }
 
 async function getProductDetailByHandleUncached(handle: string, includeDetailRows = true): Promise<ProductDetail | null> {
-  const resolvedHandle = resolveProductHandleAlias(handle)
+  const resolvedHandles = getProductHandleCandidates(handle)
 
   try {
     const snapshot = await getCatalogSnapshot({ includeDetailRows })
-    const product = snapshot.productsBySlug.get(resolvedHandle)
 
-    if (product) {
-      return buildProductDetailFromProduct(product, snapshot)
-    }
+    for (const resolvedHandle of resolvedHandles) {
+      const product = snapshot.productsBySlug.get(resolvedHandle)
 
-    const mobile = snapshot.mobilesBySlug.get(resolvedHandle)
+      if (product) {
+        return buildProductDetailFromProduct(product, snapshot)
+      }
 
-    if (mobile) {
-      return buildProductDetailFromMobile(mobile, snapshot)
+      const mobile = snapshot.mobilesBySlug.get(resolvedHandle)
+
+      if (mobile) {
+        return buildProductDetailFromMobile(mobile, snapshot)
+      }
     }
   } catch (error) {
     console.warn('[catalog-repository] product detail snapshot unavailable, using fallback catalog:', error)
   }
 
-  return buildFallbackProductDetailByHandle(resolvedHandle)
+  return buildFallbackProductDetailByHandle(handle)
 }
 
 async function getMobileAccessoryGroupsByHandleUncached(handle: string): Promise<MobileAccessoryGroup[]> {
   const snapshot = await getCatalogSnapshot({ includeDetailRows: false })
-  const mobile = snapshot.mobilesBySlug.get(resolveProductHandleAlias(handle))
+  const mobile = getProductHandleCandidates(handle)
+    .map((resolvedHandle) => snapshot.mobilesBySlug.get(resolvedHandle))
+    .find((entry): entry is SupabaseMobileRow => Boolean(entry))
 
   if (!mobile) {
     return []

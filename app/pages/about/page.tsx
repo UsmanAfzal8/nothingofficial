@@ -56,6 +56,8 @@ const aboutSections = [
 ]
 
 export default function AboutPage() {
+  const hasSocialLinks = socialLinks.length > 0
+
   return (
     <div className="min-h-screen overflow-x-hidden bg-[#ececea] text-[#111]">
       <SeoStructuredData data={buildOrganizationStructuredData()} />
@@ -116,25 +118,27 @@ export default function AboutPage() {
             ))}
           </div>
 
-          <div className="mx-auto mt-10 max-w-screen-2xl rounded-[34px] border border-black/10 bg-white/72 p-6 shadow-[0_24px_60px_rgba(17,17,17,0.06)] backdrop-blur-xl md:p-8">
-            <p className="text-[10px] uppercase tracking-[0.28em] text-black/42">Brand Channels</p>
-            <p className="mt-4 max-w-4xl text-sm leading-7 text-black/68">
-              This page helps search engines and customers understand that Nothing Pakistan is more than a single product landing page. It connects the storefront message with support routes, legal pages, and the broader catalog so branded searches can land on a stronger trust page when needed.
-            </p>
-            <div className="mt-5 flex flex-wrap gap-3">
-              {socialLinks.map((item) => (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="rounded-full border border-black/10 bg-white/80 px-4 py-2 text-[10px] uppercase tracking-[0.2em] text-black/58 transition-colors hover:bg-black hover:text-white"
-                >
-                  {item.label}
-                </a>
-              ))}
+          {hasSocialLinks ? (
+            <div className="mx-auto mt-10 max-w-screen-2xl rounded-[34px] border border-black/10 bg-white/72 p-6 shadow-[0_24px_60px_rgba(17,17,17,0.06)] backdrop-blur-xl md:p-8">
+              <p className="text-[10px] uppercase tracking-[0.28em] text-black/42">Brand Channels</p>
+              <p className="mt-4 max-w-4xl text-sm leading-7 text-black/68">
+                This page helps search engines and customers understand that Nothing Pakistan is more than a single product landing page. It connects the storefront message with support routes, legal pages, and the broader catalog so branded searches can land on a stronger trust page when needed.
+              </p>
+              <div className="mt-5 flex flex-wrap gap-3">
+                {socialLinks.map((item) => (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="rounded-full border border-black/10 bg-white/80 px-4 py-2 text-[10px] uppercase tracking-[0.2em] text-black/58 transition-colors hover:bg-black hover:text-white"
+                  >
+                    {item.label}
+                  </a>
+                ))}
+              </div>
             </div>
-          </div>
+          ) : null}
         </section>
       </main>
 

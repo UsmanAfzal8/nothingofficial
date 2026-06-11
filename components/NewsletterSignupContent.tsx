@@ -10,6 +10,7 @@ export function NewsletterSignupContent() {
   const [email, setEmail] = useState('')
   const [selectedTopics, setSelectedTopics] = useState<string[]>(['Phones', 'Accessories'])
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const hasSocialLinks = socialLinks.length > 0
 
   function toggleTopic(topic: string) {
     setSelectedTopics((currentTopics) =>
@@ -114,41 +115,43 @@ export function NewsletterSignupContent() {
           </div>
         </form>
 
-        <aside className="rounded-[34px] border border-black/10 bg-[#f6f6f2] p-6 md:p-8">
-          <p className="dot-heading text-[10px] tracking-[0.28em] text-black/42">Also Follow</p>
-          <h2 className="mt-4 text-[2rem] leading-[0.94] tracking-[-0.05em] text-black md:text-[2.6rem]">Join the wider Nothing conversation.</h2>
-          <p className="mt-4 text-sm leading-7 text-black/62">
-            Use the newsletter for launches and use our official brand channels for community updates, product videos, and support news.
-          </p>
-
-          <div className="mt-8 grid gap-3">
-            {socialLinks.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-between rounded-[18px] border border-black/10 bg-white px-4 py-3 text-sm text-black/74 transition-colors hover:bg-black hover:text-white"
-              >
-                <span>{item.label}</span>
-                <span className="text-black/30">+</span>
-              </a>
-            ))}
-          </div>
-
-          <div className="mt-8 rounded-[24px] border border-black/10 bg-white px-5 py-5">
-            <p className="text-[10px] uppercase tracking-[0.2em] text-black/44">Need help first?</p>
-            <p className="mt-3 text-sm leading-6 text-black/66">
-              Go to support if you need delivery, returns, or product help before joining the newsletter flow.
+        {hasSocialLinks ? (
+          <aside className="rounded-[34px] border border-black/10 bg-[#f6f6f2] p-6 md:p-8">
+            <p className="dot-heading text-[10px] tracking-[0.28em] text-black/42">Also Follow</p>
+            <h2 className="mt-4 text-[2rem] leading-[0.94] tracking-[-0.05em] text-black md:text-[2.6rem]">Join the wider Nothing conversation.</h2>
+            <p className="mt-4 text-sm leading-7 text-black/62">
+              Use the newsletter for launches and use our official brand channels for community updates, product videos, and support news.
             </p>
-            <Link
-              href="/support-centre"
-              className="mt-5 inline-flex h-11 items-center justify-center rounded-full border border-black/12 px-5 text-[10px] uppercase tracking-[0.24em] text-black transition-colors hover:bg-black hover:text-white"
-            >
-              Open Support
-            </Link>
-          </div>
-        </aside>
+
+            <div className="mt-8 grid gap-3">
+              {socialLinks.map((item) => (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-between rounded-[18px] border border-black/10 bg-white px-4 py-3 text-sm text-black/74 transition-colors hover:bg-black hover:text-white"
+                >
+                  <span>{item.label}</span>
+                  <span className="text-black/30">+</span>
+                </a>
+              ))}
+            </div>
+
+            <div className="mt-8 rounded-[24px] border border-black/10 bg-white px-5 py-5">
+              <p className="text-[10px] uppercase tracking-[0.2em] text-black/44">Need help first?</p>
+              <p className="mt-3 text-sm leading-6 text-black/66">
+                Go to support if you need delivery, returns, or product help before joining the newsletter flow.
+              </p>
+              <Link
+                href="/support-centre"
+                className="mt-5 inline-flex h-11 items-center justify-center rounded-full border border-black/12 px-5 text-[10px] uppercase tracking-[0.24em] text-black transition-colors hover:bg-black hover:text-white"
+              >
+                Open Support
+              </Link>
+            </div>
+          </aside>
+        ) : null}
       </section>
     </div>
   )

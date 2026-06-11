@@ -49,6 +49,8 @@ export const metadata: Metadata = {
 }
 
 export default function UsmanAfzalAuthorPage() {
+  const hasSocialLinks = companySocialLinks.length > 0
+
   const structuredData = [
     buildCompanyPersonStructuredData(),
     buildBreadcrumbStructuredData([
@@ -151,22 +153,24 @@ export default function UsmanAfzalAuthorPage() {
                   </div>
                 </section>
 
-                <section className="border-t border-black/10 pt-8">
-                  <h2 className="text-3xl font-semibold tracking-[-0.03em] text-black">Social Links</h2>
-                  <div className="mt-5 flex flex-wrap gap-2">
-                    {companySocialLinks.map((item) => (
-                      <Link
-                        key={item.href}
-                        href={item.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="rounded-[8px] border border-black/10 px-4 py-3 text-[10px] uppercase tracking-[0.2em] text-black/64 transition-colors hover:bg-black hover:text-white"
-                      >
-                        {item.label}
-                      </Link>
-                    ))}
-                  </div>
-                </section>
+                {hasSocialLinks ? (
+                  <section className="border-t border-black/10 pt-8">
+                    <h2 className="text-3xl font-semibold tracking-[-0.03em] text-black">Social Links</h2>
+                    <div className="mt-5 flex flex-wrap gap-2">
+                      {companySocialLinks.map((item) => (
+                        <Link
+                          key={item.href}
+                          href={item.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="rounded-[8px] border border-black/10 px-4 py-3 text-[10px] uppercase tracking-[0.2em] text-black/64 transition-colors hover:bg-black hover:text-white"
+                        >
+                          {item.label}
+                        </Link>
+                      ))}
+                    </div>
+                  </section>
+                ) : null}
               </article>
 
               <aside className="space-y-5 lg:sticky lg:top-24 lg:self-start">

@@ -72,6 +72,7 @@ export default function ContactUsPage() {
       { label: 'Contact Us', href: '/pages/contact-us' },
     ]),
   ]
+  const hasSocialLinks = socialLinks.length > 0
 
   return (
     <InterTypographyScope>
@@ -207,25 +208,27 @@ export default function ContactUsPage() {
               </article>
             </div>
 
-            <div className="mx-auto mt-10 max-w-screen-2xl rounded-[34px] border border-black/10 bg-white/72 p-6 shadow-[0_24px_60px_rgba(17,17,17,0.06)] backdrop-blur-xl md:p-8">
-              <p className="text-[10px] uppercase tracking-[0.28em] text-black/42">Brand Social Channels</p>
-              <p className="mt-4 max-w-4xl text-sm leading-7 text-black/68">
-                Keeping contact, map, policy, and support information on one page gives Google a clearer trust signal for branded and transactional queries. It also helps shoppers confirm that they are dealing with a verified registered Pakistani business before they place an order.
-              </p>
-              <div className="mt-5 flex flex-wrap gap-3">
-                {socialLinks.map((item) => (
-                  <a
-                    key={item.label}
-                    href={item.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="rounded-full border border-black/10 bg-white/80 px-4 py-2 text-[10px] uppercase tracking-[0.2em] text-black/58 transition-colors hover:bg-black hover:text-white"
-                  >
-                    {item.label}
-                  </a>
-                ))}
+            {hasSocialLinks ? (
+              <div className="mx-auto mt-10 max-w-screen-2xl rounded-[34px] border border-black/10 bg-white/72 p-6 shadow-[0_24px_60px_rgba(17,17,17,0.06)] backdrop-blur-xl md:p-8">
+                <p className="text-[10px] uppercase tracking-[0.28em] text-black/42">Brand Social Channels</p>
+                <p className="mt-4 max-w-4xl text-sm leading-7 text-black/68">
+                  Keeping contact, map, policy, and support information on one page gives Google a clearer trust signal for branded and transactional queries. It also helps shoppers confirm that they are dealing with a verified registered Pakistani business before they place an order.
+                </p>
+                <div className="mt-5 flex flex-wrap gap-3">
+                  {socialLinks.map((item) => (
+                    <a
+                      key={item.label}
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="rounded-full border border-black/10 bg-white/80 px-4 py-2 text-[10px] uppercase tracking-[0.2em] text-black/58 transition-colors hover:bg-black hover:text-white"
+                    >
+                      {item.label}
+                    </a>
+                  ))}
+                </div>
               </div>
-            </div>
+            ) : null}
           </section>
         </main>
 

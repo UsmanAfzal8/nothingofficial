@@ -9,6 +9,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: '/',
+        disallow: ['/Table.csv', '/newupdate.md', '/sitemap_issues.md', '/MIGRATION.md'],
       },
     ],
     sitemap: buildAbsoluteUrl('/sitemap.xml'),

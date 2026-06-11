@@ -20,11 +20,6 @@ const footerPanels = [
   { label: 'About Us', href: '/about-us', icon: aboutUsIcon },
 ] as const
 
-const footerSocialLinks = [
-  { label: 'Facebook', href: 'https://www.facebook.com/share/1CDYdBibov/?mibextid=wwXIfr' },
-  { label: 'TikTok', href: 'https://www.tiktok.com/@cmfbynothing.pk?_r=1&_t=ZS-96UU9QJl59R' },
-] as const
-
 const footerUtilityLinks = [
   {
     label: 'Playground',
@@ -108,7 +103,7 @@ export async function NothingFooter() {
 
               <CompanyTrustBadge tone="dark" compact className="mt-8 w-full max-w-[512px] text-left" />
 
-              <div className="mt-10 flex w-full max-w-[1220px] items-start justify-between gap-10">
+              <div className="mt-10 flex w-full max-w-[1220px] items-start">
                 <div className="flex flex-wrap items-center gap-x-10 gap-y-3 text-left">
                   {footerUtilityLinks.map((item) =>
                     item.external ? (
@@ -131,20 +126,6 @@ export async function NothingFooter() {
                       </Link>
                     ),
                   )}
-                </div>
-
-                <div className="flex flex-wrap items-center justify-end gap-x-10 gap-y-3 text-right">
-                  {footerSocialLinks.map((item) => (
-                    <a
-                      key={item.label}
-                      href={item.href}
-                      target="_blank"
-                      rel="noreferrer"
-                      className={`${spaceMono.className} text-[11px] tracking-[0.14em] text-white/72 transition-colors hover:text-white`}
-                    >
-                      {item.label}
-                    </a>
-                  ))}
                 </div>
               </div>
             </div>
@@ -208,7 +189,7 @@ export async function NothingFooter() {
 
           <CompanyTrustBadge tone="dark" compact className="mx-auto mt-7 max-w-[320px] text-left" />
 
-          <div className="mx-auto mt-8 grid w-full max-w-[320px] grid-cols-2 gap-x-6 gap-y-3">
+          <div className="mx-auto mt-8 grid w-full max-w-[320px] gap-y-3">
             <div className="flex flex-col items-start gap-3 text-left">
               {footerUtilityLinks.map((item) =>
                 item.external ? (
@@ -231,20 +212,6 @@ export async function NothingFooter() {
                   </Link>
                 ),
               )}
-            </div>
-
-            <div className="flex flex-col items-end gap-3 text-right">
-              {footerSocialLinks.map((item) => (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  className={`${spaceMono.className} text-[10px] tracking-[0.14em] text-white/72 transition-colors hover:text-white`}
-                >
-                  {item.label}
-                </a>
-              ))}
             </div>
           </div>
         </div>

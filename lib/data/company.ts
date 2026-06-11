@@ -20,10 +20,7 @@ export const companyOwnerImageAlt = 'Usman Afzal CEO of Nothing Pakistan'
 export const companySupportEmail = 'support@cmfbynothing.pk'
 export const companySupportHours = 'Monday to Sunday, 10:00 AM to 10:00 PM Pakistan Standard Time'
 
-export const companySocialLinks = [
-  { label: 'TikTok', href: 'https://www.tiktok.com/@cmfbynothing.pk?_r=1&_t=ZS-96UU9QJl59R' },
-  { label: 'Facebook', href: 'https://www.facebook.com/share/1CDYdBibov/?mibextid=wwXIfr' },
-] as const
+export const companySocialLinks: Array<{ label: string; href: string }> = []
 
 export const companyBusinessInfoRows = [
   { label: 'Legal Company Name', value: companyLegalName },
@@ -105,7 +102,7 @@ export function buildCompanyOrganizationStructuredData() {
       url: buildAbsoluteUrl('/authors/usman-afzal'),
       image: companyOwnerImageUrl,
     },
-    sameAs: companySocialLinks.map((item) => item.href),
+    sameAs: companySocialLinks.length > 0 ? companySocialLinks.map((item) => item.href) : undefined,
     document: companyCertificateUrl,
   }
 }

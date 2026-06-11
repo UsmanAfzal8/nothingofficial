@@ -643,7 +643,7 @@ export function buildOrganizationStructuredData() {
       name: sitePrimaryLocation.country,
     },
     inLanguage: 'en-PK',
-    sameAs: socialLinks.map((item) => item.href),
+    sameAs: socialLinks.length > 0 ? socialLinks.map((item) => item.href) : undefined,
     document: companyCertificateUrl,
     address: {
       '@type': 'PostalAddress',

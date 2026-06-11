@@ -73,6 +73,7 @@ export default function ContactUsPage() {
       { label: 'Contact Us', href: '/contact-us' },
     ]),
   ]
+  const hasSocialLinks = socialLinks.length > 0
 
   return (
     <InterTypographyScope>
@@ -191,22 +192,24 @@ export default function ContactUsPage() {
                   </div>
                 </section>
 
-                <section className="rounded-[8px] border border-black/10 bg-white p-5">
-                  <p className="text-[10px] uppercase tracking-[0.24em] text-black/42">Social Channels</p>
-                  <div className="mt-4 flex flex-wrap gap-2">
-                    {socialLinks.map((item) => (
-                      <Link
-                        key={item.href}
-                        href={item.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="rounded-[8px] border border-black/10 px-3 py-2 text-[10px] uppercase tracking-[0.18em] text-black/62 transition-colors hover:bg-black hover:text-white"
-                      >
-                        {item.label}
-                      </Link>
-                    ))}
-                  </div>
-                </section>
+                {hasSocialLinks ? (
+                  <section className="rounded-[8px] border border-black/10 bg-white p-5">
+                    <p className="text-[10px] uppercase tracking-[0.24em] text-black/42">Social Channels</p>
+                    <div className="mt-4 flex flex-wrap gap-2">
+                      {socialLinks.map((item) => (
+                        <Link
+                          key={item.href}
+                          href={item.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="rounded-[8px] border border-black/10 px-3 py-2 text-[10px] uppercase tracking-[0.18em] text-black/62 transition-colors hover:bg-black hover:text-white"
+                        >
+                          {item.label}
+                        </Link>
+                      ))}
+                    </div>
+                  </section>
+                ) : null}
               </aside>
             </div>
           </section>

@@ -25,6 +25,12 @@ Website: https://www.cmfbynothing.pk/
 - [Accessories](https://www.cmfbynothing.pk/collections/nothing-pakistan-accessories): Browse compatible Nothing accessories.
 - [CMF](https://www.cmfbynothing.pk/collections/nothing-pakistan-cmf): Browse CMF products.
 
+## Canonical catalog URLs
+
+- Product pages use `/products/nothing-pakistan-...` canonical handles, for example [CMF Power 140W GaN](https://www.cmfbynothing.pk/products/nothing-pakistan-cmf-power-140w-gan).
+- Legacy `/product/...`, `/phones/...`, and `/shop?category=...` URLs permanently redirect to the current `/products/...` and `/collections/...` URLs.
+- The sitemap is the source of truth for indexable catalog URLs. Legacy CSV/import URLs should not be treated as canonical pages.
+
 ## Support and policies
 
 - [Support Centre](https://www.cmfbynothing.pk/support-centre): Find product and ordering support.
