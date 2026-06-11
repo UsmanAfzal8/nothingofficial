@@ -248,7 +248,7 @@ export function OrderForm({ product }: OrderFormProps) {
 
         <div className="mt-8 flex flex-wrap justify-center gap-3">
           <Link
-            href="/collections/nothing-pakistan-shop-all"
+            href="/collections/shop-all"
             className="inline-flex h-12 items-center justify-center rounded-[5px] bg-black px-6 [font-family:var(--font-lettera-regular)] text-[0.68rem] uppercase tracking-[0.16em] text-white transition-opacity hover:opacity-82"
           >
             Browse Products

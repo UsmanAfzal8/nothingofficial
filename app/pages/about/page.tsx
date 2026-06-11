@@ -76,7 +76,7 @@ export default function AboutPage() {
 
               <div className="mt-8 flex flex-wrap gap-3">
                 <Link
-                  href="/collections/nothing-pakistan-shop-all"
+                  href="/collections/shop-all"
                   className="inline-flex h-11 items-center justify-center rounded-full bg-black px-5 text-[11px] uppercase tracking-[0.24em] text-white transition-opacity hover:opacity-85"
                 >
                   Browse Catalog

@@ -58,9 +58,9 @@ export const blogPosts: BlogPost[] = [
       { label: 'CMF Power 65W GaN', href: '/products/nothing-pakistan-cmf-power-65w-gan' },
     ],
     collectionLinks: [
-      { label: 'Shop All', href: '/collections/nothing-pakistan-shop-all' },
+      { label: 'Shop All', href: '/collections/shop-all' },
       { label: 'Audio', href: '/collections/nothing-pakistan-audio' },
-      { label: 'Chargers', href: '/collections/nothing-pakistan-chargers' },
+      { label: 'Chargers', href: '/collections/chargers' },
     ],
     sections: [
       {
@@ -122,9 +122,9 @@ export const blogPosts: BlogPost[] = [
       { label: 'Nothing Phone 3a Pro', href: '/products/nothing-pakistan-phone-3a-pro' },
     ],
     collectionLinks: [
-      { label: 'Phones', href: '/collections/nothing-pakistan-phones' },
-      { label: 'Protectors', href: '/collections/nothing-pakistan-protectors' },
-      { label: 'Chargers', href: '/collections/nothing-pakistan-chargers' },
+      { label: 'Phones', href: '/collections/phones' },
+      { label: 'Protectors', href: '/collections/protectors' },
+      { label: 'Chargers', href: '/collections/chargers' },
     ],
     sections: [
       {
@@ -188,7 +188,7 @@ export const blogPosts: BlogPost[] = [
     collectionLinks: [
       { label: 'CMF', href: '/collections/nothing-pakistan-cmf' },
       { label: 'Audio', href: '/collections/nothing-pakistan-audio' },
-      { label: 'Chargers', href: '/collections/nothing-pakistan-chargers' },
+      { label: 'Chargers', href: '/collections/chargers' },
     ],
     sections: [
       {
@@ -250,8 +250,8 @@ export const blogPosts: BlogPost[] = [
     ],
     collectionLinks: [
       { label: 'Accessories', href: '/collections/nothing-pakistan-accessories' },
-      { label: 'Chargers', href: '/collections/nothing-pakistan-chargers' },
-      { label: 'Protectors', href: '/collections/nothing-pakistan-protectors' },
+      { label: 'Chargers', href: '/collections/chargers' },
+      { label: 'Protectors', href: '/collections/protectors' },
     ],
     sections: [
       {
@@ -313,7 +313,7 @@ export const blogPosts: BlogPost[] = [
     ],
     collectionLinks: [
       { label: 'Accessories', href: '/collections/nothing-pakistan-accessories' },
-      { label: 'Chargers', href: '/collections/nothing-pakistan-chargers' },
+      { label: 'Chargers', href: '/collections/chargers' },
       { label: 'Audio', href: '/collections/nothing-pakistan-audio' },
     ],
     sections: [
@@ -377,7 +377,7 @@ export const blogPosts: BlogPost[] = [
     collectionLinks: [
       { label: 'Audio', href: '/collections/nothing-pakistan-audio' },
       { label: 'CMF', href: '/collections/nothing-pakistan-cmf' },
-      { label: 'Shop All', href: '/collections/nothing-pakistan-shop-all' },
+      { label: 'Shop All', href: '/collections/shop-all' },
     ],
     sections: [
       {
@@ -438,9 +438,9 @@ export const blogPosts: BlogPost[] = [
       { label: 'Nothing USB-C Cable', href: '/products/nothing-pakistan-nothing-usb-c-to-usb-c-cable' },
     ],
     collectionLinks: [
-      { label: 'Chargers', href: '/collections/nothing-pakistan-chargers' },
+      { label: 'Chargers', href: '/collections/chargers' },
       { label: 'Accessories', href: '/collections/nothing-pakistan-accessories' },
-      { label: 'Phones', href: '/collections/nothing-pakistan-phones' },
+      { label: 'Phones', href: '/collections/phones' },
     ],
     sections: [
       {
@@ -502,7 +502,7 @@ export const blogPosts: BlogPost[] = [
     collectionLinks: [
       { label: 'Audio', href: '/collections/nothing-pakistan-audio' },
       { label: 'CMF', href: '/collections/nothing-pakistan-cmf' },
-      { label: 'Shop All', href: '/collections/nothing-pakistan-shop-all' },
+      { label: 'Shop All', href: '/collections/shop-all' },
     ],
     sections: [
       {

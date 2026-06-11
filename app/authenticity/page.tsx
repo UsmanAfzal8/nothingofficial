@@ -216,10 +216,10 @@ export default function AuthenticityPage() {
                   <p className="text-[10px] uppercase tracking-[0.24em] text-black/42">Shop by Category</p>
                   <div className="mt-4 grid gap-2">
                     {[
-                      { label: 'Phones', href: '/collections/nothing-pakistan-phones' },
+                      { label: 'Phones', href: '/collections/phones' },
                       { label: 'Audio', href: '/collections/nothing-pakistan-audio' },
-                      { label: 'Chargers', href: '/collections/nothing-pakistan-chargers' },
-                      { label: 'Protectors', href: '/collections/nothing-pakistan-protectors' },
+                      { label: 'Chargers', href: '/collections/chargers' },
+                      { label: 'Protectors', href: '/collections/protectors' },
                       { label: 'Accessories', href: '/collections/nothing-pakistan-accessories' },
                       { label: 'CMF', href: '/collections/nothing-pakistan-cmf' },
                     ].map((item) => (

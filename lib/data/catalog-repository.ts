@@ -1278,11 +1278,19 @@ function getCategoryRelationTimestamps(
     .map((relation) => relation.updated_at || relation.created_at)
 }
 
+function getCanonicalCollectionSlug(slug: string): string {
+  const normalizedSlug = stripNothingPakistanSlugPrefix(slug)
+
+  return isVirtualCollectionSlug(normalizedSlug) ? normalizedSlug : slug
+}
+
 function buildNavigationItem(category: SupabaseCategoryRow, snapshot: CatalogSnapshot): NavigationItem {
+  const canonicalSlug = getCanonicalCollectionSlug(category.slug)
+
   return {
     label: category.name,
-    href: `/collections/${category.slug}`,
-    slug: category.slug,
+    href: `/collections/${canonicalSlug}`,
+    slug: canonicalSlug,
     description: category.meta_description,
     parentSlug: category.parent_id ? snapshot.categoriesById.get(category.parent_id)?.slug ?? null : null,
     children: getChildCategories(snapshot, category.id).map((child) => buildNavigationItem(child, snapshot)),
@@ -1704,8 +1712,8 @@ function buildBreadcrumbItems(
 
   breadcrumbItems.push(
     itemType === 'mobile'
-      ? { label: 'Phones', href: '/collections/nothing-pakistan-phones' }
-      : { label: 'Shop all', href: '/collections/nothing-pakistan-shop-all' },
+      ? { label: 'Phones', href: '/collections/phones' }
+      : { label: 'Shop all', href: '/collections/shop-all' },
   )
 
   return breadcrumbItems

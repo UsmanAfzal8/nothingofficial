@@ -21,6 +21,31 @@ type CollectionPageProps = {
 export const revalidate = CATALOG_REVALIDATE_SECONDS
 const SHOP_STYLE_SLUGS = new Set(['shop-all', 'phones', 'chargers', 'protectors', 'earbuds', 'offers', 'audio', 'watches', 'accessories', 'cmf'])
 const INDEXABLE_CONTENT_COLLECTION_SLUGS = new Set(['offers'])
+const COLLECTION_SEO_TITLES: Record<string, string> = {
+  'shop-all': `Nothing Products Price in Pakistan | ${siteBrandName}`,
+  phones: `Nothing Phone Price in Pakistan | PTA & Non-PTA Models`,
+  chargers: `Nothing Chargers Price in Pakistan | CMF GaN & USB-C`,
+  protectors: `Nothing Screen Protectors Price in Pakistan | Cases & Glass`,
+  earbuds: `Nothing Earbuds Price in Pakistan | CMF Buds & Nothing Ear`,
+  audio: `Nothing Earbuds Price in Pakistan | Ear, Headphones & CMF Buds`,
+  watches: `CMF Watch Price in Pakistan | Nothing Pakistan`,
+  accessories: `Nothing Accessories Price in Pakistan | Chargers, Cases & Protectors`,
+  cmf: `CMF by Nothing Price in Pakistan | Phones, Buds, Watch & Chargers`,
+  offers: `Nothing Pakistan Offers | Phones, CMF, Audio & Accessories`,
+}
+
+const COLLECTION_KEYWORDS: Record<string, string[]> = {
+  'shop-all': ['Nothing products price in Pakistan', 'Nothing official store Pakistan', 'buy Nothing products Pakistan'],
+  phones: ['Nothing mobiles price in Pakistan', 'Nothing phone PTA approved Pakistan', 'Nothing non PTA price Pakistan'],
+  chargers: ['CMF Power 140W GaN price in Pakistan', 'CMF Power 100W GaN Pakistan', 'original Nothing charger Pakistan'],
+  protectors: ['Nothing screen protector price in Pakistan', 'Nothing phone glass protector Pakistan', 'Nothing phone case Pakistan'],
+  earbuds: ['Nothing Ear price in Pakistan', 'Nothing Ear (a) price in Pakistan', 'CMF Buds price in Pakistan'],
+  audio: ['Nothing Earbuds price in Pakistan', 'Nothing Headphone price in Pakistan', 'CMF Buds Pro 2 price in Pakistan'],
+  watches: ['CMF Watch Pro 2 price in Pakistan', 'CMF Watch 3 Pro price in Pakistan'],
+  accessories: ['Nothing accessories price in Pakistan', 'Nothing phone accessories Pakistan', 'CMF accessories Pakistan'],
+  cmf: ['CMF by Nothing Pakistan', 'CMF Phone price in Pakistan', 'CMF Buds price in Pakistan'],
+  offers: ['Nothing Pakistan offers', 'CMF offers Pakistan', 'Nothing accessories discount Pakistan'],
+}
 
 function uniqueProductsByHandle(products: Collection['products']) {
   const seen = new Set<string>()
@@ -36,24 +61,32 @@ function uniqueProductsByHandle(products: Collection['products']) {
 }
 
 function buildCollectionSeoDescription(collection: Collection) {
-  if (collection.metaDescription) {
-    return collection.metaDescription
-  }
+  const collectionSeoKey = stripNothingPakistanSlugPrefix(collection.slug)
 
-  switch (stripNothingPakistanSlugPrefix(collection.slug)) {
+  switch (collectionSeoKey) {
     case 'shop-all':
       return 'Browse the full Nothing Pakistan catalog for chargers, earbuds, protectors, CMF devices, and other compatible accessories.'
     case 'phones':
-      return 'Browse Nothing phone model pages and jump into compatible chargers, protectors, earbuds, and support routes in Pakistan.'
+      return 'Compare Nothing Phone and CMF Phone prices in Pakistan with PTA, non-PTA, stock, colour, specs, and compatible accessories.'
     case 'chargers':
-      return 'Shop Nothing chargers and charging cables in Pakistan with live product pages, pricing, and ordering support.'
+      return 'Shop original Nothing and CMF chargers in Pakistan including CMF Power GaN chargers, USB-C cables, live pricing, and ordering support.'
     case 'protectors':
-      return 'Browse screen protectors and protective accessories for Nothing devices in Pakistan.'
+      return 'Browse Nothing screen protectors, glass, covers, and phone cases in Pakistan with model compatibility and live product pages.'
     case 'earbuds':
       return 'Browse Nothing earbuds and audio accessories in Pakistan with live catalog pages and ordering support.'
+    case 'audio':
+      return 'Compare Nothing Ear, Nothing Headphone, CMF Buds, and CMF audio prices in Pakistan with stock, colours, and support routes.'
+    case 'watches':
+      return 'Browse CMF Watch prices in Pakistan with current availability, colours, product details, and Nothing Pakistan ordering support.'
     case 'accessories':
       return 'Browse Nothing accessories in Pakistan including chargers, cables, phone cases, screen protectors, and glass for Nothing devices.'
+    case 'cmf':
+      return 'Browse CMF by Nothing products in Pakistan including CMF Phone, CMF Buds, CMF Watch, and CMF Power chargers with live pricing.'
     default:
+      if (collection.metaDescription) {
+        return collection.metaDescription
+      }
+
       return collection.description || `Browse ${collection.title} from ${siteBrandName} with live product pages, pricing, and ordering support in Pakistan.`
   }
 }
@@ -222,7 +255,7 @@ export async function generateMetadata({ params }: CollectionPageProps): Promise
 
   const description = buildCollectionSeoDescription(collection)
   const collectionSeoKey = stripNothingPakistanSlugPrefix(collection.slug)
-  const title = collection.metaTitle || `${collection.title} in Pakistan | ${siteBrandName}`
+  const title = COLLECTION_SEO_TITLES[collectionSeoKey] || collection.metaTitle || `${collection.title} in Pakistan | ${siteBrandName}`
   const hasIndexableContent = collection.products.length > 0 || INDEXABLE_CONTENT_COLLECTION_SLUGS.has(collectionSeoKey)
   const keywords = buildSeoKeywords(
     siteKeywords,
@@ -233,6 +266,7 @@ export async function generateMetadata({ params }: CollectionPageProps): Promise
       `${collection.title} ${siteBrandName}`,
       `Nothing ${collection.title}`,
     ],
+    COLLECTION_KEYWORDS[collectionSeoKey] ?? [],
     collection.childCollections?.map((item) => item.label) ?? [],
     collection.childCollections?.map((item) => `Nothing ${item.label} Pakistan`) ?? [],
     collection.seoKeywords ?? [],
@@ -312,7 +346,7 @@ export default async function CollectionPage({ params }: CollectionPageProps) {
                   </InterTypographyScope>
                   <div className="mt-5 lg:mt-6">
                     <Link
-                      href="/collections/nothing-pakistan-shop-all"
+                      href="/collections/shop-all"
                       className="inline-flex h-9 items-center justify-center rounded-full bg-[#5b5b5b] px-4 text-[10px] uppercase tracking-[0.2em] text-white transition-colors hover:bg-white hover:text-black"
                     >
                       Claim offer
@@ -332,7 +366,7 @@ export default async function CollectionPage({ params }: CollectionPageProps) {
                   </InterTypographyScope>
                   <div className="mt-5 lg:mt-6">
                     <Link
-                      href="/collections/nothing-pakistan-shop-all"
+                      href="/collections/shop-all"
                       className="inline-flex h-9 items-center justify-center rounded-full bg-[#5b5b5b] px-4 text-[10px] uppercase tracking-[0.2em] text-white transition-colors hover:bg-white hover:text-black"
                     >
                       Apply now

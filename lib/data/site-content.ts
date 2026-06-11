@@ -11,23 +11,36 @@ import {
 export const siteBrandName = 'Nothing Pakistan'
 export const siteTagline = 'Tech is fun again.'
 export const siteDescription =
-  'Nothing Pakistan is a storefront for Nothing and CMF phones, earbuds, chargers, cables, and screen protectors with PKR pricing, nationwide delivery, WhatsApp support, and SECP registered company information.'
-export const siteSeoTitle = 'Nothing Products in Pakistan | Phones, CMF & Accessories'
+  'Nothing Pakistan lists Nothing Phone, CMF Phone, Nothing Ear, CMF Buds, chargers, watches, cables, cases, and screen protectors with PKR pricing, PTA guidance, nationwide delivery, WhatsApp support, and SECP registered company information.'
+export const siteSeoTitle = 'Nothing Phone Price in Pakistan | Official Nothing Pakistan Store'
 export const siteKeywords = [
   'Nothing Pakistan',
   'Nothing products Pakistan',
+  'Nothing products price in Pakistan',
+  'Nothing official store Pakistan',
   'SECP registered Nothing Pakistan',
-  'Nothing Pakistan',
   'Nothing store Pakistan',
+  'Nothing mobiles price in Pakistan',
   'Nothing phone price in Pakistan',
   'Nothing phones price in Pakistan',
+  'Nothing Phone PTA approved Pakistan',
+  'Nothing Phone non PTA price Pakistan',
+  'Nothing Phone 4a price in Pakistan',
+  'Nothing Phone 4a Pro price in Pakistan',
+  'Nothing Phone 3 price in Pakistan',
   'Nothing Phone 3a price in Pakistan',
   'Nothing Phone 3a Pro price in Pakistan',
+  'Nothing Phone 3a Lite price in Pakistan',
   'Nothing Phone 2a price in Pakistan',
+  'Nothing Phone 2a Plus price in Pakistan',
+  'CMF Phone 1 price in Pakistan',
   'CMF Phone 2 Pro price in Pakistan',
   'Nothing charger',
   'Nothing charger Pakistan',
   'Nothing charger price in Pakistan',
+  'original Nothing charger Pakistan',
+  'CMF Power 140W GaN price in Pakistan',
+  'CMF Power 100W GaN price in Pakistan',
   'Nothing 65W charger price in Pakistan',
   'CMF 65W GaN charger Pakistan',
   'CMF Power 65W GaN price in Pakistan',
@@ -35,8 +48,19 @@ export const siteKeywords = [
   'Nothing accessories Pakistan',
   'Nothing earbuds Pakistan',
   'Nothing earbuds price in Pakistan',
+  'Nothing Ear price in Pakistan',
+  'Nothing Ear 3 price in Pakistan',
+  'Nothing Ear a price in Pakistan',
+  'Nothing Ear open price in Pakistan',
+  'Nothing Headphone 1 price in Pakistan',
+  'Nothing Headphone a price in Pakistan',
   'CMF Buds 2 Pro price in Pakistan',
   'CMF Buds 2a price in Pakistan',
+  'CMF Buds 2 price in Pakistan',
+  'CMF Buds 2 Plus price in Pakistan',
+  'CMF Neckband Pro price in Pakistan',
+  'CMF Watch Pro 2 price in Pakistan',
+  'CMF Watch 3 Pro price in Pakistan',
   'Nothing chargers Pakistan',
   'Nothing protectors Pakistan',
   'Nothing screen protector Pakistan',
@@ -112,14 +136,14 @@ export const homeSeoHighlights = [
     title: 'Original Nothing and CMF chargers in Pakistan',
     description:
       'Browse original Nothing chargers, CMF Power GaN chargers, and cable pages with PKR pricing, delivery support, and direct links into the ordering flow.',
-    href: '/collections/nothing-pakistan-chargers',
+    href: '/collections/chargers',
     label: 'Shop chargers',
   },
   {
     title: 'Nothing phone prices with compatible accessories',
     description:
       'Use the phone pages to review Nothing phones and discover compatible chargers, protectors, earbuds, and support routes across Pakistan.',
-    href: '/collections/nothing-pakistan-phones',
+    href: '/collections/phones',
     label: 'Browse phones',
   },
   {
@@ -167,7 +191,7 @@ export const aiProductHighlights = [
     title: 'Nothing OS with Essential AI tools',
     description:
       'Nothing phones can include Essential Space, Essential Search, AI summaries, reminders, and other Nothing OS intelligence features depending on the model and software region.',
-    href: '/collections/nothing-pakistan-phones',
+    href: '/collections/phones',
   },
   {
     title: 'ChatGPT voice routes for Nothing devices',
@@ -179,7 +203,7 @@ export const aiProductHighlights = [
     title: 'Gemini and modern AI assistant use',
     description:
       'Newer Nothing phone pages highlight built-in Google Gemini and AI assistant experiences, making phone pages relevant for shoppers comparing AI-capable Android phones in Pakistan.',
-    href: '/collections/nothing-pakistan-phones',
+    href: '/collections/phones',
   },
 ] as const
 
@@ -667,17 +691,17 @@ export function buildOrganizationStructuredData() {
         {
           '@type': 'OfferCatalog',
           name: 'Nothing chargers',
-          url: buildAbsoluteUrl('/collections/nothing-pakistan-chargers'),
+          url: buildAbsoluteUrl('/collections/chargers'),
         },
         {
           '@type': 'OfferCatalog',
           name: 'Nothing phones',
-          url: buildAbsoluteUrl('/collections/nothing-pakistan-phones'),
+          url: buildAbsoluteUrl('/collections/phones'),
         },
         {
           '@type': 'OfferCatalog',
           name: 'Nothing accessories',
-          url: buildAbsoluteUrl('/collections/nothing-pakistan-shop-all'),
+          url: buildAbsoluteUrl('/collections/shop-all'),
         },
       ],
     },
@@ -699,7 +723,7 @@ export function buildWebsiteStructuredData() {
     },
     potentialAction: {
       '@type': 'SearchAction',
-      target: `${buildAbsoluteUrl('/collections/nothing-pakistan-shop-all')}?q={search_term_string}`,
+      target: `${buildAbsoluteUrl('/collections/shop-all')}?q={search_term_string}`,
       'query-input': 'required name=search_term_string',
     },
   }

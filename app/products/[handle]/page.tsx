@@ -145,31 +145,62 @@ function buildProductBreadcrumbs(productDetail: ProductDetail) {
   return [...productDetail.breadcrumbItems, { label: productDetail.name, href: `/products/${toSeoHandle(productDetail.handle)}` }]
 }
 
+function buildProductSeoName(productDetail: ProductDetail) {
+  const name = productDetail.name.trim()
+
+  if (/^(nothing|cmf)\b/i.test(name)) {
+    return name
+  }
+
+  if (/^nothing\b/i.test(productDetail.brandName)) {
+    return `Nothing ${name}`
+  }
+
+  if (/^cmf\b/i.test(productDetail.brandName)) {
+    return `CMF by Nothing ${name}`
+  }
+
+  return name
+}
+
 function buildProductSeoTitle(productDetail: ProductDetail) {
-  if (productDetail.pageTitle && productDetail.pageTitle !== productDetail.name) {
+  const seoName = buildProductSeoName(productDetail)
+
+  if (
+    productDetail.pageTitle &&
+    productDetail.pageTitle !== productDetail.name &&
+    productDetail.pageTitle.toLowerCase().includes(seoName.toLowerCase())
+  ) {
     return productDetail.pageTitle
   }
 
   if (productDetail.entityType === 'mobile') {
-    return `${productDetail.name} Price & Accessories in Pakistan | ${siteBrandName}`
+    return `${seoName} Price in Pakistan | PTA, Non-PTA & Accessories`
   }
 
-  return `${productDetail.name} Price in Pakistan | ${siteBrandName}`
+  return `${seoName} Price in Pakistan | Original ${productDetail.brandName}`
 }
 
 function buildProductSeoDescription(productDetail: ProductDetail) {
-  if (productDetail.metaDescription) {
+  const seoName = buildProductSeoName(productDetail)
+  const pricePhrase = productDetail.priceLabel ? ` at ${productDetail.priceLabel}` : ''
+
+  if (productDetail.entityType === 'mobile') {
+    return `${seoName} price in Pakistan${pricePhrase}. Review PTA status, non-PTA price, specs, stock, delivery, warranty support, and compatible Nothing accessories from ${siteBrandName}.`
+  }
+
+  if (productDetail.metaDescription && productDetail.metaDescription.toLowerCase().includes(seoName.toLowerCase())) {
     return productDetail.metaDescription
   }
 
-  if (productDetail.entityType === 'mobile') {
-    return `Browse chargers, protectors, earbuds, and related accessories for ${productDetail.name} in Pakistan through ${siteBrandName}.`
+  if (productDetail.priceLabel) {
+    return `Buy ${seoName} in Pakistan at ${productDetail.priceLabel}. Check original product details, availability, delivery, warranty support, and WhatsApp ordering from ${siteBrandName}.`
   }
 
   return (
     productDetail.summary ||
     productDetail.description ||
-    `Shop ${productDetail.name} in Pakistan with pricing, product details, and ordering support from ${siteBrandName}.`
+    `Shop ${seoName} in Pakistan with pricing, product details, availability, delivery, warranty support, and ordering help from ${siteBrandName}.`
   )
 }
 
@@ -294,7 +325,7 @@ function buildProductStructuredData(productDetail: ProductDetail, relatedProduct
       '@context': 'https://schema.org',
       '@type': 'Product',
       '@id': `${productDetail.canonicalUrl}#product`,
-      name: productDetail.name,
+      name: buildProductSeoName(productDetail),
       description: buildProductSeoDescription(productDetail),
       image: images.length > 0 ? images : undefined,
       sku: productDetail.handle,
@@ -350,7 +381,7 @@ function buildProductStructuredData(productDetail: ProductDetail, relatedProduct
     '@context': 'https://schema.org',
     '@type': 'Product',
     '@id': `${productDetail.canonicalUrl}#product`,
-    name: productDetail.name,
+    name: buildProductSeoName(productDetail),
     description: buildProductSeoDescription(productDetail),
     image: images.length > 0 ? images : undefined,
     sku: productDetail.handle,
@@ -764,15 +795,17 @@ export async function generateMetadata({ params }: ProductDetailPageProps): Prom
   const keywords = buildSeoKeywords(
     siteKeywords,
     [
-      productDetail.name,
-      `${productDetail.name} price in Pakistan`,
-      `${productDetail.name} Pakistan`,
-      `buy ${productDetail.name} in Pakistan`,
-      `${productDetail.brandName} ${productDetail.name}`,
-      `${productDetail.name} ${siteBrandName}`,
-      productDetail.entityType === 'mobile' ? `${productDetail.name} accessories Pakistan` : null,
-      productDetail.entityType === 'mobile' ? `${productDetail.name} charger Pakistan` : null,
-      productDetail.entityType === 'mobile' ? `${productDetail.name} protector Pakistan` : null,
+      buildProductSeoName(productDetail),
+      `${buildProductSeoName(productDetail)} price in Pakistan`,
+      `${buildProductSeoName(productDetail)} Pakistan`,
+      `buy ${buildProductSeoName(productDetail)} in Pakistan`,
+      `${buildProductSeoName(productDetail)} official store Pakistan`,
+      `${buildProductSeoName(productDetail)} ${siteBrandName}`,
+      productDetail.entityType === 'mobile' ? `${buildProductSeoName(productDetail)} PTA approved Pakistan` : null,
+      productDetail.entityType === 'mobile' ? `${buildProductSeoName(productDetail)} non PTA price Pakistan` : null,
+      productDetail.entityType === 'mobile' ? `${buildProductSeoName(productDetail)} accessories Pakistan` : null,
+      productDetail.entityType === 'mobile' ? `${buildProductSeoName(productDetail)} charger Pakistan` : null,
+      productDetail.entityType === 'mobile' ? `${buildProductSeoName(productDetail)} protector Pakistan` : null,
     ],
     productDetail.seoKeywords ?? [],
     productDetail.collections.map((collection) => collection.title),

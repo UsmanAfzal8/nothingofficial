@@ -17,9 +17,9 @@ import {
 } from '@/lib/data/site-content'
 import { buildAbsoluteUrl, buildFaqStructuredData, buildSeoKeywords } from '@/lib/utils/seo'
 
-const homeMetaTitle = 'Nothing Pakistan | Phones, CMF, Chargers & Earbuds'
+const homeMetaTitle = 'Nothing Phone Price in Pakistan | CMF, Earbuds & Chargers'
 const homeMetaDescription =
-  'Shop Nothing and CMF products in Pakistan with live pricing, WhatsApp support, Lahore pickup, and SECP registered company verification.'
+  'Shop Nothing Phone, CMF Phone, Nothing Ear, CMF Buds, chargers, watches, and accessories in Pakistan with PKR pricing, PTA guidance, WhatsApp support, and SECP verification.'
 
 const heroVideo = {
   src: 'https://res.cloudinary.com/dklsubnzb/video/upload/f_mp4,q_auto/nothing-official-store-pakistan/home/nothing-charli-hero-video.mp4',
@@ -99,6 +99,11 @@ export const metadata: Metadata = {
   description: homeMetaDescription,
   keywords: buildSeoKeywords(siteKeywords, [
     `${siteBrandName} homepage`,
+    'Nothing Phone price in Pakistan',
+    'Nothing mobiles price in Pakistan',
+    'CMF Phone 2 Pro price in Pakistan',
+    'Nothing Earbuds price in Pakistan',
+    'CMF Power 140W GaN price in Pakistan',
     'Nothing phone accessories Pakistan',
     'Nothing Pakistan accessories',
     'Nothing Pakistan chargers',

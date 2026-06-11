@@ -188,7 +188,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
                     { label: 'Support Centre', href: '/support-centre' },
                     { label: 'Contact Us', href: '/contact-us' },
                     { label: 'Authenticity', href: '/authenticity' },
-                    { label: 'Shop All', href: '/collections/nothing-pakistan-shop-all' },
+                    { label: 'Shop All', href: '/collections/shop-all' },
                   ].map((item) => (
                     <Link key={item.href} href={item.href} className="rounded-[8px] border border-black/10 px-4 py-3 text-sm text-black/68 transition-colors hover:bg-black hover:text-white">
                       {item.label}

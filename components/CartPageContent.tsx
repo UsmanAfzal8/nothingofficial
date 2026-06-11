@@ -39,13 +39,13 @@ export function CartPageContent() {
 
         <div className="mt-8 flex flex-wrap gap-3">
           <Link
-            href="/collections/nothing-pakistan-shop-all"
+            href="/collections/shop-all"
             className="inline-flex h-11 items-center justify-center rounded-xl bg-black px-5 text-[10px] uppercase tracking-[0.24em] text-white transition-opacity hover:opacity-85"
           >
             Browse catalog
           </Link>
           <Link
-            href="/collections/nothing-pakistan-phones"
+            href="/collections/phones"
             className="inline-flex h-11 items-center justify-center rounded-xl border border-black/10 bg-white px-5 text-[10px] uppercase tracking-[0.24em] text-black/65 transition-colors hover:bg-black hover:text-white"
           >
             View phones
@@ -179,7 +179,7 @@ export function CartPageContent() {
               Continue to checkout
             </Link>
             <Link
-              href="/collections/nothing-pakistan-shop-all"
+              href="/collections/shop-all"
               className="inline-flex h-11 items-center justify-center rounded-xl border border-black/10 bg-white px-5 text-[10px] uppercase tracking-[0.24em] text-black/65 transition-colors hover:bg-black hover:text-white"
             >
               Keep shopping
