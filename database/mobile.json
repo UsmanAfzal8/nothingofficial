@@ -1,295 +1,19 @@
 [
   {
-    "id": 3,
-    "name": "Nothing 4a Pro",
-    "slug": "nothing-pakistan-nothing-4a-pro",
-    "description": "The Nothing 4a Pro is built for users who want advanced camera performance, clean software, and a distinctive design. It features the world's first 140x ultra zoom and a powerful triple camera system with a Sony sensor. Running on Nothing OS with Essential AI tools, it delivers a fast and minimal smartphone experience with 8GB + 128GB and 12GB + 256GB variants.",
-    "meta_title": "Nothing Phone 4a Pro Price in Pakistan | PTA Approved",
-    "meta_description": "Buy Nothing 4a Pro in Pakistan with updated price, PTA details, specs, 12GB 256GB, COD delivery, and WhatsApp support. Price: Rs 177,800.",
-    "release_date": null,
-    "created_at": "2026-03-13T19:49:10.32805",
-    "updated_at": "2026-05-05T23:01:39.79916",
-    "Price": 177800,
-    "pta_tax": null,
-    "non_pta_price": null,
-    "piority": 1001,
-    "seo_keywords": "Nothing 4a Pro, Nothing 4a Pro price in Pakistan, Nothing 4a Pro PTA approved, Nothing 4a Pro buy online Pakistan, Nothing 4a Pro specs Pakistan, Nothing 4a Pro original Pakistan, Nothing Phone 4a Pro, Nothing Phone 4a Pro price in Pakistan, Nothing Phone 4a Pro PTA approved, Nothing Phone 4a Pro buy online Pakistan, Nothing Phone 4a Pro specs Pakistan, Nothing Phone 4a Pro original Pakistan, Phone (4a) Pro, Phone (4a) Pro price in Pakistan, Phone (4a) Pro PTA approved, Phone (4a) Pro buy online Pakistan, Phone (4a) Pro specs Pakistan, Phone (4a) Pro original Pakistan, Nothing 4a Pro PTA approved Pakistan, Nothing 4a Pro official warranty Pakistan, Nothing 4a Pro COD delivery Pakistan, Nothing 4a Pro Nothing Pakistan, Nothing 4a Pro Nothing Pakistan, nothing phone 4a pro price pakistan, nothing 4a pro buy online, Nothing 4a Pro 12GB 256GB, Nothing 4a Pro AMOLED display, Nothing 4a Pro Nothing OS, Nothing 4a Pro transparent design, Nothing 4a Pro pink silver black, Nothing 4a Pro price in Karachi, buy Nothing 4a Pro in Karachi, Nothing 4a Pro price in Lahore, buy Nothing 4a Pro in Lahore, Nothing 4a Pro price in Islamabad, buy Nothing 4a Pro in Islamabad, Nothing 4a Pro price in Rawalpindi, buy Nothing 4a Pro in Rawalpindi, Nothing 4a Pro price in Faisalabad, buy Nothing 4a Pro in Faisalabad, Nothing 4a Pro price in Multan, buy Nothing 4a Pro in Multan, Nothing 4a Pro price in Peshawar, buy Nothing 4a Pro in Peshawar, nothing 4a pro pakistan, nothing 4a pro pakistan mein, Nothing Phone price in Pakistan, Nothing mobile price in Pakistan, CMF Phone price in Pakistan, Nothing Phone PTA approved, Nothing Phone official warranty Pakistan, Nothing Phone specs Pakistan",
-    "canonical_url": "https://www.cmfbynothing.pk/products/nothing-pakistan-nothing-4a-pro",
-    "schema_json": {
-      "sku": "nothing-4a-pro",
-      "url": "https://www.cmfbynothing.pk/products/nothing-pakistan-nothing-4a-pro",
-      "name": "Nothing 4a Pro",
-      "@type": "Product",
-      "brand": {
-        "name": "Nothing",
-        "@type": "Brand"
-      },
-      "image": [
-        "https://cdn.cmfbynothing.pk/mobiles/nothing-4a-pro-silver.webp"
-      ],
-      "offers": {
-        "url": "https://www.cmfbynothing.pk/products/nothing-pakistan-nothing-4a-pro",
-        "@type": "Offer",
-        "price": 177800,
-        "availability": "https://schema.org/InStock",
-        "priceCurrency": "PKR"
-      },
-      "@context": "https://schema.org",
-      "category": "Phone",
-      "keywords": [
-        "Nothing 4a Pro",
-        "Nothing 4a Pro price in Pakistan",
-        "Nothing 4a Pro PTA approved",
-        "Nothing 4a Pro buy online Pakistan",
-        "Nothing 4a Pro specs Pakistan",
-        "Nothing 4a Pro original Pakistan",
-        "Nothing Phone 4a Pro",
-        "Nothing Phone 4a Pro price in Pakistan",
-        "Nothing Phone 4a Pro PTA approved",
-        "Nothing Phone 4a Pro buy online Pakistan",
-        "Nothing Phone 4a Pro specs Pakistan",
-        "Nothing Phone 4a Pro original Pakistan",
-        "Phone (4a) Pro",
-        "Phone (4a) Pro price in Pakistan",
-        "Phone (4a) Pro PTA approved",
-        "Phone (4a) Pro buy online Pakistan",
-        "Phone (4a) Pro specs Pakistan",
-        "Phone (4a) Pro original Pakistan",
-        "Nothing 4a Pro PTA approved Pakistan",
-        "Nothing 4a Pro official warranty Pakistan",
-        "Nothing 4a Pro COD delivery Pakistan",
-        "Nothing 4a Pro Nothing Pakistan",
-        "Nothing 4a Pro Nothing Pakistan",
-        "nothing phone 4a pro price pakistan",
-        "nothing 4a pro buy online",
-        "Nothing 4a Pro 12GB 256GB",
-        "Nothing 4a Pro AMOLED display",
-        "Nothing 4a Pro Nothing OS",
-        "Nothing 4a Pro transparent design",
-        "Nothing 4a Pro pink silver black",
-        "Nothing 4a Pro price in Karachi",
-        "buy Nothing 4a Pro in Karachi",
-        "Nothing 4a Pro price in Lahore",
-        "buy Nothing 4a Pro in Lahore",
-        "Nothing 4a Pro price in Islamabad",
-        "buy Nothing 4a Pro in Islamabad",
-        "Nothing 4a Pro price in Rawalpindi",
-        "buy Nothing 4a Pro in Rawalpindi",
-        "Nothing 4a Pro price in Faisalabad",
-        "buy Nothing 4a Pro in Faisalabad",
-        "Nothing 4a Pro price in Multan",
-        "buy Nothing 4a Pro in Multan",
-        "Nothing 4a Pro price in Peshawar",
-        "buy Nothing 4a Pro in Peshawar",
-        "nothing 4a pro pakistan",
-        "nothing 4a pro pakistan mein",
-        "Nothing Phone price in Pakistan",
-        "Nothing mobile price in Pakistan",
-        "CMF Phone price in Pakistan",
-        "Nothing Phone PTA approved",
-        "Nothing Phone official warranty Pakistan",
-        "Nothing Phone specs Pakistan"
-      ],
-      "description": "Buy Nothing 4a Pro in Pakistan with updated price, PTA details, specs, 12GB 256GB, COD delivery, and WhatsApp support. Price: Rs 177,800.",
-      "additionalProperty": [
-        {
-          "name": "Product type",
-          "@type": "PropertyValue",
-          "value": "Nothing phone model"
-        },
-        {
-          "name": "Accessory support",
-          "@type": "PropertyValue",
-          "value": "Chargers, protectors, earbuds, and compatible accessories"
-        },
-        {
-          "name": "Pakistan buying intent",
-          "@type": "PropertyValue",
-          "value": "Price, PTA approval, COD delivery, specs, warranty, and availability"
-        },
-        {
-          "name": "Search feature",
-          "@type": "PropertyValue",
-          "value": "PTA approved"
-        },
-        {
-          "name": "Search feature",
-          "@type": "PropertyValue",
-          "value": "12GB 256GB"
-        },
-        {
-          "name": "Search feature",
-          "@type": "PropertyValue",
-          "value": "AMOLED display"
-        },
-        {
-          "name": "Search feature",
-          "@type": "PropertyValue",
-          "value": "Nothing OS"
-        },
-        {
-          "name": "Search feature",
-          "@type": "PropertyValue",
-          "value": "transparent design"
-        }
-      ]
-    },
-    "seo_description_long": "Nothing 4a Pro is part of the Nothing Pakistan catalog for customers who want reliable Nothing and CMF products with local pricing, support, and a simple online order flow. This phone page helps Pakistani buyers understand the model, price context, compatible accessories, protection options, and ordering route from one place. Nothing 4a Pro is currently listed at Rs 177,800 on Nothing Pakistan, while final availability can still depend on stock confirmation and order timing. Keyword research for this model is focused on premium Nothing phone buyers comparing PTA-approved stock, colors, storage, and official local support. The most important query clusters are nothing 4a pro price in pakistan, nothing phone 4a pro price pakistan, nothing 4a pro pta approved, nothing 4a pro buy online. Supporting modifiers include PTA approved, 12GB 256GB, AMOLED display, Nothing OS, transparent design, pink silver black.\n\nWhen people search for Nothing 4a Pro in Pakistan, they usually want three things: a trusted seller, clear product information, and confidence that the item will match their device or daily use case. This page is optimized to answer those questions directly. It includes product naming, price context, compatibility signals, delivery expectations, and support routes so the buyer does not need to jump across multiple websites before making a decision.\n\nFor search intent, this product targets phrases such as Nothing 4a Pro price in Pakistan, buy Nothing 4a Pro online Pakistan, original Nothing 4a Pro Pakistan, Nothing accessories Pakistan, and CMF products Pakistan. It also supports regional searches from Lahore, Karachi, Islamabad, Rawalpindi, Faisalabad, Multan, Peshawar, Quetta, Sialkot, and other cities where buyers commonly look for mobile accessories and Nothing products online.\n\nThe main buying advantage is convenience. Customers can review the product page, compare related products, check the visible price, and use the order or WhatsApp route for confirmation. Nothing Pakistan also highlights helpful trust signals such as cash on delivery, free delivery where applicable, seven day return guidance, product support, and original product sourcing. These details help both shoppers and search engines understand that the page is focused on transactional buying intent, not only product browsing.\n\nFor AEO and voice-search coverage, this page should answer direct questions naturally. Buyers may ask: What is the price of Nothing 4a Pro in Pakistan? Is Nothing 4a Pro original? Where can I buy Nothing 4a Pro online? Does Nothing Pakistan deliver Nothing 4a Pro to my city? Which accessory is compatible with my Nothing phone? The content, FAQ schema, product schema, and internal links should make those answers easy for Google, AI search systems, and users to understand.\n\nThe product image should use descriptive alt text such as \"Nothing 4a Pro original product in Pakistan\" so image search and accessibility tools can understand the page. The canonical URL should point to the live product URL on www.cmfbynothing.pk to avoid duplicate content. The meta title and description should stay concise, readable, and focused on Pakistan purchase intent.\n\nInternal linking should connect Nothing 4a Pro to relevant collections such as Shop All, Audio, Chargers, Protectors, Accessories, CMF, or Phones depending on the product type. Related product cards should also link to complementary accessories, for example chargers with phones, protectors with phone models, and earbuds with audio collections. This structure helps crawl depth, improves topical authority, and gives customers a smoother shopping path.\n\nOverall, Nothing 4a Pro should be positioned as a trusted local option for Nothing Pakistan shoppers who care about original products, current pricing, simple checkout, and support before and after purchase. The page should keep the language clear, avoid overstuffed keywords, and use helpful product information to match both commercial and informational search intent.",
-    "image_alt_text": "Nothing 4a Pro original phone in Pakistan from Nothing Pakistan"
-  },
-  {
-    "id": 4,
-    "name": "Phone (4a)",
-    "slug": "nothing-pakistan-phone-4a",
-    "description": "Phone (4a) is designed for users who want powerful camera features and a clean software experience. It features up to 70x ultra zoom and a versatile triple camera system for capturing clear and detailed photos. Powered by Nothing OS with Essential AI tools, the device delivers a smooth and intelligent smartphone experience with optimized performance and modern design.",
-    "meta_title": "Nothing Phone 4a Price in Pakistan | PTA Approved",
-    "meta_description": "Buy Phone (4a) in Pakistan with updated price, PTA details, specs, 8GB 128GB, COD delivery, and WhatsApp support. Price: Rs 111,500.",
-    "release_date": null,
-    "created_at": "2026-03-13T19:52:45.763084",
-    "updated_at": "2026-05-05T23:01:40.027304",
-    "Price": 111500,
-    "pta_tax": null,
-    "non_pta_price": null,
-    "piority": 1002,
-    "seo_keywords": "Phone (4a), Phone (4a) price in Pakistan, Phone (4a) PTA approved, Phone (4a) buy online Pakistan, Phone (4a) specs Pakistan, Phone (4a) original Pakistan, Nothing Phone 4a, Nothing Phone 4a price in Pakistan, Nothing Phone 4a PTA approved, Nothing Phone 4a buy online Pakistan, Nothing Phone 4a specs Pakistan, Nothing Phone 4a original Pakistan, Nothing 4a, Nothing 4a price in Pakistan, Nothing 4a PTA approved, Nothing 4a buy online Pakistan, Nothing 4a specs Pakistan, Nothing 4a original Pakistan, Phone (4a) PTA approved Pakistan, Phone (4a) official warranty Pakistan, Phone (4a) COD delivery Pakistan, Phone (4a) Nothing Pakistan, Phone (4a) Nothing Pakistan, phone 4a price pakistan, nothing phone 4a buy online, Phone (4a) 8GB 128GB, Phone (4a) 3 camera system, Phone (4a) 70x ultra zoom, Phone (4a) Nothing OS, Phone (4a) blue black pink, Phone (4a) price in Karachi, buy Phone (4a) in Karachi, Phone (4a) price in Lahore, buy Phone (4a) in Lahore, Phone (4a) price in Islamabad, buy Phone (4a) in Islamabad, Phone (4a) price in Rawalpindi, buy Phone (4a) in Rawalpindi, Phone (4a) price in Faisalabad, buy Phone (4a) in Faisalabad, Phone (4a) price in Multan, buy Phone (4a) in Multan, Phone (4a) price in Peshawar, buy Phone (4a) in Peshawar, phone (4a) pakistan, phone (4a) pakistan mein, Nothing Phone price in Pakistan, Nothing mobile price in Pakistan, CMF Phone price in Pakistan, Nothing Phone PTA approved, Nothing Phone official warranty Pakistan, Nothing Phone specs Pakistan",
-    "canonical_url": "https://www.cmfbynothing.pk/products/nothing-pakistan-phone-4a",
-    "schema_json": {
-      "sku": "phone-4a",
-      "url": "https://www.cmfbynothing.pk/products/nothing-pakistan-phone-4a",
-      "name": "Phone (4a)",
-      "@type": "Product",
-      "brand": {
-        "name": "Nothing",
-        "@type": "Brand"
-      },
-      "image": [
-        "https://cdn.cmfbynothing.pk/mobiles/phone-4a-white.webp"
-      ],
-      "offers": {
-        "url": "https://www.cmfbynothing.pk/products/nothing-pakistan-phone-4a",
-        "@type": "Offer",
-        "price": 111500,
-        "availability": "https://schema.org/InStock",
-        "priceCurrency": "PKR"
-      },
-      "@context": "https://schema.org",
-      "category": "Phone",
-      "keywords": [
-        "Phone (4a)",
-        "Phone (4a) price in Pakistan",
-        "Phone (4a) PTA approved",
-        "Phone (4a) buy online Pakistan",
-        "Phone (4a) specs Pakistan",
-        "Phone (4a) original Pakistan",
-        "Nothing Phone 4a",
-        "Nothing Phone 4a price in Pakistan",
-        "Nothing Phone 4a PTA approved",
-        "Nothing Phone 4a buy online Pakistan",
-        "Nothing Phone 4a specs Pakistan",
-        "Nothing Phone 4a original Pakistan",
-        "Nothing 4a",
-        "Nothing 4a price in Pakistan",
-        "Nothing 4a PTA approved",
-        "Nothing 4a buy online Pakistan",
-        "Nothing 4a specs Pakistan",
-        "Nothing 4a original Pakistan",
-        "Phone (4a) PTA approved Pakistan",
-        "Phone (4a) official warranty Pakistan",
-        "Phone (4a) COD delivery Pakistan",
-        "Phone (4a) Nothing Pakistan",
-        "Phone (4a) Nothing Pakistan",
-        "phone 4a price pakistan",
-        "nothing phone 4a buy online",
-        "Phone (4a) 8GB 128GB",
-        "Phone (4a) 3 camera system",
-        "Phone (4a) 70x ultra zoom",
-        "Phone (4a) Nothing OS",
-        "Phone (4a) blue black pink",
-        "Phone (4a) price in Karachi",
-        "buy Phone (4a) in Karachi",
-        "Phone (4a) price in Lahore",
-        "buy Phone (4a) in Lahore",
-        "Phone (4a) price in Islamabad",
-        "buy Phone (4a) in Islamabad",
-        "Phone (4a) price in Rawalpindi",
-        "buy Phone (4a) in Rawalpindi",
-        "Phone (4a) price in Faisalabad",
-        "buy Phone (4a) in Faisalabad",
-        "Phone (4a) price in Multan",
-        "buy Phone (4a) in Multan",
-        "Phone (4a) price in Peshawar",
-        "buy Phone (4a) in Peshawar",
-        "phone (4a) pakistan",
-        "phone (4a) pakistan mein",
-        "Nothing Phone price in Pakistan",
-        "Nothing mobile price in Pakistan",
-        "CMF Phone price in Pakistan",
-        "Nothing Phone PTA approved",
-        "Nothing Phone official warranty Pakistan",
-        "Nothing Phone specs Pakistan"
-      ],
-      "description": "Buy Phone (4a) in Pakistan with updated price, PTA details, specs, 8GB 128GB, COD delivery, and WhatsApp support. Price: Rs 111,500.",
-      "additionalProperty": [
-        {
-          "name": "Product type",
-          "@type": "PropertyValue",
-          "value": "Nothing phone model"
-        },
-        {
-          "name": "Accessory support",
-          "@type": "PropertyValue",
-          "value": "Chargers, protectors, earbuds, and compatible accessories"
-        },
-        {
-          "name": "Pakistan buying intent",
-          "@type": "PropertyValue",
-          "value": "Price, PTA approval, COD delivery, specs, warranty, and availability"
-        },
-        {
-          "name": "Search feature",
-          "@type": "PropertyValue",
-          "value": "8GB 128GB"
-        },
-        {
-          "name": "Search feature",
-          "@type": "PropertyValue",
-          "value": "3 camera system"
-        },
-        {
-          "name": "Search feature",
-          "@type": "PropertyValue",
-          "value": "70x ultra zoom"
-        },
-        {
-          "name": "Search feature",
-          "@type": "PropertyValue",
-          "value": "Nothing OS"
-        },
-        {
-          "name": "Search feature",
-          "@type": "PropertyValue",
-          "value": "blue black pink"
-        }
-      ]
-    },
-    "seo_description_long": "Phone (4a) is part of the Nothing Pakistan catalog for customers who want reliable Nothing and CMF products with local pricing, support, and a simple online order flow. This phone page helps Pakistani buyers understand the model, price context, compatible accessories, protection options, and ordering route from one place. Phone (4a) is currently listed at Rs 111,500 on Nothing Pakistan, while final availability can still depend on stock confirmation and order timing. Keyword research for this model is focused on balanced Nothing smartphone shoppers looking for price, camera, colors, and PTA guidance. The most important query clusters are nothing phone 4a price in pakistan, phone 4a price pakistan, nothing 4a price in pakistan, nothing phone 4a buy online. Supporting modifiers include 8GB 128GB, 3 camera system, 70x ultra zoom, Nothing OS, blue black pink, PTA approved.\n\nWhen people search for Phone (4a) in Pakistan, they usually want three things: a trusted seller, clear product information, and confidence that the item will match their device or daily use case. This page is optimized to answer those questions directly. It includes product naming, price context, compatibility signals, delivery expectations, and support routes so the buyer does not need to jump across multiple websites before making a decision.\n\nFor search intent, this product targets phrases such as Phone (4a) price in Pakistan, buy Phone (4a) online Pakistan, original Phone (4a) Pakistan, Nothing accessories Pakistan, and CMF products Pakistan. It also supports regional searches from Lahore, Karachi, Islamabad, Rawalpindi, Faisalabad, Multan, Peshawar, Quetta, Sialkot, and other cities where buyers commonly look for mobile accessories and Nothing products online.\n\nThe main buying advantage is convenience. Customers can review the product page, compare related products, check the visible price, and use the order or WhatsApp route for confirmation. Nothing Pakistan also highlights helpful trust signals such as cash on delivery, free delivery where applicable, seven day return guidance, product support, and original product sourcing. These details help both shoppers and search engines understand that the page is focused on transactional buying intent, not only product browsing.\n\nFor AEO and voice-search coverage, this page should answer direct questions naturally. Buyers may ask: What is the price of Phone (4a) in Pakistan? Is Phone (4a) original? Where can I buy Phone (4a) online? Does Nothing Pakistan deliver Phone (4a) to my city? Which accessory is compatible with my Nothing phone? The content, FAQ schema, product schema, and internal links should make those answers easy for Google, AI search systems, and users to understand.\n\nThe product image should use descriptive alt text such as \"Phone (4a) original product in Pakistan\" so image search and accessibility tools can understand the page. The canonical URL should point to the live product URL on www.cmfbynothing.pk to avoid duplicate content. The meta title and description should stay concise, readable, and focused on Pakistan purchase intent.\n\nInternal linking should connect Phone (4a) to relevant collections such as Shop All, Audio, Chargers, Protectors, Accessories, CMF, or Phones depending on the product type. Related product cards should also link to complementary accessories, for example chargers with phones, protectors with phone models, and earbuds with audio collections. This structure helps crawl depth, improves topical authority, and gives customers a smoother shopping path.\n\nOverall, Phone (4a) should be positioned as a trusted local option for Nothing Pakistan shoppers who care about original products, current pricing, simple checkout, and support before and after purchase. The page should keep the language clear, avoid overstuffed keywords, and use helpful product information to match both commercial and informational search intent.",
-    "image_alt_text": "Phone (4a) original phone in Pakistan from Nothing Pakistan"
-  },
-  {
     "id": 5,
     "name": "Phone (3)",
     "slug": "nothing-pakistan-phone-3",
-    "description": "Phone (3) introduces a new generation of Nothing smartphones with the New Glyph Interface and advanced software experience. It features the New Essential Search system for faster and smarter access to apps and information. The device also includes a powerful four 50MP camera system designed to deliver detailed photography and video performance. Built with Nothing OS and a modern minimalist design, Phone (3) delivers a premium smartphone experience with powerful performance and innovative features.",
-    "meta_title": "Nothing Phone 3 Price in Pakistan | PTA Approved",
-    "meta_description": "Buy Phone (3) in Pakistan with updated price, PTA details, specs, Snapdragon 8s Gen 4, COD delivery, and WhatsApp support. Price: Rs 230,000.",
+    "description": "<ul class=\"np-feature-list\" aria-label=\"Phone (3) highlights\"><li class=\"np-feature\"><img src=\"https://res.cloudinary.com/dklsubnzb/raw/upload/nothing-official-store-pakistan/icons/product-detail/interface.svg\" alt=\"\" loading=\"lazy\" width=\"16\" height=\"16\" /> <span>New Glyph Interface</span></li><li class=\"np-feature\"><img src=\"https://res.cloudinary.com/dklsubnzb/raw/upload/nothing-official-store-pakistan/icons/product-detail/zoom.svg\" alt=\"\" loading=\"lazy\" width=\"16\" height=\"16\" /> <span>New Essential Search</span></li><li class=\"np-feature\"><img src=\"https://res.cloudinary.com/dklsubnzb/raw/upload/nothing-official-store-pakistan/icons/product-detail/camera.svg\" alt=\"\" loading=\"lazy\" width=\"16\" height=\"16\" /> <span>Four 50MP cameras system</span></li></ul>",
+    "meta_title": "Phone (3) Price in Pakistan | Nothing Pakistan",
+    "meta_description": "Check Phone (3) price in Pakistan. Price: PKR 328,999. Review PTA status, specifications, stock, delivery, and ordering support.",
     "release_date": null,
-    "created_at": "2026-03-13T19:55:21.403439",
-    "updated_at": "2026-05-05T23:01:40.250509",
-    "Price": 230000,
+    "created_at": "2026-03-13 19:55:21.403439",
+    "updated_at": "2026-06-06 13:56:15.148231",
+    "Price": 328999,
     "pta_tax": null,
     "non_pta_price": null,
     "piority": 1003,
-    "seo_keywords": "Phone (3), Phone (3) price in Pakistan, Phone (3) PTA approved, Phone (3) buy online Pakistan, Phone (3) specs Pakistan, Phone (3) original Pakistan, Nothing Phone 3, Nothing Phone 3 price in Pakistan, Nothing Phone 3 PTA approved, Nothing Phone 3 buy online Pakistan, Nothing Phone 3 specs Pakistan, Nothing Phone 3 original Pakistan, Nothing 3, Nothing 3 price in Pakistan, Nothing 3 PTA approved, Nothing 3 buy online Pakistan, Nothing 3 specs Pakistan, Nothing 3 original Pakistan, Phone (3) PTA approved Pakistan, Phone (3) official warranty Pakistan, Phone (3) COD delivery Pakistan, Phone (3) Nothing Pakistan, Phone (3) Nothing Pakistan, phone 3 price pakistan, Phone (3) Snapdragon 8s Gen 4, Phone (3) Glyph Matrix, Phone (3) 50MP cameras, Phone (3) 5G, Phone (3) 512GB, Phone (3) price in Karachi, buy Phone (3) in Karachi, Phone (3) price in Lahore, buy Phone (3) in Lahore, Phone (3) price in Islamabad, buy Phone (3) in Islamabad, Phone (3) price in Rawalpindi, buy Phone (3) in Rawalpindi, Phone (3) price in Faisalabad, buy Phone (3) in Faisalabad, Phone (3) price in Multan, buy Phone (3) in Multan, Phone (3) price in Peshawar, buy Phone (3) in Peshawar, phone (3) pakistan, phone (3) pakistan mein, Nothing Phone price in Pakistan, Nothing mobile price in Pakistan, CMF Phone price in Pakistan, Nothing Phone PTA approved, Nothing Phone official warranty Pakistan, Nothing Phone specs Pakistan, buy Nothing Phone online Pakistan",
+    "seo_keywords": "Phone (3), Phone (3) price in Pakistan, Phone (3) PTA approved Pakistan, buy Phone (3) online Pakistan, original Phone (3) Pakistan, Nothing phone Pakistan, Nothing Pakistan, Nothing Pakistan",
     "canonical_url": "https://www.cmfbynothing.pk/products/nothing-pakistan-phone-3",
     "schema_json": {
       "sku": "phone-3",
@@ -301,12 +25,12 @@
         "@type": "Brand"
       },
       "image": [
-        "https://cdn.cmfbynothing.pk/mobiles/phone-3-white.webp"
+        "https://res.cloudinary.com/dklsubnzb/image/upload/nothing-official-store-pakistan/mobiles/phone-3/image/phone-3-schema-jsonimage0-phone-3-white.webp"
       ],
       "offers": {
         "url": "https://www.cmfbynothing.pk/products/nothing-pakistan-phone-3",
         "@type": "Offer",
-        "price": 230000,
+        "price": 229999,
         "availability": "https://schema.org/InStock",
         "priceCurrency": "PKR"
       },
@@ -366,7 +90,7 @@
         "Nothing Phone specs Pakistan",
         "buy Nothing Phone online Pakistan"
       ],
-      "description": "Buy Phone (3) in Pakistan with updated price, PTA details, specs, Snapdragon 8s Gen 4, COD delivery, and WhatsApp support. Price: Rs 230,000.",
+      "description": "Check Phone (3) price in Pakistan. Price: PKR 328,999. Review PTA status, specifications, stock, delivery, and ordering support.",
       "additionalProperty": [
         {
           "name": "Product type",
@@ -410,24 +134,24 @@
         }
       ]
     },
-    "seo_description_long": "Phone (3) is part of the Nothing Pakistan catalog for customers who want reliable Nothing and CMF products with local pricing, support, and a simple online order flow. This phone page helps Pakistani buyers understand the model, price context, compatible accessories, protection options, and ordering route from one place. Phone (3) is currently listed at Rs 230,000 on Nothing Pakistan, while final availability can still depend on stock confirmation and order timing. Keyword research for this model is focused on flagship Nothing buyers comparing performance, camera setup, Glyph Matrix, PTA cost, and local availability. The most important query clusters are nothing phone 3 price in pakistan, phone 3 price pakistan, nothing phone 3 pta approved, nothing phone 3 specs pakistan. Supporting modifiers include Snapdragon 8s Gen 4, Glyph Matrix, 50MP cameras, 5G, 512GB, PTA approved.\n\nWhen people search for Phone (3) in Pakistan, they usually want three things: a trusted seller, clear product information, and confidence that the item will match their device or daily use case. This page is optimized to answer those questions directly. It includes product naming, price context, compatibility signals, delivery expectations, and support routes so the buyer does not need to jump across multiple websites before making a decision.\n\nFor search intent, this product targets phrases such as Phone (3) price in Pakistan, buy Phone (3) online Pakistan, original Phone (3) Pakistan, Nothing accessories Pakistan, and CMF products Pakistan. It also supports regional searches from Lahore, Karachi, Islamabad, Rawalpindi, Faisalabad, Multan, Peshawar, Quetta, Sialkot, and other cities where buyers commonly look for mobile accessories and Nothing products online.\n\nThe main buying advantage is convenience. Customers can review the product page, compare related products, check the visible price, and use the order or WhatsApp route for confirmation. Nothing Pakistan also highlights helpful trust signals such as cash on delivery, free delivery where applicable, seven day return guidance, product support, and original product sourcing. These details help both shoppers and search engines understand that the page is focused on transactional buying intent, not only product browsing.\n\nFor AEO and voice-search coverage, this page should answer direct questions naturally. Buyers may ask: What is the price of Phone (3) in Pakistan? Is Phone (3) original? Where can I buy Phone (3) online? Does Nothing Pakistan deliver Phone (3) to my city? Which accessory is compatible with my Nothing phone? The content, FAQ schema, product schema, and internal links should make those answers easy for Google, AI search systems, and users to understand.\n\nThe product image should use descriptive alt text such as \"Phone (3) original product in Pakistan\" so image search and accessibility tools can understand the page. The canonical URL should point to the live product URL on www.cmfbynothing.pk to avoid duplicate content. The meta title and description should stay concise, readable, and focused on Pakistan purchase intent.\n\nInternal linking should connect Phone (3) to relevant collections such as Shop All, Audio, Chargers, Protectors, Accessories, CMF, or Phones depending on the product type. Related product cards should also link to complementary accessories, for example chargers with phones, protectors with phone models, and earbuds with audio collections. This structure helps crawl depth, improves topical authority, and gives customers a smoother shopping path.\n\nOverall, Phone (3) should be positioned as a trusted local option for Nothing Pakistan shoppers who care about original products, current pricing, simple checkout, and support before and after purchase. The page should keep the language clear, avoid overstuffed keywords, and use helpful product information to match both commercial and informational search intent.",
-    "image_alt_text": "Phone (3) original phone in Pakistan from Nothing Pakistan"
+    "seo_description_long": "Phone (3) is positioned for high-intent Pakistan searches around Nothing phone price, PTA status, original stock, delivery, and local support. The listing keeps PKR 328,999 visible while encouraging final stock and variant confirmation before checkout.\n\nBuyers comparing Nothing phones in Karachi, Lahore, Islamabad, Rawalpindi, Faisalabad, Multan, and other cities can use this page to review specs, product media, compatibility, warranty or support guidance, and order routes.\n\nNothing Pakistan writes this page for practical mobile buying questions: whether the device is authentic, how delivery works, what support is available, which accessories are compatible, and how stock is confirmed.",
+    "image_alt_text": "Phone (3) original Nothing phone in Pakistan from Nothing Pakistan"
   },
   {
     "id": 6,
     "name": "Phone (3a) Lite",
     "slug": "nothing-pakistan-phone-3a-lite",
-    "description": "Phone (3a) Lite is designed for users who want modern design, smooth performance, and reliable everyday features. It comes with a premium glass finish that gives the device a sleek and elegant look. The phone features a versatile triple camera system for capturing clear photos and videos. Running on Nothing OS 3.5, it delivers a clean, fast, and minimal smartphone experience with smart features and optimized performance.",
-    "meta_title": "Nothing Phone 3a Lite Price in Pakistan | PTA Approved",
-    "meta_description": "Buy Phone (3a) Lite in Pakistan with updated price, PTA details, specs, budget Nothing phone, COD delivery, and WhatsApp support. Price: Rs 65,000.",
+    "description": "<ul class=\"np-feature-list\" aria-label=\"Phone (3a) Lite highlights\"><li class=\"np-feature\"><img src=\"https://res.cloudinary.com/dklsubnzb/raw/upload/nothing-official-store-pakistan/icons/product-detail/mobile.svg\" alt=\"\" loading=\"lazy\" width=\"16\" height=\"16\" /> <span>Glass finish</span></li><li class=\"np-feature\"><img src=\"https://res.cloudinary.com/dklsubnzb/raw/upload/nothing-official-store-pakistan/icons/product-detail/camera.svg\" alt=\"\" loading=\"lazy\" width=\"16\" height=\"16\" /> <span>Triple camera system</span></li><li class=\"np-feature\"><img src=\"https://res.cloudinary.com/dklsubnzb/raw/upload/nothing-official-store-pakistan/icons/product-detail/operating-system.svg\" alt=\"\" loading=\"lazy\" width=\"16\" height=\"16\" /> <span>Nothing OS 3.5</span></li></ul>",
+    "meta_title": "Phone (3a) Lite Price in Pakistan | Nothing Pakistan",
+    "meta_description": "Check Phone (3a) Lite price in Pakistan. Price: PKR 111,999. Review PTA status, specifications, stock, delivery, and ordering support.",
     "release_date": null,
-    "created_at": "2026-03-13T19:57:17.24434",
-    "updated_at": "2026-05-05T23:01:40.46758",
-    "Price": 65000,
+    "created_at": "2026-03-13 19:57:17.24434",
+    "updated_at": "2026-06-06 13:56:15.484029",
+    "Price": 111999,
     "pta_tax": null,
     "non_pta_price": null,
     "piority": 1004,
-    "seo_keywords": "Phone (3a) Lite, Phone (3a) Lite price in Pakistan, Phone (3a) Lite PTA approved, Phone (3a) Lite buy online Pakistan, Phone (3a) Lite specs Pakistan, Phone (3a) Lite original Pakistan, Nothing Phone 3a Lite, Nothing Phone 3a Lite price in Pakistan, Nothing Phone 3a Lite PTA approved, Nothing Phone 3a Lite buy online Pakistan, Nothing Phone 3a Lite specs Pakistan, Nothing Phone 3a Lite original Pakistan, Nothing 3a Lite, Nothing 3a Lite price in Pakistan, Nothing 3a Lite PTA approved, Nothing 3a Lite buy online Pakistan, Nothing 3a Lite specs Pakistan, Nothing 3a Lite original Pakistan, Phone (3a) Lite PTA approved Pakistan, Phone (3a) Lite official warranty Pakistan, Phone (3a) Lite COD delivery Pakistan, Phone (3a) Lite Nothing Pakistan, Phone (3a) Lite Nothing Pakistan, phone 3a lite price pakistan, nothing 3a lite buy online, Phone (3a) Lite budget Nothing phone, Phone (3a) Lite Nothing OS, Phone (3a) Lite AMOLED display, Phone (3a) Lite good battery, Phone (3a) Lite 128GB, Phone (3a) Lite price in Karachi, buy Phone (3a) Lite in Karachi, Phone (3a) Lite price in Lahore, buy Phone (3a) Lite in Lahore, Phone (3a) Lite price in Islamabad, buy Phone (3a) Lite in Islamabad, Phone (3a) Lite price in Rawalpindi, buy Phone (3a) Lite in Rawalpindi, Phone (3a) Lite price in Faisalabad, buy Phone (3a) Lite in Faisalabad, Phone (3a) Lite price in Multan, buy Phone (3a) Lite in Multan, Phone (3a) Lite price in Peshawar, buy Phone (3a) Lite in Peshawar, phone (3a) lite pakistan, phone (3a) lite pakistan mein, Nothing Phone price in Pakistan, Nothing mobile price in Pakistan, CMF Phone price in Pakistan, Nothing Phone PTA approved, Nothing Phone official warranty Pakistan, Nothing Phone specs Pakistan",
+    "seo_keywords": "Phone (3a) Lite, Phone (3a) Lite price in Pakistan, Phone (3a) Lite PTA approved Pakistan, buy Phone (3a) Lite online Pakistan, original Phone (3a) Lite Pakistan, Nothing phone Pakistan, Nothing Pakistan, Nothing Pakistan",
     "canonical_url": "https://www.cmfbynothing.pk/products/nothing-pakistan-phone-3a-lite",
     "schema_json": {
       "sku": "phone-3a-lite",
@@ -439,12 +163,12 @@
         "@type": "Brand"
       },
       "image": [
-        "https://cdn.cmfbynothing.pk/mobiles/phone-3a-lite-white.webp"
+        "https://res.cloudinary.com/dklsubnzb/image/upload/nothing-official-store-pakistan/mobiles/phone-3a-lite/image/phone-3a-lite-schema-jsonimage0-phone-3a-lite-white.webp"
       ],
       "offers": {
         "url": "https://www.cmfbynothing.pk/products/nothing-pakistan-phone-3a-lite",
         "@type": "Offer",
-        "price": 65000,
+        "price": 64999,
         "availability": "https://schema.org/InStock",
         "priceCurrency": "PKR"
       },
@@ -504,7 +228,7 @@
         "Nothing Phone official warranty Pakistan",
         "Nothing Phone specs Pakistan"
       ],
-      "description": "Buy Phone (3a) Lite in Pakistan with updated price, PTA details, specs, budget Nothing phone, COD delivery, and WhatsApp support. Price: Rs 65,000.",
+      "description": "Check Phone (3a) Lite price in Pakistan. Price: PKR 111,999. Review PTA status, specifications, stock, delivery, and ordering support.",
       "additionalProperty": [
         {
           "name": "Product type",
@@ -548,24 +272,24 @@
         }
       ]
     },
-    "seo_description_long": "Phone (3a) Lite is part of the Nothing Pakistan catalog for customers who want reliable Nothing and CMF products with local pricing, support, and a simple online order flow. This phone page helps Pakistani buyers understand the model, price context, compatible accessories, protection options, and ordering route from one place. Phone (3a) Lite is currently listed at Rs 65,000 on Nothing Pakistan, while final availability can still depend on stock confirmation and order timing. Keyword research for this model is focused on budget-focused Nothing buyers looking for a lower-price phone with reliable local buying support. The most important query clusters are nothing phone 3a lite price in pakistan, phone 3a lite price pakistan, nothing 3a lite buy online, nothing phone 3a lite pta approved. Supporting modifiers include budget Nothing phone, Nothing OS, AMOLED display, good battery, PTA approved, 128GB.\n\nWhen people search for Phone (3a) Lite in Pakistan, they usually want three things: a trusted seller, clear product information, and confidence that the item will match their device or daily use case. This page is optimized to answer those questions directly. It includes product naming, price context, compatibility signals, delivery expectations, and support routes so the buyer does not need to jump across multiple websites before making a decision.\n\nFor search intent, this product targets phrases such as Phone (3a) Lite price in Pakistan, buy Phone (3a) Lite online Pakistan, original Phone (3a) Lite Pakistan, Nothing accessories Pakistan, and CMF products Pakistan. It also supports regional searches from Lahore, Karachi, Islamabad, Rawalpindi, Faisalabad, Multan, Peshawar, Quetta, Sialkot, and other cities where buyers commonly look for mobile accessories and Nothing products online.\n\nThe main buying advantage is convenience. Customers can review the product page, compare related products, check the visible price, and use the order or WhatsApp route for confirmation. Nothing Pakistan also highlights helpful trust signals such as cash on delivery, free delivery where applicable, seven day return guidance, product support, and original product sourcing. These details help both shoppers and search engines understand that the page is focused on transactional buying intent, not only product browsing.\n\nFor AEO and voice-search coverage, this page should answer direct questions naturally. Buyers may ask: What is the price of Phone (3a) Lite in Pakistan? Is Phone (3a) Lite original? Where can I buy Phone (3a) Lite online? Does Nothing Pakistan deliver Phone (3a) Lite to my city? Which accessory is compatible with my Nothing phone? The content, FAQ schema, product schema, and internal links should make those answers easy for Google, AI search systems, and users to understand.\n\nThe product image should use descriptive alt text such as \"Phone (3a) Lite original product in Pakistan\" so image search and accessibility tools can understand the page. The canonical URL should point to the live product URL on www.cmfbynothing.pk to avoid duplicate content. The meta title and description should stay concise, readable, and focused on Pakistan purchase intent.\n\nInternal linking should connect Phone (3a) Lite to relevant collections such as Shop All, Audio, Chargers, Protectors, Accessories, CMF, or Phones depending on the product type. Related product cards should also link to complementary accessories, for example chargers with phones, protectors with phone models, and earbuds with audio collections. This structure helps crawl depth, improves topical authority, and gives customers a smoother shopping path.\n\nOverall, Phone (3a) Lite should be positioned as a trusted local option for Nothing Pakistan shoppers who care about original products, current pricing, simple checkout, and support before and after purchase. The page should keep the language clear, avoid overstuffed keywords, and use helpful product information to match both commercial and informational search intent.",
-    "image_alt_text": "Phone (3a) Lite original phone in Pakistan from Nothing Pakistan"
+    "seo_description_long": "Phone (3a) Lite is positioned for high-intent Pakistan searches around Nothing phone price, PTA status, original stock, delivery, and local support. The listing keeps PKR 111,999 visible while encouraging final stock and variant confirmation before checkout.\n\nBuyers comparing Nothing phones in Karachi, Lahore, Islamabad, Rawalpindi, Faisalabad, Multan, and other cities can use this page to review specs, product media, compatibility, warranty or support guidance, and order routes.\n\nNothing Pakistan writes this page for practical mobile buying questions: whether the device is authentic, how delivery works, what support is available, which accessories are compatible, and how stock is confirmed.",
+    "image_alt_text": "Phone (3a) Lite original Nothing phone in Pakistan from Nothing Pakistan"
   },
   {
     "id": 7,
     "name": "Phone (3a) Pro",
     "slug": "nothing-pakistan-phone-3a-pro",
-    "description": "Phone (3a) Pro is designed for users who want powerful performance, long battery life, and advanced camera capabilities. The device offers a reliable 2-day battery for extended usage without frequent charging. With up to 20GB RAM booster support, it delivers smooth multitasking and responsive performance for apps, gaming, and everyday tasks. The Pro camera system allows users to capture detailed photos and high-quality videos. Running on Nothing OS, the phone provides a clean, fast, and modern smartphone experience.",
-    "meta_title": "Nothing Phone 3a Pro Price in Pakistan | PTA Approved",
-    "meta_description": "Buy Phone (3a) Pro in Pakistan with updated price, PTA details, specs, Snapdragon 7s Gen 3, COD delivery, and WhatsApp support. Price: Rs 148,000.",
+    "description": "<ul class=\"np-feature-list\" aria-label=\"Phone (3a) Pro highlights\"><li class=\"np-feature\"><img src=\"https://res.cloudinary.com/dklsubnzb/raw/upload/nothing-official-store-pakistan/icons/product-detail/battery.svg\" alt=\"\" loading=\"lazy\" width=\"16\" height=\"16\" /> <span>2-day battery</span></li><li class=\"np-feature\"><img src=\"https://res.cloudinary.com/dklsubnzb/raw/upload/nothing-official-store-pakistan/icons/product-detail/ram.svg\" alt=\"\" loading=\"lazy\" width=\"16\" height=\"16\" /> <span>20 gb ram booster</span></li><li class=\"np-feature\"><img src=\"https://res.cloudinary.com/dklsubnzb/raw/upload/nothing-official-store-pakistan/icons/product-detail/camera.svg\" alt=\"\" loading=\"lazy\" width=\"16\" height=\"16\" /> <span>Pro camera system</span></li></ul>",
+    "meta_title": "Phone (3a) Pro Price in Pakistan | Nothing Pakistan",
+    "meta_description": "Check Phone (3a) Pro price in Pakistan. Price: PKR 182,999. Review PTA status, specifications, stock, delivery, and ordering support.",
     "release_date": null,
-    "created_at": "2026-03-13T19:59:05.660738",
-    "updated_at": "2026-05-05T23:01:40.68586",
-    "Price": 148000,
+    "created_at": "2026-03-13 19:59:05.660738",
+    "updated_at": "2026-06-06 13:56:15.848986",
+    "Price": 182999,
     "pta_tax": null,
     "non_pta_price": null,
     "piority": 1005,
-    "seo_keywords": "Phone (3a) Pro, Phone (3a) Pro price in Pakistan, Phone (3a) Pro PTA approved, Phone (3a) Pro buy online Pakistan, Phone (3a) Pro specs Pakistan, Phone (3a) Pro original Pakistan, Nothing Phone 3a Pro, Nothing Phone 3a Pro price in Pakistan, Nothing Phone 3a Pro PTA approved, Nothing Phone 3a Pro buy online Pakistan, Nothing Phone 3a Pro specs Pakistan, Nothing Phone 3a Pro original Pakistan, Nothing 3a Pro, Nothing 3a Pro price in Pakistan, Nothing 3a Pro PTA approved, Nothing 3a Pro buy online Pakistan, Nothing 3a Pro specs Pakistan, Nothing 3a Pro original Pakistan, Phone (3a) Pro PTA approved Pakistan, Phone (3a) Pro official warranty Pakistan, Phone (3a) Pro COD delivery Pakistan, Phone (3a) Pro Nothing Pakistan, Phone (3a) Pro Nothing Pakistan, phone 3a pro price pakistan, nothing phone 3a pro specs, Phone (3a) Pro Snapdragon 7s Gen 3, Phone (3a) Pro periscope camera, Phone (3a) Pro 50MP camera, Phone (3a) Pro AMOLED display, Phone (3a) Pro Nothing OS, Phone (3a) Pro price in Karachi, buy Phone (3a) Pro in Karachi, Phone (3a) Pro price in Lahore, buy Phone (3a) Pro in Lahore, Phone (3a) Pro price in Islamabad, buy Phone (3a) Pro in Islamabad, Phone (3a) Pro price in Rawalpindi, buy Phone (3a) Pro in Rawalpindi, Phone (3a) Pro price in Faisalabad, buy Phone (3a) Pro in Faisalabad, Phone (3a) Pro price in Multan, buy Phone (3a) Pro in Multan, Phone (3a) Pro price in Peshawar, buy Phone (3a) Pro in Peshawar, phone (3a) pro pakistan, phone (3a) pro pakistan mein, Nothing Phone price in Pakistan, Nothing mobile price in Pakistan, CMF Phone price in Pakistan, Nothing Phone PTA approved, Nothing Phone official warranty Pakistan, Nothing Phone specs Pakistan",
+    "seo_keywords": "Phone (3a) Pro, Phone (3a) Pro price in Pakistan, Phone (3a) Pro PTA approved Pakistan, buy Phone (3a) Pro online Pakistan, original Phone (3a) Pro Pakistan, Nothing phone Pakistan, Nothing Pakistan, Nothing Pakistan",
     "canonical_url": "https://www.cmfbynothing.pk/products/nothing-pakistan-phone-3a-pro",
     "schema_json": {
       "sku": "phone-3a-pro",
@@ -577,12 +301,12 @@
         "@type": "Brand"
       },
       "image": [
-        "https://cdn.cmfbynothing.pk/mobiles/phone-3a-pro-grey.webp"
+        "https://res.cloudinary.com/dklsubnzb/image/upload/nothing-official-store-pakistan/mobiles/phone-3a-pro/image/phone-3a-pro-schema-jsonimage0-phone-3a-pro-grey.webp"
       ],
       "offers": {
         "url": "https://www.cmfbynothing.pk/products/nothing-pakistan-phone-3a-pro",
         "@type": "Offer",
-        "price": 148000,
+        "price": 147999,
         "availability": "https://schema.org/InStock",
         "priceCurrency": "PKR"
       },
@@ -642,7 +366,7 @@
         "Nothing Phone official warranty Pakistan",
         "Nothing Phone specs Pakistan"
       ],
-      "description": "Buy Phone (3a) Pro in Pakistan with updated price, PTA details, specs, Snapdragon 7s Gen 3, COD delivery, and WhatsApp support. Price: Rs 148,000.",
+      "description": "Check Phone (3a) Pro price in Pakistan. Price: PKR 182,999. Review PTA status, specifications, stock, delivery, and ordering support.",
       "additionalProperty": [
         {
           "name": "Product type",
@@ -686,24 +410,24 @@
         }
       ]
     },
-    "seo_description_long": "Phone (3a) Pro is part of the Nothing Pakistan catalog for customers who want reliable Nothing and CMF products with local pricing, support, and a simple online order flow. This phone page helps Pakistani buyers understand the model, price context, compatible accessories, protection options, and ordering route from one place. Phone (3a) Pro is currently listed at Rs 148,000 on Nothing Pakistan, while final availability can still depend on stock confirmation and order timing. Keyword research for this model is focused on mid-premium Nothing buyers comparing camera zoom, specs, PTA details, and Pakistan pricing. The most important query clusters are nothing phone 3a pro price in pakistan, phone 3a pro price pakistan, nothing 3a pro pta approved, nothing phone 3a pro specs. Supporting modifiers include Snapdragon 7s Gen 3, periscope camera, 50MP camera, AMOLED display, Nothing OS, PTA approved.\n\nWhen people search for Phone (3a) Pro in Pakistan, they usually want three things: a trusted seller, clear product information, and confidence that the item will match their device or daily use case. This page is optimized to answer those questions directly. It includes product naming, price context, compatibility signals, delivery expectations, and support routes so the buyer does not need to jump across multiple websites before making a decision.\n\nFor search intent, this product targets phrases such as Phone (3a) Pro price in Pakistan, buy Phone (3a) Pro online Pakistan, original Phone (3a) Pro Pakistan, Nothing accessories Pakistan, and CMF products Pakistan. It also supports regional searches from Lahore, Karachi, Islamabad, Rawalpindi, Faisalabad, Multan, Peshawar, Quetta, Sialkot, and other cities where buyers commonly look for mobile accessories and Nothing products online.\n\nThe main buying advantage is convenience. Customers can review the product page, compare related products, check the visible price, and use the order or WhatsApp route for confirmation. Nothing Pakistan also highlights helpful trust signals such as cash on delivery, free delivery where applicable, seven day return guidance, product support, and original product sourcing. These details help both shoppers and search engines understand that the page is focused on transactional buying intent, not only product browsing.\n\nFor AEO and voice-search coverage, this page should answer direct questions naturally. Buyers may ask: What is the price of Phone (3a) Pro in Pakistan? Is Phone (3a) Pro original? Where can I buy Phone (3a) Pro online? Does Nothing Pakistan deliver Phone (3a) Pro to my city? Which accessory is compatible with my Nothing phone? The content, FAQ schema, product schema, and internal links should make those answers easy for Google, AI search systems, and users to understand.\n\nThe product image should use descriptive alt text such as \"Phone (3a) Pro original product in Pakistan\" so image search and accessibility tools can understand the page. The canonical URL should point to the live product URL on www.cmfbynothing.pk to avoid duplicate content. The meta title and description should stay concise, readable, and focused on Pakistan purchase intent.\n\nInternal linking should connect Phone (3a) Pro to relevant collections such as Shop All, Audio, Chargers, Protectors, Accessories, CMF, or Phones depending on the product type. Related product cards should also link to complementary accessories, for example chargers with phones, protectors with phone models, and earbuds with audio collections. This structure helps crawl depth, improves topical authority, and gives customers a smoother shopping path.\n\nOverall, Phone (3a) Pro should be positioned as a trusted local option for Nothing Pakistan shoppers who care about original products, current pricing, simple checkout, and support before and after purchase. The page should keep the language clear, avoid overstuffed keywords, and use helpful product information to match both commercial and informational search intent.",
-    "image_alt_text": "Phone (3a) Pro original phone in Pakistan from Nothing Pakistan"
+    "seo_description_long": "Phone (3a) Pro is positioned for high-intent Pakistan searches around Nothing phone price, PTA status, original stock, delivery, and local support. The listing keeps PKR 182,999 visible while encouraging final stock and variant confirmation before checkout.\n\nBuyers comparing Nothing phones in Karachi, Lahore, Islamabad, Rawalpindi, Faisalabad, Multan, and other cities can use this page to review specs, product media, compatibility, warranty or support guidance, and order routes.\n\nNothing Pakistan writes this page for practical mobile buying questions: whether the device is authentic, how delivery works, what support is available, which accessories are compatible, and how stock is confirmed.",
+    "image_alt_text": "Phone (3a) Pro original Nothing phone in Pakistan from Nothing Pakistan"
   },
   {
     "id": 8,
     "name": "Phone (3a)",
     "slug": "nothing-pakistan-phone-3a",
-    "description": "Phone (3a) is designed for users who want long battery life, smooth performance, and advanced mobile photography. It features a 2-day battery for reliable daily use without frequent charging. With up to 20GB RAM booster support, the device delivers responsive multitasking and improved performance across apps, entertainment, and everyday tasks. The Elite camera system is built to capture clear photos and detailed videos. Running on Nothing OS, Phone (3a) offers a clean, fast, and modern smartphone experience.",
-    "meta_title": "Nothing Phone 3a Price in Pakistan | PTA Approved",
-    "meta_description": "Buy Phone (3a) in Pakistan with updated price, PTA details, specs, Snapdragon 7s Gen 3, COD delivery, and WhatsApp support. Price: Rs 120,000.",
+    "description": "<ul class=\"np-feature-list\" aria-label=\"Phone (3a) highlights\"><li class=\"np-feature\"><img src=\"https://res.cloudinary.com/dklsubnzb/raw/upload/nothing-official-store-pakistan/icons/product-detail/battery.svg\" alt=\"\" loading=\"lazy\" width=\"16\" height=\"16\" /> <span>2-day battery</span></li><li class=\"np-feature\"><img src=\"https://res.cloudinary.com/dklsubnzb/raw/upload/nothing-official-store-pakistan/icons/product-detail/ram.svg\" alt=\"\" loading=\"lazy\" width=\"16\" height=\"16\" /> <span>20 gb RAM booster</span></li><li class=\"np-feature\"><img src=\"https://res.cloudinary.com/dklsubnzb/raw/upload/nothing-official-store-pakistan/icons/product-detail/camera.svg\" alt=\"\" loading=\"lazy\" width=\"16\" height=\"16\" /> <span>Elite camera system</span></li></ul>",
+    "meta_title": "Phone (3a) Price in Pakistan | Nothing Pakistan",
+    "meta_description": "Check Phone (3a) price in Pakistan. Price: PKR 152,999. Review PTA status, specifications, stock, delivery, and ordering support.",
     "release_date": null,
-    "created_at": "2026-03-13T20:01:02.123355",
-    "updated_at": "2026-05-05T23:01:40.905062",
-    "Price": 120000,
+    "created_at": "2026-03-13 20:01:02.123355",
+    "updated_at": "2026-06-06 13:56:16.167232",
+    "Price": 152999,
     "pta_tax": null,
     "non_pta_price": null,
     "piority": 1006,
-    "seo_keywords": "Phone (3a), Phone (3a) price in Pakistan, Phone (3a) PTA approved, Phone (3a) buy online Pakistan, Phone (3a) specs Pakistan, Phone (3a) original Pakistan, Nothing Phone 3a, Nothing Phone 3a price in Pakistan, Nothing Phone 3a PTA approved, Nothing Phone 3a buy online Pakistan, Nothing Phone 3a specs Pakistan, Nothing Phone 3a original Pakistan, Nothing 3a, Nothing 3a price in Pakistan, Nothing 3a PTA approved, Nothing 3a buy online Pakistan, Nothing 3a specs Pakistan, Nothing 3a original Pakistan, Phone (3a) PTA approved Pakistan, Phone (3a) official warranty Pakistan, Phone (3a) COD delivery Pakistan, Phone (3a) Nothing Pakistan, Phone (3a) Nothing Pakistan, phone 3a price pakistan, nothing phone 3a buy online, Phone (3a) Snapdragon 7s Gen 3, Phone (3a) 50MP camera, Phone (3a) AMOLED 120Hz, Phone (3a) Nothing OS, Phone (3a) 256GB, Phone (3a) price in Karachi, buy Phone (3a) in Karachi, Phone (3a) price in Lahore, buy Phone (3a) in Lahore, Phone (3a) price in Islamabad, buy Phone (3a) in Islamabad, Phone (3a) price in Rawalpindi, buy Phone (3a) in Rawalpindi, Phone (3a) price in Faisalabad, buy Phone (3a) in Faisalabad, Phone (3a) price in Multan, buy Phone (3a) in Multan, Phone (3a) price in Peshawar, buy Phone (3a) in Peshawar, phone (3a) pakistan, phone (3a) pakistan mein, Nothing Phone price in Pakistan, Nothing mobile price in Pakistan, CMF Phone price in Pakistan, Nothing Phone PTA approved, Nothing Phone official warranty Pakistan, Nothing Phone specs Pakistan",
+    "seo_keywords": "Phone (3a), Phone (3a) price in Pakistan, Phone (3a) PTA approved Pakistan, buy Phone (3a) online Pakistan, original Phone (3a) Pakistan, Nothing phone Pakistan, Nothing Pakistan, Nothing Pakistan",
     "canonical_url": "https://www.cmfbynothing.pk/products/nothing-pakistan-phone-3a",
     "schema_json": {
       "sku": "phone-3a",
@@ -715,12 +439,12 @@
         "@type": "Brand"
       },
       "image": [
-        "https://cdn.cmfbynothing.pk/mobiles/phone-3a-white.webp"
+        "https://res.cloudinary.com/dklsubnzb/image/upload/nothing-official-store-pakistan/mobiles/phone-3a/image/phone-3a-schema-jsonimage0-phone-3a-white.webp"
       ],
       "offers": {
         "url": "https://www.cmfbynothing.pk/products/nothing-pakistan-phone-3a",
         "@type": "Offer",
-        "price": 120000,
+        "price": 119999,
         "availability": "https://schema.org/InStock",
         "priceCurrency": "PKR"
       },
@@ -780,7 +504,7 @@
         "Nothing Phone official warranty Pakistan",
         "Nothing Phone specs Pakistan"
       ],
-      "description": "Buy Phone (3a) in Pakistan with updated price, PTA details, specs, Snapdragon 7s Gen 3, COD delivery, and WhatsApp support. Price: Rs 120,000.",
+      "description": "Check Phone (3a) price in Pakistan. Price: PKR 152,999. Review PTA status, specifications, stock, delivery, and ordering support.",
       "additionalProperty": [
         {
           "name": "Product type",
@@ -824,576 +548,24 @@
         }
       ]
     },
-    "seo_description_long": "Phone (3a) is part of the Nothing Pakistan catalog for customers who want reliable Nothing and CMF products with local pricing, support, and a simple online order flow. This phone page helps Pakistani buyers understand the model, price context, compatible accessories, protection options, and ordering route from one place. Phone (3a) is currently listed at Rs 120,000 on Nothing Pakistan, while final availability can still depend on stock confirmation and order timing. Keyword research for this model is focused on mainstream Nothing buyers comparing price, specs, camera, PTA status, and delivery in Pakistan. The most important query clusters are nothing phone 3a price in pakistan, phone 3a price pakistan, nothing phone 3a buy online, nothing phone 3a specs pakistan. Supporting modifiers include Snapdragon 7s Gen 3, 50MP camera, AMOLED 120Hz, Nothing OS, PTA approved, 256GB.\n\nWhen people search for Phone (3a) in Pakistan, they usually want three things: a trusted seller, clear product information, and confidence that the item will match their device or daily use case. This page is optimized to answer those questions directly. It includes product naming, price context, compatibility signals, delivery expectations, and support routes so the buyer does not need to jump across multiple websites before making a decision.\n\nFor search intent, this product targets phrases such as Phone (3a) price in Pakistan, buy Phone (3a) online Pakistan, original Phone (3a) Pakistan, Nothing accessories Pakistan, and CMF products Pakistan. It also supports regional searches from Lahore, Karachi, Islamabad, Rawalpindi, Faisalabad, Multan, Peshawar, Quetta, Sialkot, and other cities where buyers commonly look for mobile accessories and Nothing products online.\n\nThe main buying advantage is convenience. Customers can review the product page, compare related products, check the visible price, and use the order or WhatsApp route for confirmation. Nothing Pakistan also highlights helpful trust signals such as cash on delivery, free delivery where applicable, seven day return guidance, product support, and original product sourcing. These details help both shoppers and search engines understand that the page is focused on transactional buying intent, not only product browsing.\n\nFor AEO and voice-search coverage, this page should answer direct questions naturally. Buyers may ask: What is the price of Phone (3a) in Pakistan? Is Phone (3a) original? Where can I buy Phone (3a) online? Does Nothing Pakistan deliver Phone (3a) to my city? Which accessory is compatible with my Nothing phone? The content, FAQ schema, product schema, and internal links should make those answers easy for Google, AI search systems, and users to understand.\n\nThe product image should use descriptive alt text such as \"Phone (3a) original product in Pakistan\" so image search and accessibility tools can understand the page. The canonical URL should point to the live product URL on www.cmfbynothing.pk to avoid duplicate content. The meta title and description should stay concise, readable, and focused on Pakistan purchase intent.\n\nInternal linking should connect Phone (3a) to relevant collections such as Shop All, Audio, Chargers, Protectors, Accessories, CMF, or Phones depending on the product type. Related product cards should also link to complementary accessories, for example chargers with phones, protectors with phone models, and earbuds with audio collections. This structure helps crawl depth, improves topical authority, and gives customers a smoother shopping path.\n\nOverall, Phone (3a) should be positioned as a trusted local option for Nothing Pakistan shoppers who care about original products, current pricing, simple checkout, and support before and after purchase. The page should keep the language clear, avoid overstuffed keywords, and use helpful product information to match both commercial and informational search intent.",
-    "image_alt_text": "Phone (3a) original phone in Pakistan from Nothing Pakistan"
-  },
-  {
-    "id": 9,
-    "name": "Phone (3a) Community Edition",
-    "slug": "nothing-pakistan-phone-3a-community-edition",
-    "description": "Phone (3a) Community Edition is a special release created in collaboration with the Nothing community. It celebrates creativity, design, and innovation shaped by community ideas and feedback. Built with the signature Nothing design philosophy, the device offers a unique aesthetic and a clean smartphone experience powered by Nothing OS. The Community Edition highlights the spirit of collaboration while delivering reliable performance and a modern smartphone experience.",
-    "meta_title": "Nothing Phone 3a Community Edition Price in Pakistan | PTA Approved",
-    "meta_description": "Buy Phone (3a) Community Edition in Pakistan with updated price, PTA details, specs, limited edition, COD delivery, and WhatsApp support. Price: Rs 140,000.",
-    "release_date": null,
-    "created_at": "2026-03-13T20:03:23.74685",
-    "updated_at": "2026-05-05T23:01:41.131687",
-    "Price": 140000,
-    "pta_tax": null,
-    "non_pta_price": null,
-    "piority": 1007,
-    "seo_keywords": "Phone (3a) Community Edition, Phone (3a) Community Edition price in Pakistan, Phone (3a) Community Edition PTA approved, Phone (3a) Community Edition buy online Pakistan, Phone (3a) Community Edition specs Pakistan, Phone (3a) Community Edition original Pakistan, Nothing Phone 3a Community Edition, Nothing Phone 3a Community Edition price in Pakistan, Nothing Phone 3a Community Edition PTA approved, Nothing Phone 3a Community Edition buy online Pakistan, Nothing Phone 3a Community Edition specs Pakistan, Nothing Phone 3a Community Edition original Pakistan, Nothing 3a Community Edition, Nothing 3a Community Edition price in Pakistan, Nothing 3a Community Edition PTA approved, Nothing 3a Community Edition buy online Pakistan, Nothing 3a Community Edition specs Pakistan, Nothing 3a Community Edition original Pakistan, Phone (3a) Community Edition PTA approved Pakistan, Phone (3a) Community Edition official warranty Pakistan, Phone (3a) Community Edition COD delivery Pakistan, Phone (3a) Community Edition Nothing Pakistan, Phone (3a) Community Edition Nothing Pakistan, nothing phone 3a community edition price pakistan, phone 3a community edition pakistan, nothing community edition buy online, nothing phone 3a community edition pta, Phone (3a) Community Edition limited edition, Phone (3a) Community Edition community edition, Phone (3a) Community Edition Nothing OS, Phone (3a) Community Edition AMOLED display, Phone (3a) Community Edition collector model, Phone (3a) Community Edition price in Karachi, buy Phone (3a) Community Edition in Karachi, Phone (3a) Community Edition price in Lahore, buy Phone (3a) Community Edition in Lahore, Phone (3a) Community Edition price in Islamabad, buy Phone (3a) Community Edition in Islamabad, Phone (3a) Community Edition price in Rawalpindi, buy Phone (3a) Community Edition in Rawalpindi, Phone (3a) Community Edition price in Faisalabad, buy Phone (3a) Community Edition in Faisalabad, Phone (3a) Community Edition price in Multan, buy Phone (3a) Community Edition in Multan, Phone (3a) Community Edition price in Peshawar, buy Phone (3a) Community Edition in Peshawar, phone (3a) community edition pakistan, phone (3a) community edition pakistan mein, Nothing Phone price in Pakistan, Nothing mobile price in Pakistan, CMF Phone price in Pakistan, Nothing Phone PTA approved",
-    "canonical_url": "https://www.cmfbynothing.pk/products/nothing-pakistan-phone-3a-community-edition",
-    "schema_json": {
-      "sku": "phone-3a-community-edition",
-      "url": "https://www.cmfbynothing.pk/products/nothing-pakistan-phone-3a-community-edition",
-      "name": "Phone (3a) Community Edition",
-      "@type": "Product",
-      "brand": {
-        "name": "Nothing",
-        "@type": "Brand"
-      },
-      "image": [
-        "https://cdn.cmfbynothing.pk/mobiles/phone-3a-community-edition-green.webp"
-      ],
-      "offers": {
-        "url": "https://www.cmfbynothing.pk/products/nothing-pakistan-phone-3a-community-edition",
-        "@type": "Offer",
-        "price": 140000,
-        "availability": "https://schema.org/InStock",
-        "priceCurrency": "PKR"
-      },
-      "@context": "https://schema.org",
-      "category": "Phone",
-      "keywords": [
-        "Phone (3a) Community Edition",
-        "Phone (3a) Community Edition price in Pakistan",
-        "Phone (3a) Community Edition PTA approved",
-        "Phone (3a) Community Edition buy online Pakistan",
-        "Phone (3a) Community Edition specs Pakistan",
-        "Phone (3a) Community Edition original Pakistan",
-        "Nothing Phone 3a Community Edition",
-        "Nothing Phone 3a Community Edition price in Pakistan",
-        "Nothing Phone 3a Community Edition PTA approved",
-        "Nothing Phone 3a Community Edition buy online Pakistan",
-        "Nothing Phone 3a Community Edition specs Pakistan",
-        "Nothing Phone 3a Community Edition original Pakistan",
-        "Nothing 3a Community Edition",
-        "Nothing 3a Community Edition price in Pakistan",
-        "Nothing 3a Community Edition PTA approved",
-        "Nothing 3a Community Edition buy online Pakistan",
-        "Nothing 3a Community Edition specs Pakistan",
-        "Nothing 3a Community Edition original Pakistan",
-        "Phone (3a) Community Edition PTA approved Pakistan",
-        "Phone (3a) Community Edition official warranty Pakistan",
-        "Phone (3a) Community Edition COD delivery Pakistan",
-        "Phone (3a) Community Edition Nothing Pakistan",
-        "Phone (3a) Community Edition Nothing Pakistan",
-        "nothing phone 3a community edition price pakistan",
-        "phone 3a community edition pakistan",
-        "nothing community edition buy online",
-        "nothing phone 3a community edition pta",
-        "Phone (3a) Community Edition limited edition",
-        "Phone (3a) Community Edition community edition",
-        "Phone (3a) Community Edition Nothing OS",
-        "Phone (3a) Community Edition AMOLED display",
-        "Phone (3a) Community Edition collector model",
-        "Phone (3a) Community Edition price in Karachi",
-        "buy Phone (3a) Community Edition in Karachi",
-        "Phone (3a) Community Edition price in Lahore",
-        "buy Phone (3a) Community Edition in Lahore",
-        "Phone (3a) Community Edition price in Islamabad",
-        "buy Phone (3a) Community Edition in Islamabad",
-        "Phone (3a) Community Edition price in Rawalpindi",
-        "buy Phone (3a) Community Edition in Rawalpindi",
-        "Phone (3a) Community Edition price in Faisalabad",
-        "buy Phone (3a) Community Edition in Faisalabad",
-        "Phone (3a) Community Edition price in Multan",
-        "buy Phone (3a) Community Edition in Multan",
-        "Phone (3a) Community Edition price in Peshawar",
-        "buy Phone (3a) Community Edition in Peshawar",
-        "phone (3a) community edition pakistan",
-        "phone (3a) community edition pakistan mein",
-        "Nothing Phone price in Pakistan",
-        "Nothing mobile price in Pakistan",
-        "CMF Phone price in Pakistan",
-        "Nothing Phone PTA approved"
-      ],
-      "description": "Buy Phone (3a) Community Edition in Pakistan with updated price, PTA details, specs, limited edition, COD delivery, and WhatsApp support. Price: Rs 140,000.",
-      "additionalProperty": [
-        {
-          "name": "Product type",
-          "@type": "PropertyValue",
-          "value": "Nothing phone model"
-        },
-        {
-          "name": "Accessory support",
-          "@type": "PropertyValue",
-          "value": "Chargers, protectors, earbuds, and compatible accessories"
-        },
-        {
-          "name": "Pakistan buying intent",
-          "@type": "PropertyValue",
-          "value": "Price, PTA approval, COD delivery, specs, warranty, and availability"
-        },
-        {
-          "name": "Search feature",
-          "@type": "PropertyValue",
-          "value": "limited edition"
-        },
-        {
-          "name": "Search feature",
-          "@type": "PropertyValue",
-          "value": "community edition"
-        },
-        {
-          "name": "Search feature",
-          "@type": "PropertyValue",
-          "value": "Nothing OS"
-        },
-        {
-          "name": "Search feature",
-          "@type": "PropertyValue",
-          "value": "AMOLED display"
-        },
-        {
-          "name": "Search feature",
-          "@type": "PropertyValue",
-          "value": "PTA approved"
-        }
-      ]
-    },
-    "seo_description_long": "Phone (3a) Community Edition is part of the Nothing Pakistan catalog for customers who want reliable Nothing and CMF products with local pricing, support, and a simple online order flow. This phone page helps Pakistani buyers understand the model, price context, compatible accessories, protection options, and ordering route from one place. Phone (3a) Community Edition is currently listed at Rs 140,000 on Nothing Pakistan, while final availability can still depend on stock confirmation and order timing. Keyword research for this model is focused on limited-edition Nothing buyers looking for authenticity, availability, and local support. The most important query clusters are nothing phone 3a community edition price pakistan, phone 3a community edition pakistan, nothing community edition buy online, nothing phone 3a community edition pta. Supporting modifiers include limited edition, community edition, Nothing OS, AMOLED display, PTA approved, collector model.\n\nWhen people search for Phone (3a) Community Edition in Pakistan, they usually want three things: a trusted seller, clear product information, and confidence that the item will match their device or daily use case. This page is optimized to answer those questions directly. It includes product naming, price context, compatibility signals, delivery expectations, and support routes so the buyer does not need to jump across multiple websites before making a decision.\n\nFor search intent, this product targets phrases such as Phone (3a) Community Edition price in Pakistan, buy Phone (3a) Community Edition online Pakistan, original Phone (3a) Community Edition Pakistan, Nothing accessories Pakistan, and CMF products Pakistan. It also supports regional searches from Lahore, Karachi, Islamabad, Rawalpindi, Faisalabad, Multan, Peshawar, Quetta, Sialkot, and other cities where buyers commonly look for mobile accessories and Nothing products online.\n\nThe main buying advantage is convenience. Customers can review the product page, compare related products, check the visible price, and use the order or WhatsApp route for confirmation. Nothing Pakistan also highlights helpful trust signals such as cash on delivery, free delivery where applicable, seven day return guidance, product support, and original product sourcing. These details help both shoppers and search engines understand that the page is focused on transactional buying intent, not only product browsing.\n\nFor AEO and voice-search coverage, this page should answer direct questions naturally. Buyers may ask: What is the price of Phone (3a) Community Edition in Pakistan? Is Phone (3a) Community Edition original? Where can I buy Phone (3a) Community Edition online? Does Nothing Pakistan deliver Phone (3a) Community Edition to my city? Which accessory is compatible with my Nothing phone? The content, FAQ schema, product schema, and internal links should make those answers easy for Google, AI search systems, and users to understand.\n\nThe product image should use descriptive alt text such as \"Phone (3a) Community Edition original product in Pakistan\" so image search and accessibility tools can understand the page. The canonical URL should point to the live product URL on www.cmfbynothing.pk to avoid duplicate content. The meta title and description should stay concise, readable, and focused on Pakistan purchase intent.\n\nInternal linking should connect Phone (3a) Community Edition to relevant collections such as Shop All, Audio, Chargers, Protectors, Accessories, CMF, or Phones depending on the product type. Related product cards should also link to complementary accessories, for example chargers with phones, protectors with phone models, and earbuds with audio collections. This structure helps crawl depth, improves topical authority, and gives customers a smoother shopping path.\n\nOverall, Phone (3a) Community Edition should be positioned as a trusted local option for Nothing Pakistan shoppers who care about original products, current pricing, simple checkout, and support before and after purchase. The page should keep the language clear, avoid overstuffed keywords, and use helpful product information to match both commercial and informational search intent.",
-    "image_alt_text": "Phone (3a) Community Edition original phone in Pakistan from Nothing Pakistan"
-  },
-  {
-    "id": 10,
-    "name": "CMF Phone 2 Pro",
-    "slug": "nothing-pakistan-cmf-phone-2-pro",
-    "description": "CMF Phone 2 Pro is designed to deliver strong performance, modern design, and reliable everyday usability. The device features a powerful 5000 mAh battery that provides long-lasting usage throughout the day. Equipped with 8GB RAM, it offers smooth multitasking and responsive performance for apps, entertainment, and daily tasks. The advanced four-camera system allows users to capture clear photos and detailed videos. Built with the CMF design philosophy, the phone combines performance, simplicity, and a vibrant design experience.",
-    "meta_title": "Nothing CMF Phone 2 Pro Price in Pakistan | PTA Approved",
-    "meta_description": "Buy CMF Phone 2 Pro in Pakistan with updated price, PTA details, specs, Dimensity 7300 Pro, COD delivery, and WhatsApp support. Price: Rs 92,000.",
-    "release_date": null,
-    "created_at": "2026-03-13T20:05:20.403407",
-    "updated_at": "2026-05-05T23:01:41.34921",
-    "Price": 92000,
-    "pta_tax": null,
-    "non_pta_price": null,
-    "piority": 1008,
-    "seo_keywords": "CMF Phone 2 Pro, CMF Phone 2 Pro price in Pakistan, CMF Phone 2 Pro PTA approved, CMF Phone 2 Pro buy online Pakistan, CMF Phone 2 Pro specs Pakistan, CMF Phone 2 Pro original Pakistan, Nothing CMF Phone 2 Pro, Nothing CMF Phone 2 Pro price in Pakistan, Nothing CMF Phone 2 Pro PTA approved, Nothing CMF Phone 2 Pro buy online Pakistan, Nothing CMF Phone 2 Pro specs Pakistan, Nothing CMF Phone 2 Pro original Pakistan, CMF 2 Pro, CMF 2 Pro price in Pakistan, CMF 2 Pro PTA approved, CMF 2 Pro buy online Pakistan, CMF 2 Pro specs Pakistan, CMF 2 Pro original Pakistan, CMF Phone 2 Pro PTA approved Pakistan, CMF Phone 2 Pro official warranty Pakistan, CMF Phone 2 Pro COD delivery Pakistan, CMF Phone 2 Pro Nothing Pakistan, CMF Phone 2 Pro Nothing Pakistan, nothing cmf phone 2 pro price pakistan, CMF Phone 2 Pro Dimensity 7300 Pro, CMF Phone 2 Pro 8GB 128GB, CMF Phone 2 Pro 120Hz AMOLED, CMF Phone 2 Pro 50MP camera, CMF Phone 2 Pro 5000mAh battery, CMF Phone 2 Pro price in Karachi, buy CMF Phone 2 Pro in Karachi, CMF Phone 2 Pro price in Lahore, buy CMF Phone 2 Pro in Lahore, CMF Phone 2 Pro price in Islamabad, buy CMF Phone 2 Pro in Islamabad, CMF Phone 2 Pro price in Rawalpindi, buy CMF Phone 2 Pro in Rawalpindi, CMF Phone 2 Pro price in Faisalabad, buy CMF Phone 2 Pro in Faisalabad, CMF Phone 2 Pro price in Multan, buy CMF Phone 2 Pro in Multan, CMF Phone 2 Pro price in Peshawar, buy CMF Phone 2 Pro in Peshawar, cmf phone 2 pro pakistan, cmf phone 2 pro pakistan mein, Nothing Phone price in Pakistan, Nothing mobile price in Pakistan, CMF Phone price in Pakistan, Nothing Phone PTA approved, Nothing Phone official warranty Pakistan, Nothing Phone specs Pakistan, buy Nothing Phone online Pakistan",
-    "canonical_url": "https://www.cmfbynothing.pk/products/nothing-pakistan-cmf-phone-2-pro",
-    "schema_json": {
-      "sku": "cmf-phone-2-pro",
-      "url": "https://www.cmfbynothing.pk/products/nothing-pakistan-cmf-phone-2-pro",
-      "name": "CMF Phone 2 Pro",
-      "@type": "Product",
-      "brand": {
-        "name": "CMF by Nothing",
-        "@type": "Brand"
-      },
-      "image": [
-        "https://cdn.cmfbynothing.pk/mobiles/cmf-phone-2-pro-white.webp"
-      ],
-      "offers": {
-        "url": "https://www.cmfbynothing.pk/products/nothing-pakistan-cmf-phone-2-pro",
-        "@type": "Offer",
-        "price": 92000,
-        "availability": "https://schema.org/InStock",
-        "priceCurrency": "PKR"
-      },
-      "@context": "https://schema.org",
-      "category": "Phone",
-      "keywords": [
-        "CMF Phone 2 Pro",
-        "CMF Phone 2 Pro price in Pakistan",
-        "CMF Phone 2 Pro PTA approved",
-        "CMF Phone 2 Pro buy online Pakistan",
-        "CMF Phone 2 Pro specs Pakistan",
-        "CMF Phone 2 Pro original Pakistan",
-        "Nothing CMF Phone 2 Pro",
-        "Nothing CMF Phone 2 Pro price in Pakistan",
-        "Nothing CMF Phone 2 Pro PTA approved",
-        "Nothing CMF Phone 2 Pro buy online Pakistan",
-        "Nothing CMF Phone 2 Pro specs Pakistan",
-        "Nothing CMF Phone 2 Pro original Pakistan",
-        "CMF 2 Pro",
-        "CMF 2 Pro price in Pakistan",
-        "CMF 2 Pro PTA approved",
-        "CMF 2 Pro buy online Pakistan",
-        "CMF 2 Pro specs Pakistan",
-        "CMF 2 Pro original Pakistan",
-        "CMF Phone 2 Pro PTA approved Pakistan",
-        "CMF Phone 2 Pro official warranty Pakistan",
-        "CMF Phone 2 Pro COD delivery Pakistan",
-        "CMF Phone 2 Pro Nothing Pakistan",
-        "CMF Phone 2 Pro Nothing Pakistan",
-        "nothing cmf phone 2 pro price pakistan",
-        "CMF Phone 2 Pro Dimensity 7300 Pro",
-        "CMF Phone 2 Pro 8GB 128GB",
-        "CMF Phone 2 Pro 120Hz AMOLED",
-        "CMF Phone 2 Pro 50MP camera",
-        "CMF Phone 2 Pro 5000mAh battery",
-        "CMF Phone 2 Pro price in Karachi",
-        "buy CMF Phone 2 Pro in Karachi",
-        "CMF Phone 2 Pro price in Lahore",
-        "buy CMF Phone 2 Pro in Lahore",
-        "CMF Phone 2 Pro price in Islamabad",
-        "buy CMF Phone 2 Pro in Islamabad",
-        "CMF Phone 2 Pro price in Rawalpindi",
-        "buy CMF Phone 2 Pro in Rawalpindi",
-        "CMF Phone 2 Pro price in Faisalabad",
-        "buy CMF Phone 2 Pro in Faisalabad",
-        "CMF Phone 2 Pro price in Multan",
-        "buy CMF Phone 2 Pro in Multan",
-        "CMF Phone 2 Pro price in Peshawar",
-        "buy CMF Phone 2 Pro in Peshawar",
-        "cmf phone 2 pro pakistan",
-        "cmf phone 2 pro pakistan mein",
-        "Nothing Phone price in Pakistan",
-        "Nothing mobile price in Pakistan",
-        "CMF Phone price in Pakistan",
-        "Nothing Phone PTA approved",
-        "Nothing Phone official warranty Pakistan",
-        "Nothing Phone specs Pakistan",
-        "buy Nothing Phone online Pakistan"
-      ],
-      "description": "Buy CMF Phone 2 Pro in Pakistan with updated price, PTA details, specs, Dimensity 7300 Pro, COD delivery, and WhatsApp support. Price: Rs 92,000.",
-      "additionalProperty": [
-        {
-          "name": "Product type",
-          "@type": "PropertyValue",
-          "value": "Nothing phone model"
-        },
-        {
-          "name": "Accessory support",
-          "@type": "PropertyValue",
-          "value": "Chargers, protectors, earbuds, and compatible accessories"
-        },
-        {
-          "name": "Pakistan buying intent",
-          "@type": "PropertyValue",
-          "value": "Price, PTA approval, COD delivery, specs, warranty, and availability"
-        },
-        {
-          "name": "Search feature",
-          "@type": "PropertyValue",
-          "value": "Dimensity 7300 Pro"
-        },
-        {
-          "name": "Search feature",
-          "@type": "PropertyValue",
-          "value": "8GB 128GB"
-        },
-        {
-          "name": "Search feature",
-          "@type": "PropertyValue",
-          "value": "120Hz AMOLED"
-        },
-        {
-          "name": "Search feature",
-          "@type": "PropertyValue",
-          "value": "50MP camera"
-        },
-        {
-          "name": "Search feature",
-          "@type": "PropertyValue",
-          "value": "5000mAh battery"
-        }
-      ]
-    },
-    "seo_description_long": "CMF Phone 2 Pro is part of the Nothing Pakistan catalog for customers who want reliable Nothing and CMF products with local pricing, support, and a simple online order flow. This phone page helps Pakistani buyers understand the model, price context, compatible accessories, protection options, and ordering route from one place. CMF Phone 2 Pro is currently listed at Rs 92,000 on Nothing Pakistan, while final availability can still depend on stock confirmation and order timing. Keyword research for this model is focused on value-focused CMF buyers comparing Pakistan price, battery, camera, storage, and official local stock. The most important query clusters are cmf phone 2 pro price in pakistan, nothing cmf phone 2 pro price pakistan, cmf 2 pro pta approved, cmf phone 2 pro buy online pakistan. Supporting modifiers include Dimensity 7300 Pro, 8GB 128GB, 120Hz AMOLED, 50MP camera, 5000mAh battery, PTA approved.\n\nWhen people search for CMF Phone 2 Pro in Pakistan, they usually want three things: a trusted seller, clear product information, and confidence that the item will match their device or daily use case. This page is optimized to answer those questions directly. It includes product naming, price context, compatibility signals, delivery expectations, and support routes so the buyer does not need to jump across multiple websites before making a decision.\n\nFor search intent, this product targets phrases such as CMF Phone 2 Pro price in Pakistan, buy CMF Phone 2 Pro online Pakistan, original CMF Phone 2 Pro Pakistan, Nothing accessories Pakistan, and CMF products Pakistan. It also supports regional searches from Lahore, Karachi, Islamabad, Rawalpindi, Faisalabad, Multan, Peshawar, Quetta, Sialkot, and other cities where buyers commonly look for mobile accessories and Nothing products online.\n\nThe main buying advantage is convenience. Customers can review the product page, compare related products, check the visible price, and use the order or WhatsApp route for confirmation. Nothing Pakistan also highlights helpful trust signals such as cash on delivery, free delivery where applicable, seven day return guidance, product support, and original product sourcing. These details help both shoppers and search engines understand that the page is focused on transactional buying intent, not only product browsing.\n\nFor AEO and voice-search coverage, this page should answer direct questions naturally. Buyers may ask: What is the price of CMF Phone 2 Pro in Pakistan? Is CMF Phone 2 Pro original? Where can I buy CMF Phone 2 Pro online? Does Nothing Pakistan deliver CMF Phone 2 Pro to my city? Which accessory is compatible with my Nothing phone? The content, FAQ schema, product schema, and internal links should make those answers easy for Google, AI search systems, and users to understand.\n\nThe product image should use descriptive alt text such as \"CMF Phone 2 Pro original product in Pakistan\" so image search and accessibility tools can understand the page. The canonical URL should point to the live product URL on www.cmfbynothing.pk to avoid duplicate content. The meta title and description should stay concise, readable, and focused on Pakistan purchase intent.\n\nInternal linking should connect CMF Phone 2 Pro to relevant collections such as Shop All, Audio, Chargers, Protectors, Accessories, CMF, or Phones depending on the product type. Related product cards should also link to complementary accessories, for example chargers with phones, protectors with phone models, and earbuds with audio collections. This structure helps crawl depth, improves topical authority, and gives customers a smoother shopping path.\n\nOverall, CMF Phone 2 Pro should be positioned as a trusted local option for Nothing Pakistan shoppers who care about original products, current pricing, simple checkout, and support before and after purchase. The page should keep the language clear, avoid overstuffed keywords, and use helpful product information to match both commercial and informational search intent.",
-    "image_alt_text": "CMF Phone 2 Pro original phone in Pakistan from Nothing Pakistan"
-  },
-  {
-    "id": 11,
-    "name": "Phone (2a)",
-    "slug": "nothing-pakistan-phone-2a",
-    "description": "Phone (2a) is built for users who want long battery life, strong performance, and high-quality photography. It features a powerful 2-day battery designed to keep up with everyday usage without frequent charging. With up to 20GB RAM support, the phone delivers smooth multitasking and responsive performance across apps and entertainment. The dual 50 MP camera system allows users to capture sharp photos and clear videos. Powered by Nothing OS, Phone (2a) provides a clean, fast, and modern smartphone experience.",
-    "meta_title": "Nothing Phone 2a Price in Pakistan | PTA Approved",
-    "meta_description": "Buy Phone (2a) in Pakistan with updated price, PTA details, specs, Dimensity 7200 Pro, COD delivery, and WhatsApp support. Price: Rs 107,900.",
-    "release_date": null,
-    "created_at": "2026-03-14T00:26:11.50369",
-    "updated_at": "2026-05-05T23:01:41.566453",
-    "Price": 107900,
-    "pta_tax": null,
-    "non_pta_price": null,
-    "piority": 1009,
-    "seo_keywords": "Phone (2a), Phone (2a) price in Pakistan, Phone (2a) PTA approved, Phone (2a) buy online Pakistan, Phone (2a) specs Pakistan, Phone (2a) original Pakistan, Nothing Phone 2a, Nothing Phone 2a price in Pakistan, Nothing Phone 2a PTA approved, Nothing Phone 2a buy online Pakistan, Nothing Phone 2a specs Pakistan, Nothing Phone 2a original Pakistan, Nothing 2a, Nothing 2a price in Pakistan, Nothing 2a PTA approved, Nothing 2a buy online Pakistan, Nothing 2a specs Pakistan, Nothing 2a original Pakistan, Phone (2a) PTA approved Pakistan, Phone (2a) official warranty Pakistan, Phone (2a) COD delivery Pakistan, Phone (2a) Nothing Pakistan, Phone (2a) Nothing Pakistan, phone 2a price pakistan, nothing phone 2a buy online, Phone (2a) Dimensity 7200 Pro, Phone (2a) AMOLED 120Hz, Phone (2a) 50MP dual camera, Phone (2a) Nothing OS, Phone (2a) 5000mAh battery, Phone (2a) price in Karachi, buy Phone (2a) in Karachi, Phone (2a) price in Lahore, buy Phone (2a) in Lahore, Phone (2a) price in Islamabad, buy Phone (2a) in Islamabad, Phone (2a) price in Rawalpindi, buy Phone (2a) in Rawalpindi, Phone (2a) price in Faisalabad, buy Phone (2a) in Faisalabad, Phone (2a) price in Multan, buy Phone (2a) in Multan, Phone (2a) price in Peshawar, buy Phone (2a) in Peshawar, phone (2a) pakistan, phone (2a) pakistan mein, Nothing Phone price in Pakistan, Nothing mobile price in Pakistan, CMF Phone price in Pakistan, Nothing Phone PTA approved, Nothing Phone official warranty Pakistan, Nothing Phone specs Pakistan",
-    "canonical_url": "https://www.cmfbynothing.pk/products/nothing-pakistan-phone-2a",
-    "schema_json": {
-      "sku": "phone-2a",
-      "url": "https://www.cmfbynothing.pk/products/nothing-pakistan-phone-2a",
-      "name": "Phone (2a)",
-      "@type": "Product",
-      "brand": {
-        "name": "Nothing",
-        "@type": "Brand"
-      },
-      "image": [
-        "https://cdn.cmfbynothing.pk/mobiles/phone-2a-milk.webp"
-      ],
-      "offers": {
-        "url": "https://www.cmfbynothing.pk/products/nothing-pakistan-phone-2a",
-        "@type": "Offer",
-        "price": 107900,
-        "availability": "https://schema.org/InStock",
-        "priceCurrency": "PKR"
-      },
-      "@context": "https://schema.org",
-      "category": "Phone",
-      "keywords": [
-        "Phone (2a)",
-        "Phone (2a) price in Pakistan",
-        "Phone (2a) PTA approved",
-        "Phone (2a) buy online Pakistan",
-        "Phone (2a) specs Pakistan",
-        "Phone (2a) original Pakistan",
-        "Nothing Phone 2a",
-        "Nothing Phone 2a price in Pakistan",
-        "Nothing Phone 2a PTA approved",
-        "Nothing Phone 2a buy online Pakistan",
-        "Nothing Phone 2a specs Pakistan",
-        "Nothing Phone 2a original Pakistan",
-        "Nothing 2a",
-        "Nothing 2a price in Pakistan",
-        "Nothing 2a PTA approved",
-        "Nothing 2a buy online Pakistan",
-        "Nothing 2a specs Pakistan",
-        "Nothing 2a original Pakistan",
-        "Phone (2a) PTA approved Pakistan",
-        "Phone (2a) official warranty Pakistan",
-        "Phone (2a) COD delivery Pakistan",
-        "Phone (2a) Nothing Pakistan",
-        "Phone (2a) Nothing Pakistan",
-        "phone 2a price pakistan",
-        "nothing phone 2a buy online",
-        "Phone (2a) Dimensity 7200 Pro",
-        "Phone (2a) AMOLED 120Hz",
-        "Phone (2a) 50MP dual camera",
-        "Phone (2a) Nothing OS",
-        "Phone (2a) 5000mAh battery",
-        "Phone (2a) price in Karachi",
-        "buy Phone (2a) in Karachi",
-        "Phone (2a) price in Lahore",
-        "buy Phone (2a) in Lahore",
-        "Phone (2a) price in Islamabad",
-        "buy Phone (2a) in Islamabad",
-        "Phone (2a) price in Rawalpindi",
-        "buy Phone (2a) in Rawalpindi",
-        "Phone (2a) price in Faisalabad",
-        "buy Phone (2a) in Faisalabad",
-        "Phone (2a) price in Multan",
-        "buy Phone (2a) in Multan",
-        "Phone (2a) price in Peshawar",
-        "buy Phone (2a) in Peshawar",
-        "phone (2a) pakistan",
-        "phone (2a) pakistan mein",
-        "Nothing Phone price in Pakistan",
-        "Nothing mobile price in Pakistan",
-        "CMF Phone price in Pakistan",
-        "Nothing Phone PTA approved",
-        "Nothing Phone official warranty Pakistan",
-        "Nothing Phone specs Pakistan"
-      ],
-      "description": "Buy Phone (2a) in Pakistan with updated price, PTA details, specs, Dimensity 7200 Pro, COD delivery, and WhatsApp support. Price: Rs 107,900.",
-      "additionalProperty": [
-        {
-          "name": "Product type",
-          "@type": "PropertyValue",
-          "value": "Nothing phone model"
-        },
-        {
-          "name": "Accessory support",
-          "@type": "PropertyValue",
-          "value": "Chargers, protectors, earbuds, and compatible accessories"
-        },
-        {
-          "name": "Pakistan buying intent",
-          "@type": "PropertyValue",
-          "value": "Price, PTA approval, COD delivery, specs, warranty, and availability"
-        },
-        {
-          "name": "Search feature",
-          "@type": "PropertyValue",
-          "value": "Dimensity 7200 Pro"
-        },
-        {
-          "name": "Search feature",
-          "@type": "PropertyValue",
-          "value": "AMOLED 120Hz"
-        },
-        {
-          "name": "Search feature",
-          "@type": "PropertyValue",
-          "value": "50MP dual camera"
-        },
-        {
-          "name": "Search feature",
-          "@type": "PropertyValue",
-          "value": "Nothing OS"
-        },
-        {
-          "name": "Search feature",
-          "@type": "PropertyValue",
-          "value": "5000mAh battery"
-        }
-      ]
-    },
-    "seo_description_long": "Phone (2a) is part of the Nothing Pakistan catalog for customers who want reliable Nothing and CMF products with local pricing, support, and a simple online order flow. This phone page helps Pakistani buyers understand the model, price context, compatible accessories, protection options, and ordering route from one place. Phone (2a) is currently listed at Rs 107,900 on Nothing Pakistan, while final availability can still depend on stock confirmation and order timing. Keyword research for this model is focused on Nothing Phone 2a shoppers comparing price, camera, battery, PTA status, and accessories. The most important query clusters are nothing phone 2a price in pakistan, phone 2a price pakistan, nothing phone 2a buy online, nothing phone 2a pta approved. Supporting modifiers include Dimensity 7200 Pro, AMOLED 120Hz, 50MP dual camera, Nothing OS, 5000mAh battery, PTA approved.\n\nWhen people search for Phone (2a) in Pakistan, they usually want three things: a trusted seller, clear product information, and confidence that the item will match their device or daily use case. This page is optimized to answer those questions directly. It includes product naming, price context, compatibility signals, delivery expectations, and support routes so the buyer does not need to jump across multiple websites before making a decision.\n\nFor search intent, this product targets phrases such as Phone (2a) price in Pakistan, buy Phone (2a) online Pakistan, original Phone (2a) Pakistan, Nothing accessories Pakistan, and CMF products Pakistan. It also supports regional searches from Lahore, Karachi, Islamabad, Rawalpindi, Faisalabad, Multan, Peshawar, Quetta, Sialkot, and other cities where buyers commonly look for mobile accessories and Nothing products online.\n\nThe main buying advantage is convenience. Customers can review the product page, compare related products, check the visible price, and use the order or WhatsApp route for confirmation. Nothing Pakistan also highlights helpful trust signals such as cash on delivery, free delivery where applicable, seven day return guidance, product support, and original product sourcing. These details help both shoppers and search engines understand that the page is focused on transactional buying intent, not only product browsing.\n\nFor AEO and voice-search coverage, this page should answer direct questions naturally. Buyers may ask: What is the price of Phone (2a) in Pakistan? Is Phone (2a) original? Where can I buy Phone (2a) online? Does Nothing Pakistan deliver Phone (2a) to my city? Which accessory is compatible with my Nothing phone? The content, FAQ schema, product schema, and internal links should make those answers easy for Google, AI search systems, and users to understand.\n\nThe product image should use descriptive alt text such as \"Phone (2a) original product in Pakistan\" so image search and accessibility tools can understand the page. The canonical URL should point to the live product URL on www.cmfbynothing.pk to avoid duplicate content. The meta title and description should stay concise, readable, and focused on Pakistan purchase intent.\n\nInternal linking should connect Phone (2a) to relevant collections such as Shop All, Audio, Chargers, Protectors, Accessories, CMF, or Phones depending on the product type. Related product cards should also link to complementary accessories, for example chargers with phones, protectors with phone models, and earbuds with audio collections. This structure helps crawl depth, improves topical authority, and gives customers a smoother shopping path.\n\nOverall, Phone (2a) should be positioned as a trusted local option for Nothing Pakistan shoppers who care about original products, current pricing, simple checkout, and support before and after purchase. The page should keep the language clear, avoid overstuffed keywords, and use helpful product information to match both commercial and informational search intent.",
-    "image_alt_text": "Phone (2a) original phone in Pakistan from Nothing Pakistan"
-  },
-  {
-    "id": 12,
-    "name": "CMF Phone 1",
-    "slug": "nothing-pakistan-cmf-phone-1",
-    "description": "CMF Phone 1 is designed for users who want reliable performance, long battery life, and quality mobile photography at an accessible price. It features a 5000 mAh battery for dependable daily use and extended screen time. With up to 16GB RAM support, the phone delivers smooth multitasking and responsive performance for apps, browsing, and entertainment. The 50 MP Sony rear camera helps capture clear photos with strong detail and natural color. Built with the CMF design approach, CMF Phone 1 combines practical features, modern style, and everyday usability.",
-    "meta_title": "Nothing CMF Phone 1 Price in Pakistan | PTA Approved",
-    "meta_description": "Buy CMF Phone 1 in Pakistan with updated price, PTA details, specs, Dimensity 7300, COD delivery, and WhatsApp support. Price: Rs 59,900.",
-    "release_date": null,
-    "created_at": "2026-03-14T00:28:33.989523",
-    "updated_at": "2026-05-05T23:01:41.778472",
-    "Price": 59900,
-    "pta_tax": null,
-    "non_pta_price": null,
-    "piority": 1010,
-    "seo_keywords": "CMF Phone 1, CMF Phone 1 price in Pakistan, CMF Phone 1 PTA approved, CMF Phone 1 buy online Pakistan, CMF Phone 1 specs Pakistan, CMF Phone 1 original Pakistan, Nothing CMF Phone 1, Nothing CMF Phone 1 price in Pakistan, Nothing CMF Phone 1 PTA approved, Nothing CMF Phone 1 buy online Pakistan, Nothing CMF Phone 1 specs Pakistan, Nothing CMF Phone 1 original Pakistan, CMF Phone One, CMF Phone One price in Pakistan, CMF Phone One PTA approved, CMF Phone One buy online Pakistan, CMF Phone One specs Pakistan, CMF Phone One original Pakistan, CMF Phone 1 PTA approved Pakistan, CMF Phone 1 official warranty Pakistan, CMF Phone 1 COD delivery Pakistan, CMF Phone 1 Nothing Pakistan, CMF Phone 1 Nothing Pakistan, nothing cmf phone 1 price pakistan, CMF Phone 1 Dimensity 7300, CMF Phone 1 AMOLED display, CMF Phone 1 5000mAh battery, CMF Phone 1 replaceable back cover, CMF Phone 1 budget phone, CMF Phone 1 price in Karachi, buy CMF Phone 1 in Karachi, CMF Phone 1 price in Lahore, buy CMF Phone 1 in Lahore, CMF Phone 1 price in Islamabad, buy CMF Phone 1 in Islamabad, CMF Phone 1 price in Rawalpindi, buy CMF Phone 1 in Rawalpindi, CMF Phone 1 price in Faisalabad, buy CMF Phone 1 in Faisalabad, CMF Phone 1 price in Multan, buy CMF Phone 1 in Multan, CMF Phone 1 price in Peshawar, buy CMF Phone 1 in Peshawar, cmf phone 1 pakistan, cmf phone 1 pakistan mein, Nothing Phone price in Pakistan, Nothing mobile price in Pakistan, CMF Phone price in Pakistan, Nothing Phone PTA approved, Nothing Phone official warranty Pakistan, Nothing Phone specs Pakistan, buy Nothing Phone online Pakistan",
-    "canonical_url": "https://www.cmfbynothing.pk/products/nothing-pakistan-cmf-phone-1",
-    "schema_json": {
-      "sku": "cmf-phone-1",
-      "url": "https://www.cmfbynothing.pk/products/nothing-pakistan-cmf-phone-1",
-      "name": "CMF Phone 1",
-      "@type": "Product",
-      "brand": {
-        "name": "CMF by Nothing",
-        "@type": "Brand"
-      },
-      "image": [
-        "https://cdn.cmfbynothing.pk/mobiles/cmf-phone-1-light-green.webp"
-      ],
-      "offers": {
-        "url": "https://www.cmfbynothing.pk/products/nothing-pakistan-cmf-phone-1",
-        "@type": "Offer",
-        "price": 59900,
-        "availability": "https://schema.org/InStock",
-        "priceCurrency": "PKR"
-      },
-      "@context": "https://schema.org",
-      "category": "Phone",
-      "keywords": [
-        "CMF Phone 1",
-        "CMF Phone 1 price in Pakistan",
-        "CMF Phone 1 PTA approved",
-        "CMF Phone 1 buy online Pakistan",
-        "CMF Phone 1 specs Pakistan",
-        "CMF Phone 1 original Pakistan",
-        "Nothing CMF Phone 1",
-        "Nothing CMF Phone 1 price in Pakistan",
-        "Nothing CMF Phone 1 PTA approved",
-        "Nothing CMF Phone 1 buy online Pakistan",
-        "Nothing CMF Phone 1 specs Pakistan",
-        "Nothing CMF Phone 1 original Pakistan",
-        "CMF Phone One",
-        "CMF Phone One price in Pakistan",
-        "CMF Phone One PTA approved",
-        "CMF Phone One buy online Pakistan",
-        "CMF Phone One specs Pakistan",
-        "CMF Phone One original Pakistan",
-        "CMF Phone 1 PTA approved Pakistan",
-        "CMF Phone 1 official warranty Pakistan",
-        "CMF Phone 1 COD delivery Pakistan",
-        "CMF Phone 1 Nothing Pakistan",
-        "CMF Phone 1 Nothing Pakistan",
-        "nothing cmf phone 1 price pakistan",
-        "CMF Phone 1 Dimensity 7300",
-        "CMF Phone 1 AMOLED display",
-        "CMF Phone 1 5000mAh battery",
-        "CMF Phone 1 replaceable back cover",
-        "CMF Phone 1 budget phone",
-        "CMF Phone 1 price in Karachi",
-        "buy CMF Phone 1 in Karachi",
-        "CMF Phone 1 price in Lahore",
-        "buy CMF Phone 1 in Lahore",
-        "CMF Phone 1 price in Islamabad",
-        "buy CMF Phone 1 in Islamabad",
-        "CMF Phone 1 price in Rawalpindi",
-        "buy CMF Phone 1 in Rawalpindi",
-        "CMF Phone 1 price in Faisalabad",
-        "buy CMF Phone 1 in Faisalabad",
-        "CMF Phone 1 price in Multan",
-        "buy CMF Phone 1 in Multan",
-        "CMF Phone 1 price in Peshawar",
-        "buy CMF Phone 1 in Peshawar",
-        "cmf phone 1 pakistan",
-        "cmf phone 1 pakistan mein",
-        "Nothing Phone price in Pakistan",
-        "Nothing mobile price in Pakistan",
-        "CMF Phone price in Pakistan",
-        "Nothing Phone PTA approved",
-        "Nothing Phone official warranty Pakistan",
-        "Nothing Phone specs Pakistan",
-        "buy Nothing Phone online Pakistan"
-      ],
-      "description": "Buy CMF Phone 1 in Pakistan with updated price, PTA details, specs, Dimensity 7300, COD delivery, and WhatsApp support. Price: Rs 59,900.",
-      "additionalProperty": [
-        {
-          "name": "Product type",
-          "@type": "PropertyValue",
-          "value": "Nothing phone model"
-        },
-        {
-          "name": "Accessory support",
-          "@type": "PropertyValue",
-          "value": "Chargers, protectors, earbuds, and compatible accessories"
-        },
-        {
-          "name": "Pakistan buying intent",
-          "@type": "PropertyValue",
-          "value": "Price, PTA approval, COD delivery, specs, warranty, and availability"
-        },
-        {
-          "name": "Search feature",
-          "@type": "PropertyValue",
-          "value": "Dimensity 7300"
-        },
-        {
-          "name": "Search feature",
-          "@type": "PropertyValue",
-          "value": "AMOLED display"
-        },
-        {
-          "name": "Search feature",
-          "@type": "PropertyValue",
-          "value": "5000mAh battery"
-        },
-        {
-          "name": "Search feature",
-          "@type": "PropertyValue",
-          "value": "replaceable back cover"
-        },
-        {
-          "name": "Search feature",
-          "@type": "PropertyValue",
-          "value": "budget phone"
-        }
-      ]
-    },
-    "seo_description_long": "CMF Phone 1 is part of the Nothing Pakistan catalog for customers who want reliable Nothing and CMF products with local pricing, support, and a simple online order flow. This phone page helps Pakistani buyers understand the model, price context, compatible accessories, protection options, and ordering route from one place. CMF Phone 1 is currently listed at Rs 59,900 on Nothing Pakistan, while final availability can still depend on stock confirmation and order timing. Keyword research for this model is focused on budget CMF buyers comparing price, design, battery, PTA approval, and Pakistan delivery. The most important query clusters are cmf phone 1 price in pakistan, nothing cmf phone 1 price pakistan, cmf phone 1 buy online pakistan, cmf phone 1 pta approved. Supporting modifiers include Dimensity 7300, AMOLED display, 5000mAh battery, replaceable back cover, budget phone, PTA approved.\n\nWhen people search for CMF Phone 1 in Pakistan, they usually want three things: a trusted seller, clear product information, and confidence that the item will match their device or daily use case. This page is optimized to answer those questions directly. It includes product naming, price context, compatibility signals, delivery expectations, and support routes so the buyer does not need to jump across multiple websites before making a decision.\n\nFor search intent, this product targets phrases such as CMF Phone 1 price in Pakistan, buy CMF Phone 1 online Pakistan, original CMF Phone 1 Pakistan, Nothing accessories Pakistan, and CMF products Pakistan. It also supports regional searches from Lahore, Karachi, Islamabad, Rawalpindi, Faisalabad, Multan, Peshawar, Quetta, Sialkot, and other cities where buyers commonly look for mobile accessories and Nothing products online.\n\nThe main buying advantage is convenience. Customers can review the product page, compare related products, check the visible price, and use the order or WhatsApp route for confirmation. Nothing Pakistan also highlights helpful trust signals such as cash on delivery, free delivery where applicable, seven day return guidance, product support, and original product sourcing. These details help both shoppers and search engines understand that the page is focused on transactional buying intent, not only product browsing.\n\nFor AEO and voice-search coverage, this page should answer direct questions naturally. Buyers may ask: What is the price of CMF Phone 1 in Pakistan? Is CMF Phone 1 original? Where can I buy CMF Phone 1 online? Does Nothing Pakistan deliver CMF Phone 1 to my city? Which accessory is compatible with my Nothing phone? The content, FAQ schema, product schema, and internal links should make those answers easy for Google, AI search systems, and users to understand.\n\nThe product image should use descriptive alt text such as \"CMF Phone 1 original product in Pakistan\" so image search and accessibility tools can understand the page. The canonical URL should point to the live product URL on www.cmfbynothing.pk to avoid duplicate content. The meta title and description should stay concise, readable, and focused on Pakistan purchase intent.\n\nInternal linking should connect CMF Phone 1 to relevant collections such as Shop All, Audio, Chargers, Protectors, Accessories, CMF, or Phones depending on the product type. Related product cards should also link to complementary accessories, for example chargers with phones, protectors with phone models, and earbuds with audio collections. This structure helps crawl depth, improves topical authority, and gives customers a smoother shopping path.\n\nOverall, CMF Phone 1 should be positioned as a trusted local option for Nothing Pakistan shoppers who care about original products, current pricing, simple checkout, and support before and after purchase. The page should keep the language clear, avoid overstuffed keywords, and use helpful product information to match both commercial and informational search intent.",
-    "image_alt_text": "CMF Phone 1 original phone in Pakistan from Nothing Pakistan"
+    "seo_description_long": "Phone (3a) is positioned for high-intent Pakistan searches around Nothing phone price, PTA status, original stock, delivery, and local support. The listing keeps PKR 152,999 visible while encouraging final stock and variant confirmation before checkout.\n\nBuyers comparing Nothing phones in Karachi, Lahore, Islamabad, Rawalpindi, Faisalabad, Multan, and other cities can use this page to review specs, product media, compatibility, warranty or support guidance, and order routes.\n\nNothing Pakistan writes this page for practical mobile buying questions: whether the device is authentic, how delivery works, what support is available, which accessories are compatible, and how stock is confirmed.",
+    "image_alt_text": "Phone (3a) original Nothing phone in Pakistan from Nothing Pakistan"
   },
   {
     "id": 13,
     "name": "Phone (2a) Plus",
     "slug": "nothing-pakistan-phone-2a-plus",
-    "description": "Phone (2a) Plus is designed for users who want strong performance, extended battery life, and reliable mobile photography. The device features a powerful 2-day battery that keeps up with everyday usage without frequent charging. With up to 20GB RAM support, it delivers smooth multitasking and responsive performance for apps, gaming, and entertainment. The dual 50 MP camera system allows users to capture detailed photos and clear videos. Powered by Nothing OS, Phone (2a) Plus provides a clean, fast, and modern smartphone experience.",
-    "meta_title": "Nothing Phone 2a Plus Price in Pakistan | PTA Approved",
-    "meta_description": "Buy Phone (2a) Plus in Pakistan with updated price, PTA details, specs, Dimensity 7350 Pro, COD delivery, and WhatsApp support. Price: Rs 142,900.",
+    "description": "<ul class=\"np-feature-list\" aria-label=\"Phone (2a) Plus highlights\"><li class=\"np-feature\"><img src=\"https://res.cloudinary.com/dklsubnzb/raw/upload/nothing-official-store-pakistan/icons/product-detail/battery.svg\" alt=\"\" loading=\"lazy\" width=\"16\" height=\"16\" /> <span>2-day battery</span></li><li class=\"np-feature\"><img src=\"https://res.cloudinary.com/dklsubnzb/raw/upload/nothing-official-store-pakistan/icons/product-detail/ram.svg\" alt=\"\" loading=\"lazy\" width=\"16\" height=\"16\" /> <span>20 gb ram</span></li><li class=\"np-feature\"><img src=\"https://res.cloudinary.com/dklsubnzb/raw/upload/nothing-official-store-pakistan/icons/product-detail/camera.svg\" alt=\"\" loading=\"lazy\" width=\"16\" height=\"16\" /> <span>Dual 50 MP camera</span></li></ul>",
+    "meta_title": "Phone (2a) Plus Price in Pakistan | Nothing Pakistan",
+    "meta_description": "Check Phone (2a) Plus price in Pakistan. Price: PKR 142,899. Review PTA status, specifications, stock, delivery, and ordering support.",
     "release_date": null,
-    "created_at": "2026-03-14T00:30:46.418187",
-    "updated_at": "2026-05-05T23:01:42.013139",
-    "Price": 142900,
+    "created_at": "2026-03-14 00:30:46.418187",
+    "updated_at": "2026-06-06 13:56:18.233796",
+    "Price": 142899,
     "pta_tax": null,
     "non_pta_price": null,
     "piority": 1011,
-    "seo_keywords": "Phone (2a) Plus, Phone (2a) Plus price in Pakistan, Phone (2a) Plus PTA approved, Phone (2a) Plus buy online Pakistan, Phone (2a) Plus specs Pakistan, Phone (2a) Plus original Pakistan, Nothing Phone 2a Plus, Nothing Phone 2a Plus price in Pakistan, Nothing Phone 2a Plus PTA approved, Nothing Phone 2a Plus buy online Pakistan, Nothing Phone 2a Plus specs Pakistan, Nothing Phone 2a Plus original Pakistan, Nothing 2a Plus, Nothing 2a Plus price in Pakistan, Nothing 2a Plus PTA approved, Nothing 2a Plus buy online Pakistan, Nothing 2a Plus specs Pakistan, Nothing 2a Plus original Pakistan, Phone (2a) Plus PTA approved Pakistan, Phone (2a) Plus official warranty Pakistan, Phone (2a) Plus COD delivery Pakistan, Phone (2a) Plus Nothing Pakistan, Phone (2a) Plus Nothing Pakistan, phone 2a plus price pakistan, nothing phone 2a plus buy online, Phone (2a) Plus Dimensity 7350 Pro, Phone (2a) Plus 50MP front camera, Phone (2a) Plus AMOLED 120Hz, Phone (2a) Plus fast charging, Phone (2a) Plus Nothing OS, Phone (2a) Plus price in Karachi, buy Phone (2a) Plus in Karachi, Phone (2a) Plus price in Lahore, buy Phone (2a) Plus in Lahore, Phone (2a) Plus price in Islamabad, buy Phone (2a) Plus in Islamabad, Phone (2a) Plus price in Rawalpindi, buy Phone (2a) Plus in Rawalpindi, Phone (2a) Plus price in Faisalabad, buy Phone (2a) Plus in Faisalabad, Phone (2a) Plus price in Multan, buy Phone (2a) Plus in Multan, Phone (2a) Plus price in Peshawar, buy Phone (2a) Plus in Peshawar, phone (2a) plus pakistan, phone (2a) plus pakistan mein, Nothing Phone price in Pakistan, Nothing mobile price in Pakistan, CMF Phone price in Pakistan, Nothing Phone PTA approved, Nothing Phone official warranty Pakistan, Nothing Phone specs Pakistan",
+    "seo_keywords": "Phone (2a) Plus, Phone (2a) Plus price in Pakistan, Phone (2a) Plus PTA approved Pakistan, buy Phone (2a) Plus online Pakistan, original Phone (2a) Plus Pakistan, Nothing phone Pakistan, Nothing Pakistan, Nothing Pakistan",
     "canonical_url": "https://www.cmfbynothing.pk/products/nothing-pakistan-phone-2a-plus",
     "schema_json": {
       "sku": "phone-2a-plus",
@@ -1405,12 +577,12 @@
         "@type": "Brand"
       },
       "image": [
-        "https://cdn.cmfbynothing.pk/mobiles/phone-2a-plus-grey.webp"
+        "https://res.cloudinary.com/dklsubnzb/image/upload/nothing-official-store-pakistan/mobiles/phone-2a-plus/image/phone-2a-plus-schema-jsonimage0-phone-2a-plus-grey.webp"
       ],
       "offers": {
         "url": "https://www.cmfbynothing.pk/products/nothing-pakistan-phone-2a-plus",
         "@type": "Offer",
-        "price": 142900,
+        "price": 142899,
         "availability": "https://schema.org/InStock",
         "priceCurrency": "PKR"
       },
@@ -1470,7 +642,7 @@
         "Nothing Phone official warranty Pakistan",
         "Nothing Phone specs Pakistan"
       ],
-      "description": "Buy Phone (2a) Plus in Pakistan with updated price, PTA details, specs, Dimensity 7350 Pro, COD delivery, and WhatsApp support. Price: Rs 142,900.",
+      "description": "Check Phone (2a) Plus price in Pakistan. Price: PKR 142,899. Review PTA status, specifications, stock, delivery, and ordering support.",
       "additionalProperty": [
         {
           "name": "Product type",
@@ -1514,24 +686,852 @@
         }
       ]
     },
-    "seo_description_long": "Phone (2a) Plus is part of the Nothing Pakistan catalog for customers who want reliable Nothing and CMF products with local pricing, support, and a simple online order flow. This phone page helps Pakistani buyers understand the model, price context, compatible accessories, protection options, and ordering route from one place. Phone (2a) Plus is currently listed at Rs 142,900 on Nothing Pakistan, while final availability can still depend on stock confirmation and order timing. Keyword research for this model is focused on buyers comparing Phone 2a Plus performance, selfie camera, charging, and local Pakistan pricing. The most important query clusters are nothing phone 2a plus price in pakistan, phone 2a plus price pakistan, nothing phone 2a plus buy online, nothing 2a plus pta approved. Supporting modifiers include Dimensity 7350 Pro, 50MP front camera, AMOLED 120Hz, fast charging, Nothing OS, PTA approved.\n\nWhen people search for Phone (2a) Plus in Pakistan, they usually want three things: a trusted seller, clear product information, and confidence that the item will match their device or daily use case. This page is optimized to answer those questions directly. It includes product naming, price context, compatibility signals, delivery expectations, and support routes so the buyer does not need to jump across multiple websites before making a decision.\n\nFor search intent, this product targets phrases such as Phone (2a) Plus price in Pakistan, buy Phone (2a) Plus online Pakistan, original Phone (2a) Plus Pakistan, Nothing accessories Pakistan, and CMF products Pakistan. It also supports regional searches from Lahore, Karachi, Islamabad, Rawalpindi, Faisalabad, Multan, Peshawar, Quetta, Sialkot, and other cities where buyers commonly look for mobile accessories and Nothing products online.\n\nThe main buying advantage is convenience. Customers can review the product page, compare related products, check the visible price, and use the order or WhatsApp route for confirmation. Nothing Pakistan also highlights helpful trust signals such as cash on delivery, free delivery where applicable, seven day return guidance, product support, and original product sourcing. These details help both shoppers and search engines understand that the page is focused on transactional buying intent, not only product browsing.\n\nFor AEO and voice-search coverage, this page should answer direct questions naturally. Buyers may ask: What is the price of Phone (2a) Plus in Pakistan? Is Phone (2a) Plus original? Where can I buy Phone (2a) Plus online? Does Nothing Pakistan deliver Phone (2a) Plus to my city? Which accessory is compatible with my Nothing phone? The content, FAQ schema, product schema, and internal links should make those answers easy for Google, AI search systems, and users to understand.\n\nThe product image should use descriptive alt text such as \"Phone (2a) Plus original product in Pakistan\" so image search and accessibility tools can understand the page. The canonical URL should point to the live product URL on www.cmfbynothing.pk to avoid duplicate content. The meta title and description should stay concise, readable, and focused on Pakistan purchase intent.\n\nInternal linking should connect Phone (2a) Plus to relevant collections such as Shop All, Audio, Chargers, Protectors, Accessories, CMF, or Phones depending on the product type. Related product cards should also link to complementary accessories, for example chargers with phones, protectors with phone models, and earbuds with audio collections. This structure helps crawl depth, improves topical authority, and gives customers a smoother shopping path.\n\nOverall, Phone (2a) Plus should be positioned as a trusted local option for Nothing Pakistan shoppers who care about original products, current pricing, simple checkout, and support before and after purchase. The page should keep the language clear, avoid overstuffed keywords, and use helpful product information to match both commercial and informational search intent.",
-    "image_alt_text": "Phone (2a) Plus original phone in Pakistan from Nothing Pakistan"
+    "seo_description_long": "Phone (2a) Plus is positioned for high-intent Pakistan searches around Nothing phone price, PTA status, original stock, delivery, and local support. The listing keeps PKR 142,899 visible while encouraging final stock and variant confirmation before checkout.\n\nBuyers comparing Nothing phones in Karachi, Lahore, Islamabad, Rawalpindi, Faisalabad, Multan, and other cities can use this page to review specs, product media, compatibility, warranty or support guidance, and order routes.\n\nNothing Pakistan writes this page for practical mobile buying questions: whether the device is authentic, how delivery works, what support is available, which accessories are compatible, and how stock is confirmed.",
+    "image_alt_text": "Phone (2a) Plus original Nothing phone in Pakistan from Nothing Pakistan"
+  },
+  {
+    "id": 3,
+    "name": "Phone (4a) Pro",
+    "slug": "nothing-pakistan-nothing-4a-pro",
+    "description": "<ul class=\"np-feature-list\" aria-label=\"Nothing 4a Pro highlights\"><li class=\"np-feature\"><img src=\"https://res.cloudinary.com/dklsubnzb/raw/upload/nothing-official-store-pakistan/icons/product-detail/worlds-first-140x-ultra-zoom.svg\" alt=\"\" loading=\"lazy\" width=\"16\" height=\"16\" /> <span>World’s first 140x ultra zoom*</span></li><li class=\"np-feature\"><img src=\"https://res.cloudinary.com/dklsubnzb/raw/upload/nothing-official-store-pakistan/icons/product-detail/sony-sensor-camera-system.svg\" alt=\"\" loading=\"lazy\" width=\"16\" height=\"16\" /> <span>3 camera system with Sony sensor</span></li><li class=\"np-feature\"><img src=\"https://res.cloudinary.com/dklsubnzb/raw/upload/nothing-official-store-pakistan/icons/product-detail/nothing-os-essential-ai-tools.svg\" alt=\"\" loading=\"lazy\" width=\"16\" height=\"16\" /> <span>Nothing OS with Essential AI tools</span></li></ul>",
+    "meta_title": "Phone (4a) Pro Price in Pakistan | Nothing Pakistan",
+    "meta_description": "Check Phone (4a) Pro price in Pakistan. Price: PKR 243,999. Review PTA status, specifications, stock, delivery, and ordering support.",
+    "release_date": null,
+    "created_at": "2026-03-13 19:49:10.32805",
+    "updated_at": "2026-06-06 13:56:14.511759",
+    "Price": 243999,
+    "pta_tax": null,
+    "non_pta_price": null,
+    "piority": 1001,
+    "seo_keywords": "Phone (4a) Pro, Phone (4a) Pro price in Pakistan, Phone (4a) Pro PTA approved Pakistan, buy Phone (4a) Pro online Pakistan, original Phone (4a) Pro Pakistan, Nothing phone Pakistan, Nothing Pakistan, Nothing Pakistan",
+    "canonical_url": "https://www.cmfbynothing.pk/products/nothing-pakistan-nothing-4a-pro",
+    "schema_json": {
+      "sku": "nothing-4a-pro",
+      "url": "https://www.cmfbynothing.pk/products/nothing-pakistan-nothing-4a-pro",
+      "name": "Phone (4a) Pro",
+      "@type": "Product",
+      "brand": {
+        "name": "Nothing",
+        "@type": "Brand"
+      },
+      "image": [
+        "https://res.cloudinary.com/dklsubnzb/image/upload/nothing-official-store-pakistan/mobiles/nothing-4a-pro/image/nothing-4a-pro-schema-jsonimage0-nothing-4a-pro-silver.webp"
+      ],
+      "offers": {
+        "url": "https://www.cmfbynothing.pk/products/nothing-pakistan-nothing-4a-pro",
+        "@type": "Offer",
+        "price": 177799,
+        "availability": "https://schema.org/InStock",
+        "priceCurrency": "PKR"
+      },
+      "@context": "https://schema.org",
+      "category": "Phone",
+      "keywords": [
+        "Nothing 4a Pro",
+        "Nothing 4a Pro price in Pakistan",
+        "Nothing 4a Pro PTA approved",
+        "Nothing 4a Pro buy online Pakistan",
+        "Nothing 4a Pro specs Pakistan",
+        "Nothing 4a Pro original Pakistan",
+        "Nothing Phone 4a Pro",
+        "Nothing Phone 4a Pro price in Pakistan",
+        "Nothing Phone 4a Pro PTA approved",
+        "Nothing Phone 4a Pro buy online Pakistan",
+        "Nothing Phone 4a Pro specs Pakistan",
+        "Nothing Phone 4a Pro original Pakistan",
+        "Phone (4a) Pro",
+        "Phone (4a) Pro price in Pakistan",
+        "Phone (4a) Pro PTA approved",
+        "Phone (4a) Pro buy online Pakistan",
+        "Phone (4a) Pro specs Pakistan",
+        "Phone (4a) Pro original Pakistan",
+        "Nothing 4a Pro PTA approved Pakistan",
+        "Nothing 4a Pro official warranty Pakistan",
+        "Nothing 4a Pro COD delivery Pakistan",
+        "Nothing 4a Pro Nothing Pakistan",
+        "Nothing 4a Pro Nothing Pakistan",
+        "nothing phone 4a pro price pakistan",
+        "nothing 4a pro buy online",
+        "Nothing 4a Pro 12GB 256GB",
+        "Nothing 4a Pro AMOLED display",
+        "Nothing 4a Pro Nothing OS",
+        "Nothing 4a Pro transparent design",
+        "Nothing 4a Pro pink silver black",
+        "Nothing 4a Pro price in Karachi",
+        "buy Nothing 4a Pro in Karachi",
+        "Nothing 4a Pro price in Lahore",
+        "buy Nothing 4a Pro in Lahore",
+        "Nothing 4a Pro price in Islamabad",
+        "buy Nothing 4a Pro in Islamabad",
+        "Nothing 4a Pro price in Rawalpindi",
+        "buy Nothing 4a Pro in Rawalpindi",
+        "Nothing 4a Pro price in Faisalabad",
+        "buy Nothing 4a Pro in Faisalabad",
+        "Nothing 4a Pro price in Multan",
+        "buy Nothing 4a Pro in Multan",
+        "Nothing 4a Pro price in Peshawar",
+        "buy Nothing 4a Pro in Peshawar",
+        "nothing 4a pro pakistan",
+        "nothing 4a pro pakistan mein",
+        "Nothing Phone price in Pakistan",
+        "Nothing mobile price in Pakistan",
+        "CMF Phone price in Pakistan",
+        "Nothing Phone PTA approved",
+        "Nothing Phone official warranty Pakistan",
+        "Nothing Phone specs Pakistan"
+      ],
+      "description": "Check Phone (4a) Pro price in Pakistan. Price: PKR 243,999. Review PTA status, specifications, stock, delivery, and ordering support.",
+      "additionalProperty": [
+        {
+          "name": "Product type",
+          "@type": "PropertyValue",
+          "value": "Nothing phone model"
+        },
+        {
+          "name": "Accessory support",
+          "@type": "PropertyValue",
+          "value": "Chargers, protectors, earbuds, and compatible accessories"
+        },
+        {
+          "name": "Pakistan buying intent",
+          "@type": "PropertyValue",
+          "value": "Price, PTA approval, COD delivery, specs, warranty, and availability"
+        },
+        {
+          "name": "Search feature",
+          "@type": "PropertyValue",
+          "value": "PTA approved"
+        },
+        {
+          "name": "Search feature",
+          "@type": "PropertyValue",
+          "value": "12GB 256GB"
+        },
+        {
+          "name": "Search feature",
+          "@type": "PropertyValue",
+          "value": "AMOLED display"
+        },
+        {
+          "name": "Search feature",
+          "@type": "PropertyValue",
+          "value": "Nothing OS"
+        },
+        {
+          "name": "Search feature",
+          "@type": "PropertyValue",
+          "value": "transparent design"
+        }
+      ]
+    },
+    "seo_description_long": "Phone (4a) Pro is positioned for high-intent Pakistan searches around Nothing phone price, PTA status, original stock, delivery, and local support. The listing keeps PKR 243,999 visible while encouraging final stock and variant confirmation before checkout.\n\nBuyers comparing Nothing phones in Karachi, Lahore, Islamabad, Rawalpindi, Faisalabad, Multan, and other cities can use this page to review specs, product media, compatibility, warranty or support guidance, and order routes.\n\nNothing Pakistan writes this page for practical mobile buying questions: whether the device is authentic, how delivery works, what support is available, which accessories are compatible, and how stock is confirmed.",
+    "image_alt_text": "Phone (4a) Pro original Nothing phone in Pakistan from Nothing Pakistan"
+  },
+  {
+    "id": 9,
+    "name": "Phone (3a) Community Edition",
+    "slug": "nothing-pakistan-phone-3a-community-edition",
+    "description": "<ul class=\"np-feature-list\" aria-label=\"Phone (3a) Community Edition highlights\"><li class=\"np-feature\"><img src=\"https://res.cloudinary.com/dklsubnzb/raw/upload/nothing-official-store-pakistan/icons/product-detail/interface.svg\" alt=\"\" loading=\"lazy\" width=\"16\" height=\"16\" /> <span>A collaborative celebration of community and creativity.</span></li></ul>",
+    "meta_title": "Phone (3a) Community Edition Price in Pakistan | Nothing",
+    "meta_description": "Check Phone (3a) Community Edition price in Pakistan. Price: PKR 159,999. Review PTA status, specifications, stock, delivery, and ordering support.",
+    "release_date": null,
+    "created_at": "2026-03-13 20:03:23.74685",
+    "updated_at": "2026-06-06 13:56:16.769876",
+    "Price": 159999,
+    "pta_tax": null,
+    "non_pta_price": null,
+    "piority": 1007,
+    "seo_keywords": "Phone (3a) Community Edition, Phone (3a) Community Edition price in Pakistan, Phone (3a) Community Edition PTA approved Pakistan, buy Phone (3a) Community Edition online Pakistan, original Phone (3a) Community Edition Pakistan, Nothing phone Pakistan, Nothing Pakistan, Nothing Pakistan",
+    "canonical_url": "https://www.cmfbynothing.pk/products/nothing-pakistan-phone-3a-community-edition",
+    "schema_json": {
+      "sku": "phone-3a-community-edition",
+      "url": "https://www.cmfbynothing.pk/products/nothing-pakistan-phone-3a-community-edition",
+      "name": "Phone (3a) Community Edition",
+      "@type": "Product",
+      "brand": {
+        "name": "Nothing",
+        "@type": "Brand"
+      },
+      "image": [
+        "https://res.cloudinary.com/dklsubnzb/image/upload/nothing-official-store-pakistan/mobiles/phone-3a-community-edition/image/phone-3a-community-edition-schema-jsonimage0-phone-3a-community-edition-green.webp"
+      ],
+      "offers": {
+        "url": "https://www.cmfbynothing.pk/products/nothing-pakistan-phone-3a-community-edition",
+        "@type": "Offer",
+        "price": 139999,
+        "availability": "https://schema.org/InStock",
+        "priceCurrency": "PKR"
+      },
+      "@context": "https://schema.org",
+      "category": "Phone",
+      "keywords": [
+        "Phone (3a) Community Edition",
+        "Phone (3a) Community Edition price in Pakistan",
+        "Phone (3a) Community Edition PTA approved",
+        "Phone (3a) Community Edition buy online Pakistan",
+        "Phone (3a) Community Edition specs Pakistan",
+        "Phone (3a) Community Edition original Pakistan",
+        "Nothing Phone 3a Community Edition",
+        "Nothing Phone 3a Community Edition price in Pakistan",
+        "Nothing Phone 3a Community Edition PTA approved",
+        "Nothing Phone 3a Community Edition buy online Pakistan",
+        "Nothing Phone 3a Community Edition specs Pakistan",
+        "Nothing Phone 3a Community Edition original Pakistan",
+        "Nothing 3a Community Edition",
+        "Nothing 3a Community Edition price in Pakistan",
+        "Nothing 3a Community Edition PTA approved",
+        "Nothing 3a Community Edition buy online Pakistan",
+        "Nothing 3a Community Edition specs Pakistan",
+        "Nothing 3a Community Edition original Pakistan",
+        "Phone (3a) Community Edition PTA approved Pakistan",
+        "Phone (3a) Community Edition official warranty Pakistan",
+        "Phone (3a) Community Edition COD delivery Pakistan",
+        "Phone (3a) Community Edition Nothing Pakistan",
+        "Phone (3a) Community Edition Nothing Pakistan",
+        "nothing phone 3a community edition price pakistan",
+        "phone 3a community edition pakistan",
+        "nothing community edition buy online",
+        "nothing phone 3a community edition pta",
+        "Phone (3a) Community Edition limited edition",
+        "Phone (3a) Community Edition community edition",
+        "Phone (3a) Community Edition Nothing OS",
+        "Phone (3a) Community Edition AMOLED display",
+        "Phone (3a) Community Edition collector model",
+        "Phone (3a) Community Edition price in Karachi",
+        "buy Phone (3a) Community Edition in Karachi",
+        "Phone (3a) Community Edition price in Lahore",
+        "buy Phone (3a) Community Edition in Lahore",
+        "Phone (3a) Community Edition price in Islamabad",
+        "buy Phone (3a) Community Edition in Islamabad",
+        "Phone (3a) Community Edition price in Rawalpindi",
+        "buy Phone (3a) Community Edition in Rawalpindi",
+        "Phone (3a) Community Edition price in Faisalabad",
+        "buy Phone (3a) Community Edition in Faisalabad",
+        "Phone (3a) Community Edition price in Multan",
+        "buy Phone (3a) Community Edition in Multan",
+        "Phone (3a) Community Edition price in Peshawar",
+        "buy Phone (3a) Community Edition in Peshawar",
+        "phone (3a) community edition pakistan",
+        "phone (3a) community edition pakistan mein",
+        "Nothing Phone price in Pakistan",
+        "Nothing mobile price in Pakistan",
+        "CMF Phone price in Pakistan",
+        "Nothing Phone PTA approved"
+      ],
+      "description": "Check Phone (3a) Community Edition price in Pakistan. Price: PKR 159,999. Review PTA status, specifications, stock, delivery, and ordering support.",
+      "additionalProperty": [
+        {
+          "name": "Product type",
+          "@type": "PropertyValue",
+          "value": "Nothing phone model"
+        },
+        {
+          "name": "Accessory support",
+          "@type": "PropertyValue",
+          "value": "Chargers, protectors, earbuds, and compatible accessories"
+        },
+        {
+          "name": "Pakistan buying intent",
+          "@type": "PropertyValue",
+          "value": "Price, PTA approval, COD delivery, specs, warranty, and availability"
+        },
+        {
+          "name": "Search feature",
+          "@type": "PropertyValue",
+          "value": "limited edition"
+        },
+        {
+          "name": "Search feature",
+          "@type": "PropertyValue",
+          "value": "community edition"
+        },
+        {
+          "name": "Search feature",
+          "@type": "PropertyValue",
+          "value": "Nothing OS"
+        },
+        {
+          "name": "Search feature",
+          "@type": "PropertyValue",
+          "value": "AMOLED display"
+        },
+        {
+          "name": "Search feature",
+          "@type": "PropertyValue",
+          "value": "PTA approved"
+        }
+      ]
+    },
+    "seo_description_long": "Phone (3a) Community Edition is positioned for high-intent Pakistan searches around Nothing phone price, PTA status, original stock, delivery, and local support. The listing keeps PKR 159,999 visible while encouraging final stock and variant confirmation before checkout.\n\nBuyers comparing Nothing phones in Karachi, Lahore, Islamabad, Rawalpindi, Faisalabad, Multan, and other cities can use this page to review specs, product media, compatibility, warranty or support guidance, and order routes.\n\nNothing Pakistan writes this page for practical mobile buying questions: whether the device is authentic, how delivery works, what support is available, which accessories are compatible, and how stock is confirmed.",
+    "image_alt_text": "Phone (3a) Community Edition original Nothing phone in Pakistan from Nothing Pakistan"
+  },
+  {
+    "id": 11,
+    "name": "Phone (2a)",
+    "slug": "nothing-pakistan-phone-2a",
+    "description": "<ul class=\"np-feature-list\" aria-label=\"Phone (2a) highlights\"><li class=\"np-feature\"><img src=\"https://res.cloudinary.com/dklsubnzb/raw/upload/nothing-official-store-pakistan/icons/product-detail/battery.svg\" alt=\"\" loading=\"lazy\" width=\"16\" height=\"16\" /> <span>2-day battery</span></li><li class=\"np-feature\"><img src=\"https://res.cloudinary.com/dklsubnzb/raw/upload/nothing-official-store-pakistan/icons/product-detail/ram.svg\" alt=\"\" loading=\"lazy\" width=\"16\" height=\"16\" /> <span>20 gb ram</span></li><li class=\"np-feature\"><img src=\"https://res.cloudinary.com/dklsubnzb/raw/upload/nothing-official-store-pakistan/icons/product-detail/camera.svg\" alt=\"\" loading=\"lazy\" width=\"16\" height=\"16\" /> <span>Dual 50 MP camera</span></li></ul>",
+    "meta_title": "Phone (2a) Price in Pakistan | Nothing Pakistan",
+    "meta_description": "Check Phone (2a) price in Pakistan. Price: PKR 115,999. Review PTA status, specifications, stock, delivery, and ordering support.",
+    "release_date": null,
+    "created_at": "2026-03-14 00:26:11.50369",
+    "updated_at": "2026-06-06 13:56:17.584464",
+    "Price": 115999,
+    "pta_tax": null,
+    "non_pta_price": null,
+    "piority": 1009,
+    "seo_keywords": "Phone (2a), Phone (2a) price in Pakistan, Phone (2a) PTA approved Pakistan, buy Phone (2a) online Pakistan, original Phone (2a) Pakistan, Nothing phone Pakistan, Nothing Pakistan, Nothing Pakistan",
+    "canonical_url": "https://www.cmfbynothing.pk/products/nothing-pakistan-phone-2a",
+    "schema_json": {
+      "sku": "phone-2a",
+      "url": "https://www.cmfbynothing.pk/products/nothing-pakistan-phone-2a",
+      "name": "Phone (2a)",
+      "@type": "Product",
+      "brand": {
+        "name": "Nothing",
+        "@type": "Brand"
+      },
+      "image": [
+        "https://res.cloudinary.com/dklsubnzb/image/upload/nothing-official-store-pakistan/mobiles/phone-2a/image/phone-2a-schema-jsonimage0-phone-2a-milk.webp"
+      ],
+      "offers": {
+        "url": "https://www.cmfbynothing.pk/products/nothing-pakistan-phone-2a",
+        "@type": "Offer",
+        "price": 107899,
+        "availability": "https://schema.org/InStock",
+        "priceCurrency": "PKR"
+      },
+      "@context": "https://schema.org",
+      "category": "Phone",
+      "keywords": [
+        "Phone (2a)",
+        "Phone (2a) price in Pakistan",
+        "Phone (2a) PTA approved",
+        "Phone (2a) buy online Pakistan",
+        "Phone (2a) specs Pakistan",
+        "Phone (2a) original Pakistan",
+        "Nothing Phone 2a",
+        "Nothing Phone 2a price in Pakistan",
+        "Nothing Phone 2a PTA approved",
+        "Nothing Phone 2a buy online Pakistan",
+        "Nothing Phone 2a specs Pakistan",
+        "Nothing Phone 2a original Pakistan",
+        "Nothing 2a",
+        "Nothing 2a price in Pakistan",
+        "Nothing 2a PTA approved",
+        "Nothing 2a buy online Pakistan",
+        "Nothing 2a specs Pakistan",
+        "Nothing 2a original Pakistan",
+        "Phone (2a) PTA approved Pakistan",
+        "Phone (2a) official warranty Pakistan",
+        "Phone (2a) COD delivery Pakistan",
+        "Phone (2a) Nothing Pakistan",
+        "Phone (2a) Nothing Pakistan",
+        "phone 2a price pakistan",
+        "nothing phone 2a buy online",
+        "Phone (2a) Dimensity 7200 Pro",
+        "Phone (2a) AMOLED 120Hz",
+        "Phone (2a) 50MP dual camera",
+        "Phone (2a) Nothing OS",
+        "Phone (2a) 5000mAh battery",
+        "Phone (2a) price in Karachi",
+        "buy Phone (2a) in Karachi",
+        "Phone (2a) price in Lahore",
+        "buy Phone (2a) in Lahore",
+        "Phone (2a) price in Islamabad",
+        "buy Phone (2a) in Islamabad",
+        "Phone (2a) price in Rawalpindi",
+        "buy Phone (2a) in Rawalpindi",
+        "Phone (2a) price in Faisalabad",
+        "buy Phone (2a) in Faisalabad",
+        "Phone (2a) price in Multan",
+        "buy Phone (2a) in Multan",
+        "Phone (2a) price in Peshawar",
+        "buy Phone (2a) in Peshawar",
+        "phone (2a) pakistan",
+        "phone (2a) pakistan mein",
+        "Nothing Phone price in Pakistan",
+        "Nothing mobile price in Pakistan",
+        "CMF Phone price in Pakistan",
+        "Nothing Phone PTA approved",
+        "Nothing Phone official warranty Pakistan",
+        "Nothing Phone specs Pakistan"
+      ],
+      "description": "Check Phone (2a) price in Pakistan. Price: PKR 115,999. Review PTA status, specifications, stock, delivery, and ordering support.",
+      "additionalProperty": [
+        {
+          "name": "Product type",
+          "@type": "PropertyValue",
+          "value": "Nothing phone model"
+        },
+        {
+          "name": "Accessory support",
+          "@type": "PropertyValue",
+          "value": "Chargers, protectors, earbuds, and compatible accessories"
+        },
+        {
+          "name": "Pakistan buying intent",
+          "@type": "PropertyValue",
+          "value": "Price, PTA approval, COD delivery, specs, warranty, and availability"
+        },
+        {
+          "name": "Search feature",
+          "@type": "PropertyValue",
+          "value": "Dimensity 7200 Pro"
+        },
+        {
+          "name": "Search feature",
+          "@type": "PropertyValue",
+          "value": "AMOLED 120Hz"
+        },
+        {
+          "name": "Search feature",
+          "@type": "PropertyValue",
+          "value": "50MP dual camera"
+        },
+        {
+          "name": "Search feature",
+          "@type": "PropertyValue",
+          "value": "Nothing OS"
+        },
+        {
+          "name": "Search feature",
+          "@type": "PropertyValue",
+          "value": "5000mAh battery"
+        }
+      ]
+    },
+    "seo_description_long": "Phone (2a) is positioned for high-intent Pakistan searches around Nothing phone price, PTA status, original stock, delivery, and local support. The listing keeps PKR 115,999 visible while encouraging final stock and variant confirmation before checkout.\n\nBuyers comparing Nothing phones in Karachi, Lahore, Islamabad, Rawalpindi, Faisalabad, Multan, and other cities can use this page to review specs, product media, compatibility, warranty or support guidance, and order routes.\n\nNothing Pakistan writes this page for practical mobile buying questions: whether the device is authentic, how delivery works, what support is available, which accessories are compatible, and how stock is confirmed.",
+    "image_alt_text": "Phone (2a) original Nothing phone in Pakistan from Nothing Pakistan"
+  },
+  {
+    "id": 4,
+    "name": "Phone (4a)",
+    "slug": "nothing-pakistan-phone-4a",
+    "description": "<ul class=\"np-feature-list\" aria-label=\"Phone (4a) highlights\"><li class=\"np-feature\"><img src=\"https://res.cloudinary.com/dklsubnzb/raw/upload/nothing-official-store-pakistan/icons/product-detail/zoom.svg\" alt=\"\" loading=\"lazy\" width=\"16\" height=\"16\" /> <span>Up to 70x ultra zoom</span></li><li class=\"np-feature\"><img src=\"https://res.cloudinary.com/dklsubnzb/raw/upload/nothing-official-store-pakistan/icons/product-detail/camera.svg\" alt=\"\" loading=\"lazy\" width=\"16\" height=\"16\" /> <span>3 camera system</span></li><li class=\"np-feature\"><img src=\"https://res.cloudinary.com/dklsubnzb/raw/upload/nothing-official-store-pakistan/icons/product-detail/operating-system.svg\" alt=\"\" loading=\"lazy\" width=\"16\" height=\"16\" /> <span>Nothing OS with Essential AI tools</span></li></ul>",
+    "meta_title": "Phone (4a) Price in Pakistan | Nothing Pakistan",
+    "meta_description": "Check Phone (4a) price in Pakistan. Price: PKR 178,999. Review PTA status, specifications, stock, delivery, and ordering support.",
+    "release_date": null,
+    "created_at": "2026-03-13 19:52:45.763084",
+    "updated_at": "2026-06-06 13:56:14.850273",
+    "Price": 178999,
+    "pta_tax": null,
+    "non_pta_price": null,
+    "piority": 1002,
+    "seo_keywords": "Phone (4a), Phone (4a) price in Pakistan, Phone (4a) PTA approved Pakistan, buy Phone (4a) online Pakistan, original Phone (4a) Pakistan, Nothing phone Pakistan, Nothing Pakistan, Nothing Pakistan",
+    "canonical_url": "https://www.cmfbynothing.pk/products/nothing-pakistan-phone-4a",
+    "schema_json": {
+      "sku": "phone-4a",
+      "url": "https://www.cmfbynothing.pk/products/nothing-pakistan-phone-4a",
+      "name": "Phone (4a)",
+      "@type": "Product",
+      "brand": {
+        "name": "Nothing",
+        "@type": "Brand"
+      },
+      "image": [
+        "https://res.cloudinary.com/dklsubnzb/image/upload/nothing-official-store-pakistan/mobiles/phone-4a/image/phone-4a-schema-jsonimage0-phone-4a-white.webp"
+      ],
+      "offers": {
+        "url": "https://www.cmfbynothing.pk/products/nothing-pakistan-phone-4a",
+        "@type": "Offer",
+        "price": 111499,
+        "availability": "https://schema.org/InStock",
+        "priceCurrency": "PKR"
+      },
+      "@context": "https://schema.org",
+      "category": "Phone",
+      "keywords": [
+        "Phone (4a)",
+        "Phone (4a) price in Pakistan",
+        "Phone (4a) PTA approved",
+        "Phone (4a) buy online Pakistan",
+        "Phone (4a) specs Pakistan",
+        "Phone (4a) original Pakistan",
+        "Nothing Phone 4a",
+        "Nothing Phone 4a price in Pakistan",
+        "Nothing Phone 4a PTA approved",
+        "Nothing Phone 4a buy online Pakistan",
+        "Nothing Phone 4a specs Pakistan",
+        "Nothing Phone 4a original Pakistan",
+        "Nothing 4a",
+        "Nothing 4a price in Pakistan",
+        "Nothing 4a PTA approved",
+        "Nothing 4a buy online Pakistan",
+        "Nothing 4a specs Pakistan",
+        "Nothing 4a original Pakistan",
+        "Phone (4a) PTA approved Pakistan",
+        "Phone (4a) official warranty Pakistan",
+        "Phone (4a) COD delivery Pakistan",
+        "Phone (4a) Nothing Pakistan",
+        "Phone (4a) Nothing Pakistan",
+        "phone 4a price pakistan",
+        "nothing phone 4a buy online",
+        "Phone (4a) 8GB 128GB",
+        "Phone (4a) 3 camera system",
+        "Phone (4a) 70x ultra zoom",
+        "Phone (4a) Nothing OS",
+        "Phone (4a) blue black pink",
+        "Phone (4a) price in Karachi",
+        "buy Phone (4a) in Karachi",
+        "Phone (4a) price in Lahore",
+        "buy Phone (4a) in Lahore",
+        "Phone (4a) price in Islamabad",
+        "buy Phone (4a) in Islamabad",
+        "Phone (4a) price in Rawalpindi",
+        "buy Phone (4a) in Rawalpindi",
+        "Phone (4a) price in Faisalabad",
+        "buy Phone (4a) in Faisalabad",
+        "Phone (4a) price in Multan",
+        "buy Phone (4a) in Multan",
+        "Phone (4a) price in Peshawar",
+        "buy Phone (4a) in Peshawar",
+        "phone (4a) pakistan",
+        "phone (4a) pakistan mein",
+        "Nothing Phone price in Pakistan",
+        "Nothing mobile price in Pakistan",
+        "CMF Phone price in Pakistan",
+        "Nothing Phone PTA approved",
+        "Nothing Phone official warranty Pakistan",
+        "Nothing Phone specs Pakistan"
+      ],
+      "description": "Check Phone (4a) price in Pakistan. Price: PKR 178,999. Review PTA status, specifications, stock, delivery, and ordering support.",
+      "additionalProperty": [
+        {
+          "name": "Product type",
+          "@type": "PropertyValue",
+          "value": "Nothing phone model"
+        },
+        {
+          "name": "Accessory support",
+          "@type": "PropertyValue",
+          "value": "Chargers, protectors, earbuds, and compatible accessories"
+        },
+        {
+          "name": "Pakistan buying intent",
+          "@type": "PropertyValue",
+          "value": "Price, PTA approval, COD delivery, specs, warranty, and availability"
+        },
+        {
+          "name": "Search feature",
+          "@type": "PropertyValue",
+          "value": "8GB 128GB"
+        },
+        {
+          "name": "Search feature",
+          "@type": "PropertyValue",
+          "value": "3 camera system"
+        },
+        {
+          "name": "Search feature",
+          "@type": "PropertyValue",
+          "value": "70x ultra zoom"
+        },
+        {
+          "name": "Search feature",
+          "@type": "PropertyValue",
+          "value": "Nothing OS"
+        },
+        {
+          "name": "Search feature",
+          "@type": "PropertyValue",
+          "value": "blue black pink"
+        }
+      ]
+    },
+    "seo_description_long": "Phone (4a) is positioned for high-intent Pakistan searches around Nothing phone price, PTA status, original stock, delivery, and local support. The listing keeps PKR 178,999 visible while encouraging final stock and variant confirmation before checkout.\n\nBuyers comparing Nothing phones in Karachi, Lahore, Islamabad, Rawalpindi, Faisalabad, Multan, and other cities can use this page to review specs, product media, compatibility, warranty or support guidance, and order routes.\n\nNothing Pakistan writes this page for practical mobile buying questions: whether the device is authentic, how delivery works, what support is available, which accessories are compatible, and how stock is confirmed.",
+    "image_alt_text": "Phone (4a) original Nothing phone in Pakistan from Nothing Pakistan"
+  },
+  {
+    "id": 10,
+    "name": "CMF Phone 2 Pro",
+    "slug": "nothing-pakistan-cmf-phone-2-pro",
+    "description": "<ul class=\"np-feature-list\" aria-label=\"CMF Phone 2 Pro highlights\"><li class=\"np-feature\"><img src=\"https://res.cloudinary.com/dklsubnzb/raw/upload/nothing-official-store-pakistan/icons/product-detail/battery.svg\" alt=\"\" loading=\"lazy\" width=\"16\" height=\"16\" /> <span>5000 mAh battery</span></li><li class=\"np-feature\"><img src=\"https://res.cloudinary.com/dklsubnzb/raw/upload/nothing-official-store-pakistan/icons/product-detail/ram.svg\" alt=\"\" loading=\"lazy\" width=\"16\" height=\"16\" /> <span>8 gb ram</span></li><li class=\"np-feature\"><img src=\"https://res.cloudinary.com/dklsubnzb/raw/upload/nothing-official-store-pakistan/icons/product-detail/camera.svg\" alt=\"\" loading=\"lazy\" width=\"16\" height=\"16\" /> <span>Four-camera system</span></li></ul>",
+    "meta_title": "CMF Phone 2 Pro Price in Pakistan | Nothing Pakistan",
+    "meta_description": "Check CMF Phone 2 Pro price in Pakistan. Price: PKR 101,999. Review PTA status, specifications, stock, delivery, and ordering support.",
+    "release_date": null,
+    "created_at": "2026-03-13 20:05:20.403407",
+    "updated_at": "2026-06-06 13:56:17.093033",
+    "Price": 101999,
+    "pta_tax": null,
+    "non_pta_price": null,
+    "piority": 1008,
+    "seo_keywords": "CMF Phone 2 Pro, CMF Phone 2 Pro price in Pakistan, CMF Phone 2 Pro PTA approved Pakistan, buy CMF Phone 2 Pro online Pakistan, original CMF Phone 2 Pro Pakistan, Nothing phone Pakistan, Nothing Pakistan, Nothing Pakistan",
+    "canonical_url": "https://www.cmfbynothing.pk/products/nothing-pakistan-cmf-phone-2-pro",
+    "schema_json": {
+      "sku": "cmf-phone-2-pro",
+      "url": "https://www.cmfbynothing.pk/products/nothing-pakistan-cmf-phone-2-pro",
+      "name": "CMF Phone 2 Pro",
+      "@type": "Product",
+      "brand": {
+        "name": "CMF by Nothing",
+        "@type": "Brand"
+      },
+      "image": [
+        "https://res.cloudinary.com/dklsubnzb/image/upload/nothing-official-store-pakistan/mobiles/cmf-phone-2-pro/image/cmf-phone-2-pro-schema-jsonimage0-cmf-phone-2-pro-white.webp"
+      ],
+      "offers": {
+        "url": "https://www.cmfbynothing.pk/products/nothing-pakistan-cmf-phone-2-pro",
+        "@type": "Offer",
+        "price": 91999,
+        "availability": "https://schema.org/InStock",
+        "priceCurrency": "PKR"
+      },
+      "@context": "https://schema.org",
+      "category": "Phone",
+      "keywords": [
+        "CMF Phone 2 Pro",
+        "CMF Phone 2 Pro price in Pakistan",
+        "CMF Phone 2 Pro PTA approved",
+        "CMF Phone 2 Pro buy online Pakistan",
+        "CMF Phone 2 Pro specs Pakistan",
+        "CMF Phone 2 Pro original Pakistan",
+        "Nothing CMF Phone 2 Pro",
+        "Nothing CMF Phone 2 Pro price in Pakistan",
+        "Nothing CMF Phone 2 Pro PTA approved",
+        "Nothing CMF Phone 2 Pro buy online Pakistan",
+        "Nothing CMF Phone 2 Pro specs Pakistan",
+        "Nothing CMF Phone 2 Pro original Pakistan",
+        "CMF 2 Pro",
+        "CMF 2 Pro price in Pakistan",
+        "CMF 2 Pro PTA approved",
+        "CMF 2 Pro buy online Pakistan",
+        "CMF 2 Pro specs Pakistan",
+        "CMF 2 Pro original Pakistan",
+        "CMF Phone 2 Pro PTA approved Pakistan",
+        "CMF Phone 2 Pro official warranty Pakistan",
+        "CMF Phone 2 Pro COD delivery Pakistan",
+        "CMF Phone 2 Pro Nothing Pakistan",
+        "CMF Phone 2 Pro Nothing Pakistan",
+        "nothing cmf phone 2 pro price pakistan",
+        "CMF Phone 2 Pro Dimensity 7300 Pro",
+        "CMF Phone 2 Pro 8GB 128GB",
+        "CMF Phone 2 Pro 120Hz AMOLED",
+        "CMF Phone 2 Pro 50MP camera",
+        "CMF Phone 2 Pro 5000mAh battery",
+        "CMF Phone 2 Pro price in Karachi",
+        "buy CMF Phone 2 Pro in Karachi",
+        "CMF Phone 2 Pro price in Lahore",
+        "buy CMF Phone 2 Pro in Lahore",
+        "CMF Phone 2 Pro price in Islamabad",
+        "buy CMF Phone 2 Pro in Islamabad",
+        "CMF Phone 2 Pro price in Rawalpindi",
+        "buy CMF Phone 2 Pro in Rawalpindi",
+        "CMF Phone 2 Pro price in Faisalabad",
+        "buy CMF Phone 2 Pro in Faisalabad",
+        "CMF Phone 2 Pro price in Multan",
+        "buy CMF Phone 2 Pro in Multan",
+        "CMF Phone 2 Pro price in Peshawar",
+        "buy CMF Phone 2 Pro in Peshawar",
+        "cmf phone 2 pro pakistan",
+        "cmf phone 2 pro pakistan mein",
+        "Nothing Phone price in Pakistan",
+        "Nothing mobile price in Pakistan",
+        "CMF Phone price in Pakistan",
+        "Nothing Phone PTA approved",
+        "Nothing Phone official warranty Pakistan",
+        "Nothing Phone specs Pakistan",
+        "buy Nothing Phone online Pakistan"
+      ],
+      "description": "Check CMF Phone 2 Pro price in Pakistan. Price: PKR 101,999. Review PTA status, specifications, stock, delivery, and ordering support.",
+      "additionalProperty": [
+        {
+          "name": "Product type",
+          "@type": "PropertyValue",
+          "value": "Nothing phone model"
+        },
+        {
+          "name": "Accessory support",
+          "@type": "PropertyValue",
+          "value": "Chargers, protectors, earbuds, and compatible accessories"
+        },
+        {
+          "name": "Pakistan buying intent",
+          "@type": "PropertyValue",
+          "value": "Price, PTA approval, COD delivery, specs, warranty, and availability"
+        },
+        {
+          "name": "Search feature",
+          "@type": "PropertyValue",
+          "value": "Dimensity 7300 Pro"
+        },
+        {
+          "name": "Search feature",
+          "@type": "PropertyValue",
+          "value": "8GB 128GB"
+        },
+        {
+          "name": "Search feature",
+          "@type": "PropertyValue",
+          "value": "120Hz AMOLED"
+        },
+        {
+          "name": "Search feature",
+          "@type": "PropertyValue",
+          "value": "50MP camera"
+        },
+        {
+          "name": "Search feature",
+          "@type": "PropertyValue",
+          "value": "5000mAh battery"
+        }
+      ]
+    },
+    "seo_description_long": "CMF Phone 2 Pro is positioned for high-intent Pakistan searches around Nothing phone price, PTA status, original stock, delivery, and local support. The listing keeps PKR 101,999 visible while encouraging final stock and variant confirmation before checkout.\n\nBuyers comparing Nothing phones in Karachi, Lahore, Islamabad, Rawalpindi, Faisalabad, Multan, and other cities can use this page to review specs, product media, compatibility, warranty or support guidance, and order routes.\n\nNothing Pakistan writes this page for practical mobile buying questions: whether the device is authentic, how delivery works, what support is available, which accessories are compatible, and how stock is confirmed.",
+    "image_alt_text": "CMF Phone 2 Pro original Nothing phone in Pakistan from Nothing Pakistan"
+  },
+  {
+    "id": 12,
+    "name": "CMF Phone 1",
+    "slug": "nothing-pakistan-cmf-phone-1",
+    "description": "<ul class=\"np-feature-list\" aria-label=\"CMF Phone 1 highlights\"><li class=\"np-feature\"><img src=\"https://res.cloudinary.com/dklsubnzb/raw/upload/nothing-official-store-pakistan/icons/product-detail/battery.svg\" alt=\"\" loading=\"lazy\" width=\"16\" height=\"16\" /> <span>5000 mAh battery</span></li><li class=\"np-feature\"><img src=\"https://res.cloudinary.com/dklsubnzb/raw/upload/nothing-official-store-pakistan/icons/product-detail/ram.svg\" alt=\"\" loading=\"lazy\" width=\"16\" height=\"16\" /> <span>16 gb ram</span></li><li class=\"np-feature\"><img src=\"https://res.cloudinary.com/dklsubnzb/raw/upload/nothing-official-store-pakistan/icons/product-detail/camera.svg\" alt=\"\" loading=\"lazy\" width=\"16\" height=\"16\" /> <span>50 MP Sony rear camera</span></li></ul>",
+    "meta_title": "CMF Phone 1 Price in Pakistan | Nothing Pakistan",
+    "meta_description": "Check CMF Phone 1 price in Pakistan. Price: PKR 74,999. Review PTA status, specifications, stock, delivery, and ordering support.",
+    "release_date": null,
+    "created_at": "2026-03-14 00:28:33.989523",
+    "updated_at": "2026-06-06 13:56:17.889923",
+    "Price": 74999,
+    "pta_tax": null,
+    "non_pta_price": null,
+    "piority": 1010,
+    "seo_keywords": "CMF Phone 1, CMF Phone 1 price in Pakistan, CMF Phone 1 PTA approved Pakistan, buy CMF Phone 1 online Pakistan, original CMF Phone 1 Pakistan, Nothing phone Pakistan, Nothing Pakistan, Nothing Pakistan",
+    "canonical_url": "https://www.cmfbynothing.pk/products/nothing-pakistan-cmf-phone-1",
+    "schema_json": {
+      "sku": "cmf-phone-1",
+      "url": "https://www.cmfbynothing.pk/products/nothing-pakistan-cmf-phone-1",
+      "name": "CMF Phone 1",
+      "@type": "Product",
+      "brand": {
+        "name": "CMF by Nothing",
+        "@type": "Brand"
+      },
+      "image": [
+        "https://res.cloudinary.com/dklsubnzb/image/upload/nothing-official-store-pakistan/mobiles/cmf-phone-1/image/cmf-phone-1-schema-jsonimage0-cmf-phone-1-light-green.webp"
+      ],
+      "offers": {
+        "url": "https://www.cmfbynothing.pk/products/nothing-pakistan-cmf-phone-1",
+        "@type": "Offer",
+        "price": 59899,
+        "availability": "https://schema.org/InStock",
+        "priceCurrency": "PKR"
+      },
+      "@context": "https://schema.org",
+      "category": "Phone",
+      "keywords": [
+        "CMF Phone 1",
+        "CMF Phone 1 price in Pakistan",
+        "CMF Phone 1 PTA approved",
+        "CMF Phone 1 buy online Pakistan",
+        "CMF Phone 1 specs Pakistan",
+        "CMF Phone 1 original Pakistan",
+        "Nothing CMF Phone 1",
+        "Nothing CMF Phone 1 price in Pakistan",
+        "Nothing CMF Phone 1 PTA approved",
+        "Nothing CMF Phone 1 buy online Pakistan",
+        "Nothing CMF Phone 1 specs Pakistan",
+        "Nothing CMF Phone 1 original Pakistan",
+        "CMF Phone One",
+        "CMF Phone One price in Pakistan",
+        "CMF Phone One PTA approved",
+        "CMF Phone One buy online Pakistan",
+        "CMF Phone One specs Pakistan",
+        "CMF Phone One original Pakistan",
+        "CMF Phone 1 PTA approved Pakistan",
+        "CMF Phone 1 official warranty Pakistan",
+        "CMF Phone 1 COD delivery Pakistan",
+        "CMF Phone 1 Nothing Pakistan",
+        "CMF Phone 1 Nothing Pakistan",
+        "nothing cmf phone 1 price pakistan",
+        "CMF Phone 1 Dimensity 7300",
+        "CMF Phone 1 AMOLED display",
+        "CMF Phone 1 5000mAh battery",
+        "CMF Phone 1 replaceable back cover",
+        "CMF Phone 1 budget phone",
+        "CMF Phone 1 price in Karachi",
+        "buy CMF Phone 1 in Karachi",
+        "CMF Phone 1 price in Lahore",
+        "buy CMF Phone 1 in Lahore",
+        "CMF Phone 1 price in Islamabad",
+        "buy CMF Phone 1 in Islamabad",
+        "CMF Phone 1 price in Rawalpindi",
+        "buy CMF Phone 1 in Rawalpindi",
+        "CMF Phone 1 price in Faisalabad",
+        "buy CMF Phone 1 in Faisalabad",
+        "CMF Phone 1 price in Multan",
+        "buy CMF Phone 1 in Multan",
+        "CMF Phone 1 price in Peshawar",
+        "buy CMF Phone 1 in Peshawar",
+        "cmf phone 1 pakistan",
+        "cmf phone 1 pakistan mein",
+        "Nothing Phone price in Pakistan",
+        "Nothing mobile price in Pakistan",
+        "CMF Phone price in Pakistan",
+        "Nothing Phone PTA approved",
+        "Nothing Phone official warranty Pakistan",
+        "Nothing Phone specs Pakistan",
+        "buy Nothing Phone online Pakistan"
+      ],
+      "description": "Check CMF Phone 1 price in Pakistan. Price: PKR 74,999. Review PTA status, specifications, stock, delivery, and ordering support.",
+      "additionalProperty": [
+        {
+          "name": "Product type",
+          "@type": "PropertyValue",
+          "value": "Nothing phone model"
+        },
+        {
+          "name": "Accessory support",
+          "@type": "PropertyValue",
+          "value": "Chargers, protectors, earbuds, and compatible accessories"
+        },
+        {
+          "name": "Pakistan buying intent",
+          "@type": "PropertyValue",
+          "value": "Price, PTA approval, COD delivery, specs, warranty, and availability"
+        },
+        {
+          "name": "Search feature",
+          "@type": "PropertyValue",
+          "value": "Dimensity 7300"
+        },
+        {
+          "name": "Search feature",
+          "@type": "PropertyValue",
+          "value": "AMOLED display"
+        },
+        {
+          "name": "Search feature",
+          "@type": "PropertyValue",
+          "value": "5000mAh battery"
+        },
+        {
+          "name": "Search feature",
+          "@type": "PropertyValue",
+          "value": "replaceable back cover"
+        },
+        {
+          "name": "Search feature",
+          "@type": "PropertyValue",
+          "value": "budget phone"
+        }
+      ]
+    },
+    "seo_description_long": "CMF Phone 1 is positioned for high-intent Pakistan searches around Nothing phone price, PTA status, original stock, delivery, and local support. The listing keeps PKR 74,999 visible while encouraging final stock and variant confirmation before checkout.\n\nBuyers comparing Nothing phones in Karachi, Lahore, Islamabad, Rawalpindi, Faisalabad, Multan, and other cities can use this page to review specs, product media, compatibility, warranty or support guidance, and order routes.\n\nNothing Pakistan writes this page for practical mobile buying questions: whether the device is authentic, how delivery works, what support is available, which accessories are compatible, and how stock is confirmed.",
+    "image_alt_text": "CMF Phone 1 original Nothing phone in Pakistan from Nothing Pakistan"
   },
   {
     "id": 14,
     "name": "Phone (2)",
     "slug": "nothing-pakistan-phone-2",
-    "description": "Phone (2) delivers a premium Nothing smartphone experience with powerful performance, modern design, and advanced features. Built with the signature Nothing design philosophy, the device combines clean aesthetics with reliable hardware. It offers smooth multitasking, fast app performance, and a refined user interface powered by Nothing OS. Designed for users who want both style and functionality, Phone (2) provides strong everyday performance, high-quality photography capabilities, and a smooth smartphone experience.",
-    "meta_title": "Nothing Phone 2 Price in Pakistan | PTA Approved",
-    "meta_description": "Buy Phone (2) in Pakistan with updated price, PTA details, specs, Snapdragon 8 Plus Gen 1, COD delivery, and WhatsApp support. Price: Rs 170,000.",
+    "description": "<ul class=\"np-feature-list\" aria-label=\"Phone (2) highlights\"><li class=\"np-feature\"><img src=\"https://res.cloudinary.com/dklsubnzb/raw/upload/nothing-official-store-pakistan/icons/product-detail/battery.svg\" alt=\"\" loading=\"lazy\" width=\"16\" height=\"16\" /> <span>Enhanced 48-hour battery</span></li><li class=\"np-feature\"><img src=\"https://res.cloudinary.com/dklsubnzb/raw/upload/nothing-official-store-pakistan/icons/product-detail/ram.svg\" alt=\"\" loading=\"lazy\" width=\"16\" height=\"16\" /> <span>16 GB RAM Performance Boost</span></li><li class=\"np-feature\"><img src=\"https://res.cloudinary.com/dklsubnzb/raw/upload/nothing-official-store-pakistan/icons/product-detail/camera.svg\" alt=\"\" loading=\"lazy\" width=\"16\" height=\"16\" /> <span>Pro-Level Camera System</span></li></ul>",
+    "meta_title": "Phone (2) Price in Pakistan | Nothing Pakistan",
+    "meta_description": "Check Phone (2) price in Pakistan. Price: PKR 214,000. Review PTA status, specifications, stock, delivery, and ordering support.",
     "release_date": null,
-    "created_at": "2026-03-14T00:34:18.387627",
-    "updated_at": "2026-05-05T23:01:42.22478",
-    "Price": 170000,
+    "created_at": "2026-03-14 00:34:18.387627",
+    "updated_at": "2026-06-06 13:56:18.804635",
+    "Price": 214000,
     "pta_tax": null,
     "non_pta_price": null,
     "piority": 1012,
-    "seo_keywords": "Phone (2), Phone (2) price in Pakistan, Phone (2) PTA approved, Phone (2) buy online Pakistan, Phone (2) specs Pakistan, Phone (2) original Pakistan, Nothing Phone 2, Nothing Phone 2 price in Pakistan, Nothing Phone 2 PTA approved, Nothing Phone 2 buy online Pakistan, Nothing Phone 2 specs Pakistan, Nothing Phone 2 original Pakistan, Nothing 2, Nothing 2 price in Pakistan, Nothing 2 PTA approved, Nothing 2 buy online Pakistan, Nothing 2 specs Pakistan, Nothing 2 original Pakistan, Phone (2) PTA approved Pakistan, Phone (2) official warranty Pakistan, Phone (2) COD delivery Pakistan, Phone (2) Nothing Pakistan, Phone (2) Nothing Pakistan, phone 2 price pakistan, Phone (2) Snapdragon 8 Plus Gen 1, Phone (2) Glyph Interface, Phone (2) LTPO OLED, Phone (2) wireless charging, Phone (2) 50MP camera, Phone (2) price in Karachi, buy Phone (2) in Karachi, Phone (2) price in Lahore, buy Phone (2) in Lahore, Phone (2) price in Islamabad, buy Phone (2) in Islamabad, Phone (2) price in Rawalpindi, buy Phone (2) in Rawalpindi, Phone (2) price in Faisalabad, buy Phone (2) in Faisalabad, Phone (2) price in Multan, buy Phone (2) in Multan, Phone (2) price in Peshawar, buy Phone (2) in Peshawar, phone (2) pakistan, phone (2) pakistan mein, Nothing Phone price in Pakistan, Nothing mobile price in Pakistan, CMF Phone price in Pakistan, Nothing Phone PTA approved, Nothing Phone official warranty Pakistan, Nothing Phone specs Pakistan, buy Nothing Phone online Pakistan",
+    "seo_keywords": "Phone (2), Phone (2) price in Pakistan, Phone (2) PTA approved Pakistan, buy Phone (2) online Pakistan, original Phone (2) Pakistan, Nothing phone Pakistan, Nothing Pakistan, Nothing Pakistan",
     "canonical_url": "https://www.cmfbynothing.pk/products/nothing-pakistan-phone-2",
     "schema_json": {
       "sku": "phone-2",
@@ -1543,12 +1543,12 @@
         "@type": "Brand"
       },
       "image": [
-        "https://cdn.cmfbynothing.pk/mobiles/phone-2-white.webp"
+        "https://res.cloudinary.com/dklsubnzb/image/upload/nothing-official-store-pakistan/mobiles/phone-2/image/phone-2-schema-jsonimage0-phone-2-white.webp"
       ],
       "offers": {
         "url": "https://www.cmfbynothing.pk/products/nothing-pakistan-phone-2",
         "@type": "Offer",
-        "price": 170000,
+        "price": 169999,
         "availability": "https://schema.org/InStock",
         "priceCurrency": "PKR"
       },
@@ -1608,7 +1608,7 @@
         "Nothing Phone specs Pakistan",
         "buy Nothing Phone online Pakistan"
       ],
-      "description": "Buy Phone (2) in Pakistan with updated price, PTA details, specs, Snapdragon 8 Plus Gen 1, COD delivery, and WhatsApp support. Price: Rs 170,000.",
+      "description": "Check Phone (2) price in Pakistan. Price: PKR 214,000. Review PTA status, specifications, stock, delivery, and ordering support.",
       "additionalProperty": [
         {
           "name": "Product type",
@@ -1652,24 +1652,24 @@
         }
       ]
     },
-    "seo_description_long": "Phone (2) is part of the Nothing Pakistan catalog for customers who want reliable Nothing and CMF products with local pricing, support, and a simple online order flow. This phone page helps Pakistani buyers understand the model, price context, compatible accessories, protection options, and ordering route from one place. Phone (2) is currently listed at Rs 170,000 on Nothing Pakistan, while final availability can still depend on stock confirmation and order timing. Keyword research for this model is focused on Nothing Phone 2 buyers comparing flagship design, Glyph lights, wireless charging, and Pakistan resale value. The most important query clusters are nothing phone 2 price in pakistan, phone 2 price pakistan, nothing phone 2 buy online pakistan, nothing phone 2 pta approved. Supporting modifiers include Snapdragon 8 Plus Gen 1, Glyph Interface, LTPO OLED, wireless charging, 50MP camera, PTA approved.\n\nWhen people search for Phone (2) in Pakistan, they usually want three things: a trusted seller, clear product information, and confidence that the item will match their device or daily use case. This page is optimized to answer those questions directly. It includes product naming, price context, compatibility signals, delivery expectations, and support routes so the buyer does not need to jump across multiple websites before making a decision.\n\nFor search intent, this product targets phrases such as Phone (2) price in Pakistan, buy Phone (2) online Pakistan, original Phone (2) Pakistan, Nothing accessories Pakistan, and CMF products Pakistan. It also supports regional searches from Lahore, Karachi, Islamabad, Rawalpindi, Faisalabad, Multan, Peshawar, Quetta, Sialkot, and other cities where buyers commonly look for mobile accessories and Nothing products online.\n\nThe main buying advantage is convenience. Customers can review the product page, compare related products, check the visible price, and use the order or WhatsApp route for confirmation. Nothing Pakistan also highlights helpful trust signals such as cash on delivery, free delivery where applicable, seven day return guidance, product support, and original product sourcing. These details help both shoppers and search engines understand that the page is focused on transactional buying intent, not only product browsing.\n\nFor AEO and voice-search coverage, this page should answer direct questions naturally. Buyers may ask: What is the price of Phone (2) in Pakistan? Is Phone (2) original? Where can I buy Phone (2) online? Does Nothing Pakistan deliver Phone (2) to my city? Which accessory is compatible with my Nothing phone? The content, FAQ schema, product schema, and internal links should make those answers easy for Google, AI search systems, and users to understand.\n\nThe product image should use descriptive alt text such as \"Phone (2) original product in Pakistan\" so image search and accessibility tools can understand the page. The canonical URL should point to the live product URL on www.cmfbynothing.pk to avoid duplicate content. The meta title and description should stay concise, readable, and focused on Pakistan purchase intent.\n\nInternal linking should connect Phone (2) to relevant collections such as Shop All, Audio, Chargers, Protectors, Accessories, CMF, or Phones depending on the product type. Related product cards should also link to complementary accessories, for example chargers with phones, protectors with phone models, and earbuds with audio collections. This structure helps crawl depth, improves topical authority, and gives customers a smoother shopping path.\n\nOverall, Phone (2) should be positioned as a trusted local option for Nothing Pakistan shoppers who care about original products, current pricing, simple checkout, and support before and after purchase. The page should keep the language clear, avoid overstuffed keywords, and use helpful product information to match both commercial and informational search intent.",
-    "image_alt_text": "Phone (2) original phone in Pakistan from Nothing Pakistan"
+    "seo_description_long": "Phone (2) is positioned for high-intent Pakistan searches around Nothing phone price, PTA status, original stock, delivery, and local support. The listing keeps PKR 214,000 visible while encouraging final stock and variant confirmation before checkout.\n\nBuyers comparing Nothing phones in Karachi, Lahore, Islamabad, Rawalpindi, Faisalabad, Multan, and other cities can use this page to review specs, product media, compatibility, warranty or support guidance, and order routes.\n\nNothing Pakistan writes this page for practical mobile buying questions: whether the device is authentic, how delivery works, what support is available, which accessories are compatible, and how stock is confirmed.",
+    "image_alt_text": "Phone (2) original Nothing phone in Pakistan from Nothing Pakistan"
   },
   {
     "id": 15,
     "name": "Phone (1)",
     "slug": "nothing-pakistan-phone-1",
-    "description": "Phone (1) is the first smartphone from Nothing, introducing a new design language and a clean software experience. Built with the signature transparent-inspired Nothing design, the device combines modern aesthetics with reliable performance. Powered by Nothing OS, Phone (1) delivers a smooth, fast, and minimal Android experience designed to reduce distractions and improve usability. With balanced performance and a distinctive look, Phone (1) provides a unique smartphone experience for users who want both style and functionality.",
-    "meta_title": "Nothing Phone 1 Price in Pakistan | PTA Approved",
-    "meta_description": "Buy Phone (1) in Pakistan with updated price, PTA details, specs, Glyph Interface, COD delivery, and WhatsApp support. Price: Rs 60,000.",
+    "description": "<ul class=\"np-feature-list\" aria-label=\"Phone (1) highlights\"><li class=\"np-feature\"><img src=\"https://res.cloudinary.com/dklsubnzb/raw/upload/nothing-official-store-pakistan/icons/product-detail/battery.svg\" alt=\"\" loading=\"lazy\" width=\"16\" height=\"16\" /> <span>18-hour battery life</span></li><li class=\"np-feature\"><img src=\"https://res.cloudinary.com/dklsubnzb/raw/upload/nothing-official-store-pakistan/icons/product-detail/ram.svg\" alt=\"\" loading=\"lazy\" width=\"16\" height=\"16\" /> <span>8 GB RAM Boost</span></li><li class=\"np-feature\"><img src=\"https://res.cloudinary.com/dklsubnzb/raw/upload/nothing-official-store-pakistan/icons/product-detail/camera.svg\" alt=\"\" loading=\"lazy\" width=\"16\" height=\"16\" /> <span>Flagship Dual Camera System</span></li></ul>",
+    "meta_title": "Phone (1) Price in Pakistan | Nothing Pakistan",
+    "meta_description": "Check Phone (1) price in Pakistan. Price: PKR 114,000. Review PTA status, specifications, stock, delivery, and ordering support.",
     "release_date": null,
-    "created_at": "2026-03-14T00:36:52.479893",
-    "updated_at": "2026-05-05T23:01:42.442947",
-    "Price": 60000,
+    "created_at": "2026-03-14 00:36:52.479893",
+    "updated_at": "2026-06-06 13:56:19.125096",
+    "Price": 114000,
     "pta_tax": null,
     "non_pta_price": null,
     "piority": 1013,
-    "seo_keywords": "Phone (1), Phone (1) price in Pakistan, Phone (1) PTA approved, Phone (1) buy online Pakistan, Phone (1) specs Pakistan, Phone (1) original Pakistan, Nothing Phone 1, Nothing Phone 1 price in Pakistan, Nothing Phone 1 PTA approved, Nothing Phone 1 buy online Pakistan, Nothing Phone 1 specs Pakistan, Nothing Phone 1 original Pakistan, Nothing 1, Nothing 1 price in Pakistan, Nothing 1 PTA approved, Nothing 1 buy online Pakistan, Nothing 1 specs Pakistan, Nothing 1 original Pakistan, Phone (1) PTA approved Pakistan, Phone (1) official warranty Pakistan, Phone (1) COD delivery Pakistan, Phone (1) Nothing Pakistan, Phone (1) Nothing Pakistan, phone 1 price pakistan, Phone (1) Glyph Interface, Phone (1) OLED display, Phone (1) 50MP dual camera, Phone (1) wireless charging, Phone (1) transparent design, Phone (1) price in Karachi, buy Phone (1) in Karachi, Phone (1) price in Lahore, buy Phone (1) in Lahore, Phone (1) price in Islamabad, buy Phone (1) in Islamabad, Phone (1) price in Rawalpindi, buy Phone (1) in Rawalpindi, Phone (1) price in Faisalabad, buy Phone (1) in Faisalabad, Phone (1) price in Multan, buy Phone (1) in Multan, Phone (1) price in Peshawar, buy Phone (1) in Peshawar, phone (1) pakistan, phone (1) pakistan mein, Nothing Phone price in Pakistan, Nothing mobile price in Pakistan, CMF Phone price in Pakistan, Nothing Phone PTA approved, Nothing Phone official warranty Pakistan, Nothing Phone specs Pakistan, buy Nothing Phone online Pakistan",
+    "seo_keywords": "Phone (1), Phone (1) price in Pakistan, Phone (1) PTA approved Pakistan, buy Phone (1) online Pakistan, original Phone (1) Pakistan, Nothing phone Pakistan, Nothing Pakistan, Nothing Pakistan",
     "canonical_url": "https://www.cmfbynothing.pk/products/nothing-pakistan-phone-1",
     "schema_json": {
       "sku": "phone-1",
@@ -1681,12 +1681,12 @@
         "@type": "Brand"
       },
       "image": [
-        "https://cdn.cmfbynothing.pk/mobiles/phone-1-black.webp"
+        "https://res.cloudinary.com/dklsubnzb/image/upload/nothing-official-store-pakistan/mobiles/phone-1/image/phone-1-schema-jsonimage0-phone-1-black.webp"
       ],
       "offers": {
         "url": "https://www.cmfbynothing.pk/products/nothing-pakistan-phone-1",
         "@type": "Offer",
-        "price": 60000,
+        "price": 59999,
         "availability": "https://schema.org/InStock",
         "priceCurrency": "PKR"
       },
@@ -1746,7 +1746,7 @@
         "Nothing Phone specs Pakistan",
         "buy Nothing Phone online Pakistan"
       ],
-      "description": "Buy Phone (1) in Pakistan with updated price, PTA details, specs, Glyph Interface, COD delivery, and WhatsApp support. Price: Rs 60,000.",
+      "description": "Check Phone (1) price in Pakistan. Price: PKR 114,000. Review PTA status, specifications, stock, delivery, and ordering support.",
       "additionalProperty": [
         {
           "name": "Product type",
@@ -1790,7 +1790,7 @@
         }
       ]
     },
-    "seo_description_long": "Phone (1) is part of the Nothing Pakistan catalog for customers who want reliable Nothing and CMF products with local pricing, support, and a simple online order flow. This phone page helps Pakistani buyers understand the model, price context, compatible accessories, protection options, and ordering route from one place. Phone (1) is currently listed at Rs 60,000 on Nothing Pakistan, while final availability can still depend on stock confirmation and order timing. Keyword research for this model is focused on Nothing Phone 1 buyers checking original stock, price, accessories, and PTA-ready buying options. The most important query clusters are nothing phone 1 price in pakistan, phone 1 price pakistan, nothing phone 1 buy online pakistan, nothing phone 1 pta approved. Supporting modifiers include Glyph Interface, OLED display, 50MP dual camera, wireless charging, transparent design, PTA approved.\n\nWhen people search for Phone (1) in Pakistan, they usually want three things: a trusted seller, clear product information, and confidence that the item will match their device or daily use case. This page is optimized to answer those questions directly. It includes product naming, price context, compatibility signals, delivery expectations, and support routes so the buyer does not need to jump across multiple websites before making a decision.\n\nFor search intent, this product targets phrases such as Phone (1) price in Pakistan, buy Phone (1) online Pakistan, original Phone (1) Pakistan, Nothing accessories Pakistan, and CMF products Pakistan. It also supports regional searches from Lahore, Karachi, Islamabad, Rawalpindi, Faisalabad, Multan, Peshawar, Quetta, Sialkot, and other cities where buyers commonly look for mobile accessories and Nothing products online.\n\nThe main buying advantage is convenience. Customers can review the product page, compare related products, check the visible price, and use the order or WhatsApp route for confirmation. Nothing Pakistan also highlights helpful trust signals such as cash on delivery, free delivery where applicable, seven day return guidance, product support, and original product sourcing. These details help both shoppers and search engines understand that the page is focused on transactional buying intent, not only product browsing.\n\nFor AEO and voice-search coverage, this page should answer direct questions naturally. Buyers may ask: What is the price of Phone (1) in Pakistan? Is Phone (1) original? Where can I buy Phone (1) online? Does Nothing Pakistan deliver Phone (1) to my city? Which accessory is compatible with my Nothing phone? The content, FAQ schema, product schema, and internal links should make those answers easy for Google, AI search systems, and users to understand.\n\nThe product image should use descriptive alt text such as \"Phone (1) original product in Pakistan\" so image search and accessibility tools can understand the page. The canonical URL should point to the live product URL on www.cmfbynothing.pk to avoid duplicate content. The meta title and description should stay concise, readable, and focused on Pakistan purchase intent.\n\nInternal linking should connect Phone (1) to relevant collections such as Shop All, Audio, Chargers, Protectors, Accessories, CMF, or Phones depending on the product type. Related product cards should also link to complementary accessories, for example chargers with phones, protectors with phone models, and earbuds with audio collections. This structure helps crawl depth, improves topical authority, and gives customers a smoother shopping path.\n\nOverall, Phone (1) should be positioned as a trusted local option for Nothing Pakistan shoppers who care about original products, current pricing, simple checkout, and support before and after purchase. The page should keep the language clear, avoid overstuffed keywords, and use helpful product information to match both commercial and informational search intent.",
-    "image_alt_text": "Phone (1) original phone in Pakistan from Nothing Pakistan"
+    "seo_description_long": "Phone (1) is positioned for high-intent Pakistan searches around Nothing phone price, PTA status, original stock, delivery, and local support. The listing keeps PKR 114,000 visible while encouraging final stock and variant confirmation before checkout.\n\nBuyers comparing Nothing phones in Karachi, Lahore, Islamabad, Rawalpindi, Faisalabad, Multan, and other cities can use this page to review specs, product media, compatibility, warranty or support guidance, and order routes.\n\nNothing Pakistan writes this page for practical mobile buying questions: whether the device is authentic, how delivery works, what support is available, which accessories are compatible, and how stock is confirmed.",
+    "image_alt_text": "Phone (1) original Nothing phone in Pakistan from Nothing Pakistan"
   }
 ]

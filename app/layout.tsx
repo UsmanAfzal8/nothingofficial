@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
+import { Analytics } from '@vercel/analytics/next'
 import { CartProvider } from '@/components/CartProvider'
 import { NavigationProgress } from '@/components/NavigationProgress'
 import { WhatsAppFloatingButton } from '@/components/WhatsAppFloatingButton'
@@ -114,6 +115,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en-PK">
+      <head>
+        <script src="https://analytics.ahrefs.com/analytics.js" data-key="73YlwBLrAA2cEXFqFSRpiA" async />
+      </head>
       <body className={`${ndot57.className} ${ndot57.variable} ${ndot57Caps.variable} ${ndot55.variable} ${ndot55Caps.variable} ${ntype82.variable} ${ntype82Mono.variable} ${ntype82Headline.variable} ${georgia.variable} ${letteraRegular.variable} ${letteraMedium.variable} isolate overflow-x-hidden antialiased`}>
         <div aria-hidden="true" className="site-dot-overlay" />
         <CartProvider>
@@ -121,6 +125,7 @@ export default function RootLayout({
         </CartProvider>
         <NavigationProgress />
         <WhatsAppFloatingButton />
+        <Analytics />
       </body>
     </html>
   )

@@ -1,6 +1,48 @@
-update these things but one by one 
+Solve these issues and solved one by one 
 
-1) in the http://localhost:3000/company-verification" update all the faqs and write according to the cmf by nothing pakistan. and update all because i opy from another website so update it and remove the ceo question .
+1) in the supabase review check all reviews and change the www.cmfbynothing.pk into nothing pakistan . donot use domain name in the review comment so check in the supabase and update all . 
 
-2) in the collection screen you show the collection name font is "Lettera Mono LL Medium" so update it and use NType82 Headline ad every where in the file update this font and use "NType82 Headline" istead of it "Lettera Mono LL Medium".
+2) check all my "/Users/mosin/projects/nothingoffical/database" and update the sitemap according to it . and for every product and every mobile update the seo. 
+3) do a ahref in the project "Installation guide
 
+Copy the snippet below and paste it into the <head> section of your site. Once done, click the “Recheck installation” button to verify your installation.
+If you're using another method, make sure to include the data-key value: 73YlwBLrAA2cEXFqFSRpiA
+
+<script src="https://analytics.ahrefs.com/analytics.js" data-key="73YlwBLrAA2cEXFqFSRpiA" async></script>
+
+Copy
+
+Install with Google Tag Manager
+Copy the snippet below and paste it into the Custom HTML section of Google Tag Manager. Once done, click the “Recheck installation” button to verify your installation.
+<script>
+  var ahrefs_analytics_script = document.createElement('script');
+  ahrefs_analytics_script.async = true;
+  ahrefs_analytics_script.src = 'https://analytics.ahrefs.com/analytics.js';
+  ahrefs_analytics_script.setAttribute('data-key', '73YlwBLrAA2cEXFqFSRpiA');
+  document.getElementsByTagName('head')[0].appendChild(ahrefs_analytics_script);
+</script>
+
+Copy"
+
+4) ok add the vercel "1
+
+Install our package
+
+Start by installing @vercel/analytics in your existing project.
+npm
+yarn
+pnpm
+npm i @vercel/analytics
+2
+
+Add the React component
+Import and use the <Analytics/> React component into your app's layout.
+import { Analytics } from "@vercel/analytics/next"
+For full examples and further reference, please refer to our documentation
+3
+
+Deploy & Visit your Site
+
+Deploy your changes and visit the deployment to collect your page views.
+
+If you don't see data after 30 seconds, please check for content blockers and try to navigate between pages on your site." "

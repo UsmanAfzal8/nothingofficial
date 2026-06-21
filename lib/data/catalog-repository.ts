@@ -38,7 +38,10 @@ import type { ProductType } from '@/lib/models/supabase-enums'
 import { getLegacyProductHandleCandidates } from '@/lib/legacy-slugs'
 import { getSupabaseAdminClient } from '@/lib/supabase-admin'
 import { buildAbsoluteUrl, splitSeoKeywords, stripNothingPakistanSlugPrefix, trimSeoDescription } from '@/lib/utils/seo'
+import fallbackCategories from '@/database/categories.json'
+import fallbackCategoryRelations from '@/database/category_relations.json'
 import fallbackMobiles from '@/database/mobile.json'
+import fallbackProductMobiles from '@/database/product_mobiles.json'
 import fallbackProducts from '@/database/prodcuts.json'
 
 export type SupportHeroImage = {
@@ -139,6 +142,10 @@ type FallbackMobileRow = SupabaseMobileRow & {
   pta_tax?: number | null
   non_pta_price?: number | null
 }
+
+type FallbackCategoryRow = SupabaseCategoryRow
+type FallbackCategoryRelationRow = SupabaseCategoryRelationRow
+type FallbackProductMobileRow = SupabaseProductMobileRow
 
 type VirtualCollectionConfig = {
   title: string
@@ -2309,6 +2316,160 @@ function filterAccessoriesCollectionCards(snapshot: CatalogSnapshot, products: P
   return products.filter((product) => allowedHandles.has(product.handle))
 }
 
+function getSchemaImage(schemaJson: Record<string, unknown> | null | undefined): string | null {
+  return getSchemaImages(schemaJson)[0] ?? null
+}
+
+function mergeSitemapEntriesByKey<T>(entries: T[], fallbackEntries: T[], getKey: (entry: T) => string): T[] {
+  const seen = new Set(entries.map(getKey))
+  const mergedEntries = [...entries]
+
+  for (const entry of fallbackEntries) {
+    const key = getKey(entry)
+
+    if (seen.has(key)) {
+      continue
+    }
+
+    seen.add(key)
+    mergedEntries.push(entry)
+  }
+
+  return mergedEntries
+}
+
+function getFallbackCategoryRelations(
+  relatedType: FallbackCategoryRelationRow['related_type'],
+  relatedId: number,
+): FallbackCategoryRelationRow[] {
+  return (fallbackCategoryRelations as unknown as FallbackCategoryRelationRow[]).filter(
+    (relation) => relation.related_type === relatedType && relation.related_id === relatedId,
+  )
+}
+
+function getFallbackCollectionSlugs(
+  relatedType: FallbackCategoryRelationRow['related_type'],
+  relatedId: number,
+): string[] {
+  const categoryById = new Map((fallbackCategories as unknown as FallbackCategoryRow[]).map((category) => [category.id, category]))
+
+  return getFallbackCategoryRelations(relatedType, relatedId)
+    .map((relation) => categoryById.get(relation.category_id)?.slug)
+    .filter((slug): slug is string => Boolean(slug))
+}
+
+function buildFallbackCollectionSitemapEntries(): SitemapCollectionEntry[] {
+  const fallbackProductRows = fallbackProducts as unknown as FallbackProductRow[]
+  const fallbackMobileRows = fallbackMobiles as unknown as FallbackMobileRow[]
+  const fallbackRelationRows = fallbackCategoryRelations as unknown as FallbackCategoryRelationRow[]
+  const fallbackCategoryRows = fallbackCategories as unknown as FallbackCategoryRow[]
+  const fallbackProductsById = new Map(fallbackProductRows.map((product) => [product.id, product]))
+  const fallbackMobilesById = new Map(fallbackMobileRows.map((mobile) => [mobile.id, mobile]))
+  const virtualEntries: SitemapCollectionEntry[] = ALL_VIRTUAL_COLLECTION_SLUGS.map((slug) => {
+    const config = VIRTUAL_COLLECTIONS[slug]
+    const products =
+      slug === 'phones'
+        ? fallbackMobileRows
+        : slug === 'shop-all'
+          ? fallbackProductRows
+          : fallbackProductRows.filter((product) => product.product_type && config.productTypes?.includes(product.product_type))
+
+    return {
+      slug,
+      title: config.title,
+      description: config.description,
+      image: getSchemaImage(products[0]?.schema_json ?? null),
+      updatedAt: getLatestTimestamp(products.map((product) => product.updated_at)),
+      itemCount: products.length,
+      depth: getVirtualCollectionDepth(slug),
+    }
+  }).filter((entry) => entry.itemCount > 0 || Boolean(entry.updatedAt))
+
+  const categoryEntries = fallbackCategoryRows.map((category) => {
+    const relatedRows = fallbackRelationRows.filter((relation) => relation.category_id === category.id)
+    const relatedProducts = relatedRows
+      .filter((relation) => relation.related_type === 'product')
+      .map((relation) => fallbackProductsById.get(relation.related_id))
+      .filter((product): product is FallbackProductRow => Boolean(product))
+    const relatedMobiles = relatedRows
+      .filter((relation) => relation.related_type === 'mobile')
+      .map((relation) => fallbackMobilesById.get(relation.related_id))
+      .filter((mobile): mobile is FallbackMobileRow => Boolean(mobile))
+    const itemCount = relatedProducts.length + relatedMobiles.length
+
+    return {
+      slug: getCanonicalCollectionSlug(category.slug),
+      title: category.name,
+      description: category.meta_description || category.seo_description_long || null,
+      image: getSchemaImage(relatedProducts[0]?.schema_json ?? relatedMobiles[0]?.schema_json ?? null),
+      updatedAt: getLatestTimestamp([
+        category.updated_at,
+        category.created_at,
+        ...relatedRows.map((relation) => relation.updated_at || relation.created_at),
+        ...relatedProducts.map((product) => product.updated_at),
+        ...relatedMobiles.map((mobile) => mobile.updated_at),
+      ]),
+      itemCount,
+      depth: category.parent_id ? 1 : 0,
+    }
+  }).filter((entry) => entry.itemCount > 0 || INDEXABLE_CONTENT_COLLECTION_SLUGS.has(stripNothingPakistanSlugPrefix(entry.slug)))
+
+  return mergeSitemapEntriesByKey(virtualEntries, categoryEntries, (entry) => entry.slug)
+}
+
+function buildFallbackProductSitemapEntries(): SitemapProductEntry[] {
+  const fallbackProductRows = fallbackProducts as unknown as FallbackProductRow[]
+  const fallbackMobileRows = fallbackMobiles as unknown as FallbackMobileRow[]
+  const fallbackProductMobileRows = fallbackProductMobiles as unknown as FallbackProductMobileRow[]
+  const fallbackProductsById = new Map(fallbackProductRows.map((product) => [product.id, product]))
+
+  const productEntries: SitemapProductEntry[] = fallbackProductRows.map((product) => {
+    const linkedMobileIds = fallbackProductMobileRows.filter((relation) => relation.product_id === product.id).map((relation) => relation.mobile_id)
+    const relationTimestamps = getFallbackCategoryRelations('product', product.id).map((relation) => relation.updated_at || relation.created_at)
+
+    return {
+      handle: product.slug,
+      title: product.meta_title || product.name,
+      description: buildProductMetaDescription(product, normalizeProductName(product.name)),
+      image: getSchemaImage(product.schema_json),
+      updatedAt: getLatestTimestamp([product.updated_at, product.created_at, ...relationTimestamps]),
+      entityType: 'product' as const,
+      productType: product.product_type,
+      stockQuantity: parseCatalogNumber(product.stock_quantity),
+      linkedItemCount: linkedMobileIds.filter((id): id is number => typeof id === 'number').length,
+      collectionSlugs: getFallbackCollectionSlugs('product', product.id),
+    }
+  })
+
+  const mobileEntries: SitemapProductEntry[] = fallbackMobileRows.map((mobile) => {
+    const linkedProductIds = fallbackProductMobileRows.filter((relation) => relation.mobile_id === mobile.id).map((relation) => relation.product_id)
+    const linkedProducts = linkedProductIds
+      .map((productId) => (typeof productId === 'number' ? fallbackProductsById.get(productId) : null))
+      .filter((product): product is FallbackProductRow => Boolean(product))
+    const relationTimestamps = getFallbackCategoryRelations('mobile', mobile.id).map((relation) => relation.updated_at || relation.created_at)
+
+    return {
+      handle: getPreferredProductHandle(mobile.slug),
+      title: mobile.meta_title || mobile.name,
+      description: buildMobileMetaDescription(mobile),
+      image: getSchemaImage(mobile.schema_json),
+      updatedAt: getLatestTimestamp([
+        mobile.updated_at,
+        mobile.created_at,
+        ...relationTimestamps,
+        ...linkedProducts.map((product) => product.updated_at),
+      ]),
+      entityType: 'mobile' as const,
+      productType: null,
+      stockQuantity: null,
+      linkedItemCount: linkedProducts.length,
+      collectionSlugs: getFallbackCollectionSlugs('mobile', mobile.id),
+    }
+  })
+
+  return [...productEntries, ...mobileEntries]
+}
+
 export async function getCollectionSitemapEntries(): Promise<SitemapCollectionEntry[]> {
   const snapshot = await getCatalogSnapshot()
   const entries: SitemapCollectionEntry[] = ALL_VIRTUAL_COLLECTION_SLUGS.map((slug) => {
@@ -2353,7 +2514,7 @@ export async function getCollectionSitemapEntries(): Promise<SitemapCollectionEn
     })
   }
 
-  return entries
+  return mergeSitemapEntriesByKey(entries, buildFallbackCollectionSitemapEntries(), (entry) => entry.slug)
 }
 
 export async function getProductSitemapEntries(): Promise<SitemapProductEntry[]> {
@@ -2427,7 +2588,7 @@ export async function getProductSitemapEntries(): Promise<SitemapProductEntry[]>
     }
   })
 
-  return [...productEntries, ...mobileEntries]
+  return mergeSitemapEntriesByKey([...productEntries, ...mobileEntries], buildFallbackProductSitemapEntries(), (entry) => entry.handle)
 }
 
 async function getCollectionBySlugUncached(slug: string): Promise<Collection | null> {
