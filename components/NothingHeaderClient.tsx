@@ -53,14 +53,14 @@ export function NothingHeaderClient({ menuItems }: NothingHeaderClientProps) {
               {isDrawerOpen ? (
                 <Image
                   src={cancelIcon}
-                  alt=""
+                  alt="Close menu icon"
                   aria-hidden="true"
                   className="h-[18px] w-[18px] object-contain opacity-70"
                 />
               ) : (
                 <Image
                   src={menuIcon}
-                  alt=""
+                  alt="Open menu icon"
                   aria-hidden="true"
                   className="h-[18px] w-[18px] object-contain opacity-70"
                 />
@@ -83,7 +83,7 @@ export function NothingHeaderClient({ menuItems }: NothingHeaderClientProps) {
             >
               <Image
                 src={cartIcon}
-                alt=""
+                alt="Cart icon"
                 aria-hidden="true"
                 className="h-[19px] w-[19px] object-contain opacity-70"
               />
@@ -120,7 +120,7 @@ export function NothingHeaderClient({ menuItems }: NothingHeaderClientProps) {
               >
                 <Image
                   src={cancelIcon}
-                  alt=""
+                  alt="Close menu icon"
                   aria-hidden="true"
                   className="h-[18px] w-[18px] object-contain opacity-70"
                 />
@@ -146,7 +146,7 @@ export function NothingHeaderClient({ menuItems }: NothingHeaderClientProps) {
               >
                 <Image
                   src={cartIcon}
-                  alt=""
+                  alt="Cart icon"
                   aria-hidden="true"
                   className="h-[19px] w-[19px] object-contain opacity-70"
                 />

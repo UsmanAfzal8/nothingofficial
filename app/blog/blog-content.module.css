@@ -1,0 +1,72 @@
+.content {
+  font-family: var(--font-ntype82), serif;
+  color: rgba(17, 17, 17, 0.78);
+  font-size: 0.98rem;
+  line-height: 1.9;
+}
+
+.content h2,
+.content h3 {
+  color: #000;
+  font-family: var(--font-ntype82-headline), serif;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+.content h2 {
+  font-size: 2rem;
+  margin-top: 2.5rem;
+  line-height: 0.98;
+}
+
+.content h3 {
+  font-size: 1.35rem;
+  margin-top: 1.5rem;
+  line-height: 1.05;
+}
+
+.content p,
+.content ul,
+.content ol,
+.content table,
+.content blockquote {
+  margin-top: 1rem;
+}
+
+.content ul,
+.content ol {
+  padding-left: 1.25rem;
+}
+
+.content li + li {
+  margin-top: 0.4rem;
+}
+
+.content a {
+  color: #000;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.content strong {
+  color: #000;
+  font-weight: 600;
+}
+
+.content table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.content th,
+.content td {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 0.8rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.content thead {
+  background: rgba(0, 0, 0, 0.04);
+}

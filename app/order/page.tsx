@@ -3,7 +3,7 @@ import { redirect } from 'next/navigation'
 import { NothingFooter } from '@/components/NothingFooter'
 import { NothingHeader } from '@/components/NothingHeader'
 import { OrderForm } from '@/components/OrderForm'
-import { buildAbsoluteUrl, toSeoHandle } from '@/lib/utils/seo'
+import { buildAbsoluteUrl, buildRobotsMetadata, toSeoHandle } from '@/lib/utils/seo'
 
 type OrderPageProps = {
   searchParams?: {
@@ -27,14 +27,11 @@ export const metadata: Metadata = {
   title: {
     absolute: 'Place Order | Nothing Pakistan',
   },
-  description: 'Order screen for customer details and live catalog orders.',
+  description: 'Enter your details to confirm a Nothing Pakistan order with shipping, pickup, COD, or bank transfer options.',
   alternates: {
     canonical: buildAbsoluteUrl('/order'),
   },
-  robots: {
-    index: false,
-    follow: false,
-  },
+  robots: buildRobotsMetadata({ index: false, follow: true }),
 }
 
 export default async function OrderPage({ searchParams }: OrderPageProps) {

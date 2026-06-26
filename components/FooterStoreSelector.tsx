@@ -123,7 +123,7 @@ export function FooterStoreSelector({
     <>
       <button ref={triggerButtonRef} type="button" className={className} onClick={openDialog}>
         <span className="text-[inherit]">{activeCountry}</span>
-        <Image src={storeIcon} alt="" aria-hidden="true" className={iconClassName} />
+        <Image src={storeIcon} alt="Shipping location icon" aria-hidden="true" className={iconClassName} />
       </button>
 
       {isOpen ? (
@@ -156,7 +156,7 @@ export function FooterStoreSelector({
                 className="flex h-full items-center justify-center rounded-l-[6px] transition-opacity hover:opacity-60"
                 onClick={closeDialog}
               >
-                <Image src={cancelIcon} alt="" aria-hidden="true" className="h-[13px] w-[13px] object-contain opacity-60" />
+                <Image src={cancelIcon} alt="Close shipping location selector icon" aria-hidden="true" className="h-[13px] w-[13px] object-contain opacity-60" />
               </button>
               <p className="text-center [font-family:var(--font-ndot57-caps)] text-[0.88rem] uppercase leading-none tracking-[0.08em] text-black">
                 Ship To

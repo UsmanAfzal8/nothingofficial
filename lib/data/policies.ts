@@ -159,7 +159,7 @@ const policies: PolicyDocument[] = [
     slug: 'shipping-and-delivery-policy',
     title: 'Shipping and Delivery Policy',
     summary:
-      'This Shipping and Delivery Policy explains how the Nothing Pakistan handles dispatch timing, delivery expectations, address validation, and fulfillment communication.',
+      'This Shipping and Delivery Policy explains dispatch timing, delivery expectations, address checks, and order communication for Nothing Pakistan.',
     effectiveDate: 'May 19, 2026',
     lastUpdated: 'May 19, 2026',
     sections: [
@@ -263,7 +263,7 @@ const policies: PolicyDocument[] = [
     slug: 'warranty-policy',
     title: 'Warranty Policy',
     summary:
-      'This Warranty Policy explains how Nothing Pakistan reviews warranty expectations, seller support, manufacturer support, proof of purchase, and product issue reports.',
+      'This Warranty Policy explains warranty expectations, proof of purchase, seller support, manufacturer support, and issue reporting for Nothing Pakistan.',
     effectiveDate: 'May 19, 2026',
     lastUpdated: 'May 19, 2026',
     sections: [

@@ -1,4 +1,4 @@
-import type { OrderStatus, PaymentStatus, ProductType, RelatedType } from '@/lib/models/supabase-enums'
+import type { BlogContentType, OrderStatus, PaymentStatus, ProductType, RelatedType } from '@/lib/models/supabase-enums'
 export type { DetailImageRelatedType, StoreImageRelatedType, StoreRelatedType } from '@/lib/models/supabase-enums'
 
 export interface SupabaseCategoryRow {
@@ -23,6 +23,17 @@ export interface SupabaseBlogRow {
   content: string
   meta_title: string | null
   meta_description: string | null
+  excerpt: string | null
+  focus_keyword: string | null
+  category: string | null
+  tags: string[] | null
+  author: string | null
+  author_type: string | null
+  content_type: BlogContentType
+  reading_time: number | null
+  featured_image_id: number | null
+  is_published: boolean | null
+  published_at: string | null
   created_at: string | null
   updated_at: string | null
 }

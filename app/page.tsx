@@ -19,7 +19,7 @@ import { buildAbsoluteUrl, buildFaqStructuredData, buildSeoKeywords } from '@/li
 
 const homeMetaTitle = 'Nothing Phone Price in Pakistan | CMF, Earbuds & Chargers'
 const homeMetaDescription =
-  'Shop Nothing Phone, CMF Phone, Nothing Ear, CMF Buds, chargers, watches, and accessories in Pakistan with PKR pricing, PTA guidance, WhatsApp support, and SECP verification.'
+  'Shop Nothing Phone, CMF Phone, earbuds, chargers, watches, and accessories in Pakistan with PKR pricing, PTA guidance, and WhatsApp support.'
 
 const heroVideo = {
   src: 'https://res.cloudinary.com/dklsubnzb/video/upload/f_mp4,q_auto/nothing-official-store-pakistan/home/nothing-charli-hero-video.mp4',
@@ -159,7 +159,7 @@ function ProductCard({
         </p>
         <Image
           src={image}
-          alt=""
+          alt={`${title} product image from Nothing Pakistan`}
           width={168}
           height={168}
           unoptimized
@@ -235,7 +235,7 @@ function HomeProductPanel({ panel }: { panel: (typeof homeProductPanels)[number]
     <section className="relative flex min-h-[100svh] items-end justify-center overflow-hidden bg-[#f1f1ef] px-4 pb-4 pt-28">
       <Image
         src={panel.background}
-        alt=""
+        alt={`${panel.title} campaign background from Nothing Pakistan`}
         fill
         unoptimized
         sizes="100vw"

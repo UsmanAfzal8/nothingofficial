@@ -70,7 +70,7 @@ export function getSiteOrigin(): string {
 
 export function buildRobotsMetadata(options: { index?: boolean; follow?: boolean } = {}): NonNullable<Metadata['robots']> {
   const allowIndexing = shouldIndexSite() && (options.index ?? true)
-  const follow = allowIndexing && (options.follow ?? true)
+  const follow = options.follow ?? true
 
   return {
     index: allowIndexing,

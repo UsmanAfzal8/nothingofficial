@@ -26,8 +26,8 @@ export type BlogPost = {
   faqs: Array<{ question: string; answer: string }>
 }
 
-const author = 'Usman Afzal'
-const authorHref = '/authors/usman-afzal'
+const author = 'Nothing Pakistan'
+const authorHref = '/blog'
 const updatedDate = '2026-05-19'
 const heroImage = '/social/nothing-pakistan-og.jpg'
 

@@ -21,7 +21,7 @@ The storefront currently reads from these live tables:
 - `orders`
 
 SQL files in this folder:
-- `blogs.sql` creates the `public.blogs` table.
+- `blogs.sql` creates the `public.blog_content_type` enum and `public.blogs` table.
 - `categories.sql` creates the `public.categories` table and parent index.
 - `category-relations.sql` creates the `public.category_relations` table and its indexes.
 - `colors.sql` creates the `public.colors` table.

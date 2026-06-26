@@ -64,7 +64,7 @@ const guideCards: SupportGuideCard[] = [
     category: 'Phones',
     description: 'Setup, Nothing OS updates, camera, charging, accessories, and Pakistan order support.',
     href: '/products/nothing-pakistan-phone-3a-pro',
-    imageUrl: 'https://cdn.cmfbynothing.pk/mobiles/phone-3a-pro-grey.webp',
+    imageUrl: 'https://res.cloudinary.com/dklsubnzb/image/upload/f_auto,q_auto:eco,w_700,c_limit/nothing-official-store-pakistan/mobiles/phone-3a-pro/image/phone-3a-pro-schema-jsonimage0-phone-3a-pro-grey.webp',
     imageAlt: 'Phone 3a Pro support guide for Nothing Pakistan',
   },
   {
@@ -72,7 +72,7 @@ const guideCards: SupportGuideCard[] = [
     category: 'Phones',
     description: 'Quick help for first setup, display, battery, SIM, software, and compatible accessories.',
     href: '/products/nothing-pakistan-phone-3a',
-    imageUrl: 'https://cdn.cmfbynothing.pk/mobiles/phone-3a-white.webp',
+    imageUrl: 'https://res.cloudinary.com/dklsubnzb/image/upload/f_auto,q_auto:eco,w_700,c_limit/nothing-official-store-pakistan/mobiles/phone-3a/image/phone-3a-schema-jsonimage0-phone-3a-white.webp',
     imageAlt: 'Phone 3a support guide for Nothing Pakistan',
   },
   {
@@ -80,7 +80,7 @@ const guideCards: SupportGuideCard[] = [
     category: 'Phones',
     description: 'Everyday guidance for Nothing OS, data transfer, updates, camera, and local support.',
     href: '/products/nothing-pakistan-phone-3a-lite',
-    imageUrl: 'https://cdn.cmfbynothing.pk/mobiles/phone-3a-lite-white.webp',
+    imageUrl: 'https://res.cloudinary.com/dklsubnzb/image/upload/f_auto,q_auto:eco,w_700,c_limit/nothing-official-store-pakistan/mobiles/phone-3a-lite/image/phone-3a-lite-schema-jsonimage0-phone-3a-lite-white.webp',
     imageAlt: 'Phone 3a Lite support guide for Nothing Pakistan',
   },
   {
@@ -88,7 +88,7 @@ const guideCards: SupportGuideCard[] = [
     category: 'Phones',
     description: 'Product help for setup, charging, Nothing OS, accessories, and troubleshooting.',
     href: '/products/nothing-pakistan-phone-3',
-    imageUrl: 'https://cdn.cmfbynothing.pk/mobiles/phone-3-white.webp',
+    imageUrl: 'https://res.cloudinary.com/dklsubnzb/image/upload/f_auto,q_auto:eco,w_700,c_limit/nothing-official-store-pakistan/mobiles/phone-3/image/phone-3-schema-jsonimage0-phone-3-white.webp',
     imageAlt: 'Phone 3 support guide for Nothing Pakistan',
   },
   {
@@ -96,7 +96,7 @@ const guideCards: SupportGuideCard[] = [
     category: 'Phones',
     description: 'Find help for software updates, Bluetooth, battery, display, and device care.',
     href: '/products/nothing-pakistan-phone-2',
-    imageUrl: 'https://cdn.cmfbynothing.pk/mobiles/phone-2-white.webp',
+    imageUrl: 'https://res.cloudinary.com/dklsubnzb/image/upload/f_auto,q_auto:eco,w_700,c_limit/nothing-official-store-pakistan/mobiles/phone-2/image/phone-2-schema-jsonimage0-phone-2-white.webp',
     imageAlt: 'Phone 2 support guide for Nothing Pakistan',
   },
   {
@@ -104,7 +104,7 @@ const guideCards: SupportGuideCard[] = [
     category: 'Phones',
     description: 'Setup, repair guidance, accessory compatibility, updates, and common questions.',
     href: '/products/nothing-pakistan-phone-1',
-    imageUrl: 'https://cdn.cmfbynothing.pk/mobiles/phone-1-white.webp',
+    imageUrl: 'https://res.cloudinary.com/dbdsmy4em/image/upload/f_auto,q_auto:eco,w_700,c_limit/v1780457378/cmfbynothing/support/phone-1-white.webp',
     imageAlt: 'Phone 1 support guide for Nothing Pakistan',
   },
   {
@@ -112,7 +112,7 @@ const guideCards: SupportGuideCard[] = [
     category: 'Phones',
     description: 'Get support for CMF setup, accessories, display, battery, and update checks.',
     href: '/products/nothing-pakistan-cmf-phone-2-pro',
-    imageUrl: 'https://cdn.cmfbynothing.pk/mobiles/cmf-phone-2-pro-orange.webp',
+    imageUrl: 'https://res.cloudinary.com/dbdsmy4em/image/upload/f_auto,q_auto:eco,w_700,c_limit/v1780457380/cmfbynothing/support/cmf-phone-2-pro-orange.webp',
     imageAlt: 'CMF Phone 2 Pro support guide for Nothing Pakistan',
   },
   {
@@ -352,11 +352,11 @@ export const supportPages: SupportPageData[] = [
         ],
       },
       {
-        title: 'CMF Watch app download.',
-        description: 'Use the CMF Watch app for watch pairing, notifications, activity tracking, and firmware support.',
+        title: 'Nothing X watch support.',
+        description: 'Use Nothing X for supported Nothing and CMF watch pairing, notifications, activity tracking, firmware, and device settings.',
         buttons: [
-          { label: 'App Store', href: 'https://apps.apple.com/app/cmf-watch/id6447500890' },
-          { label: 'Google Play', href: 'https://play.google.com/store/apps/details?id=com.nothing.cmf.watch' },
+          { label: 'App Store', href: 'https://apps.apple.com/us/app/nothing-x/id1568033706' },
+          { label: 'Google Play', href: 'https://play.google.com/store/apps/details?id=com.nothing.smartcenter' },
         ],
       },
     ],

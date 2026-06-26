@@ -8,11 +8,23 @@ export default function robots(): MetadataRoute.Robots {
     rules: [
       {
         userAgent: '*',
-        allow: '/',
+        allow: [
+          '/',
+          '/nothing-pakistan',
+          '/nothing-phones-pakistan',
+          '/cmf-by-nothing-pakistan',
+          '/llms.txt',
+          '/company-verification',
+          '/about-us',
+          '/authenticity',
+          '/support-centre',
+          '/contact-us',
+          '/ai-products',
+        ],
         disallow: ['/Table.csv', '/newupdate.md', '/sitemap_issues.md', '/MIGRATION.md'],
       },
     ],
-    sitemap: buildAbsoluteUrl('/sitemap.xml'),
+    sitemap: [buildAbsoluteUrl('/sitemap.xml'), buildAbsoluteUrl('/server-sitemap.xml')],
     host: baseUrl,
   }
 }

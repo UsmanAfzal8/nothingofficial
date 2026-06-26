@@ -246,6 +246,11 @@ function buildOfferStructuredData(productDetail: ProductDetail) {
     },
     shippingDetails: {
       '@type': 'OfferShippingDetails',
+      shippingRate: {
+        '@type': 'MonetaryAmount',
+        value: 0,
+        currency: 'PKR',
+      },
       shippingDestination: {
         '@type': 'DefinedRegion',
         addressCountry: 'PK',
@@ -272,6 +277,7 @@ function buildOfferStructuredData(productDetail: ProductDetail) {
       returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow',
       merchantReturnDays: 7,
       returnMethod: 'https://schema.org/ReturnByMail',
+      returnFees: 'https://schema.org/ReturnShippingFees',
     },
   }
 }
@@ -311,7 +317,7 @@ function attachReviewStructuredData(productSchema: Record<string, unknown>, prod
   }
 }
 
-function buildProductStructuredData(productDetail: ProductDetail, relatedProducts: Array<{ name: string; href: string }> = []) {
+function buildProductStructuredData(productDetail: ProductDetail) {
   const images = uniqueStrings(productDetail.gallery.map((item) => item.url))
   const faqStructuredData = buildFaqStructuredData(
     (productDetail.faqs ?? []).map((faq: ProductDetailFaq) => ({
@@ -337,32 +343,12 @@ function buildProductStructuredData(productDetail: ProductDetail, relatedProduct
       },
       category: 'Smartphone',
       itemCondition: 'https://schema.org/NewCondition',
-      audience: {
-        '@type': 'PeopleAudience',
-        geographicArea: {
-          '@type': 'Country',
-          name: 'Pakistan',
-        },
-      },
-      seller: {
-        '@type': 'Organization',
-        '@id': buildAbsoluteUrl('/#organization'),
-        name: siteBrandName,
-        legalName: companyLegalName,
-        identifier: companyIdentifier,
-      },
       offers: buildOfferStructuredData(productDetail),
       additionalProperty:
         productDetail.specs?.slice(0, 8).map((spec) => ({
           '@type': 'PropertyValue',
           name: spec.label,
           value: spec.value,
-        })) ?? undefined,
-      isRelatedTo:
-        relatedProducts.slice(0, 8).map((product) => ({
-          '@type': 'Product',
-          name: product.name,
-          url: buildAbsoluteUrl(product.href),
         })) ?? undefined,
     }
 
@@ -393,20 +379,6 @@ function buildProductStructuredData(productDetail: ProductDetail, relatedProduct
       name: productDetail.brandName,
     },
     itemCondition: 'https://schema.org/NewCondition',
-    audience: {
-      '@type': 'PeopleAudience',
-      geographicArea: {
-        '@type': 'Country',
-        name: 'Pakistan',
-      },
-    },
-    seller: {
-      '@type': 'Organization',
-      '@id': buildAbsoluteUrl('/#organization'),
-      name: siteBrandName,
-      legalName: companyLegalName,
-      identifier: companyIdentifier,
-    },
     offers: buildOfferStructuredData(productDetail),
   }
 

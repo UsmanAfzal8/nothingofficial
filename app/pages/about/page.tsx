@@ -8,7 +8,7 @@ import { buildAbsoluteUrl, buildSeoKeywords } from '@/lib/utils/seo'
 
 export const metadata: Metadata = {
   title: {
-    absolute: `About ${siteBrandName} | Store, Support and Policy Information`,
+    absolute: `About ${siteBrandName} | Store and Support`,
   },
   description:
     'Learn what Nothing Pakistan is, how the storefront is organized, and where to find policy, support, delivery, and return information.',
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     canonical: buildAbsoluteUrl('/pages/about'),
   },
   openGraph: {
-    title: `About ${siteBrandName} | Store, Support and Policy Information`,
+    title: `About ${siteBrandName} | Store and Support`,
     description:
       'Learn what Nothing Pakistan is, how the storefront is organized, and where to find policy, support, delivery, and return information.',
     url: buildAbsoluteUrl('/pages/about'),
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary',
-    title: `About ${siteBrandName} | Store, Support and Policy Information`,
+    title: `About ${siteBrandName} | Store and Support`,
     description:
       'Learn what Nothing Pakistan is, how the storefront is organized, and where to find policy, support, delivery, and return information.',
   },

@@ -4,7 +4,7 @@ import { NothingFooter } from '@/components/NothingFooter'
 import { NothingHeader } from '@/components/NothingHeader'
 import { OrderForm } from '@/components/OrderForm'
 import { getProductDetailByHandle } from '@/lib/data/catalog-repository'
-import { buildAbsoluteUrl, toSeoHandle } from '@/lib/utils/seo'
+import { buildAbsoluteUrl, buildRobotsMetadata, toSeoHandle } from '@/lib/utils/seo'
 
 type OrderByHandlePageProps = {
   params: {
@@ -49,14 +49,11 @@ export async function generateMetadata({ params }: OrderByHandlePageProps): Prom
     title: {
       absolute: `Order ${productDetail.name} | Nothing Pakistan`,
     },
-    description: `Place an order for ${productDetail.name}.`,
+    description: `Confirm your ${productDetail.name} order with shipping or pickup, COD or bank transfer, and WhatsApp support from Nothing Pakistan.`,
     alternates: {
       canonical: buildAbsoluteUrl(`/order/${canonicalHandle}`),
     },
-    robots: {
-      index: false,
-      follow: false,
-    },
+    robots: buildRobotsMetadata({ index: false, follow: true }),
   }
 }
 
@@ -103,6 +100,7 @@ export default async function OrderByHandlePage({ params, searchParams }: OrderB
       <main className="pt-20 lg:pt-24">
         <section className="px-4 pb-16 pt-6 md:px-8 md:pb-24">
           <div className="mx-auto w-full max-w-[1200px]">
+            <h1 className="sr-only">Order {productDetail.name} from Nothing Pakistan</h1>
             <OrderForm product={selectedProduct} />
           </div>
         </section>

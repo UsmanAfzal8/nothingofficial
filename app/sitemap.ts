@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next'
 import { getCollectionSitemapEntries, getProductSitemapEntries } from '@/lib/data/catalog-repository'
-import { blogPosts } from '@/lib/data/blog'
+import { getPublishedBlogs } from '@/lib/data/blog-repository'
 import { allPolicies } from '@/lib/data/policies'
 import { supportPageSlugs } from '@/lib/data/support-pages'
 import { buildAbsoluteUrl, getLastModifiedDate, stripNothingPakistanSlugPrefix } from '@/lib/utils/seo'
@@ -44,7 +44,7 @@ function productFrequency(entry: Awaited<ReturnType<typeof getProductSitemapEntr
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [collections, products] = await Promise.all([getCollectionSitemapEntries(), getProductSitemapEntries()])
+  const [collections, products, blogPosts] = await Promise.all([getCollectionSitemapEntries(), getProductSitemapEntries(), getPublishedBlogs()])
   const latestCatalogDate =
     [...collections.map((entry) => entry.updatedAt), ...products.map((entry) => entry.updatedAt)]
       .map((value) => getLastModifiedDate(value))
@@ -53,6 +53,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const staticRoutes: MetadataRoute.Sitemap = [
     { url: buildAbsoluteUrl('/'), lastModified: latestCatalogDate, changeFrequency: 'daily', priority: 1 },
+    { url: buildAbsoluteUrl('/nothing-pakistan'), lastModified: latestCatalogDate, changeFrequency: 'weekly', priority: 0.92 },
+    { url: buildAbsoluteUrl('/nothing-phones-pakistan'), lastModified: latestCatalogDate, changeFrequency: 'weekly', priority: 0.9 },
+    { url: buildAbsoluteUrl('/cmf-by-nothing-pakistan'), lastModified: latestCatalogDate, changeFrequency: 'weekly', priority: 0.88 },
     { url: buildAbsoluteUrl('/company-verification'), lastModified: latestCatalogDate, changeFrequency: 'monthly', priority: 0.9 },
     { url: buildAbsoluteUrl('/ai-products'), lastModified: latestCatalogDate, changeFrequency: 'weekly', priority: 0.84 },
     { url: buildAbsoluteUrl('/about-us'), lastModified: latestCatalogDate, changeFrequency: 'monthly', priority: 0.8 },
@@ -61,7 +64,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: buildAbsoluteUrl('/support-centre'), lastModified: latestCatalogDate, changeFrequency: 'weekly', priority: 0.8 },
     { url: buildAbsoluteUrl('/pages/newsletter'), lastModified: latestCatalogDate, changeFrequency: 'monthly', priority: 0.64 },
     { url: buildAbsoluteUrl('/blog'), lastModified: latestCatalogDate, changeFrequency: 'weekly', priority: 0.7 },
-    { url: buildAbsoluteUrl('/authors/usman-afzal'), lastModified: latestCatalogDate, changeFrequency: 'monthly', priority: 0.65 },
     { url: buildAbsoluteUrl('/llms.txt'), lastModified: latestCatalogDate, changeFrequency: 'monthly', priority: 0.3 },
   ]
 
@@ -81,7 +83,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const blogRoutes: MetadataRoute.Sitemap = blogPosts.map((post) => ({
     url: buildAbsoluteUrl(`/blog/${post.slug}`),
-    lastModified: getLastModifiedDate(post.updatedDate) ?? latestCatalogDate,
+    lastModified: getLastModifiedDate(post.updatedAt) ?? latestCatalogDate,
     changeFrequency: 'weekly',
     priority: 0.7,
   }))

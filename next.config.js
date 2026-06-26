@@ -74,44 +74,13 @@ const nextConfig = {
         value: 'noindex, nofollow, noarchive',
       },
     ];
-    const noindexFollowHeaders = [
-      {
-        key: 'X-Robots-Tag',
-        value: 'noindex, follow, noarchive',
-      },
-    ];
-
     return [
-      {
-        source: '/order/:path*',
-        headers: noindexFollowHeaders,
-      },
-      {
-        source: '/order',
-        headers: noindexFollowHeaders,
-      },
-      {
-        source: '/cart',
-        headers: noindexHeaders,
-      },
       {
         source: '/dashboard/:path*',
         headers: noindexHeaders,
       },
       {
         source: '/api/:path*',
-        headers: noindexHeaders,
-      },
-      {
-        source: '/opengraph-image',
-        headers: noindexHeaders,
-      },
-      {
-        source: '/twitter-image',
-        headers: noindexHeaders,
-      },
-      {
-        source: '/_next/static/:path*',
         headers: noindexHeaders,
       },
     ];

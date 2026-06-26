@@ -1,48 +1,36 @@
-Solve these issues and solved one by one 
+solve these seo issues one by one 
 
-1) in the supabase review check all reviews and change the www.cmfbynothing.pk into nothing pakistan . donot use domain name in the review comment so check in the supabase and update all . 
+1) Issues
+/
+Robots.txt is not accessible "https://cdn.cmfbynothing.pk/robots.txt " .
 
-2) check all my "/Users/mosin/projects/nothingoffical/database" and update the sitemap according to it . and for every product and every mobile update the seo. 
-3) do a ahref in the project "Installation guide
+2) Issues
+/
+Nofollow page "/Users/mosin/projects/nothingoffical/cmfbynothing_21-jun-2026_nofollow-page_2026-06-21_09-45-40.csv"
 
-Copy the snippet below and paste it into the <head> section of your site. Once done, click the “Recheck installation” button to verify your installation.
-If you're using another method, make sure to include the data-key value: 73YlwBLrAA2cEXFqFSRpiA
+3) Noindex in HTML and HTTP header "/Users/mosin/projects/nothingoffical/cmfbynothing_21-jun-2026_noindex-in-html-and_2026-06-21_09-51-53.csv"
 
-<script src="https://analytics.ahrefs.com/analytics.js" data-key="73YlwBLrAA2cEXFqFSRpiA" async></script>
+4) Noindex page "/Users/mosin/projects/nothingoffical/cmfbynothing_21-jun-2026_noindex-page_2026-06-21_09-52-32.csv"
 
-Copy
+5) Nofollow in HTML and HTTP header "/Users/mosin/projects/nothingoffical/cmfbynothing_21-jun-2026_nofollow-in-html-and_2026-06-21_09-53-07.csv"
 
-Install with Google Tag Manager
-Copy the snippet below and paste it into the Custom HTML section of Google Tag Manager. Once done, click the “Recheck installation” button to verify your installation.
-<script>
-  var ahrefs_analytics_script = document.createElement('script');
-  ahrefs_analytics_script.async = true;
-  ahrefs_analytics_script.src = 'https://analytics.ahrefs.com/analytics.js';
-  ahrefs_analytics_script.setAttribute('data-key', '73YlwBLrAA2cEXFqFSRpiA');
-  document.getElementsByTagName('head')[0].appendChild(ahrefs_analytics_script);
-</script>
+6) Noindex and nofollow page "/Users/mosin/projects/nothingoffical/cmfbynothing_21-jun-2026_noindex-and-nofollow_2026-06-21_09-53-48.csv"
 
-Copy"
+7) Canonical URL has no incoming internal links "/Users/mosin/projects/nothingoffical/cmfbynothing_21-jun-2026_canonical-url-has-no_2026-06-21_09-54-37.csv"
 
-4) ok add the vercel "1
+8) Orphan page (has no incoming internal links) "/Users/mosin/projects/nothingoffical/cmfbynothing_21-jun-2026_orphan-page-(has-no_2026-06-21_09-55-17.csv"
 
-Install our package
+9) 3XX redirect "/Users/mosin/projects/nothingoffical/cmfbynothing_21-jun-2026_3xx-redirect_2026-06-21_09-56-30.csv"
 
-Start by installing @vercel/analytics in your existing project.
-npm
-yarn
-pnpm
-npm i @vercel/analytics
-2
+10) Meta description too long "/Users/mosin/projects/nothingoffical/cmfbynothing_21-jun-2026_meta-description-too_2026-06-21_09-57-07.csv". update in supabase
+11) Title too long "/Users/mosin/projects/nothingoffical/cmfbynothing_21-jun-2026_title-too-long_2026-06-21_10-01-16.csv"
 
-Add the React component
-Import and use the <Analytics/> React component into your app's layout.
-import { Analytics } from "@vercel/analytics/next"
-For full examples and further reference, please refer to our documentation
-3
+12) Meta description too short "/Users/mosin/projects/nothingoffical/cmfbynothing_21-jun-2026_meta-description-too_2026-06-21_10-02-03.csv"
 
-Deploy & Visit your Site
+13) H1 tag missing or empty "/Users/mosin/projects/nothingoffical/cmfbynothing_21-jun-2026_h1-tag-missing-or-em_2026-06-21_10-03-01.csv" . but donot change the ui
 
-Deploy your changes and visit the deployment to collect your page views.
+14) Image file size too large "/Users/mosin/projects/nothingoffical/cmfbynothing_21-jun-2026_image-file-size-too_2026-06-21_10-03-57.csv". convert into webp or avif and then upload on supabase.
 
-If you don't see data after 30 seconds, please check for content blockers and try to navigate between pages on your site." "
+15) Missing alt text "/Users/mosin/projects/nothingoffical/cmfbynothing_21-jun-2026_missing-alt-text_2026-06-21_10-05-06.csv"
+
+16) image missing alt text "/Users/mosin/projects/nothingoffical/cmfbynothing_21-jun-2026_missing-alt-text_2026-06-21_10-05-39.csv"

@@ -14,6 +14,9 @@ export type OrderStatus = (typeof ORDER_STATUS_ENUM)[number]
 export const PRODUCT_TYPE_ENUM = ['charger', 'data_cable', 'protector', 'earbuds', 'covers', 'screen_protector'] as const
 export type ProductType = (typeof PRODUCT_TYPE_ENUM)[number]
 
+export const BLOG_CONTENT_TYPE_ENUM = ['blog', 'guide', 'comparison', 'news', 'review', 'faq'] as const
+export type BlogContentType = (typeof BLOG_CONTENT_TYPE_ENUM)[number]
+
 export type StoreRelatedType = Extract<RelatedType, 'product' | 'mobile'>
 export type DetailImageRelatedType = Extract<RelatedType, 'detail_mobile' | 'detail_product'>
 export type StoreImageRelatedType = StoreRelatedType | DetailImageRelatedType

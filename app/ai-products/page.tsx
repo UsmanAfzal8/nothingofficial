@@ -7,14 +7,13 @@ import {
   aiProductFaqs,
   aiProductHighlights,
   aiProductKeywords,
-  siteBrandName,
   siteKeywords,
 } from '@/lib/data/site-content'
 import { buildAbsoluteUrl, buildBreadcrumbStructuredData, buildFaqStructuredData, buildRobotsMetadata, buildSeoKeywords } from '@/lib/utils/seo'
 
-const pageTitle = `Nothing AI Phones in Pakistan | Essential Space, ChatGPT & Gemini | ${siteBrandName}`
+const pageTitle = 'Nothing AI Phones in Pakistan | ChatGPT & Gemini'
 const pageDescription =
-  'Compare Nothing phones in Pakistan for AI features such as Nothing OS, Essential Space, Essential Search, ChatGPT integration, Gemini support, phone accessories, and buying guidance.'
+  'Compare Nothing phones in Pakistan with Essential Space, ChatGPT, Gemini, Nothing OS features, accessories, and local buying guidance.'
 
 export const metadata: Metadata = {
   title: {

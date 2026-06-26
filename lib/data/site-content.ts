@@ -11,8 +11,8 @@ import {
 export const siteBrandName = 'Nothing Pakistan'
 export const siteTagline = 'Tech is fun again.'
 export const siteDescription =
-  'Nothing Pakistan lists Nothing Phone, CMF Phone, Nothing Ear, CMF Buds, chargers, watches, cables, cases, and screen protectors with PKR pricing, PTA guidance, nationwide delivery, WhatsApp support, and SECP registered company information.'
-export const siteSeoTitle = 'Nothing Phone Price in Pakistan | Official Nothing Pakistan Store'
+  'Shop Nothing and CMF phones, earbuds, chargers, watches, cables, cases, and screen protectors in Pakistan with PKR pricing and WhatsApp support.'
+export const siteSeoTitle = 'Nothing Phone Price in Pakistan | Nothing Store'
 export const siteKeywords = [
   'Nothing Pakistan',
   'Nothing products Pakistan',

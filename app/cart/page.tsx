@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { NothingFooter } from '@/components/NothingFooter'
 import { NothingHeader } from '@/components/NothingHeader'
 import { CartPageContent } from '@/components/CartPageContent'
-import { buildAbsoluteUrl } from '@/lib/utils/seo'
+import { buildAbsoluteUrl, buildRobotsMetadata } from '@/lib/utils/seo'
 
 export const metadata: Metadata = {
   title: {
@@ -12,10 +12,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: buildAbsoluteUrl('/cart'),
   },
-  robots: {
-    index: false,
-    follow: false,
-  },
+  robots: buildRobotsMetadata({ index: false, follow: true }),
 }
 
 export default function CartPage() {

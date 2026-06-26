@@ -244,13 +244,13 @@ function SpecsFolderBadge({ onOpen }: { onOpen: () => void }) {
       <span className="relative block h-[60px] w-[60px] transition-transform duration-300 ease-out group-hover:scale-110 sm:h-[72px] sm:w-[72px]">
         <Image
           src={folderIcon}
-          alt=""
+          alt="Specs folder icon"
           aria-hidden="true"
           className="pointer-events-none absolute inset-0 h-full w-full object-contain"
         />
         <Image
           src={specsIcon}
-          alt=""
+          alt="Specs icon"
           aria-hidden="true"
           className="pointer-events-none absolute left-1/2 top-1/2 h-[30px] w-[30px] -translate-x-1/2 -translate-y-1/2 object-contain transition-transform duration-300 ease-out group-hover:scale-110 sm:h-[36px] sm:w-[36px]"
         />
@@ -287,7 +287,7 @@ function SpecsOverlay({
             className="inline-flex h-10 w-10 items-center justify-center rounded-[8px] transition-opacity hover:opacity-65"
             onClick={onClose}
           >
-            <Image src={cancelIcon} alt="" aria-hidden="true" className="h-[18px] w-[18px] object-contain opacity-75" />
+            <Image src={cancelIcon} alt="Close specs icon" aria-hidden="true" className="h-[18px] w-[18px] object-contain opacity-75" />
           </button>
           <p className="text-center [font-family:var(--font-ndot57)] text-[1.25rem] uppercase leading-none tracking-[0.16em] text-black">
             Specs
@@ -327,7 +327,7 @@ function SpecsOverlay({
                   >
                     <Image
                       src={getSpecIconUrl(group)}
-                      alt=""
+                      alt={`${group.title} specs icon`}
                       aria-hidden="true"
                       width={18}
                       height={18}
@@ -337,7 +337,7 @@ function SpecsOverlay({
                     <span className="product-card-name text-[1rem] leading-none text-black sm:text-[1.16rem]">{group.title}</span>
                     <Image
                       src={plusMinusIcon}
-                      alt=""
+                      alt={isOpen ? 'Collapse specs icon' : 'Expand specs icon'}
                       aria-hidden="true"
                       className={`h-[14px] w-[14px] object-contain opacity-70 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
                     />
@@ -591,8 +591,7 @@ function ProductFeatureBadge({
         ) : thumbnailUrl ? (
           <Image
             src={thumbnailUrl}
-            alt=""
-            aria-hidden="true"
+            alt={`${section.featureTitle || section.title} feature image for ${section.title}`}
             fill
             loading="lazy"
             fetchPriority="low"
@@ -652,7 +651,7 @@ function ProductFeatureOverlay({
             className="inline-flex h-10 w-10 items-center justify-center rounded-[8px] transition-opacity hover:opacity-70"
             onClick={onClose}
           >
-            <Image src={cancelIcon} alt="" aria-hidden="true" className="h-[16px] w-[16px] object-contain invert" />
+            <Image src={cancelIcon} alt={`Close ${section.title} icon`} aria-hidden="true" className="h-[16px] w-[16px] object-contain invert" />
           </button>
           <p className="truncate text-center [font-family:var(--font-ndot57)] text-[1.05rem] uppercase leading-none tracking-[0.12em] text-white sm:text-[1.2rem]">
             {section.title}

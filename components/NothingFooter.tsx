@@ -23,13 +23,27 @@ const footerPanels = [
 const footerUtilityLinks = [
   {
     label: 'Playground',
-    href: 'https://playground.nothing.tech/?_gl=1*13rz2z6*_gcl_au*MTcyNjc0MjEzNy4xNzc5NjE0NDEy*_ga*MTE5MTAyMjU0NS4xNzQ5OTM4ODcx*_ga_LBN1R4YF9V*czE3Nzk3NDUwMTYkbzY2JGcxJHQxNzc5NzQ5MzA0JGo2MCRsMCRoMTc4NjM2MTQ4NQ..',
+    href: 'https://playground.nothing.tech/',
     external: true,
   },
   { label: 'Contact', href: '/contact-us', external: false },
+  { label: 'Newsletter', href: '/pages/newsletter', external: false },
+  { label: 'Nothing Pakistan', href: '/nothing-pakistan', external: false },
+  { label: 'Nothing Phones', href: '/nothing-phones-pakistan', external: false },
+  { label: 'CMF by Nothing', href: '/cmf-by-nothing-pakistan', external: false },
+  { label: 'AI Products', href: '/ai-products', external: false },
+  { label: 'Earbuds', href: '/collections/earbuds', external: false },
+  { label: 'Trending Picks', href: '/collections/nothing-pakistan-trending-picks', external: false },
+  { label: 'Phone 2a', href: '/products/nothing-pakistan-phone-2a', external: false },
+  { label: 'Ear Open', href: '/products/nothing-pakistan-ear-open', external: false },
+  { label: 'CMF Phone 1', href: '/products/nothing-pakistan-cmf-phone-1', external: false },
+  { label: 'CMF Watch Pro', href: '/products/nothing-pakistan-cmf-watch-pro', external: false },
+  { label: 'CMF Watch Pro 2', href: '/products/nothing-pakistan-cmf-watch-pro-2', external: false },
+  { label: 'Phone 2a Plus', href: '/products/nothing-pakistan-phone-2a-plus', external: false },
+  { label: 'Phone 3a Community', href: '/products/nothing-pakistan-phone-3a-community-edition', external: false },
   {
     label: 'Careers',
-    href: 'https://careers.nothing.tech/?_gl=1*13rz2z6*_gcl_au*MTcyNjc0MjEzNy4xNzc5NjE0NDEy*_ga*MTE5MTAyMjU0NS4xNzQ5OTM4ODcx*_ga_LBN1R4YF9V*czE3Nzk3NDUwMTYkbzY2JGcxJHQxNzc5NzQ5MzA0JGo2MCRsMCRoMTc4NjM2MTQ4NQ..',
+    href: 'https://careers.nothing.tech/',
     external: true,
   },
   { label: 'Legal', href: '/pages/terms-of-sale', external: false },
@@ -69,7 +83,7 @@ export async function NothingFooter() {
                           {panel.label}
                         </span>
                         <span className="flex h-6 w-6 items-center justify-center">
-                          <Image src={panel.icon} alt="" aria-hidden="true" className="h-[20px] w-[20px] object-contain" />
+                          <Image src={panel.icon} alt={`${panel.label} icon`} aria-hidden="true" className="h-[20px] w-[20px] object-contain" />
                         </span>
                       </>
                     )
@@ -156,7 +170,7 @@ export async function NothingFooter() {
                     {panel.label}
                   </span>
                   <span className="flex h-6 w-6 items-center justify-center">
-                    <Image src={panel.icon} alt="" aria-hidden="true" className="h-[20px] w-[20px] object-contain" />
+                    <Image src={panel.icon} alt={`${panel.label} icon`} aria-hidden="true" className="h-[20px] w-[20px] object-contain" />
                   </span>
                 </>
               )
