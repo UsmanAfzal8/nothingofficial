@@ -274,6 +274,10 @@ const ACCESSORY_COLLECTION_PRODUCT_TYPES = new Set<ProductType>(['charger', 'dat
 const ACCESSORY_COLLECTION_CATEGORY_SLUGS = new Set(['chargers', 'cables', 'phone-cases', 'phone-protectors', 'protectors'])
 const SUPABASE_PAGE_SIZE = 1000
 
+function getCollectionSlugKey(slug: string) {
+  return stripNothingPakistanSlugPrefix(slug)
+}
+
 async function fetchPagedSupabaseRows<T>(
   queryPage: (from: number, to: number) => PromiseLike<{ data: T[] | null; error: { message: string } | null }>,
 ): Promise<{ data: T[]; error: { message: string } | null }> {
@@ -928,7 +932,7 @@ async function readCatalogSnapshotFromSupabase(options: CatalogSnapshotReadOptio
       .order('name', { ascending: true }),
     supabase
       .from('categories')
-      .select('id, name, slug, meta_title, meta_description, parent_id, created_at, updated_at')
+      .select('id, name, slug, meta_title, meta_description, seo_keywords, canonical_url, schema_json, seo_description_long, parent_id, created_at, updated_at')
       .order('id', { ascending: true }),
     supabase
       .from('category_relations')
@@ -1241,7 +1245,7 @@ function getCatalogCardsForProductSlugs(snapshot: CatalogSnapshot, slugs: readon
 }
 
 function getOrderedCategoryProductCards(snapshot: CatalogSnapshot, slug: string, fallbackSlugs: readonly string[]): Product[] {
-  const category = snapshot.categoriesBySlug.get(slug)
+  const category = getCategoryBySlug(snapshot, slug)
 
   if (!category) {
     return getCatalogCardsForProductSlugs(snapshot, fallbackSlugs)
@@ -1271,20 +1275,21 @@ function getCategoryRelationTimestamps(
 }
 
 function getCanonicalCollectionSlug(slug: string): string {
-  const normalizedSlug = stripNothingPakistanSlugPrefix(slug)
+  const normalizedSlug = getCollectionSlugKey(slug)
 
   return isVirtualCollectionSlug(normalizedSlug) ? normalizedSlug : slug
 }
 
 function buildNavigationItem(category: SupabaseCategoryRow, snapshot: CatalogSnapshot): NavigationItem {
   const canonicalSlug = getCanonicalCollectionSlug(category.slug)
+  const parentCategory = category.parent_id ? snapshot.categoriesById.get(category.parent_id) ?? null : null
 
   return {
     label: category.name,
     href: `/collections/${canonicalSlug}`,
     slug: canonicalSlug,
     description: category.meta_description,
-    parentSlug: category.parent_id ? snapshot.categoriesById.get(category.parent_id)?.slug ?? null : null,
+    parentSlug: parentCategory ? getCanonicalCollectionSlug(parentCategory.slug) : null,
     children: getChildCategories(snapshot, category.id).map((child) => buildNavigationItem(child, snapshot)),
   }
 }
@@ -1307,6 +1312,18 @@ function buildVirtualNavigationItem(
 
 function isVirtualCollectionSlug(slug: string): slug is VirtualCollectionSlug {
   return ALL_VIRTUAL_COLLECTION_SLUGS.includes(slug as VirtualCollectionSlug)
+}
+
+function getCategoryBySlug(snapshot: CatalogSnapshot, slug: string): SupabaseCategoryRow | null {
+  const normalizedSlug = getCollectionSlugKey(slug)
+
+  return (
+    snapshot.categoriesBySlug.get(slug) ??
+    snapshot.categoriesBySlug.get(normalizedSlug) ??
+    snapshot.categoriesBySlug.get(`nothing-pakistan-${normalizedSlug}`) ??
+    snapshot.categories.find((category) => getCollectionSlugKey(category.slug) === normalizedSlug) ??
+    null
+  )
 }
 
 function getVirtualCollectionDepth(slug: VirtualCollectionSlug): number {
@@ -1640,7 +1657,7 @@ function isAccessoriesCollectionProduct(product: SupabaseProductRow, snapshot: C
 
   const categorySlugs = getProductCategories(snapshot, product.id).map((category) => category.slug)
 
-  if (categorySlugs.some((slug) => ACCESSORY_COLLECTION_CATEGORY_SLUGS.has(slug))) {
+  if (categorySlugs.some((slug) => ACCESSORY_COLLECTION_CATEGORY_SLUGS.has(getCollectionSlugKey(slug)))) {
     return true
   }
 
@@ -2476,18 +2493,20 @@ export async function getCollectionSitemapEntries(): Promise<SitemapCollectionEn
   }).filter((entry) => Boolean(entry.image || entry.updatedAt))
 
   for (const category of snapshot.categories) {
-    if (isVirtualCollectionSlug(stripNothingPakistanSlugPrefix(category.slug))) {
+    const categorySlugKey = getCollectionSlugKey(category.slug)
+
+    if (isVirtualCollectionSlug(categorySlugKey)) {
       continue
     }
 
     const categoryTreeIds = getCategoryTreeIds(snapshot, category.id)
     const rawProducts = getCatalogCardsForCategoryIds(snapshot, categoryTreeIds)
-    const products = category.slug === 'accessories' ? filterAccessoriesCollectionCards(snapshot, rawProducts) : rawProducts
+    const products = categorySlugKey === 'accessories' ? filterAccessoriesCollectionCards(snapshot, rawProducts) : rawProducts
     const relationTimestamps = snapshot.categoryRelations
       .filter((relation) => categoryTreeIds.includes(relation.category_id))
       .map((relation) => relation.updated_at || relation.created_at)
 
-    if (products.length === 0 && !INDEXABLE_CONTENT_COLLECTION_SLUGS.has(category.slug)) {
+    if (products.length === 0 && !INDEXABLE_CONTENT_COLLECTION_SLUGS.has(categorySlugKey)) {
       continue
     }
 
@@ -2581,13 +2600,13 @@ export async function getProductSitemapEntries(): Promise<SitemapProductEntry[]>
 
 async function getCollectionBySlugUncached(slug: string): Promise<Collection | null> {
   const snapshot = await getCatalogSnapshot({ includeDetailRows: false })
-  const normalizedSlug = stripNothingPakistanSlugPrefix(slug)
+  const normalizedSlug = getCollectionSlugKey(slug)
 
   if (isVirtualCollectionSlug(normalizedSlug)) {
     return buildVirtualCollection(normalizedSlug, snapshot)
   }
 
-  const category = snapshot.categoriesBySlug.get(slug) ?? snapshot.categoriesBySlug.get(normalizedSlug)
+  const category = getCategoryBySlug(snapshot, slug)
 
   if (!category) {
     return null
@@ -2595,17 +2614,18 @@ async function getCollectionBySlugUncached(slug: string): Promise<Collection | n
 
   const categoryTreeIds = getCategoryTreeIds(snapshot, category.id)
   const rawProducts = getCatalogCardsForCategoryIds(snapshot, categoryTreeIds)
+  const categorySlugKey = getCollectionSlugKey(category.slug)
   const products =
-    category.slug === 'cmf'
+    categorySlugKey === 'cmf'
       ? buildCmfCollectionProducts(snapshot, rawProducts)
-      : category.slug === 'accessories'
+      : categorySlugKey === 'accessories'
         ? sortCatalogCards(
             snapshot.products
               .filter((product) => rawProducts.some((card) => card.handle === product.slug))
               .filter((product) => isAccessoriesCollectionProduct(product, snapshot))
               .flatMap((product) => buildProductColorVariantCards(product, snapshot)),
           )
-      : category.slug === 'shop-all'
+      : categorySlugKey === 'shop-all'
         ? rawProducts
         : sortCatalogCards(
             snapshot.products
