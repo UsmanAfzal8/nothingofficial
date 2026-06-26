@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getProductDetailByHandle } from '@/lib/data/catalog-repository'
+import { getCartPriceItemsByHandles } from '@/lib/data/catalog-repository'
 import { toSeoHandle } from '@/lib/utils/seo'
 
 const NO_INDEX_HEADERS = {
@@ -38,26 +38,9 @@ export async function POST(request: NextRequest) {
       return jsonNoIndex({ items: [] })
     }
 
-    const items = await Promise.all(
-      handles.slice(0, 50).map(async (handle) => {
-        const detail = await getProductDetailByHandle(handle)
+    const items = await getCartPriceItemsByHandles(handles)
 
-        if (!detail) {
-          return null
-        }
-
-        return {
-          handle: detail.handle,
-          name: detail.name,
-          image: detail.primaryImage ?? detail.ogImage ?? null,
-          price: detail.price ?? null,
-          priceLabel: detail.priceLabel ?? null,
-          entityType: detail.entityType,
-        }
-      }),
-    )
-
-    return jsonNoIndex({ items: items.filter(Boolean) })
+    return jsonNoIndex({ items })
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Unexpected error'
     return jsonNoIndex({ error: message, items: [] }, { status: 500 })

@@ -78,6 +78,15 @@ export type MobileAccessoryGroup = {
   products: Product[]
 }
 
+export type CartPriceLookupItem = {
+  handle: string
+  name: string
+  image: string | null
+  price: number | null
+  priceLabel: string | null
+  entityType: 'product' | 'mobile'
+}
+
 type CatalogSnapshot = {
   products: SupabaseProductRow[]
   mobiles: SupabaseMobileRow[]
@@ -891,30 +900,11 @@ async function readCatalogSnapshotFromSupabase(options: CatalogSnapshotReadOptio
         })
     : Promise.resolve({ data: [] as SupabaseProductFeatureSlideRow[], error: null })
 
-  const categorySeoFieldsPromise = supabase
-    .from('categories')
-    .select('id, seo_keywords, canonical_url, schema_json, seo_description_long')
-    .then((response) => {
-      if (response.error) {
-        if (process.env.NODE_ENV === 'development') {
-          console.warn('[catalog-repository] optional category SEO fields unavailable:', response.error.message)
-        }
-
-        return { data: [] as Array<Pick<SupabaseCategoryRow, 'id' | 'seo_keywords' | 'canonical_url' | 'schema_json' | 'seo_description_long'>>, error: null }
-      }
-
-      return {
-        data: (response.data ?? []) as Array<Pick<SupabaseCategoryRow, 'id' | 'seo_keywords' | 'canonical_url' | 'schema_json' | 'seo_description_long'>>,
-        error: null,
-      }
-    })
-
   const [
     productsResponse,
     mobilesResponse,
     categoriesResponse,
     categoryRelationsResponse,
-    categorySeoFieldsResponse,
     imagesResponse,
     faqsResponse,
     specGroupsResponse,
@@ -945,7 +935,6 @@ async function readCatalogSnapshotFromSupabase(options: CatalogSnapshotReadOptio
       .select('id, category_id, related_type, related_id, created_at, updated_at')
       .in('related_type', [...STORE_RELATED_TYPE_ENUM])
       .order('id', { ascending: true }),
-    categorySeoFieldsPromise,
     supabase
       .from('images')
       .select('id, related_type, related_id, color_id, url, alt_text, title, caption, file_name, slug, sort_order, created_at, updated_at')
@@ -1018,11 +1007,7 @@ async function readCatalogSnapshotFromSupabase(options: CatalogSnapshotReadOptio
 
   const products = (productsResponse.error ? [] : productsResponse.data ?? []) as SupabaseProductRow[]
   const mobiles = (mobilesResponse.error ? [] : mobilesResponse.data ?? []) as SupabaseMobileRow[]
-  const categorySeoFieldsById = new Map((categorySeoFieldsResponse.data ?? []).map((row) => [row.id, row]))
-  const categories = ((categoriesResponse.error ? [] : categoriesResponse.data ?? []) as SupabaseCategoryRow[]).map((category) => ({
-    ...category,
-    ...categorySeoFieldsById.get(category.id),
-  }))
+  const categories = (categoriesResponse.error ? [] : categoriesResponse.data ?? []) as SupabaseCategoryRow[]
   const categoryRelations = (categoryRelationsResponse.error ? [] : categoryRelationsResponse.data ?? []) as SupabaseCategoryRelationRow[]
   const images = (imagesResponse.error ? [] : imagesResponse.data ?? []) as SupabaseImageRow[]
   const faqs = (faqsResponse.error ? [] : faqsResponse.data ?? []) as SupabaseFaqRow[]
@@ -2236,7 +2221,10 @@ function buildVirtualCollection(slug: VirtualCollectionSlug, snapshot: CatalogSn
     seoKeywords: [
       `${config.title} Pakistan`,
       `${config.title} price in Pakistan`,
+      `buy ${config.title} Pakistan`,
       `Nothing ${config.title} Pakistan`,
+      `${config.title} official store Pakistan`,
+      'Nothing Official Store Pakistan',
       ...products.slice(0, 8).flatMap((product) => [product.name, `${product.name} price in Pakistan`]),
     ],
     products,
@@ -2651,6 +2639,9 @@ async function getCollectionBySlugUncached(slug: string): Promise<Collection | n
       category.name,
       `${category.name} Pakistan`,
       `${category.name} price in Pakistan`,
+      `buy ${category.name} Pakistan`,
+      `${category.name} official store Pakistan`,
+      'Nothing Official Store Pakistan',
       ...splitSeoKeywords(category.seo_keywords),
       ...products.slice(0, 8).flatMap((product) => [product.name, `${product.name} price in Pakistan`]),
     ],
@@ -2700,9 +2691,67 @@ async function getMobileAccessoryGroupsByHandleUncached(handle: string): Promise
   return buildMobileAccessoryGroups(snapshot, mobile.id)
 }
 
+async function getCartPriceItemsByHandlesUncached(handles: string[]): Promise<CartPriceLookupItem[]> {
+  const snapshot = await getCatalogSnapshot({ includeDetailRows: false })
+  const seenHandles = new Set<string>()
+  const items: CartPriceLookupItem[] = []
+
+  for (const handle of handles.slice(0, 50)) {
+    const resolvedHandles = getProductHandleCandidates(handle)
+    const product = resolvedHandles
+      .map((resolvedHandle) => snapshot.productsBySlug.get(resolvedHandle))
+      .find((entry): entry is SupabaseProductRow => Boolean(entry))
+
+    if (product) {
+      const card = buildProductCard(product, snapshot)
+
+      if (!seenHandles.has(card.handle)) {
+        seenHandles.add(card.handle)
+        items.push({
+          handle: card.handle,
+          name: card.name,
+          image: card.image,
+          price: card.price ?? null,
+          priceLabel: card.priceLabel ?? null,
+          entityType: 'product',
+        })
+      }
+
+      continue
+    }
+
+    const mobile = resolvedHandles
+      .map((resolvedHandle) => snapshot.mobilesBySlug.get(resolvedHandle))
+      .find((entry): entry is SupabaseMobileRow => Boolean(entry))
+
+    if (!mobile) {
+      continue
+    }
+
+    const card = buildMobileCard(mobile, snapshot)
+
+    if (seenHandles.has(card.handle)) {
+      continue
+    }
+
+    seenHandles.add(card.handle)
+    items.push({
+      handle: card.handle,
+      name: card.name,
+      image: card.image,
+      price: card.price ?? null,
+      priceLabel: card.priceLabel ?? null,
+      entityType: 'mobile',
+    })
+  }
+
+  return items
+}
+
 export const getCollectionBySlug = cache(getCollectionBySlugUncached)
 export const getProductDetailByHandle = cache(getProductDetailByHandleUncached)
 export const getMobileAccessoryGroupsByHandle = cache(getMobileAccessoryGroupsByHandleUncached)
+export const getCartPriceItemsByHandles = cache(getCartPriceItemsByHandlesUncached)
 
 export async function getSupportHeroImage(): Promise<SupportHeroImage> {
   const supabase = getSupabaseAdminClient()

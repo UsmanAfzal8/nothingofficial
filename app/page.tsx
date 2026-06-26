@@ -7,6 +7,7 @@ import { NothingHeader } from '@/components/NothingHeader'
 import { SeoStructuredData } from '@/components/SeoStructuredData'
 import {
   buildOrganizationStructuredData,
+  buildLocalBusinessStructuredData,
   buildWebsiteStructuredData,
   homeFaqCategories,
   homeSeoFaqs,
@@ -392,6 +393,7 @@ export default async function Home() {
   ])
   const homeStructuredData: Record<string, unknown>[] = [
     buildOrganizationStructuredData(),
+    buildLocalBusinessStructuredData(),
     buildWebsiteStructuredData(),
     ...(homeFaqStructuredData ? [homeFaqStructuredData] : []),
   ]

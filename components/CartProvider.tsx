@@ -15,6 +15,8 @@ type CartContextValue = {
 }
 
 const STORAGE_KEY = 'nothing-pakistan-cart:v2'
+const PRICE_REFRESH_KEY = 'nothing-pakistan-cart-price-refresh:v1'
+const PRICE_REFRESH_TTL_MS = 5 * 60 * 1000
 
 const CartContext = createContext<CartContextValue | null>(null)
 
@@ -94,6 +96,23 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       return
     }
 
+    try {
+      const savedRefresh = window.localStorage.getItem(PRICE_REFRESH_KEY)
+      const parsedRefresh = savedRefresh ? JSON.parse(savedRefresh) : null
+
+      if (
+        parsedRefresh &&
+        typeof parsedRefresh === 'object' &&
+        parsedRefresh.handlesKey === cartHandlesKey &&
+        typeof parsedRefresh.refreshedAt === 'number' &&
+        Date.now() - parsedRefresh.refreshedAt < PRICE_REFRESH_TTL_MS
+      ) {
+        return
+      }
+    } catch {
+      window.localStorage.removeItem(PRICE_REFRESH_KEY)
+    }
+
     const controller = new AbortController()
 
     async function refreshLivePrices() {
@@ -122,6 +141,14 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
           }>
         }
         const liveItemsByHandle = new Map((payload.items ?? []).map((item) => [item.handle, item]))
+
+        window.localStorage.setItem(
+          PRICE_REFRESH_KEY,
+          JSON.stringify({
+            handlesKey: cartHandlesKey,
+            refreshedAt: Date.now(),
+          }),
+        )
 
         setItems((currentItems) =>
           currentItems.map((item) => {

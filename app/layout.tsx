@@ -4,7 +4,7 @@ import { Analytics } from '@vercel/analytics/next'
 import { CartProvider } from '@/components/CartProvider'
 import { NavigationProgress } from '@/components/NavigationProgress'
 import { WhatsAppFloatingButton } from '@/components/WhatsAppFloatingButton'
-import { siteBrandName, siteDescription, siteKeywords, siteSeoTitle } from '@/lib/data/site-content'
+import { siteBrandName, siteDescription, siteSeoTitle } from '@/lib/data/site-content'
 import { buildRobotsMetadata, getSiteOrigin } from '@/lib/utils/seo'
 import './globals.css'
 
@@ -76,7 +76,6 @@ export const metadata: Metadata = {
   },
   description: siteDescription,
   applicationName: siteBrandName,
-  keywords: siteKeywords,
   alternates: {
     canonical: '/',
   },

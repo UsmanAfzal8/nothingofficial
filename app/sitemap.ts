@@ -53,6 +53,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const staticRoutes: MetadataRoute.Sitemap = [
     { url: buildAbsoluteUrl('/'), lastModified: latestCatalogDate, changeFrequency: 'daily', priority: 1 },
+    { url: buildAbsoluteUrl('/nothing-official-store-pakistan'), lastModified: latestCatalogDate, changeFrequency: 'weekly', priority: 0.95 },
     { url: buildAbsoluteUrl('/nothing-pakistan'), lastModified: latestCatalogDate, changeFrequency: 'weekly', priority: 0.92 },
     { url: buildAbsoluteUrl('/nothing-phones-pakistan'), lastModified: latestCatalogDate, changeFrequency: 'weekly', priority: 0.9 },
     { url: buildAbsoluteUrl('/cmf-by-nothing-pakistan'), lastModified: latestCatalogDate, changeFrequency: 'weekly', priority: 0.88 },

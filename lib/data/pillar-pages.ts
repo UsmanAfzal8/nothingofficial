@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { companyIdentifier, companyLegalName } from '@/lib/data/company'
+import { companyIdentifier, companyLegalName, companyWebsite } from '@/lib/data/company'
 import { siteBrandName, siteContactWhatsappUrl, siteKeywords, siteTrustLinks } from '@/lib/data/site-content'
 import {
   buildAbsoluteUrl,
@@ -26,7 +26,7 @@ export type PillarSection = {
 }
 
 export type PillarPageConfig = {
-  slug: 'nothing-pakistan' | 'nothing-phones-pakistan' | 'cmf-by-nothing-pakistan'
+  slug: 'nothing-pakistan' | 'nothing-official-store-pakistan' | 'nothing-phones-pakistan' | 'cmf-by-nothing-pakistan'
   title: string
   description: string
   eyebrow: string
@@ -130,6 +130,101 @@ export const pillarPageConfigs: Record<PillarPageConfig['slug'], PillarPageConfi
       { label: 'Accessories collection', href: '/collections/nothing-pakistan-accessories', description: 'Find chargers, protectors, cases, and other add-ons.' },
     ],
     relatedLinks: sharedTrustLinks,
+  },
+  'nothing-official-store-pakistan': {
+    slug: 'nothing-official-store-pakistan',
+    title: 'Nothing Official Store Pakistan | SECP Registered Store',
+    description:
+      `Nothing Official Store Pakistan guide for buying Nothing and CMF products from ${companyLegalName}, an SECP registered Pakistani company with ${companyIdentifier}, WhatsApp support, PKR pricing, and nationwide delivery guidance.`,
+    eyebrow: 'Official Store Pakistan',
+    heroTitle: 'Nothing Official Store Pakistan with company verification and local support.',
+    heroDescription:
+      'This page is built for shoppers searching for the official Nothing store in Pakistan. It explains the website domain, registered company identity, product categories, support routes, delivery context, and safe buying checks before placing an order.',
+    directAnswer: {
+      question: 'What is the Nothing official store website in Pakistan?',
+      answer:
+        `The Pakistan storefront is ${companyWebsite}. It is operated by ${companyLegalName}, an SECP registered Pakistani company with ${companyIdentifier}. Customers can use the site to browse Nothing and CMF products, review PKR prices, verify company details, and contact support before ordering.`,
+    },
+    keywords: [
+      'nothing official store pakistan',
+      'official nothing pakistan store',
+      'buy nothing phone pakistan online',
+      'nothing phone original pakistan',
+      'cmfbynothing.pk',
+    ],
+    introPoints: [
+      `Verify the business identity: ${companyLegalName}, ${companyIdentifier}, and the SECP certificate route.`,
+      'Browse Nothing Phone, CMF Phone, earbuds, chargers, protectors, watches, and accessories from one Pakistan-focused store.',
+      'Use WhatsApp support before payment for stock, colour, PTA context, delivery, pickup, or compatibility questions.',
+    ],
+    sections: [
+      {
+        title: 'Why official-store searches need a clear answer',
+        body: [
+          'Many Pakistan buyers search for Nothing official store Pakistan because they want to avoid fake sellers, copied product pages, confusing marketplace listings, and unsupported accessories. This page gives one direct answer about the website, legal identity, and safe next steps.',
+          'The page also helps search engines and answer engines understand that cmfbynothing.pk is the domain that connects Nothing and CMF product discovery with company verification, order support, product pages, and policy pages for Pakistan users.',
+        ],
+      },
+      {
+        title: 'How to verify before ordering',
+        body: [
+          `Before paying, match the website address with ${companyWebsite}, open the Company Verification page, check ${companyLegalName}, review ${companyIdentifier}, and use the published support routes if anything looks unclear.`,
+          'A safe order journey should keep you on cmfbynothing.pk for product pages, collection pages, support pages, policy pages, cart, and order flow. Be careful with sellers who copy product names but cannot show clear company verification or support details.',
+        ],
+      },
+      {
+        title: 'What you can buy from this store',
+        body: [
+          'The storefront is organized around Nothing phones, CMF phones, Nothing Ear and CMF Buds audio products, CMF watches, GaN chargers, USB-C cables, screen protectors, covers, and compatible accessories. Collection pages help users compare categories, while product pages carry price, images, specifications, FAQs, reviews, and order routes.',
+          'For phone buyers, the most important checks are current PKR price, PTA or non-PTA context where relevant, compatible charger, protector or cover availability, delivery timing, support availability, and whether the exact model or colour is in stock before checkout.',
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: 'Is cmfbynothing.pk the Nothing official store website in Pakistan?',
+        answer:
+          `The Pakistan storefront is published at ${companyWebsite} and operated by ${companyLegalName}. Customers should verify the company details and use the support links on the site before ordering.`,
+      },
+      {
+        question: 'How do I avoid fake Nothing sellers in Pakistan?',
+        answer:
+          'Check that the page is on cmfbynothing.pk, review the Company Verification page, confirm the legal company name and CUIN, avoid sending payment through unrelated links, and contact WhatsApp support from the website before ordering.',
+      },
+      {
+        question: 'Can I buy Nothing Phone online in Pakistan from this store?',
+        answer:
+          'Yes. Use the Phones collection and individual product pages to review current phone listings, Pakistan price context, images, specifications, accessories, and order support.',
+      },
+      {
+        question: 'Does Nothing Pakistan show prices in PKR?',
+        answer:
+          'Yes. Product pages and order flows are designed for Pakistan shoppers and show local PKR pricing where a product price is available.',
+      },
+      {
+        question: 'Where can I verify the registered company?',
+        answer:
+          `Open the Company Verification page on ${companyWebsite} to review ${companyLegalName}, ${companyIdentifier}, incorporation details, official domains, and the SECP certificate route.`,
+      },
+      {
+        question: 'Can I ask about PTA approval before buying a Nothing Phone?',
+        answer:
+          'Yes. Use the WhatsApp support route from the website to confirm current PTA or non-PTA context, model availability, delivery timing, and final order details before checkout.',
+      },
+    ],
+    browseLinks: [
+      { label: 'Phones collection', href: '/collections/phones', description: 'Compare current Nothing and CMF phone pages.' },
+      { label: 'Shop all products', href: '/collections/shop-all', description: 'Browse phones, audio, chargers, protectors, covers, and accessories.' },
+      { label: 'Company Verification', href: '/company-verification', description: 'Review legal company name, CUIN, and certificate details.' },
+      { label: 'Product Authenticity', href: '/authenticity', description: 'Read how product sourcing and authenticity guidance is presented.' },
+      { label: 'Contact Nothing Pakistan', href: '/contact-us', description: 'Use support routes before ordering or paying.' },
+    ],
+    relatedLinks: [
+      { label: 'Nothing Pakistan', href: '/nothing-pakistan', description: 'Read the broader brand and storefront guide.' },
+      { label: 'Nothing Phones Pakistan', href: '/nothing-phones-pakistan', description: 'Compare phone buying context and related accessories.' },
+      { label: 'CMF by Nothing Pakistan', href: '/cmf-by-nothing-pakistan', description: 'Browse the CMF product ecosystem in Pakistan.' },
+      ...sharedTrustLinks,
+    ],
   },
   'nothing-phones-pakistan': {
     slug: 'nothing-phones-pakistan',

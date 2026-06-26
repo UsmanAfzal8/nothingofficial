@@ -766,6 +766,9 @@ export async function generateMetadata({ params }: ProductDetailPageProps): Prom
   const title = buildProductSeoTitle(productDetail)
   const keywords = buildSeoKeywords(
     siteKeywords,
+    productDetail.seoKeywords ?? [],
+    productDetail.collections.map((collection) => collection.title),
+    productDetail.collections.map((collection) => `${collection.title} Pakistan`),
     [
       buildProductSeoName(productDetail),
       `${buildProductSeoName(productDetail)} price in Pakistan`,
@@ -779,9 +782,6 @@ export async function generateMetadata({ params }: ProductDetailPageProps): Prom
       productDetail.entityType === 'mobile' ? `${buildProductSeoName(productDetail)} charger Pakistan` : null,
       productDetail.entityType === 'mobile' ? `${buildProductSeoName(productDetail)} protector Pakistan` : null,
     ],
-    productDetail.seoKeywords ?? [],
-    productDetail.collections.map((collection) => collection.title),
-    productDetail.collections.map((collection) => `${collection.title} Pakistan`),
   )
 
   return {

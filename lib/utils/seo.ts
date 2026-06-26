@@ -123,7 +123,7 @@ export function buildSeoKeywords(...groups: Array<ReadonlyArray<string | null | 
   const seen = new Set<string>()
   const values: string[] = []
 
-  for (const group of groups) {
+  for (const group of groups.slice().reverse()) {
     for (const entry of group) {
       if (!entry) {
         continue
@@ -143,6 +143,10 @@ export function buildSeoKeywords(...groups: Array<ReadonlyArray<string | null | 
 
       seen.add(dedupeKey)
       values.push(normalized)
+
+      if (values.length >= 8) {
+        return values
+      }
     }
   }
 

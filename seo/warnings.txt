@@ -1,0 +1,51 @@
+Duplicate meta descriptions across all pages — same 1 sentence on every URL
+▼
+The homepage meta description "Shop Nothing Phone, CMF Phone, earbuds, chargers, watches, and accessories in Pakistan with PKR pricing, PTA guidance, and WhatsApp support." appears on almost every page. Google ignores duplicate descriptions and generates its own, usually pulling non-ideal text. Each product needs a unique, price-and-spec-specific description.
+Fix — Unique template per page type
+Product: "[Product Name] price in Pakistan at Rs [price]. [Key spec 1], [key spec 2]. PTA approved. Buy from Nothing Pakistan with WhatsApp support and nationwide delivery."
+
+Collection: "Shop all Nothing [category] in Pakistan. Browse [count]+ products with PKR pricing, PTA info, and WhatsApp ordering support from SECP-registered Nothing Pakistan."
+
+
+No Organization or LocalBusiness schema on homepage — AI engines can't verify your legitimacy
+▼
+ChatGPT and Gemini look for Organization schema to verify a business is real. You have your SECP registration (CUIN 0337422) mentioned in plain text, but it's not in schema. AI engines cannot machine-read and cite "this is an officially registered Pakistani company" without structured data.
+Fix — Add to homepage head
+{"@context":"https://schema.org","@type":"Organization","name":"Nothing Pakistan","url":"https://www.cmfbynothing.pk","logo":"https://www.cmfbynothing.pk/_next/static/media/nothing_logo.dac7c8ba.webp","contactPoint":{"@type":"ContactPoint","contactType":"customer service","availableLanguage":["English","Urdu"]},"address":{"@type":"PostalAddress","addressLocality":"Lahore","addressCountry":"PK"},"sameAs":["https://www.nothing.tech"]}
+
+
+Competitor sites outranking you: Fonepro, Cellmart, PriceOye, Mega.pk all rank for "Nothing Pakistan"
+▼
+When searching for "Nothing official store Pakistan", Fonepro, XcessoriesHub, CellMart and AllMyTech appear before cmfbynothing.pk. These are aggregators — not the official source. The reason: they have stronger backlink profiles, cleaner structured data, and simpler on-page content. Your site's SECP registration is a huge trust advantage that you're not leveraging in schema or your page H1s.
+Fix
+1. Add a dedicated landing page: /nothing-official-store-pakistan with static text, schema, and trust signals.
+2. Build backlinks: Get listed on ProPakistani, TechJuice, and PhoneWorld Pakistan with a link to your store.
+3. Press release/article: "SECP registered Nothing Pakistan official store launches" — get it indexed on local tech news.
+
+
+No BreadcrumbList schema — hurts navigation signals for AI engines
+▼
+Breadcrumb schema helps Google show "Home > Phones > Phone (3)" in search results (breadcrumb rich results). It also helps AI engines understand site hierarchy. Product pages have no breadcrumb schema despite having a clear hierarchy.
+Fix — Add to each product page
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.cmfbynothing.pk"},{"@type":"ListItem","position":2,"name":"Phones","item":"https://www.cmfbynothing.pk/collections/phones"},{"@type":"ListItem","position":3,"name":"Nothing Phone (3)","item":"https://www.cmfbynothing.pk/products/nothing-pakistan-phone-3"}]}
+
+
+Product URLs use "nothing-pakistan-" prefix — dilutes keyword clarity
+▼
+URLs like /products/nothing-pakistan-phone-3 are good but the prefix "nothing-pakistan-" before every product is redundant. The domain already signals Pakistan. Shorter, cleaner URLs like /products/nothing-phone-3 are marginally better for SEO and are easier for AI to cite.
+Fix (optional — lower priority)
+If migrating URLs, set up 301 redirects from old URLs to new. Consider this only if rebuilding — don't do it for existing indexed pages without proper redirects.
+
+
+
+No FAQ schema (FAQPage JSON-LD) despite extensive FAQ content on pages
+▼
+Every product page has 15–20 FAQs (price, PTA, delivery, warranty, etc.). These are exactly what AI engines (ChatGPT, Gemini) extract to answer user questions. But without FAQPage schema, they can't reliably identify and extract these Q&As. Adding FAQPage schema to each product is probably the single highest-impact AEO fix.
+Fix — Add FAQPage schema with top 5 Q&As per product
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is the price of Nothing Phone (3) in Pakistan?","acceptedAnswer":{"@type":"Answer","text":"Nothing Phone (3) is available in Pakistan at Rs 328,999 from Nothing Pakistan (cmfbynothing.pk), an SECP registered official store."}},{"@type":"Question","name":"Is Nothing Phone (3) PTA approved in Pakistan?","acceptedAnswer":{"@type":"Answer","text":"Yes. PTA approved models are available. Contact Nothing Pakistan on WhatsApp for current PTA and non-PTA pricing."}}]}
+
+Missing alt text specificity on product images — use descriptive, keyword-rich alt text
+▼
+Product images use alt text like "Phone (3) original phone in Pakistan from Nothing Pakistan" which is okay but not optimal. Include the price and color variant: "Nothing Phone 3 White price Rs 328999 Pakistan" — this helps Google Images and improves accessibility.
+Template
+[Product Name] [Color] — Rs [price] — Nothing Pakistan Official Store

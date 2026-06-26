@@ -1,6 +1,3 @@
-'use client'
-
-import { useState } from 'react'
 import type { ProductDetailFaq } from '@/lib/models/product-detail'
 
 type ProductFaqAccordionSectionProps = {
@@ -15,8 +12,6 @@ const dottedLineStyle = {
 }
 
 export function ProductFaqAccordionSection({ faqs }: ProductFaqAccordionSectionProps) {
-  const [expandedId, setExpandedId] = useState<string | null>(null)
-
   if (faqs.length === 0) {
     return null
   }
@@ -29,37 +24,27 @@ export function ProductFaqAccordionSection({ faqs }: ProductFaqAccordionSectionP
 
       <div className="mt-6">
         <div className="h-3 w-full" style={dottedLineStyle} />
-        {faqs.map((faq) => {
-          const isExpanded = expandedId === faq.id
-
-          return (
-            <article key={faq.id} className="py-4 md:py-5">
-              <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between md:gap-6">
-                <h3 className="max-w-[900px] text-[clamp(0.82rem,1.05vw,1rem)] font-normal leading-[1.35] text-black">
+        {faqs.map((faq, index) => (
+          <details key={faq.id} open={index < 5} className="group py-4 md:py-5">
+            <summary className="flex cursor-pointer list-none flex-col gap-3 md:flex-row md:items-start md:justify-between md:gap-6">
+              <h3 className="max-w-[900px] text-[clamp(0.82rem,1.05vw,1rem)] font-normal leading-[1.35] text-black">
                   {faq.question}
-                </h3>
+              </h3>
+              <span className="shrink-0 text-left text-[clamp(0.78rem,1vw,0.95rem)] font-normal leading-none text-[#35548b] transition-opacity group-hover:opacity-70">
+                <span className="group-open:hidden">( Read More )</span>
+                <span className="hidden group-open:inline">( Read Less )</span>
+              </span>
+            </summary>
 
-                <button
-                  type="button"
-                  className="shrink-0 text-left text-[clamp(0.78rem,1vw,0.95rem)] font-normal leading-none text-[#35548b] transition-opacity hover:opacity-70"
-                  onClick={() => setExpandedId((currentId) => (currentId === faq.id ? null : faq.id))}
-                >
-                  ({isExpanded ? ' Read Less ' : ' Read More '})
-                </button>
-              </div>
+            <div className="max-w-[900px] pt-3 md:pt-4">
+              <p className="whitespace-pre-line text-[clamp(0.78rem,0.95vw,0.92rem)] leading-[1.75] text-black/72">
+                {faq.answer}
+              </p>
+            </div>
 
-              {isExpanded ? (
-                <div className="max-w-[900px] pt-3 md:pt-4">
-                  <p className="whitespace-pre-line text-[clamp(0.78rem,0.95vw,0.92rem)] leading-[1.75] text-black/72">
-                    {faq.answer}
-                  </p>
-                </div>
-              ) : null}
-
-              <div className="mt-4 h-3 w-full md:mt-5" style={dottedLineStyle} />
-            </article>
-          )
-        })}
+            <div className="mt-4 h-3 w-full md:mt-5" style={dottedLineStyle} />
+          </details>
+        ))}
       </div>
     </section>
   )

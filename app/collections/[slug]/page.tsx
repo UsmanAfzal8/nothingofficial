@@ -259,6 +259,10 @@ export async function generateMetadata({ params }: CollectionPageProps): Promise
   const hasIndexableContent = collection.products.length > 0 || INDEXABLE_CONTENT_COLLECTION_SLUGS.has(collectionSeoKey)
   const keywords = buildSeoKeywords(
     siteKeywords,
+    collection.childCollections?.map((item) => item.label) ?? [],
+    collection.childCollections?.map((item) => `Nothing ${item.label} Pakistan`) ?? [],
+    collection.seoKeywords ?? [],
+    collection.products.slice(0, 8).flatMap((product) => [product.name, `${product.name} price in Pakistan`]),
     [
       collection.title,
       `${collection.title} Pakistan`,
@@ -267,10 +271,6 @@ export async function generateMetadata({ params }: CollectionPageProps): Promise
       `Nothing ${collection.title}`,
     ],
     COLLECTION_KEYWORDS[collectionSeoKey] ?? [],
-    collection.childCollections?.map((item) => item.label) ?? [],
-    collection.childCollections?.map((item) => `Nothing ${item.label} Pakistan`) ?? [],
-    collection.seoKeywords ?? [],
-    collection.products.slice(0, 8).flatMap((product) => [product.name, `${product.name} price in Pakistan`]),
   )
 
   return {

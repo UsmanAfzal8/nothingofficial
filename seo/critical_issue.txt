@@ -1,0 +1,20 @@
+Keyword stuffing in meta keywords tag — 2,000+ word keyword dump
+▼
+Your meta keywords tag contains 60+ keywords repeated across every single page (homepage, product pages, collection pages). This is the same giant block on every URL. Google ignores this tag entirely, but more importantly, it signals low-quality SEO to crawlers. AI engines (ChatGPT, Gemini, Perplexity) also treat keyword stuffing as a trust penalty. It means your pages all look identical to bots — they can't tell what any single page is specifically about.
+Fix
+Remove meta keywords from all pages OR limit to 5–8 highly specific keywords per page unique to that product. E.g., for the Phone 3 page only: Nothing Phone 3 Pakistan, Nothing Phone 3 price in Pakistan, Nothing Phone 3 PTA approved, Nothing Phone 3 buy online, Phone 3 specs Pakistan
+No structured data (JSON-LD) on product pages — missing Product, Offer, Review schema
+▼
+Product pages like /products/nothing-pakistan-phone-3 have no JSON-LD structured data. This means Google cannot show rich results (price, availability, ratings) in search. More critically, AI engines like ChatGPT browse and Gemini use structured data to confirm product details like price, availability, and legitimacy. Without it, AI engines will not confidently cite your store when answering "where to buy Nothing Phone 3 in Pakistan."
+Fix — Add this JSON-LD to every product page
+{ "@context": "https://schema.org", "@type": "Product", "name": "Nothing Phone (3)", "brand": { "@type": "Brand", "name": "Nothing" }, "offers": { "@type": "Offer", "priceCurrency": "PKR", "price": "328999", "availability": "https://schema.org/InStock", "seller": { "@type": "Organization", "name": "Nothing Pakistan" } }, "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.5", "reviewCount": "24" } }
+
+
+
+
+
+Product descriptions are thin or hidden — FAQ answers use "Read More" JS accordions
+▼
+Product page content like specs, FAQ answers, descriptions are hidden behind JavaScript accordions ("Read More"). Google crawls JavaScript but AI engines and many crawlers only see the initially-rendered HTML. The content that answers "What is the Nothing Phone 3 price in Pakistan?" is hidden, meaning AI engines cannot extract that answer from your page to cite you. Competitors with static text will be cited instead.
+Fix
+Make all critical content (price, specs, key FAQ answers) visible in the initial HTML load. Use CSS accordions that start open for the top 3–5 FAQs. Ensure the price (PKR amount) is in a visible HTML element, not loaded via JavaScript after initial render.

@@ -10,7 +10,12 @@ type CatalogProductTileProps = {
 
 export function CatalogProductTile({ product, priority = false, tone = 'default' }: CatalogProductTileProps) {
   const isShopAll = tone === 'shop-all'
-  const imageAlt = `${product.name} original product price in Pakistan from Nothing Pakistan`
+  const imageAlt = [
+    product.name,
+    product.colorName,
+    product.priceLabel,
+    'Nothing Pakistan Official Store',
+  ].filter(Boolean).join(' - ')
   const productHref = product.colorName
     ? `${product.href}${product.href.includes('?') ? '&' : '?'}color=${encodeURIComponent(product.colorName)}`
     : product.href

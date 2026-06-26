@@ -650,11 +650,14 @@ export const homeFaqCategories: HomeFaqCategory[] = [
 ]
 
 export function buildOrganizationStructuredData() {
+  const sameAs = [...new Set(['https://www.nothing.tech', ...socialLinks.map((item) => item.href)])]
+
   return {
     '@context': 'https://schema.org',
-    '@type': 'OnlineStore',
+    '@type': ['OnlineStore', 'Organization'],
     '@id': buildAbsoluteUrl('/#organization'),
     name: siteBrandName,
+    alternateName: ['CMF by Nothing Pakistan', 'Nothing Official Store Pakistan'],
     legalName: companyLegalName,
     url: companyWebsite,
     identifier: companyIdentifier,
@@ -662,15 +665,18 @@ export function buildOrganizationStructuredData() {
     description: siteDescription,
     slogan: siteTagline,
     telephone: siteContactPhone,
+    logo: buildAbsoluteUrl('/favicon/apple-touch-icon.png'),
+    image: buildAbsoluteUrl('/social/nothing-pakistan-og.jpg'),
     areaServed: {
       '@type': 'Country',
       name: sitePrimaryLocation.country,
     },
     inLanguage: 'en-PK',
-    sameAs: socialLinks.length > 0 ? socialLinks.map((item) => item.href) : undefined,
+    sameAs,
     document: companyCertificateUrl,
     address: {
       '@type': 'PostalAddress',
+      streetAddress: siteContactAddress,
       addressLocality: sitePrimaryLocation.city,
       addressCountry: sitePrimaryLocation.countryCode,
     },
@@ -704,6 +710,43 @@ export function buildOrganizationStructuredData() {
           url: buildAbsoluteUrl('/collections/shop-all'),
         },
       ],
+    },
+  }
+}
+
+export function buildLocalBusinessStructuredData() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'LocalBusiness',
+    '@id': buildAbsoluteUrl('/#local-business'),
+    name: siteBrandName,
+    legalName: companyLegalName,
+    url: companyWebsite,
+    identifier: companyIdentifier,
+    foundingDate: companyFoundingDate,
+    image: buildAbsoluteUrl('/social/nothing-pakistan-og.jpg'),
+    telephone: siteContactPhone,
+    priceRange: 'PKR',
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: siteContactAddress,
+      addressLocality: sitePrimaryLocation.city,
+      addressCountry: sitePrimaryLocation.countryCode,
+    },
+    areaServed: {
+      '@type': 'Country',
+      name: sitePrimaryLocation.country,
+    },
+    parentOrganization: {
+      '@id': buildAbsoluteUrl('/#organization'),
+    },
+    contactPoint: {
+      '@type': 'ContactPoint',
+      contactType: 'customer support',
+      telephone: siteContactPhone,
+      areaServed: sitePrimaryLocation.countryCode,
+      availableLanguage: ['en', 'en-PK', 'ur-PK'],
+      url: buildAbsoluteUrl('/contact-us'),
     },
   }
 }
