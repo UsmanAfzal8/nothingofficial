@@ -12,6 +12,7 @@ import specIconLinks from '@/assets/icons/spec-icon-links.json'
 
 type ProductDetailHeroProps = {
   productName: string
+  seoHeading: string
   brandLabel: string
   entityType: 'product' | 'mobile'
   gallery: ProductDetailMedia[]
@@ -986,6 +987,7 @@ function StickyPurchaseCard({
 
 export function ProductDetailHero({
   productName,
+  seoHeading,
   brandLabel,
   entityType,
   gallery,
@@ -1153,7 +1155,7 @@ export function ProductDetailHero({
   if (immersiveBackgroundImages.length > 0) {
     return (
       <section ref={immersiveRef} className="relative overflow-hidden bg-[#f3f4f4] font-sans text-black">
-        <h1 className="sr-only">{productName}</h1>
+        <h1 className="sr-only">{seoHeading}</h1>
         {isSpecsOpen ? (
           <SpecsOverlay
             groups={loadedSpecGroups}
@@ -1355,7 +1357,7 @@ export function ProductDetailHero({
         <div className="lg:sticky lg:top-28">
           <p className="text-sm font-medium uppercase tracking-[0.16em] text-slate-500">{brandLabel}</p>
           <h1 className="mt-3 font-sans text-[2rem] font-medium leading-tight tracking-normal text-slate-900 sm:text-[2.6rem]">
-            {productName}
+            {seoHeading}
           </h1>
 
           {entityType === 'mobile' ? (

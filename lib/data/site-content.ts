@@ -1,6 +1,7 @@
 import { buildAbsoluteUrl } from '@/lib/utils/seo'
 import {
   companyCertificateUrl,
+  companyCuin,
   companyFoundingDate,
   companyIdentifier,
   companyLegalName,
@@ -660,9 +661,15 @@ export function buildOrganizationStructuredData() {
     alternateName: ['CMF by Nothing Pakistan', 'Nothing Official Store Pakistan'],
     legalName: companyLegalName,
     url: companyWebsite,
-    identifier: companyIdentifier,
+    identifier: {
+      '@type': 'PropertyValue',
+      name: 'SECP CUIN',
+      propertyID: 'SECP CUIN',
+      value: companyCuin,
+    },
     foundingDate: companyFoundingDate,
-    description: siteDescription,
+    description:
+      `SECP-registered Nothing and CMF products store in Pakistan operated by ${companyLegalName} (${companyIdentifier}). Phones, earbuds, chargers, watches, and accessories with PKR pricing and WhatsApp support.`,
     slogan: siteTagline,
     telephone: siteContactPhone,
     logo: buildAbsoluteUrl('/favicon/apple-touch-icon.png'),
@@ -678,16 +685,17 @@ export function buildOrganizationStructuredData() {
       '@type': 'PostalAddress',
       streetAddress: siteContactAddress,
       addressLocality: sitePrimaryLocation.city,
+      addressRegion: 'Punjab',
       addressCountry: sitePrimaryLocation.countryCode,
     },
     contactPoint: [
       {
         '@type': 'ContactPoint',
-        contactType: 'customer support',
+        contactType: 'customer service',
         telephone: siteContactPhone,
         areaServed: sitePrimaryLocation.countryCode,
-        availableLanguage: ['en', 'en-PK'],
-        url: buildAbsoluteUrl('/contact-us'),
+        availableLanguage: ['English', 'Urdu'],
+        url: siteContactWhatsappUrl,
       },
     ],
     hasOfferCatalog: {
@@ -766,7 +774,10 @@ export function buildWebsiteStructuredData() {
     },
     potentialAction: {
       '@type': 'SearchAction',
-      target: `${buildAbsoluteUrl('/collections/shop-all')}?q={search_term_string}`,
+      target: {
+        '@type': 'EntryPoint',
+        urlTemplate: `${buildAbsoluteUrl('/collections/shop-all')}?q={search_term_string}`,
+      },
       'query-input': 'required name=search_term_string',
     },
   }

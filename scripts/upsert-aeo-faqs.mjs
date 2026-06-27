@@ -56,13 +56,6 @@ function formatPrice(value) {
   return `Rs ${new Intl.NumberFormat('en-PK', { maximumFractionDigits: 0 }).format(value)}`
 }
 
-function isSkippedProduct(product) {
-  if (product.product_type === 'protector') return true
-
-  const source = `${product.name || ''} ${product.slug || ''}`.toLowerCase()
-  return /\b(cover|covers|case|cases|protector|protectors|sheet|glass|privacy|uv|9d|jelly)\b/.test(source)
-}
-
 function classifyProduct(product) {
   const source = `${product.name || ''} ${product.slug || ''} ${product.product_type || ''}`.toLowerCase()
 
@@ -106,14 +99,14 @@ function buildProductFaqs(product) {
 
   return [
     ['What is the price of ' + name + ' in Pakistan?', priceAnswer],
-    ['Where can I buy original ' + name + ' in Pakistan?', `You can buy ${name} from Nothing Pakistan through the product page, order form, or WhatsApp support.`],
+    ['Where can I buy ' + name + ' in Pakistan?', `You can buy ${name} from Nothing Pakistan through the product page, order form, or WhatsApp support.`],
+    ['Does Nothing Pakistan deliver ' + name + ' across Pakistan?', `Nothing Pakistan can deliver ${name} to supported cities across Pakistan, subject to courier coverage and order confirmation.`],
     ['Is ' + name + ' original?', `${name} is listed as an original Nothing Pakistan catalog item. The team can confirm stock, packaging, and availability before order confirmation.`],
     ['Does Nothing Pakistan offer cash on delivery for ' + name + '?', `Cash on delivery may be available for ${name} in supported cities. Final COD eligibility is confirmed when your order is processed.`],
     ['How long does delivery take for ' + name + '?', `Estimated delivery for ${name} is usually shown on the product page. Delivery timing can vary by city, courier coverage, and order confirmation time.`],
     ['Can I order ' + name + ' on WhatsApp?', `Yes, you can contact Nothing Pakistan on WhatsApp to confirm ${name} price, stock, delivery city, and ordering details.`],
     ['Is ' + name + ' available in Karachi, Lahore, and Islamabad?', `${name} can be ordered for major Pakistani cities such as Karachi, Lahore, Islamabad, Rawalpindi, Faisalabad, Multan, and Peshawar, subject to courier coverage.`],
     ['What are the key highlights of ' + name + '?', highlight],
-    ['Is ' + name + ' suitable for daily use?', `Yes, ${name} is positioned for daily use by buyers who want a reliable ${label} with local ordering support in Pakistan.`],
     ['Does ' + name + ' come with local support?', `Nothing Pakistan provides order support for ${name}. Warranty, replacement, or after-sales help depends on the item condition and order confirmation details.`],
     ['Can I return or exchange ' + name + '?', `If ${name} arrives damaged, incorrect, or defective, contact support quickly so the team can review the return or exchange request.`],
     ['How do I confirm stock for ' + name + '?', `Use the product page order button or WhatsApp contact option to confirm live stock for ${name} before finalizing the order.`],
@@ -139,9 +132,10 @@ function buildMobileFaqs(mobile) {
   return [
     ['What is the price of ' + name + ' in Pakistan?', priceAnswer],
     ['Where can I buy ' + name + ' in Pakistan?', `You can order ${name} from Nothing Pakistan through the phone page or WhatsApp support, subject to stock availability.`],
-    ['Is ' + name + ' available on Nothing Pakistan?', `${name} is listed on Nothing Pakistan. Stock and final availability should be confirmed before placing the order.`],
     ['Is ' + name + ' PTA approved?', `PTA approval status for ${name} should be confirmed with support before purchase, because availability and approval details can vary by stock batch.`],
     ['Does Nothing Pakistan deliver ' + name + ' across Pakistan?', `Nothing Pakistan can support delivery for ${name} to many Pakistani cities, subject to courier coverage and order confirmation.`],
+    ['Is ' + name + ' original?', `${name} is listed in the Nothing Pakistan catalog. Confirm packaging, stock, and order details with support before finalizing your purchase.`],
+    ['Is ' + name + ' available on Nothing Pakistan?', `${name} is listed on Nothing Pakistan. Stock and final availability should be confirmed before placing the order.`],
     ['Can I buy ' + name + ' on cash on delivery?', `Cash on delivery for ${name} may be available in supported areas. The team confirms COD eligibility during order processing.`],
     ['How long does delivery take for ' + name + '?', `The product page shows an estimated delivery window for ${name}. Actual timing depends on your city, confirmation time, and courier service.`],
     ['Can I contact WhatsApp for ' + name + '?', `Yes, you can contact Nothing Pakistan on WhatsApp to confirm ${name} price, stock, PTA status, color, and delivery details.`],
@@ -149,7 +143,6 @@ function buildMobileFaqs(mobile) {
     ['Which accessories are available for ' + name + '?', `Compatible accessories for ${name}, such as chargers, protectors, covers, earbuds, and cables, may appear on the same phone page when linked in the catalog.`],
     ['Does ' + name + ' come with warranty or support?', `Warranty and support for ${name} depend on the confirmed stock and order terms. Ask support before purchase for current coverage details.`],
     ['Can I return or exchange ' + name + '?', `If ${name} arrives damaged, incorrect, or defective, contact support quickly so the team can review the return or exchange request.`],
-    ['Is ' + name + ' original?', `${name} is listed in the Nothing Pakistan catalog. Confirm packaging, stock, and order details with support before finalizing your purchase.`],
     ['Which cities can receive ' + name + ' delivery?', `${name} may be delivered to cities such as Karachi, Lahore, Islamabad, Rawalpindi, Faisalabad, Multan, and Peshawar where courier service is available.`],
     ['How do I confirm current stock of ' + name + '?', `Use the WhatsApp contact option or order form to confirm live stock for ${name} before checkout is finalized.`],
     ['Does the ' + name + ' price include delivery?', `The visible price is the phone price. Delivery fees, if any, are confirmed during checkout or WhatsApp order confirmation.`],
@@ -161,13 +154,25 @@ function buildMobileFaqs(mobile) {
 }
 
 async function fetchExistingFaqCounts() {
-  const { data, error } = await supabase.from('faqs').select('id, related_type, related_id')
-  if (error) throw error
-
   const counts = new Map()
-  for (const faq of data || []) {
-    const key = `${faq.related_type}:${faq.related_id}`
-    counts.set(key, (counts.get(key) || 0) + 1)
+  const pageSize = 1000
+
+  for (let from = 0; ; from += pageSize) {
+    const { data, error } = await supabase
+      .from('faqs')
+      .select('id, related_type, related_id')
+      .range(from, from + pageSize - 1)
+
+    if (error) throw error
+
+    for (const faq of data || []) {
+      const key = `${faq.related_type}:${faq.related_id}`
+      counts.set(key, (counts.get(key) || 0) + 1)
+    }
+
+    if (!data || data.length < pageSize) {
+      break
+    }
   }
 
   return counts
@@ -215,7 +220,7 @@ async function main() {
 
   for (const mobile of mobiles || []) {
     const key = `mobile:${mobile.id}`
-    if (!forceUpdate && (existingCounts.get(key) || 0) >= 20) {
+    if (!forceUpdate && (existingCounts.get(key) || 0) === 20) {
       report.alreadyComplete += 1
       continue
     }
@@ -227,13 +232,8 @@ async function main() {
   }
 
   for (const product of products || []) {
-    if (isSkippedProduct(product)) {
-      report.skippedProducts += 1
-      continue
-    }
-
     const key = `product:${product.id}`
-    if (!forceUpdate && (existingCounts.get(key) || 0) >= 20) {
+    if (!forceUpdate && (existingCounts.get(key) || 0) === 20) {
       report.alreadyComplete += 1
       continue
     }

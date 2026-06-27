@@ -17,8 +17,8 @@ import {
   getProductDetailByHandle,
   getProductStaticHandles,
 } from '@/lib/data/catalog-repository'
-import { companyIdentifier, companyLegalName } from '@/lib/data/company'
-import { siteBrandName, siteContactPhone, siteContactWhatsappUrl, siteKeywords } from '@/lib/data/site-content'
+import { companyCuin, companyIdentifier, companyLegalName } from '@/lib/data/company'
+import { siteBrandName, siteContactPhone, siteContactWhatsappUrl } from '@/lib/data/site-content'
 import { getImmediateProductIntro, resolveMigratedHtmlCopy } from '@/lib/data/migrated-html'
 import type {
   ProductDetail,
@@ -181,16 +181,24 @@ function buildProductSeoTitle(productDetail: ProductDetail) {
   return `${seoName} Price in Pakistan | Original ${productDetail.brandName}`
 }
 
+function buildProductSeoHeading(productDetail: ProductDetail) {
+  const price = typeof productDetail.price === 'number'
+    ? `Rs ${new Intl.NumberFormat('en-PK', { maximumFractionDigits: 0 }).format(productDetail.price)}`
+    : 'Contact for price'
+
+  return `${buildProductSeoName(productDetail)} — Price in Pakistan | ${price}`
+}
+
 function buildProductSeoDescription(productDetail: ProductDetail) {
   const seoName = buildProductSeoName(productDetail)
   const pricePhrase = productDetail.priceLabel ? ` at ${productDetail.priceLabel}` : ''
 
-  if (productDetail.entityType === 'mobile') {
-    return `${seoName} price in Pakistan${pricePhrase}. Review PTA status, non-PTA price, specs, stock, delivery, warranty support, and compatible Nothing accessories from ${siteBrandName}.`
-  }
-
   if (productDetail.metaDescription && productDetail.metaDescription.toLowerCase().includes(seoName.toLowerCase())) {
     return productDetail.metaDescription
+  }
+
+  if (productDetail.entityType === 'mobile') {
+    return `${seoName} price in Pakistan${pricePhrase}. Review PTA status, non-PTA price, specs, stock, delivery, warranty support, and compatible Nothing accessories from ${siteBrandName}.`
   }
 
   if (productDetail.priceLabel) {
@@ -202,6 +210,202 @@ function buildProductSeoDescription(productDetail: ProductDetail) {
     productDetail.description ||
     `Shop ${seoName} in Pakistan with pricing, product details, availability, delivery, warranty support, and ordering help from ${siteBrandName}.`
   )
+}
+
+function buildProductSchemaDescription(productDetail: ProductDetail) {
+  if (productDetail.description && !isHtmlSnippet(productDetail.description)) {
+    return productDetail.description
+  }
+
+  if (productDetail.summary && !isHtmlSnippet(productDetail.summary)) {
+    return productDetail.summary
+  }
+
+  return buildProductSeoDescription(productDetail)
+}
+
+function getFaqIntent(question: string) {
+  const normalized = question.toLowerCase()
+
+  if (normalized.includes('price')) return 'price'
+  if (normalized.includes('where') && (normalized.includes('buy') || normalized.includes('order'))) return 'buy'
+  if (normalized.includes('pta')) return 'pta'
+  if (normalized.includes('deliver')) return 'delivery'
+  if (normalized.includes('original') || normalized.includes('authentic')) return 'original'
+  if (normalized.includes('cash on delivery') || normalized.includes('cod')) return 'cod'
+
+  return null
+}
+
+function buildCoreProductFaqs(productDetail: ProductDetail): ProductDetailFaq[] {
+  const name = buildProductSeoName(productDetail)
+  const priceAnswer = productDetail.priceLabel
+    ? `${name} is listed at ${productDetail.priceLabel} in Pakistan on ${siteBrandName}. The price is read from the live catalog and may change when stock or variants change.`
+    : `The current Pakistan price for ${name} is shown on this page when available. Contact ${siteBrandName} on WhatsApp for the latest price and stock.`
+  const sharedFaqs: ProductDetailFaq[] = [
+    {
+      id: 'core-price',
+      question: `What is the price of ${name} in Pakistan?`,
+      answer: priceAnswer,
+    },
+    {
+      id: 'core-buy',
+      question: `Where can I buy ${name} in Pakistan?`,
+      answer: `${name} can be ordered from cmfbynothing.pk, operated by ${companyLegalName} (${companyIdentifier}), with online ordering, WhatsApp support, nationwide delivery, and confirmed pickup in Garden Town, Lahore.`,
+    },
+  ]
+
+  if (productDetail.entityType === 'mobile') {
+    sharedFaqs.push({
+      id: 'core-pta',
+      question: `Is ${name} PTA approved in Pakistan?`,
+      answer: `PTA approval and non-PTA availability for ${name} can vary by stock batch. Confirm the current status and price with ${siteBrandName} on WhatsApp before ordering.`,
+    })
+  }
+
+  sharedFaqs.push(
+    {
+      id: 'core-delivery',
+      question: `Does ${siteBrandName} deliver ${name} across Pakistan?`,
+      answer: `Yes. ${siteBrandName} supports delivery of ${name} to Lahore, Karachi, Islamabad, Rawalpindi, Faisalabad, Multan, and other covered cities in Pakistan. Delivery and cash-on-delivery eligibility are confirmed during checkout.`,
+    },
+    {
+      id: 'core-original',
+      question: `Is ${name} original?`,
+      answer: `Yes. ${name} is listed as an original Nothing or CMF catalog item by ${companyLegalName}, an SECP-registered company (${companyIdentifier}). Company details are available on the verification page.`,
+    },
+  )
+
+  if (productDetail.entityType !== 'mobile') {
+    sharedFaqs.push({
+      id: 'core-cod',
+      question: `Is cash on delivery available for ${name}?`,
+      answer: `Cash on delivery may be available for ${name} in supported locations. The final delivery charge, tax, and eligibility are shown or confirmed when the order is processed.`,
+    })
+  }
+
+  return sharedFaqs
+}
+
+function buildSupplementalProductFaqs(productDetail: ProductDetail): ProductDetailFaq[] {
+  const name = buildProductSeoName(productDetail)
+
+  return [
+    {
+      id: 'fallback-stock',
+      question: `How do I confirm current stock for ${name}?`,
+      answer: `Use the order button or WhatsApp support to confirm the current ${name} stock, color, and variant before completing your order.`,
+    },
+    {
+      id: 'fallback-whatsapp',
+      question: `Can I order ${name} on WhatsApp?`,
+      answer: `Yes. Contact ${siteBrandName} on WhatsApp at ${siteContactPhone} to ask about ${name} pricing, stock, delivery, and order details.`,
+    },
+    {
+      id: 'fallback-cities',
+      question: `Which cities can receive ${name} delivery?`,
+      answer: `${name} can be delivered to supported locations in Lahore, Karachi, Islamabad, Rawalpindi, Faisalabad, Multan, Peshawar, and other cities across Pakistan.`,
+    },
+    {
+      id: 'fallback-time',
+      question: `How long does delivery take for ${name}?`,
+      answer: `The estimated delivery window is shown on the product page. Actual timing depends on order confirmation, the destination city, courier coverage, and holidays.`,
+    },
+    {
+      id: 'fallback-features',
+      question: `What are the key features of ${name}?`,
+      answer: buildProductSchemaDescription(productDetail),
+    },
+    {
+      id: 'fallback-support',
+      question: `Does ${name} include local order support?`,
+      answer: `${siteBrandName} provides local order and delivery support for ${name}. Confirm the current warranty and after-sales terms before purchase because coverage can vary by item and stock batch.`,
+    },
+    {
+      id: 'fallback-return',
+      question: `Can I return or exchange ${name}?`,
+      answer: `If ${name} arrives damaged, incorrect, or defective, contact support promptly with your order details and evidence so the request can be reviewed under the current return policy.`,
+    },
+    {
+      id: 'fallback-fees',
+      question: `Does the ${name} price include delivery charges?`,
+      answer: `The displayed amount is the product price. Any delivery charge or tax is calculated during checkout or confirmed before the order is finalized.`,
+    },
+    {
+      id: 'fallback-online',
+      question: `Can I buy ${name} online from ${siteBrandName}?`,
+      answer: `Yes. Open the order flow from this page or use WhatsApp support to place an online order for ${name}.`,
+    },
+    {
+      id: 'fallback-before-order',
+      question: `What should I check before ordering ${name}?`,
+      answer: `Confirm the current price, stock, color or variant, compatibility, delivery city, payment method, and applicable warranty or return terms before ordering ${name}.`,
+    },
+    {
+      id: 'fallback-images',
+      question: `Are ${name} product images available on this page?`,
+      answer: `Yes. Available gallery images show the ${name} design and color options. Confirm the exact in-stock color or variant before ordering.`,
+    },
+    {
+      id: 'fallback-price-update',
+      question: `How often is the ${name} price updated?`,
+      answer: `The ${name} price is read from the live Supabase catalog and can update when the store changes pricing or stock information.`,
+    },
+    {
+      id: 'fallback-pickup',
+      question: `Can I collect ${name} from Lahore?`,
+      answer: `Garden Town, Lahore pickup can be requested for ${name}. Confirm stock and the collection time with WhatsApp support before visiting.`,
+    },
+    {
+      id: 'fallback-payment',
+      question: `Which payment methods are available for ${name}?`,
+      answer: `The order flow shows the available payment methods for ${name}, including cash on delivery where eligible and bank transfer. Final eligibility depends on the order and delivery location.`,
+    },
+    {
+      id: 'fallback-verification',
+      question: `How can I verify the seller of ${name}?`,
+      answer: `${siteBrandName} is operated by ${companyLegalName} (${companyIdentifier}). You can review the company details and SECP certificate from the Company Verification page before ordering.`,
+    },
+  ]
+}
+
+function buildProductPageFaqs(productDetail: ProductDetail) {
+  const coreFaqs = buildCoreProductFaqs(productDetail)
+  const coveredIntents = new Set(coreFaqs.map((faq) => getFaqIntent(faq.question)).filter(Boolean))
+  const seenQuestions = new Set(coreFaqs.map((faq) => faq.question.trim().toLowerCase()))
+  const mergedFaqs = [...coreFaqs]
+
+  for (const faq of productDetail.faqs ?? []) {
+    const normalizedQuestion = faq.question.trim().toLowerCase()
+    const intent = getFaqIntent(faq.question)
+
+    if (seenQuestions.has(normalizedQuestion) || (intent && coveredIntents.has(intent))) {
+      continue
+    }
+
+    seenQuestions.add(normalizedQuestion)
+    mergedFaqs.push(faq)
+
+    if (mergedFaqs.length >= 20) {
+      break
+    }
+  }
+
+  for (const faq of buildSupplementalProductFaqs(productDetail)) {
+    if (mergedFaqs.length >= 20) {
+      break
+    }
+
+    const normalizedQuestion = faq.question.trim().toLowerCase()
+    if (seenQuestions.has(normalizedQuestion)) {
+      continue
+    }
+
+    seenQuestions.add(normalizedQuestion)
+    mergedFaqs.push(faq)
+  }
+
+  return mergedFaqs
 }
 
 function getPriceValidUntil() {
@@ -228,7 +432,11 @@ function buildOfferStructuredData(productDetail: ProductDetail) {
       '@id': buildAbsoluteUrl('/#organization'),
       name: siteBrandName,
       legalName: companyLegalName,
-      identifier: companyIdentifier,
+      identifier: {
+        '@type': 'PropertyValue',
+        name: 'SECP CUIN',
+        value: companyCuin,
+      },
       url: buildAbsoluteUrl('/'),
       telephone: siteContactPhone,
       contactPoint: {
@@ -317,10 +525,10 @@ function attachReviewStructuredData(productSchema: Record<string, unknown>, prod
   }
 }
 
-function buildProductStructuredData(productDetail: ProductDetail) {
+function buildProductStructuredData(productDetail: ProductDetail, faqs: ProductDetailFaq[]) {
   const images = uniqueStrings(productDetail.gallery.map((item) => item.url))
   const faqStructuredData = buildFaqStructuredData(
-    (productDetail.faqs ?? []).map((faq: ProductDetailFaq) => ({
+    faqs.map((faq: ProductDetailFaq) => ({
       question: faq.question,
       answer: faq.answer,
     })),
@@ -332,7 +540,7 @@ function buildProductStructuredData(productDetail: ProductDetail) {
       '@type': 'Product',
       '@id': `${productDetail.canonicalUrl}#product`,
       name: buildProductSeoName(productDetail),
-      description: buildProductSeoDescription(productDetail),
+      description: buildProductSchemaDescription(productDetail),
       image: images.length > 0 ? images : undefined,
       sku: productDetail.handle,
       mpn: productDetail.handle,
@@ -360,7 +568,12 @@ function buildProductStructuredData(productDetail: ProductDetail) {
       faqStructuredData,
     ]
 
-    return mobileEntries.filter((entry): entry is Record<string, unknown> => Boolean(entry))
+    return {
+      '@context': 'https://schema.org',
+      '@graph': mobileEntries
+        .filter((entry): entry is Record<string, unknown> => Boolean(entry))
+        .map(({ ['@context']: _context, ...entry }) => entry),
+    }
   }
 
   const productSchema: Record<string, unknown> = {
@@ -368,7 +581,7 @@ function buildProductStructuredData(productDetail: ProductDetail) {
     '@type': 'Product',
     '@id': `${productDetail.canonicalUrl}#product`,
     name: buildProductSeoName(productDetail),
-    description: buildProductSeoDescription(productDetail),
+    description: buildProductSchemaDescription(productDetail),
     image: images.length > 0 ? images : undefined,
     sku: productDetail.handle,
     mpn: productDetail.handle,
@@ -398,7 +611,12 @@ function buildProductStructuredData(productDetail: ProductDetail) {
     faqStructuredData,
   ]
 
-  return productEntries.filter((entry): entry is Record<string, unknown> => Boolean(entry))
+  return {
+    '@context': 'https://schema.org',
+    '@graph': productEntries
+      .filter((entry): entry is Record<string, unknown> => Boolean(entry))
+      .map(({ ['@context']: _context, ...entry }) => entry),
+  }
 }
 
 function SectionCard({ title, children }: { title: string; children: ReactNode }) {
@@ -678,6 +896,7 @@ function PhoneAccessoriesHero({
   return (
     <ProductDetailHero
       productName={productDetail.name}
+      seoHeading={buildProductSeoHeading(productDetail)}
       brandLabel={productDetail.productBackgroundImage ? 'NOTHING (R)' : 'Phone Accessories'}
       entityType="mobile"
       gallery={gallery}
@@ -725,6 +944,7 @@ function PrimaryCatalogPanel({
   return (
     <ProductDetailHero
       productName={productDetail.name}
+      seoHeading={buildProductSeoHeading(productDetail)}
       brandLabel={productDetail.brandName || collectionLabel}
       entityType="product"
       gallery={gallery}
@@ -765,7 +985,6 @@ export async function generateMetadata({ params }: ProductDetailPageProps): Prom
   const description = buildProductSeoDescription(productDetail)
   const title = buildProductSeoTitle(productDetail)
   const keywords = buildSeoKeywords(
-    siteKeywords,
     productDetail.seoKeywords ?? [],
     productDetail.collections.map((collection) => collection.title),
     productDetail.collections.map((collection) => `${collection.title} Pakistan`),
@@ -838,14 +1057,14 @@ export default async function ProductDetailPage({ params, searchParams }: Produc
   const productFeatureSections = productDetail.productFeatureSections ?? []
   const initialColor = normalizeSearchParam(searchParams?.color)
   const initialMediaId = normalizeSearchParam(searchParams?.media)
+  const faqs = buildProductPageFaqs(productDetail)
 
   if (productDetail.entityType === 'mobile') {
-    const faqs = productDetail.faqs ?? []
     const reviews = productDetail.reviews ?? []
     const usesImmersiveHero = Boolean(productDetail.productBackgroundImage)
     return (
       <div className={`${detailFont.className} min-h-screen bg-[#f5f7fb] text-slate-900`}>
-        <SeoStructuredData data={buildProductStructuredData(productDetail)} />
+        <SeoStructuredData data={buildProductStructuredData(productDetail, faqs)} />
         <NothingHeader />
 
         <main
@@ -924,13 +1143,12 @@ export default async function ProductDetailPage({ params, searchParams }: Produc
     )
   }
 
-  const faqs = productDetail.faqs ?? []
   const reviews = productDetail.reviews ?? []
   const usesImmersiveHero = Boolean(productDetail.productBackgroundImage)
   const primaryCollectionSlug = productDetail.collections[0]?.slug ?? null
   return (
     <div className={`${detailFont.className} min-h-screen bg-[#f5f7fb] text-slate-900`}>
-      <SeoStructuredData data={buildProductStructuredData(productDetail)} />
+      <SeoStructuredData data={buildProductStructuredData(productDetail, faqs)} />
       <NothingHeader />
 
       <main className={usesImmersiveHero ? 'pb-16' : 'mx-auto max-w-[1360px] px-4 pb-16 pt-24 sm:px-6 lg:px-8 lg:pt-28'}>

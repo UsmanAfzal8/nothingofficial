@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { companyIdentifier, companyLegalName, companyWebsite } from '@/lib/data/company'
-import { siteBrandName, siteContactWhatsappUrl, siteKeywords, siteTrustLinks } from '@/lib/data/site-content'
+import { buildOrganizationStructuredData, siteBrandName, siteContactWhatsappUrl, siteKeywords, siteTrustLinks } from '@/lib/data/site-content'
 import {
   buildAbsoluteUrl,
   buildBreadcrumbStructuredData,
@@ -422,6 +422,7 @@ export function buildPillarPageStructuredData(config: PillarPageConfig) {
   const faqData = buildFaqStructuredData(config.faqs)
 
   return [
+    ...(config.slug === 'nothing-pakistan' ? [buildOrganizationStructuredData()] : []),
     buildBreadcrumbStructuredData([
       { label: 'Home', href: '/' },
       { label: config.eyebrow, href: path },
