@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 
-export const PRODUCTION_SITE_ORIGIN = 'https://www.cmfbynothing.pk'
-const CANONICAL_SITE_HOSTS = new Set(['cmfbynothing.pk', 'www.cmfbynothing.pk'])
+export const PRODUCTION_SITE_ORIGIN = 'https://www.nothingpakistan.pk'
+const CANONICAL_SITE_HOSTS = new Set(['nothingpakistan.pk', 'www.nothingpakistan.pk'])
 
 function normalizeSiteOrigin(value: string | null | undefined): string | null {
   if (!value) {

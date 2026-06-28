@@ -5,8 +5,8 @@ import { createClient } from '@supabase/supabase-js'
 const ROOT = process.cwd()
 const PROMPT_PATH = path.join(ROOT, 'blog_prompt.json')
 const REPORT_PATH = path.join(ROOT, 'tmp', 'blog-assets', 'generated', 'longform-blog-update-report.json')
-const SITE_URL = 'https://www.cmfbynothing.pk'
-const SITE_DOMAIN = 'cmfbynothing.pk'
+const SITE_URL = 'https://www.nothingpakistan.pk'
+const SITE_DOMAIN = 'nothingpakistan.pk'
 const BRAND = 'Nothing Pakistan'
 const UPDATED_LABEL = 'June 24, 2026'
 
@@ -142,7 +142,7 @@ async function loadCatalog(supabase) {
   const pickMobile = (name) => {
     const row = mobileByName.get(normalizeKey(name))
     if (!row) throw new Error(`Missing mobile in Supabase catalog: ${name}`)
-    return { ...row, price: row.Price, href: `${SITE_URL}/mobiles/${row.slug}` }
+    return { ...row, price: row.Price, href: `${SITE_URL}/products/${row.slug}` }
   }
 
   const pickProduct = (name) => {
@@ -198,7 +198,7 @@ const TOPIC_CONFIG = {
     focusKeyword: 'Nothing Phone price in Pakistan',
     primaryKeyword: 'Nothing Phone price in Pakistan',
     audience: 'Pakistani smartphone buyers comparing Nothing and CMF models in PKR',
-    shortAnswer: 'Nothing Phone prices in Pakistan vary by model, storage, PTA status, stock, and seller route. The safest baseline is the live official catalog on cmfbynothing.pk, where buyers can compare CMF Phone 1, Phone (2a), Phone (2), Phone (3a), Phone (3a) Pro, Phone (3), and CMF Phone 2 Pro with clearer support context.',
+    shortAnswer: 'Nothing Phone prices in Pakistan vary by model, storage, PTA status, stock, and seller route. The safest baseline is the live official catalog on nothingpakistan.pk, where buyers can compare CMF Phone 1, Phone (2a), Phone (2), Phone (3a), Phone (3a) Pro, Phone (3), and CMF Phone 2 Pro with clearer support context.',
     angle: 'price, model comparison, buying safety, PTA checks, and official-store trust',
     sections: ['Current price overview', 'Model-by-model buying advice', 'Official store versus market pricing', 'PTA and warranty checks', 'How to avoid fake sellers'],
     keywords: ['Nothing Phone price in Pakistan', 'buy Nothing Phone Pakistan', 'Nothing official store Pakistan', 'CMF phone Pakistan', 'Nothing Pakistan prices'],
@@ -209,10 +209,10 @@ const TOPIC_CONFIG = {
     focusKeyword: 'official Nothing Pakistan store',
     primaryKeyword: 'official Nothing Pakistan store',
     audience: 'buyers who want original Nothing phones, official support, and safer online ordering',
-    shortAnswer: 'The safest place to start is the official Nothing Pakistan storefront at cmfbynothing.pk because it gives buyers a clearer product catalog, PKR pricing context, support route, and order verification trail than random marketplace listings.',
+    shortAnswer: 'The safest place to start is the official Nothing Pakistan storefront at nothingpakistan.pk because it gives buyers a clearer product catalog, PKR pricing context, support route, and order verification trail than random marketplace listings.',
     angle: 'official buying routes, authenticity, warranty verification, seller comparison, and scam prevention',
     sections: ['Why official buying matters', 'Online store checklist', 'Official store vs market sellers', 'Authenticity and warranty checks', 'Delivery and payment safety'],
-    keywords: ['official Nothing Pakistan store', 'buy Nothing phone Pakistan online', 'Nothing phone original Pakistan', 'cmfbynothing.pk', 'Nothing Pakistan warranty'],
+    keywords: ['official Nothing Pakistan store', 'buy Nothing phone Pakistan online', 'Nothing phone original Pakistan', 'nothingpakistan.pk', 'Nothing Pakistan warranty'],
   },
   'Nothing Phone 2a vs Samsung A55 in Pakistan': {
     category: 'Comparisons',
@@ -428,7 +428,7 @@ function priceRows(catalog) {
 
 function buildComparisonRows(config, catalog) {
   const rows = [
-    ['Official Nothing Pakistan baseline', 'Compare current PKR catalog pricing on cmfbynothing.pk before buying.'],
+    ['Official Nothing Pakistan baseline', 'Compare current PKR catalog pricing on nothingpakistan.pk before buying.'],
     ['PTA status', 'Ask whether the listed price is PTA-approved, PTA-ready, or non-PTA.'],
     ['Warranty and support', 'Prefer a seller with visible support routes, policy pages, and clear order records.'],
     ['Authenticity', 'Confirm exact model, storage, color, packaging, invoice, and product page match.'],
@@ -548,7 +548,7 @@ function buildFaqs(config, catalog) {
     [`What is the short answer for ${config.primaryKeyword}?`, config.shortAnswer],
     [`Where should I verify the latest information about ${config.primaryKeyword}?`, `Verify the latest price, stock, support, and product details on ${SITE_DOMAIN}. Search results and marketplace posts can become outdated, so the official storefront should be your first reference point.`],
     ['Who is the publisher of this guide?', `This guide is published by ${BRAND}. The content is written for Pakistani buyers and avoids personal bylines so the advice stays connected to the official brand voice.`],
-    ['Is cmfbynothing.pk the domain mentioned in this guide?', `Yes. The domain used throughout this content system is ${SITE_DOMAIN}, and readers should use it to confirm current catalog details before buying.`],
+    ['Is nothingpakistan.pk the domain mentioned in this guide?', `Yes. The domain used throughout this content system is ${SITE_DOMAIN}, and readers should use it to confirm current catalog details before buying.`],
     ['Are Nothing phones officially available in Pakistan?', `Nothing and CMF products are available through the ${BRAND} storefront experience, but buyers should still confirm exact stock, model, PTA guidance, and warranty information before placing an order.`],
     ['How do I know if a Nothing phone seller is trustworthy?', 'Check whether the seller gives an exact product page, clear model variant, business identity, support route, invoice process, delivery terms, and written answers about PTA and warranty.'],
     ['Why do Nothing Phone prices differ across Pakistan?', 'Prices can differ because of PTA status, storage variant, stock position, import route, seller margin, exchange rate pressure, and whether the device is new, open-box, used, or officially listed.'],

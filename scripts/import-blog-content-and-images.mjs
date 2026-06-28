@@ -9,8 +9,8 @@ const TMP_DIR = path.join(ROOT, 'tmp', 'blog-assets')
 const GENERATED_DIR = path.join(TMP_DIR, 'generated')
 const BACKGROUND_PATH = path.join(TMP_DIR, 'canva-background.png')
 const PROMPT_PATH = path.join(ROOT, 'blog_prompt.json')
-const SITE_URL = 'https://www.cmfbynothing.pk'
-const SITE_DOMAIN = 'www.cmfbynothing.pk'
+const SITE_URL = 'https://www.nothingpakistan.pk'
+const SITE_DOMAIN = 'www.nothingpakistan.pk'
 const UPDATED_AT_LABEL = 'June 21, 2026'
 const AUTHOR = 'Nothing Pakistan'
 
@@ -363,15 +363,15 @@ function buildCommonContext(catalog) {
     nothingPower45w,
     allNothingPhones: [cmfPhone1, phone1, phone2a, phone2aPlus, phone2, phone3a, phone3aPro, phone3, cmfPhone2Pro],
     officialPriceRows: [
-      ['CMF Phone 1', formatPkr(cmfPhone1.price), articleLink('View product', buildCatalogLink(cmfPhone1.slug, 'products').replace('/products/', '/mobiles/'))],
-      ['Phone (1)', formatPkr(phone1.price), articleLink('View product', buildCatalogLink(phone1.slug, 'mobiles'))],
-      ['Phone (2a)', formatPkr(phone2a.price), articleLink('View product', buildCatalogLink(phone2a.slug, 'mobiles'))],
-      ['Phone (2a) Plus', formatPkr(phone2aPlus.price), articleLink('View product', buildCatalogLink(phone2aPlus.slug, 'mobiles'))],
-      ['Phone (2)', formatPkr(phone2.price), articleLink('View product', buildCatalogLink(phone2.slug, 'mobiles'))],
-      ['Phone (3a)', formatPkr(phone3a.price), articleLink('View product', buildCatalogLink(phone3a.slug, 'mobiles'))],
-      ['Phone (3a) Pro', formatPkr(phone3aPro.price), articleLink('View product', buildCatalogLink(phone3aPro.slug, 'mobiles'))],
-      ['Phone (3)', formatPkr(phone3.price), articleLink('View product', buildCatalogLink(phone3.slug, 'mobiles'))],
-      ['CMF Phone 2 Pro', formatPkr(cmfPhone2Pro.price), articleLink('View product', buildCatalogLink(cmfPhone2Pro.slug, 'mobiles'))],
+      ['CMF Phone 1', formatPkr(cmfPhone1.price), articleLink('View product', buildCatalogLink(cmfPhone1.slug, 'products'))],
+      ['Phone (1)', formatPkr(phone1.price), articleLink('View product', buildCatalogLink(phone1.slug, 'products'))],
+      ['Phone (2a)', formatPkr(phone2a.price), articleLink('View product', buildCatalogLink(phone2a.slug, 'products'))],
+      ['Phone (2a) Plus', formatPkr(phone2aPlus.price), articleLink('View product', buildCatalogLink(phone2aPlus.slug, 'products'))],
+      ['Phone (2)', formatPkr(phone2.price), articleLink('View product', buildCatalogLink(phone2.slug, 'products'))],
+      ['Phone (3a)', formatPkr(phone3a.price), articleLink('View product', buildCatalogLink(phone3a.slug, 'products'))],
+      ['Phone (3a) Pro', formatPkr(phone3aPro.price), articleLink('View product', buildCatalogLink(phone3aPro.slug, 'products'))],
+      ['Phone (3)', formatPkr(phone3.price), articleLink('View product', buildCatalogLink(phone3.slug, 'products'))],
+      ['CMF Phone 2 Pro', formatPkr(cmfPhone2Pro.price), articleLink('View product', buildCatalogLink(cmfPhone2Pro.slug, 'products'))],
     ],
     competitor: {
       samsungA55: 139999,

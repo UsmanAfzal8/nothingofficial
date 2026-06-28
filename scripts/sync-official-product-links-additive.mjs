@@ -551,7 +551,7 @@ function onlyMissingMediaPatch(existing, incoming, fields) {
 
 async function uploadFeatureImage(bunny, sourceUrl, remotePath) {
   if (!sourceUrl) return null
-  if (sourceUrl.includes('cdn.cmfbynothing.pk/')) return sourceUrl
+  if (sourceUrl.includes('cdn.nothingpakistan.pk/')) return sourceUrl
 
   return bunny.uploadRemoteFile(sourceUrl, remotePath)
 }
@@ -561,7 +561,7 @@ async function prepareFeatureMedia(bunny, source, feature, report) {
   process.stdout.write(`\n  preparing feature "${feature.feature_title}" (${feature.slides?.length ?? 0} slides)`)
   const originalCoverImageUrl = feature.cover_image_url
 
-  if (feature.cover_image_url && !feature.cover_image_url.includes('cdn.cmfbynothing.pk/')) {
+  if (feature.cover_image_url && !feature.cover_image_url.includes('cdn.nothingpakistan.pk/')) {
     const ext = extensionForUrl(feature.cover_image_url)
     process.stdout.write(' cover')
     feature.cover_image_url = await uploadFeatureImage(bunny, feature.cover_image_url, `${featureDir}/cover${ext}`)
@@ -572,7 +572,7 @@ async function prepareFeatureMedia(bunny, source, feature, report) {
     feature.cover_thumbnail_url = feature.cover_image_url
   }
 
-  if (feature.cover_thumbnail_url && !feature.cover_thumbnail_url.includes('cdn.cmfbynothing.pk/') && !feature.cover_thumbnail_url.includes('image.mux.com/')) {
+  if (feature.cover_thumbnail_url && !feature.cover_thumbnail_url.includes('cdn.nothingpakistan.pk/') && !feature.cover_thumbnail_url.includes('image.mux.com/')) {
     process.stdout.write(' thumb')
     feature.cover_thumbnail_url = await uploadFeatureImage(bunny, feature.cover_thumbnail_url, `${featureDir}/cover-thumb.jpg`)
     report.images_uploaded += 1
@@ -583,7 +583,7 @@ async function prepareFeatureMedia(bunny, source, feature, report) {
     const slideDir = `${featureDir}/${slideSlug}`
     const originalSlideImageUrl = slide.image_url
 
-    if (slide.image_url && !slide.image_url.includes('cdn.cmfbynothing.pk/')) {
+    if (slide.image_url && !slide.image_url.includes('cdn.nothingpakistan.pk/')) {
       const ext = extensionForUrl(slide.image_url)
       process.stdout.write(` s${slide.sort_order}`)
       slide.image_url = await uploadFeatureImage(bunny, slide.image_url, `${slideDir}/image${ext}`)
@@ -594,7 +594,7 @@ async function prepareFeatureMedia(bunny, source, feature, report) {
       slide.thumbnail_url = slide.image_url
     }
 
-    if (slide.thumbnail_url && !slide.thumbnail_url.includes('cdn.cmfbynothing.pk/') && !slide.thumbnail_url.includes('image.mux.com/')) {
+    if (slide.thumbnail_url && !slide.thumbnail_url.includes('cdn.nothingpakistan.pk/') && !slide.thumbnail_url.includes('image.mux.com/')) {
       process.stdout.write(` t${slide.sort_order}`)
       slide.thumbnail_url = await uploadFeatureImage(bunny, slide.thumbnail_url, `${slideDir}/thumb.jpg`)
       report.images_uploaded += 1

@@ -10,7 +10,7 @@ import {
 import { extname, join, resolve } from 'node:path'
 
 const ROOT = process.cwd()
-const SITE_URL = 'https://www.cmfbynothing.pk'
+const SITE_URL = 'https://www.nothingpakistan.pk'
 const ENV_FILES = ['.env.local', 'env']
 const MISSING_JSON_PATH = resolve(ROOT, 'database', 'cmfbynothing-missing-products.json')
 const DOWNLOADED_IMAGES_DIR = resolve(ROOT, 'output image', 'cmfbynothing-missing-products')

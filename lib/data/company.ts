@@ -8,24 +8,22 @@ export const companyIncorporationDateDisplay = '16 May 2026'
 export const companyFoundingDate = '2026-05-16'
 export const companyType = 'SMC-Private Limited'
 export const companyCountry = 'Pakistan'
-export const companyWebsite = 'https://www.cmfbynothing.pk'
-export const companyOfficialDomains = ['www.cmfbynothing.pk', 'www.nothingshop.pk'] as const
+export const companyWebsite = 'https://www.nothingpakistan.pk'
+export const companyOfficialDomains = ['www.nothingpakistan.pk'] as const
 export const companyVerificationPath = '/company-verification'
 export const companyVerificationUrl = `${companyWebsite}${companyVerificationPath}`
-export const companyCertificateUrl = 'https://cdn.nothingshop.pk/nothing-official-pakistan-secp-certificate.pdf'
 export const companyOwnerName = 'Usman Afzal'
 export const companyOwnerRole = 'CEO, Nothing Pakistan'
 export const companyOwnerImageUrl = 'https://cdn.nothingshop.pk/usman_afzal.jpeg'
 export const companyOwnerImageAlt = 'Usman Afzal CEO of Nothing Pakistan'
-export const companySupportEmail = 'support@cmfbynothing.pk'
+export const companySupportEmail = 'support@nothingpakistan.pk'
 export const companySupportHours = 'Monday to Sunday, 10:00 AM to 10:00 PM Pakistan Standard Time'
 
 export const companySocialLinks: Array<{ label: string; href: string }> = []
 
 export const companyBusinessInfoRows = [
   { label: 'Legal Company Name', value: companyLegalName },
-  { label: 'CUIN', value: companyCuin },
-  { label: 'Registered Authority', value: companyRegisteredAuthority },
+  { label: 'Company ID', value: companyCuin },
   { label: 'Incorporation Date', value: companyIncorporationDateDisplay },
   { label: 'Company Type', value: companyType },
   { label: 'Country', value: companyCountry },
@@ -35,24 +33,24 @@ export const companyBusinessInfoRows = [
 
 export const companyVerificationFaqs = [
   {
-    question: 'What is CMF by Nothing Pakistan?',
+    question: 'What is Nothing Pakistan?',
     answer:
-      `CMF by Nothing Pakistan is the online storefront at ${companyWebsite} for customers shopping for Nothing and CMF products in Pakistan. It is operated by ${companyLegalName}, a Pakistani company registered with the Securities and Exchange Commission of Pakistan.`,
+      `Nothing Pakistan is the online storefront at ${companyWebsite} for customers shopping for Nothing and CMF products in Pakistan. It is operated by ${companyLegalName} and publishes clear business and support information for local buyers.`,
   },
   {
-    question: 'Who operates the CMF by Nothing Pakistan website?',
+    question: 'Who operates the Nothing Pakistan website?',
     answer:
       `${companyWebsite} is operated by ${companyLegalName}. The registered company is responsible for the storefront, order communication, customer support, and the business information published on this verification page.`,
   },
   {
-    question: 'Is CMF by Nothing Pakistan registered with SECP?',
+    question: 'What business details can I review on this page?',
     answer:
-      `Yes. ${companyLegalName} is registered with the Securities and Exchange Commission of Pakistan under ${companyIdentifier}. The legal company name, CUIN, incorporation date, and company type are displayed on this page for customer verification.`,
+      `This page lists the legal company name, company ID, incorporation date, company type, country, website, and official domains connected to Nothing Pakistan.`,
   },
   {
-    question: 'How can I verify CMF by Nothing Pakistan before ordering?',
+    question: 'How can I verify Nothing Pakistan before ordering?',
     answer:
-      `Review the company information on this page and match the legal name ${companyLegalName} with ${companyIdentifier}. You can also open the linked SECP certificate and use the Company Verification link in the website footer whenever you need to confirm the business details.`,
+      `Review the company information on this page and match the legal name ${companyLegalName} with ${companyIdentifier}. You can also use the Company Verification and Contact pages whenever you want to confirm the store details before ordering.`,
   },
   {
     question: 'Which websites are operated by Nothing Pakistan?',
@@ -60,9 +58,9 @@ export const companyVerificationFaqs = [
       `The company domains listed on this verification page are ${companyOfficialDomains.join(' and ')}. Customers should confirm the website address before ordering or sharing payment and delivery information.`,
   },
   {
-    question: 'Can I view the SECP certificate online?',
+    question: 'Why does Nothing Pakistan publish business information?',
     answer:
-      'Yes. Select the View SECP Certificate button on this page to open the company certificate. It is published so customers can review the registered legal name and incorporation details directly.',
+      'Nothing Pakistan publishes business information so customers can clearly understand who operates the storefront before they place an order, ask for support, or compare products.',
   },
   {
     question: 'What can I shop for on CMF by Nothing Pakistan?',
@@ -103,7 +101,6 @@ export function buildCompanyOrganizationStructuredData() {
       image: companyOwnerImageUrl,
     },
     sameAs: companySocialLinks.length > 0 ? companySocialLinks.map((item) => item.href) : undefined,
-    document: companyCertificateUrl,
   }
 }
 
@@ -126,7 +123,6 @@ export function buildCompanyLocalBusinessStructuredData() {
       '@type': 'Person',
       name: companyOwnerName,
     },
-    document: companyCertificateUrl,
   }
 }
 
@@ -142,27 +138,6 @@ export function buildCompanyPersonStructuredData() {
     worksFor: {
       '@id': buildAbsoluteUrl('/#organization'),
       name: companyLegalName,
-    },
-  }
-}
-
-export function buildCompanyCertificateStructuredData() {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'DigitalDocument',
-    '@id': `${companyCertificateUrl}#document`,
-    name: 'SECP Certificate of Incorporation for NOTHING PAKISTAN (SMC-PRIVATE) LIMITED',
-    url: companyCertificateUrl,
-    encodingFormat: 'application/pdf',
-    about: {
-      '@id': buildAbsoluteUrl('/#organization'),
-      name: companyLegalName,
-      identifier: companyIdentifier,
-    },
-    datePublished: companyFoundingDate,
-    publisher: {
-      '@type': 'Organization',
-      name: companyRegisteredAuthority,
     },
   }
 }

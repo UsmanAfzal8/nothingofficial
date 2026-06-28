@@ -189,7 +189,7 @@ function normalizeStoreCopy(value) {
     .replace(/Nothing Pakistan/g, 'Nothing Pakistan')
     .replace(/nothing pakistan/g, 'nothing pakistan')
     .replace(/Nothing Shop Pakistan/g, 'Nothing Pakistan')
-    .replace(/\bnothingshop\.pk\b/g, 'www.cmfbynothing.pk')
+    .replace(/\bnothingshop\.pk\b/g, 'www.nothingpakistan.pk')
 }
 
 async function main() {
@@ -246,7 +246,7 @@ async function main() {
         field: target.field,
         id: row.id,
         exactAfterRestoringUrls: restored === expectedSourceValue,
-        destinationSourceIconUrlHits: collectUrls(row[target.field]).filter((url) => url.includes('cdn.cmfbynothing.pk/icons/product-detail')).length,
+        destinationSourceIconUrlHits: collectUrls(row[target.field]).filter((url) => url.includes('cdn.nothingpakistan.pk/icons/product-detail')).length,
       })
     }
   }

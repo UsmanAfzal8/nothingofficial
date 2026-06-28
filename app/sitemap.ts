@@ -56,6 +56,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: buildAbsoluteUrl('/nothing-official-store-pakistan'), lastModified: latestCatalogDate, changeFrequency: 'weekly', priority: 0.95 },
     { url: buildAbsoluteUrl('/nothing-pakistan'), lastModified: latestCatalogDate, changeFrequency: 'weekly', priority: 0.92 },
     { url: buildAbsoluteUrl('/nothing-phones-pakistan'), lastModified: latestCatalogDate, changeFrequency: 'weekly', priority: 0.9 },
+    { url: buildAbsoluteUrl('/nothing-phone-4b-pakistan'), lastModified: new Date(), changeFrequency: 'daily', priority: 0.98 },
     { url: buildAbsoluteUrl('/cmf-by-nothing-pakistan'), lastModified: latestCatalogDate, changeFrequency: 'weekly', priority: 0.88 },
     { url: buildAbsoluteUrl('/company-verification'), lastModified: latestCatalogDate, changeFrequency: 'monthly', priority: 0.9 },
     { url: buildAbsoluteUrl('/ai-products'), lastModified: latestCatalogDate, changeFrequency: 'weekly', priority: 0.84 },

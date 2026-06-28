@@ -34,7 +34,7 @@ const heroImage = '/social/nothing-pakistan-og.jpg'
 const commonTrustSection: BlogSection = {
   title: 'Why company verification matters',
   paragraphs: [
-    `Before buying, customers should check the seller identity, support channel, return policy, payment instructions, and company information. Nothing Pakistan is operated by ${companyLegalName}, an SECP registered Pakistani company. This business identity is published on the Company Verification page so customers can review the legal name, CUIN, incorporation date, and certificate link before ordering.`,
+    `Before buying, customers should check the seller identity, support channel, return policy, payment instructions, and company information. Nothing Pakistan is operated by ${companyLegalName}. This business identity is published on the Company Verification page so customers can review the legal name, company ID, incorporation date, and official website details before ordering.`,
     'Company registration is not the same as brand distributor authorization. It is a business identity signal that helps customers understand who operates the storefront. Buyers should still review product details, packaging expectations, warranty terms, and support communication before payment. Good purchasing decisions come from clear information rather than rushed checkout or unsupported claims.',
   ],
 }
@@ -67,7 +67,7 @@ export const blogPosts: BlogPost[] = [
         title: 'Start with seller identity',
         paragraphs: [
           'When searching for Nothing products in Pakistan, the first question is not only which store has stock. It is whether the seller provides enough information for you to verify who you are buying from. A strong product page should show the product name, price in Pakistan, delivery route, support channel, return expectations, and business identity. If any of those details are missing, ask before ordering.',
-          'Nothing Pakistan publishes a dedicated company verification page, contact page, policy pages, and WhatsApp support route. These pages help customers check the registered company name, support details, and certificate link before placing an order. That makes the buying process more transparent for phones, earbuds, chargers, protectors, and CMF products.',
+          'Nothing Pakistan publishes a dedicated company verification page, contact page, policy pages, and WhatsApp support route. These pages help customers check the registered company name, support details, and official website information before placing an order. That makes the buying process more transparent for phones, earbuds, chargers, protectors, and CMF products.',
         ],
       },
       {
@@ -100,7 +100,7 @@ export const blogPosts: BlogPost[] = [
       {
         question: 'Does Nothing Pakistan provide company verification?',
         answer:
-          'Yes. Nothing Pakistan links its SECP company verification page and certificate so customers can review the legal business identity.',
+          'Yes. Nothing Pakistan links its company verification page so customers can review the legal business identity and official website details.',
       },
     ],
   },

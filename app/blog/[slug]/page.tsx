@@ -96,9 +96,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       datePublished: post.publishedAt || post.updatedAt,
       dateModified: post.updatedAt,
       author: {
-        '@type': 'Person',
+        '@type': 'Organization',
         name: post.author,
-        url: buildAbsoluteUrl('/authors/usman-afzal'),
+        url: buildAbsoluteUrl('/about-us'),
       },
       publisher: {
         '@id': buildAbsoluteUrl('/#organization'),
@@ -110,14 +110,14 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   ].filter(Boolean) as Record<string, unknown>[]
 
   return (
-    <div className="min-h-screen overflow-x-hidden bg-[#f4f4f0] text-[#111]">
+    <div className="support-centre-official">
       <SeoStructuredData data={structuredData} />
       <NothingHeader />
 
       <main className="px-4 pb-16 pt-28 md:px-8 md:pb-24">
         <article className="mx-auto grid max-w-screen-2xl gap-8 lg:grid-cols-[minmax(0,1fr)_340px]">
           <div>
-            <nav aria-label="Breadcrumb" className="mb-7 flex flex-wrap items-center gap-2 [font-family:var(--font-lettera-regular)] text-[10px] uppercase tracking-[0.22em] text-black/45">
+            <nav aria-label="Breadcrumb" className="mb-7 flex flex-wrap items-center gap-2 text-[10px] uppercase tracking-[0.22em] text-black/45">
               <Link href="/" className="hover:text-black">Home</Link>
               <span>/</span>
               <Link href="/blog" className="hover:text-black">Blog</Link>
@@ -126,21 +126,21 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             </nav>
 
             <header className="max-w-5xl">
-              <p className="dot-heading text-[10px] tracking-[0.34em] text-black/45">Updated {displayDate}</p>
-              <h1 className="mt-4 [font-family:var(--font-ntype82-headline)] text-[2.8rem] leading-[0.92] tracking-normal text-black sm:text-[4rem] lg:text-[5.1rem]">
+              <p className="text-[10px] uppercase tracking-[0.12em] text-black/45">Updated {displayDate}</p>
+              <h1 className="mt-4 text-[2.8rem] leading-[0.92] tracking-normal text-black sm:text-[4rem] lg:text-[5.1rem]">
                 {post.title}
               </h1>
-              <p className="mt-5 max-w-3xl [font-family:var(--font-ntype82)] text-base leading-8 text-black/68">{post.excerpt}</p>
-              <p className="mt-5 [font-family:var(--font-ntype82)] text-sm leading-7 text-black/58">
-                Written by <Link href="/authors/usman-afzal" className="text-black underline-offset-4 hover:underline">{post.author}</Link> for {siteBrandName}.
+              <p className="mt-5 max-w-3xl text-base leading-8 text-black/68">{post.excerpt}</p>
+              <p className="mt-5 text-sm leading-7 text-black/58">
+                Written by <Link href="/about-us" className="text-black underline-offset-4 hover:underline">{post.author}</Link>.
               </p>
             </header>
 
             {post.faqs[0] ? (
               <section className="mt-10 rounded-[10px] border border-black/10 bg-white p-5">
-                <p className="[font-family:var(--font-lettera-regular)] text-[10px] uppercase tracking-[0.24em] text-black/42">Direct Answer</p>
-                <h2 className="mt-3 [font-family:var(--font-ntype82-headline)] text-[1.55rem] leading-tight text-black">{post.faqs[0].question}</h2>
-                <p className="mt-3 [font-family:var(--font-ntype82)] text-sm leading-7 text-black/68">{post.faqs[0].answer}</p>
+                <p className="text-[10px] uppercase tracking-[0.24em] text-black/42">Direct Answer</p>
+                <h2 className="mt-3 text-[1.55rem] leading-tight text-black">{post.faqs[0].question}</h2>
+                <p className="mt-3 text-sm leading-7 text-black/68">{post.faqs[0].answer}</p>
               </section>
             ) : null}
 
@@ -163,12 +163,12 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
             {post.faqs.length > 0 ? (
               <section className="mt-10 border-t border-black/10 pt-8">
-                <h2 className="[font-family:var(--font-ntype82-headline)] text-3xl leading-tight text-black">FAQs</h2>
+                <h2 className="text-3xl leading-tight text-black">FAQs</h2>
                 <div className="mt-6 divide-y divide-black/10 rounded-[10px] border border-black/10 bg-white">
                   {post.faqs.map((faq) => (
                     <details key={faq.question} className="px-5 py-5">
-                      <summary className="[font-family:var(--font-ntype82-headline)] cursor-pointer list-none text-base text-black">{faq.question}</summary>
-                      <p className="mt-3 [font-family:var(--font-ntype82)] text-sm leading-7 text-black/68">{faq.answer}</p>
+                      <summary className="cursor-pointer list-none text-base text-black">{faq.question}</summary>
+                      <p className="mt-3 text-sm leading-7 text-black/68">{faq.answer}</p>
                     </details>
                   ))}
                 </div>
@@ -178,7 +178,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
           <aside className="space-y-5 lg:sticky lg:top-24 lg:self-start">
             <section className="rounded-[10px] border border-black/10 bg-white p-5">
-              <p className="[font-family:var(--font-lettera-regular)] text-[10px] uppercase tracking-[0.24em] text-black/42">Trust Links</p>
+              <p className="text-[10px] uppercase tracking-[0.24em] text-black/42">Trust Links</p>
               <div className="mt-4 grid gap-2">
                 {[
                   { label: 'Company Verification', href: '/company-verification' },
@@ -190,7 +190,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                   <Link
                     key={item.href}
                     href={item.href}
-                    className="rounded-[8px] border border-black/10 px-4 py-3 [font-family:var(--font-ntype82)] text-sm text-black/68 transition-colors hover:bg-black hover:text-white"
+                    className="rounded-[8px] border border-black/10 px-4 py-3 text-sm text-black/68 transition-colors hover:bg-black hover:text-white"
                   >
                     {item.label}
                   </Link>

@@ -1,4 +1,4 @@
-# cmfbynothing.pk — Complete SEO & AEO Fix Prompts
+# nothingpakistan.pk — Complete SEO & AEO Fix Prompts
 Solve these issues but solve one by one 
 
 ## ISSUE 1 — CRITICAL: Add JSON-LD Structured Data to All Product Pages
@@ -12,7 +12,7 @@ Every product page (e.g. /products/nothing-pakistan-phone-3) has zero JSON-LD sc
 ### Developer Prompt
 
 ```
-You are working on a Next.js e-commerce site at https://www.cmfbynothing.pk built with Next.js App Router and Supabase.
+You are working on a Next.js e-commerce site at https://www.nothingpakistan.pk built with Next.js App Router and Supabase.
 
 TASK: Add JSON-LD structured data to every product page.
 
@@ -37,11 +37,11 @@ Replace the placeholder values with dynamic data from your product record:
     "price": "[product.price]",
     "priceValidUntil": "2026-12-31",
     "availability": "https://schema.org/InStock",
-    "url": "https://www.cmfbynothing.pk/products/[product.slug]",
+    "url": "https://www.nothingpakistan.pk/products/[product.slug]",
     "seller": {
       "@type": "Organization",
       "name": "Nothing Pakistan",
-      "url": "https://www.cmfbynothing.pk"
+      "url": "https://www.nothingpakistan.pk"
     }
   }
 }
@@ -60,7 +60,7 @@ Pull the top 20 FAQ questions and answers for this product from Supabase (or har
       "name": "What is the price of [product.name] in Pakistan?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "[product.name] is priced at Rs [product.price] in Pakistan from Nothing Pakistan (cmfbynothing.pk), an SECP-registered official store (CUIN 0337422) with nationwide delivery and WhatsApp support."
+        "text": "[product.name] is priced at Rs [product.price] in Pakistan from Nothing Pakistan (nothingpakistan.pk), an SECP-registered official store (CUIN 0337422) with nationwide delivery and WhatsApp support."
       }
     },
     {
@@ -68,7 +68,7 @@ Pull the top 20 FAQ questions and answers for this product from Supabase (or har
       "name": "Is [product.name] PTA approved in Pakistan?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "PTA-approved [product.name] models are available at Nothing Pakistan. Contact via WhatsApp at +923361070111 for current PTA and non-PTA pricing."
+        "text": "PTA-approved [product.name] models are available at Nothing Pakistan. Contact via WhatsApp at +923424476070 for current PTA and non-PTA pricing."
       }
     },
     {
@@ -76,7 +76,7 @@ Pull the top 20 FAQ questions and answers for this product from Supabase (or har
       "name": "Where can I buy [product.name] in Pakistan?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "[product.name] can be purchased from cmfbynothing.pk, operated by NOTHING PAKISTAN (SMC-PRIVATE) LIMITED (CUIN 0337422). Orders ship nationwide with cash on delivery. Store pickup available in Garden Town, Lahore."
+        "text": "[product.name] can be purchased from nothingpakistan.pk, operated by NOTHING PAKISTAN (SMC-PRIVATE) LIMITED (CUIN 0337422). Orders ship nationwide with cash on delivery. Store pickup available in Garden Town, Lahore."
       }
     },
     {
@@ -92,7 +92,7 @@ Pull the top 20 FAQ questions and answers for this product from Supabase (or har
       "name": "Is [product.name] original?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. Nothing Pakistan is an SECP-registered company (CUIN 0337422) selling original Nothing and CMF products. Company verification details are available at https://www.cmfbynothing.pk/company-verification."
+        "text": "Yes. Nothing Pakistan is an SECP-registered company (CUIN 0337422) selling original Nothing and CMF products. Company verification details are available at https://www.nothingpakistan.pk/company-verification."
       }
     }
   ]
@@ -105,9 +105,9 @@ Pull the top 20 FAQ questions and answers for this product from Supabase (or har
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [
-    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.cmfbynothing.pk" },
-    { "@type": "ListItem", "position": 2, "name": "[collection.name]", "item": "https://www.cmfbynothing.pk/collections/[collection.slug]" },
-    { "@type": "ListItem", "position": 3, "name": "[product.name]", "item": "https://www.cmfbynothing.pk/products/[product.slug]" }
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.nothingpakistan.pk" },
+    { "@type": "ListItem", "position": 2, "name": "[collection.name]", "item": "https://www.nothingpakistan.pk/collections/[collection.slug]" },
+    { "@type": "ListItem", "position": 3, "name": "[product.name]", "item": "https://www.nothingpakistan.pk/products/[product.slug]" }
   ]
 }
 </script>
@@ -129,7 +129,7 @@ ChatGPT and Gemini need machine-readable proof that Nothing Pakistan is a regist
 ### Developer Prompt
 
 ```
-You are working on a Next.js site at https://www.cmfbynothing.pk.
+You are working on a Next.js site at https://www.nothingpakistan.pk.
 
 TASK: Add Organization JSON-LD schema to two pages:
 1. The homepage (app/page.tsx or pages/index.tsx)
@@ -143,8 +143,8 @@ Add this JSON-LD block inside the <head> of both pages:
   "@type": "Organization",
   "name": "Nothing Pakistan",
   "legalName": "NOTHING PAKISTAN (SMC-PRIVATE) LIMITED",
-  "url": "https://www.cmfbynothing.pk",
-  "logo": "https://www.cmfbynothing.pk/_next/static/media/nothing_logo.dac7c8ba.webp",
+  "url": "https://www.nothingpakistan.pk",
+  "logo": "https://www.nothingpakistan.pk/_next/static/media/nothing_logo.dac7c8ba.webp",
   "description": "SECP-registered official Nothing and CMF products store in Pakistan. CUIN 0337422. Phones, earbuds, chargers, watches, and accessories with PKR pricing and WhatsApp support.",
   "identifier": {
     "@type": "PropertyValue",
@@ -161,8 +161,8 @@ Add this JSON-LD block inside the <head> of both pages:
     "@type": "ContactPoint",
     "contactType": "customer service",
     "availableLanguage": ["English", "Urdu"],
-    "telephone": "+923361070111",
-    "url": "https://wa.me/923361070111"
+    "telephone": "+923424476070",
+    "url": "https://wa.me/923424476070"
   },
   "sameAs": ["https://www.nothing.tech"]
 }
@@ -175,12 +175,12 @@ ALSO add a WebSite schema on the homepage only:
   "@context": "https://schema.org",
   "@type": "WebSite",
   "name": "Nothing Pakistan",
-  "url": "https://www.cmfbynothing.pk",
+  "url": "https://www.nothingpakistan.pk",
   "potentialAction": {
     "@type": "SearchAction",
     "target": {
       "@type": "EntryPoint",
-      "urlTemplate": "https://www.cmfbynothing.pk/collections/shop-all?q={search_term_string}"
+      "urlTemplate": "https://www.nothingpakistan.pk/collections/shop-all?q={search_term_string}"
     },
     "query-input": "required name=search_term_string"
   }
@@ -313,7 +313,7 @@ Every product page H1 is just the short product name: "Phone (3)", "Phone (4a) P
 ### Developer Prompt
 
 ```
-You are working on a Next.js site at https://www.cmfbynothing.pk.
+You are working on a Next.js site at https://www.nothingpakistan.pk.
 
 TASK: Update the H1 tag on every product page to include the full product name, "Price in Pakistan", and the PKR price.
 
@@ -446,22 +446,22 @@ Product descriptions are either thin or written as marketing copy. AI engines an
 UPDATE product SET description = 'Nothing Phone (3) is available in Pakistan at Rs 328,999 from Nothing Pakistan (SECP registered, CUIN 0337422). Key features: four 50MP cameras, the new Glyph Interface with live notification support, Essential AI tools including Essential Search and Essential Notifications, Nothing OS 4.0 with Android 15, and a high-performance Snapdragon processor. PTA-approved models are available — contact WhatsApp for current PTA and non-PTA pricing. Compatible accessories available on the same page: cover (Rs 1,999), protector, jelly sheet, UV protector, and chargers. Nationwide delivery from Lahore, Karachi, Islamabad, Rawalpindi, Faisalabad, and other cities. Cash on delivery available. Store pickup in Garden Town, Lahore.'
 WHERE slug = 'nothing-pakistan-phone-3';
 
-UPDATE product SET description = 'Nothing Phone (4a) is available in Pakistan at Rs 175,999 from Nothing Pakistan (SECP registered, CUIN 0337422). Key features: the new Glyph Bar for live delivery and notification updates, Essential AI notifications, Nothing OS with ChatGPT integration, dual 50MP cameras, and a 5000mAh battery. PTA-approved models available. Contact WhatsApp (+923361070111) for PTA and non-PTA pricing. Nationwide delivery across Pakistan. Cash on delivery available.'
+UPDATE product SET description = 'Nothing Phone (4a) is available in Pakistan at Rs 175,999 from Nothing Pakistan (SECP registered, CUIN 0337422). Key features: the new Glyph Bar for live delivery and notification updates, Essential AI notifications, Nothing OS with ChatGPT integration, dual 50MP cameras, and a 5000mAh battery. PTA-approved models available. Contact WhatsApp (+923424476070) for PTA and non-PTA pricing. Nationwide delivery across Pakistan. Cash on delivery available.'
 WHERE slug = 'nothing-pakistan-phone-4a';
 
 UPDATE product SET description = 'Nothing Phone (4a) Pro is available at Rs 243,999 from Nothing Pakistan (SECP registered, CUIN 0337422). Key features: world first 140x ultra-zoom triple camera system with Sony sensor, Essential AI tools, Nothing OS with Gemini integration, new Glyph Bar, 5000mAh battery. PTA-approved models in stock. Contact WhatsApp for PTA and non-PTA pricing. Nationwide delivery with cash on delivery across Pakistan.'
 WHERE slug = 'nothing-pakistan-phone-4a-pro';
 
-UPDATE product SET description = 'Nothing Phone (3a) is available at Rs 149,999 from Nothing Pakistan (SECP registered, CUIN 0337422). Key features: 2-day battery life, 20GB RAM booster, dual 50MP camera system, 120Hz AMOLED display, Nothing OS. PTA-approved models in stock. Nationwide delivery with cash on delivery from Lahore, Karachi, Islamabad, Rawalpindi, Faisalabad, and other cities. WhatsApp support available at +923361070111.'
+UPDATE product SET description = 'Nothing Phone (3a) is available at Rs 149,999 from Nothing Pakistan (SECP registered, CUIN 0337422). Key features: 2-day battery life, 20GB RAM booster, dual 50MP camera system, 120Hz AMOLED display, Nothing OS. PTA-approved models in stock. Nationwide delivery with cash on delivery from Lahore, Karachi, Islamabad, Rawalpindi, Faisalabad, and other cities. WhatsApp support available at +923424476070.'
 WHERE slug = 'nothing-pakistan-phone-3a';
 
-UPDATE product SET description = 'Nothing Phone (3a) Pro is available at Rs 182,999 from Nothing Pakistan (SECP registered, CUIN 0337422). Key features: pro-grade triple camera system, 2-day battery, 20GB RAM booster, 120Hz AMOLED display, Nothing OS. PTA-approved models available. Nationwide delivery with cash on delivery across Pakistan. WhatsApp support at +923361070111.'
+UPDATE product SET description = 'Nothing Phone (3a) Pro is available at Rs 182,999 from Nothing Pakistan (SECP registered, CUIN 0337422). Key features: pro-grade triple camera system, 2-day battery, 20GB RAM booster, 120Hz AMOLED display, Nothing OS. PTA-approved models available. Nationwide delivery with cash on delivery across Pakistan. WhatsApp support at +923424476070.'
 WHERE slug = 'nothing-pakistan-phone-3a-pro';
 
-UPDATE product SET description = 'Nothing Phone (3a) Lite is available at Rs 111,999 from Nothing Pakistan (SECP registered, CUIN 0337422). Key features: 120Hz AMOLED display, long battery life, dual camera system, clean Nothing OS experience. PTA-approved models available. Nationwide delivery with cash on delivery. WhatsApp support at +923361070111.'
+UPDATE product SET description = 'Nothing Phone (3a) Lite is available at Rs 111,999 from Nothing Pakistan (SECP registered, CUIN 0337422). Key features: 120Hz AMOLED display, long battery life, dual camera system, clean Nothing OS experience. PTA-approved models available. Nationwide delivery with cash on delivery. WhatsApp support at +923424476070.'
 WHERE slug = 'nothing-pakistan-phone-3a-lite';
 
-UPDATE product SET description = 'CMF Phone 1 is available at Rs 79,999 from Nothing Pakistan (SECP registered, CUIN 0337422). Key features: 6.67-inch 120Hz AMOLED display, MediaTek Dimensity 7200 Pro 5G chipset, 5000mAh battery, dual 50MP cameras, modular interchangeable back covers, Nothing OS. PTA-approved models available. Nationwide delivery with cash on delivery across Pakistan. WhatsApp support at +923361070111.'
+UPDATE product SET description = 'CMF Phone 1 is available at Rs 79,999 from Nothing Pakistan (SECP registered, CUIN 0337422). Key features: 6.67-inch 120Hz AMOLED display, MediaTek Dimensity 7200 Pro 5G chipset, 5000mAh battery, dual 50MP cameras, modular interchangeable back covers, Nothing OS. PTA-approved models available. Nationwide delivery with cash on delivery across Pakistan. WhatsApp support at +923424476070.'
 WHERE slug = 'nothing-pakistan-cmf-phone-1';
 
 UPDATE product SET description = 'Nothing Headphone (1) is available at Rs 64,999 from Nothing Pakistan (SECP registered, CUIN 0337422). Key features: custom sound tuned by KEF, up to 80 hours total battery life, active noise cancellation, Nothing OS integration, USB-C and 3.5mm connectivity. Available at Nothing Pakistan with nationwide delivery and WhatsApp support.'
@@ -480,7 +480,7 @@ UPDATE product SET description = 'CMF Power 65W GaN charger is available at Rs 5
 WHERE slug = 'nothing-pakistan-cmf-power-65w-gan';
 
 -- ALSO UPDATE MOBILE TABLE
-UPDATE mobile SET description = 'Nothing Phone (3) is available in Pakistan at Rs 328,999 from Nothing Pakistan (SECP registered, CUIN 0337422). Four 50MP cameras, new Glyph Interface, Essential AI tools, Nothing OS 4.0. PTA-approved models available. Nationwide delivery with WhatsApp support at +923361070111.'
+UPDATE mobile SET description = 'Nothing Phone (3) is available in Pakistan at Rs 328,999 from Nothing Pakistan (SECP registered, CUIN 0337422). Four 50MP cameras, new Glyph Interface, Essential AI tools, Nothing OS 4.0. PTA-approved models available. Nationwide delivery with WhatsApp support at +923424476070.'
 WHERE slug = 'nothing-pakistan-phone-3' OR model_name ILIKE '%Phone (3)%';
 
 UPDATE mobile SET description = 'Nothing Phone (4a) is available at Rs 175,999 from Nothing Pakistan (SECP registered, CUIN 0337422). New Glyph Bar, Essential AI, Nothing OS with ChatGPT integration. PTA approved. Nationwide delivery with cash on delivery.'
@@ -503,7 +503,7 @@ All 20 FAQ answers on product pages are hidden behind JavaScript "Read More" acc
 ### Developer Prompt
 
 ```
-You are working on a Next.js site at https://www.cmfbynothing.pk.
+You are working on a Next.js site at https://www.nothingpakistan.pk.
 
 TASK: On every product page, make the top 5 FAQ answers visible in the initial HTML render without requiring a JavaScript click to expand.
 
@@ -536,26 +536,26 @@ RECOMMENDATION: Option C is fastest. Just add FAQPage JSON-LD schema from the Is
 STEP BY STEP ACTIONS IN GOOGLE SEARCH CONSOLE:
 
 1. Go to: https://search.google.com/search-console
-   Log in with the Google account that owns cmfbynothing.pk
+   Log in with the Google account that owns nothingpakistan.pk
 
 2. SUBMIT SITEMAP:
    Left menu → Sitemaps
-   Enter: https://www.cmfbynothing.pk/sitemap.xml
+   Enter: https://www.nothingpakistan.pk/sitemap.xml
    Click Submit
    (If your sitemap is at a different URL, check /sitemap_index.xml or your Next.js config)
 
 3. REQUEST INDEXING FOR KEY PAGES:
    Left menu → URL Inspection
    Paste each of these URLs one at a time and click "Request Indexing":
-   - https://www.cmfbynothing.pk/
-   - https://www.cmfbynothing.pk/nothing-pakistan
-   - https://www.cmfbynothing.pk/nothing-phones-pakistan
-   - https://www.cmfbynothing.pk/cmf-by-nothing-pakistan
-   - https://www.cmfbynothing.pk/products/nothing-pakistan-phone-3
-   - https://www.cmfbynothing.pk/products/nothing-pakistan-phone-4a
-   - https://www.cmfbynothing.pk/products/nothing-pakistan-phone-4a-pro
-   - https://www.cmfbynothing.pk/products/nothing-pakistan-phone-3a
-   - https://www.cmfbynothing.pk/products/nothing-pakistan-cmf-phone-1
+   - https://www.nothingpakistan.pk/
+   - https://www.nothingpakistan.pk/nothing-pakistan
+   - https://www.nothingpakistan.pk/nothing-phones-pakistan
+   - https://www.nothingpakistan.pk/cmf-by-nothing-pakistan
+   - https://www.nothingpakistan.pk/products/nothing-pakistan-phone-3
+   - https://www.nothingpakistan.pk/products/nothing-pakistan-phone-4a
+   - https://www.nothingpakistan.pk/products/nothing-pakistan-phone-4a-pro
+   - https://www.nothingpakistan.pk/products/nothing-pakistan-phone-3a
+   - https://www.nothingpakistan.pk/products/nothing-pakistan-cmf-phone-1
 
 4. CHECK FOR ERRORS:
    Left menu → Pages
@@ -575,7 +575,7 @@ STEP BY STEP ACTIONS IN GOOGLE SEARCH CONSOLE:
 BACKLINK OUTREACH PLAN — Do this within 2 weeks:
 
 PRIORITY 1 — Press release to tech media (highest impact):
-Angle: "Pakistan's First SECP-Registered Nothing Official Store Launches at cmfbynothing.pk"
+Angle: "Pakistan's First SECP-Registered Nothing Official Store Launches at nothingpakistan.pk"
 Key facts to include:
 - NOTHING PAKISTAN (SMC-PRIVATE) LIMITED, CUIN 0337422
 - Official SECP registered Pakistani company
@@ -623,7 +623,7 @@ After completing all fixes, verify each one:
 | Organization schema | https://validator.schema.org |
 | Meta keywords cleaned | View source on product page, check meta keywords tag |
 | H1 updated | View source, search for `<h1>` |
-| Meta descriptions unique | Google: site:cmfbynothing.pk — check snippets |
+| Meta descriptions unique | Google: site:nothingpakistan.pk — check snippets |
 | FAQ answers visible | View source, search for FAQ answer text |
 | Sitemap submitted | Google Search Console → Sitemaps |
 | Indexing requested | Google Search Console → URL Inspection |
@@ -645,5 +645,5 @@ After completing all fixes, verify each one:
 
 ---
 
-*Document generated for cmfbynothing.pk — Nothing Pakistan (SMC-Private) Limited — CUIN 0337422*  
+*Document generated for nothingpakistan.pk — Nothing Pakistan (SMC-Private) Limited — CUIN 0337422*
 *Audit: June 2026*

@@ -4,7 +4,7 @@ import { existsSync, readFileSync } from 'node:fs'
 import path from 'node:path'
 
 const ROOT = process.cwd()
-const SITE_URL = 'https://www.cmfbynothing.pk'
+const SITE_URL = 'https://www.nothingpakistan.pk'
 
 function loadEnv() {
   for (const envPath of ['.env.local', 'env']) {

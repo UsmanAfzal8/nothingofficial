@@ -1,17 +1,16 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { CompanyTrustBadge } from '@/components/CompanyTrustBadge'
-import { InterTypographyScope } from '@/components/InterTypographyScope'
 import { NothingFooter } from '@/components/NothingFooter'
 import { NothingHeader } from '@/components/NothingHeader'
 import { SeoStructuredData } from '@/components/SeoStructuredData'
-import { companyCertificateUrl, companyIdentifier, companyLegalName } from '@/lib/data/company'
+import { companyIdentifier, companyLegalName } from '@/lib/data/company'
 import { siteBrandName, siteContactWhatsappUrl, siteKeywords } from '@/lib/data/site-content'
 import { buildAbsoluteUrl, buildBreadcrumbStructuredData, buildFaqStructuredData, buildRobotsMetadata, buildSeoKeywords } from '@/lib/utils/seo'
 
 const title = 'Product Authenticity | Nothing Pakistan'
 const description =
-  'Learn how Nothing Pakistan verifies products, supports customers, and helps buyers shop safely from an SECP registered Pakistani company.'
+  'Learn how Nothing Pakistan verifies products, supports customers, and helps buyers shop safely.'
 
 const faqs = [
   {
@@ -25,9 +24,9 @@ const faqs = [
       'Yes. Customers should check the seller name, website, support channel, return policy, payment instructions, and business identity before ordering Nothing or CMF products online.',
   },
   {
-    question: 'Does SECP registration prove distributor authorization?',
+    question: 'Does company information prove distributor authorization?',
     answer:
-      'No. SECP registration verifies the Pakistani company identity. It should not be treated as distributor authorization unless separate authorization proof is published.',
+      'No. Business information helps confirm who operates the storefront. It should not be treated as distributor authorization unless separate authorization proof is published.',
   },
   {
     question: 'What should I check when a product arrives?',
@@ -39,7 +38,7 @@ const faqs = [
 const checkItems = [
   'Confirm the product name, color, variant, and compatibility before checkout.',
   'Ask support about packaging, warranty expectations, delivery timing, and return conditions.',
-  'Review the company verification page and certificate link before payment.',
+  'Review the company verification page and contact details before payment.',
   'Keep order confirmation, invoice details, and support messages for reference.',
   'Inspect the delivered product before regular use and report issues quickly.',
 ]
@@ -93,8 +92,7 @@ export default function AuthenticityPage() {
   ].filter(Boolean) as Record<string, unknown>[]
 
   return (
-    <InterTypographyScope>
-      <div className="min-h-screen overflow-x-hidden bg-[#f4f4f0] text-[#111]">
+      <div className="support-centre-official">
         <SeoStructuredData data={structuredData} />
         <NothingHeader />
 
@@ -121,7 +119,7 @@ export default function AuthenticityPage() {
                   <p className="text-[10px] uppercase tracking-[0.26em] text-black/42">Direct Answer</p>
                   <h2 className="mt-3 text-xl font-semibold tracking-[-0.02em] text-black">How should buyers check authenticity?</h2>
                   <p className="mt-3 text-sm leading-7 text-black/68">
-                    Buyers should check the seller identity, company verification page, product packaging, model compatibility, invoice or order record, warranty expectations, and return policy before buying. Nothing Pakistan also publishes SECP company details for business transparency.
+                    Buyers should check the seller identity, company verification page, product packaging, model compatibility, invoice or order record, warranty expectations, and return policy before buying. Nothing Pakistan also publishes company details for business transparency.
                   </p>
                 </section>
 
@@ -163,13 +161,13 @@ export default function AuthenticityPage() {
                 </section>
 
                 <section className="border-t border-black/10 pt-8">
-                  <h2 className="text-3xl font-semibold tracking-[-0.03em] text-black">Why Buying From a Registered Company Matters</h2>
+                  <h2 className="text-3xl font-semibold tracking-[-0.03em] text-black">Why Clear Business Information Matters</h2>
                   <div className="mt-5 space-y-5 text-sm leading-8 text-black/70">
                     <p>
-                      A registered company identity gives customers a clearer reference point. Nothing Pakistan is operated by {companyLegalName}, an SECP registered Pakistani company with {companyIdentifier}. This does not replace normal product checks, but it does make business identity visible before a customer places an order.
+                      A clear company identity gives customers a stronger reference point. Nothing Pakistan is operated by {companyLegalName} with {companyIdentifier}. This does not replace normal product checks, but it does make business identity visible before a customer places an order.
                     </p>
                     <p>
-                      Customers can review the company verification page, open the certificate PDF, and compare the legal company name with support communication. This is useful for customers, search engines, and AI assistants because it connects the storefront to a consistent legal identity.
+                      Customers can review the company verification page and compare the legal company name with support communication. This is useful because it connects the storefront to a consistent business identity.
                     </p>
                   </div>
                   <div className="mt-6 flex flex-wrap gap-3">
@@ -178,14 +176,6 @@ export default function AuthenticityPage() {
                       className="inline-flex h-11 items-center justify-center rounded-[8px] bg-black px-5 text-[10px] uppercase tracking-[0.2em] text-white transition-opacity hover:opacity-85"
                     >
                       Company Verification
-                    </Link>
-                    <Link
-                      href={companyCertificateUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex h-11 items-center justify-center rounded-[8px] border border-black/12 px-5 text-[10px] uppercase tracking-[0.2em] text-black transition-colors hover:bg-black hover:text-white"
-                    >
-                      View Certificate
                     </Link>
                     <Link
                       href={siteContactWhatsappUrl}
@@ -236,6 +226,5 @@ export default function AuthenticityPage() {
 
         <NothingFooter />
       </div>
-    </InterTypographyScope>
   )
 }

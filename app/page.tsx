@@ -18,60 +18,83 @@ import {
 } from '@/lib/data/site-content'
 import { buildAbsoluteUrl, buildFaqStructuredData, buildSeoKeywords } from '@/lib/utils/seo'
 
-const homeMetaTitle = 'Nothing Phone Price in Pakistan | CMF, Earbuds & Chargers'
+const homeMetaTitle = 'Nothing Pakistan | Phone (4b), Phones, CMF & Earbuds'
 const homeMetaDescription =
-  'Shop Nothing Phone, CMF Phone, earbuds, chargers, watches, and accessories in Pakistan with PKR pricing, PTA guidance, and WhatsApp support.'
+  'Discover Nothing Phone (4b) in Pakistan before its 7 July 2026 reveal. Get launch updates on WhatsApp and shop Nothing phones, CMF, audio, and accessories.'
 
-const heroVideo = {
-  src: 'https://res.cloudinary.com/dklsubnzb/video/upload/f_mp4,q_auto/nothing-official-store-pakistan/home/nothing-charli-hero-video.mp4',
-  poster: 'https://res.cloudinary.com/dklsubnzb/video/upload/f_jpg,so_0,w_1600/nothing-official-store-pakistan/home/nothing-charli-hero-video.jpg',
-} as const
+const phone4bWhatsappUrl =
+  'https://wa.me/923424476070?text=i%20need%20to%20buy%20phone%204b%20when%20avalible%20kindly%20inform%20me'
 
 const productImageUrls = {
-  headphoneA: 'https://cdn.shopify.com/s/files/1/0376/5420/0459/files/Headphone-a-white.png?v=1771948423',
-  phone4aPro: 'https://cdn.shopify.com/s/files/1/0376/5420/0459/files/Phone-4a-Pro-White.png?v=1771948315',
-  headphone1: 'https://cdn.shopify.com/s/files/1/0376/5420/0459/files/0000s_0021_Headphone1-white.png?v=1753434394',
-  ear3: 'https://cdn.shopify.com/s/files/1/0376/5420/0459/files/Ear3-white_9c7c5465-3f29-4bb9-a438-7883444a6bad.png?v=1756911995',
-  phone4a: 'https://cdn.shopify.com/s/files/1/0376/5420/0459/files/Phone-4a-White.png?v=1771948069',
-  phone3: 'https://cdn.shopify.com/s/files/1/0376/5420/0459/files/0000s_0011_Phone-3-white.png?v=1753434595',
+  headphoneA:
+    'https://res.cloudinary.com/dklsubnzb/image/upload/v1782595495/nothing-official-store-pakistan/home/phone-4b-launch/nothing-headphone-a-product.png',
+  phone4aPro:
+    'https://res.cloudinary.com/dklsubnzb/image/upload/v1782595488/nothing-official-store-pakistan/home/phone-4b-launch/nothing-phone-4a-pro-product.png',
+  headphone1:
+    'https://res.cloudinary.com/dklsubnzb/image/upload/v1782595498/nothing-official-store-pakistan/home/phone-4b-launch/nothing-headphone-1-product.png',
+  ear3:
+    'https://res.cloudinary.com/dklsubnzb/image/upload/v1782595501/nothing-official-store-pakistan/home/phone-4b-launch/nothing-ear-3-product.png',
+  phone4a:
+    'https://res.cloudinary.com/dklsubnzb/image/upload/v1782595492/nothing-official-store-pakistan/home/phone-4b-launch/nothing-phone-4a-product.png',
+  phone3:
+    'https://res.cloudinary.com/dklsubnzb/image/upload/v1782595505/nothing-official-store-pakistan/home/phone-4b-launch/nothing-phone-3-product.png',
 } as const
 
-const homeProductPanels = [
+const campaignMediaUrls = {
+  summerSale:
+    'https://res.cloudinary.com/dklsubnzb/image/upload/v1782595458/nothing-official-store-pakistan/home/phone-4b-launch/summer-sale-homepage.jpg',
+  phone4b:
+    'https://res.cloudinary.com/dklsubnzb/image/upload/v1782595462/nothing-official-store-pakistan/home/phone-4b-launch/nothing-phone-4b-blue-homepage.jpg',
+  phone4aPro:
+    'https://res.cloudinary.com/dklsubnzb/image/upload/v1782595469/nothing-official-store-pakistan/home/phone-4b-launch/nothing-phone-4a-pro-homepage.jpg',
+  phone4a:
+    'https://res.cloudinary.com/dklsubnzb/image/upload/v1782595474/nothing-official-store-pakistan/home/phone-4b-launch/nothing-phone-4a-homepage.jpg',
+  headphone1:
+    'https://res.cloudinary.com/dklsubnzb/image/upload/v1782595478/nothing-official-store-pakistan/home/phone-4b-launch/nothing-headphone-1-homepage.jpg',
+  phone3:
+    'https://res.cloudinary.com/dklsubnzb/image/upload/v1782595485/nothing-official-store-pakistan/home/phone-4b-launch/nothing-phone-3-homepage.jpg',
+  headphoneAVideo:
+    'https://res.cloudinary.com/dklsubnzb/video/upload/f_mp4,q_auto/v1782595518/nothing-official-store-pakistan/home/phone-4b-launch/nothing-headphone-a-homepage-video.mp4',
+  headphoneAPoster:
+    'https://res.cloudinary.com/dklsubnzb/video/upload/f_jpg,so_0,q_auto,w_1600/v1782595518/nothing-official-store-pakistan/home/phone-4b-launch/nothing-headphone-a-homepage-video.jpg',
+  ear3Video:
+    'https://res.cloudinary.com/dklsubnzb/video/upload/f_mp4,q_auto/v1782595539/nothing-official-store-pakistan/home/phone-4b-launch/nothing-ear-3-homepage-video.mp4',
+  ear3Poster:
+    'https://res.cloudinary.com/dklsubnzb/video/upload/f_jpg,so_0,q_auto,w_1600/v1782595539/nothing-official-store-pakistan/home/phone-4b-launch/nothing-ear-3-homepage-video.jpg',
+} as const
+
+const homeCampaignPanels = [
   {
-    title: 'headphone ( a )',
-    headline: 'Five days of back-to-back tracks',
-    subline: 'w/ Global Brand Ambassador + Shareholder Charli xcx',
-    href: '/products/nothing-pakistan-headphone-a',
-    image: productImageUrls.headphoneA,
-    background: 'https://cdn.sanity.io/images/gtd4w1cq/production/15fcb585ab7a03ec909309c84edbeea4ea6caf21-4096x2305.jpg?auto=format',
+    title: 'summer sale',
+    headline: 'One thing that won’t melt in your mouth',
+    subline: 'Get limited-time reductions on smartphones and audio products.',
+    href: '/collections/nothing-pakistan-trending-picks',
+    background: campaignMediaUrls.summerSale,
+    mediaType: 'image',
     objectPosition: '50% 50%',
+    cta: 'Discover',
+  },
+  {
+    title: 'phone ( 4b )',
+    headline: "You're hot, so is your phone",
+    subline: 'Find out on 7 July, 3.00 PM Pakistan time',
+    href: phone4bWhatsappUrl,
+    background: campaignMediaUrls.phone4b,
+    mediaType: 'image',
+    objectPosition: '50% 50%',
+    cta: 'Remind me',
+    external: true,
   },
   {
     title: 'phone ( 4a ) pro',
-    headline: 'Stay in the moment with Essential Notifications',
-    subline: 'w/ Global Brand Ambassador + Shareholder Charli xcx',
+    headline: 'Stay in the moment with Essential Notification',
+    subline: '',
     href: '/products/nothing-pakistan-phone-4a-pro',
     image: productImageUrls.phone4aPro,
-    background: 'https://cdn.sanity.io/images/gtd4w1cq/production/a05e25f26a142d70dab62bbe79872a6bea922415-4096x2305.jpg?auto=format',
+    background: campaignMediaUrls.phone4aPro,
+    mediaType: 'image',
     objectPosition: '50% 50%',
-  },
-  {
-    title: 'headphone ( 1 )',
-    headline: 'Custom sound with tuning by KEF',
-    subline: 'w/ Global Brand Ambassador + Shareholder Charli xcx',
-    href: '/products/nothing-pakistan-headphone-1',
-    image: productImageUrls.headphone1,
-    background: 'https://cdn.sanity.io/images/gtd4w1cq/production/6e7ce8b020e81a6e157c8c0d7ccacc16961f7896-4096x2305.jpg?auto=format',
-    objectPosition: '50% 50%',
-  },
-  {
-    title: 'ear ( 3 )',
-    headline: 'Cut out background noise with Super Mic',
-    subline: 'w/ Global Brand Ambassador + Shareholder Charli xcx',
-    href: '/products/nothing-pakistan-ear-3',
-    image: productImageUrls.ear3,
-    background: 'https://cdn.sanity.io/images/gtd4w1cq/production/697fde89d6c4734f07e67628875f81d148c0b17c-4096x2305.jpg?auto=format',
-    objectPosition: '50% 50%',
+    cta: 'Discover',
   },
   {
     title: 'phone ( 4a )',
@@ -79,8 +102,45 @@ const homeProductPanels = [
     subline: '',
     href: '/products/nothing-pakistan-phone-4a',
     image: productImageUrls.phone4a,
-    background: 'https://cdn.sanity.io/images/gtd4w1cq/production/d2a928661850d77fa8db5489eb53af14990639e8-4096x2305.jpg?auto=format',
+    background: campaignMediaUrls.phone4a,
+    mediaType: 'image',
     objectPosition: '50% 50%',
+    cta: 'Discover',
+  },
+  {
+    title: 'headphone ( a )',
+    headline: 'Five days of back-to-back tracks',
+    subline: 'w/ Global Brand Ambassador + Shareholder Charli xcx',
+    href: '/products/nothing-pakistan-headphone-a',
+    image: productImageUrls.headphoneA,
+    background: campaignMediaUrls.headphoneAVideo,
+    poster: campaignMediaUrls.headphoneAPoster,
+    mediaType: 'video',
+    objectPosition: '50% 50%',
+    cta: 'Discover',
+  },
+  {
+    title: 'headphone ( 1 )',
+    headline: 'Custom sound with tuning by KEF',
+    subline: '',
+    href: '/products/nothing-pakistan-headphone-1',
+    image: productImageUrls.headphone1,
+    background: campaignMediaUrls.headphone1,
+    mediaType: 'image',
+    objectPosition: '50% 50%',
+    cta: 'Discover',
+  },
+  {
+    title: 'ear ( 3 )',
+    headline: 'Cut out background noise with Super Mic',
+    subline: '',
+    href: '/products/nothing-pakistan-ear-3',
+    image: productImageUrls.ear3,
+    background: campaignMediaUrls.ear3Video,
+    poster: campaignMediaUrls.ear3Poster,
+    mediaType: 'video',
+    objectPosition: '50% 50%',
+    cta: 'Discover',
   },
   {
     title: 'phone ( 3 )',
@@ -88,8 +148,10 @@ const homeProductPanels = [
     subline: '',
     href: '/products/nothing-pakistan-phone-3',
     image: productImageUrls.phone3,
-    background: 'https://cdn.sanity.io/images/gtd4w1cq/production/4ef2af4fc4259cb398efe107002fca5355159f73-4096x2305.jpg?auto=format',
+    background: campaignMediaUrls.phone3,
+    mediaType: 'image',
     objectPosition: '50% 50%',
+    cta: 'Discover',
   },
 ] as const
 
@@ -100,6 +162,13 @@ export const metadata: Metadata = {
   description: homeMetaDescription,
   keywords: buildSeoKeywords(siteKeywords, [
     `${siteBrandName} homepage`,
+    'Nothing Phone 4b Pakistan',
+    'Nothing Phone 4b price in Pakistan',
+    'Nothing Phone 4b launch date Pakistan',
+    'Nothing Phone 4b availability Pakistan',
+    'Nothing Phone 4b specifications',
+    'Nothing Phone 4b PTA approved',
+    'buy Nothing Phone 4b Pakistan',
     'Nothing Phone price in Pakistan',
     'Nothing mobiles price in Pakistan',
     'CMF Phone 2 Pro price in Pakistan',
@@ -117,6 +186,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: homeMetaTitle,
     description: homeMetaDescription,
+    siteName: siteBrandName,
     url: buildAbsoluteUrl('/'),
     type: 'website',
     images: [
@@ -142,32 +212,35 @@ function ProductCard({
   subline,
   image,
   href,
+  cta,
+  external = false,
 }: {
   title: string
   headline: string
   subline: string
-  image: string
+  image?: string
   href: string
+  cta: string
+  external?: boolean
 }) {
-  return (
-    <Link
-      href={href}
-      className="relative z-10 block w-[min(calc(100vw-2rem),480px)] rounded-[7px] bg-[#f4f4f1] p-4 text-black shadow-[0_22px_70px_rgba(0,0,0,0.12)] sm:p-5"
-    >
+  const card = (
+    <>
       <div className="relative min-h-[220px] sm:min-h-[214px]">
-        <p className="pr-32 [font-family:var(--font-ndot57)] text-[1.02rem] leading-none tracking-[0.06em] text-black/70 sm:text-[1.08rem]">
+        <p className={image ? 'pr-32 [font-family:var(--font-ndot57)] text-[1.02rem] leading-none tracking-[0.06em] text-black/70 sm:text-[1.08rem]' : '[font-family:var(--font-ndot57)] text-[1.02rem] leading-none tracking-[0.06em] text-black/70 sm:text-[1.08rem]'}>
           {title}
         </p>
-        <Image
-          src={image}
-          alt={`${title} product image from Nothing Pakistan`}
-          width={168}
-          height={168}
-          unoptimized
-          className="absolute right-1 top-2 h-[118px] w-[118px] object-contain sm:right-2 sm:top-1 sm:h-[148px] sm:w-[148px]"
-        />
+        {image ? (
+          <Image
+            src={image}
+            alt={`${title} product image from Nothing Pakistan`}
+            width={168}
+            height={168}
+            unoptimized
+            className="absolute right-1 top-2 h-[118px] w-[118px] object-contain sm:right-2 sm:top-1 sm:h-[148px] sm:w-[148px]"
+          />
+        ) : null}
         <div className="absolute inset-x-0 bottom-0">
-          <h2 className="[font-family:var(--font-ntype82-headline)] text-[1.16rem] leading-[1.12] text-black sm:max-w-[330px] sm:text-[1.32rem]">
+          <h2 className={`[font-family:var(--font-ntype82-headline)] text-[1.16rem] leading-[1.12] text-black sm:text-[1.32rem] ${image ? 'sm:max-w-[330px]' : ''}`}>
             {headline}
           </h2>
           {subline ? (
@@ -176,79 +249,77 @@ function ProductCard({
             </p>
           ) : null}
           <span className="mt-4 flex h-10 w-full items-center justify-center rounded-[5px] bg-black [font-family:var(--font-lettera-regular)] text-[0.68rem] uppercase tracking-[0.14em] text-white">
-            Discover
+            {cta}
           </span>
         </div>
       </div>
+    </>
+  )
+
+  const className =
+    'relative z-10 block w-[min(calc(100vw-2rem),480px)] rounded-[7px] bg-[#f4f4f1] p-4 text-black shadow-[0_22px_70px_rgba(0,0,0,0.12)] sm:p-5'
+
+  if (external) {
+    return (
+      <a href={href} target="_blank" rel="noreferrer" className={className} aria-label={`${cta}: ${headline}`}>
+        {card}
+      </a>
+    )
+  }
+
+  return (
+    <Link href={href} className={className}>
+      {card}
     </Link>
   )
 }
 
-function HeroSection() {
+function HomeCampaignPanel({
+  panel,
+  priority,
+}: {
+  panel: (typeof homeCampaignPanels)[number]
+  priority: boolean
+}) {
   return (
-    <section className="relative flex min-h-[100svh] items-end justify-center overflow-hidden bg-black px-4 pb-4 pt-28">
-      <video
-        className="absolute inset-0 h-full w-full object-cover"
-        autoPlay
-        muted
-        loop
-        playsInline
-        poster={heroVideo.poster}
-        preload="auto"
-      >
-        <source src={heroVideo.src} type="video/mp4" />
-      </video>
-      <div className="absolute inset-0 bg-black/20" />
-      <ProductCard
-        title="NOTHING ( CHARLI XCX )"
-        headline="Our new campaign for Headphone (a)"
-        subline="Shot by Aidan Zamiri in London"
-        href="/products/nothing-pakistan-headphone-a"
-        image={productImageUrls.headphoneA}
-      />
-    </section>
-  )
-}
-
-function CampaignStorySection() {
-  return (
-    <section className="relative flex min-h-[100svh] items-center justify-center overflow-hidden bg-[#0d0d0d] px-5 py-24 text-center text-white">
-      <div className="relative z-10 mx-auto max-w-[700px]">
-        <p className="dot-heading text-[0.82rem] leading-none tracking-[0.14em] text-white/84">
-          Nothing (Charli xcx)
-        </p>
-        <div className="mt-5 space-y-8 [font-family:var(--font-ntype82)] text-[1.34rem] leading-[1.22] text-white sm:text-[1.5rem]">
-          <p>
-            Our first Global Brand Ambassador and latest Shareholder, Charli xcx brings her genre-crossing instincts to our new partnership. Together, we&apos;re changing how things are done - with music and machines for a new generation.
-          </p>
-          <p>
-            In a campaign shot by Aidan Zamiri, we put her in a room for five days to test the battery on Headphone (a).
-          </p>
-          <p>It lasted the whole time.</p>
-        </div>
-      </div>
-    </section>
-  )
-}
-
-function HomeProductPanel({ panel }: { panel: (typeof homeProductPanels)[number] }) {
-  return (
-    <section className="relative flex min-h-[100svh] items-end justify-center overflow-hidden bg-[#f1f1ef] px-4 pb-4 pt-28">
-      <Image
-        src={panel.background}
-        alt={`${panel.title} campaign background from Nothing Pakistan`}
-        fill
-        unoptimized
-        sizes="100vw"
-        className="object-cover"
-        style={{ objectPosition: panel.objectPosition }}
-      />
+    <section
+      className="relative flex min-h-[100svh] items-end justify-center overflow-hidden bg-[#f1f1ef] px-4 pb-4 pt-28"
+      aria-label={`${panel.title} campaign`}
+    >
+      {panel.mediaType === 'video' ? (
+        <video
+          className="absolute inset-0 h-full w-full object-cover"
+          style={{ objectPosition: panel.objectPosition }}
+          autoPlay
+          muted
+          loop
+          playsInline
+          poster={panel.poster}
+          preload="metadata"
+          aria-label={`${panel.title} campaign video`}
+        >
+          <source src={panel.background} type="video/mp4" />
+        </video>
+      ) : (
+        <Image
+          src={panel.background}
+          alt={`${panel.title} campaign from Nothing Pakistan`}
+          fill
+          priority={priority}
+          unoptimized
+          sizes="100vw"
+          className="object-cover"
+          style={{ objectPosition: panel.objectPosition }}
+        />
+      )}
       <ProductCard
         title={panel.title}
         headline={panel.headline}
         subline={panel.subline}
         href={panel.href}
-        image={panel.image}
+        image={'image' in panel ? panel.image : undefined}
+        cta={panel.cta}
+        external={'external' in panel ? panel.external : false}
       />
     </section>
   )
@@ -256,9 +327,19 @@ function HomeProductPanel({ panel }: { panel: (typeof homeProductPanels)[number]
 
 const homeAnswerBlocks = [
   {
-    question: 'What can I shop on cmfbynothing.pk?',
+    question: 'When will Nothing Phone (4b) be revealed?',
     answer:
-      'www.cmfbynothing.pk brings together Nothing and CMF phones, earbuds, headphones, watches, chargers, cables, protectors, covers, and accessories with prices shown in PKR.',
+      'Nothing has confirmed a Phone (4b) reveal for 7 July 2026 at 11:00 BST, which is 3:00 PM in Pakistan. Final specifications, price, and Pakistan stock are not confirmed before the reveal.',
+  },
+  {
+    question: 'How can I get a Nothing Phone (4b) availability reminder?',
+    answer:
+      'Select Remind Me on the Nothing Pakistan homepage. WhatsApp will open with a ready message asking Nothing Pakistan to inform you when Phone (4b) becomes available.',
+  },
+  {
+    question: 'What can I shop on nothingpakistan.pk?',
+    answer:
+      'www.nothingpakistan.pk brings together Nothing and CMF phones, earbuds, headphones, watches, chargers, cables, protectors, covers, and accessories with prices shown in PKR.',
   },
   {
     question: 'Can I order from anywhere in Pakistan?',
@@ -273,7 +354,7 @@ const homeAnswerBlocks = [
   {
     question: 'How can I verify the business before ordering?',
     answer:
-      'Open the Company Verification page on www.cmfbynothing.pk to review the registered company name, CUIN, incorporation details, contact routes, and SECP certificate link.',
+      'Open the Company Verification page on www.nothingpakistan.pk to review the legal company name, company ID, incorporation details, contact routes, and official domains.',
   },
 ] as const
 
@@ -283,17 +364,26 @@ function HomeSeoSection() {
       <div className="mx-auto max-w-[1180px]">
         <div className="grid gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(320px,0.45fr)] lg:items-start">
           <div>
-            <p className="[font-family:var(--font-lettera-regular)] text-[12px] uppercase leading-none tracking-[0.18em] text-black/46">Official Nothing Pakistan</p>
+            <p className="[font-family:var(--font-lettera-regular)] text-[12px] uppercase leading-none tracking-[0.18em] text-black/46">Nothing Phone (4b) Pakistan</p>
             <h1 className="mt-6 max-w-4xl text-[42px] font-normal leading-[0.95] tracking-normal text-black md:text-[58px]">
-              Nothing Pakistan for phones, CMF, earbuds, chargers and accessories
+              Nothing Phone (4b) launch updates for Pakistan
             </h1>
             <div className="mt-7 max-w-[760px] space-y-[18px] text-[15px] leading-[1.55] text-black/70 md:text-base">
               <p>
-                Nothing Pakistan is built for shoppers who want a clear local source for Nothing Phone, CMF by Nothing, Nothing Ear, chargers, cables, protectors, watches, and everyday mobile accessories in Pakistan. The site connects product discovery with PKR pricing, model details, order routes, WhatsApp support, company verification, shipping guidance, returns information, and after-sales help so customers can move from research to purchase with fewer doubts.
+                Nothing Phone (4b) is the newest confirmed Nothing smartphone for 2026. Nothing has shown its blue unibody design, dual rear cameras, a slim Glyph-style light bar, and a 7 July reveal date. Until the launch presentation confirms the full hardware, Nothing Pakistan treats the processor, camera sensors, battery capacity, charging speed, memory variants, Pakistan price, PTA position, and local availability as unconfirmed.
               </p>
               <p>
-                The catalog is structured around the way people search: Nothing Phone Pakistan, Nothing Phone 3 Pakistan, CMF by Nothing Pakistan, Nothing Ear Pakistan, buy Nothing products Pakistan, and official Nothing partner Pakistan. Each collection links to relevant product pages, and every product page is designed to answer price, compatibility, specification, warranty, delivery, and support questions before checkout.
+                Pakistan buyers can use the Remind Me button to open WhatsApp and request an availability alert. This page will be updated as verified information becomes available, including Nothing Phone (4b) price in Pakistan, release timing, PTA approval guidance, supported network bands, storage options, colors, warranty route, delivery information, and comparisons with Phone (4a), Phone (4a) Pro, CMF Phone 2 Pro, and other Nothing phones.
               </p>
+              <p>
+                Nothing Pakistan also brings together Nothing and CMF phones, earbuds, headphones, chargers, watches, cables, cases, and screen protectors with PKR pricing and local support. Every launch update is written for Pakistan rather than copied from another market, because import cost, PTA registration, stock timing, warranty handling, and payment options can change the real buying decision.
+              </p>
+              <Link
+                href="/nothing-phone-4b-pakistan"
+                className="inline-flex [font-family:var(--font-lettera-regular)] text-[12px] uppercase tracking-[0.12em] text-black underline underline-offset-4"
+              >
+                Read the Phone (4b) Pakistan launch guide
+              </Link>
             </div>
           </div>
 
@@ -346,7 +436,7 @@ function HomeSeoSection() {
               <article className="border-t border-dotted border-black/35 pt-5">
                 <h2 className="text-xl font-normal leading-tight text-black">Review trust signals</h2>
                 <p className="mt-4 text-[15px] leading-[1.55] text-black/68">
-                  Nothing Pakistan publishes contact information, support pages, policies, SECP company verification, and after-sales routes to help customers understand who they are buying from, how delivery works, and what to do if they need help after receiving an order.
+                  Nothing Pakistan publishes contact information, support pages, policies, company verification, and after-sales routes to help customers understand who they are buying from, how delivery works, and what to do if they need help after receiving an order.
                 </p>
               </article>
               <article className="border-t border-dotted border-black/35 pt-5">
@@ -362,7 +452,7 @@ function HomeSeoSection() {
         <section className="mt-20 border-t border-dotted border-black/55 pt-10">
           <div>
             <h2 className="text-[30px] font-normal leading-none tracking-normal text-black md:text-[46px]">
-              Questions about shopping on cmfbynothing.pk
+              Questions about shopping on nothingpakistan.pk
             </h2>
           </div>
           <HomeFaqTabs categories={homeFaqCategories} />
@@ -395,6 +485,40 @@ export default async function Home() {
     buildOrganizationStructuredData(),
     buildLocalBusinessStructuredData(),
     buildWebsiteStructuredData(),
+    {
+      '@context': 'https://schema.org',
+      '@type': 'Product',
+      name: 'Nothing Phone (4b)',
+      image: [campaignMediaUrls.phone4b],
+      description:
+        'Nothing Phone (4b) is a confirmed 2026 Nothing smartphone scheduled for reveal on 7 July 2026. Pakistan pricing and availability are not yet confirmed.',
+      brand: {
+        '@type': 'Brand',
+        name: 'Nothing',
+      },
+      url: buildAbsoluteUrl('/nothing-phone-4b-pakistan'),
+      category: 'Smartphone',
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'Event',
+      name: 'Nothing Phone (4b) Reveal',
+      startDate: '2026-07-07T15:00:00+05:00',
+      eventStatus: 'https://schema.org/EventScheduled',
+      eventAttendanceMode: 'https://schema.org/OnlineEventAttendanceMode',
+      image: [campaignMediaUrls.phone4b],
+      description:
+        'The confirmed Nothing Phone (4b) reveal, shown in Pakistan time. Follow Nothing Pakistan for local availability updates.',
+      location: {
+        '@type': 'VirtualLocation',
+        url: buildAbsoluteUrl('/nothing-phone-4b-pakistan'),
+      },
+      organizer: {
+        '@type': 'Organization',
+        name: 'Nothing',
+        url: 'https://nothing.tech/',
+      },
+    },
     ...(homeFaqStructuredData ? [homeFaqStructuredData] : []),
   ]
 
@@ -404,10 +528,8 @@ export default async function Home() {
       <NothingHeader />
 
       <main>
-        <HeroSection />
-        <CampaignStorySection />
-        {homeProductPanels.map((panel) => (
-          <HomeProductPanel key={panel.title} panel={panel} />
+        {homeCampaignPanels.map((panel, index) => (
+          <HomeCampaignPanel key={panel.title} panel={panel} priority={index < 2} />
         ))}
         <HomeSeoSection />
       </main>

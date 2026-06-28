@@ -4,7 +4,7 @@ import { Analytics } from '@vercel/analytics/next'
 import { CartProvider } from '@/components/CartProvider'
 import { NavigationProgress } from '@/components/NavigationProgress'
 import { WhatsAppFloatingButton } from '@/components/WhatsAppFloatingButton'
-import { siteBrandName, siteDescription, siteSeoTitle } from '@/lib/data/site-content'
+import { buildWebsiteStructuredData, siteBrandName, siteDescription, siteSeoTitle } from '@/lib/data/site-content'
 import { buildRobotsMetadata, getSiteOrigin } from '@/lib/utils/seo'
 import './globals.css'
 
@@ -112,10 +112,16 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  const websiteJsonLd = buildWebsiteStructuredData()
+
   return (
     <html lang="en-PK">
       <head>
         <script src="https://analytics.ahrefs.com/analytics.js" data-key="73YlwBLrAA2cEXFqFSRpiA" async />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+        />
       </head>
       <body className={`${ndot57.className} ${ndot57.variable} ${ndot57Caps.variable} ${ndot55.variable} ${ndot55Caps.variable} ${ntype82.variable} ${ntype82Mono.variable} ${ntype82Headline.variable} ${georgia.variable} ${letteraRegular.variable} ${letteraMedium.variable} isolate overflow-x-hidden antialiased`}>
         <div aria-hidden="true" className="site-dot-overlay" />

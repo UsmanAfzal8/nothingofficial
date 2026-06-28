@@ -22,7 +22,7 @@ const URL_RE = /\bhttps?:\/\/[^\s"'<>),\\\]]+/gi
 const MEDIA_FIELD_RE = /(^|\.)(image|image_url|video_url|thumbnail_url|cover_image_url|cover_video_url|cover_thumbnail_url|media_url|url|file_name)$/i
 const MEDIA_HINT_RE = /(image|video|thumbnail|media|asset|file|gallery|poster|playback)/i
 const PAGE_URL_PATH_RE = /^(canonical_url|schema_json\.url|schema_json\.offers\.url|schema_json\.offers\.availability|schema_json\.offers\.itemCondition|schema_json\.@context|schema_json\.isRelatedTo)/i
-const DEST_MEDIA_HOSTS = new Set(['www.cmfbynothing.pk', 'cmfbynothing.pk'])
+const DEST_MEDIA_HOSTS = new Set(['www.nothingpakistan.pk', 'nothingpakistan.pk'])
 
 function loadEnvFile(filePath) {
   if (!existsSync(filePath)) throw new Error(`Missing env file: ${filePath}`)

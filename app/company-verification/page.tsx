@@ -1,28 +1,24 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
 import { NothingFooter } from '@/components/NothingFooter'
 import { NothingHeader } from '@/components/NothingHeader'
 import { SeoStructuredData } from '@/components/SeoStructuredData'
 import {
-  buildCompanyCertificateStructuredData,
   buildCompanyLocalBusinessStructuredData,
   buildCompanyOrganizationStructuredData,
   companyBusinessInfoRows,
-  companyCertificateUrl,
   companyCuin,
   companyIdentifier,
   companyOfficialDomains,
   companyLegalName,
-  companyRegisteredAuthority,
   companyVerificationFaqs,
   companyWebsite,
 } from '@/lib/data/company'
 import { siteContactDisplayPhone } from '@/lib/data/site-content'
 import { buildAbsoluteUrl, buildBreadcrumbStructuredData, buildFaqStructuredData, buildRobotsMetadata } from '@/lib/utils/seo'
 
-const pageTitle = 'Company Verification | Nothing Pakistan SECP Registered'
+const pageTitle = 'Company Verification | Nothing Pakistan'
 const pageDescription =
-  'Verify NOTHING PAKISTAN (SMC-PRIVATE) LIMITED, an SECP registered company in Pakistan with CUIN 0337422. View certificate and company details.'
+  'Review Nothing Pakistan company details, official domains, and support information for customers in Pakistan.'
 
 export const metadata: Metadata = {
   title: {
@@ -59,7 +55,6 @@ export default function CompanyVerificationPage() {
   const structuredData = [
     buildCompanyOrganizationStructuredData(),
     buildCompanyLocalBusinessStructuredData(),
-    buildCompanyCertificateStructuredData(),
     buildBreadcrumbStructuredData([
       { label: 'Home', href: '/' },
       { label: 'Company Verification', href: '/company-verification' },
@@ -91,9 +86,9 @@ export default function CompanyVerificationPage() {
         <section className="support-hero company-verification-hero">
           <div className="support-hero-copy">
             <p className="company-verification-kicker">Company Verification</p>
-            <h1>Nothing Pakistan is a registered Pakistani company.</h1>
+            <h1>Nothing Pakistan publishes clear store information.</h1>
             <p>
-              Nothing Pakistan is operated by {companyLegalName}. The company is registered with the {companyRegisteredAuthority} under CUIN {companyCuin}.
+              Nothing Pakistan is operated by {companyLegalName}. This page brings together the legal company name, company ID, official website, and support details customers can review before ordering.
             </p>
           </div>
         </section>
@@ -115,49 +110,27 @@ export default function CompanyVerificationPage() {
             </div>
           </section>
 
-          <section className="company-verification-section" aria-labelledby="company-certificate-title">
-            <div className="company-verification-section-header">
-              <div>
-                <h2 id="company-certificate-title">Certificate of Incorporation</h2>
-                <p>
-                  The certificate is available below for customers who want to confirm the company registration. You can view it in the preview or open the PDF in a new tab.
-                </p>
-              </div>
-              <Link href={companyCertificateUrl} target="_blank" rel="noopener noreferrer">
-                View SECP Certificate
-              </Link>
-            </div>
-
-            <div className="company-verification-certificate">
-              <iframe
-                title="SECP certificate for NOTHING PAKISTAN SMC Private Limited"
-                src={companyCertificateUrl}
-                loading="lazy"
-              />
-            </div>
-          </section>
-
           <section className="company-verification-section" aria-labelledby="company-meaning-title">
             <h2 id="company-meaning-title">What this means for customers</h2>
             <div className="company-verification-copy">
               <p>
-                When you shop from Nothing Pakistan, you are dealing with a named Pakistani company, not an anonymous page. The registered company name, CUIN, contact details, and certificate are published openly for transparency.
+                When you shop from Nothing Pakistan, you are dealing with a named Pakistani company, not an anonymous page. The legal company name, company ID, official domains, and support details are published openly for transparency.
               </p>
               <p>
-                Company registration verifies the Pakistani business identity. Product availability, pricing, delivery, returns, and support are still handled through the product pages, checkout, WhatsApp, and policy pages.
+                Product availability, pricing, delivery, returns, and support are still handled through the product pages, checkout, WhatsApp, and policy pages. This page simply helps customers confirm who operates the storefront.
               </p>
             </div>
           </section>
 
           <section className="company-verification-registered" aria-label="Registered company contact details">
-            <p>Registered Company</p>
+            <p>Store Details</p>
             <dl>
               <div>
                 <dt>Name</dt>
                 <dd>{companyLegalName}</dd>
               </div>
               <div>
-                <dt>CUIN</dt>
+                <dt>Company ID</dt>
                 <dd>{companyCuin}</dd>
               </div>
               <div>

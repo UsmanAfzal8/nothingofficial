@@ -4,10 +4,13 @@ import { createClient } from '@supabase/supabase-js'
 
 const projectRoot = process.cwd()
 const pageSize = 1000
-const canonicalDomain = 'www.cmfbynothing.pk'
+const canonicalDomain = 'www.nothingpakistan.pk'
 const canonicalOrigin = `https://${canonicalDomain}`
-const oldOriginPattern = /https?:\/\/(?:(?:www|ww)\.)?(?:nothingpakistan|nothingofficial)\.pk\b/gi
-const oldDomainPattern = /(?<![@.])(?:(?:www|ww)\.)?(?:nothingpakistan|nothingofficial)\.pk\b/gi
+const canonicalEmailDomain = 'nothingpakistan.pk'
+const oldEmailPattern = /@(?:(?:www|ww)\.)?(?:cmfbynothing|nothingofficial|nothingpakistan)\.pk\b/gi
+const oldOriginPattern = /https?:\/\/(?:(?:www|ww)\.)?(?:cmfbynothing|nothingofficial|nothingpakistan)\.pk\b/gi
+const oldDomainPattern =
+  /(?<![@.\w])(?:(?:www|ww)\.)?(?:cmfbynothing|nothingofficial)\.pk\b|(?<![@.\w])(?:ww\.)?nothingpakistan\.pk\b/gi
 
 function loadEnv() {
   for (const envFile of ['.env.local', 'env']) {
@@ -32,7 +35,16 @@ function replaceSiteDomain(value) {
   const replaceValue = (input) => {
     if (typeof input === 'string') {
       return input
-        .replace(oldOriginPattern, () => {
+        .replace(oldEmailPattern, (match) => {
+          const replacement = `@${canonicalEmailDomain}`
+          if (match.toLowerCase() === replacement) return match
+
+          replacements += 1
+          return replacement
+        })
+        .replace(oldOriginPattern, (match) => {
+          if (match.toLowerCase() === canonicalOrigin) return match
+
           replacements += 1
           return canonicalOrigin
         })

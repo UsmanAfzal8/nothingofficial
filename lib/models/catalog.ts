@@ -10,6 +10,9 @@ export interface Product {
   variant: string | null
   price?: number | null
   priceLabel?: string | null
+  originalPrice?: number | null
+  originalPriceLabel?: string | null
+  warrantyYears?: number | null
   kind?: 'product' | 'mobile'
   sortPriority?: number | null
   subtitle?: string | null

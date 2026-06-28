@@ -1,14 +1,11 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
-import { CompanyTrustBadge } from '@/components/CompanyTrustBadge'
-import { InterTypographyScope } from '@/components/InterTypographyScope'
 import { NothingFooter } from '@/components/NothingFooter'
 import { NothingHeader } from '@/components/NothingHeader'
 import { SeoStructuredData } from '@/components/SeoStructuredData'
 import {
   buildCompanyOrganizationStructuredData,
-  companyCertificateUrl,
   companyIdentifier,
   companyLegalName,
   companyOfficialDomains,
@@ -26,7 +23,7 @@ export const metadata: Metadata = {
     absolute: title,
   },
   description,
-  keywords: buildSeoKeywords(siteKeywords, ['About Nothing Pakistan', companyLegalName, 'SECP registered Pakistani company']),
+  keywords: buildSeoKeywords(siteKeywords, ['About Nothing Pakistan', companyLegalName, 'Nothing Pakistan store information']),
   alternates: {
     canonical: buildAbsoluteUrl('/about-us'),
   },
@@ -50,7 +47,7 @@ const sections = [
   {
     title: 'Who We Are',
     body:
-      `Nothing Pakistan is an online storefront created for customers in Pakistan who want a clearer way to discover Nothing and CMF phones, earbuds, chargers, cables, screen protectors, covers, and accessories. The storefront is operated by ${companyLegalName}, an SECP registered Pakistani company with ${companyIdentifier}. We publish this legal identity because customers deserve to know the business behind the website before they place an order, request support, or rely on product information.`,
+      `Nothing Pakistan is an online storefront created for customers in Pakistan who want a clearer way to discover Nothing and CMF phones, earbuds, chargers, cables, screen protectors, covers, and accessories. The storefront is operated by ${companyLegalName} with ${companyIdentifier}. We publish this legal identity because customers deserve to know the business behind the website before they place an order, request support, or rely on product information.`,
   },
   {
     title: 'Why Nothing Pakistan Exists',
@@ -103,22 +100,33 @@ export default function AboutUsPage() {
   ]
 
   return (
-    <InterTypographyScope>
-      <div className="min-h-screen overflow-x-hidden bg-[#f4f4f0] text-[#111]">
-        <SeoStructuredData data={structuredData} />
-        <NothingHeader />
+    <div className="support-centre-official">
+      <SeoStructuredData data={structuredData} />
+      <NothingHeader />
 
-        <main className="pt-20">
-          <section className="relative min-h-[calc(100svh-5rem)] overflow-hidden border-b border-black/10 px-4 py-16 md:px-8">
-            <div className="pointer-events-none absolute inset-0 opacity-45 [background-image:radial-gradient(circle,#111_1px,transparent_1.4px)] [background-position:2rem_2rem] [background-size:8rem_8rem]" />
-            <div className="relative mx-auto grid max-w-screen-2xl gap-10 lg:grid-cols-[minmax(0,1fr)_42vw] lg:items-end">
-              <div>
-                <div className="h-4 w-4 bg-[#c8343b]" aria-hidden="true" />
-                <h1 className="mt-6 max-w-5xl [font-family:var(--font-georgia)] text-[clamp(3.1rem,7vw,7.4rem)] leading-[0.94] text-black">
-                  Nothing Pakistan brings Nothing and CMF products closer to customers in Pakistan.
-                </h1>
-              </div>
-              <div className="relative min-h-[360px] overflow-hidden rounded-[8px] bg-black lg:min-h-[620px]">
+      <main>
+        <section className="support-hero company-verification-hero">
+          <div className="support-hero-copy">
+            <p className="company-verification-kicker">About Nothing Pakistan</p>
+            <h1>Nothing Pakistan brings Nothing and CMF products closer to customers in Pakistan.</h1>
+            <p>
+              Nothing Pakistan is operated by {companyLegalName}. This page explains the store mission, product focus, local support approach, and the practical information customers can review before ordering.
+            </p>
+          </div>
+        </section>
+
+        <div className="support-content company-verification-content">
+          <section className="company-verification-section" aria-labelledby="about-story-title">
+            <h2 id="about-story-title">Who we are</h2>
+            <div className="company-verification-copy">
+              <p>{sections[0]?.body}</p>
+            </div>
+          </section>
+
+          <section className="company-verification-section" aria-labelledby="about-image-title">
+            <h2 id="about-image-title">Brand story</h2>
+            <div className="mt-10 overflow-hidden rounded-[8px] border border-black/10 bg-white">
+              <div className="relative min-h-[320px] md:min-h-[420px]">
                 <Image
                   src={aboutImages.hero}
                   alt="Nothing Pakistan brand story"
@@ -126,79 +134,79 @@ export default function AboutUsPage() {
                   priority
                   fetchPriority="high"
                   unoptimized
-                  sizes="(max-width: 1024px) 100vw, 42vw"
+                  sizes="(max-width: 1024px) 100vw, 940px"
                   className="object-cover"
                 />
               </div>
             </div>
           </section>
 
-          <section className="px-4 py-14 md:px-8 md:py-20">
-            <div className="mx-auto grid max-w-screen-2xl gap-10 lg:grid-cols-[minmax(0,1fr)_360px]">
-              <article className="space-y-14">
-                {sections.map((section, index) => (
-                  <section key={section.title} className="grid gap-5 border-t border-black/10 pt-8 md:grid-cols-[120px_minmax(0,1fr)]">
-                    <p className="dot-heading text-4xl leading-none text-black/70">( {index + 1} )</p>
-                    <div>
-                      <h2 className="[font-family:var(--font-georgia)] text-4xl leading-tight text-black sm:text-5xl">{section.title}</h2>
-                      <p className="mt-5 max-w-4xl text-sm leading-8 text-black/70 sm:text-base">{section.body}</p>
-                    </div>
-                  </section>
-                ))}
+          {sections.slice(1).map((section) => (
+            <section key={section.title} className="company-verification-section" aria-labelledby={section.title.toLowerCase().replace(/\s+/g, '-')}>
+              <h2 id={section.title.toLowerCase().replace(/\s+/g, '-')}>{section.title}</h2>
+              <div className="company-verification-copy">
+                <p>{section.body}</p>
+              </div>
+            </section>
+          ))}
 
-                <section className="relative min-h-[420px] overflow-hidden rounded-[8px] bg-black">
-                  <Image
-                    src={aboutImages.event}
-                    alt="Nothing Pakistan community and brand event"
-                    fill
-                    loading="lazy"
-                    fetchPriority="low"
-                    unoptimized
-                    sizes="(max-width: 1024px) 100vw, 900px"
-                    className="object-cover"
-                  />
-                </section>
-
-                <section className="grid gap-5 border-t border-black/10 pt-8 md:grid-cols-[120px_minmax(0,1fr)]">
-                  <p className="dot-heading text-4xl leading-none text-black/70">( PK )</p>
-                  <div>
-                    <h2 className="[font-family:var(--font-georgia)] text-4xl leading-tight text-black sm:text-5xl">Lahore store and Pakistan support.</h2>
-                    <p className="mt-5 max-w-4xl text-sm leading-8 text-black/70 sm:text-base">
-                      Our pickup and support location is {siteContactAddress}. Customers can order for delivery across Pakistan or choose pickup from Garden Town after stock and payment confirmation.
-                    </p>
-                  </div>
-                </section>
-              </article>
-
-              <aside className="space-y-4 lg:sticky lg:top-24 lg:self-start">
-                <CompanyTrustBadge />
-                <section className="rounded-[8px] border border-black/10 bg-white p-5">
-                  <p className="text-[10px] uppercase tracking-[0.24em] text-black/42">Legal Identity</p>
-                  <p className="mt-3 text-sm leading-7 text-black/74">{companyLegalName}</p>
-                  <p className="mt-2 text-sm text-black/58">{companyIdentifier}</p>
-                </section>
-                <section className="rounded-[8px] border border-black/10 bg-white p-5">
-                  <p className="text-[10px] uppercase tracking-[0.24em] text-black/42">Official domains</p>
-                  <p className="mt-3 whitespace-pre-line text-sm leading-7 text-black/72">{companyOfficialDomains.join('\n')}</p>
-                </section>
-                <div className="grid gap-2">
-                  <Link href={companyVerificationPath} className="inline-flex h-11 items-center justify-center rounded-[4px] bg-black px-5 text-[10px] uppercase tracking-[0.2em] text-white transition-opacity hover:opacity-85">
-                    Company Verification
-                  </Link>
-                  <Link href={siteContactWhatsappUrl} target="_blank" rel="noopener noreferrer" className="inline-flex h-11 items-center justify-center rounded-[4px] border border-black/12 px-5 text-[10px] uppercase tracking-[0.2em] text-black transition-colors hover:bg-black hover:text-white">
-                    WhatsApp Support
-                  </Link>
-                  <Link href={companyCertificateUrl} target="_blank" rel="noopener noreferrer" className="inline-flex h-11 items-center justify-center rounded-[4px] border border-black/12 px-5 text-[10px] uppercase tracking-[0.2em] text-black transition-colors hover:bg-black hover:text-white">
-                    View Certificate PDF
-                  </Link>
-                </div>
-              </aside>
+          <section className="company-verification-section" aria-labelledby="about-community-title">
+            <h2 id="about-community-title">Community and support</h2>
+            <div className="mt-10 overflow-hidden rounded-[8px] border border-black/10 bg-white">
+              <div className="relative min-h-[320px] md:min-h-[420px]">
+                <Image
+                  src={aboutImages.event}
+                  alt="Nothing Pakistan community and brand event"
+                  fill
+                  loading="lazy"
+                  fetchPriority="low"
+                  unoptimized
+                  sizes="(max-width: 1024px) 100vw, 940px"
+                  className="object-cover"
+                />
+              </div>
+            </div>
+            <div className="company-verification-copy">
+              <p>
+                Our pickup and support location is {siteContactAddress}. Customers can order for delivery across Pakistan or choose pickup from Garden Town after stock and payment confirmation.
+              </p>
             </div>
           </section>
-        </main>
 
-        <NothingFooter />
-      </div>
-    </InterTypographyScope>
+          <section className="company-verification-registered" aria-label="About Nothing Pakistan summary">
+            <p>Store Summary</p>
+            <dl>
+              <div>
+                <dt>Legal name</dt>
+                <dd>{companyLegalName}</dd>
+              </div>
+              <div>
+                <dt>Company ID</dt>
+                <dd>{companyIdentifier}</dd>
+              </div>
+              <div>
+                <dt>Official domains</dt>
+                <dd className="whitespace-pre-line">{companyOfficialDomains.join('\n')}</dd>
+              </div>
+              <div>
+                <dt>Pickup location</dt>
+                <dd>{siteContactAddress}</dd>
+              </div>
+            </dl>
+          </section>
+
+          <section className="support-contact-section" aria-labelledby="about-next-steps-title">
+            <h2 id="about-next-steps-title">Helpful next steps</h2>
+            <div className="support-quick-links">
+              <Link href={companyVerificationPath}>Company Verification</Link>
+              <Link href={siteContactWhatsappUrl} target="_blank" rel="noopener noreferrer">WhatsApp Support</Link>
+              <Link href="/support-centre">Support Centre</Link>
+            </div>
+          </section>
+        </div>
+      </main>
+
+      <NothingFooter />
+    </div>
   )
 }

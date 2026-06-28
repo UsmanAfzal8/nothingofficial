@@ -17,10 +17,10 @@ export function CompanyTrustBadge({ tone = 'light', compact = false, className =
       } ${className}`}
     >
       <p className={`text-[10px] uppercase tracking-[0.24em] ${isDark ? 'text-white/58' : 'text-black/46'}`}>
-        SECP Registered Company
+        Nothing Pakistan
       </p>
       <p className={`mt-2 text-sm leading-6 ${isDark ? 'text-white/88' : 'text-black/78'}`}>{companyLegalName}</p>
-      <p className={`mt-1 text-xs ${isDark ? 'text-white/58' : 'text-black/50'}`}>CUIN: {companyCuin}</p>
+      <p className={`mt-1 text-xs ${isDark ? 'text-white/58' : 'text-black/50'}`}>Company ID: {companyCuin}</p>
       {!compact ? (
         <Link
           href="/company-verification"
@@ -30,7 +30,7 @@ export function CompanyTrustBadge({ tone = 'light', compact = false, className =
               : 'bg-black text-white hover:bg-black/82'
           }`}
         >
-          View Certificate
+          Store Information
         </Link>
       ) : (
         <Link
@@ -39,7 +39,7 @@ export function CompanyTrustBadge({ tone = 'light', compact = false, className =
             isDark ? 'text-white' : 'text-black'
           }`}
         >
-          View Certificate
+          Store Information
         </Link>
       )}
     </div>

@@ -9,6 +9,7 @@ import folderIcon from '@/assets/icons/folder.svg'
 import plusMinusIcon from '@/assets/icons/plus_minus_icon.svg'
 import specsIcon from '@/assets/icons/specs.svg'
 import specIconLinks from '@/assets/icons/spec-icon-links.json'
+import { getMobileWarrantyBadgeUrl } from '@/lib/data/mobile-warranty'
 
 type ProductDetailHeroProps = {
   productName: string
@@ -20,6 +21,8 @@ type ProductDetailHeroProps = {
   backgroundImages?: ProductDetailMedia[]
   intro: string | null
   priceLabel?: string | null
+  originalPriceLabel?: string | null
+  warrantyYears?: number | null
   canonicalHandle: string
   initialColor?: string | null
   initialMediaId?: string | null
@@ -739,6 +742,25 @@ function formatHeroPrice(priceLabel?: string | null) {
   return priceLabel.replace(/^Rs\s*/i, 'PKR ')
 }
 
+function PriceDisplay({
+  priceLabel,
+  originalPriceLabel,
+  className,
+}: {
+  priceLabel?: string | null
+  originalPriceLabel?: string | null
+  className?: string
+}) {
+  return (
+    <span className={className}>
+      {originalPriceLabel ? (
+        <span className="mr-2 text-current opacity-45 line-through">{formatHeroPrice(originalPriceLabel)}</span>
+      ) : null}
+      <span>{formatHeroPrice(priceLabel)}</span>
+    </span>
+  )
+}
+
 function formatOfficialProductName(productName: string) {
   const normalized = productName.trim()
 
@@ -851,6 +873,7 @@ function StickyPurchaseCard({
   colorOptions,
   onSelectColor,
   priceLabel,
+  originalPriceLabel,
   buyHref,
   whatsappHref,
   intro,
@@ -863,6 +886,7 @@ function StickyPurchaseCard({
   colorOptions: ColorOption[]
   onSelectColor: (mediaIndex: number) => void
   priceLabel?: string | null
+  originalPriceLabel?: string | null
   buyHref: string
   whatsappHref: string
   intro: string | null
@@ -870,8 +894,6 @@ function StickyPurchaseCard({
   isVisible: boolean
 }) {
   const officialName = formatOfficialProductName(productName)
-  const formattedPrice = formatHeroPrice(priceLabel)
-
   return (
     <aside
       className={`fixed bottom-3 left-1/2 z-50 w-[min(640px,calc(100vw-16px))] -translate-x-1/2 transition-all duration-300 ease-out sm:bottom-4 ${
@@ -890,9 +912,11 @@ function StickyPurchaseCard({
               <p className="truncate [font-family:var(--font-ndot57)] text-[0.74rem] uppercase leading-none tracking-[0.08em] text-black sm:text-[0.86rem]">
                 {officialName}
               </p>
-              <p className="mt-1 truncate [font-family:var(--font-lettera-regular)] text-[0.62rem] uppercase tracking-[0.08em] text-black/58">
-                {formattedPrice}
-              </p>
+              <PriceDisplay
+                priceLabel={priceLabel}
+                originalPriceLabel={originalPriceLabel}
+                className="mt-1 block truncate [font-family:var(--font-lettera-regular)] text-[0.62rem] uppercase tracking-[0.08em] text-black/58"
+              />
               {colorOptions.length > 0 ? (
                 <ColorNameSelector
                   colorOptions={colorOptions}
@@ -940,9 +964,11 @@ function StickyPurchaseCard({
                     />
                   ) : null}
                 </div>
-                <p className="mt-2 text-center [font-family:var(--font-ndot57)] text-[0.9rem] uppercase tracking-[0.08em] text-black sm:mt-3 sm:text-[1.02rem]">
-                  {formattedPrice}
-                </p>
+                <PriceDisplay
+                  priceLabel={priceLabel}
+                  originalPriceLabel={originalPriceLabel}
+                  className="mt-2 block text-center [font-family:var(--font-ndot57)] text-[0.9rem] uppercase tracking-[0.08em] text-black sm:mt-3 sm:text-[1.02rem]"
+                />
               </div>
 
               <div className="flex min-w-0 flex-col justify-center">
@@ -995,6 +1021,8 @@ export function ProductDetailHero({
   backgroundImages = [],
   intro,
   priceLabel,
+  originalPriceLabel,
+  warrantyYears,
   canonicalHandle,
   initialColor,
   initialMediaId,
@@ -1033,11 +1061,10 @@ export function ProductDetailHero({
     () => [...new Set(labels.filter((label) => label && !colorKeys.has(normalizeColorName(label))))].slice(0, 4),
     [colorKeys, labels],
   )
-  const displayedPriceLabel = entityType === 'mobile' && priceLabel ? `≈ ${priceLabel}` : (priceLabel ?? 'Contact for price')
   const whatsappHref =
     entityType === 'mobile'
-      ? `https://api.whatsapp.com/send?phone=923361070111&text=${encodeURIComponent(`Hi, I want to purchase this phone if available. Kindly tell me the price: ${productName}`)}`
-      : 'https://api.whatsapp.com/send?phone=923361070111'
+      ? `https://api.whatsapp.com/send?phone=923424476070&text=${encodeURIComponent(`Hi, I want to purchase this phone if available. Kindly tell me the price: ${productName}`)}`
+      : 'https://api.whatsapp.com/send?phone=923424476070'
   const buyHref = buildOrderHref(canonicalHandle, selectedMedia)
   const hasSpecGroups = hasSpecs ?? loadedSpecGroups.length > 0
   const immersiveBackgroundImages = backgroundImages.length > 0 ? backgroundImages : backgroundImage ? [backgroundImage] : []
@@ -1219,7 +1246,16 @@ export function ProductDetailHero({
                     unoptimized
                     className="object-cover object-center"
                   />
-                  
+                  {entityType === 'mobile' ? (
+                    <Image
+                      src={getMobileWarrantyBadgeUrl(warrantyYears)}
+                      alt={`${warrantyYears === 2 ? 2 : 1} year warranty`}
+                      width={144}
+                      height={144}
+                      className="absolute right-6 top-24 z-40 h-20 w-20 object-contain"
+                    />
+                  ) : null}
+
                   {hasSpecGroups ? <SpecsFolderBadge onOpen={openSpecs} /> : null}
                   {renderMobileFeatureBadges(firstHeroFeatureSections, 'bottom-28')}
                 </section>
@@ -1236,7 +1272,16 @@ export function ProductDetailHero({
                     unoptimized
                     className="object-cover object-center"
                   />
-                  
+                  {entityType === 'mobile' ? (
+                    <Image
+                      src={getMobileWarrantyBadgeUrl(warrantyYears)}
+                      alt={`${warrantyYears === 2 ? 2 : 1} year warranty`}
+                      width={160}
+                      height={160}
+                      className="absolute right-6 top-6 z-30 h-28 w-28 object-contain lg:right-10 lg:top-10 lg:h-32 lg:w-32"
+                    />
+                  ) : null}
+
                   {hasSpecGroups ? <SpecsFolderBadge onOpen={openSpecs} /> : null}
                   {renderFirstFeatureBadges()}
                 </section>
@@ -1283,6 +1328,7 @@ export function ProductDetailHero({
           colorOptions={colorOptions}
           onSelectColor={setSelectedIndex}
           priceLabel={priceLabel}
+          originalPriceLabel={originalPriceLabel}
           buyHref={buyHref}
           whatsappHref={whatsappHref}
           intro={intro}
@@ -1311,6 +1357,15 @@ export function ProductDetailHero({
                   unoptimized
                   className="object-contain"
                 />
+                {entityType === 'mobile' ? (
+                  <Image
+                    src={getMobileWarrantyBadgeUrl(warrantyYears)}
+                    alt={`${warrantyYears === 2 ? 2 : 1} year warranty`}
+                    width={144}
+                    height={144}
+                    className="absolute right-0 top-0 z-10 h-20 w-20 object-contain sm:h-28 sm:w-28"
+                  />
+                ) : null}
               </div>
             ) : (
               <div className="flex h-[300px] items-center justify-center rounded-[18px] border border-dashed border-slate-300 text-sm text-slate-400 sm:h-[420px] lg:h-[540px]">
@@ -1390,9 +1445,11 @@ export function ProductDetailHero({
 
           <div className="mt-6 rounded-[24px] border border-slate-200 bg-slate-50 p-5">
             <div>
-              <p className="font-sans text-[1.9rem] font-medium leading-none tracking-normal text-slate-900">
-                {displayedPriceLabel}
-              </p>
+              <PriceDisplay
+                priceLabel={priceLabel}
+                originalPriceLabel={originalPriceLabel}
+                className="font-sans text-[1.9rem] font-medium leading-none tracking-normal text-slate-900"
+              />
             </div>
           </div>
 

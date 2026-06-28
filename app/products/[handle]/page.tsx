@@ -251,7 +251,7 @@ function buildCoreProductFaqs(productDetail: ProductDetail): ProductDetailFaq[] 
     {
       id: 'core-buy',
       question: `Where can I buy ${name} in Pakistan?`,
-      answer: `${name} can be ordered from cmfbynothing.pk, operated by ${companyLegalName} (${companyIdentifier}), with online ordering, WhatsApp support, nationwide delivery, and confirmed pickup in Garden Town, Lahore.`,
+      answer: `${name} can be ordered from nothingpakistan.pk, operated by ${companyLegalName} (${companyIdentifier}), with online ordering, WhatsApp support, nationwide delivery, and confirmed pickup in Garden Town, Lahore.`,
     },
   ]
 
@@ -272,7 +272,7 @@ function buildCoreProductFaqs(productDetail: ProductDetail): ProductDetailFaq[] 
     {
       id: 'core-original',
       question: `Is ${name} original?`,
-      answer: `Yes. ${name} is listed as an original Nothing or CMF catalog item by ${companyLegalName}, an SECP-registered company (${companyIdentifier}). Company details are available on the verification page.`,
+      answer: `Yes. ${name} is listed as an original Nothing or CMF catalog item by ${companyLegalName} (${companyIdentifier}). Company details are available on the verification page.`,
     },
   )
 
@@ -364,7 +364,7 @@ function buildSupplementalProductFaqs(productDetail: ProductDetail): ProductDeta
     {
       id: 'fallback-verification',
       question: `How can I verify the seller of ${name}?`,
-      answer: `${siteBrandName} is operated by ${companyLegalName} (${companyIdentifier}). You can review the company details and SECP certificate from the Company Verification page before ordering.`,
+      answer: `${siteBrandName} is operated by ${companyLegalName} (${companyIdentifier}). You can review the company details and official website information from the Company Verification page before ordering.`,
     },
   ]
 }
@@ -434,7 +434,7 @@ function buildOfferStructuredData(productDetail: ProductDetail) {
       legalName: companyLegalName,
       identifier: {
         '@type': 'PropertyValue',
-        name: 'SECP CUIN',
+        name: 'Company ID',
         value: companyCuin,
       },
       url: buildAbsoluteUrl('/'),
@@ -904,6 +904,8 @@ function PhoneAccessoriesHero({
       backgroundImages={productDetail.productBackgroundImages}
       intro={intro}
       priceLabel={productDetail.priceLabel}
+      originalPriceLabel={productDetail.originalPriceLabel}
+      warrantyYears={productDetail.warrantyYears}
       canonicalHandle={productDetail.handle}
       initialColor={initialColor}
       initialMediaId={initialMediaId}

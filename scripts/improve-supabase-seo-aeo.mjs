@@ -3,7 +3,7 @@ import path from 'node:path'
 import { createClient } from '@supabase/supabase-js'
 
 const projectRoot = process.cwd()
-const siteUrl = 'https://www.cmfbynothing.pk'
+const siteUrl = 'https://www.nothingpakistan.pk'
 
 function loadEnv() {
   for (const envFile of ['.env.local', 'env']) {

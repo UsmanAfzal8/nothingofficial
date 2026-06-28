@@ -149,7 +149,7 @@ export async function createSocialImage({ origin, title, subtitle, eyebrow }: So
               color: 'rgba(255,255,255,0.72)',
             }}
           >
-            <span>{eyebrow} / www.cmfbynothing.pk</span>
+            <span>{eyebrow} / www.nothingpakistan.pk</span>
           </div>
         </div>
       </div>

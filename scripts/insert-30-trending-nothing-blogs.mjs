@@ -4,8 +4,8 @@ import { createClient } from '@supabase/supabase-js'
 
 const ROOT = process.cwd()
 const REPORT_PATH = path.join(ROOT, 'tmp', 'blog-assets', 'generated', 'trending-30-blog-import-report.json')
-const SITE_URL = 'https://www.cmfbynothing.pk'
-const SITE_DOMAIN = 'cmfbynothing.pk'
+const SITE_URL = 'https://www.nothingpakistan.pk'
+const SITE_DOMAIN = 'nothingpakistan.pk'
 const BRAND = 'Nothing Pakistan'
 const UPDATED_LABEL = 'June 24, 2026'
 
@@ -164,7 +164,7 @@ async function loadCatalog(supabase) {
   const productByName = new Map(products.map((row) => [normalizeKey(row.name), row]))
   const pickMobile = (name) => {
     const row = mobileByName.get(normalizeKey(name))
-    return row ? { ...row, price: row.Price, href: `${SITE_URL}/mobiles/${row.slug}` } : { name, slug: slugify(name), price: null, href: `${SITE_URL}/blog` }
+    return row ? { ...row, price: row.Price, href: `${SITE_URL}/products/${row.slug}` } : { name, slug: slugify(name), price: null, href: `${SITE_URL}/blog` }
   }
   const pickProduct = (name) => {
     const row = productByName.get(normalizeKey(name))

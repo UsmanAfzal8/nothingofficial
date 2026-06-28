@@ -1,10 +1,10 @@
-# cmfbynothing.pk SEO, AEO, GEO Audit
+# nothingpakistan.pk SEO, AEO, GEO Audit
 
 Date: 2026-06-05
 
 ## Executive Summary
 
-cmfbynothing.pk already has a strong SEO foundation: dynamic metadata, product and collection routes, Supabase-backed catalog data, sitemap generation, robots routes, product schema, FAQ schema, blog article schema, contact schema, and support pages. This pass focused on technical fixes that can ship in code and content improvements that help Google Search, Google AI Overviews, ChatGPT, Gemini, Perplexity, Claude, and Copilot understand the site as the Nothing Pakistan storefront for Nothing and CMF by Nothing products.
+nothingpakistan.pk already has a strong SEO foundation: dynamic metadata, product and collection routes, Supabase-backed catalog data, sitemap generation, robots routes, product schema, FAQ schema, blog article schema, contact schema, and support pages. This pass focused on technical fixes that can ship in code and content improvements that help Google Search, Google AI Overviews, ChatGPT, Gemini, Perplexity, Claude, and Copilot understand the site as the Nothing Pakistan storefront for Nothing and CMF by Nothing products.
 
 Implemented in this pass:
 
@@ -72,7 +72,7 @@ Status: Build verified, live crawl not performed.
 
 The build generated product paths using `nothing-pakistan-...` handles. A full live crawler should be run after deployment against production to catch external 404s or stale indexed paths.
 
-Recommendation: Keep the primary storefront, canonical tags, sitemap URLs, structured data, and internal links on `www.cmfbynothing.pk`.
+Recommendation: Keep the primary storefront, canonical tags, sitemap URLs, structured data, and internal links on `www.nothingpakistan.pk`.
 
 ### Canonical URLs
 
@@ -80,7 +80,7 @@ Status: Good.
 
 The app generates canonical metadata. Supabase product and mobile canonical URLs were previously aligned with prefixed slugs. Category pages use self-referencing canonical URLs from catalog data or route fallback.
 
-Recommendation: Ensure new Supabase rows store canonical URLs on `https://www.cmfbynothing.pk`.
+Recommendation: Ensure new Supabase rows store canonical URLs on `https://www.nothingpakistan.pk`.
 
 ### Open Graph and Twitter Cards
 
@@ -96,7 +96,7 @@ Status: Improved.
 
 Robots now allows public catalog/content routes and disallows non-indexable commerce/admin patterns. Sitemap generation includes homepage, static pages, policies, support pages, blogs, collections, and products.
 
-Recommendation: Submit `https://www.cmfbynothing.pk/sitemap.xml` in Google Search Console and Bing Webmaster Tools after deployment.
+Recommendation: Submit `https://www.nothingpakistan.pk/sitemap.xml` in Google Search Console and Bing Webmaster Tools after deployment.
 
 ## Schema Implementation
 

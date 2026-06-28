@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import { getMobileWarrantyBadgeUrl } from '@/lib/data/mobile-warranty'
 import type { Product } from '@/lib/models/catalog'
 
 type CatalogProductTileProps = {
@@ -40,6 +41,15 @@ export function CatalogProductTile({ product, priority = false, tone = 'default'
               No image
             </div>
           )}
+          {product.kind === 'mobile' ? (
+            <Image
+              src={getMobileWarrantyBadgeUrl(product.warrantyYears)}
+              alt={`${product.warrantyYears === 2 ? 2 : 1} year warranty`}
+              width={96}
+              height={96}
+              className="absolute right-2 top-2 z-10 h-16 w-16 object-contain sm:h-20 sm:w-20"
+            />
+          ) : null}
         </div>
 
         <div className={isShopAll ? 'mt-3 text-center' : 'mt-4 border-t border-black/8 pt-4'}>
@@ -53,7 +63,12 @@ export function CatalogProductTile({ product, priority = false, tone = 'default'
             {product.name}
           </h3>
           {product.priceLabel ? (
-            <p className={isShopAll ? 'mt-1 text-[11px] text-black/52' : 'mt-2 text-[12px] text-black/52'}>{product.priceLabel}</p>
+            <p className={isShopAll ? 'mt-1 text-[11px] text-black/52' : 'mt-2 text-[12px] text-black/52'}>
+              {product.originalPriceLabel ? (
+                <span className="mr-2 text-black/36 line-through">{product.originalPriceLabel}</span>
+              ) : null}
+              <span>{product.priceLabel}</span>
+            </p>
           ) : null}
         </div>
       </article>

@@ -12,6 +12,7 @@ export default function robots(): MetadataRoute.Robots {
           '/',
           '/nothing-pakistan',
           '/nothing-phones-pakistan',
+          '/nothing-phone-4b-pakistan',
           '/cmf-by-nothing-pakistan',
           '/llms.txt',
           '/company-verification',

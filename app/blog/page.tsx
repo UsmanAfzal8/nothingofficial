@@ -11,7 +11,7 @@ import { buildAbsoluteUrl, buildBreadcrumbStructuredData, buildRobotsMetadata, b
 
 const title = 'Nothing Pakistan Blog | Buying Guides'
 const description =
-  'Read Nothing and CMF buying guides for Pakistan covering prices, accessories, authenticity checks, support, and company verification.'
+  'Read Nothing and CMF buying guides for Pakistan covering prices, accessories, authenticity checks, support, and buying decisions.'
 
 export const metadata: Metadata = {
   title: {
@@ -71,7 +71,7 @@ export default async function BlogIndexPage() {
   ]
 
   return (
-    <div className="min-h-screen overflow-x-hidden bg-[#f4f4f0] text-[#111]">
+    <div className="support-centre-official">
       <SeoStructuredData data={structuredData} />
       <NothingHeader />
 
@@ -79,31 +79,31 @@ export default async function BlogIndexPage() {
         <section className="mx-auto max-w-screen-2xl">
           <div className="grid gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(280px,0.85fr)] lg:items-end">
             <div className="max-w-5xl">
-              <p className="dot-heading text-[0.74rem] tracking-[0.24em] text-black/50">Knowledge Hub</p>
-              <h1 className="mt-4 [font-family:var(--font-ntype82-headline)] text-[2.8rem] leading-[0.92] tracking-normal text-black sm:text-[4rem] lg:text-[5.2rem]">
+              <p className="text-[0.74rem] uppercase tracking-[0.12em] text-black/50">Knowledge Hub</p>
+              <h1 className="mt-4 text-[2.8rem] leading-[0.92] tracking-normal text-black sm:text-[4rem] lg:text-[5.2rem]">
                 Nothing and CMF buying guides for Pakistan.
               </h1>
-              <p className="mt-5 max-w-3xl [font-family:var(--font-ntype82)] text-base leading-8 text-black/68">
+              <p className="mt-5 max-w-3xl text-base leading-8 text-black/68">
                 Read practical guides about product prices, PTA questions, accessories, authenticity checks, seller verification, delivery, and safe online shopping from Nothing Pakistan.
               </p>
             </div>
 
             <div className="rounded-[10px] border border-black/10 bg-white/80 p-5 backdrop-blur-sm">
-              <p className="[font-family:var(--font-lettera-regular)] text-[11px] uppercase tracking-[0.18em] text-black/46">
+              <p className="text-[11px] uppercase tracking-[0.18em] text-black/46">
                 SEO Snapshot
               </p>
               <div className="mt-4 grid grid-cols-3 gap-3">
                 <div>
-                  <p className="[font-family:var(--font-ntype82-headline)] text-3xl leading-none text-black">{blogPosts.length}</p>
-                  <p className="mt-1 [font-family:var(--font-ntype82)] text-xs leading-5 text-black/58">Published posts</p>
+                  <p className="text-3xl leading-none text-black">{blogPosts.length}</p>
+                  <p className="mt-1 text-xs leading-5 text-black/58">Published posts</p>
                 </div>
                 <div>
-                  <p className="[font-family:var(--font-ntype82-headline)] text-3xl leading-none text-black">20</p>
-                  <p className="mt-1 [font-family:var(--font-ntype82)] text-xs leading-5 text-black/58">Indexed slugs expected</p>
+                  <p className="text-3xl leading-none text-black">20</p>
+                  <p className="mt-1 text-xs leading-5 text-black/58">Indexed slugs expected</p>
                 </div>
                 <div>
-                  <p className="[font-family:var(--font-ntype82-headline)] text-3xl leading-none text-black">PK</p>
-                  <p className="mt-1 [font-family:var(--font-ntype82)] text-xs leading-5 text-black/58">Pakistan search intent</p>
+                  <p className="text-3xl leading-none text-black">PK</p>
+                  <p className="mt-1 text-xs leading-5 text-black/58">Pakistan search intent</p>
                 </div>
               </div>
             </div>
@@ -126,32 +126,32 @@ export default async function BlogIndexPage() {
 
                 <div className="p-5">
                   <div className="flex flex-wrap items-center gap-2">
-                    <p className="[font-family:var(--font-lettera-regular)] text-[10px] uppercase tracking-[0.18em] text-black/45">
+                    <p className="text-[10px] uppercase tracking-[0.18em] text-black/45">
                       Updated {new Date(post.updatedAt).toISOString().slice(0, 10)}
                     </p>
                     <span className="h-1 w-1 rounded-full bg-black/25" />
-                    <p className="[font-family:var(--font-lettera-regular)] text-[10px] uppercase tracking-[0.18em] text-black/45">
+                    <p className="text-[10px] uppercase tracking-[0.18em] text-black/45">
                       {post.publishedAt ? `${Math.max(1, Math.round((Date.now() - new Date(post.publishedAt).getTime()) / 86400000))}d old` : 'Published'}
                     </p>
                   </div>
 
-                  <h2 className="mt-4 [font-family:var(--font-ntype82-headline)] text-[1.7rem] leading-[0.96] text-black">
+                  <h2 className="mt-4 text-[1.7rem] leading-[0.96] text-black">
                     <Link href={`/blog/${post.slug}`} className="transition-opacity hover:opacity-75">
                       {post.title}
                     </Link>
                   </h2>
 
-                  <p className="mt-4 [font-family:var(--font-ntype82)] text-[0.96rem] leading-7 text-black/66">
+                  <p className="mt-4 text-[0.96rem] leading-7 text-black/66">
                     {post.excerpt}
                   </p>
 
                   <div className="mt-5 flex items-center justify-between gap-4">
-                    <p className="[font-family:var(--font-ntype82)] text-xs text-black/50">
+                    <p className="text-xs text-black/50">
                       By {post.author}
                     </p>
                     <Link
                       href={`/blog/${post.slug}`}
-                      className="inline-flex h-10 items-center justify-center rounded-[6px] bg-black px-4 [font-family:var(--font-lettera-regular)] text-[10px] uppercase tracking-[0.18em] text-white transition-opacity hover:opacity-85"
+                      className="inline-flex h-10 items-center justify-center rounded-[6px] bg-black px-4 text-[10px] uppercase tracking-[0.18em] text-white transition-opacity hover:opacity-85"
                     >
                       Read Article
                     </Link>

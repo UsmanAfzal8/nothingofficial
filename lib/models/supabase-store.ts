@@ -184,6 +184,8 @@ export interface SupabaseMobileRow {
   created_at: string | null
   updated_at: string | null
   Price: number | null
+  original_price: number | null
+  warranty: number | null
 }
 
 export interface SupabaseOrderRow {

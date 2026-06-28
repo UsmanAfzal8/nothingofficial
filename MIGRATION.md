@@ -41,7 +41,7 @@ After inserts, the script fetches destination rows back and fails the run if:
 - destination counts do not match transformed expected counts
 - product/category/mobile slugs are not unique
 - relations do not resolve
-- legacy `cdn.cmfbynothing.pk`, `cmfbynothing.pk`, or Bunny URLs remain
+- legacy `cdn.nothingpakistan.pk`, `nothingpakistan.pk`, or Bunny URLs remain
 - skipped external/broken media URLs remain
 - uploaded Cloudinary URLs fail HTTP validation
 

@@ -1,6 +1,5 @@
 import { buildAbsoluteUrl } from '@/lib/utils/seo'
 import {
-  companyCertificateUrl,
   companyCuin,
   companyFoundingDate,
   companyIdentifier,
@@ -12,14 +11,24 @@ import {
 export const siteBrandName = 'Nothing Pakistan'
 export const siteTagline = 'Tech is fun again.'
 export const siteDescription =
-  'Shop Nothing and CMF phones, earbuds, chargers, watches, cables, cases, and screen protectors in Pakistan with PKR pricing and WhatsApp support.'
-export const siteSeoTitle = 'Nothing Phone Price in Pakistan | Nothing Store'
+  'Follow Nothing Phone (4b) launch updates and shop Nothing and CMF phones, earbuds, chargers, watches, cases, and accessories in Pakistan.'
+export const siteSeoTitle = 'Nothing Pakistan | Phone (4b), Phones, CMF & Earbuds'
 export const siteKeywords = [
   'Nothing Pakistan',
+  'Nothing Phone 4b Pakistan',
+  'Nothing Phone 4b price in Pakistan',
+  'Nothing Phone 4b launch date Pakistan',
+  'Nothing Phone 4b release date Pakistan',
+  'Nothing Phone 4b specifications',
+  'Nothing Phone 4b PTA approved',
+  'Nothing Phone 4b PTA tax Pakistan',
+  'Nothing Phone 4b availability Pakistan',
+  'Nothing Phone 4b pre order Pakistan',
+  'buy Nothing Phone 4b Pakistan',
+  'Nothing Phone 4b vs Phone 4a',
   'Nothing products Pakistan',
   'Nothing products price in Pakistan',
   'Nothing official store Pakistan',
-  'SECP registered Nothing Pakistan',
   'Nothing store Pakistan',
   'Nothing mobiles price in Pakistan',
   'Nothing phone price in Pakistan',
@@ -80,9 +89,9 @@ export const siteKeywords = [
   'Nothing Phone 4a AI features Pakistan',
 ]
 
-export const siteContactPhone = '+923361070111'
-export const siteContactWhatsappUrl = 'https://wa.me/923361070111'
-export const siteContactDisplayPhone = '03361070111'
+export const siteContactPhone = '+923424476070'
+export const siteContactWhatsappUrl = 'https://wa.me/923424476070'
+export const siteContactDisplayPhone = '03424476070'
 export const siteContactAddress = 'Al-Qadir Heights, Babar Block Garden Town, Lahore, Pakistan'
 export const siteContactCoordinates = '31.47504732907068, 74.46976232054841'
 export const sitePrimaryLocation = {
@@ -134,6 +143,13 @@ export const newsletterHighlights = [
 
 export const homeSeoHighlights = [
   {
+    title: 'Nothing Phone (4b) launch updates for Pakistan',
+    description:
+      'Follow the confirmed 7 July reveal, see the official blue design, separate verified details from rumours, and request a Pakistan stock reminder on WhatsApp.',
+    href: '/nothing-phone-4b-pakistan',
+    label: 'Open Phone (4b) guide',
+  },
+  {
     title: 'Original Nothing and CMF chargers in Pakistan',
     description:
       'Browse original Nothing chargers, CMF Power GaN chargers, and cable pages with PKR pricing, delivery support, and direct links into the ordering flow.',
@@ -158,19 +174,29 @@ export const homeSeoHighlights = [
 
 export const homeSeoFaqs = [
   {
-    question: 'What is the official website address for this store?',
+    question: 'When is Nothing Phone (4b) launching in Pakistan time?',
     answer:
-      'The store website is https://www.cmfbynothing.pk. Product, collection, support, company verification, policy, cart, and order pages should all remain on this domain.',
+      'Nothing will reveal Phone (4b) on 7 July 2026 at 11:00 BST, which is 3:00 PM in Pakistan. Pakistan pricing, PTA status, and local stock timing are not confirmed before the reveal.',
   },
   {
-    question: 'What products are listed on cmfbynothing.pk?',
+    question: 'Where can I follow Nothing Phone (4b) updates in Pakistan?',
+    answer:
+      'Open https://www.nothingpakistan.pk/nothing-phone-4b-pakistan for confirmed design details, launch timing, price and PTA guidance, FAQs, comparisons, and a WhatsApp availability reminder.',
+  },
+  {
+    question: 'What is the official website address for this store?',
+    answer:
+      'The store website is https://www.nothingpakistan.pk. Product, collection, support, company verification, policy, cart, and order pages should all remain on this domain.',
+  },
+  {
+    question: 'What products are listed on nothingpakistan.pk?',
     answer:
       'The catalog includes Nothing and CMF phones, earbuds, headphones, watches, chargers, cables, screen protectors, covers, and compatible accessories for shoppers in Pakistan.',
   },
   {
     question: 'How can I get help before placing an order?',
     answer:
-      'Use the WhatsApp or Contact Us route on www.cmfbynothing.pk to ask about current stock, colour, compatibility, delivery, bank transfer, cash on delivery, or Lahore store pickup.',
+      'Use the WhatsApp or Contact Us route on www.nothingpakistan.pk to ask about current stock, colour, compatibility, delivery, bank transfer, cash on delivery, or Lahore store pickup.',
   },
 ] as const
 
@@ -241,7 +267,7 @@ export const collectionSeoFaqs: Record<string, Array<{ question: string; answer:
     {
       question: 'Can I verify the business before buying from Shop All?',
       answer:
-        'Yes. Nothing Pakistan links its company verification page, SECP certificate, support centre, contact page, and policy pages so customers can review trust details before ordering.',
+        'Yes. Nothing Pakistan links its company verification page, support centre, contact page, and policy pages so customers can review store details before ordering.',
     },
   ],
   audio: [
@@ -355,7 +381,7 @@ export const siteTrustLinks = [
   },
   {
     title: 'Company Verification',
-    description: 'Review the SECP registered company name, CUIN, and certificate link.',
+    description: 'Review the legal company name, company ID, and official website details.',
     href: '/company-verification',
   },
   {
@@ -523,22 +549,22 @@ export const homeFaqCategories: HomeFaqCategory[] = [
   {
     id: 'general',
     label: 'Store',
-    description: 'Clear answers about www.cmfbynothing.pk, the catalog, pricing, and business verification.',
+    description: 'Clear answers about www.nothingpakistan.pk, the catalog, pricing, and business verification.',
     items: [
       {
-        question: 'What is www.cmfbynothing.pk?',
+        question: 'What is www.nothingpakistan.pk?',
         answer:
-          `www.cmfbynothing.pk is the online storefront operated by ${companyLegalName}. It lists Nothing and CMF products for customers in Pakistan and connects each product to ordering and support routes.`,
+          `www.nothingpakistan.pk is the online storefront operated by ${companyLegalName}. It lists Nothing and CMF products for customers in Pakistan and connects each product to ordering and support routes.`,
       },
       {
-        question: 'Is the business behind cmfbynothing.pk registered in Pakistan?',
+        question: 'Is the business behind nothingpakistan.pk registered in Pakistan?',
         answer:
-          `Yes. The store is operated by ${companyLegalName}, an SECP registered Pakistani company with ${companyIdentifier}. The Company Verification page publishes the registration details and certificate link.`,
+          `Yes. The store is operated by ${companyLegalName}. The Company Verification page publishes the legal company name, company ID, and official website details.`,
       },
       {
         question: 'How can I confirm I am using the correct website?',
         answer:
-          'Check that the address bar shows https://www.cmfbynothing.pk before sharing order details. Product, collection, support, policy, cart, and checkout pages should stay on this domain.',
+          'Check that the address bar shows https://www.nothingpakistan.pk before sharing order details. Product, collection, support, policy, cart, and checkout pages should stay on this domain.',
       },
       {
         question: 'Are prices shown in Pakistani Rupees?',
@@ -580,7 +606,7 @@ export const homeFaqCategories: HomeFaqCategory[] = [
       {
         question: 'Where can I compare all current products?',
         answer:
-          'Use the All Products collection on www.cmfbynothing.pk to view the current catalog, then open a product page for images, variants, price, specifications, reviews, and ordering options.',
+          'Use the All Products collection on www.nothingpakistan.pk to view the current catalog, then open a product page for images, variants, price, specifications, reviews, and ordering options.',
       },
     ],
   },
@@ -624,7 +650,7 @@ export const homeFaqCategories: HomeFaqCategory[] = [
       {
         question: 'What is the fastest way to contact the store?',
         answer:
-          'Use the WhatsApp button on www.cmfbynothing.pk for product, compatibility, stock, payment, pickup, or order questions. You can also use the Contact Us and Support Centre pages.',
+          'Use the WhatsApp button on www.nothingpakistan.pk for product, compatibility, stock, payment, pickup, or order questions. You can also use the Contact Us and Support Centre pages.',
       },
       {
         question: 'What information should I send for compatibility help?',
@@ -644,7 +670,7 @@ export const homeFaqCategories: HomeFaqCategory[] = [
       {
         question: 'Can I verify the company before sending payment?',
         answer:
-          `Yes. Review the Company Verification page for ${companyLegalName}, ${companyIdentifier}, incorporation information, and the SECP certificate link before making a bank transfer.`,
+          `Yes. Review the Company Verification page for ${companyLegalName}, ${companyIdentifier}, incorporation information, and official domains before making a bank transfer.`,
       },
     ],
   },
@@ -663,13 +689,13 @@ export function buildOrganizationStructuredData() {
     url: companyWebsite,
     identifier: {
       '@type': 'PropertyValue',
-      name: 'SECP CUIN',
-      propertyID: 'SECP CUIN',
+      name: 'Company ID',
+      propertyID: 'Company ID',
       value: companyCuin,
     },
     foundingDate: companyFoundingDate,
     description:
-      `SECP-registered Nothing and CMF products store in Pakistan operated by ${companyLegalName} (${companyIdentifier}). Phones, earbuds, chargers, watches, and accessories with PKR pricing and WhatsApp support.`,
+      `Nothing and CMF products store in Pakistan operated by ${companyLegalName} (${companyIdentifier}). Phones, earbuds, chargers, watches, and accessories with PKR pricing and WhatsApp support.`,
     slogan: siteTagline,
     telephone: siteContactPhone,
     logo: buildAbsoluteUrl('/favicon/apple-touch-icon.png'),
@@ -680,7 +706,6 @@ export function buildOrganizationStructuredData() {
     },
     inLanguage: 'en-PK',
     sameAs,
-    document: companyCertificateUrl,
     address: {
       '@type': 'PostalAddress',
       streetAddress: siteContactAddress,

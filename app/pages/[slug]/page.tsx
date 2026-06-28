@@ -92,7 +92,7 @@ export default function PolicyPage({ params }: PolicyPageProps) {
                 <span className="text-black/80">Legal:</span> {companyLegalName}
               </p>
               <p>
-                <span className="text-black/80">SECP:</span> {companyIdentifier}
+                <span className="text-black/80">Company ID:</span> {companyIdentifier}
               </p>
               <p>
                 <span className="text-black/80">Effective:</span> {policy.effectiveDate}

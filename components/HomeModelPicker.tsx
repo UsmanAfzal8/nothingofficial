@@ -3,6 +3,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { startTransition, useEffect, useState } from 'react'
+import { getMobileWarrantyBadgeUrl } from '@/lib/data/mobile-warranty'
 import type { Product } from '@/lib/models/catalog'
 
 type HomeModelPickerProps = {
@@ -191,6 +192,13 @@ export function HomeModelPicker({ models }: HomeModelPickerProps) {
                                 sizes="(max-width: 1024px) 42vw, 18vw"
                                 className="scale-[1.08] object-contain object-center transition-transform duration-500 ease-out group-hover:scale-[1.12] lg:scale-[1.12] lg:group-hover:scale-[1.16]"
                               />
+                              <Image
+                                src={getMobileWarrantyBadgeUrl(model.warrantyYears)}
+                                alt={`${model.warrantyYears === 2 ? 2 : 1} year warranty`}
+                                width={96}
+                                height={96}
+                                className="absolute right-0 top-0 z-10 h-14 w-14 object-contain sm:h-16 sm:w-16 lg:h-20 lg:w-20"
+                              />
                             </div>
                           ) : (
                             <div className="flex h-[215px] w-full items-center justify-center text-center text-[11px] uppercase tracking-[0.24em] text-black/30 sm:h-[265px] lg:h-[365px]">
@@ -203,6 +211,14 @@ export function HomeModelPicker({ models }: HomeModelPickerProps) {
                         >
                           {model.name}
                         </p>
+                        {model.priceLabel ? (
+                          <p className="mx-auto mt-1 w-full text-center text-[0.7rem] text-black/52 sm:text-[0.76rem]">
+                            {model.originalPriceLabel ? (
+                              <span className="mr-2 text-black/34 line-through">{model.originalPriceLabel}</span>
+                            ) : null}
+                            <span>{model.priceLabel}</span>
+                          </p>
+                        ) : null}
                       </Link>
                     ))}
                   </div>

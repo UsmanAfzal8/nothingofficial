@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { CompanyTrustBadge } from '@/components/CompanyTrustBadge'
-import { InterTypographyScope } from '@/components/InterTypographyScope'
 import { NothingFooter } from '@/components/NothingFooter'
 import { NothingHeader } from '@/components/NothingHeader'
 import { SeoStructuredData } from '@/components/SeoStructuredData'
@@ -25,7 +24,7 @@ import { buildAbsoluteUrl, buildBreadcrumbStructuredData, buildRobotsMetadata, b
 
 const title = 'Contact Nothing Pakistan | Support & Verification'
 const description =
-  'Contact Nothing Pakistan for orders, WhatsApp support, Lahore location, SECP company details, customer safety, delivery, and return guidance.'
+  'Contact Nothing Pakistan for orders, WhatsApp support, Lahore location, business details, customer safety, delivery, and return guidance.'
 
 const lahoreStoreMapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(siteContactAddress)}`
 const lahoreStoreEmbedUrl = `https://www.google.com/maps?q=${encodeURIComponent(siteContactAddress)}&z=16&output=embed`
@@ -57,7 +56,7 @@ export const metadata: Metadata = {
 
 const contactRows = [
   { label: 'Legal company name', value: companyLegalName },
-  { label: 'SECP CUIN', value: companyIdentifier },
+  { label: 'Company ID', value: companyIdentifier },
   { label: 'Phone', value: siteContactDisplayPhone },
   { label: 'WhatsApp support', value: siteContactDisplayPhone },
   { label: 'Email', value: companySupportEmail },
@@ -76,8 +75,7 @@ export default function ContactUsPage() {
   const hasSocialLinks = socialLinks.length > 0
 
   return (
-    <InterTypographyScope>
-      <div className="min-h-screen overflow-x-hidden bg-[#f4f4f0] text-[#111]">
+      <div className="support-centre-official">
         <SeoStructuredData data={structuredData} />
         <NothingHeader />
 
@@ -90,7 +88,7 @@ export default function ContactUsPage() {
                   Support, orders, and verified business information.
                 </h1>
                 <p className="mt-5 max-w-3xl text-base leading-8 text-black/68">
-                  Use this page to contact Nothing Pakistan for product questions, order support, delivery guidance, return expectations, and company verification. The storefront is operated by {companyLegalName}, an SECP registered Pakistani company with {companyIdentifier}.
+                  Use this page to contact Nothing Pakistan for product questions, order support, delivery guidance, return expectations, and company verification. The storefront is operated by {companyLegalName} with {companyIdentifier}.
                 </p>
               </div>
               <CompanyTrustBadge />
@@ -161,7 +159,7 @@ export default function ContactUsPage() {
                 <section className="border-t border-black/10 pt-8">
                   <h2 className="text-3xl font-semibold tracking-[-0.03em] text-black">Customer Safety Note</h2>
                   <p className="mt-5 text-sm leading-8 text-black/70">
-                    Before buying any Nothing or CMF product online, customers should verify seller authenticity, business identity, support channels, payment instructions, delivery terms, and return expectations. Nothing Pakistan publishes its SECP company information and certificate link so customers can review the registered Pakistani business behind the storefront.
+                    Before buying any Nothing or CMF product online, customers should verify seller authenticity, business identity, support channels, payment instructions, delivery terms, and return expectations. Nothing Pakistan publishes its company information so customers can review the business behind the storefront.
                   </p>
                 </section>
               </article>
@@ -217,6 +215,5 @@ export default function ContactUsPage() {
 
         <NothingFooter />
       </div>
-    </InterTypographyScope>
   )
 }

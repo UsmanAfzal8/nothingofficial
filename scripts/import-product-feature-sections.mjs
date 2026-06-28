@@ -217,20 +217,20 @@ async function uploadFeatureMedia(bunny, productData, report) {
   for (const feature of productData.features ?? []) {
     const featureDir = `${REMOTE_BASE_DIR}/${productData.handle}/${feature.feature_key}`
 
-    if (feature.cover_image_url && !feature.cover_image_url.includes('cdn.cmfbynothing.pk/')) {
+    if (feature.cover_image_url && !feature.cover_image_url.includes('cdn.nothingpakistan.pk/')) {
       const ext = extensionForUrl(feature.cover_image_url)
       feature.cover_image_url = await uploadRemoteFile(bunny, feature.cover_image_url, `${featureDir}/cover${ext}`)
       report.images_uploaded += 1
       changed = true
     }
 
-    if (feature.cover_thumbnail_url && !feature.cover_thumbnail_url.includes('cdn.cmfbynothing.pk/')) {
+    if (feature.cover_thumbnail_url && !feature.cover_thumbnail_url.includes('cdn.nothingpakistan.pk/')) {
       feature.cover_thumbnail_url = await uploadRemoteFile(bunny, feature.cover_thumbnail_url, `${featureDir}/cover-thumb.jpg`)
       report.images_uploaded += 1
       changed = true
     }
 
-    if (feature.cover_video_url && !feature.cover_video_url.includes('cdn.cmfbynothing.pk/')) {
+    if (feature.cover_video_url && !feature.cover_video_url.includes('cdn.nothingpakistan.pk/')) {
       const mirrored = await mirrorHlsVideo(bunny, feature.cover_video_url, `${featureDir}/cover-video`)
       feature.cover_video_url = mirrored.cdnUrl
       report.videos_uploaded += 1
@@ -242,20 +242,20 @@ async function uploadFeatureMedia(bunny, productData, report) {
       const slideSlug = `${String(slide.sort_order ?? 0).padStart(2, '0')}-${slugify(slide.title)}`
       const slideDir = `${featureDir}/${slideSlug}`
 
-      if (slide.image_url && !slide.image_url.includes('cdn.cmfbynothing.pk/')) {
+      if (slide.image_url && !slide.image_url.includes('cdn.nothingpakistan.pk/')) {
         const ext = extensionForUrl(slide.image_url)
         slide.image_url = await uploadRemoteFile(bunny, slide.image_url, `${slideDir}/image${ext}`)
         report.images_uploaded += 1
         changed = true
       }
 
-      if (slide.thumbnail_url && !slide.thumbnail_url.includes('cdn.cmfbynothing.pk/')) {
+      if (slide.thumbnail_url && !slide.thumbnail_url.includes('cdn.nothingpakistan.pk/')) {
         slide.thumbnail_url = await uploadRemoteFile(bunny, slide.thumbnail_url, `${slideDir}/thumb.jpg`)
         report.images_uploaded += 1
         changed = true
       }
 
-      if (slide.video_url && !slide.video_url.includes('cdn.cmfbynothing.pk/')) {
+      if (slide.video_url && !slide.video_url.includes('cdn.nothingpakistan.pk/')) {
         const mirrored = await mirrorHlsVideo(bunny, slide.video_url, `${slideDir}/video`)
         slide.video_url = mirrored.cdnUrl
         report.videos_uploaded += 1

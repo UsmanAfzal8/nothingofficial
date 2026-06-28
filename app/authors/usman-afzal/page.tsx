@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { CompanyTrustBadge } from '@/components/CompanyTrustBadge'
-import { InterTypographyScope } from '@/components/InterTypographyScope'
 import { NothingFooter } from '@/components/NothingFooter'
 import { NothingHeader } from '@/components/NothingHeader'
 import { SeoStructuredData } from '@/components/SeoStructuredData'
@@ -21,7 +20,7 @@ import { buildAbsoluteUrl, buildBreadcrumbStructuredData, buildRobotsMetadata, b
 
 const title = 'Usman Afzal | CEO of Nothing Pakistan'
 const description =
-  'CEO profile for Usman Afzal of Nothing Pakistan and NOTHING PAKISTAN (SMC-PRIVATE) LIMITED company verification.'
+  'CEO profile for Usman Afzal of Nothing Pakistan and the storefront operated by NOTHING PAKISTAN (SMC-PRIVATE) LIMITED.'
 
 export const metadata: Metadata = {
   title: {
@@ -71,8 +70,7 @@ export default function UsmanAfzalAuthorPage() {
   ]
 
   return (
-    <InterTypographyScope>
-      <div className="min-h-screen overflow-x-hidden bg-[#f4f4f0] text-[#111]">
+      <div className="support-centre-official">
         <SeoStructuredData data={structuredData} />
         <NothingHeader />
 
@@ -96,7 +94,7 @@ export default function UsmanAfzalAuthorPage() {
                   {companyOwnerName}
                 </h1>
                 <p className="mt-5 max-w-3xl text-base leading-8 text-black/68">
-                  {companyOwnerName} is the CEO of {siteBrandName}. He leads the store operated by {companyLegalName}, the SECP registered Pakistani company behind the Nothing Pakistan storefront.
+                  {companyOwnerName} is the CEO of {siteBrandName}. He leads the store operated by {companyLegalName}, the company behind the Nothing Pakistan storefront.
                 </p>
               </div>
             </div>
@@ -135,14 +133,14 @@ export default function UsmanAfzalAuthorPage() {
                 <section className="border-t border-black/10 pt-8">
                   <h2 className="text-3xl font-semibold tracking-[-0.03em] text-black">Company Connection</h2>
                   <p className="mt-5 text-sm leading-8 text-black/70">
-                    The legal company name behind the storefront is {companyLegalName}. The company is listed with {companyIdentifier}. Customers can review the company verification page for certificate details, incorporation date, and the SECP certificate link before placing an order.
+                    The legal company name behind the storefront is {companyLegalName}. The company is listed with {companyIdentifier}. Customers can review the company verification page for business details, incorporation date, and official website information before placing an order.
                   </p>
                   <div className="mt-6 flex flex-wrap gap-3">
                     <Link
                       href="/company-verification"
                       className="inline-flex h-11 items-center justify-center rounded-[8px] bg-black px-5 text-[10px] uppercase tracking-[0.2em] text-white transition-opacity hover:opacity-85"
                     >
-                      SECP Verification
+                      Company Verification
                     </Link>
                     <Link
                       href="/blog"
@@ -182,6 +180,5 @@ export default function UsmanAfzalAuthorPage() {
 
         <NothingFooter />
       </div>
-    </InterTypographyScope>
   )
 }

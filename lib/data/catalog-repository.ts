@@ -150,6 +150,8 @@ type FallbackProductRow = SupabaseProductRow & {
 type FallbackMobileRow = SupabaseMobileRow & {
   pta_tax?: number | null
   non_pta_price?: number | null
+  original_price?: number | null
+  warranty?: number | null
 }
 
 type FallbackCategoryRow = SupabaseCategoryRow
@@ -312,6 +314,19 @@ function formatPrice(value: number | null | undefined): string | null {
     currency: 'PKR',
     maximumFractionDigits: 0,
   }).format(value)
+}
+
+function getMobileOriginalPrice(mobile: Pick<SupabaseMobileRow, 'Price' | 'original_price'>): number | null {
+  const price = parseCatalogNumber(mobile.Price)
+  const storedOriginalPrice = parseCatalogNumber(mobile.original_price)
+
+  if (storedOriginalPrice !== null) return storedOriginalPrice
+  return price === null ? null : Math.round(price * 1.1)
+}
+
+function getMobileWarrantyYears(mobile: Pick<SupabaseMobileRow, 'name' | 'warranty'>): 1 | 2 {
+  if (mobile.warranty === 2) return 2
+  return /^Phone \(4a\)(?: Pro)?$/i.test(mobile.name.trim()) ? 2 : 1
 }
 
 function sanitizeCatalogCopy(value: string | null | undefined): string | null {
@@ -614,6 +629,8 @@ function buildFallbackProductDetail(product: FallbackProductRow): ProductDetail 
 function buildFallbackMobileDetail(mobile: FallbackMobileRow): ProductDetail {
   const price = parseCatalogNumber(mobile.Price)
   const priceLabel = formatPrice(price)
+  const originalPrice = getMobileOriginalPrice(mobile)
+  const warrantyYears = getMobileWarrantyYears(mobile)
   const schemaJson = mobile.schema_json ?? null
   const gallery = buildFallbackGallery(mobile.name, schemaJson, mobile.image_alt_text)
   const collections = buildFallbackCollections('mobile')
@@ -677,6 +694,9 @@ function buildFallbackMobileDetail(mobile: FallbackMobileRow): ProductDetail {
     ],
     price,
     priceLabel,
+    originalPrice,
+    originalPriceLabel: formatPrice(originalPrice),
+    warrantyYears,
     stockQuantity: null,
     availability: resolveAvailability(),
     createdAt: mobile.created_at,
@@ -927,7 +947,7 @@ async function readCatalogSnapshotFromSupabase(options: CatalogSnapshotReadOptio
       .order('name', { ascending: true }),
     supabase
       .from('mobiles')
-      .select('id, name, slug, description, meta_title, meta_description, seo_keywords, canonical_url, schema_json, seo_description_long, image_alt_text, piority, release_date, created_at, updated_at, Price')
+      .select('id, name, slug, description, meta_title, meta_description, seo_keywords, canonical_url, schema_json, seo_description_long, image_alt_text, piority, release_date, created_at, updated_at, Price, original_price, warranty')
       .order('piority', { ascending: true, nullsFirst: false })
       .order('name', { ascending: true }),
     supabase
@@ -1457,6 +1477,7 @@ function buildMobileCard(mobile: SupabaseMobileRow, snapshot: CatalogSnapshot): 
   const publicHandle = getPreferredProductHandle(mobile.slug)
   const variant =
     colors.length > 0 ? `${colors.length} colour${colors.length === 1 ? '' : 's'}` : images[0]?.caption ?? null
+  const originalPrice = getMobileOriginalPrice(mobile)
 
   return {
     id: `mobile-${mobile.id}`,
@@ -1468,6 +1489,9 @@ function buildMobileCard(mobile: SupabaseMobileRow, snapshot: CatalogSnapshot): 
     variant,
     price: mobile.Price,
     priceLabel: formatPrice(mobile.Price),
+    originalPrice,
+    originalPriceLabel: formatPrice(originalPrice),
+    warrantyYears: getMobileWarrantyYears(mobile),
     kind: 'mobile',
     sortPriority: mobile.piority,
     subtitle: 'Phone',
@@ -2142,6 +2166,7 @@ function buildProductDetailFromMobile(mobile: SupabaseMobileRow, snapshot: Catal
     ['Release date', formatCatalogDate(mobile.release_date)],
     ['Updated', formatCatalogDate(mobile.updated_at)],
   ])
+  const originalPrice = getMobileOriginalPrice(mobile)
 
   return {
     id: `mobile-${mobile.id}`,
@@ -2171,6 +2196,9 @@ function buildProductDetailFromMobile(mobile: SupabaseMobileRow, snapshot: Catal
     widgets: buildWidgets('mobile', null, galleryImages, snapshot),
     price: mobile.Price,
     priceLabel: formatPrice(mobile.Price),
+    originalPrice,
+    originalPriceLabel: formatPrice(originalPrice),
+    warrantyYears: getMobileWarrantyYears(mobile),
     stockQuantity: null,
     availability: resolveAvailability(),
     createdAt: mobile.created_at,

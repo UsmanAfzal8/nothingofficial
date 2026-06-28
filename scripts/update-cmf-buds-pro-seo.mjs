@@ -2,7 +2,7 @@ import { createClient } from '@supabase/supabase-js'
 import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 
-const SITE_URL = 'https://www.cmfbynothing.pk'
+const SITE_URL = 'https://www.nothingpakistan.pk'
 const PRODUCT_SLUG = 'cmf-buds-pro'
 const PRODUCT_NAME = 'CMF Buds Pro'
 
@@ -94,7 +94,7 @@ const seoDescriptionLong = [
   `${PRODUCT_NAME} is positioned for Pakistani buyers who want original CMF by Nothing earbuds with strong noise cancellation, bass-forward sound, reliable calling, and practical battery life at a competitive price. The product targets high-intent searches such as CMF Buds Pro price in Pakistan, buy CMF Buds Pro online, original CMF earbuds Pakistan, ANC earbuds Pakistan, and Nothing earbuds price in Pakistan.`,
   `${PRODUCT_NAME} supports up to 45 dB Hybrid Active Noise Cancellation, making it useful for commuting, office work, study sessions, and daily music listening. The Ultra Bass profile and dynamic driver tuning help the product match commercial searches from buyers who want punchy bass, wireless comfort, and a modern CMF design without moving into a premium price bracket.`,
   `Battery search intent is important for this product. Buds Pro can deliver up to 11 hours of music playback from the earbuds with ANC off and up to 39 hours total with the charging case. With ANC on, playback is listed at up to 6.5 hours from the earbuds and up to 22 hours total with the case. Fast charging support also helps answer common buyer questions before checkout.`,
-  `For trust and conversion, this page should make it clear that customers can buy ${PRODUCT_NAME} in Pakistan from Nothing Pakistan with local ordering support, COD availability, visible pricing, and product support. The canonical URL should stay on www.cmfbynothing.pk so Google consolidates ranking signals for the official local product page instead of sending authority to another domain.`,
+  `For trust and conversion, this page should make it clear that customers can buy ${PRODUCT_NAME} in Pakistan from Nothing Pakistan with local ordering support, COD availability, visible pricing, and product support. The canonical URL should stay on www.nothingpakistan.pk so Google consolidates ranking signals for the official local product page instead of sending authority to another domain.`,
   `The FAQ content covers price, authenticity, ANC, battery life, fast charging, water resistance, calling, wireless charging, device connection, app support, and delivery. This helps Google, AI search systems, and shoppers understand the product quickly while keeping the copy natural and useful instead of keyword stuffed.`,
 ].join('\n\n')
 

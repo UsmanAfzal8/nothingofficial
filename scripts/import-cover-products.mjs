@@ -5,7 +5,7 @@ import path from 'node:path'
 
 const ROOT = process.cwd()
 const INPUT_PATH = path.join(ROOT, 'abc')
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.cmfbynothing.pk'
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.nothingpakistan.pk'
 const PRODUCT_TYPE = 'covers'
 const CATEGORY_SLUGS = ['accessories', 'phone-cases']
 

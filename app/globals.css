@@ -323,9 +323,9 @@ body:has(.support-detail-page) .site-dot-overlay {
   border: 1px solid #111;
   border-radius: 999px;
   color: #111;
-  font-family: var(--font-lettera-regular), monospace;
+  font-family: var(--font-ntype82), serif;
   font-size: 16px;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.04em;
   line-height: 1.15;
   text-align: center;
   transition:
@@ -431,9 +431,9 @@ body:has(.support-detail-page) .site-dot-overlay {
   border-radius: 999px;
   background: #003b7a;
   color: #fff;
-  font-family: var(--font-lettera-regular), monospace;
+  font-family: var(--font-ntype82), serif;
   font-size: 16px;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   transition: background-color 0.2s ease;
 }
@@ -455,9 +455,9 @@ body:has(.support-detail-page) .site-dot-overlay {
 
 .company-verification-kicker {
   margin: 0 0 24px;
-  font-family: var(--font-lettera-regular), monospace;
+  font-family: var(--font-ntype82), serif;
   font-size: 12px;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.08em;
   line-height: 1;
   text-transform: uppercase;
   color: rgba(0, 0, 0, 0.46);
@@ -546,9 +546,9 @@ body:has(.support-detail-page) .site-dot-overlay {
   border: 1px solid #111;
   border-radius: 999px;
   color: #111;
-  font-family: var(--font-lettera-regular), monospace;
+  font-family: var(--font-ntype82), serif;
   font-size: 13px;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.05em;
   line-height: 1.15;
   text-align: center;
   text-transform: uppercase;
@@ -562,21 +562,6 @@ body:has(.support-detail-page) .site-dot-overlay {
   color: #fff;
 }
 
-.company-verification-certificate {
-  margin-top: 42px;
-  overflow: hidden;
-  border: 1px dotted #111;
-  background: #fff;
-}
-
-.company-verification-certificate iframe {
-  display: block;
-  width: 100%;
-  height: 520px;
-  border: 0;
-  background: #fff;
-}
-
 .company-verification-registered {
   margin-top: 104px;
   background: #111;
@@ -585,9 +570,9 @@ body:has(.support-detail-page) .site-dot-overlay {
 }
 
 .company-verification-registered > p {
-  font-family: var(--font-lettera-regular), monospace;
+  font-family: var(--font-ntype82), serif;
   font-size: 12px;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.08em;
   line-height: 1;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.56);
@@ -601,9 +586,9 @@ body:has(.support-detail-page) .site-dot-overlay {
 }
 
 .company-verification-registered dt {
-  font-family: var(--font-lettera-regular), monospace;
+  font-family: var(--font-ntype82), serif;
   font-size: 11px;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.46);
 }
@@ -1063,10 +1048,6 @@ body:has(.support-detail-page) .site-dot-overlay {
   .company-verification-table td {
     padding: 8px 0 20px;
     overflow-wrap: anywhere;
-  }
-
-  .company-verification-certificate iframe {
-    height: 420px;
   }
 
   .company-verification-registered {

@@ -1,0 +1,104 @@
+{
+  "syncedAt": "2026-06-27T21:25:46.236Z",
+  "cloudinaryFolder": "nothing-official-store-pakistan/home/phone-4b-launch",
+  "results": {
+    "summerSale": {
+      "url": "https://res.cloudinary.com/dklsubnzb/image/upload/v1782595458/nothing-official-store-pakistan/home/phone-4b-launch/summer-sale-homepage.jpg",
+      "width": 4096,
+      "height": 2305,
+      "bytes": 388094,
+      "resourceType": "image"
+    },
+    "phone4b": {
+      "url": "https://res.cloudinary.com/dklsubnzb/image/upload/v1782595462/nothing-official-store-pakistan/home/phone-4b-launch/nothing-phone-4b-blue-homepage.jpg",
+      "width": 4096,
+      "height": 2305,
+      "bytes": 304770,
+      "resourceType": "image"
+    },
+    "phone4aPro": {
+      "url": "https://res.cloudinary.com/dklsubnzb/image/upload/v1782595469/nothing-official-store-pakistan/home/phone-4b-launch/nothing-phone-4a-pro-homepage.jpg",
+      "width": 4096,
+      "height": 2305,
+      "bytes": 463436,
+      "resourceType": "image"
+    },
+    "phone4a": {
+      "url": "https://res.cloudinary.com/dklsubnzb/image/upload/v1782595474/nothing-official-store-pakistan/home/phone-4b-launch/nothing-phone-4a-homepage.jpg",
+      "width": 4096,
+      "height": 2305,
+      "bytes": 265280,
+      "resourceType": "image"
+    },
+    "headphone1": {
+      "url": "https://res.cloudinary.com/dklsubnzb/image/upload/v1782595478/nothing-official-store-pakistan/home/phone-4b-launch/nothing-headphone-1-homepage.jpg",
+      "width": 4096,
+      "height": 2305,
+      "bytes": 239351,
+      "resourceType": "image"
+    },
+    "phone3": {
+      "url": "https://res.cloudinary.com/dklsubnzb/image/upload/v1782595485/nothing-official-store-pakistan/home/phone-4b-launch/nothing-phone-3-homepage.jpg",
+      "width": 4096,
+      "height": 2305,
+      "bytes": 333554,
+      "resourceType": "image"
+    },
+    "phone4aProProduct": {
+      "url": "https://res.cloudinary.com/dklsubnzb/image/upload/v1782595488/nothing-official-store-pakistan/home/phone-4b-launch/nothing-phone-4a-pro-product.png",
+      "width": 2048,
+      "height": 2048,
+      "bytes": 619852,
+      "resourceType": "image"
+    },
+    "phone4aProduct": {
+      "url": "https://res.cloudinary.com/dklsubnzb/image/upload/v1782595492/nothing-official-store-pakistan/home/phone-4b-launch/nothing-phone-4a-product.png",
+      "width": 2048,
+      "height": 2048,
+      "bytes": 768939,
+      "resourceType": "image"
+    },
+    "headphoneAProduct": {
+      "url": "https://res.cloudinary.com/dklsubnzb/image/upload/v1782595495/nothing-official-store-pakistan/home/phone-4b-launch/nothing-headphone-a-product.png",
+      "width": 2048,
+      "height": 2048,
+      "bytes": 302892,
+      "resourceType": "image"
+    },
+    "headphone1Product": {
+      "url": "https://res.cloudinary.com/dklsubnzb/image/upload/v1782595498/nothing-official-store-pakistan/home/phone-4b-launch/nothing-headphone-1-product.png",
+      "width": 2048,
+      "height": 2048,
+      "bytes": 1348060,
+      "resourceType": "image"
+    },
+    "ear3Product": {
+      "url": "https://res.cloudinary.com/dklsubnzb/image/upload/v1782595501/nothing-official-store-pakistan/home/phone-4b-launch/nothing-ear-3-product.png",
+      "width": 2048,
+      "height": 2007,
+      "bytes": 1208254,
+      "resourceType": "image"
+    },
+    "phone3Product": {
+      "url": "https://res.cloudinary.com/dklsubnzb/image/upload/v1782595505/nothing-official-store-pakistan/home/phone-4b-launch/nothing-phone-3-product.png",
+      "width": 2048,
+      "height": 2048,
+      "bytes": 2180987,
+      "resourceType": "image"
+    },
+    "headphoneAVideo": {
+      "url": "https://res.cloudinary.com/dklsubnzb/video/upload/f_mp4,q_auto/v1782595518/nothing-official-store-pakistan/home/phone-4b-launch/nothing-headphone-a-homepage-video.mp4",
+      "poster": "https://res.cloudinary.com/dklsubnzb/video/upload/f_jpg,so_0,q_auto,w_1600/v1782595518/nothing-official-store-pakistan/home/phone-4b-launch/nothing-headphone-a-homepage-video.jpg",
+      "bytes": 14530896,
+      "duration": 30,
+      "resourceType": "video"
+    },
+    "ear3Video": {
+      "url": "https://res.cloudinary.com/dklsubnzb/video/upload/f_mp4,q_auto/v1782595539/nothing-official-store-pakistan/home/phone-4b-launch/nothing-ear-3-homepage-video.mp4",
+      "poster": "https://res.cloudinary.com/dklsubnzb/video/upload/f_jpg,so_0,q_auto,w_1600/v1782595539/nothing-official-store-pakistan/home/phone-4b-launch/nothing-ear-3-homepage-video.jpg",
+      "bytes": 15661904,
+      "duration": 29.504,
+      "resourceType": "video"
+    }
+  }
+}

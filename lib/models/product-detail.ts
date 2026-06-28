@@ -140,6 +140,9 @@ export interface ProductDetail {
   widgets: ProductDetailWidget[]
   price?: number | null
   priceLabel?: string | null
+  originalPrice?: number | null
+  originalPriceLabel?: string | null
+  warrantyYears?: number | null
   stockQuantity?: number | null
   availability: 'https://schema.org/InStock' | 'https://schema.org/OutOfStock' | 'https://schema.org/PreOrder'
   createdAt?: string | null

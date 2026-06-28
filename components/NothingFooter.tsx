@@ -1,7 +1,6 @@
 import localFont from 'next/font/local'
 import Image from 'next/image'
 import Link from 'next/link'
-import { CompanyTrustBadge } from '@/components/CompanyTrustBadge'
 import { FooterStoreSelector } from '@/components/FooterStoreSelector'
 import aboutUsIcon from '@/assets/icons/about_us.svg'
 import supportIcon from '@/assets/icons/support.svg'
@@ -115,8 +114,6 @@ export async function NothingFooter() {
                 </div>
               </div>
 
-              <CompanyTrustBadge tone="dark" compact className="mt-8 w-full max-w-[512px] text-left" />
-
               <div className="mt-10 flex w-full max-w-[1220px] items-start">
                 <div className="flex flex-wrap items-center gap-x-10 gap-y-3 text-left">
                   {footerUtilityLinks.map((item) =>
@@ -200,8 +197,6 @@ export async function NothingFooter() {
               className={`flex h-[52px] items-center justify-between rounded-[10px] bg-white/[0.06] px-4 ${spaceMono.className} text-[10px] uppercase tracking-[0.08em] text-white transition-colors hover:bg-white/[0.09]`}
             />
           </div>
-
-          <CompanyTrustBadge tone="dark" compact className="mx-auto mt-7 max-w-[320px] text-left" />
 
           <div className="mx-auto mt-8 grid w-full max-w-[320px] gap-y-3">
             <div className="flex flex-col items-start gap-3 text-left">

@@ -2,7 +2,8 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { type FormEvent, useMemo, useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { type FormEvent, useEffect, useMemo, useState } from 'react'
 import { CompanyTrustBadge } from '@/components/CompanyTrustBadge'
 import { useCart } from '@/components/CartProvider'
 import { siteContactAddress } from '@/lib/data/site-content'
@@ -54,8 +55,8 @@ const BANK_ACCOUNT = {
   accountName: 'NOTHING PAKISTAN',
   accountNumber: '57065002935977',
   iban: 'PK35ALFH5706005002935977',
-  whatsapp: '03361070111',
-  whatsappUrl: 'https://wa.me/923361070111',
+  whatsapp: '03424476070',
+  whatsappUrl: 'https://wa.me/923424476070',
 } as const
 const STORE_MAP_URL = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(siteContactAddress)}`
 
@@ -157,7 +158,9 @@ function OrderSuccessScreen({
 }
 
 export function OrderForm({ product }: OrderFormProps) {
-  const { items: cartItems, subtotal: cartSubtotal, clearCart } = useCart()
+  const router = useRouter()
+  const { items: cartItems, subtotal: cartSubtotal, clearCart, removeItem } = useCart()
+  const [standaloneProductRemoved, setStandaloneProductRemoved] = useState(false)
   const [name, setName] = useState('')
   const [address, setAddress] = useState('')
   const [city, setCity] = useState('')
@@ -168,6 +171,7 @@ export function OrderForm({ product }: OrderFormProps) {
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('cod')
   const [mobileSummaryOpen, setMobileSummaryOpen] = useState(false)
   const [submitState, setSubmitState] = useState<SubmitState>(initialSubmitState)
+  const selectedProduct = standaloneProductRemoved ? null : product
 
   const canSubmit = useMemo(
     () => {
@@ -184,10 +188,10 @@ export function OrderForm({ product }: OrderFormProps) {
     [address, city, deliveryType, district, name, phone],
   )
 
-  const isCartCheckout = !product && cartItems.length > 0
+  const isCartCheckout = !selectedProduct && cartItems.length > 0
   const checkoutItems = useMemo<CheckoutItem[]>(() => {
-    if (product) {
-      return [mapProductToCheckoutItem(product)]
+    if (selectedProduct) {
+      return [mapProductToCheckoutItem(selectedProduct)]
     }
 
     if (cartItems.length > 0) {
@@ -195,11 +199,11 @@ export function OrderForm({ product }: OrderFormProps) {
     }
 
     return []
-  }, [cartItems, product])
+  }, [cartItems, selectedProduct])
 
   const checkoutSubtotal = useMemo(() => {
-    if (product) {
-      return product.price ?? 0
+    if (selectedProduct) {
+      return selectedProduct.price ?? 0
     }
 
     if (cartItems.length > 0) {
@@ -207,10 +211,10 @@ export function OrderForm({ product }: OrderFormProps) {
     }
 
     return 0
-  }, [cartItems.length, cartSubtotal, product])
+  }, [cartItems.length, cartSubtotal, selectedProduct])
 
   const itemCount = getCheckoutItemCount(checkoutItems)
-  const previewImage = product?.image ?? checkoutItems[0]?.image ?? null
+  const previewImage = selectedProduct?.image ?? checkoutItems[0]?.image ?? null
   const pickupWhatsappUrl = useMemo(() => {
     const productNames = checkoutItems.length > 0
       ? checkoutItems
@@ -237,25 +241,25 @@ export function OrderForm({ product }: OrderFormProps) {
       ? `Non COD: Bank transfer customer gets free shipping and 0% tax. We pay the 4% govt tax. Express next-day delivery. After payment send screenshot to ${BANK_ACCOUNT.whatsapp}.`
       : 'COD order: Rs 450 shipping fee and 4% govt tax applied.'
 
-  if (!product && !isCartCheckout) {
-    return (
-      <section className="mx-auto max-w-2xl rounded-[8px] border border-black bg-white px-6 py-12 text-center sm:px-10">
-        <p className="dot-heading text-[0.68rem] uppercase tracking-[0.18em] text-black/48">Order request</p>
-        <h1 className="collection-product-name mt-3 text-4xl leading-none text-black sm:text-5xl">Choose a product first</h1>
-        <p className="mx-auto mt-4 max-w-lg [font-family:var(--font-ntype82)] text-sm leading-7 text-black/62 sm:text-base">
-          The standalone order page is only shown when a product is selected. Browse the catalog, open a product page, and then continue to order.
-        </p>
+  useEffect(() => {
+    if (!selectedProduct && cartItems.length === 0) {
+      router.replace('/')
+    }
+  }, [cartItems.length, router, selectedProduct])
 
-        <div className="mt-8 flex flex-wrap justify-center gap-3">
-          <Link
-            href="/collections/shop-all"
-            className="inline-flex h-12 items-center justify-center rounded-[5px] bg-black px-6 [font-family:var(--font-lettera-regular)] text-[0.68rem] uppercase tracking-[0.16em] text-white transition-opacity hover:opacity-82"
-          >
-            Browse Products
-          </Link>
-        </div>
-      </section>
-    )
+  function handleRemoveItem(handle: string | null) {
+    if (selectedProduct) {
+      setStandaloneProductRemoved(true)
+      return
+    }
+
+    if (handle) {
+      removeItem(handle)
+    }
+  }
+
+  if (!selectedProduct && !isCartCheckout) {
+    return null
   }
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -387,7 +391,7 @@ export function OrderForm({ product }: OrderFormProps) {
                 <div className="relative h-48 w-full">
                   <Image
                     src={previewImage}
-                    alt={product?.name ?? checkoutItems[0]?.name ?? 'Order preview'}
+                    alt={selectedProduct?.name ?? checkoutItems[0]?.name ?? 'Order preview'}
                     fill
                     sizes="(max-width: 1024px) 100vw, 360px"
                     className="object-contain"
@@ -412,7 +416,16 @@ export function OrderForm({ product }: OrderFormProps) {
                             {item.colorName ? <p className="mt-2 text-[0.64rem] uppercase tracking-[0.14em] text-black/52">Colour: {item.colorName}</p> : null}
                             <p className="mt-1 text-[0.64rem] uppercase tracking-[0.14em] text-black/52">Qty {item.quantity}</p>
                           </div>
-                          <p className="text-sm text-black">{itemTotal !== null ? formatPrice(itemTotal) : 'Pending'}</p>
+                          <div className="flex flex-col items-end gap-2">
+                            <p className="text-sm text-black">{itemTotal !== null ? formatPrice(itemTotal) : 'Pending'}</p>
+                            <button
+                              type="button"
+                              onClick={() => handleRemoveItem(item.handle)}
+                              className="text-[0.64rem] uppercase tracking-[0.14em] text-black/48 transition hover:text-black"
+                            >
+                              Delete
+                            </button>
+                          </div>
                         </div>
                         {typeof item.price === 'number' ? <p className="mt-2 text-sm text-black/48">{formatPrice(item.price)} each</p> : null}
                       </div>

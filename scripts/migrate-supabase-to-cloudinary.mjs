@@ -11,7 +11,7 @@ const SOURCE_ROOT = '/Users/mosin/projects/nothingPakistan'
 const SOURCE_ENV_PATH = path.join(SOURCE_ROOT, '.env.local')
 const DEST_ENV_PATH = path.join(DEST_ROOT, '.env.local')
 const REPORT_DIR = path.join(DEST_ROOT, 'migration-reports')
-const CANONICAL_SITE_URL = 'https://www.cmfbynothing.pk'
+const CANONICAL_SITE_URL = 'https://www.nothingpakistan.pk'
 const PAGE_SIZE = 1000
 const FETCH_TIMEOUT_MS = 45000
 const MAX_PARALLEL_MEDIA_CHECKS = 8
@@ -220,7 +220,7 @@ function normalizeBrandCopy(value) {
     .replace(/\bNothing\s+Pakistan\b/gi, 'Nothing Pakistan')
     .replace(/\bNothing\s+official\s+store\s+Pakistan\b/gi, 'Nothing Pakistan')
     .replace(/\bNothing\s+Offical\b/gi, 'Nothing Pakistan')
-    .replace(/\bnothingshop\.pk\b/gi, 'www.cmfbynothing.pk')
+    .replace(/\bnothingshop\.pk\b/gi, 'www.nothingpakistan.pk')
 }
 
 function buildProductCopy(row, slug) {
@@ -465,11 +465,11 @@ function isOwnedOrAllowedUrl(url, sourceEnv, options) {
   }
 
   const allowedHosts = new Set([
-    'www.cmfbynothing.pk',
-    'cmfbynothing.pk',
-    'cdn.cmfbynothing.pk',
-    'www.cmfbynothing.pk',
-    'cmfbynothing.pk',
+    'www.nothingpakistan.pk',
+    'nothingpakistan.pk',
+    'cdn.nothingpakistan.pk',
+    'www.nothingpakistan.pk',
+    'nothingpakistan.pk',
     String(sourceEnv.BUNNY_CDN_HOSTNAME ?? '').toLowerCase(),
   ].filter(Boolean))
 

@@ -183,7 +183,7 @@ function reviewBody(entry, kind, rating, city, index) {
   }
 
   const mentionsStore = index % 4 === 0
-  const storeLead = mentionsStore ? `Ordered from cmfbynothing.pk for delivery in ${city}.` : ''
+  const storeLead = mentionsStore ? `Ordered from nothingpakistan.pk for delivery in ${city}.` : ''
   const durationNotes = [
     'I wrote this after a full week of regular use.',
     'These are my notes after using it through several workdays.',
@@ -337,7 +337,7 @@ async function run() {
   const ratingCounts = Object.fromEntries(
     [1, 2, 3, 4, 5].map((rating) => [rating, rows.filter((row) => row.rating === rating).length]),
   )
-  const storeMentions = rows.filter((row) => row.comment.includes('cmfbynothing.pk')).length
+  const storeMentions = rows.filter((row) => row.comment.includes('nothingpakistan.pk')).length
   const romanUrduReviews = rows.filter((row) =>
     /(daily use mein|Setup asaan tha|sound clear hai|rozana notifications|stable speed se charge|screen par clean fit|phone par theek fit|listing ke mutabiq|Order process theek tha)/.test(
       row.comment,

@@ -2,7 +2,7 @@ import { createClient } from '@supabase/supabase-js'
 import { existsSync, readFileSync } from 'node:fs'
 import path from 'node:path'
 
-const SITE_URL = 'https://www.cmfbynothing.pk'
+const SITE_URL = 'https://www.nothingpakistan.pk'
 const BRAND = 'Nothing Pakistan'
 const STORE_LABEL = 'Nothing Official Store Pakistan'
 const LEGAL_NAME = 'NOTHING PAKISTAN (SMC-PRIVATE) LIMITED'

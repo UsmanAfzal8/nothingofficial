@@ -1,0 +1,68 @@
+{
+  "publishedAt": "2026-06-27T21:39:58.665Z",
+  "existingMatchingSlugsBeforeRun": [
+    {
+      "id": 91,
+      "slug": "nothing-phone-4b-launch-date-pakistan-july-7-reveal-guide",
+      "title": "Nothing Phone 4b Launch Date in Pakistan: July 7 Reveal Guide"
+    }
+  ],
+  "insertedOrUpdated": [
+    {
+      "id": 91,
+      "imageId": 577,
+      "title": "Nothing Phone 4b Launch Date in Pakistan: July 7 Reveal Guide",
+      "slug": "nothing-phone-4b-launch-date-pakistan-july-7-reveal-guide",
+      "words": 2428,
+      "lines": 256,
+      "faqs": 20
+    },
+    {
+      "id": 93,
+      "imageId": 578,
+      "title": "Nothing Phone 4b Price in Pakistan: What to Expect Before Launch",
+      "slug": "nothing-phone-4b-price-in-pakistan-what-to-expect",
+      "words": 2232,
+      "lines": 256,
+      "faqs": 20
+    },
+    {
+      "id": 94,
+      "imageId": 579,
+      "title": "Nothing Phone 4b Specifications: Confirmed Design and Leaks Explained",
+      "slug": "nothing-phone-4b-specifications-confirmed-design-leaks-explained",
+      "words": 2234,
+      "lines": 256,
+      "faqs": 20
+    },
+    {
+      "id": 95,
+      "imageId": 580,
+      "title": "Nothing Phone 4b vs Nothing Phone 4a: Should Pakistan Buyers Wait?",
+      "slug": "nothing-phone-4b-vs-nothing-phone-4a-pakistan",
+      "words": 2206,
+      "lines": 256,
+      "faqs": 20
+    },
+    {
+      "id": 96,
+      "imageId": 581,
+      "title": "Nothing Phone 4b PTA Approval, Tax and Network Guide for Pakistan",
+      "slug": "nothing-phone-4b-pta-approval-tax-network-pakistan",
+      "words": 2252,
+      "lines": 256,
+      "faqs": 20
+    }
+  ],
+  "verified": {
+    "fetchedBlogs": 5,
+    "fetchedFaqs": 100,
+    "fetchedImages": 5
+  },
+  "sourcesReviewed": [
+    "Nothing official homepage Phone (4b) campaign and reveal timing",
+    "Nothing official Phone (4a) product and support information",
+    "Current Phone (4b) design coverage",
+    "Current Phone (4b) benchmark and specification leak coverage"
+  ]
+}

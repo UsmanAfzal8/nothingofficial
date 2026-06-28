@@ -14,8 +14,15 @@ create table public.mobiles (
   created_at timestamp without time zone null default now(),
   updated_at timestamp without time zone null default now(),
   "Price" integer null,
+  pta_tax bigint null,
+  non_pta_price bigint null,
+  piority integer null,
+  original_price integer null,
+  warranty smallint not null default 1,
   constraint mobiles_pkey primary key (id),
-  constraint mobiles_slug_key unique (slug)
+  constraint mobiles_slug_key unique (slug),
+  constraint mobiles_warranty_check check (warranty in (1, 2)),
+  constraint mobiles_original_price_check check (original_price is null or "Price" is null or original_price >= "Price")
 ) TABLESPACE pg_default;
 
 create index IF not exists idx_mobiles_seo_keywords on public.mobiles using gin (to_tsvector('english', coalesce(seo_keywords, ''))) TABLESPACE pg_default;

@@ -5,6 +5,16 @@ const nextConfig = {
   async redirects() {
     return [
       {
+        source: '/mobiles',
+        destination: '/collections/phones',
+        permanent: true,
+      },
+      {
+        source: '/mobiles/:handle',
+        destination: '/products/:handle',
+        permanent: true,
+      },
+      {
         source: '/pages/about',
         destination: '/about-us',
         permanent: true,
@@ -59,10 +69,10 @@ const nextConfig = {
         has: [
           {
             type: 'host',
-            value: 'cmfbynothing.pk',
+            value: 'nothingpakistan.pk',
           },
         ],
-        destination: 'https://www.cmfbynothing.pk/:path*',
+        destination: 'https://www.nothingpakistan.pk/:path*',
         permanent: true,
       },
     ];
