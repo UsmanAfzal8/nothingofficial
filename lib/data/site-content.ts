@@ -89,9 +89,9 @@ export const siteKeywords = [
   'Nothing Phone 4a AI features Pakistan',
 ]
 
-export const siteContactPhone = '+923424476070'
-export const siteContactWhatsappUrl = 'https://wa.me/923424476070'
-export const siteContactDisplayPhone = '03424476070'
+export const siteContactPhone = '+923361070111'
+export const siteContactWhatsappUrl = 'https://wa.me/923361070111'
+export const siteContactDisplayPhone = '03361070111'
 export const siteContactAddress = 'Al-Qadir Heights, Babar Block Garden Town, Lahore, Pakistan'
 export const siteContactCoordinates = '31.47504732907068, 74.46976232054841'
 export const sitePrimaryLocation = {

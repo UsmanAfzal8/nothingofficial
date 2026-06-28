@@ -1063,8 +1063,8 @@ export function ProductDetailHero({
   )
   const whatsappHref =
     entityType === 'mobile'
-      ? `https://api.whatsapp.com/send?phone=923424476070&text=${encodeURIComponent(`Hi, I want to purchase this phone if available. Kindly tell me the price: ${productName}`)}`
-      : 'https://api.whatsapp.com/send?phone=923424476070'
+      ? `https://api.whatsapp.com/send?phone=923361070111&text=${encodeURIComponent(`Hi, I want to purchase this phone if available. Kindly tell me the price: ${productName}`)}`
+      : 'https://api.whatsapp.com/send?phone=923361070111'
   const buyHref = buildOrderHref(canonicalHandle, selectedMedia)
   const hasSpecGroups = hasSpecs ?? loadedSpecGroups.length > 0
   const immersiveBackgroundImages = backgroundImages.length > 0 ? backgroundImages : backgroundImage ? [backgroundImage] : []

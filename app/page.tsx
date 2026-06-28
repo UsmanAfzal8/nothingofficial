@@ -23,7 +23,7 @@ const homeMetaDescription =
   'Discover Nothing Phone (4b) in Pakistan before its 7 July 2026 reveal. Get launch updates on WhatsApp and shop Nothing phones, CMF, audio, and accessories.'
 
 const phone4bWhatsappUrl =
-  'https://wa.me/923424476070?text=i%20need%20to%20buy%20phone%204b%20when%20avalible%20kindly%20inform%20me'
+  'https://wa.me/923361070111?text=i%20need%20to%20buy%20phone%204b%20when%20avalible%20kindly%20inform%20me'
 
 const productImageUrls = {
   headphoneA:

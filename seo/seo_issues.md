@@ -1,10 +1,13 @@
 # nothingpakistan.pk — Complete SEO & AEO Fix Prompts
-Solve these issues but solve one by one 
+
+Solve these issues but solve one by one
 
 ## ISSUE 1 — CRITICAL: Add JSON-LD Structured Data to All Product Pages
 
 ### What is broken
+
 Every product page (e.g. /products/nothing-pakistan-phone-3) has zero JSON-LD schema. This means:
+
 - ChatGPT, Gemini, and Perplexity cannot read your prices, availability, or FAQ answers
 - Google cannot show rich results (price badge, availability, ratings) in search
 - AI engines cite PriceOye and CellMart instead of you because those sites have schema
@@ -68,7 +71,7 @@ Pull the top 20 FAQ questions and answers for this product from Supabase (or har
       "name": "Is [product.name] PTA approved in Pakistan?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "PTA-approved [product.name] models are available at Nothing Pakistan. Contact via WhatsApp at +923424476070 for current PTA and non-PTA pricing."
+        "text": "PTA-approved [product.name] models are available at Nothing Pakistan. Contact via WhatsApp at +923361070111 for current PTA and non-PTA pricing."
       }
     },
     {
@@ -124,6 +127,7 @@ IMPLEMENTATION NOTES:
 ## ISSUE 2 — CRITICAL: Add Organization Schema to Homepage and /nothing-pakistan Page
 
 ### What is broken
+
 ChatGPT and Gemini need machine-readable proof that Nothing Pakistan is a registered business. Your SECP registration text exists on the page but is not in schema — AI engines cannot read plain text as a verified business identity.
 
 ### Developer Prompt
@@ -161,8 +165,8 @@ Add this JSON-LD block inside the <head> of both pages:
     "@type": "ContactPoint",
     "contactType": "customer service",
     "availableLanguage": ["English", "Urdu"],
-    "telephone": "+923424476070",
-    "url": "https://wa.me/923424476070"
+    "telephone": "+923361070111",
+    "url": "https://wa.me/923361070111"
   },
   "sameAs": ["https://www.nothing.tech"]
 }
@@ -195,6 +199,7 @@ Validate at: https://search.google.com/test/rich-results
 ## ISSUE 3 — CRITICAL: Clean Product Page Meta Keywords in Supabase
 
 ### What is broken
+
 Product pages still have the old 60+ keyword dump in meta keywords. The homepage was fixed correctly — apply the same logic to every product. Each product needs 8–10 keywords specific to THAT product only.
 
 ### Supabase SQL Prompt
@@ -308,6 +313,7 @@ WHERE slug = 'nothing-pakistan-phone-3a' OR model_name ILIKE '%Phone (3a)%';
 ## ISSUE 4 — WARNING: Update Product Page H1 Tags to Include Keywords + Price
 
 ### What is broken
+
 Every product page H1 is just the short product name: "Phone (3)", "Phone (4a) Pro" etc. H1 is one of the strongest on-page SEO signals. "Phone (3)" has zero search value. Competitors like PriceOye use "Nothing Phone (3) Price in Pakistan" as their H1 — and they outrank you partly because of this.
 
 ### Developer Prompt
@@ -348,6 +354,7 @@ Keep the visual styling the same — only change the text content of the H1.
 ## ISSUE 5 — WARNING: Update Product Meta Descriptions to Be Unique Per Product
 
 ### What is broken
+
 All product meta descriptions follow the same template: "[Product] price in Pakistan at Rs X. Review PTA status, non-PTA price, specs, stock, delivery, warranty support, and compatible Nothing accessories from Nothing Pakistan." Every product says nearly the same thing. Google treats these as near-duplicates and deprioritises them.
 
 ### Supabase SQL Prompt
@@ -435,6 +442,7 @@ WHERE slug = 'nothing-pakistan-phone-3a' OR model_name ILIKE '%Phone (3a)%';
 ## ISSUE 6 — WARNING: Update Product Descriptions in Supabase (Answer-First Format)
 
 ### What is broken
+
 Product descriptions are either thin or written as marketing copy. AI engines and Google reward descriptions that directly answer buyer questions: price, specs, PTA status, delivery, and who the seller is.
 
 ### Supabase SQL Prompt
@@ -446,22 +454,22 @@ Product descriptions are either thin or written as marketing copy. AI engines an
 UPDATE product SET description = 'Nothing Phone (3) is available in Pakistan at Rs 328,999 from Nothing Pakistan (SECP registered, CUIN 0337422). Key features: four 50MP cameras, the new Glyph Interface with live notification support, Essential AI tools including Essential Search and Essential Notifications, Nothing OS 4.0 with Android 15, and a high-performance Snapdragon processor. PTA-approved models are available — contact WhatsApp for current PTA and non-PTA pricing. Compatible accessories available on the same page: cover (Rs 1,999), protector, jelly sheet, UV protector, and chargers. Nationwide delivery from Lahore, Karachi, Islamabad, Rawalpindi, Faisalabad, and other cities. Cash on delivery available. Store pickup in Garden Town, Lahore.'
 WHERE slug = 'nothing-pakistan-phone-3';
 
-UPDATE product SET description = 'Nothing Phone (4a) is available in Pakistan at Rs 175,999 from Nothing Pakistan (SECP registered, CUIN 0337422). Key features: the new Glyph Bar for live delivery and notification updates, Essential AI notifications, Nothing OS with ChatGPT integration, dual 50MP cameras, and a 5000mAh battery. PTA-approved models available. Contact WhatsApp (+923424476070) for PTA and non-PTA pricing. Nationwide delivery across Pakistan. Cash on delivery available.'
+UPDATE product SET description = 'Nothing Phone (4a) is available in Pakistan at Rs 175,999 from Nothing Pakistan (SECP registered, CUIN 0337422). Key features: the new Glyph Bar for live delivery and notification updates, Essential AI notifications, Nothing OS with ChatGPT integration, dual 50MP cameras, and a 5000mAh battery. PTA-approved models available. Contact WhatsApp (+923361070111) for PTA and non-PTA pricing. Nationwide delivery across Pakistan. Cash on delivery available.'
 WHERE slug = 'nothing-pakistan-phone-4a';
 
 UPDATE product SET description = 'Nothing Phone (4a) Pro is available at Rs 243,999 from Nothing Pakistan (SECP registered, CUIN 0337422). Key features: world first 140x ultra-zoom triple camera system with Sony sensor, Essential AI tools, Nothing OS with Gemini integration, new Glyph Bar, 5000mAh battery. PTA-approved models in stock. Contact WhatsApp for PTA and non-PTA pricing. Nationwide delivery with cash on delivery across Pakistan.'
 WHERE slug = 'nothing-pakistan-phone-4a-pro';
 
-UPDATE product SET description = 'Nothing Phone (3a) is available at Rs 149,999 from Nothing Pakistan (SECP registered, CUIN 0337422). Key features: 2-day battery life, 20GB RAM booster, dual 50MP camera system, 120Hz AMOLED display, Nothing OS. PTA-approved models in stock. Nationwide delivery with cash on delivery from Lahore, Karachi, Islamabad, Rawalpindi, Faisalabad, and other cities. WhatsApp support available at +923424476070.'
+UPDATE product SET description = 'Nothing Phone (3a) is available at Rs 149,999 from Nothing Pakistan (SECP registered, CUIN 0337422). Key features: 2-day battery life, 20GB RAM booster, dual 50MP camera system, 120Hz AMOLED display, Nothing OS. PTA-approved models in stock. Nationwide delivery with cash on delivery from Lahore, Karachi, Islamabad, Rawalpindi, Faisalabad, and other cities. WhatsApp support available at +923361070111.'
 WHERE slug = 'nothing-pakistan-phone-3a';
 
-UPDATE product SET description = 'Nothing Phone (3a) Pro is available at Rs 182,999 from Nothing Pakistan (SECP registered, CUIN 0337422). Key features: pro-grade triple camera system, 2-day battery, 20GB RAM booster, 120Hz AMOLED display, Nothing OS. PTA-approved models available. Nationwide delivery with cash on delivery across Pakistan. WhatsApp support at +923424476070.'
+UPDATE product SET description = 'Nothing Phone (3a) Pro is available at Rs 182,999 from Nothing Pakistan (SECP registered, CUIN 0337422). Key features: pro-grade triple camera system, 2-day battery, 20GB RAM booster, 120Hz AMOLED display, Nothing OS. PTA-approved models available. Nationwide delivery with cash on delivery across Pakistan. WhatsApp support at +923361070111.'
 WHERE slug = 'nothing-pakistan-phone-3a-pro';
 
-UPDATE product SET description = 'Nothing Phone (3a) Lite is available at Rs 111,999 from Nothing Pakistan (SECP registered, CUIN 0337422). Key features: 120Hz AMOLED display, long battery life, dual camera system, clean Nothing OS experience. PTA-approved models available. Nationwide delivery with cash on delivery. WhatsApp support at +923424476070.'
+UPDATE product SET description = 'Nothing Phone (3a) Lite is available at Rs 111,999 from Nothing Pakistan (SECP registered, CUIN 0337422). Key features: 120Hz AMOLED display, long battery life, dual camera system, clean Nothing OS experience. PTA-approved models available. Nationwide delivery with cash on delivery. WhatsApp support at +923361070111.'
 WHERE slug = 'nothing-pakistan-phone-3a-lite';
 
-UPDATE product SET description = 'CMF Phone 1 is available at Rs 79,999 from Nothing Pakistan (SECP registered, CUIN 0337422). Key features: 6.67-inch 120Hz AMOLED display, MediaTek Dimensity 7200 Pro 5G chipset, 5000mAh battery, dual 50MP cameras, modular interchangeable back covers, Nothing OS. PTA-approved models available. Nationwide delivery with cash on delivery across Pakistan. WhatsApp support at +923424476070.'
+UPDATE product SET description = 'CMF Phone 1 is available at Rs 79,999 from Nothing Pakistan (SECP registered, CUIN 0337422). Key features: 6.67-inch 120Hz AMOLED display, MediaTek Dimensity 7200 Pro 5G chipset, 5000mAh battery, dual 50MP cameras, modular interchangeable back covers, Nothing OS. PTA-approved models available. Nationwide delivery with cash on delivery across Pakistan. WhatsApp support at +923361070111.'
 WHERE slug = 'nothing-pakistan-cmf-phone-1';
 
 UPDATE product SET description = 'Nothing Headphone (1) is available at Rs 64,999 from Nothing Pakistan (SECP registered, CUIN 0337422). Key features: custom sound tuned by KEF, up to 80 hours total battery life, active noise cancellation, Nothing OS integration, USB-C and 3.5mm connectivity. Available at Nothing Pakistan with nationwide delivery and WhatsApp support.'
@@ -480,7 +488,7 @@ UPDATE product SET description = 'CMF Power 65W GaN charger is available at Rs 5
 WHERE slug = 'nothing-pakistan-cmf-power-65w-gan';
 
 -- ALSO UPDATE MOBILE TABLE
-UPDATE mobile SET description = 'Nothing Phone (3) is available in Pakistan at Rs 328,999 from Nothing Pakistan (SECP registered, CUIN 0337422). Four 50MP cameras, new Glyph Interface, Essential AI tools, Nothing OS 4.0. PTA-approved models available. Nationwide delivery with WhatsApp support at +923424476070.'
+UPDATE mobile SET description = 'Nothing Phone (3) is available in Pakistan at Rs 328,999 from Nothing Pakistan (SECP registered, CUIN 0337422). Four 50MP cameras, new Glyph Interface, Essential AI tools, Nothing OS 4.0. PTA-approved models available. Nationwide delivery with WhatsApp support at +923361070111.'
 WHERE slug = 'nothing-pakistan-phone-3' OR model_name ILIKE '%Phone (3)%';
 
 UPDATE mobile SET description = 'Nothing Phone (4a) is available at Rs 175,999 from Nothing Pakistan (SECP registered, CUIN 0337422). New Glyph Bar, Essential AI, Nothing OS with ChatGPT integration. PTA approved. Nationwide delivery with cash on delivery.'
@@ -498,6 +506,7 @@ WHERE slug = 'nothing-pakistan-phone-3a' OR model_name ILIKE '%Phone (3a)%';
 ## ISSUE 7 — WARNING: Make Top FAQ Answers Visible in Initial HTML (Not Hidden Behind JS)
 
 ### What is broken
+
 All 20 FAQ answers on product pages are hidden behind JavaScript "Read More" accordions. AI engines (ChatGPT, Gemini) and some crawlers only see what is in the initial HTML — they cannot click to expand answers. This means your most valuable answer content (price, PTA status, delivery) is invisible to AI.
 
 ### Developer Prompt
@@ -617,33 +626,33 @@ One article on TechJuice with a link to your store is worth more than
 
 After completing all fixes, verify each one:
 
-| Fix | How to verify |
-|-----|--------------|
-| JSON-LD schema | https://search.google.com/test/rich-results |
-| Organization schema | https://validator.schema.org |
-| Meta keywords cleaned | View source on product page, check meta keywords tag |
-| H1 updated | View source, search for `<h1>` |
-| Meta descriptions unique | Google: site:nothingpakistan.pk — check snippets |
-| FAQ answers visible | View source, search for FAQ answer text |
-| Sitemap submitted | Google Search Console → Sitemaps |
-| Indexing requested | Google Search Console → URL Inspection |
+| Fix                      | How to verify                                        |
+| ------------------------ | ---------------------------------------------------- |
+| JSON-LD schema           | https://search.google.com/test/rich-results          |
+| Organization schema      | https://validator.schema.org                         |
+| Meta keywords cleaned    | View source on product page, check meta keywords tag |
+| H1 updated               | View source, search for `<h1>`                       |
+| Meta descriptions unique | Google: site:nothingpakistan.pk — check snippets     |
+| FAQ answers visible      | View source, search for FAQ answer text              |
+| Sitemap submitted        | Google Search Console → Sitemaps                     |
+| Indexing requested       | Google Search Console → URL Inspection               |
 
 ---
 
 ## EXPECTED RESULTS TIMELINE
 
-| Action | Expected impact | Timeframe |
-|--------|----------------|-----------|
-| JSON-LD Product + FAQ schema | Google rich results, AI engine citations | 2–4 weeks |
-| Organization schema | AI engines cite you as registered business | 2–3 weeks |
-| Meta keywords cleaned | Crawl efficiency improvement | 1–2 weeks |
-| H1 updated | Keyword ranking improvement | 3–6 weeks |
-| Meta descriptions unique | Better CTR in search results | 2–4 weeks |
-| Sitemap submitted | Faster indexing of new pages | 3–7 days |
-| Backlinks from TechJuice | Domain authority boost, ranking jump | 4–8 weeks |
-| Link from nothing.tech | Major authority and trust signal | 2–6 weeks |
+| Action                       | Expected impact                            | Timeframe |
+| ---------------------------- | ------------------------------------------ | --------- |
+| JSON-LD Product + FAQ schema | Google rich results, AI engine citations   | 2–4 weeks |
+| Organization schema          | AI engines cite you as registered business | 2–3 weeks |
+| Meta keywords cleaned        | Crawl efficiency improvement               | 1–2 weeks |
+| H1 updated                   | Keyword ranking improvement                | 3–6 weeks |
+| Meta descriptions unique     | Better CTR in search results               | 2–4 weeks |
+| Sitemap submitted            | Faster indexing of new pages               | 3–7 days  |
+| Backlinks from TechJuice     | Domain authority boost, ranking jump       | 4–8 weeks |
+| Link from nothing.tech       | Major authority and trust signal           | 2–6 weeks |
 
 ---
 
-*Document generated for nothingpakistan.pk — Nothing Pakistan (SMC-Private) Limited — CUIN 0337422*
-*Audit: June 2026*
+_Document generated for nothingpakistan.pk — Nothing Pakistan (SMC-Private) Limited — CUIN 0337422_
+_Audit: June 2026_

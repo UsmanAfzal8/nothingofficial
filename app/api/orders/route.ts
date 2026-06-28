@@ -227,7 +227,7 @@ export async function POST(request: NextRequest) {
       deliveryType === 'pickup'
         ? 'Store pickup order: no shipping fee. 4% govt tax applied.'
         : paymentMethod === 'bank_transfer'
-        ? 'Non COD: Bank transfer customer gets free shipping and 0% tax. We pay the 4% govt tax. Express next-day delivery. User will send online payment screenshot to 03424476070.'
+        ? 'Non COD: Bank transfer customer gets free shipping and 0% tax. We pay the 4% govt tax. Express next-day delivery. User will send online payment screenshot to 03361070111.'
         : 'COD order: Rs 450 shipping fee and 4% govt tax applied.'
     const orderItemsWithNotes = orderItems.map((item) => ({
       ...item,

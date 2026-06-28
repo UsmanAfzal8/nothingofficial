@@ -12,7 +12,7 @@ const description =
 const phone4bImage =
   'https://res.cloudinary.com/dklsubnzb/image/upload/v1782595462/nothing-official-store-pakistan/home/phone-4b-launch/nothing-phone-4b-blue-homepage.jpg'
 const reminderUrl =
-  'https://wa.me/923424476070?text=i%20need%20to%20buy%20phone%204b%20when%20avalible%20kindly%20inform%20me'
+  'https://wa.me/923361070111?text=i%20need%20to%20buy%20phone%204b%20when%20avalible%20kindly%20inform%20me'
 
 const faqs = [
   {

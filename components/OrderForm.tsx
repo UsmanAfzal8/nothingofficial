@@ -55,8 +55,8 @@ const BANK_ACCOUNT = {
   accountName: 'NOTHING PAKISTAN',
   accountNumber: '57065002935977',
   iban: 'PK35ALFH5706005002935977',
-  whatsapp: '03424476070',
-  whatsappUrl: 'https://wa.me/923424476070',
+  whatsapp: '03361070111',
+  whatsappUrl: 'https://wa.me/923361070111',
 } as const
 const STORE_MAP_URL = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(siteContactAddress)}`
 
