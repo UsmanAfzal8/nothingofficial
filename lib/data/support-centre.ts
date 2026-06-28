@@ -2,7 +2,7 @@ export const supportHero = {
   title: 'Support Centre',
   description:
     'Learn more about your Nothing Pakistan products, find answers, troubleshoot problems, request help and more.',
-  imageUrl: 'https://res.cloudinary.com/dbdsmy4em/image/upload/f_auto,q_auto:eco,w_1600,c_limit/v1780457366/cmfbynothing/support/support-centre-title-update-2160x1200.webp',
+  imageUrl: 'https://res.cloudinary.com/dklsubnzb/image/upload/f_auto,q_auto:eco,w_1600,c_limit/v1782636139/nothing-official-store-pakistan/support/support-centre-hero.webp',
   imageAlt: 'Nothing Pakistan Support Centre hero with Nothing phone and audio products',
 }
 

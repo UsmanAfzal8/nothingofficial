@@ -104,7 +104,7 @@ const guideCards: SupportGuideCard[] = [
     category: 'Phones',
     description: 'Setup, repair guidance, accessory compatibility, updates, and common questions.',
     href: '/products/nothing-pakistan-phone-1',
-    imageUrl: 'https://res.cloudinary.com/dbdsmy4em/image/upload/f_auto,q_auto:eco,w_700,c_limit/v1780457378/cmfbynothing/support/phone-1-white.webp',
+    imageUrl: 'https://res.cloudinary.com/dklsubnzb/image/upload/f_auto,q_auto:eco,w_700,c_limit/v1782636141/nothing-official-store-pakistan/support/phone-1-white.webp',
     imageAlt: 'Phone 1 support guide for Nothing Pakistan',
   },
   {
@@ -112,7 +112,7 @@ const guideCards: SupportGuideCard[] = [
     category: 'Phones',
     description: 'Get support for CMF setup, accessories, display, battery, and update checks.',
     href: '/products/nothing-pakistan-cmf-phone-2-pro',
-    imageUrl: 'https://res.cloudinary.com/dbdsmy4em/image/upload/f_auto,q_auto:eco,w_700,c_limit/v1780457380/cmfbynothing/support/cmf-phone-2-pro-orange.webp',
+    imageUrl: 'https://res.cloudinary.com/dklsubnzb/image/upload/f_auto,q_auto:eco,w_700,c_limit/v1782636145/nothing-official-store-pakistan/support/cmf-phone-2-pro-orange.webp',
     imageAlt: 'CMF Phone 2 Pro support guide for Nothing Pakistan',
   },
   {

@@ -152,10 +152,10 @@ async function uploadImageToCloudinary(filePath, slug, title, description) {
   const cloudName = requireEnv('CLOUDINARY_CLOUD_NAME')
   const apiKey = requireEnv('CLOUDINARY_API_KEY')
   const apiSecret = requireEnv('CLOUDINARY_API_SECRET')
-  const folder = 'cmfbynothing/blogs'
+  const folder = 'nothing-official-store-pakistan/blogs'
   const timestamp = Math.floor(Date.now() / 1000)
   const publicId = slug
-  const tags = ['cmfbynothing', 'blog', 'hero', slug].join(',')
+  const tags = ['nothing-pakistan', 'blog', 'hero', slug].join(',')
   const context = [`title=${title}`, `caption=${description.slice(0, 200)}`].join('|')
   const params = {
     context,

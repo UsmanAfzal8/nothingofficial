@@ -53,15 +53,22 @@ export function getSiteOrigin(): string {
     if (normalizedValue) {
       try {
         const parsedValue = new URL(normalizedValue)
+        const hostname = parsedValue.hostname.toLowerCase()
 
-        if (CANONICAL_SITE_HOSTS.has(parsedValue.hostname.toLowerCase())) {
+        if (CANONICAL_SITE_HOSTS.has(hostname)) {
           return PRODUCTION_SITE_ORIGIN
+        }
+
+        if (hostname === 'localhost' || hostname === '127.0.0.1') {
+          return normalizedValue
         }
       } catch {
         // normalizeSiteOrigin already validates candidates.
       }
 
-      return normalizedValue
+      // Canonical metadata, sitemaps, and robots must never inherit a stale
+      // production domain or a deployment-specific hostname.
+      continue
     }
   }
 

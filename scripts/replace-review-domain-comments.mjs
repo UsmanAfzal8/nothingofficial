@@ -5,7 +5,6 @@ import { createClient } from '@supabase/supabase-js'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const projectRoot = path.resolve(__dirname, '..')
-const REVIEW_DOMAIN_PATTERN = /\b(?:https?:\/\/)?(?:www\.)?cmfbynothing\.pk(?:\/[^\s<)]*)?/gi
 const REPLACEMENT_NAME = 'Nothing Pakistan'
 const PAGE_SIZE = 1000
 
@@ -43,25 +42,36 @@ function requireEnv(name) {
   return value
 }
 
-function cleanReviewComment(comment) {
-  if (!comment || !REVIEW_DOMAIN_PATTERN.test(comment)) {
-    REVIEW_DOMAIN_PATTERN.lastIndex = 0
+function buildReviewDomainPattern(domain) {
+  const normalizedDomain = domain.trim().toLowerCase().replace(/^https?:\/\//, '').replace(/\/.*$/, '')
+
+  if (!/^[a-z0-9.-]+$/.test(normalizedDomain)) {
+    throw new Error(`Invalid legacy review domain: ${domain}`)
+  }
+
+  const escapedDomain = normalizedDomain.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+  return new RegExp(`\\b(?:https?:\\\\/\\\\/)?(?:www\\\\.)?${escapedDomain}(?:\\\\/[^\\\\s<)]*)?`, 'gi')
+}
+
+function cleanReviewComment(comment, reviewDomainPattern) {
+  if (!comment || !reviewDomainPattern.test(comment)) {
+    reviewDomainPattern.lastIndex = 0
     return comment
   }
 
-  REVIEW_DOMAIN_PATTERN.lastIndex = 0
+  reviewDomainPattern.lastIndex = 0
 
   return comment
-    .replace(REVIEW_DOMAIN_PATTERN, REPLACEMENT_NAME)
+    .replace(reviewDomainPattern, REPLACEMENT_NAME)
     .replace(/\s+([,.;:!?])/g, '$1')
     .replace(/\s{2,}/g, ' ')
     .trim()
 }
 
-function containsReviewDomain(comment) {
-  REVIEW_DOMAIN_PATTERN.lastIndex = 0
-  const hasMatch = REVIEW_DOMAIN_PATTERN.test(comment ?? '')
-  REVIEW_DOMAIN_PATTERN.lastIndex = 0
+function containsReviewDomain(comment, reviewDomainPattern) {
+  reviewDomainPattern.lastIndex = 0
+  const hasMatch = reviewDomainPattern.test(comment ?? '')
+  reviewDomainPattern.lastIndex = 0
 
   return hasMatch
 }
@@ -92,6 +102,13 @@ async function fetchAllReviews(supabase) {
 
 loadDotEnvFile(path.join(projectRoot, '.env.local'))
 
+const legacyDomainArgument = process.argv.find((argument) => argument.startsWith('--legacy-domain='))
+const legacyReviewDomain = legacyDomainArgument?.slice('--legacy-domain='.length) || process.env.LEGACY_REVIEW_DOMAIN
+if (!legacyReviewDomain) {
+  throw new Error('Provide the legacy hostname with --legacy-domain=<hostname> or LEGACY_REVIEW_DOMAIN.')
+}
+const reviewDomainPattern = buildReviewDomainPattern(legacyReviewDomain)
+
 const supabase = createClient(requireEnv('SUPABASE_URL'), requireEnv('SUPABASE_SERVICE_ROLE_KEY'), {
   auth: {
     autoRefreshToken: false,
@@ -104,7 +121,7 @@ const updates = reviews
   .map((review) => ({
     id: review.id,
     previousComment: review.comment,
-    nextComment: cleanReviewComment(review.comment),
+    nextComment: cleanReviewComment(review.comment, reviewDomainPattern),
   }))
   .filter((review) => review.nextComment !== review.previousComment)
 
@@ -123,7 +140,7 @@ for (const review of updates) {
 }
 
 const refreshedReviews = await fetchAllReviews(supabase)
-const remainingMatches = refreshedReviews.filter((review) => containsReviewDomain(review.comment))
+const remainingMatches = refreshedReviews.filter((review) => containsReviewDomain(review.comment, reviewDomainPattern))
 
 console.log(
   JSON.stringify(

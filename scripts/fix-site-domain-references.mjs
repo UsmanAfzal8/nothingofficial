@@ -7,10 +7,10 @@ const pageSize = 1000
 const canonicalDomain = 'www.nothingpakistan.pk'
 const canonicalOrigin = `https://${canonicalDomain}`
 const canonicalEmailDomain = 'nothingpakistan.pk'
-const oldEmailPattern = /@(?:(?:www|ww)\.)?(?:cmfbynothing|nothingofficial|nothingpakistan)\.pk\b/gi
-const oldOriginPattern = /https?:\/\/(?:(?:www|ww)\.)?(?:cmfbynothing|nothingofficial|nothingpakistan)\.pk\b/gi
+const oldEmailPattern = /@(?:(?:www|ww)\.)?(?:nothingofficial|nothingpakistan)\.pk\b/gi
+const oldOriginPattern = /https?:\/\/(?:(?:www|ww)\.)?(?:nothingofficial|nothingpakistan)\.pk\b/gi
 const oldDomainPattern =
-  /(?<![@.\w])(?:(?:www|ww)\.)?(?:cmfbynothing|nothingofficial)\.pk\b|(?<![@.\w])(?:ww\.)?nothingpakistan\.pk\b/gi
+  /(?<![@.\w])(?:(?:www|ww)\.)?nothingofficial\.pk\b|(?<![@.\w])(?:ww\.)?nothingpakistan\.pk\b/gi
 
 function loadEnv() {
   for (const envFile of ['.env.local', 'env']) {
