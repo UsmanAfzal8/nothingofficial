@@ -50,6 +50,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       .map((value) => getLastModifiedDate(value))
       .filter((value): value is Date => Boolean(value))
       .sort((left, right) => right.getTime() - left.getTime())[0] ?? new Date()
+  const latestBlogDate =
+    blogPosts
+      .map((post) => getLastModifiedDate(post.updatedAt))
+      .filter((value): value is Date => Boolean(value))
+      .sort((left, right) => right.getTime() - left.getTime())[0] ?? latestCatalogDate
 
   const staticRoutes: MetadataRoute.Sitemap = [
     { url: buildAbsoluteUrl('/'), lastModified: latestCatalogDate, changeFrequency: 'daily', priority: 1 },
@@ -65,7 +70,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: buildAbsoluteUrl('/contact-us'), lastModified: latestCatalogDate, changeFrequency: 'monthly', priority: 0.72 },
     { url: buildAbsoluteUrl('/support-centre'), lastModified: latestCatalogDate, changeFrequency: 'weekly', priority: 0.8 },
     { url: buildAbsoluteUrl('/pages/newsletter'), lastModified: latestCatalogDate, changeFrequency: 'monthly', priority: 0.64 },
-    { url: buildAbsoluteUrl('/blog'), lastModified: latestCatalogDate, changeFrequency: 'weekly', priority: 0.7 },
+    { url: buildAbsoluteUrl('/blog'), lastModified: latestBlogDate, changeFrequency: 'weekly', priority: 0.75 },
     { url: buildAbsoluteUrl('/llms.txt'), lastModified: latestCatalogDate, changeFrequency: 'monthly', priority: 0.3 },
   ]
 

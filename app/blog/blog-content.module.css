@@ -1,8 +1,9 @@
 .content {
   font-family: var(--font-ntype82), serif;
   color: rgba(17, 17, 17, 0.78);
-  font-size: 0.98rem;
-  line-height: 1.9;
+  font-size: 1rem;
+  line-height: 1.85;
+  text-wrap: pretty;
 }
 
 .content h2,
@@ -14,15 +15,15 @@
 }
 
 .content h2 {
-  font-size: 2rem;
-  margin-top: 2.5rem;
-  line-height: 0.98;
+  font-size: 2.15rem;
+  margin-top: 3.25rem;
+  line-height: 1;
 }
 
 .content h3 {
-  font-size: 1.35rem;
-  margin-top: 1.5rem;
-  line-height: 1.05;
+  font-size: 1.4rem;
+  margin-top: 2rem;
+  line-height: 1.1;
 }
 
 .content p,
@@ -48,13 +49,28 @@
   text-underline-offset: 3px;
 }
 
+.content blockquote {
+  border-left: 2px solid rgba(0, 0, 0, 0.35);
+  padding-left: 1.25rem;
+  color: rgba(17, 17, 17, 0.64);
+}
+
+.content img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
 .content strong {
   color: #000;
   font-weight: 600;
 }
 
 .content table {
+  display: block;
   width: 100%;
+  overflow-x: auto;
   border-collapse: collapse;
   font-size: 0.95rem;
 }
@@ -69,4 +85,20 @@
 
 .content thead {
   background: rgba(0, 0, 0, 0.04);
+}
+
+@media (max-width: 639px) {
+  .content {
+    font-size: 0.96rem;
+    line-height: 1.75;
+  }
+
+  .content h2 {
+    font-size: 1.75rem;
+    margin-top: 2.6rem;
+  }
+
+  .content h3 {
+    font-size: 1.25rem;
+  }
 }

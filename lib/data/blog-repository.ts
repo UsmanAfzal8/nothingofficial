@@ -15,11 +15,19 @@ export type RuntimeBlogPost = {
   metaTitle: string
   metaDescription: string
   excerpt: string
+  focusKeyword: string | null
+  category: string | null
+  tags: string[]
   author: string
   authorType: string | null
+  contentType: string
+  readingTime: number | null
   updatedAt: string
   publishedAt: string | null
   heroImage: string | null
+  heroImageAlt: string | null
+  heroImageTitle: string | null
+  heroImageCaption: string | null
   contentHtml: string
   faqs: RuntimeBlogFaq[]
 }
@@ -106,11 +114,19 @@ function mapFallbackPosts(): RuntimeBlogPost[] {
     metaTitle: post.metaTitle,
     metaDescription: post.metaDescription,
     excerpt: post.excerpt,
+    focusKeyword: null,
+    category: 'Buying Guides',
+    tags: [],
     author: post.author,
     authorType: 'staff',
+    contentType: 'guide',
+    readingTime: null,
     updatedAt: normalizeDate(post.updatedDate),
     publishedAt: normalizeDate(post.updatedDate),
     heroImage: post.heroImage,
+    heroImageAlt: post.title,
+    heroImageTitle: post.title,
+    heroImageCaption: post.metaDescription,
     contentHtml: buildFallbackHtml(post),
     faqs: post.faqs,
   }))
@@ -216,11 +232,19 @@ async function fetchPublishedBlogSnapshot(): Promise<BlogSnapshot> {
       metaTitle: row.meta_title || row.title,
       metaDescription: row.meta_description || row.excerpt || row.title,
       excerpt: row.excerpt || row.meta_description || row.title,
+      focusKeyword: row.focus_keyword || null,
+      category: row.category || null,
+      tags: row.tags ?? [],
       author: row.author || 'Nothing Pakistan Team',
       authorType: row.author_type || null,
+      contentType: row.content_type,
+      readingTime: row.reading_time,
       updatedAt: normalizeDate(row.updated_at || row.published_at || row.created_at),
       publishedAt: row.published_at || row.created_at,
       heroImage: featuredImage?.url ?? null,
+      heroImageAlt: featuredImage?.alt_text ?? null,
+      heroImageTitle: featuredImage?.title ?? null,
+      heroImageCaption: featuredImage?.caption ?? null,
       contentHtml: row.content,
       faqs: faqsByBlogId.get(row.id) ?? [],
     } satisfies RuntimeBlogPost

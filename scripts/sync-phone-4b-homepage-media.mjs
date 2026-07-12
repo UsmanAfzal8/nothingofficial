@@ -8,14 +8,24 @@ const CLOUDINARY_FOLDER = 'nothing-official-store-pakistan/home/phone-4b-launch'
 
 const IMAGE_ASSETS = [
   {
-    key: 'summerSale',
-    publicId: 'summer-sale-homepage',
-    url: 'https://cdn.sanity.io/images/gtd4w1cq/production/50cbd1e1520f5f87b785c8e466ace91d1a4123fc-4096x2305.webp?auto=format',
+    key: 'ear3a',
+    publicId: 'nothing-ear-3a-homepage',
+    url: 'https://cdn.sanity.io/images/gtd4w1cq/production/04b62d522a73fb4e6c7128039d8c5fd926f6f7ba-4000x2250.webp?auto=format',
+  },
+  {
+    key: 'ear3aMobile',
+    publicId: 'nothing-ear-3a-homepage-mobile',
+    url: 'https://cdn.sanity.io/images/gtd4w1cq/production/6c89e817e76bfb8a920e5e0e597c9f80a5220c88-2250x4000.webp?auto=format',
   },
   {
     key: 'phone4b',
     publicId: 'nothing-phone-4b-blue-homepage',
-    url: 'https://cdn.sanity.io/images/gtd4w1cq/production/8ebfa30ebe63fb1dea7a10bddcfc33239d0a31ce-4096x2305.webp?auto=format',
+    url: 'https://cdn.sanity.io/images/gtd4w1cq/production/ed1d0fd68a33c71cf2347a5c2caf427c5901cc77-4096x2305.jpg?auto=format',
+  },
+  {
+    key: 'phone4bMobile',
+    publicId: 'nothing-phone-4b-blue-homepage-mobile',
+    url: 'https://cdn.sanity.io/images/gtd4w1cq/production/80232693bbd87175ef8df992e82839343ba952b4-1080x1920.jpg?auto=format',
   },
   {
     key: 'phone4aPro',
@@ -36,6 +46,16 @@ const IMAGE_ASSETS = [
     key: 'phone3',
     publicId: 'nothing-phone-3-homepage',
     url: 'https://cdn.sanity.io/images/gtd4w1cq/production/4ef2af4fc4259cb398efe107002fca5355159f73-4096x2305.jpg?auto=format',
+  },
+  {
+    key: 'ear3aProduct',
+    publicId: 'nothing-ear-3a-product',
+    url: 'https://cdn.shopify.com/s/files/1/0376/5420/0459/files/product-thumbnail-pink.png?v=1782317092',
+  },
+  {
+    key: 'phone4bProduct',
+    publicId: 'nothing-phone-4b-blue-product',
+    url: 'https://cdn.shopify.com/s/files/1/0376/5420/0459/files/product-thumbnail-blue.webp?v=1782912563',
   },
   {
     key: 'phone4aProProduct',
@@ -192,9 +212,20 @@ async function verifyAsset(url) {
 
 async function main() {
   loadEnv()
-  const results = {}
+  const requestedKeys = new Set(process.argv.slice(2))
+  const shouldSync = (key) => requestedKeys.size === 0 || requestedKeys.has(key)
+  let results = {}
+
+  if (existsSync(REPORT_PATH)) {
+    try {
+      results = JSON.parse(readFileSync(REPORT_PATH, 'utf8')).results ?? {}
+    } catch {
+      results = {}
+    }
+  }
 
   for (const asset of IMAGE_ASSETS) {
+    if (!shouldSync(asset.key)) continue
     console.log(`Syncing image: ${asset.key}`)
     const { buffer, contentType } = await fetchBuffer(asset.url)
     const result = await uploadAsset({
@@ -215,6 +246,7 @@ async function main() {
   }
 
   for (const asset of VIDEO_ASSETS) {
+    if (!shouldSync(asset.key)) continue
     console.log(`Syncing video: ${asset.key}`)
     const buffer = await downloadMuxVideo(asset.playbackId)
     const result = await uploadAsset({

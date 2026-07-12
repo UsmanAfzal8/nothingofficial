@@ -2,9 +2,11 @@ import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { HomeFaqTabs } from '@/components/HomeFaqTabs'
+import { LazyCampaignVideo } from '@/components/LazyCampaignVideo'
 import { NothingFooter } from '@/components/NothingFooter'
 import { NothingHeader } from '@/components/NothingHeader'
 import { SeoStructuredData } from '@/components/SeoStructuredData'
+import { getPublishedBlogs } from '@/lib/data/blog-repository'
 import {
   buildOrganizationStructuredData,
   buildLocalBusinessStructuredData,
@@ -22,10 +24,11 @@ const homeMetaTitle = 'Nothing Pakistan | Phone (4b), Phones, CMF & Earbuds'
 const homeMetaDescription =
   'Discover Nothing Phone (4b) in Pakistan before its 7 July 2026 reveal. Get launch updates on WhatsApp and shop Nothing phones, CMF, audio, and accessories.'
 
-const phone4bWhatsappUrl =
-  'https://wa.me/923361070111?text=i%20need%20to%20buy%20phone%204b%20when%20avalible%20kindly%20inform%20me'
-
 const productImageUrls = {
+  ear3a:
+    'https://res.cloudinary.com/dklsubnzb/image/upload/v1783803777/nothing-official-store-pakistan/home/phone-4b-launch/nothing-ear-3a-product.png',
+  phone4b:
+    'https://res.cloudinary.com/dklsubnzb/image/upload/v1783803781/nothing-official-store-pakistan/home/phone-4b-launch/nothing-phone-4b-blue-product.png',
   headphoneA:
     'https://res.cloudinary.com/dklsubnzb/image/upload/v1782595495/nothing-official-store-pakistan/home/phone-4b-launch/nothing-headphone-a-product.png',
   phone4aPro:
@@ -41,10 +44,14 @@ const productImageUrls = {
 } as const
 
 const campaignMediaUrls = {
-  summerSale:
-    'https://res.cloudinary.com/dklsubnzb/image/upload/v1782595458/nothing-official-store-pakistan/home/phone-4b-launch/summer-sale-homepage.jpg',
+  ear3a:
+    'https://res.cloudinary.com/dklsubnzb/image/upload/v1783803753/nothing-official-store-pakistan/home/phone-4b-launch/nothing-ear-3a-homepage.jpg',
+  ear3aMobile:
+    'https://res.cloudinary.com/dklsubnzb/image/upload/v1783803761/nothing-official-store-pakistan/home/phone-4b-launch/nothing-ear-3a-homepage-mobile.jpg',
   phone4b:
-    'https://res.cloudinary.com/dklsubnzb/image/upload/v1782595462/nothing-official-store-pakistan/home/phone-4b-launch/nothing-phone-4b-blue-homepage.jpg',
+    'https://res.cloudinary.com/dklsubnzb/image/upload/v1783803767/nothing-official-store-pakistan/home/phone-4b-launch/nothing-phone-4b-blue-homepage.jpg',
+  phone4bMobile:
+    'https://res.cloudinary.com/dklsubnzb/image/upload/v1783803771/nothing-official-store-pakistan/home/phone-4b-launch/nothing-phone-4b-blue-homepage-mobile.jpg',
   phone4aPro:
     'https://res.cloudinary.com/dklsubnzb/image/upload/v1782595469/nothing-official-store-pakistan/home/phone-4b-launch/nothing-phone-4a-pro-homepage.jpg',
   phone4a:
@@ -65,11 +72,13 @@ const campaignMediaUrls = {
 
 const homeCampaignPanels = [
   {
-    title: 'summer sale',
-    headline: 'One thing that won’t melt in your mouth',
-    subline: 'Get limited-time reductions on smartphones and audio products.',
-    href: '/collections/nothing-pakistan-trending-picks',
-    background: campaignMediaUrls.summerSale,
+    title: 'ear ( 3a )',
+    headline: 'Your new party pill',
+    subline: '',
+    href: '/collections/nothing-pakistan-audio',
+    image: productImageUrls.ear3a,
+    background: campaignMediaUrls.ear3a,
+    mobileBackground: campaignMediaUrls.ear3aMobile,
     mediaType: 'image',
     objectPosition: '50% 50%',
     cta: 'Discover',
@@ -77,13 +86,14 @@ const homeCampaignPanels = [
   {
     title: 'phone ( 4b )',
     headline: "You're hot, so is your phone",
-    subline: 'Find out on 7 July, 3.00 PM Pakistan time',
-    href: phone4bWhatsappUrl,
+    subline: 'Follow verified price and availability updates for Pakistan',
+    href: '/nothing-phone-4b-pakistan',
+    image: productImageUrls.phone4b,
     background: campaignMediaUrls.phone4b,
+    mobileBackground: campaignMediaUrls.phone4bMobile,
     mediaType: 'image',
     objectPosition: '50% 50%',
-    cta: 'Remind me',
-    external: true,
+    cta: 'Discover',
   },
   {
     title: 'phone ( 4a ) pro',
@@ -287,30 +297,37 @@ function HomeCampaignPanel({
       aria-label={`${panel.title} campaign`}
     >
       {panel.mediaType === 'video' ? (
-        <video
-          className="absolute inset-0 h-full w-full object-cover"
-          style={{ objectPosition: panel.objectPosition }}
-          autoPlay
-          muted
-          loop
-          playsInline
-          poster={panel.poster}
-          preload="metadata"
-          aria-label={`${panel.title} campaign video`}
-        >
-          <source src={panel.background} type="video/mp4" />
-        </video>
-      ) : (
-        <Image
+        <LazyCampaignVideo
           src={panel.background}
-          alt={`${panel.title} campaign from Nothing Pakistan`}
-          fill
-          priority={priority}
-          unoptimized
-          sizes="100vw"
-          className="object-cover"
-          style={{ objectPosition: panel.objectPosition }}
+          poster={panel.poster}
+          objectPosition={panel.objectPosition}
+          label={`${panel.title} campaign video`}
         />
+      ) : (
+        'mobileBackground' in panel ? (
+          <picture className="absolute inset-0 block h-full w-full">
+            <source media="(max-width: 767px)" srcSet={panel.mobileBackground} />
+            <img
+              src={panel.background}
+              alt={`${panel.title} campaign from Nothing Pakistan`}
+              className="h-full w-full object-cover"
+              style={{ objectPosition: panel.objectPosition }}
+              loading={priority ? 'eager' : 'lazy'}
+              fetchPriority={priority ? 'high' : 'auto'}
+            />
+          </picture>
+        ) : (
+          <Image
+            src={panel.background}
+            alt={`${panel.title} campaign from Nothing Pakistan`}
+            fill
+            priority={priority}
+            unoptimized
+            sizes="100vw"
+            className="object-cover"
+            style={{ objectPosition: panel.objectPosition }}
+          />
+        )
       )}
       <ProductCard
         title={panel.title}
@@ -319,7 +336,7 @@ function HomeCampaignPanel({
         href={panel.href}
         image={'image' in panel ? panel.image : undefined}
         cta={panel.cta}
-        external={'external' in panel ? panel.external : false}
+        external={false}
       />
     </section>
   )
@@ -358,7 +375,9 @@ const homeAnswerBlocks = [
   },
 ] as const
 
-function HomeSeoSection() {
+type HomeBlogPosts = Awaited<ReturnType<typeof getPublishedBlogs>>
+
+function HomeSeoSection({ blogPosts }: { blogPosts: HomeBlogPosts }) {
   return (
     <section className="bg-transparent px-4 py-16 [font-family:var(--font-ntype82)] text-black md:px-8 md:py-24">
       <div className="mx-auto max-w-[1180px]">
@@ -458,6 +477,63 @@ function HomeSeoSection() {
           <HomeFaqTabs categories={homeFaqCategories} />
         </section>
 
+        <section className="mt-20 border-t border-dotted border-black/55 pt-10" aria-labelledby="home-blog-heading">
+          <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <p className="[font-family:var(--font-lettera-regular)] text-[12px] uppercase leading-none tracking-[0.18em] text-black/46">
+                Latest stories
+              </p>
+              <h2 id="home-blog-heading" className="mt-6 text-[30px] font-normal leading-none tracking-normal text-black md:text-[46px]">
+                From the Nothing Pakistan blog
+              </h2>
+            </div>
+          </div>
+
+          <div className="mt-9 grid grid-cols-2 gap-3 md:gap-5 lg:grid-cols-3">
+            {blogPosts.map((post) => (
+              <article key={post.slug} className="flex min-w-0 flex-col overflow-hidden">
+                <Link href={`/blog/${post.slug}`} className="block aspect-[4/3] overflow-hidden rounded-[8px] bg-black/5" aria-label={`Read ${post.title}`}>
+                  {post.heroImage ? (
+                    <Image
+                      src={post.heroImage}
+                      alt={post.title}
+                      width={800}
+                      height={600}
+                      sizes="(max-width: 1023px) 50vw, 33vw"
+                      className="h-full w-full object-cover object-center transition-transform duration-300 hover:scale-[1.02]"
+                    />
+                  ) : null}
+                </Link>
+                <div className="flex flex-1 flex-col pt-3 sm:pt-4">
+                  <p className="[font-family:var(--font-lettera-regular)] text-[9px] uppercase tracking-[0.12em] text-black/45 sm:text-[10px]">
+                    {new Date(post.updatedAt).toISOString().slice(0, 10)}
+                  </p>
+                  <h3 className="mt-3 text-[0.95rem] font-normal leading-[1.08] text-black sm:text-[1.25rem] lg:text-[1.45rem]">
+                    <Link href={`/blog/${post.slug}`} className="transition-opacity hover:opacity-70">
+                      {post.title}
+                    </Link>
+                  </h3>
+                  <Link
+                    href={`/blog/${post.slug}`}
+                    className="mt-auto pt-4 [font-family:var(--font-lettera-regular)] text-[10px] uppercase tracking-[0.12em] text-black underline underline-offset-4 sm:text-[11px]"
+                  >
+                    Read more
+                  </Link>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          <div className="mt-8 flex justify-center">
+            <Link
+              href="/blog"
+              className="inline-flex h-12 min-w-[190px] items-center justify-center rounded-[6px] bg-black px-6 [font-family:var(--font-lettera-regular)] text-[11px] uppercase tracking-[0.16em] text-white transition-opacity hover:opacity-80"
+            >
+              View all blogs
+            </Link>
+          </div>
+        </section>
+
         <section className="mt-20 border-t border-dotted border-black/55 pt-10">
           <p className="[font-family:var(--font-lettera-regular)] text-[12px] uppercase leading-none tracking-[0.18em] text-black/46">Trust and support</p>
           <h2 className="mt-6 text-[30px] font-normal leading-none tracking-normal text-black">Review the store before you order</h2>
@@ -476,6 +552,7 @@ function HomeSeoSection() {
 }
 
 export default async function Home() {
+  const blogPosts = (await getPublishedBlogs()).slice(0, 6)
   const homeFaqStructuredData = buildFaqStructuredData([
     ...homeSeoFaqs,
     ...homeAnswerBlocks,
@@ -529,9 +606,9 @@ export default async function Home() {
 
       <main>
         {homeCampaignPanels.map((panel, index) => (
-          <HomeCampaignPanel key={panel.title} panel={panel} priority={index < 2} />
+          <HomeCampaignPanel key={panel.title} panel={panel} priority={index === 0} />
         ))}
-        <HomeSeoSection />
+        <HomeSeoSection blogPosts={blogPosts} />
       </main>
 
       <NothingFooter />

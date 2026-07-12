@@ -1,5 +1,5 @@
 {
-  "syncedAt": "2026-06-27T21:25:46.236Z",
+  "syncedAt": "2026-07-11T21:03:03.308Z",
   "cloudinaryFolder": "nothing-official-store-pakistan/home/phone-4b-launch",
   "results": {
     "summerSale": {
@@ -10,10 +10,10 @@
       "resourceType": "image"
     },
     "phone4b": {
-      "url": "https://res.cloudinary.com/dklsubnzb/image/upload/v1782595462/nothing-official-store-pakistan/home/phone-4b-launch/nothing-phone-4b-blue-homepage.jpg",
+      "url": "https://res.cloudinary.com/dklsubnzb/image/upload/v1783803767/nothing-official-store-pakistan/home/phone-4b-launch/nothing-phone-4b-blue-homepage.jpg",
       "width": 4096,
       "height": 2305,
-      "bytes": 304770,
+      "bytes": 129208,
       "resourceType": "image"
     },
     "phone4aPro": {
@@ -99,6 +99,41 @@
       "bytes": 15661904,
       "duration": 29.504,
       "resourceType": "video"
+    },
+    "ear3a": {
+      "url": "https://res.cloudinary.com/dklsubnzb/image/upload/v1783803753/nothing-official-store-pakistan/home/phone-4b-launch/nothing-ear-3a-homepage.jpg",
+      "width": 4000,
+      "height": 2250,
+      "bytes": 683626,
+      "resourceType": "image"
+    },
+    "ear3aMobile": {
+      "url": "https://res.cloudinary.com/dklsubnzb/image/upload/v1783803761/nothing-official-store-pakistan/home/phone-4b-launch/nothing-ear-3a-homepage-mobile.jpg",
+      "width": 2250,
+      "height": 4000,
+      "bytes": 703828,
+      "resourceType": "image"
+    },
+    "phone4bMobile": {
+      "url": "https://res.cloudinary.com/dklsubnzb/image/upload/v1783803771/nothing-official-store-pakistan/home/phone-4b-launch/nothing-phone-4b-blue-homepage-mobile.jpg",
+      "width": 1080,
+      "height": 1920,
+      "bytes": 52907,
+      "resourceType": "image"
+    },
+    "ear3aProduct": {
+      "url": "https://res.cloudinary.com/dklsubnzb/image/upload/v1783803777/nothing-official-store-pakistan/home/phone-4b-launch/nothing-ear-3a-product.png",
+      "width": 1080,
+      "height": 1080,
+      "bytes": 452953,
+      "resourceType": "image"
+    },
+    "phone4bProduct": {
+      "url": "https://res.cloudinary.com/dklsubnzb/image/upload/v1783803781/nothing-official-store-pakistan/home/phone-4b-launch/nothing-phone-4b-blue-product.png",
+      "width": 2000,
+      "height": 2000,
+      "bytes": 889858,
+      "resourceType": "image"
     }
   }
 }
