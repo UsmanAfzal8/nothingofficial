@@ -4,15 +4,18 @@ import Link from 'next/link'
 import { NothingFooter } from '@/components/NothingFooter'
 import { NothingHeader } from '@/components/NothingHeader'
 import { SeoStructuredData } from '@/components/SeoStructuredData'
+import { buildCloudinaryImageUrl } from '@/lib/cloudinary-image-loader'
 import { buildAbsoluteUrl, buildFaqStructuredData, buildSeoKeywords } from '@/lib/utils/seo'
 
 const title = 'Nothing Phone (4b) Pakistan: Launch Date, Price & Updates'
 const description =
   'Nothing Phone (4b) launches on 7 July 2026. See confirmed design details, Pakistan launch time, expected availability, PTA guidance, FAQs, and WhatsApp reminders.'
-const phone4bImage =
-  'https://res.cloudinary.com/dklsubnzb/image/upload/v1782595462/nothing-official-store-pakistan/home/phone-4b-launch/nothing-phone-4b-blue-homepage.jpg'
+const phone4bImage = buildCloudinaryImageUrl(
+  'https://res.cloudinary.com/dklsubnzb/image/upload/f_auto,q_auto/v1782595462/nothing-official-store-pakistan/home/phone-4b-launch/nothing-phone-4b-blue-homepage.jpg',
+  { width: 1600 },
+)
 const reminderUrl =
-  'https://wa.me/923361070111?text=i%20need%20to%20buy%20phone%204b%20when%20avalible%20kindly%20inform%20me'
+  'https://wa.me/923110066648?text=i%20need%20to%20buy%20phone%204b%20when%20avalible%20kindly%20inform%20me'
 
 const faqs = [
   {
@@ -228,7 +231,6 @@ export default function NothingPhone4bPakistanPage() {
             alt="Blue Nothing Phone (4b) shown in the official 2026 design reveal"
             fill
             priority
-            unoptimized
             sizes="100vw"
             className="object-cover"
           />

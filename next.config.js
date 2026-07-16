@@ -100,7 +100,8 @@ const nextConfig = {
     NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.SUPABASE_ANON_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
   },
   images: {
-    unoptimized: true,
+    loader: 'custom',
+    loaderFile: './lib/cloudinary-image-loader.ts',
     remotePatterns: [
       {
         protocol: 'https',

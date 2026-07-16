@@ -102,7 +102,7 @@ a {
 }
 
 .inter-only-scope {
-  font-family: var(--font-inter-light), sans-serif;
+  font-family: var(--font-inter-light, Arial), sans-serif;
   font-weight: 300;
 }
 
@@ -129,12 +129,12 @@ a {
   .dot-logo,
   .collection-product-name
 ) {
-  font-family: var(--font-inter-medium), sans-serif !important;
+  font-family: var(--font-inter-medium, Arial), sans-serif !important;
   font-weight: 500;
 }
 
 .inter-only-scope :is(p, li, input, textarea, select, option, span, div, small) {
-  font-family: var(--font-inter-light), sans-serif;
+  font-family: var(--font-inter-light, Arial), sans-serif;
   font-weight: 300;
 }
 

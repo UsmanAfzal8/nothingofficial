@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation'
 import { type FormEvent, useEffect, useMemo, useState } from 'react'
 import { CompanyTrustBadge } from '@/components/CompanyTrustBadge'
 import { useCart } from '@/components/CartProvider'
-import { siteContactAddress } from '@/lib/data/site-content'
+import { siteContactAddress, siteContactWhatsappUrl } from '@/lib/data/site-content'
 import type { CartItem } from '@/lib/models/cart'
 
 type SelectedProduct = {
@@ -48,16 +48,8 @@ const initialSubmitState: SubmitState = {
 const fieldClassName =
   'w-full rounded-[5px] border border-black/18 bg-white px-4 py-3 [font-family:var(--font-ntype82)] text-sm text-black outline-none transition placeholder:text-black/32 focus:border-black focus:ring-2 focus:ring-black/10'
 
-const SHIPPING_FEE = 450
+const SHIPPING_FEE = 400
 const GOVT_TAX_RATE = 0.04
-const BANK_ACCOUNT = {
-  bank: 'BANK ALFALAH',
-  accountName: 'NOTHING PAKISTAN',
-  accountNumber: '57065002935977',
-  iban: 'PK35ALFH5706005002935977',
-  whatsapp: '03361070111',
-  whatsappUrl: 'https://wa.me/923361070111',
-} as const
 const STORE_MAP_URL = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(siteContactAddress)}`
 
 function formatPrice(value: number | null | undefined): string | null {
@@ -77,21 +69,6 @@ function PlusMinusIcon({ open }: { open: boolean }) {
     <span className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-slate-200 bg-white text-base text-slate-500">
       {open ? '-' : '+'}
     </span>
-  )
-}
-
-function WhatsAppIcon() {
-  return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path
-        d="M12 2.8c5.08 0 9.2 4.12 9.2 9.2S17.08 21.2 12 21.2c-1.54 0-3-.38-4.29-1.06L3.4 21.4l1.3-4.18A9.15 9.15 0 0 1 2.8 12c0-5.08 4.12-9.2 9.2-9.2Z"
-        fill="#25D366"
-      />
-      <path
-        d="M8.95 7.9c-.24 0-.47.11-.62.34-.35.5-.46 1.15-.3 1.73.3 1.12 1.06 2.22 2.14 3.29 1.08 1.08 2.18 1.84 3.3 2.15.58.16 1.23.05 1.73-.3.22-.15.34-.38.34-.62v-.86c0-.23-.15-.43-.37-.5l-1.72-.57a.62.62 0 0 0-.63.16l-.57.58a.47.47 0 0 1-.49.13c-.67-.22-1.78-1.09-2.16-1.8a.45.45 0 0 1 .08-.52l.57-.58a.63.63 0 0 0 .16-.63l-.57-1.73a.53.53 0 0 0-.5-.37h-.39Z"
-        fill="white"
-      />
-    </svg>
   )
 }
 
@@ -223,7 +200,7 @@ export function OrderForm({ product }: OrderFormProps) {
       : 'the selected product'
     const message = `Sir, I need to pick up ${productNames} from your location. When can I come?`
 
-    return `${BANK_ACCOUNT.whatsappUrl}?text=${encodeURIComponent(message)}`
+    return `${siteContactWhatsappUrl}?text=${encodeURIComponent(message)}`
   }, [checkoutItems])
   const govtTaxAmount = useMemo(
     () => Number((paymentMethod === 'cod' ? checkoutSubtotal * GOVT_TAX_RATE : 0).toFixed(2)),
@@ -238,8 +215,8 @@ export function OrderForm({ product }: OrderFormProps) {
     deliveryType === 'pickup'
       ? 'Store pickup order: no shipping fee. 4% govt tax applied.'
       : paymentMethod === 'bank_transfer'
-      ? `Non COD: Bank transfer customer gets free shipping and 0% tax. We pay the 4% govt tax. Express next-day delivery. After payment send screenshot to ${BANK_ACCOUNT.whatsapp}.`
-      : 'COD order: Rs 450 shipping fee and 4% govt tax applied.'
+      ? 'Bank transfer: free shipping and 0% government tax.'
+      : 'COD order: Rs 400 shipping fee and 4% govt tax applied.'
 
   useEffect(() => {
     if (!selectedProduct && cartItems.length === 0) {
@@ -563,7 +540,7 @@ export function OrderForm({ product }: OrderFormProps) {
                     <div className="flex items-start justify-between gap-4">
                       <div>
                         <h3 className="collection-product-name text-xl text-black">Payment method</h3>
-                        <p className="mt-1 text-sm leading-6 text-black/62">COD orders = Rs 450 Shipping fee + 4% Govt Tax. Non COD bank transfer gets free shipping and 0% tax.</p>
+                        <p className="mt-1 text-sm leading-6 text-black/62">COD orders = Rs 400 shipping fee + 4% govt tax. Bank transfer gets free shipping and 0% govt tax.</p>
                       </div>
                     </div>
 
@@ -585,7 +562,7 @@ export function OrderForm({ product }: OrderFormProps) {
                           <div>
                             <p className="text-sm font-semibold uppercase tracking-[0.16em]">Cash on delivery</p>
                             <p className={`mt-2 text-sm leading-6 ${paymentMethod === 'cod' ? 'text-white/80' : 'text-black/62'}`}>
-                              COD orders = Rs 450 Shipping fee + 4% Govt Tax.
+                              COD orders = Rs 400 shipping fee + 4% govt tax.
                             </p>
                           </div>
                           <span className={`inline-flex h-5 w-5 rounded-full border ${paymentMethod === 'cod' ? 'border-white bg-white' : 'border-slate-300'}`}>
@@ -609,7 +586,7 @@ export function OrderForm({ product }: OrderFormProps) {
                         <div className="flex items-start justify-between gap-4 p-3 sm:p-4">
                           <div>
                             <p className="text-sm font-semibold uppercase tracking-[0.16em]">Bank transfer</p>
-                            <p className="mt-2 text-sm leading-6 text-black/62">Non COD: Bank Transfer customers get Free Shipping, 0% Tax. We pay your 4% govt tax. Plus, get Express Next-Day Delivery.</p>
+                            <p className="mt-2 text-sm leading-6 text-black/62">Bank transfer: free shipping and 0% govt tax.</p>
                           </div>
                           <span className={`inline-flex h-5 w-5 rounded-full border ${paymentMethod === 'bank_transfer' ? 'border-black bg-black' : 'border-black/24'}`}>
                             {paymentMethod === 'bank_transfer' ? <span className="m-auto h-2.5 w-2.5 rounded-full bg-white" /> : null}
@@ -617,26 +594,6 @@ export function OrderForm({ product }: OrderFormProps) {
                         </div>
                         </button>
 
-                        {paymentMethod === 'bank_transfer' ? (
-                        <div className="mx-3 mb-3 mt-1 rounded-[5px] border border-black/12 bg-[#f3f3f0] p-3 text-sm leading-6 text-black/68 sm:mx-4 sm:mb-4 sm:p-4">
-                          <p className="dot-heading text-[0.68rem] uppercase tracking-[0.14em] text-black">{BANK_ACCOUNT.bank}</p>
-                          <p className="mt-2"><span className="font-medium">Name:</span> {BANK_ACCOUNT.accountName}</p>
-                          <p><span className="font-medium">ACC#</span> {BANK_ACCOUNT.accountNumber}</p>
-                          <p><span className="font-medium">IBAN:</span> {BANK_ACCOUNT.iban}</p>
-                          <div className="mt-3 flex flex-wrap items-center gap-2 text-[12px] leading-5 text-slate-600">
-                            <span>After payment send screenshot to</span>
-                            <Link
-                              href={BANK_ACCOUNT.whatsappUrl}
-                              target="_blank"
-                              rel="noreferrer"
-                              className="inline-flex items-center gap-1.5 rounded-full bg-[#25D366]/12 px-2 py-1 text-[11px] font-medium text-[#128C7E] transition hover:bg-[#25D366]/20"
-                              aria-label="Open WhatsApp"
-                            >
-                              <WhatsAppIcon />
-                            </Link>
-                          </div>
-                        </div>
-                        ) : null}
                       </div>
                     </div>
                   </div>

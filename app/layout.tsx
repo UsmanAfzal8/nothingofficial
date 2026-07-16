@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
+import Script from 'next/script'
 import { Analytics } from '@vercel/analytics/next'
 import { CartProvider } from '@/components/CartProvider'
 import { NavigationProgress } from '@/components/NavigationProgress'
@@ -117,7 +118,11 @@ export default function RootLayout({
   return (
     <html lang="en-PK">
       <head>
-        <script src="https://analytics.ahrefs.com/analytics.js" data-key="73YlwBLrAA2cEXFqFSRpiA" async />
+        <Script
+          src="https://analytics.ahrefs.com/analytics.js"
+          data-key="73YlwBLrAA2cEXFqFSRpiA"
+          strategy="lazyOnload"
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}

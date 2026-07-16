@@ -73,7 +73,7 @@ const sections = [
 
 const aboutImages = {
   hero: 'https://res.cloudinary.com/dklsubnzb/image/upload/f_auto,q_auto:eco,w_1400,c_limit/v1780538009/nothing-official-store-pakistan/reference/about-brand-hero.png',
-  event: 'https://res.cloudinary.com/dklsubnzb/image/upload/v1780538012/nothing-official-store-pakistan/reference/about-brand-event.jpg',
+  event: 'https://res.cloudinary.com/dklsubnzb/image/upload/f_auto,q_auto/v1780538012/nothing-official-store-pakistan/reference/about-brand-event.jpg',
 } as const
 
 export default function AboutUsPage() {
@@ -133,7 +133,6 @@ export default function AboutUsPage() {
                   fill
                   priority
                   fetchPriority="high"
-                  unoptimized
                   sizes="(max-width: 1024px) 100vw, 940px"
                   className="object-cover"
                 />
@@ -160,7 +159,6 @@ export default function AboutUsPage() {
                   fill
                   loading="lazy"
                   fetchPriority="low"
-                  unoptimized
                   sizes="(max-width: 1024px) 100vw, 940px"
                   className="object-cover"
                 />

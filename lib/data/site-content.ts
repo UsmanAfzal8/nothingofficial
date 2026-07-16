@@ -89,9 +89,9 @@ export const siteKeywords = [
   'Nothing Phone 4a AI features Pakistan',
 ]
 
-export const siteContactPhone = '+923361070111'
-export const siteContactWhatsappUrl = 'https://wa.me/923361070111'
-export const siteContactDisplayPhone = '03361070111'
+export const siteContactPhone = '+923110066648'
+export const siteContactWhatsappUrl = 'https://wa.me/923110066648'
+export const siteContactDisplayPhone = '+923110066648'
 export const siteContactAddress = 'Al-Qadir Heights, Babar Block Garden Town, Lahore, Pakistan'
 export const siteContactCoordinates = '31.47504732907068, 74.46976232054841'
 export const sitePrimaryLocation = {
@@ -196,7 +196,7 @@ export const homeSeoFaqs = [
   {
     question: 'How can I get help before placing an order?',
     answer:
-      'Use the WhatsApp or Contact Us route on www.nothingpakistan.pk to ask about current stock, colour, compatibility, delivery, bank transfer, cash on delivery, or Lahore store pickup.',
+      'Use the WhatsApp or Contact Us route on www.nothingpakistan.pk to ask about current stock, colour, compatibility, delivery, payment methods, cash on delivery, or Lahore store pickup.',
   },
 ] as const
 
@@ -613,7 +613,7 @@ export const homeFaqCategories: HomeFaqCategory[] = [
   {
     id: 'orders',
     label: 'Orders',
-    description: 'Answers about delivery orders, cash on delivery, bank transfer, totals, and Lahore store pickup.',
+    description: 'Answers about delivery orders, cash on delivery, payment methods, totals, and Lahore store pickup.',
     items: [
       {
         question: 'How do I place a delivery order?',
@@ -621,9 +621,9 @@ export const homeFaqCategories: HomeFaqCategory[] = [
           'Open a product, choose the available colour if needed, select Order Now, enter your delivery details, choose cash on delivery or bank transfer, review the total, and submit the order.',
       },
       {
-        question: 'When are bank details shown?',
+        question: 'What is the bank transfer offer?',
         answer:
-          'Bank details appear only after you select Bank Transfer on the order page. They stay hidden when Cash on Delivery is selected.',
+          'Bank transfer orders receive free shipping and 0% government tax. No bank or account details are displayed on the website.',
       },
       {
         question: 'What charges apply to cash on delivery?',
@@ -668,9 +668,9 @@ export const homeFaqCategories: HomeFaqCategory[] = [
           'Contact support promptly with your order number, phone number, photos or video of the item and packaging, and a clear description of the issue so the team can review it.',
       },
       {
-        question: 'Can I verify the company before sending payment?',
+        question: 'Can I verify the company before ordering?',
         answer:
-          `Yes. Review the Company Verification page for ${companyLegalName}, ${companyIdentifier}, incorporation information, and official domains before making a bank transfer.`,
+          `Yes. Review the Company Verification page for ${companyLegalName}, ${companyIdentifier}, incorporation information, and official domains before placing an order.`,
       },
     ],
   },

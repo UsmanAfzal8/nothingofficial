@@ -1,6 +1,7 @@
 import type { Collection, HomePageData, NavigationItem, Product } from '@/lib/models/catalog'
 import { unstable_cache } from 'next/cache'
 import { cache } from 'react'
+import { buildCloudinaryImageUrl, buildCloudinaryVideoUrl } from '@/lib/cloudinary-image-loader'
 import type {
   ProductDetail,
   ProductDetailAggregateRating,
@@ -1033,12 +1034,28 @@ async function readCatalogSnapshotFromSupabase(options: CatalogSnapshotReadOptio
   const mobiles = (mobilesResponse.error ? [] : mobilesResponse.data ?? []) as SupabaseMobileRow[]
   const categories = (categoriesResponse.error ? [] : categoriesResponse.data ?? []) as SupabaseCategoryRow[]
   const categoryRelations = (categoryRelationsResponse.error ? [] : categoryRelationsResponse.data ?? []) as SupabaseCategoryRelationRow[]
-  const images = (imagesResponse.error ? [] : imagesResponse.data ?? []) as SupabaseImageRow[]
+  const images = ((imagesResponse.error ? [] : imagesResponse.data ?? []) as SupabaseImageRow[]).map((image) => ({
+    ...image,
+    url: buildCloudinaryImageUrl(image.url),
+  }))
   const faqs = (faqsResponse.error ? [] : faqsResponse.data ?? []) as SupabaseFaqRow[]
-  const specGroups = (specGroupsResponse.error ? [] : specGroupsResponse.data ?? []) as SupabaseSpecGroupRow[]
+  const specGroups = ((specGroupsResponse.error ? [] : specGroupsResponse.data ?? []) as SupabaseSpecGroupRow[]).map((group) => ({
+    ...group,
+    media_url: group.media_url ? buildCloudinaryImageUrl(group.media_url) : null,
+  }))
   const specGroupItems = (specGroupItemsResponse.error ? [] : specGroupItemsResponse.data ?? []) as SupabaseSpecGroupItemRow[]
-  const productFeatureSections = (productFeatureSectionsResponse.error ? [] : productFeatureSectionsResponse.data ?? []) as SupabaseProductFeatureSectionRow[]
-  const productFeatureSlides = (productFeatureSlidesResponse.error ? [] : productFeatureSlidesResponse.data ?? []) as SupabaseProductFeatureSlideRow[]
+  const productFeatureSections = ((productFeatureSectionsResponse.error ? [] : productFeatureSectionsResponse.data ?? []) as SupabaseProductFeatureSectionRow[]).map((section) => ({
+    ...section,
+    cover_image_url: section.cover_image_url ? buildCloudinaryImageUrl(section.cover_image_url) : null,
+    cover_thumbnail_url: section.cover_thumbnail_url ? buildCloudinaryImageUrl(section.cover_thumbnail_url) : null,
+    cover_video_url: section.cover_video_url ? buildCloudinaryVideoUrl(section.cover_video_url) : null,
+  }))
+  const productFeatureSlides = ((productFeatureSlidesResponse.error ? [] : productFeatureSlidesResponse.data ?? []) as SupabaseProductFeatureSlideRow[]).map((slide) => ({
+    ...slide,
+    image_url: slide.image_url ? buildCloudinaryImageUrl(slide.image_url) : null,
+    thumbnail_url: slide.thumbnail_url ? buildCloudinaryImageUrl(slide.thumbnail_url) : null,
+    video_url: slide.video_url ? buildCloudinaryVideoUrl(slide.video_url) : null,
+  }))
   const reviews = (reviewsResponse.error ? [] : reviewsResponse.data ?? []) as SupabaseReviewRow[]
   const colors = (colorsResponse.error ? [] : colorsResponse.data ?? []) as SupabaseColorRow[]
   const productMobiles = (productMobilesResponse.error ? [] : productMobilesResponse.data ?? []) as SupabaseProductMobileRow[]
@@ -1195,7 +1212,7 @@ async function readLiteCatalogSnapshotFromSupabase() {
   return readCatalogSnapshotFromSupabase({ includeDetailRows: false })
 }
 
-const readCachedLiteCatalogSnapshotPayload = unstable_cache(readLiteCatalogSnapshotFromSupabase, ['catalog-snapshot-lite-v5'], {
+const readCachedLiteCatalogSnapshotPayload = unstable_cache(readLiteCatalogSnapshotFromSupabase, ['catalog-snapshot-lite-v6'], {
   revalidate: CATALOG_REVALIDATE_SECONDS,
   tags: ['catalog-snapshot-lite'],
 })

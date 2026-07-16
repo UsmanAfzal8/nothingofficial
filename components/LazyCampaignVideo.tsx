@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import { buildCloudinaryVideoUrl } from '@/lib/cloudinary-image-loader'
 
 type LazyCampaignVideoProps = {
   src: string
@@ -49,7 +50,7 @@ export function LazyCampaignVideo({ src, poster, label, objectPosition }: LazyCa
           preload="none"
           aria-label={label}
         >
-          <source src={src} type="video/mp4" />
+          <source src={buildCloudinaryVideoUrl(src)} />
         </video>
       ) : null}
     </div>

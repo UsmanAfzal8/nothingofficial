@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
-import localFont from 'next/font/local'
+import { buildCloudinaryImageUrl, buildCloudinaryVideoUrl } from '@/lib/cloudinary-image-loader'
 import { notFound, redirect } from 'next/navigation'
 import { Suspense, type ReactNode } from 'react'
 import { MobileAccessorySections, MobileAccessorySectionsSkeleton } from '@/components/catalog/MobileAccessorySections'
@@ -28,14 +28,6 @@ import type {
   ProductFeatureSection,
 } from '@/lib/models/product-detail'
 import { buildAbsoluteUrl, buildBreadcrumbStructuredData, buildFaqStructuredData, buildRobotsMetadata, buildSeoKeywords, toSeoHandle } from '@/lib/utils/seo'
-
-const detailFont = localFont({
-  src: [
-    { path: '../../../fonts/Inter-Regular.ttf', weight: '400', style: 'normal' },
-    { path: '../../../fonts/Inter-Medium.otf', weight: '500', style: 'normal' },
-  ],
-  display: 'swap',
-})
 
 type ProductDetailPageProps = {
   params: {
@@ -757,14 +749,14 @@ function FeatureMedia({
     return (
       <video
         className={`h-full w-full object-cover ${className}`}
-        src={videoUrl}
-        poster={thumbnailUrl || imageUrl || undefined}
+        src={buildCloudinaryVideoUrl(videoUrl)}
+        poster={thumbnailUrl || imageUrl ? buildCloudinaryImageUrl(thumbnailUrl || imageUrl || '', { width: 1200 }) : undefined}
         aria-label={title}
         autoPlay
         muted
         loop
         playsInline
-        preload="metadata"
+        preload="none"
       />
     )
   }
@@ -1065,7 +1057,7 @@ export default async function ProductDetailPage({ params, searchParams }: Produc
     const reviews = productDetail.reviews ?? []
     const usesImmersiveHero = Boolean(productDetail.productBackgroundImage)
     return (
-      <div className={`${detailFont.className} min-h-screen bg-[#f5f7fb] text-slate-900`}>
+      <div className="min-h-screen bg-[#f5f7fb] font-sans text-slate-900">
         <SeoStructuredData data={buildProductStructuredData(productDetail, faqs)} />
         <NothingHeader />
 
@@ -1149,7 +1141,7 @@ export default async function ProductDetailPage({ params, searchParams }: Produc
   const usesImmersiveHero = Boolean(productDetail.productBackgroundImage)
   const primaryCollectionSlug = productDetail.collections[0]?.slug ?? null
   return (
-    <div className={`${detailFont.className} min-h-screen bg-[#f5f7fb] text-slate-900`}>
+    <div className="min-h-screen bg-[#f5f7fb] font-sans text-slate-900">
       <SeoStructuredData data={buildProductStructuredData(productDetail, faqs)} />
       <NothingHeader />
 

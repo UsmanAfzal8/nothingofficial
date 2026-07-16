@@ -6,6 +6,7 @@ import { LazyCampaignVideo } from '@/components/LazyCampaignVideo'
 import { NothingFooter } from '@/components/NothingFooter'
 import { NothingHeader } from '@/components/NothingHeader'
 import { SeoStructuredData } from '@/components/SeoStructuredData'
+import { buildCloudinaryImageUrl } from '@/lib/cloudinary-image-loader'
 import { getPublishedBlogs } from '@/lib/data/blog-repository'
 import {
   buildOrganizationStructuredData,
@@ -26,40 +27,40 @@ const homeMetaDescription =
 
 const productImageUrls = {
   ear3a:
-    'https://res.cloudinary.com/dklsubnzb/image/upload/v1783803777/nothing-official-store-pakistan/home/phone-4b-launch/nothing-ear-3a-product.png',
+    'https://res.cloudinary.com/dklsubnzb/image/upload/f_auto,q_auto/v1783803777/nothing-official-store-pakistan/home/phone-4b-launch/nothing-ear-3a-product.png',
   phone4b:
-    'https://res.cloudinary.com/dklsubnzb/image/upload/v1783803781/nothing-official-store-pakistan/home/phone-4b-launch/nothing-phone-4b-blue-product.png',
+    'https://res.cloudinary.com/dklsubnzb/image/upload/f_auto,q_auto/v1783803781/nothing-official-store-pakistan/home/phone-4b-launch/nothing-phone-4b-blue-product.png',
   headphoneA:
-    'https://res.cloudinary.com/dklsubnzb/image/upload/v1782595495/nothing-official-store-pakistan/home/phone-4b-launch/nothing-headphone-a-product.png',
+    'https://res.cloudinary.com/dklsubnzb/image/upload/f_auto,q_auto/v1782595495/nothing-official-store-pakistan/home/phone-4b-launch/nothing-headphone-a-product.png',
   phone4aPro:
-    'https://res.cloudinary.com/dklsubnzb/image/upload/v1782595488/nothing-official-store-pakistan/home/phone-4b-launch/nothing-phone-4a-pro-product.png',
+    'https://res.cloudinary.com/dklsubnzb/image/upload/f_auto,q_auto/v1782595488/nothing-official-store-pakistan/home/phone-4b-launch/nothing-phone-4a-pro-product.png',
   headphone1:
-    'https://res.cloudinary.com/dklsubnzb/image/upload/v1782595498/nothing-official-store-pakistan/home/phone-4b-launch/nothing-headphone-1-product.png',
+    'https://res.cloudinary.com/dklsubnzb/image/upload/f_auto,q_auto/v1782595498/nothing-official-store-pakistan/home/phone-4b-launch/nothing-headphone-1-product.png',
   ear3:
-    'https://res.cloudinary.com/dklsubnzb/image/upload/v1782595501/nothing-official-store-pakistan/home/phone-4b-launch/nothing-ear-3-product.png',
+    'https://res.cloudinary.com/dklsubnzb/image/upload/f_auto,q_auto/v1782595501/nothing-official-store-pakistan/home/phone-4b-launch/nothing-ear-3-product.png',
   phone4a:
-    'https://res.cloudinary.com/dklsubnzb/image/upload/v1782595492/nothing-official-store-pakistan/home/phone-4b-launch/nothing-phone-4a-product.png',
+    'https://res.cloudinary.com/dklsubnzb/image/upload/f_auto,q_auto/v1782595492/nothing-official-store-pakistan/home/phone-4b-launch/nothing-phone-4a-product.png',
   phone3:
-    'https://res.cloudinary.com/dklsubnzb/image/upload/v1782595505/nothing-official-store-pakistan/home/phone-4b-launch/nothing-phone-3-product.png',
+    'https://res.cloudinary.com/dklsubnzb/image/upload/f_auto,q_auto/v1782595505/nothing-official-store-pakistan/home/phone-4b-launch/nothing-phone-3-product.png',
 } as const
 
 const campaignMediaUrls = {
   ear3a:
-    'https://res.cloudinary.com/dklsubnzb/image/upload/v1783803753/nothing-official-store-pakistan/home/phone-4b-launch/nothing-ear-3a-homepage.jpg',
+    'https://res.cloudinary.com/dklsubnzb/image/upload/f_auto,q_auto/v1783803753/nothing-official-store-pakistan/home/phone-4b-launch/nothing-ear-3a-homepage.jpg',
   ear3aMobile:
-    'https://res.cloudinary.com/dklsubnzb/image/upload/v1783803761/nothing-official-store-pakistan/home/phone-4b-launch/nothing-ear-3a-homepage-mobile.jpg',
+    'https://res.cloudinary.com/dklsubnzb/image/upload/f_auto,q_auto/v1783803761/nothing-official-store-pakistan/home/phone-4b-launch/nothing-ear-3a-homepage-mobile.jpg',
   phone4b:
-    'https://res.cloudinary.com/dklsubnzb/image/upload/v1783803767/nothing-official-store-pakistan/home/phone-4b-launch/nothing-phone-4b-blue-homepage.jpg',
+    'https://res.cloudinary.com/dklsubnzb/image/upload/f_auto,q_auto/v1783803767/nothing-official-store-pakistan/home/phone-4b-launch/nothing-phone-4b-blue-homepage.jpg',
   phone4bMobile:
-    'https://res.cloudinary.com/dklsubnzb/image/upload/v1783803771/nothing-official-store-pakistan/home/phone-4b-launch/nothing-phone-4b-blue-homepage-mobile.jpg',
+    'https://res.cloudinary.com/dklsubnzb/image/upload/f_auto,q_auto/v1783803771/nothing-official-store-pakistan/home/phone-4b-launch/nothing-phone-4b-blue-homepage-mobile.jpg',
   phone4aPro:
-    'https://res.cloudinary.com/dklsubnzb/image/upload/v1782595469/nothing-official-store-pakistan/home/phone-4b-launch/nothing-phone-4a-pro-homepage.jpg',
+    'https://res.cloudinary.com/dklsubnzb/image/upload/f_auto,q_auto/v1782595469/nothing-official-store-pakistan/home/phone-4b-launch/nothing-phone-4a-pro-homepage.jpg',
   phone4a:
-    'https://res.cloudinary.com/dklsubnzb/image/upload/v1782595474/nothing-official-store-pakistan/home/phone-4b-launch/nothing-phone-4a-homepage.jpg',
+    'https://res.cloudinary.com/dklsubnzb/image/upload/f_auto,q_auto/v1782595474/nothing-official-store-pakistan/home/phone-4b-launch/nothing-phone-4a-homepage.jpg',
   headphone1:
-    'https://res.cloudinary.com/dklsubnzb/image/upload/v1782595478/nothing-official-store-pakistan/home/phone-4b-launch/nothing-headphone-1-homepage.jpg',
+    'https://res.cloudinary.com/dklsubnzb/image/upload/f_auto,q_auto/v1782595478/nothing-official-store-pakistan/home/phone-4b-launch/nothing-headphone-1-homepage.jpg',
   phone3:
-    'https://res.cloudinary.com/dklsubnzb/image/upload/v1782595485/nothing-official-store-pakistan/home/phone-4b-launch/nothing-phone-3-homepage.jpg',
+    'https://res.cloudinary.com/dklsubnzb/image/upload/f_auto,q_auto/v1782595485/nothing-official-store-pakistan/home/phone-4b-launch/nothing-phone-3-homepage.jpg',
   headphoneAVideo:
     'https://res.cloudinary.com/dklsubnzb/video/upload/f_mp4,q_auto/v1782595518/nothing-official-store-pakistan/home/phone-4b-launch/nothing-headphone-a-homepage-video.mp4',
   headphoneAPoster:
@@ -224,6 +225,7 @@ function ProductCard({
   href,
   cta,
   external = false,
+  priority = false,
 }: {
   title: string
   headline: string
@@ -232,6 +234,7 @@ function ProductCard({
   href: string
   cta: string
   external?: boolean
+  priority?: boolean
 }) {
   const card = (
     <>
@@ -245,7 +248,9 @@ function ProductCard({
             alt={`${title} product image from Nothing Pakistan`}
             width={168}
             height={168}
-            unoptimized
+            priority={priority}
+            loading={priority ? undefined : 'lazy'}
+            fetchPriority={priority ? 'high' : 'low'}
             className="absolute right-1 top-2 h-[118px] w-[118px] object-contain sm:right-2 sm:top-1 sm:h-[148px] sm:w-[148px]"
           />
         ) : null}
@@ -306,9 +311,15 @@ function HomeCampaignPanel({
       ) : (
         'mobileBackground' in panel ? (
           <picture className="absolute inset-0 block h-full w-full">
-            <source media="(max-width: 767px)" srcSet={panel.mobileBackground} />
+            <source
+              media="(max-width: 767px)"
+              sizes="100vw"
+              srcSet={`${buildCloudinaryImageUrl(panel.mobileBackground, { width: 480 })} 480w, ${buildCloudinaryImageUrl(panel.mobileBackground, { width: 768 })} 768w, ${buildCloudinaryImageUrl(panel.mobileBackground, { width: 900 })} 900w`}
+            />
             <img
-              src={panel.background}
+              src={buildCloudinaryImageUrl(panel.background, { width: 1920 })}
+              srcSet={`${buildCloudinaryImageUrl(panel.background, { width: 1024 })} 1024w, ${buildCloudinaryImageUrl(panel.background, { width: 1600 })} 1600w, ${buildCloudinaryImageUrl(panel.background, { width: 1920 })} 1920w`}
+              sizes="100vw"
               alt={`${panel.title} campaign from Nothing Pakistan`}
               className="h-full w-full object-cover"
               style={{ objectPosition: panel.objectPosition }}
@@ -322,7 +333,6 @@ function HomeCampaignPanel({
             alt={`${panel.title} campaign from Nothing Pakistan`}
             fill
             priority={priority}
-            unoptimized
             sizes="100vw"
             className="object-cover"
             style={{ objectPosition: panel.objectPosition }}
@@ -337,6 +347,7 @@ function HomeCampaignPanel({
         image={'image' in panel ? panel.image : undefined}
         cta={panel.cta}
         external={false}
+        priority={priority}
       />
     </section>
   )

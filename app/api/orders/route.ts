@@ -66,7 +66,7 @@ type NormalizedOrderUser = {
 type PaymentMethod = 'cod' | 'bank_transfer'
 type DeliveryType = 'ship' | 'pickup'
 
-const SHIPPING_FEE = 450
+const SHIPPING_FEE = 400
 const GOVT_TAX_RATE = 0.04
 
 function toTrimmedString(value: unknown): string {
@@ -227,8 +227,8 @@ export async function POST(request: NextRequest) {
       deliveryType === 'pickup'
         ? 'Store pickup order: no shipping fee. 4% govt tax applied.'
         : paymentMethod === 'bank_transfer'
-        ? 'Non COD: Bank transfer customer gets free shipping and 0% tax. We pay the 4% govt tax. Express next-day delivery. User will send online payment screenshot to 03361070111.'
-        : 'COD order: Rs 450 shipping fee and 4% govt tax applied.'
+        ? 'Bank transfer: free shipping and 0% government tax.'
+        : 'COD order: Rs 400 shipping fee and 4% govt tax applied.'
     const orderItemsWithNotes = orderItems.map((item) => ({
       ...item,
       notes: [item.notes, paymentNotes, `Delivery: ${deliveryType === 'pickup' ? 'Store pickup' : 'Ship to customer'}`]

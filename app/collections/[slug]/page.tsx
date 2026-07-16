@@ -355,25 +355,6 @@ export default async function CollectionPage({ params }: CollectionPageProps) {
                 </div>
               </article>
 
-              <article className="w-full max-w-[720px] rounded-[22px] bg-[#3f3f3f] px-4 py-4 shadow-[0_28px_80px_rgba(0,0,0,0.36)] sm:px-5 sm:py-5 lg:max-w-[680px] lg:px-6 lg:py-6">
-                <div className="max-w-[600px]">
-                  <p className="[font-family:var(--font-ntype82-headline)] text-[1.8rem] font-medium leading-[0.95] tracking-normal text-white sm:text-[2.2rem] lg:text-[2.7rem]">
-                    Student program
-                  </p>
-                  <InterTypographyScope className="mt-4 space-y-1.5 text-[0.92rem] leading-7 text-white/92 sm:text-[1rem] lg:mt-5 lg:text-[1.02rem] lg:leading-8">
-                    <p>Enjoy 5% off phones, audio and wearable products with the Nothing Student Program.</p>
-                    <p>To apply, send your valid student card for verification.</p>
-                  </InterTypographyScope>
-                  <div className="mt-5 lg:mt-6">
-                    <Link
-                      href="/collections/shop-all"
-                      className="inline-flex h-9 items-center justify-center rounded-full bg-[#5b5b5b] px-4 text-[10px] uppercase tracking-[0.2em] text-white transition-colors hover:bg-white hover:text-black"
-                    >
-                      Apply now
-                    </Link>
-                  </div>
-                </div>
-              </article>
             </div>
           </section>
         </main>

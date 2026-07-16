@@ -9,6 +9,7 @@ import folderIcon from '@/assets/icons/folder.svg'
 import plusMinusIcon from '@/assets/icons/plus_minus_icon.svg'
 import specsIcon from '@/assets/icons/specs.svg'
 import specIconLinks from '@/assets/icons/spec-icon-links.json'
+import { buildCloudinaryVideoUrl } from '@/lib/cloudinary-image-loader'
 import { getMobileWarrantyBadgeUrl } from '@/lib/data/mobile-warranty'
 
 type ProductDetailHeroProps = {
@@ -335,7 +336,6 @@ function SpecsOverlay({
                       aria-hidden="true"
                       width={18}
                       height={18}
-                      unoptimized
                       className="h-[18px] w-[18px] object-contain opacity-80"
                     />
                     <span className="product-card-name text-[1rem] leading-none text-black sm:text-[1.16rem]">{group.title}</span>
@@ -359,7 +359,6 @@ function SpecsOverlay({
                             loading="lazy"
                             fetchPriority="low"
                             sizes="(max-width: 640px) 100vw, 520px"
-                            unoptimized
                             className="h-auto w-full object-contain"
                           />
                         </div>
@@ -444,6 +443,7 @@ function HlsFeatureVideo({
   title: string
 }) {
   const videoRef = useRef<HTMLVideoElement | null>(null)
+  const optimizedVideoUrl = buildCloudinaryVideoUrl(videoUrl)
 
   useEffect(() => {
     const video = videoRef.current
@@ -452,8 +452,8 @@ function HlsFeatureVideo({
 
     if (!video) return undefined
 
-    if (!isHlsVideo(videoUrl) || video.canPlayType('application/vnd.apple.mpegurl')) {
-      video.src = videoUrl
+    if (!isHlsVideo(optimizedVideoUrl) || video.canPlayType('application/vnd.apple.mpegurl')) {
+      video.src = optimizedVideoUrl
       video.play().catch(() => undefined)
 
       return () => {
@@ -468,7 +468,7 @@ function HlsFeatureVideo({
 
         if (Hls.isSupported()) {
           hls = new Hls({ enableWorker: true })
-          hls.loadSource(videoUrl)
+        hls.loadSource(optimizedVideoUrl)
           hls.attachMedia(video)
           video.play().catch(() => undefined)
         }
@@ -481,7 +481,7 @@ function HlsFeatureVideo({
       video.removeAttribute('src')
       video.load()
     }
-  }, [videoUrl])
+  }, [optimizedVideoUrl])
 
   return (
     <video
@@ -493,7 +493,7 @@ function HlsFeatureVideo({
       muted
       loop
       playsInline
-      preload="metadata"
+      preload="none"
     />
   )
 }
@@ -521,7 +521,6 @@ function FeatureVisual({
         priority
         fetchPriority="high"
         sizes="100vw"
-        unoptimized
         className="object-cover object-center"
       />
     )
@@ -600,7 +599,6 @@ function ProductFeatureBadge({
             loading="lazy"
             fetchPriority="low"
             sizes={isDesktopLarge || isMobileLarge ? '(max-width: 640px) 215px, (max-width: 1024px) 180px, 276px' : '130px'}
-            unoptimized
             className="object-cover"
           />
         ) : (
@@ -956,10 +954,9 @@ function StickyPurchaseCard({
                       src={selectedMedia.url}
                       alt={selectedMedia.alt || productName}
                       fill
-                      loading="lazy"
-                      fetchPriority="low"
+                      priority
+                      fetchPriority="high"
                       sizes="150px"
-                      unoptimized
                       className="object-contain object-center"
                     />
                   ) : null}
@@ -1063,8 +1060,8 @@ export function ProductDetailHero({
   )
   const whatsappHref =
     entityType === 'mobile'
-      ? `https://api.whatsapp.com/send?phone=923361070111&text=${encodeURIComponent(`Hi, I want to purchase this phone if available. Kindly tell me the price: ${productName}`)}`
-      : 'https://api.whatsapp.com/send?phone=923361070111'
+      ? `https://api.whatsapp.com/send?phone=923110066648&text=${encodeURIComponent(`Hi, I want to purchase this phone if available. Kindly tell me the price: ${productName}`)}`
+      : 'https://api.whatsapp.com/send?phone=923110066648'
   const buyHref = buildOrderHref(canonicalHandle, selectedMedia)
   const hasSpecGroups = hasSpecs ?? loadedSpecGroups.length > 0
   const immersiveBackgroundImages = backgroundImages.length > 0 ? backgroundImages : backgroundImage ? [backgroundImage] : []
@@ -1243,7 +1240,6 @@ export function ProductDetailHero({
                     fetchPriority="high"
                     loading="eager"
                     sizes="100vw"
-                    unoptimized
                     className="object-cover object-center"
                   />
                   {entityType === 'mobile' ? (
@@ -1269,7 +1265,6 @@ export function ProductDetailHero({
                     fetchPriority="high"
                     loading="eager"
                     sizes="100vw"
-                    unoptimized
                     className="object-cover object-center"
                   />
                   {entityType === 'mobile' ? (
@@ -1298,7 +1293,6 @@ export function ProductDetailHero({
                 fetchPriority="low"
                 loading="lazy"
                 sizes="100vw"
-                unoptimized
                 className="object-cover object-center"
               />
               
@@ -1354,7 +1348,6 @@ export function ProductDetailHero({
                   priority
                   fetchPriority="high"
                   sizes="(max-width: 1024px) 100vw, 56vw"
-                  unoptimized
                   className="object-contain"
                 />
                 {entityType === 'mobile' ? (
@@ -1398,7 +1391,6 @@ export function ProductDetailHero({
                         loading="lazy"
                         fetchPriority="low"
                         sizes="96px"
-                        unoptimized
                         className="object-contain"
                       />
                     </span>
