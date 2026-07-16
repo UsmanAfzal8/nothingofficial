@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { ORDER_STATUS_ENUM, PAYMENT_STATUS_ENUM, type OrderStatus, type PaymentStatus } from '@/lib/models/supabase-enums'
+import { getShippingFee } from '@/lib/data/checkout-pricing'
 import { getSupabaseAdminClient } from '@/lib/supabase-admin'
 
 const NO_INDEX_HEADERS = {
@@ -66,7 +67,6 @@ type NormalizedOrderUser = {
 type PaymentMethod = 'cod' | 'bank_transfer'
 type DeliveryType = 'ship' | 'pickup'
 
-const SHIPPING_FEE = 400
 const GOVT_TAX_RATE = 0.04
 
 function toTrimmedString(value: unknown): string {
@@ -220,15 +220,17 @@ export async function POST(request: NextRequest) {
     const paymentMethod = normalizePaymentMethod(body.paymentMethod)
     const deliveryType = normalizeDeliveryType(body.deliveryType)
     const lineTotal = Number(orderItems.reduce((total, item) => total + item.quantity * item.unit_price, 0).toFixed(2))
-    const shippingFee = deliveryType === 'pickup' || paymentMethod === 'bank_transfer' ? 0 : SHIPPING_FEE
+    const shippingFee = getShippingFee({ subtotal: lineTotal, paymentMethod, deliveryType })
     const govtTaxAmount = paymentMethod === 'cod' ? Number((lineTotal * GOVT_TAX_RATE).toFixed(2)) : 0
     const finalTotal = Number((lineTotal + govtTaxAmount + shippingFee).toFixed(2))
     const paymentNotes =
       deliveryType === 'pickup'
         ? 'Store pickup order: no shipping fee. 4% govt tax applied.'
         : paymentMethod === 'bank_transfer'
-        ? 'Bank transfer: free shipping and 0% government tax.'
-        : 'COD order: Rs 400 shipping fee and 4% govt tax applied.'
+        ? shippingFee === 0
+          ? 'Bank transfer: free shipping on orders of Rs 5,000 or more and 0% government tax.'
+          : 'Bank transfer order below Rs 5,000: Rs 400 shipping fee and 0% government tax.'
+        : 'COD order: Rs 600 shipping fee and 4% govt tax applied.'
     const orderItemsWithNotes = orderItems.map((item) => ({
       ...item,
       notes: [item.notes, paymentNotes, `Delivery: ${deliveryType === 'pickup' ? 'Store pickup' : 'Ship to customer'}`]

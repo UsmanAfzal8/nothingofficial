@@ -1,4 +1,5 @@
 import { buildAbsoluteUrl } from '@/lib/utils/seo'
+import { bankDetails } from '@/lib/data/bank-details'
 import {
   companyCuin,
   companyFoundingDate,
@@ -623,12 +624,12 @@ export const homeFaqCategories: HomeFaqCategory[] = [
       {
         question: 'What is the bank transfer offer?',
         answer:
-          'Bank transfer orders receive free shipping and 0% government tax. No bank or account details are displayed on the website.',
+          `Bank transfer orders below Rs 5,000 have a Rs 400 delivery charge; orders of Rs 5,000 or more receive free delivery. Bank transfers have 0% government tax. Transfer to ${bankDetails.accountTitle} at ${bankDetails.bankName}, account number ${bankDetails.accountNumber}, IBAN ${bankDetails.iban}. The account number and IBAN can be copied from the order page.`,
       },
       {
         question: 'What charges apply to cash on delivery?',
         answer:
-          'The order page shows the current cash-on-delivery shipping charge and applicable government tax separately before displaying the final total.',
+          'Cash-on-delivery orders always have a Rs 600 delivery charge. The order page also shows the applicable government tax separately before displaying the final total.',
       },
       {
         question: 'How do I request store pickup?',

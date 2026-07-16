@@ -5,8 +5,15 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { type FormEvent, useEffect, useMemo, useState } from 'react'
 import { CompanyTrustBadge } from '@/components/CompanyTrustBadge'
+import { BankTransferDetails } from '@/components/BankTransferDetails'
 import { useCart } from '@/components/CartProvider'
 import { siteContactAddress, siteContactWhatsappUrl } from '@/lib/data/site-content'
+import {
+  BANK_TRANSFER_FREE_SHIPPING_MINIMUM,
+  BANK_TRANSFER_SHIPPING_FEE,
+  COD_SHIPPING_FEE,
+  getShippingFee,
+} from '@/lib/data/checkout-pricing'
 import type { CartItem } from '@/lib/models/cart'
 
 type SelectedProduct = {
@@ -48,7 +55,6 @@ const initialSubmitState: SubmitState = {
 const fieldClassName =
   'w-full rounded-[5px] border border-black/18 bg-white px-4 py-3 [font-family:var(--font-ntype82)] text-sm text-black outline-none transition placeholder:text-black/32 focus:border-black focus:ring-2 focus:ring-black/10'
 
-const SHIPPING_FEE = 400
 const GOVT_TAX_RATE = 0.04
 const STORE_MAP_URL = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(siteContactAddress)}`
 
@@ -101,9 +107,11 @@ function getCheckoutItemCount(items: CheckoutItem[]): number {
 function OrderSuccessScreen({
   message,
   orderNumber,
+  showBankDetails,
 }: {
   message: string
   orderNumber: string | null
+  showBankDetails: boolean
 }) {
   return (
     <section className="mx-auto max-w-2xl rounded-[8px] border border-black bg-white px-6 py-12 text-center sm:px-10">
@@ -123,6 +131,13 @@ function OrderSuccessScreen({
       <h1 className="collection-product-name mt-3 text-4xl leading-none text-black sm:text-5xl">Order is done</h1>
       <p className="mx-auto mt-4 max-w-lg [font-family:var(--font-ntype82)] text-sm leading-7 text-black/62 sm:text-base">{message}</p>
       {orderNumber ? <p className="mt-4 [font-family:var(--font-lettera-regular)] text-[0.72rem] uppercase tracking-[0.15em] text-black">Order #{orderNumber}</p> : null}
+
+      {showBankDetails ? (
+        <div className="mt-7 text-left">
+          <BankTransferDetails />
+          <p className="mt-3 text-center text-xs leading-5 text-black/54">Please transfer the order total and keep your payment receipt for confirmation.</p>
+        </div>
+      ) : null}
 
       <Link
         href="/"
@@ -206,7 +221,7 @@ export function OrderForm({ product }: OrderFormProps) {
     () => Number((paymentMethod === 'cod' ? checkoutSubtotal * GOVT_TAX_RATE : 0).toFixed(2)),
     [checkoutSubtotal, paymentMethod],
   )
-  const shippingFee = deliveryType === 'pickup' || paymentMethod === 'bank_transfer' ? 0 : SHIPPING_FEE
+  const shippingFee = getShippingFee({ subtotal: checkoutSubtotal, paymentMethod, deliveryType })
   const totalPrice = useMemo(
     () => Math.max(0, Number((checkoutSubtotal + govtTaxAmount + shippingFee).toFixed(2))),
     [checkoutSubtotal, govtTaxAmount, shippingFee],
@@ -215,8 +230,10 @@ export function OrderForm({ product }: OrderFormProps) {
     deliveryType === 'pickup'
       ? 'Store pickup order: no shipping fee. 4% govt tax applied.'
       : paymentMethod === 'bank_transfer'
-      ? 'Bank transfer: free shipping and 0% government tax.'
-      : 'COD order: Rs 400 shipping fee and 4% govt tax applied.'
+      ? shippingFee === 0
+        ? 'Bank transfer: free shipping on orders of Rs 5,000 or more and 0% government tax.'
+        : 'Bank transfer order below Rs 5,000: Rs 400 shipping fee and 0% government tax.'
+      : 'COD order: Rs 600 shipping fee and 4% govt tax applied.'
 
   useEffect(() => {
     if (!selectedProduct && cartItems.length === 0) {
@@ -332,7 +349,13 @@ export function OrderForm({ product }: OrderFormProps) {
   }
 
   if (submitState.status === 'success') {
-    return <OrderSuccessScreen message={submitState.message} orderNumber={submitState.orderNumber} />
+    return (
+      <OrderSuccessScreen
+        message={submitState.message}
+        orderNumber={submitState.orderNumber}
+        showBankDetails={deliveryType === 'ship' && paymentMethod === 'bank_transfer'}
+      />
+    )
   }
 
   return (
@@ -540,7 +563,6 @@ export function OrderForm({ product }: OrderFormProps) {
                     <div className="flex items-start justify-between gap-4">
                       <div>
                         <h3 className="collection-product-name text-xl text-black">Payment method</h3>
-                        <p className="mt-1 text-sm leading-6 text-black/62">COD orders = Rs 400 shipping fee + 4% govt tax. Bank transfer gets free shipping and 0% govt tax.</p>
                       </div>
                     </div>
 
@@ -562,7 +584,7 @@ export function OrderForm({ product }: OrderFormProps) {
                           <div>
                             <p className="text-sm font-semibold uppercase tracking-[0.16em]">Cash on delivery</p>
                             <p className={`mt-2 text-sm leading-6 ${paymentMethod === 'cod' ? 'text-white/80' : 'text-black/62'}`}>
-                              COD orders = Rs 400 shipping fee + 4% govt tax.
+                              Rs {COD_SHIPPING_FEE} delivery • 4% govt tax
                             </p>
                           </div>
                           <span className={`inline-flex h-5 w-5 rounded-full border ${paymentMethod === 'cod' ? 'border-white bg-white' : 'border-slate-300'}`}>
@@ -586,14 +608,20 @@ export function OrderForm({ product }: OrderFormProps) {
                         <div className="flex items-start justify-between gap-4 p-3 sm:p-4">
                           <div>
                             <p className="text-sm font-semibold uppercase tracking-[0.16em]">Bank transfer</p>
-                            <p className="mt-2 text-sm leading-6 text-black/62">Bank transfer: free shipping and 0% govt tax.</p>
+                            <p className="mt-2 text-sm leading-6 text-black/62">
+                              {checkoutSubtotal < BANK_TRANSFER_FREE_SHIPPING_MINIMUM
+                                ? `Below Rs ${BANK_TRANSFER_FREE_SHIPPING_MINIMUM.toLocaleString('en-PK')}: Rs ${BANK_TRANSFER_SHIPPING_FEE} delivery • 0% govt tax`
+                                : 'Free delivery • 0% govt tax'}
+                            </p>
                           </div>
                           <span className={`inline-flex h-5 w-5 rounded-full border ${paymentMethod === 'bank_transfer' ? 'border-black bg-black' : 'border-black/24'}`}>
                             {paymentMethod === 'bank_transfer' ? <span className="m-auto h-2.5 w-2.5 rounded-full bg-white" /> : null}
                           </span>
                         </div>
                         </button>
-
+                        {paymentMethod === 'bank_transfer' ? (
+                          <BankTransferDetails className="mx-3 mb-3 sm:mx-4 sm:mb-4" />
+                        ) : null}
                       </div>
                     </div>
                   </div>
