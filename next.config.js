@@ -114,17 +114,6 @@ const nextConfig = {
         destination: '/collections/apparel',
         permanent: true,
       },
-      {
-        source: '/:path*',
-        has: [
-          {
-            type: 'host',
-            value: 'nothingpakistan.pk',
-          },
-        ],
-        destination: 'https://www.nothingpakistan.pk/:path*',
-        permanent: true,
-      },
     ];
   },
   async headers() {

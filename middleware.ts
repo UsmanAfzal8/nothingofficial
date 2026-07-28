@@ -28,6 +28,18 @@ function permanentRedirect(request: NextRequest, pathname: string) {
 }
 
 export function middleware(request: NextRequest) {
+  const forwardedHost = request.headers.get('x-forwarded-host')?.split(',')[0]?.trim()
+  const hostname = (forwardedHost || request.nextUrl.hostname).split(':')[0]?.toLowerCase()
+
+  if (hostname === 'nothingpakistan.pk') {
+    const redirectUrl = request.nextUrl.clone()
+    redirectUrl.protocol = 'https'
+    redirectUrl.hostname = 'www.nothingpakistan.pk'
+    redirectUrl.port = ''
+
+    return NextResponse.redirect(redirectUrl, 301)
+  }
+
   const { pathname, searchParams } = request.nextUrl
   const staticRedirect = LEGACY_STATIC_PATH_REDIRECTS[pathname]
 
@@ -82,5 +94,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/about', '/contact', '/guides', '/privacy', '/Table.csv', '/shop', '/phones/:path*', '/product/:path*', '/products/:path*', '/collections/:path*'],
+  matcher: ['/((?!_next/static|_next/image|favicon.ico).*)'],
 }
