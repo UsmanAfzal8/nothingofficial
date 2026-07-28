@@ -1,0 +1,26 @@
+{
+  "checkedAt": "2026-07-27T10:06:13.363Z",
+  "apply": false,
+  "article": {
+    "queueNumber": 2,
+    "slug": "nothing-phone-4b-vs-nothing-phone-4a-pakistan",
+    "title": "Nothing Phone 4b vs Nothing Phone 4a: Should Pakistan Buyers Wait?"
+  },
+  "metrics": {
+    "words": 3188,
+    "headings": 17,
+    "links": 6,
+    "productLinks": 3,
+    "uniqueProductSlugs": [
+      "nothing-pakistan-phone-4b",
+      "nothing-pakistan-phone-4a",
+      "nothing-pakistan-phone-3a"
+    ],
+    "heroImage": {
+      "status": 200,
+      "contentType": "image/webp",
+      "contentLength": 36744
+    }
+  },
+  "database": null
+}

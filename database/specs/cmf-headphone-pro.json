@@ -1,0 +1,495 @@
+{
+  "related_type": "product",
+  "related_id": 5,
+  "related_slug": "cmf-headphone-pro",
+  "source_handle": "cmf-headphone-pro",
+  "source_name": "CMF Headphone Pro",
+  "source_url": "https://nothing.tech/products/cmf-headphone-pro?color=Light+Green",
+  "screen_title": "Specs",
+  "spec_groups": [
+    {
+      "title": "Headphones design",
+      "icon_key": "headphones-design",
+      "subtitle": null,
+      "media_url": "https://cdn.nothingpakistan.pk/specs/cmf-headphone-pro-headphones-design.jpg",
+      "media_alt": "CMF Headphone Pro Headphones design",
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 10,
+      "items": [
+        {
+          "section": "Headphones dimensions",
+          "label": "Height",
+          "value": "168.5 MM",
+          "sort_order": 10
+        },
+        {
+          "section": "Headphones dimensions",
+          "label": "Width",
+          "value": "95.7 MM",
+          "sort_order": 20
+        },
+        {
+          "section": "Headphones dimensions",
+          "label": "Depth",
+          "value": "188.5 MM",
+          "sort_order": 30
+        },
+        {
+          "section": "Headphones weight",
+          "label": "Weight",
+          "value": "283 G",
+          "sort_order": 40
+        }
+      ]
+    },
+    {
+      "title": "Cushions design",
+      "icon_key": "cushions-design",
+      "subtitle": null,
+      "media_url": null,
+      "media_alt": null,
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 20,
+      "items": [
+        {
+          "section": "Cushions dimensions",
+          "label": "Height",
+          "value": "96 MM",
+          "sort_order": 10
+        },
+        {
+          "section": "Cushions dimensions",
+          "label": "Width",
+          "value": "95.7 MM",
+          "sort_order": 20
+        },
+        {
+          "section": "Cushions dimensions",
+          "label": "Depth",
+          "value": "30 MM",
+          "sort_order": 30
+        },
+        {
+          "section": "Cushions weight",
+          "label": "Weight",
+          "value": "45 G",
+          "sort_order": 40
+        }
+      ]
+    },
+    {
+      "title": "Sound",
+      "icon_key": "sound",
+      "subtitle": null,
+      "media_url": null,
+      "media_alt": null,
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 30,
+      "items": [
+        {
+          "section": "Drivers",
+          "label": "Drivers",
+          "value": "40 mm",
+          "sort_order": 10
+        },
+        {
+          "section": "RF",
+          "label": "RF",
+          "value": "20 Hz – 20 kHz",
+          "sort_order": 20
+        },
+        {
+          "section": "Diaphragm",
+          "label": null,
+          "value": "1. Dome material: PEN+PU",
+          "sort_order": 30
+        },
+        {
+          "section": "Diaphragm",
+          "label": null,
+          "value": "2. Coating: Nickel plating",
+          "sort_order": 40
+        },
+        {
+          "section": "Tuning",
+          "label": "Tuning",
+          "value": "NOTHING",
+          "sort_order": 50
+        }
+      ]
+    },
+    {
+      "title": "Battery",
+      "icon_key": "battery",
+      "subtitle": null,
+      "media_url": null,
+      "media_alt": null,
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 40,
+      "items": [
+        {
+          "section": "Battery type",
+          "label": "Battery type",
+          "value": "RECHARGEABLE LITHIUM-ION",
+          "sort_order": 10
+        },
+        {
+          "section": "Capacity",
+          "label": "Capacity",
+          "value": "720 mAh",
+          "sort_order": 20
+        },
+        {
+          "section": "Charging",
+          "label": "Charging",
+          "value": "TYPE-C WIRED CHARGING-TO-FULL TIME 120 MINS",
+          "sort_order": 30
+        },
+        {
+          "section": "Fast charging",
+          "label": null,
+          "value": "ANC OFF:  5 MIN CHARGE FOR 8 HOURS (PLAYBACK AT 50% VOLUME)",
+          "sort_order": 40
+        },
+        {
+          "section": "Fast charging",
+          "label": null,
+          "value": "ANC ON - 5 MIN CHARGE FOR 4 HOURS (PLAYBACK AT 50% VOLUME)",
+          "sort_order": 50
+        },
+        {
+          "section": "Playback",
+          "label": null,
+          "value": "AAC:",
+          "sort_order": 60
+        },
+        {
+          "section": "Playback",
+          "label": null,
+          "value": "PLAYBACK (50% VOLUME) WITH ANC OFF: UP TO 100 HOURS",
+          "sort_order": 70
+        },
+        {
+          "section": "Playback",
+          "label": null,
+          "value": "PLAYBACK (50% VOLUME) WITH ANC ON: UP TO 50 HOURS",
+          "sort_order": 80
+        },
+        {
+          "section": "Playback",
+          "label": null,
+          "value": "LDAC:",
+          "sort_order": 90
+        },
+        {
+          "section": "Playback",
+          "label": null,
+          "value": "PLAYBACK (50% VOLUME) WITH ANC OFF: UP TO 70 HOURS",
+          "sort_order": 100
+        },
+        {
+          "section": "Playback",
+          "label": null,
+          "value": "PLAYBACK (50% VOLUME) WITH ANC ON: UP TO 38 HOURS",
+          "sort_order": 110
+        },
+        {
+          "section": "Talk time",
+          "label": null,
+          "value": "TALK TIME WITH ANC OFF: 50 HOURS",
+          "sort_order": 120
+        },
+        {
+          "section": "Talk time",
+          "label": null,
+          "value": "TALK TIME WITH ANC ON: 35 HOURS",
+          "sort_order": 130
+        }
+      ]
+    },
+    {
+      "title": "Noise Cancellation",
+      "icon_key": "noise-cancellation",
+      "subtitle": null,
+      "media_url": null,
+      "media_alt": null,
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 50,
+      "items": [
+        {
+          "section": "Type",
+          "label": "Type",
+          "value": "HYBRID ANC",
+          "sort_order": 10
+        },
+        {
+          "section": "Depth",
+          "label": "Depth",
+          "value": "UP TO 40 dB",
+          "sort_order": 20
+        },
+        {
+          "section": "Frequency range",
+          "label": "Frequency range",
+          "value": "2000 HZ",
+          "sort_order": 30
+        },
+        {
+          "section": "Microphone quantity",
+          "label": "Microphone quantity",
+          "value": "5 MICS TOTAL",
+          "sort_order": 40
+        },
+        {
+          "section": "Features",
+          "label": null,
+          "value": "ENVIRONMENT ADAPTIVE ANC ALGORITHM",
+          "sort_order": 50
+        },
+        {
+          "section": "Features",
+          "label": null,
+          "value": "TRANSPARENCY MODE",
+          "sort_order": 60
+        },
+        {
+          "section": "Features",
+          "label": null,
+          "value": "3 MIC ENC ARCHITECTURE FOR CALLS",
+          "sort_order": 70
+        },
+        {
+          "section": "Features",
+          "label": null,
+          "value": "WIND NOISE CONDUCTION MESH",
+          "sort_order": 80
+        }
+      ]
+    },
+    {
+      "title": "Connectivity",
+      "icon_key": "connectivity",
+      "subtitle": null,
+      "media_url": null,
+      "media_alt": null,
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 60,
+      "items": [
+        {
+          "section": "Connectivity",
+          "label": "Connection range",
+          "value": "10 M",
+          "sort_order": 10
+        },
+        {
+          "section": "Connectivity",
+          "label": "Bluetooth version",
+          "value": "5.4",
+          "sort_order": 20
+        },
+        {
+          "section": "Connectivity",
+          "label": "Dual connection",
+          "value": "YES",
+          "sort_order": 30
+        },
+        {
+          "section": "Connectivity",
+          "label": "Android version",
+          "value": "5.1 AND ABOVE",
+          "sort_order": 40
+        },
+        {
+          "section": "Connectivity",
+          "label": "iOS version",
+          "value": "13 AND ABOVE",
+          "sort_order": 50
+        },
+        {
+          "section": "Connectivity",
+          "label": "Codecs",
+          "value": "AAC, SBC, LDAC",
+          "sort_order": 60
+        }
+      ]
+    },
+    {
+      "title": "Other features",
+      "icon_key": "other-features",
+      "subtitle": null,
+      "media_url": null,
+      "media_alt": null,
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 70,
+      "items": [
+        {
+          "section": "Tech Integrations",
+          "label": null,
+          "value": "GOOGLE FAST PAIR AND MICROSOFT SWIFT PAIR",
+          "sort_order": 10
+        },
+        {
+          "section": "Tech Integrations",
+          "label": null,
+          "value": "LOW LATENCY FOR RESPONSIVE USER EXPERIENCE",
+          "sort_order": 20
+        },
+        {
+          "section": "Tech Integrations",
+          "label": null,
+          "value": "LDAC AND HI-RES CERTIFIED (WIRED AND WIRELESS)",
+          "sort_order": 30
+        },
+        {
+          "section": "Tech Integrations",
+          "label": null,
+          "value": "LED CHARGING STATUS",
+          "sort_order": 40
+        },
+        {
+          "section": "Tech Integrations",
+          "label": null,
+          "value": "IPX2 WATER AND DUST RESISTANCE",
+          "sort_order": 50
+        }
+      ]
+    },
+    {
+      "title": "Controls",
+      "icon_key": "controls",
+      "subtitle": null,
+      "media_url": null,
+      "media_alt": null,
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 80,
+      "items": [
+        {
+          "section": null,
+          "label": "Power / BT",
+          "value": "POWER ON/OFF: HOLD 1s\nBT PAIRING: HOLD 3s",
+          "sort_order": 10
+        },
+        {
+          "section": null,
+          "label": "Slider",
+          "value": "2 MODES SWITCHING BY APP: BASS/TREBLE TUNING\nSLIDE UP / DOWN FOR ENHANCEMENT (0-100%)",
+          "sort_order": 20
+        },
+        {
+          "section": null,
+          "label": "Roller",
+          "value": "VOLUME UP AND DOWN: ROLL UP / DOWN\nPLAY AND PAUSE:  SHORT PRESS\nANC MODE SWITCH: LONG PRESS",
+          "sort_order": 30
+        },
+        {
+          "section": null,
+          "label": "Button",
+          "value": "NOTHING OS\nDEFAULT PRESS FUNCTION: SMART ASSISTANT\nDEFAULT HOLD FUNCTION: SMART ASSISTANT\nANDROID / IOS\nDEFAULT PRESS FUNCTION: SMART ASSISTANT\nDEFAULT HOLD FUNCTION: OFF",
+          "sort_order": 40
+        },
+        {
+          "section": null,
+          "label": "LED light status",
+          "value": "POWER / BT STATUS LED\nLOW BATTERY (<10%): RED 3s\nBATTERY ≥10%: WHITE 3s\nPAIRING: WHITE LED FLASHING\nFACTORY RESET(SW) SUCCESSFUL: RED LED FLASHES 3 TIMES\nFACTORY RESET(HW) SUCCESSFUL: FLASH RED and WHITE ONCE (ALTERNATING)\nCHARGING LED\nCHARGING: RED LED SOLID\nFULLY CHARGED (CABLE CONNECTED): WHITE SOLID",
+          "sort_order": 50
+        }
+      ]
+    },
+    {
+      "title": "Nothing X",
+      "icon_key": "nothing-x",
+      "subtitle": null,
+      "media_url": null,
+      "media_alt": null,
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 90,
+      "items": [
+        {
+          "section": "Nothing X",
+          "label": null,
+          "value": "CUSTOMISE EQUALISER AND CONTROLS",
+          "sort_order": 10
+        },
+        {
+          "section": "Nothing X",
+          "label": null,
+          "value": "FIND MY HEADPHONES",
+          "sort_order": 20
+        },
+        {
+          "section": "Nothing X",
+          "label": null,
+          "value": "LOW LAG MODE",
+          "sort_order": 30
+        },
+        {
+          "section": "Nothing X",
+          "label": null,
+          "value": "SOFTWARE UPDATES",
+          "sort_order": 40
+        }
+      ]
+    },
+    {
+      "title": "In the box",
+      "icon_key": "in-the-box",
+      "subtitle": null,
+      "media_url": "https://cdn.nothingpakistan.pk/specs/cmf-headphone-pro-in-the-box.jpg",
+      "media_alt": "CMF Headphone Pro In the box",
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 100,
+      "items": [
+        {
+          "section": "In the box",
+          "label": null,
+          "value": "CMF HEADPHONE PRO",
+          "sort_order": 10
+        },
+        {
+          "section": "In the box",
+          "label": null,
+          "value": "CARRY POUCH",
+          "sort_order": 20
+        },
+        {
+          "section": "In the box",
+          "label": null,
+          "value": "USER GUIDE",
+          "sort_order": 30
+        },
+        {
+          "section": "In the box",
+          "label": null,
+          "value": "SAFETY AND WARRANTY INFORMATION",
+          "sort_order": 40
+        },
+        {
+          "section": "In the box",
+          "label": null,
+          "value": "3.5MM to 3.5MM AUDIO CABLE (1.2M) × 1",
+          "sort_order": 50
+        }
+      ]
+    }
+  ]
+}

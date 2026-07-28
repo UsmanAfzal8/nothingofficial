@@ -1,29 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { getCollectionBySlug } from '@/lib/data/catalog-repository'
+import { getProductRecommendationsByHandle } from '@/lib/data/catalog-repository'
 import type { Product } from '@/lib/models/catalog'
-
-function buildRecommendedProducts(productGroups: Product[][], currentHandle: string) {
-  const seen = new Set<string>()
-  const output: Product[] = []
-
-  for (const products of productGroups) {
-    for (const product of products) {
-      if (product.handle === currentHandle || seen.has(product.handle)) {
-        continue
-      }
-
-      seen.add(product.handle)
-      output.push(product)
-
-      if (output.length === 8) {
-        return output
-      }
-    }
-  }
-
-  return output
-}
 
 function RecommendationCard({ product }: { product: Product }) {
   return (
@@ -79,14 +57,7 @@ export async function ProductRecommendations({
   primaryCollectionSlug: string | null
   immersive?: boolean
 }) {
-  const [primaryCollection, fallbackCollection] = await Promise.all([
-    primaryCollectionSlug ? getCollectionBySlug(primaryCollectionSlug) : Promise.resolve(null),
-    primaryCollectionSlug === 'shop-all' ? Promise.resolve(null) : getCollectionBySlug('shop-all'),
-  ])
-  const recommendations = buildRecommendedProducts(
-    [primaryCollection?.products ?? [], fallbackCollection?.products ?? []],
-    handle,
-  )
+  const recommendations = await getProductRecommendationsByHandle(handle, primaryCollectionSlug)
 
   if (recommendations.length === 0) {
     return null

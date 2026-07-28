@@ -1,0 +1,26 @@
+{
+  "checkedAt": "2026-07-27T10:07:24.873Z",
+  "apply": false,
+  "article": {
+    "queueNumber": 53,
+    "slug": "nothing-phone-2a-vs-samsung-a55-in-pakistan",
+    "title": "Nothing Phone 2a vs Samsung A55 in Pakistan"
+  },
+  "metrics": {
+    "words": 3057,
+    "headings": 34,
+    "links": 5,
+    "productLinks": 3,
+    "uniqueProductSlugs": [
+      "nothing-pakistan-phone-4a",
+      "nothing-pakistan-phone-3a",
+      "nothing-pakistan-phone-3"
+    ],
+    "heroImage": {
+      "status": 200,
+      "contentType": "image/webp",
+      "contentLength": 35652
+    }
+  },
+  "database": null
+}

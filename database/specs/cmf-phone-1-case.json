@@ -1,0 +1,55 @@
+{
+  "related_type": "product",
+  "related_id": 7,
+  "related_slug": "cmf-phone-1-case",
+  "source_handle": "cmf-phone-1-case",
+  "source_name": "CMF Phone 1 Case",
+  "source_url": "https://nothing.tech/products/cmf-phone-1-case?Colour=Orange",
+  "screen_title": "Specs",
+  "spec_groups": [
+    {
+      "title": "Compatibility",
+      "icon_key": "compatibility",
+      "subtitle": null,
+      "media_url": "https://cdn.nothingpakistan.pk/specs/cmf-phone-1-case-compatibility.jpg",
+      "media_alt": "CMF Phone 1 Case Compatibility",
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 10,
+      "items": [
+        {
+          "section": "Compatibility",
+          "label": "Compatibility",
+          "value": "CMF Phone 1",
+          "sort_order": 10
+        }
+      ]
+    },
+    {
+      "title": "In the box",
+      "icon_key": "in-the-box",
+      "subtitle": null,
+      "media_url": null,
+      "media_alt": null,
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 20,
+      "items": [
+        {
+          "section": "In the box",
+          "label": null,
+          "value": "1 CMF Phone 1 Case",
+          "sort_order": 10
+        },
+        {
+          "section": "In the box",
+          "label": null,
+          "value": "1 case removal tool",
+          "sort_order": 20
+        }
+      ]
+    }
+  ]
+}

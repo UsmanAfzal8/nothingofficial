@@ -36,6 +36,8 @@ type BlogSnapshot = {
   posts: RuntimeBlogPost[]
 }
 
+const HOME_BLOG_LIMIT = 6
+
 async function fetchPagedRows<T>(query: any): Promise<T[]> {
   const rows: T[] = []
 
@@ -258,9 +260,87 @@ const getCachedPublishedBlogSnapshot = unstable_cache(fetchPublishedBlogSnapshot
   tags: ['blogs'],
 })
 
+async function fetchHomeBlogPosts(): Promise<RuntimeBlogPost[]> {
+  const supabase = getSupabaseAdminClient()
+
+  if (!supabase) {
+    return mapFallbackPosts().slice(0, HOME_BLOG_LIMIT)
+  }
+
+  const { data, error } = await supabase
+    .from('blogs')
+    .select(
+      'id, slug, title, meta_title, meta_description, excerpt, focus_keyword, category, tags, author, author_type, content_type, reading_time, featured_image_id, is_published, published_at, created_at, updated_at',
+    )
+    .eq('is_published', true)
+    .order('published_at', { ascending: false, nullsFirst: false })
+    .order('updated_at', { ascending: false, nullsFirst: false })
+    .limit(HOME_BLOG_LIMIT)
+
+  if (error || !data?.length) {
+    return mapFallbackPosts().slice(0, HOME_BLOG_LIMIT)
+  }
+
+  const blogRows = data as SupabaseBlogRow[]
+  const featuredImageIds = blogRows
+    .map((row) => row.featured_image_id)
+    .filter((id): id is number => typeof id === 'number')
+  const imagesById = new Map<number, SupabaseImageRow>()
+
+  if (featuredImageIds.length > 0) {
+    const { data: imageRows, error: imageError } = await supabase
+      .from('images')
+      .select('id, related_type, related_id, color_id, url, alt_text, title, caption, file_name, slug, sort_order, created_at, updated_at')
+      .in('id', featuredImageIds)
+
+    if (!imageError) {
+      for (const image of (imageRows ?? []) as SupabaseImageRow[]) {
+        imagesById.set(image.id, image)
+      }
+    }
+  }
+
+  return blogRows.map((row) => {
+    const featuredImage = row.featured_image_id ? imagesById.get(row.featured_image_id) ?? null : null
+
+    return {
+      id: row.id,
+      slug: row.slug,
+      title: row.title,
+      metaTitle: row.meta_title || row.title,
+      metaDescription: row.meta_description || row.excerpt || row.title,
+      excerpt: row.excerpt || row.meta_description || row.title,
+      focusKeyword: row.focus_keyword || null,
+      category: row.category || null,
+      tags: row.tags ?? [],
+      author: row.author || 'Nothing Pakistan Team',
+      authorType: row.author_type || null,
+      contentType: row.content_type,
+      readingTime: row.reading_time,
+      updatedAt: normalizeDate(row.updated_at || row.published_at || row.created_at),
+      publishedAt: row.published_at || row.created_at,
+      heroImage: featuredImage?.url ?? null,
+      heroImageAlt: featuredImage?.alt_text ?? null,
+      heroImageTitle: featuredImage?.title ?? null,
+      heroImageCaption: featuredImage?.caption ?? null,
+      contentHtml: '',
+      faqs: [],
+    }
+  })
+}
+
+const getCachedHomeBlogPosts = unstable_cache(fetchHomeBlogPosts, ['home-blog-posts-v1'], {
+  revalidate: 300,
+  tags: ['blogs'],
+})
+
 export async function getPublishedBlogs(): Promise<RuntimeBlogPost[]> {
   const snapshot = await getCachedPublishedBlogSnapshot()
   return snapshot.posts
+}
+
+export async function getHomeBlogPosts(): Promise<RuntimeBlogPost[]> {
+  return getCachedHomeBlogPosts()
 }
 
 export async function getPublishedBlogBySlug(slug: string): Promise<RuntimeBlogPost | null> {

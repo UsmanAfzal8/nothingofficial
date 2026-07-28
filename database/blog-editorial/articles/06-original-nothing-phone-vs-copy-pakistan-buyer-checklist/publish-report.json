@@ -1,0 +1,26 @@
+{
+  "checkedAt": "2026-07-27T10:06:18.516Z",
+  "apply": false,
+  "article": {
+    "queueNumber": 6,
+    "slug": "original-nothing-phone-vs-copy-pakistan-buyer-checklist",
+    "title": "Original Nothing Phone vs Copy: Pakistan Buyer Checklist"
+  },
+  "metrics": {
+    "words": 3001,
+    "headings": 21,
+    "links": 8,
+    "productLinks": 3,
+    "uniqueProductSlugs": [
+      "nothing-pakistan-phone-3",
+      "nothing-pakistan-phone-4a",
+      "nothing-pakistan-phone-4b"
+    ],
+    "heroImage": {
+      "status": 200,
+      "contentType": "image/webp",
+      "contentLength": 47614
+    }
+  },
+  "database": null
+}

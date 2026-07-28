@@ -1,0 +1,659 @@
+{
+  "related_type": "product",
+  "related_id": 14,
+  "related_slug": "ear-3a",
+  "source_handle": "ear-3a",
+  "source_name": "Ear (3a)",
+  "source_url": "https://nothing.tech/products/ear-3a?Colour=White",
+  "screen_title": "Specs",
+  "spec_groups": [
+    {
+      "title": "In the box",
+      "icon_key": "in-the-box",
+      "subtitle": null,
+      "media_url": "https://cdn.nothingpakistan.pk/specs/ear-3a-in-the-box.webp",
+      "media_alt": "Ear (3a) In the box",
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 10,
+      "items": [
+        {
+          "section": "In the box",
+          "label": null,
+          "value": "Earbuds *2",
+          "sort_order": 10
+        },
+        {
+          "section": "In the box",
+          "label": null,
+          "value": "Charging Case *1",
+          "sort_order": 20
+        },
+        {
+          "section": "In the box",
+          "label": null,
+          "value": "Ear Tips *4 pairs",
+          "sort_order": 30
+        },
+        {
+          "section": "In the box",
+          "label": null,
+          "value": "Safety information and warranty information & User Guide *1",
+          "sort_order": 40
+        }
+      ]
+    },
+    {
+      "title": "Buds design",
+      "icon_key": "buds-design",
+      "subtitle": null,
+      "media_url": null,
+      "media_alt": null,
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 20,
+      "items": [
+        {
+          "section": "Buds dimensions",
+          "label": "Height",
+          "value": "31.2 mm",
+          "sort_order": 10
+        },
+        {
+          "section": "Buds dimensions",
+          "label": "Width",
+          "value": "21.7 mm",
+          "sort_order": 20
+        },
+        {
+          "section": "Buds dimensions",
+          "label": "Depth",
+          "value": "24 mm",
+          "sort_order": 30
+        },
+        {
+          "section": "Buds weight",
+          "label": "Weight",
+          "value": "4.53g",
+          "sort_order": 40
+        }
+      ]
+    },
+    {
+      "title": "Case design",
+      "icon_key": "case-design",
+      "subtitle": null,
+      "media_url": null,
+      "media_alt": null,
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 30,
+      "items": [
+        {
+          "section": "Case dimensions",
+          "label": "Height",
+          "value": "64.8 mm",
+          "sort_order": 10
+        },
+        {
+          "section": "Case dimensions",
+          "label": "Width",
+          "value": "48.95 mm",
+          "sort_order": 20
+        },
+        {
+          "section": "Case dimensions",
+          "label": "Depth",
+          "value": "22.8 mm",
+          "sort_order": 30
+        },
+        {
+          "section": "Case weight",
+          "label": "Weight",
+          "value": "40.92 g",
+          "sort_order": 40
+        }
+      ]
+    },
+    {
+      "title": "Sound",
+      "icon_key": "sound",
+      "subtitle": null,
+      "media_url": null,
+      "media_alt": null,
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 40,
+      "items": [
+        {
+          "section": "Drivers",
+          "label": "Drivers",
+          "value": "12 mm dynamic/32Ω",
+          "sort_order": 10
+        },
+        {
+          "section": "RF",
+          "label": "RF",
+          "value": "20 Hz - 40,000 Hz",
+          "sort_order": 20
+        },
+        {
+          "section": "Diaphragm",
+          "label": "Diaphragm",
+          "value": "PMI+TPU",
+          "sort_order": 30
+        },
+        {
+          "section": "Tuning",
+          "label": "Tuning",
+          "value": "Nothing",
+          "sort_order": 40
+        },
+        {
+          "section": "Features",
+          "label": null,
+          "value": "LDAC Hi-Res Wireless certification",
+          "sort_order": 50
+        },
+        {
+          "section": "Features",
+          "label": null,
+          "value": "Custom EQ",
+          "sort_order": 60
+        },
+        {
+          "section": "Features",
+          "label": null,
+          "value": "Static Spatial Audio",
+          "sort_order": 70
+        },
+        {
+          "section": "Features",
+          "label": null,
+          "value": "Advanced EQ",
+          "sort_order": 80
+        }
+      ]
+    },
+    {
+      "title": "Battery",
+      "icon_key": "battery",
+      "subtitle": null,
+      "media_url": null,
+      "media_alt": null,
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 50,
+      "items": [
+        {
+          "section": "Battery type",
+          "label": "Battery type",
+          "value": "Rechargeable lithium-ion",
+          "sort_order": 10
+        },
+        {
+          "section": "Capacity",
+          "label": null,
+          "value": "Earbuds: 55 mAh",
+          "sort_order": 20
+        },
+        {
+          "section": "Capacity",
+          "label": null,
+          "value": "Charging case: 500 mAh",
+          "sort_order": 30
+        },
+        {
+          "section": "Charging",
+          "label": "Charging",
+          "value": "TYPE-C wired charging-to-full time 70 MINS",
+          "sort_order": 40
+        },
+        {
+          "section": "Fast charging",
+          "label": null,
+          "value": "Playback with ANC OFF: 5 mins charge for 1 hour (Earbuds)",
+          "sort_order": 50
+        },
+        {
+          "section": "Fast charging",
+          "label": null,
+          "value": "Playback with ANC OFF: 10 mins charge for 10 hours (Earbuds+Charging Case)",
+          "sort_order": 60
+        },
+        {
+          "section": "Playback",
+          "label": null,
+          "value": "AAC:",
+          "sort_order": 70
+        },
+        {
+          "section": "Playback",
+          "label": null,
+          "value": "Playback with ANC off: Up to 10 hours",
+          "sort_order": 80
+        },
+        {
+          "section": "Playback",
+          "label": null,
+          "value": "Playback with ANC on: Up to 6 hours",
+          "sort_order": 90
+        },
+        {
+          "section": "Playback",
+          "label": null,
+          "value": "Playback with ANC off (earbuds + case): Up to 42 hours",
+          "sort_order": 100
+        },
+        {
+          "section": "Playback",
+          "label": null,
+          "value": "Playback with ANC on (earbuds + case): Up to 25 hours",
+          "sort_order": 110
+        },
+        {
+          "section": "Playback",
+          "label": null,
+          "value": "LDAC:",
+          "sort_order": 120
+        },
+        {
+          "section": "Playback",
+          "label": null,
+          "value": "Playback with ANC off: Up to 6 hours",
+          "sort_order": 130
+        },
+        {
+          "section": "Playback",
+          "label": null,
+          "value": "Playback with ANC on: Up to 4.5 hours",
+          "sort_order": 140
+        },
+        {
+          "section": "Playback",
+          "label": null,
+          "value": "Playback with ANC off (earbuds + case): Up to 28 hours",
+          "sort_order": 150
+        },
+        {
+          "section": "Playback",
+          "label": null,
+          "value": "Playback with ANC on (earbuds + case): Up to 20 hours",
+          "sort_order": 160
+        },
+        {
+          "section": "Talk time",
+          "label": null,
+          "value": "Talk time with ANC off: 6 hours",
+          "sort_order": 170
+        },
+        {
+          "section": "Talk time",
+          "label": null,
+          "value": "Talk time with ANC on : 4.5 hours",
+          "sort_order": 180
+        },
+        {
+          "section": "Talk time",
+          "label": null,
+          "value": "Talk time with ANC off  (earbuds + case): 25 hours",
+          "sort_order": 190
+        },
+        {
+          "section": "Talk time",
+          "label": null,
+          "value": "Talk time with ANC on  (earbuds + case) : 18 hours",
+          "sort_order": 200
+        }
+      ]
+    },
+    {
+      "title": "Noise cancellation",
+      "icon_key": "noise-cancellation",
+      "subtitle": null,
+      "media_url": null,
+      "media_alt": null,
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 60,
+      "items": [
+        {
+          "section": "Type",
+          "label": "Type",
+          "value": "Adaptive ANC",
+          "sort_order": 10
+        },
+        {
+          "section": "Depth",
+          "label": "Depth",
+          "value": "45dB",
+          "sort_order": 20
+        },
+        {
+          "section": "Frequency range",
+          "label": "Frequency range",
+          "value": "40-5000 Hz",
+          "sort_order": 30
+        },
+        {
+          "section": "Microphone quantity",
+          "label": null,
+          "value": "Total 6 mics",
+          "sort_order": 40
+        },
+        {
+          "section": "Microphone quantity",
+          "label": null,
+          "value": "3 mics (single side)",
+          "sort_order": 50
+        },
+        {
+          "section": "Features",
+          "label": null,
+          "value": "Transparency Mode",
+          "sort_order": 60
+        },
+        {
+          "section": "Features",
+          "label": null,
+          "value": "3 MEMS mic and ENC algorithim for calls",
+          "sort_order": 70
+        }
+      ]
+    },
+    {
+      "title": "Connectivity",
+      "icon_key": "connectivity",
+      "subtitle": null,
+      "media_url": null,
+      "media_alt": null,
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 70,
+      "items": [
+        {
+          "section": "Connectivity",
+          "label": "Connection range",
+          "value": "15 m",
+          "sort_order": 10
+        },
+        {
+          "section": "Connectivity",
+          "label": "Bluetooth version",
+          "value": "Bluetooth 6.0",
+          "sort_order": 20
+        },
+        {
+          "section": "Connectivity",
+          "label": "Dual connection",
+          "value": "Yes",
+          "sort_order": 30
+        },
+        {
+          "section": "Connectivity",
+          "label": "Android version",
+          "value": "Android 8.0 and above",
+          "sort_order": 40
+        },
+        {
+          "section": "Connectivity",
+          "label": "iOS version",
+          "value": "iOS 13 and above",
+          "sort_order": 50
+        },
+        {
+          "section": "Connectivity",
+          "label": "Codecs",
+          "value": "SBC AAC LDAC",
+          "sort_order": 60
+        }
+      ]
+    },
+    {
+      "title": "Other features",
+      "icon_key": "other-features",
+      "subtitle": null,
+      "media_url": null,
+      "media_alt": null,
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 80,
+      "items": [
+        {
+          "section": "Tech Integrations",
+          "label": null,
+          "value": "Google Fast Pair and Microsoft Swift Pair⁴",
+          "sort_order": 10
+        },
+        {
+          "section": "Tech Integrations",
+          "label": null,
+          "value": "Low latency for responsive user experience",
+          "sort_order": 20
+        },
+        {
+          "section": "Tech Integrations",
+          "label": null,
+          "value": "LDAC and Hi-Res certified",
+          "sort_order": 30
+        },
+        {
+          "section": "Tech Integrations",
+          "label": null,
+          "value": "LED charging status",
+          "sort_order": 40
+        },
+        {
+          "section": "Tech Integrations",
+          "label": null,
+          "value": "Low lag mode",
+          "sort_order": 50
+        },
+        {
+          "section": "Tech Integrations",
+          "label": null,
+          "value": "IP54 water and water resistance for buds and case",
+          "sort_order": 60
+        }
+      ]
+    },
+    {
+      "title": "Nothing X",
+      "icon_key": "nothing-x",
+      "subtitle": null,
+      "media_url": null,
+      "media_alt": null,
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 90,
+      "items": [
+        {
+          "section": "Nothing X",
+          "label": null,
+          "value": "Custom EQ with profile sharing",
+          "sort_order": 10
+        },
+        {
+          "section": "Nothing X",
+          "label": null,
+          "value": "Customisable controls",
+          "sort_order": 20
+        },
+        {
+          "section": "Nothing X",
+          "label": null,
+          "value": "Find my earbuds",
+          "sort_order": 30
+        },
+        {
+          "section": "Nothing X",
+          "label": null,
+          "value": "Dual connection",
+          "sort_order": 40
+        },
+        {
+          "section": "Nothing X",
+          "label": null,
+          "value": "Firmware updates",
+          "sort_order": 50
+        }
+      ]
+    },
+    {
+      "title": "Gesture controls⁵",
+      "icon_key": "gesture-controls5",
+      "subtitle": null,
+      "media_url": null,
+      "media_alt": null,
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 100,
+      "items": [
+        {
+          "section": null,
+          "label": "Pinch",
+          "value": "Play / Pause\nAnswer / End call (during call)",
+          "sort_order": 10
+        },
+        {
+          "section": null,
+          "label": "Double Pinch",
+          "value": "Skip forward*\nDecline incoming call (during call)",
+          "sort_order": 20
+        },
+        {
+          "section": null,
+          "label": "Triple Pinch",
+          "value": "Skip back*",
+          "sort_order": 30
+        },
+        {
+          "section": null,
+          "label": "Pinch and Hold",
+          "value": "Noise control* / Volume up or down",
+          "sort_order": 40
+        },
+        {
+          "section": null,
+          "label": "Double Pinch and Hold",
+          "value": "Audio Snapshot / Call recording",
+          "sort_order": 50
+        },
+        {
+          "section": null,
+          "label": "Pinch both Buds (Simultaneously)",
+          "value": "Audio Snapshot / Call recording",
+          "sort_order": 60
+        }
+      ]
+    },
+    {
+      "title": "Led Light Status",
+      "icon_key": "led-light-status",
+      "subtitle": null,
+      "media_url": null,
+      "media_alt": null,
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 110,
+      "items": [
+        {
+          "section": null,
+          "label": "Battery<20%",
+          "value": "Bottom pixel red",
+          "sort_order": 10
+        },
+        {
+          "section": null,
+          "label": "20%≦Battery≦30%",
+          "value": "Bottom pixel white",
+          "sort_order": 20
+        },
+        {
+          "section": null,
+          "label": "30%<Battery≦66%",
+          "value": "Bottom and middle pixels white",
+          "sort_order": 30
+        },
+        {
+          "section": null,
+          "label": "66%<Battery≦100%",
+          "value": "Three pixels white",
+          "sort_order": 40
+        },
+        {
+          "section": null,
+          "label": "Charging",
+          "value": "Pixels fill incrementally from bottom to the top.",
+          "sort_order": 50
+        },
+        {
+          "section": null,
+          "label": "Fully charged and charging cable connected",
+          "value": "Three pixels always on.",
+          "sort_order": 60
+        },
+        {
+          "section": null,
+          "label": "Pairing",
+          "value": "Tp and bottom pixels flash white together, alternating with the middle pixel white in a repeating pattern.",
+          "sort_order": 70
+        },
+        {
+          "section": null,
+          "label": "Factory reset succeeded",
+          "value": "All three pixels flash white rapidly in sequence. Then the bottom pixel turns red. After the red off, returns to the pairing light pattern.",
+          "sort_order": 80
+        }
+      ]
+    },
+    {
+      "title": "Sustainability",
+      "icon_key": "sustainability",
+      "subtitle": null,
+      "media_url": null,
+      "media_alt": null,
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 120,
+      "items": [
+        {
+          "section": "Lifecycle carbon footprint",
+          "label": "Lifecycle carbon footprint",
+          "value": "Amazon Climate Pledge Friendly label",
+          "sort_order": 10
+        },
+        {
+          "section": "Commitments",
+          "label": null,
+          "value": "Plastic - free packaging",
+          "sort_order": 20
+        },
+        {
+          "section": "Commitments",
+          "label": null,
+          "value": "100% renewable energy used in final assembly",
+          "sort_order": 30
+        },
+        {
+          "section": "Commitments",
+          "label": null,
+          "value": "Carbon footprint: 2.8 kg CO2e",
+          "sort_order": 40
+        }
+      ]
+    }
+  ]
+}

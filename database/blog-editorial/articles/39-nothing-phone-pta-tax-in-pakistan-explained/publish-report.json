@@ -1,0 +1,26 @@
+{
+  "checkedAt": "2026-07-27T10:07:05.133Z",
+  "apply": false,
+  "article": {
+    "queueNumber": 39,
+    "slug": "nothing-phone-pta-tax-in-pakistan-explained",
+    "title": "Nothing Phone PTA Tax in Pakistan Explained"
+  },
+  "metrics": {
+    "words": 3142,
+    "headings": 28,
+    "links": 6,
+    "productLinks": 6,
+    "uniqueProductSlugs": [
+      "nothing-pakistan-phone-4a",
+      "nothing-pakistan-phone-3a",
+      "nothing-pakistan-phone-3"
+    ],
+    "heroImage": {
+      "status": 200,
+      "contentType": "image/webp",
+      "contentLength": 41906
+    }
+  },
+  "database": null
+}

@@ -1,0 +1,75 @@
+{
+  "queue_number": 8,
+  "title": "How to Transfer Data from Samsung or iPhone to Nothing Phone",
+  "slug": "how-to-transfer-data-from-samsung-or-iphone-to-nothing-phone",
+  "meta_title": "Transfer Samsung or iPhone Data to Nothing Phone",
+  "meta_description": "Transfer data from Samsung or iPhone to Nothing Phone safely, including contacts, photos, messages, WhatsApp, apps, eSIM, passwords and verification.",
+  "excerpt": "A complete migration checklist for moving from Samsung Galaxy or iPhone to a Nothing Phone using Android setup, cable or wireless transfer, with separate WhatsApp, 2FA, banking, eSIM and post-copy checks.",
+  "focus_keyword": "transfer data from Samsung or iPhone to Nothing Phone",
+  "category": "Nothing OS Guides",
+  "content_type": "guide",
+  "tags": [
+    "Nothing Phone data transfer",
+    "Samsung to Nothing Phone",
+    "iPhone to Nothing Phone",
+    "Android Switch",
+    "WhatsApp transfer",
+    "Nothing Phone setup",
+    "phone migration Pakistan"
+  ],
+  "author": "Nothing Pakistan Editorial Team",
+  "author_type": "brand",
+  "hero_image_url": "https://res.cloudinary.com/dklsubnzb/image/upload/v1783841566/nothing-official-store-pakistan/blogs/hero-images/how-to-transfer-data-from-samsung-or-iphone-to-nothing-phone.webp",
+  "hero_image_alt": "Two Nothing phones illustrating data transfer from Samsung Galaxy or iPhone",
+  "hero_image_caption": "Use the built-in Android setup flow and official app-specific transfer tools; the exact screens and transferable data can vary by phone and software version.",
+  "faqs": [
+    {
+      "question": "How do I transfer data from Samsung to Nothing Phone?",
+      "answer": "During initial Nothing Phone setup, choose to copy apps and data, select Android as the old device, and follow the QR, cable or wireless prompts. Sign in to the same Google Account and select the categories you want to copy."
+    },
+    {
+      "question": "Can I use Samsung Smart Switch to receive data on a Nothing Phone?",
+      "answer": "Samsung Smart Switch is designed mainly for transferring data to Samsung Galaxy devices. For a Nothing Phone, use Google's built-in Android copy flow during setup, while keeping Smart Switch only as a possible Samsung-side backup where appropriate."
+    },
+    {
+      "question": "How do I transfer data from iPhone to Nothing Phone?",
+      "answer": "Prepare both charged phones, turn off iMessage and FaceTime for your phone number, begin the Nothing Phone setup, choose iPhone or iPad as the source, and follow the wired or supported wireless Android Switch instructions. A cable generally transfers more data."
+    },
+    {
+      "question": "Do I need a cable to transfer iPhone data to Nothing Phone?",
+      "answer": "Wireless transfer may be offered, but Google's current guidance shows that the classic cable method can copy more categories, including messages, call history, files and WhatsApp. Use the iPhone charging cable and an adapter if required."
+    },
+    {
+      "question": "Can WhatsApp chats move from iPhone to Nothing Phone?",
+      "answer": "Yes, use WhatsApp's official wired iPhone-to-Android transfer during setup or the supported Android Switch prompt. Keep the same phone number, scan the displayed QR code when asked and do not start using WhatsApp on the new phone before the transfer."
+    },
+    {
+      "question": "Can WhatsApp chats move from Samsung to Nothing Phone?",
+      "answer": "Yes. Use WhatsApp's official Transfer Chats flow or restore an up-to-date Google Account backup with the same phone number and Google Account. Confirm the latest backup time before starting."
+    },
+    {
+      "question": "What data may not transfer automatically to Nothing Phone?",
+      "answer": "Possible omissions include some app data, paid iPhone apps and purchases, non-Google accounts, hidden folders, iCloud-only media, health data, certain passwords, banking sessions, authenticator tokens, eSIMs and managed work data."
+    },
+    {
+      "question": "Can I transfer data after finishing Nothing Phone setup?",
+      "answer": "Some software versions provide a limited post-setup copy window or Android Switch option, but availability varies. The most complete and predictable transfer is normally performed during initial setup; some missed data, especially WhatsApp, may require reset."
+    },
+    {
+      "question": "Will my banking apps stay logged in after transfer?",
+      "answer": "Usually not. Banking and wallet apps commonly require a fresh login, device registration, OTP or biometric setup. Keep access to your SIM, email, credentials and old phone until every financial app is verified."
+    },
+    {
+      "question": "How do I move Google Authenticator or other 2FA codes?",
+      "answer": "Use each authenticator's official export, sync or account-transfer function before wiping the old phone. Save service recovery codes and test the new device with a non-critical account before removing the old authenticator."
+    },
+    {
+      "question": "Should I erase my Samsung or iPhone immediately after transfer?",
+      "answer": "No. Keep the old phone unchanged until contacts, photos, messages, WhatsApp, files, passwords, 2FA, banking, mobile service and work apps are checked. Then sign out, remove accounts and eSIMs as appropriate, and factory reset it."
+    },
+    {
+      "question": "Why did some apps not copy to my Nothing Phone?",
+      "answer": "Apps may be unavailable on Google Play, incompatible, region-restricted, paid separately, managed by an organisation or designed not to transfer data. Download available Android versions manually and sign in through the official provider."
+    }
+  ]
+}

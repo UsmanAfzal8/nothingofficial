@@ -10,11 +10,13 @@ const REMOTE_FEATURE_BASE_DIR = 'product-features'
 const REMOTE_BACKGROUND_BASE_DIR = 'product-backgrounds'
 const FETCH_TIMEOUT_MS = Number(process.env.OFFICIAL_SYNC_FETCH_TIMEOUT_MS || 45000)
 
-const MANUAL_HANDLE_MAP = new Map([
-  ['phone-4a-pro', { relatedType: 'mobile', relatedSlug: 'nothing-4a-pro' }],
-])
+const MANUAL_HANDLE_MAP = new Map()
 
 const SKIPPED_HANDLES = new Set(['1'])
+
+function localCatalogSlug(handle) {
+  return handle.startsWith('nothing-pakistan-') ? handle : `nothing-pakistan-${handle}`
+}
 
 function loadEnv() {
   for (const envPath of ['.env.local', 'env']) {
@@ -423,10 +425,11 @@ function resolveLocalProduct(handle, catalog) {
     return row ? { ...row, relatedType: manual.relatedType } : null
   }
 
-  const product = catalog.productsBySlug.get(handle)
+  const localSlug = localCatalogSlug(handle)
+  const product = catalog.productsBySlug.get(localSlug)
   if (product) return { ...product, relatedType: 'product' }
 
-  const mobile = catalog.mobilesBySlug.get(handle)
+  const mobile = catalog.mobilesBySlug.get(localSlug)
   if (mobile) return { ...mobile, relatedType: 'mobile' }
 
   return null

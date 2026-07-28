@@ -1,0 +1,25 @@
+{
+  "checkedAt": "2026-07-27T10:06:36.435Z",
+  "apply": false,
+  "article": {
+    "queueNumber": 20,
+    "slug": "nothing-ear-a-vs-cmf-buds-pro-2-in-pakistan",
+    "title": "Nothing Ear (a) vs CMF Buds Pro 2 in Pakistan"
+  },
+  "metrics": {
+    "words": 3028,
+    "headings": 20,
+    "links": 6,
+    "productLinks": 4,
+    "uniqueProductSlugs": [
+      "nothing-pakistan-ear-a",
+      "nothing-pakistan-cmf-buds-pro-2"
+    ],
+    "heroImage": {
+      "status": 200,
+      "contentType": "image/webp",
+      "contentLength": 45376
+    }
+  },
+  "database": null
+}

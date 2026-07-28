@@ -214,6 +214,27 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               </p>
             </header>
 
+            {post.heroImage ? (
+              <figure className="mx-auto mt-10 max-w-[940px]">
+                <div className="aspect-[4/3] overflow-hidden rounded-[8px] bg-black/5">
+                  <Image
+                    src={post.heroImage}
+                    alt={post.heroImageAlt || post.title}
+                    width={800}
+                    height={600}
+                    priority
+                    sizes="(max-width: 1023px) 100vw, 940px"
+                    className="h-full w-full object-cover object-center"
+                  />
+                </div>
+                {post.heroImageCaption ? (
+                  <figcaption className="mt-3 text-xs leading-5 text-black/48">
+                    {post.heroImageCaption}
+                  </figcaption>
+                ) : null}
+              </figure>
+            ) : null}
+
             {post.faqs[0] ? (
               <section id="direct-answer" className="mx-auto mt-10 max-w-[820px] border-y border-black/10 py-6">
                 <p className="text-[10px] uppercase tracking-[0.24em] text-black/42">Direct Answer</p>

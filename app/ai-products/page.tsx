@@ -77,16 +77,7 @@ function buildAiProductsStructuredData(): Record<string, unknown>[] {
       itemListElement: phoneLinks.map((phone, index) => ({
         '@type': 'ListItem',
         position: index + 1,
-        item: {
-          '@type': 'Product',
-          name: phone.label,
-          url: buildAbsoluteUrl(phone.href),
-          category: 'AI smartphone',
-          brand: {
-            '@type': 'Brand',
-            name: 'Nothing',
-          },
-        },
+        url: buildAbsoluteUrl(phone.href),
       })),
     },
     buildBreadcrumbStructuredData([

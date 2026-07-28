@@ -3,7 +3,7 @@ import { notFound, redirect } from 'next/navigation'
 import { NothingFooter } from '@/components/NothingFooter'
 import { NothingHeader } from '@/components/NothingHeader'
 import { OrderForm } from '@/components/OrderForm'
-import { getProductDetailByHandle } from '@/lib/data/catalog-repository'
+import { getOrderProductByHandle } from '@/lib/data/catalog-repository'
 import { buildAbsoluteUrl, buildRobotsMetadata, toSeoHandle } from '@/lib/utils/seo'
 
 type OrderByHandlePageProps = {
@@ -30,9 +30,9 @@ function normalizeColor(value: string | null) {
 
 export async function generateMetadata({ params }: OrderByHandlePageProps): Promise<Metadata> {
   const requestedHandle = toSeoHandle(params.handle)
-  const productDetail = await getProductDetailByHandle(requestedHandle)
+  const product = await getOrderProductByHandle(requestedHandle)
 
-  if (!productDetail) {
+  if (!product) {
     return {
       title: {
         absolute: 'Order Product | Nothing Pakistan',
@@ -43,13 +43,13 @@ export async function generateMetadata({ params }: OrderByHandlePageProps): Prom
     }
   }
 
-  const canonicalHandle = toSeoHandle(productDetail.handle)
+  const canonicalHandle = toSeoHandle(product.handle)
 
   return {
     title: {
-      absolute: `Order ${productDetail.name} | Nothing Pakistan`,
+      absolute: `Order ${product.name} | Nothing Pakistan`,
     },
-    description: `Confirm your ${productDetail.name} order with shipping or pickup, COD or bank transfer, and WhatsApp support from Nothing Pakistan.`,
+    description: `Confirm your ${product.name} order with shipping or pickup, COD or bank transfer, and WhatsApp support from Nothing Pakistan.`,
     alternates: {
       canonical: buildAbsoluteUrl(`/order/${canonicalHandle}`),
     },
@@ -59,13 +59,13 @@ export async function generateMetadata({ params }: OrderByHandlePageProps): Prom
 
 export default async function OrderByHandlePage({ params, searchParams }: OrderByHandlePageProps) {
   const requestedHandle = toSeoHandle(params.handle)
-  const productDetail = await getProductDetailByHandle(requestedHandle)
+  const product = await getOrderProductByHandle(requestedHandle)
 
-  if (!productDetail) {
+  if (!product) {
     notFound()
   }
 
-  const canonicalHandle = toSeoHandle(productDetail.handle)
+  const canonicalHandle = toSeoHandle(product.handle)
 
   if (params.handle !== canonicalHandle) {
     const selectionParams = new URLSearchParams()
@@ -81,16 +81,16 @@ export default async function OrderByHandlePage({ params, searchParams }: OrderB
   const requestedMediaId = normalizeSearchParam(searchParams?.media)
   const normalizedRequestedColor = normalizeColor(requestedColor)
   const selectedMedia =
-    productDetail.gallery.find((media) => media.id === requestedMediaId) ??
-    productDetail.gallery.find((media) => normalizeColor(media.colorName ?? null) === normalizedRequestedColor) ??
-    productDetail.gallery[0] ??
+    product.gallery.find((media) => media.id === requestedMediaId) ??
+    product.gallery.find((media) => normalizeColor(media.colorName ?? null) === normalizedRequestedColor) ??
+    product.gallery[0] ??
     null
   const selectedProduct = {
-    handle: productDetail.handle,
-    name: productDetail.name,
-    image: selectedMedia?.url ?? productDetail.primaryImage ?? productDetail.ogImage,
+    handle: product.handle,
+    name: product.name,
+    image: selectedMedia?.url ?? product.primaryImage,
     colorName: selectedMedia?.colorName ?? requestedColor,
-    price: productDetail.price ?? null,
+    price: product.price,
   }
 
   return (
@@ -100,7 +100,7 @@ export default async function OrderByHandlePage({ params, searchParams }: OrderB
       <main className="pt-20 lg:pt-24">
         <section className="px-4 pb-16 pt-6 md:px-8 md:pb-24">
           <div className="mx-auto w-full max-w-[1200px]">
-            <h1 className="sr-only">Order {productDetail.name} from Nothing Pakistan</h1>
+            <h1 className="sr-only">Order {product.name} from Nothing Pakistan</h1>
             <OrderForm product={selectedProduct} />
           </div>
         </section>

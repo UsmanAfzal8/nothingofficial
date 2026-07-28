@@ -1,0 +1,27 @@
+{
+  "checkedAt": "2026-07-27T10:06:33.574Z",
+  "apply": false,
+  "article": {
+    "queueNumber": 17,
+    "slug": "nothing-phone-storage-guide-128gb-vs-256gb-in-pakistan",
+    "title": "Nothing Phone Storage Guide: 128GB vs 256GB in Pakistan"
+  },
+  "metrics": {
+    "words": 3149,
+    "headings": 25,
+    "links": 14,
+    "productLinks": 8,
+    "uniqueProductSlugs": [
+      "nothing-pakistan-phone-3",
+      "nothing-pakistan-phone-4a",
+      "nothing-pakistan-phone-3a",
+      "nothing-pakistan-phone-4b"
+    ],
+    "heroImage": {
+      "status": 200,
+      "contentType": "image/webp",
+      "contentLength": 38090
+    }
+  },
+  "database": null
+}

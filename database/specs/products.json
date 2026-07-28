@@ -1,0 +1,314 @@
+{
+  "source_url": "https://nothing.tech/collections/shop-all",
+  "generated_at": "2026-07-26T21:28:33.807Z",
+  "products": [
+    {
+      "name": "Phone (4a) Pro",
+      "handle": "phone-4a-pro",
+      "specs_url": "https://nothing.tech/products/phone-4a-pro?Colour=Silver&Capacity=8%2B128GB",
+      "related_type": "mobile",
+      "related_id": 6,
+      "related_slug": "phone-4a-pro",
+      "json_file": "database/specs/phone-4a-pro.json",
+      "status": "ready_for_import"
+    },
+    {
+      "name": "Phone (4a)",
+      "handle": "phone-4a",
+      "specs_url": "https://nothing.tech/products/phone-4a?Colour=White&Capacity=8%2B128GB",
+      "related_type": "mobile",
+      "related_id": 5,
+      "related_slug": "phone-4a",
+      "json_file": "database/specs/phone-4a.json",
+      "status": "ready_for_import"
+    },
+    {
+      "name": "Phone (4b)",
+      "handle": "phone-4b",
+      "specs_url": "https://nothing.tech/products/phone-4b?Colour=White&Capacity=8%2B128GB",
+      "related_type": "mobile",
+      "related_id": 7,
+      "related_slug": "phone-4b",
+      "json_file": "database/specs/phone-4b.json",
+      "status": "ready_for_import"
+    },
+    {
+      "name": "Headphone (a)",
+      "handle": "headphone-a",
+      "specs_url": "https://nothing.tech/products/headphone-a?Colour=White",
+      "related_type": "product",
+      "related_id": 18,
+      "related_slug": "headphone-a",
+      "json_file": "database/specs/headphone-a.json",
+      "status": "ready_for_import"
+    },
+    {
+      "name": "Ear (3a)",
+      "handle": "ear-3a",
+      "specs_url": "https://nothing.tech/products/ear-3a?Colour=White",
+      "related_type": "product",
+      "related_id": 14,
+      "related_slug": "ear-3a",
+      "json_file": "database/specs/ear-3a.json",
+      "status": "ready_for_import"
+    },
+    {
+      "name": "Phone (3)",
+      "handle": "phone-3",
+      "specs_url": "https://nothing.tech/products/phone-3?Colour=White&Capacity=12%2B256GB",
+      "related_type": "mobile",
+      "related_id": 1,
+      "related_slug": "phone-3",
+      "json_file": "database/specs/phone-3.json",
+      "status": "ready_for_import"
+    },
+    {
+      "name": "Headphone (1)",
+      "handle": "headphone-1",
+      "specs_url": "https://nothing.tech/products/headphone-1?Colour=White",
+      "related_type": "product",
+      "related_id": 17,
+      "related_slug": "headphone-1",
+      "json_file": "database/specs/headphone-1.json",
+      "status": "ready_for_import"
+    },
+    {
+      "name": "Phone (3a) Lite",
+      "handle": "phone-3a-lite",
+      "specs_url": "https://nothing.tech/products/phone-3a-lite?Colour=White&Capacity=8%2B128GB",
+      "related_type": "mobile",
+      "related_id": 3,
+      "related_slug": "phone-3a-lite",
+      "json_file": "database/specs/phone-3a-lite.json",
+      "status": "ready_for_import"
+    },
+    {
+      "name": "Ear (3)",
+      "handle": "ear-3",
+      "specs_url": "https://nothing.tech/products/ear-3?Colour=White",
+      "related_type": "product",
+      "related_id": 13,
+      "related_slug": "ear-3",
+      "json_file": "database/specs/ear-3.json",
+      "status": "ready_for_import"
+    },
+    {
+      "name": "Ear (open)",
+      "handle": "ear-open",
+      "specs_url": "https://nothing.tech/products/ear-open?Colour=White",
+      "related_type": "product",
+      "related_id": 16,
+      "related_slug": "ear-open",
+      "json_file": "database/specs/ear-open.json",
+      "status": "ready_for_import"
+    },
+    {
+      "name": "Phone (3a) Pro",
+      "handle": "phone-3a-pro",
+      "specs_url": "https://nothing.tech/products/phone-3a-pro?Colour=Grey&Capacity=12%2B256GB+%28Pick+up+only%29",
+      "related_type": "mobile",
+      "related_id": 4,
+      "related_slug": "phone-3a-pro",
+      "json_file": "database/specs/phone-3a-pro.json",
+      "status": "ready_for_import"
+    },
+    {
+      "name": "Phone (3a)",
+      "handle": "phone-3a",
+      "specs_url": "https://nothing.tech/products/phone-3a?Colour=Black&Capacity=12%2B256GB",
+      "related_type": "mobile",
+      "related_id": 2,
+      "related_slug": "phone-3a",
+      "json_file": "database/specs/phone-3a.json",
+      "status": "ready_for_import"
+    },
+    {
+      "name": "Ear",
+      "handle": "ear",
+      "specs_url": "https://nothing.tech/products/ear?Colour=Black",
+      "related_type": "product",
+      "related_id": 12,
+      "related_slug": "ear",
+      "json_file": "database/specs/ear.json",
+      "status": "ready_for_import"
+    },
+    {
+      "name": "Ear (a)",
+      "handle": "ear-a",
+      "specs_url": "https://nothing.tech/products/ear-a?Colour=White",
+      "related_type": "product",
+      "related_id": 15,
+      "related_slug": "ear-a",
+      "json_file": "database/specs/ear-a.json",
+      "status": "ready_for_import"
+    },
+    {
+      "name": "CMF Headphone Pro",
+      "handle": "cmf-headphone-pro",
+      "specs_url": "https://nothing.tech/products/cmf-headphone-pro?color=Light+Green",
+      "related_type": "product",
+      "related_id": 5,
+      "related_slug": "cmf-headphone-pro",
+      "json_file": "database/specs/cmf-headphone-pro.json",
+      "status": "ready_for_import"
+    },
+    {
+      "name": "CMF Watch 3 Pro",
+      "handle": "cmf-watch-3-pro",
+      "specs_url": "https://nothing.tech/products/cmf-watch-3-pro?Colour=Light+Green",
+      "related_type": "product",
+      "related_id": 11,
+      "related_slug": "cmf-watch-3-pro",
+      "json_file": "database/specs/cmf-watch-3-pro.json",
+      "status": "ready_for_import"
+    },
+    {
+      "name": "CMF Buds 2 Plus",
+      "handle": "cmf-buds-2-plus",
+      "specs_url": "https://nothing.tech/products/cmf-buds-2-plus?Colour=Light+Grey",
+      "related_type": "product",
+      "related_id": 2,
+      "related_slug": "cmf-buds-2-plus",
+      "json_file": "database/specs/cmf-buds-2-plus.json",
+      "status": "ready_for_import"
+    },
+    {
+      "name": "CMF Buds 2a",
+      "handle": "cmf-buds-2a",
+      "specs_url": "https://nothing.tech/products/cmf-buds-2a?Colour=Orange",
+      "related_type": "product",
+      "related_id": 3,
+      "related_slug": "cmf-buds-2a",
+      "json_file": "database/specs/cmf-buds-2a.json",
+      "status": "ready_for_import"
+    },
+    {
+      "name": "CMF Buds 2",
+      "handle": "cmf-buds-2",
+      "specs_url": "https://nothing.tech/products/cmf-buds-2?Colour=Light+Green",
+      "related_type": "product",
+      "related_id": 1,
+      "related_slug": "cmf-buds-2",
+      "json_file": "database/specs/cmf-buds-2.json",
+      "status": "ready_for_import"
+    },
+    {
+      "name": "CMF Buds Pro 2",
+      "handle": "cmf-buds-pro-2",
+      "specs_url": "https://nothing.tech/products/cmf-buds-pro-2?Colour=Orange",
+      "related_type": "product",
+      "related_id": 4,
+      "related_slug": "cmf-buds-pro-2",
+      "json_file": "database/specs/cmf-buds-pro-2.json",
+      "status": "ready_for_import"
+    },
+    {
+      "name": "CMF Power 140W GaN",
+      "handle": "cmf-power-140w-gan",
+      "specs_url": "https://nothing.tech/products/cmf-power-140w-gan?Colour=Dark+Grey",
+      "related_type": "product",
+      "related_id": 9,
+      "related_slug": "cmf-power-140w-gan",
+      "json_file": "database/specs/cmf-power-140w-gan.json",
+      "status": "ready_for_import"
+    },
+    {
+      "name": "CMF Power 100W GaN",
+      "handle": "cmf-power-100w-gan",
+      "specs_url": "https://nothing.tech/products/cmf-power-100w-gan?Colour=Dark+Grey",
+      "related_type": "product",
+      "related_id": 8,
+      "related_slug": "cmf-power-100w-gan",
+      "json_file": "database/specs/cmf-power-100w-gan.json",
+      "status": "ready_for_import"
+    },
+    {
+      "name": "CMF Power 65W GaN",
+      "handle": "cmf-power-65w-gan",
+      "specs_url": "https://nothing.tech/products/cmf-power-65w-gan?Colour=Dark+Grey",
+      "related_type": "product",
+      "related_id": 10,
+      "related_slug": "cmf-power-65w-gan",
+      "json_file": "database/specs/cmf-power-65w-gan.json",
+      "status": "ready_for_import"
+    },
+    {
+      "name": "CMF Headphone Pro Ear Cushions",
+      "handle": "cmf-headphone-pro-ear-cushions",
+      "specs_url": "https://nothing.tech/products/cmf-headphone-pro-ear-cushions?color=Light+Green",
+      "related_type": "product",
+      "related_id": 6,
+      "related_slug": "cmf-headphone-pro-ear-cushions",
+      "json_file": "database/specs/cmf-headphone-pro-ear-cushions.json",
+      "status": "ready_for_import"
+    },
+    {
+      "name": "CMF Phone 1 Case",
+      "handle": "cmf-phone-1-case",
+      "specs_url": "https://nothing.tech/products/cmf-phone-1-case?Colour=Orange",
+      "related_type": "product",
+      "related_id": 7,
+      "related_slug": "cmf-phone-1-case",
+      "json_file": "database/specs/cmf-phone-1-case.json",
+      "status": "ready_for_import"
+    },
+    {
+      "name": "Nothing Hoodie",
+      "handle": "nothing-hoodie",
+      "specs_url": "https://nothing.tech/products/nothing-hoodie?Colour=Dark+Blue&Size=S",
+      "related_type": "product",
+      "related_id": 19,
+      "related_slug": "nothing-hoodie",
+      "json_file": "database/specs/nothing-hoodie.json",
+      "status": "ready_for_import"
+    },
+    {
+      "name": "Nothing Overall",
+      "handle": "nothing-overall",
+      "specs_url": "https://nothing.tech/products/nothing-overall?Colour=Black&Size=S",
+      "related_type": "product",
+      "related_id": 21,
+      "related_slug": "nothing-overall",
+      "json_file": "database/specs/nothing-overall.json",
+      "status": "ready_for_import"
+    },
+    {
+      "name": "Nothing Tracksuit Jacket",
+      "handle": "nothing-tracksuit-jacket",
+      "specs_url": "https://nothing.tech/products/nothing-tracksuit-jacket?Colour=Silver&Size=S",
+      "related_type": "product",
+      "related_id": 22,
+      "related_slug": "nothing-tracksuit-jacket",
+      "json_file": "database/specs/nothing-tracksuit-jacket.json",
+      "status": "ready_for_import"
+    },
+    {
+      "name": "Nothing Tracksuit Trousers",
+      "handle": "nothing-tracksuit-trousers",
+      "specs_url": "https://nothing.tech/products/nothing-tracksuit-trousers?Colour=Silver&Size=S",
+      "related_type": "product",
+      "related_id": 23,
+      "related_slug": "nothing-tracksuit-trousers",
+      "json_file": "database/specs/nothing-tracksuit-trousers.json",
+      "status": "ready_for_import"
+    },
+    {
+      "name": "Nothing Labcoat",
+      "handle": "nothing-labcoat",
+      "specs_url": "https://nothing.tech/products/nothing-labcoat?Colour=White&Size=S",
+      "related_type": "product",
+      "related_id": 20,
+      "related_slug": "nothing-labcoat",
+      "json_file": "database/specs/nothing-labcoat.json",
+      "status": "ready_for_import"
+    }
+  ],
+  "summary": {
+    "discovered": 30,
+    "matched_local_catalog": 30,
+    "missing_local_catalog": 0,
+    "json_files_written": 30,
+    "ready_for_import": 30,
+    "needs_specs_data": 0
+  }
+}

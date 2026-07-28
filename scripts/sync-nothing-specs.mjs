@@ -123,8 +123,7 @@ async function uploadRemoteImageToBunny(url, remotePath) {
 }
 
 function slugAlias(slug) {
-  if (slug === 'phone-4a-pro') return 'nothing-4a-pro'
-  return slug
+  return slug.startsWith('nothing-pakistan-') ? slug : `nothing-pakistan-${slug}`
 }
 
 function discoverCollectionProducts(html) {
@@ -148,7 +147,24 @@ function discoverCollectionProducts(html) {
   return [...products.values()]
 }
 
-function buildLocalLookup() {
+async function buildLocalLookup(supabase = null) {
+  if (supabase) {
+    const [{ data: mobiles, error: mobileError }, { data: products, error: productError }] = await Promise.all([
+      supabase.from('mobiles').select('id, slug, name'),
+      supabase.from('products').select('id, slug, name'),
+    ])
+
+    if (mobileError) throw mobileError
+    if (productError) throw productError
+
+    const rows = [
+      ...(mobiles ?? []).map((row) => ({ ...row, related_type: 'mobile', related_id: row.id, related_slug: row.slug })),
+      ...(products ?? []).map((row) => ({ ...row, related_type: 'product', related_id: row.id, related_slug: row.slug })),
+    ]
+
+    return new Map(rows.map((row) => [row.related_slug, row]))
+  }
+
   const rows = [
     ...readJson('database/mobile.json').map((row) => ({
       related_type: 'mobile',
@@ -450,9 +466,16 @@ async function main() {
   loadEnv()
   mkdirSync(OUTPUT_DIR, { recursive: true })
 
+  const shouldImport = process.argv.includes('--import')
+  const supabaseKey = shouldImport ? requireEnv('SUPABASE_SERVICE_ROLE_KEY') : null
+  const supabase = shouldImport
+    ? createClient(requireEnv('SUPABASE_URL'), supabaseKey, {
+        auth: { persistSession: false, autoRefreshToken: false },
+      })
+    : null
   const collectionHtml = await fetchText(COLLECTION_URL)
   const liveProducts = discoverCollectionProducts(collectionHtml)
-  const localLookup = buildLocalLookup()
+  const localLookup = await buildLocalLookup(supabase)
   const phone4aTemplate = existsSync(PHONE_4A_TEMPLATE) ? JSON.parse(readFileSync(PHONE_4A_TEMPLATE, 'utf8')) : null
 
   const index = {
@@ -505,12 +528,8 @@ async function main() {
 
   writeJson(path.join(OUTPUT_DIR, 'products.json'), index)
 
-  if (process.argv.includes('--import')) {
-    const supabaseKey = requireEnv('SUPABASE_SERVICE_ROLE_KEY')
+  if (shouldImport) {
     const supabaseKeyRole = decodeJwtRole(supabaseKey)
-    const supabase = createClient(requireEnv('SUPABASE_URL'), supabaseKey, {
-      auth: { persistSession: false, autoRefreshToken: false },
-    })
 
     const importReport = {
       imported_at: new Date().toISOString(),

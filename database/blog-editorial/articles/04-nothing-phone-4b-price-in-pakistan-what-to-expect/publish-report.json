@@ -1,0 +1,26 @@
+{
+  "checkedAt": "2026-07-27T10:06:15.955Z",
+  "apply": false,
+  "article": {
+    "queueNumber": 4,
+    "slug": "nothing-phone-4b-price-in-pakistan-what-to-expect",
+    "title": "Nothing Phone 4b Price in Pakistan: Post-Launch Cost Guide"
+  },
+  "metrics": {
+    "words": 3221,
+    "headings": 20,
+    "links": 6,
+    "productLinks": 3,
+    "uniqueProductSlugs": [
+      "nothing-pakistan-phone-4b",
+      "nothing-pakistan-phone-4a",
+      "nothing-pakistan-phone-3a"
+    ],
+    "heroImage": {
+      "status": 200,
+      "contentType": "image/webp",
+      "contentLength": 29412
+    }
+  },
+  "database": null
+}

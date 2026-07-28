@@ -1,0 +1,26 @@
+{
+  "checkedAt": "2026-07-27T10:07:07.784Z",
+  "apply": false,
+  "article": {
+    "queueNumber": 41,
+    "slug": "nothing-vs-samsung-phones-in-pakistan",
+    "title": "Nothing vs Samsung Phones in Pakistan"
+  },
+  "metrics": {
+    "words": 3035,
+    "headings": 23,
+    "links": 5,
+    "productLinks": 3,
+    "uniqueProductSlugs": [
+      "nothing-pakistan-phone-4a",
+      "nothing-pakistan-phone-3a",
+      "nothing-pakistan-phone-3"
+    ],
+    "heroImage": {
+      "status": 200,
+      "contentType": "image/webp",
+      "contentLength": 39176
+    }
+  },
+  "database": null
+}

@@ -7,7 +7,7 @@ import { NothingFooter } from '@/components/NothingFooter'
 import { NothingHeader } from '@/components/NothingHeader'
 import { SeoStructuredData } from '@/components/SeoStructuredData'
 import { buildCloudinaryImageUrl } from '@/lib/cloudinary-image-loader'
-import { getPublishedBlogs } from '@/lib/data/blog-repository'
+import { getHomeBlogPosts } from '@/lib/data/blog-repository'
 import {
   buildOrganizationStructuredData,
   buildLocalBusinessStructuredData,
@@ -386,7 +386,7 @@ const homeAnswerBlocks = [
   },
 ] as const
 
-type HomeBlogPosts = Awaited<ReturnType<typeof getPublishedBlogs>>
+type HomeBlogPosts = Awaited<ReturnType<typeof getHomeBlogPosts>>
 
 function HomeSeoSection({ blogPosts }: { blogPosts: HomeBlogPosts }) {
   return (
@@ -563,7 +563,7 @@ function HomeSeoSection({ blogPosts }: { blogPosts: HomeBlogPosts }) {
 }
 
 export default async function Home() {
-  const blogPosts = (await getPublishedBlogs()).slice(0, 6)
+  const blogPosts = await getHomeBlogPosts()
   const homeFaqStructuredData = buildFaqStructuredData([
     ...homeSeoFaqs,
     ...homeAnswerBlocks,
@@ -575,15 +575,11 @@ export default async function Home() {
     buildWebsiteStructuredData(),
     {
       '@context': 'https://schema.org',
-      '@type': 'Product',
+      '@type': 'Thing',
       name: 'Nothing Phone (4b)',
       image: [campaignMediaUrls.phone4b],
       description:
         'Nothing Phone (4b) is a confirmed 2026 Nothing smartphone scheduled for reveal on 7 July 2026. Pakistan pricing and availability are not yet confirmed.',
-      brand: {
-        '@type': 'Brand',
-        name: 'Nothing',
-      },
       url: buildAbsoluteUrl('/nothing-phone-4b-pakistan'),
       category: 'Smartphone',
     },

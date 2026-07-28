@@ -1,0 +1,28 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "nothing-pakistan",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2026-07-28",
+  "compatibility_flags": [
+    "nodejs_compat",
+    "global_fetch_strictly_public"
+  ],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  "vars": {
+    "NEXT_PUBLIC_SITE_URL": "https://www.nothingpakistan.pk",
+    "SITE_URL": "https://www.nothingpakistan.pk",
+    "SUPABASE_TABLE": "items"
+  },
+  "r2_buckets": [
+    {
+      "binding": "NEXT_INC_CACHE_R2_BUCKET",
+      "bucket_name": "nothing-pakistan-next-cache"
+    }
+  ],
+  "observability": {
+    "enabled": true
+  }
+}

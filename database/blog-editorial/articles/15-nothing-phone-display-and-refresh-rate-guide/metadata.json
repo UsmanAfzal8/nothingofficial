@@ -1,0 +1,75 @@
+{
+  "queue_number": 15,
+  "title": "Nothing Phone Display and Refresh Rate Guide",
+  "slug": "nothing-phone-display-and-refresh-rate-guide",
+  "meta_title": "Nothing Phone Display and Refresh Rate Guide",
+  "meta_description": "Compare Nothing Phone displays, 120 Hz refresh rates, brightness, resolution, PWM and touch response, with settings and buying advice for Pakistan.",
+  "excerpt": "A model-by-model guide to Nothing Phone AMOLED displays, adaptive 120 Hz refresh rates, brightness claims, touch response, PWM, HDR and practical settings.",
+  "focus_keyword": "Nothing Phone display",
+  "category": "Nothing Phone Guides",
+  "content_type": "guide",
+  "tags": [
+    "Nothing Phone display",
+    "Nothing Phone refresh rate",
+    "120 Hz display",
+    "AMOLED display",
+    "adaptive refresh rate",
+    "display brightness",
+    "PWM dimming"
+  ],
+  "author": "Nothing Pakistan Editorial Team",
+  "author_type": "brand",
+  "hero_image_url": "https://res.cloudinary.com/dklsubnzb/image/upload/v1783841579/nothing-official-store-pakistan/blogs/hero-images/nothing-phone-display-and-refresh-rate-guide.webp",
+  "hero_image_alt": "Nothing phone front and back for a display and refresh rate guide",
+  "hero_image_caption": "Editorial display-guide artwork from the existing blog library; screen content is illustrative and display appearance varies with settings and viewing conditions.",
+  "faqs": [
+    {
+      "question": "Do Nothing Phones have 120 Hz displays?",
+      "answer": "Current models including Phone 3, Phone 4a, Phone 4b and Phone 3a advertise a maximum 120 Hz refresh rate. The exact adaptive range, panel, resolution and available settings vary by model."
+    },
+    {
+      "question": "What does a 120 Hz refresh rate mean?",
+      "answer": "A 120 Hz panel can refresh its image up to 120 times per second. It can make scrolling and supported animation smoother, but an app or game must also deliver suitable frames."
+    },
+    {
+      "question": "Does 120 Hz mean every game runs at 120 fps?",
+      "answer": "No. Panel refresh rate is only the display ceiling. Game support, graphics settings, chipset performance, temperature, battery mode and software limits determine the delivered frame rate."
+    },
+    {
+      "question": "What is an adaptive refresh rate?",
+      "answer": "Adaptive refresh allows the phone to lower or raise refresh rate according to content and interaction. This can preserve smoothness while reducing unnecessary display power use."
+    },
+    {
+      "question": "Is LTPO the same as adaptive refresh rate?",
+      "answer": "No. LTPO is a panel backplane technology that can support a broad efficient refresh range. A non-LTPO phone can still switch among several refresh-rate steps."
+    },
+    {
+      "question": "Does Phone 4a refresh between 30 Hz and 120 Hz?",
+      "answer": "Nothing's official Phone 4a page states that its adaptive refresh rate dynamically shifts from 30 Hz to 120 Hz. Actual behavior depends on content, settings and software."
+    },
+    {
+      "question": "Which current Nothing Phone has the sharpest display?",
+      "answer": "Among the models covered here, Phone 3 and Phone 4a advertise higher-resolution 1.5K-class panels than FHD+ models. Sharpness also depends on size, scaling and viewing distance."
+    },
+    {
+      "question": "What does peak brightness mean?",
+      "answer": "Peak brightness is normally measured under limited conditions or over part of the panel. It should not be read as the brightness sustained across the full screen during every task."
+    },
+    {
+      "question": "What is touch sampling rate?",
+      "answer": "Touch sampling rate describes how frequently the touch system checks for input. It is different from visual refresh rate and does not guarantee lower total game latency."
+    },
+    {
+      "question": "What is PWM dimming on a phone display?",
+      "answer": "Some OLED panels control low brightness by rapidly pulsing light. PWM frequency is one measurement of that behavior, but comfort varies by person, brightness, waveform and environment."
+    },
+    {
+      "question": "Should I force 120 Hz all the time?",
+      "answer": "Use the smooth or high setting if you value responsiveness, but adaptive mode is usually a better balance. Forcing the maximum can use more battery and still cannot force unsupported apps to 120 fps."
+    },
+    {
+      "question": "How do I check a used Nothing Phone display?",
+      "answer": "Test uniform colours at low and medium brightness, touch across the full panel, auto-brightness, fingerprint unlock, rotation and several refresh-rate settings. Check for burn-in, tint, dead pixels and non-original replacement parts."
+    }
+  ]
+}

@@ -1,6 +1,5 @@
 import { createSocialImage } from '@/lib/social-image'
-
-export const runtime = 'edge'
+import { getSiteOrigin } from '@/lib/utils/seo'
 
 export const size = {
   width: 1200,
@@ -11,9 +10,9 @@ export const contentType = 'image/png'
 
 const SITE_BRAND_NAME = 'Nothing Pakistan'
 
-export default async function OpenGraphImage(request: Request) {
+export default async function OpenGraphImage() {
   return createSocialImage({
-    origin: new URL(request.url).origin,
+    origin: getSiteOrigin(),
     eyebrow: SITE_BRAND_NAME,
     title: 'Nothing & CMF Products in Pakistan',
     subtitle: 'Shop Nothing and CMF phones, earbuds, chargers, cables, and accessories with live pricing and WhatsApp support.',

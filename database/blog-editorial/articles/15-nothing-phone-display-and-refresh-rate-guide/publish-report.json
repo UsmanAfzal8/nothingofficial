@@ -1,0 +1,27 @@
+{
+  "checkedAt": "2026-07-27T10:06:31.008Z",
+  "apply": false,
+  "article": {
+    "queueNumber": 15,
+    "slug": "nothing-phone-display-and-refresh-rate-guide",
+    "title": "Nothing Phone Display and Refresh Rate Guide"
+  },
+  "metrics": {
+    "words": 3084,
+    "headings": 23,
+    "links": 7,
+    "productLinks": 5,
+    "uniqueProductSlugs": [
+      "nothing-pakistan-phone-4a",
+      "nothing-pakistan-phone-3",
+      "nothing-pakistan-phone-4b",
+      "nothing-pakistan-phone-3a"
+    ],
+    "heroImage": {
+      "status": 200,
+      "contentType": "image/webp",
+      "contentLength": 38746
+    }
+  },
+  "database": null
+}

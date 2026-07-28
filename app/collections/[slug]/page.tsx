@@ -23,7 +23,7 @@ const SHOP_STYLE_SLUGS = new Set(['shop-all', 'phones', 'chargers', 'protectors'
 const INDEXABLE_CONTENT_COLLECTION_SLUGS = new Set(['offers'])
 const COLLECTION_SEO_TITLES: Record<string, string> = {
   'shop-all': `Nothing Products Price in Pakistan | ${siteBrandName}`,
-  phones: `Nothing Phone Price in Pakistan | PTA & Non-PTA Models`,
+  phones: `Nothing Phone Price in Pakistan | Compare Models`,
   chargers: `Nothing Chargers Price in Pakistan | CMF GaN & USB-C`,
   protectors: `Nothing Screen Protectors Price in Pakistan | Cases & Glass`,
   earbuds: `Nothing Earbuds Price in Pakistan | CMF Buds & Nothing Ear`,
@@ -36,8 +36,8 @@ const COLLECTION_SEO_TITLES: Record<string, string> = {
 
 const COLLECTION_KEYWORDS: Record<string, string[]> = {
   'shop-all': ['Nothing products price in Pakistan', 'Nothing official store Pakistan', 'buy Nothing products Pakistan'],
-  phones: ['Nothing mobiles price in Pakistan', 'Nothing phone PTA approved Pakistan', 'Nothing non PTA price Pakistan'],
-  chargers: ['CMF Power 140W GaN price in Pakistan', 'CMF Power 100W GaN Pakistan', 'original Nothing charger Pakistan'],
+  phones: ['Nothing mobiles price in Pakistan', 'Nothing Phone specifications', 'CMF phone price in Pakistan'],
+  chargers: ['CMF Power 140W GaN price in Pakistan', 'CMF Power 100W GaN Pakistan', 'Nothing charger Pakistan'],
   protectors: ['Nothing screen protector price in Pakistan', 'Nothing phone glass protector Pakistan', 'Nothing phone case Pakistan'],
   earbuds: ['Nothing Ear price in Pakistan', 'Nothing Ear (a) price in Pakistan', 'CMF Buds price in Pakistan'],
   audio: ['Nothing Earbuds price in Pakistan', 'Nothing Headphone price in Pakistan', 'CMF Buds Pro 2 price in Pakistan'],
@@ -63,13 +63,17 @@ function uniqueProductsByHandle(products: Collection['products']) {
 function buildCollectionSeoDescription(collection: Collection) {
   const collectionSeoKey = stripNothingPakistanSlugPrefix(collection.slug)
 
+  if (collection.metaDescription) {
+    return collection.metaDescription
+  }
+
   switch (collectionSeoKey) {
     case 'shop-all':
       return 'Browse the full Nothing Pakistan catalog for chargers, earbuds, protectors, CMF devices, and other compatible accessories.'
     case 'phones':
-      return 'Compare Nothing Phone and CMF Phone prices in Pakistan with PTA, non-PTA, stock, colour, specs, and compatible accessories.'
+      return 'Compare Nothing Phone and CMF Phone prices in Pakistan with colour, capacity, specifications, current availability, and compatible accessories.'
     case 'chargers':
-      return 'Shop original Nothing and CMF chargers in Pakistan including CMF Power GaN chargers, USB-C cables, live pricing, and ordering support.'
+      return 'Compare Nothing and CMF chargers in Pakistan including CMF Power GaN chargers, USB-C cables, live pricing, and ordering support.'
     case 'protectors':
       return 'Browse Nothing screen protectors, glass, covers, and phone cases in Pakistan with model compatibility and live product pages.'
     case 'earbuds':
@@ -83,10 +87,6 @@ function buildCollectionSeoDescription(collection: Collection) {
     case 'cmf':
       return 'Browse CMF by Nothing products in Pakistan including CMF Phone, CMF Buds, CMF Watch, and CMF Power chargers with live pricing.'
     default:
-      if (collection.metaDescription) {
-        return collection.metaDescription
-      }
-
       return collection.description || `Browse ${collection.title} from ${siteBrandName} with live product pages, pricing, and ordering support in Pakistan.`
   }
 }
@@ -135,12 +135,7 @@ function buildCollectionStructuredData(collection: Collection) {
         itemListElement: topProducts.map((product, index) => ({
           '@type': 'ListItem',
           position: index + 1,
-          item: {
-            '@type': 'Product',
-            name: product.name,
-            url: buildAbsoluteUrl(product.href),
-            image: product.image || undefined,
-          },
+          url: buildAbsoluteUrl(product.href),
         })),
       },
     },
@@ -255,7 +250,7 @@ export async function generateMetadata({ params }: CollectionPageProps): Promise
 
   const description = buildCollectionSeoDescription(collection)
   const collectionSeoKey = stripNothingPakistanSlugPrefix(collection.slug)
-  const title = COLLECTION_SEO_TITLES[collectionSeoKey] || collection.metaTitle || `${collection.title} in Pakistan | ${siteBrandName}`
+  const title = collection.metaTitle || COLLECTION_SEO_TITLES[collectionSeoKey] || `${collection.title} in Pakistan | ${siteBrandName}`
   const hasIndexableContent = collection.products.length > 0 || INDEXABLE_CONTENT_COLLECTION_SLUGS.has(collectionSeoKey)
   const keywords = buildSeoKeywords(
     siteKeywords,

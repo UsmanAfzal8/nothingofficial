@@ -1,0 +1,25 @@
+{
+  "checkedAt": "2026-07-27T10:06:39.818Z",
+  "apply": false,
+  "article": {
+    "queueNumber": 22,
+    "slug": "nothing-headphone-1-price-in-pakistan-and-buyer-guide",
+    "title": "Nothing Headphone 1 Price in Pakistan and Buyer Guide"
+  },
+  "metrics": {
+    "words": 3052,
+    "headings": 19,
+    "links": 8,
+    "productLinks": 5,
+    "uniqueProductSlugs": [
+      "nothing-pakistan-headphone-1",
+      "nothing-pakistan-headphone-a"
+    ],
+    "heroImage": {
+      "status": 200,
+      "contentType": "image/webp",
+      "contentLength": 35110
+    }
+  },
+  "database": null
+}

@@ -1,0 +1,196 @@
+{
+  "related_type": "product",
+  "related_id": 9,
+  "related_slug": "cmf-power-140w-gan",
+  "source_handle": "cmf-power-140w-gan",
+  "source_name": "CMF Power 140W GaN",
+  "source_url": "https://nothing.tech/products/cmf-power-140w-gan?Colour=Dark+Grey",
+  "screen_title": "Specs",
+  "spec_groups": [
+    {
+      "title": "Design",
+      "icon_key": "design",
+      "subtitle": null,
+      "media_url": "https://cdn.nothingpakistan.pk/specs/cmf-power-140w-gan-design.jpg",
+      "media_alt": "CMF Power 140W GaN Design",
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 10,
+      "items": [
+        {
+          "section": "Dimensions (without plug)",
+          "label": "Length",
+          "value": "67 mm",
+          "sort_order": 10
+        },
+        {
+          "section": "Dimensions (without plug)",
+          "label": "Width",
+          "value": "65 mm",
+          "sort_order": 20
+        },
+        {
+          "section": "Dimensions (without plug)",
+          "label": "Height",
+          "value": "32 mm",
+          "sort_order": 30
+        },
+        {
+          "section": "Colour",
+          "label": "Colour",
+          "value": "Dark grey",
+          "sort_order": 40
+        },
+        {
+          "section": "Material",
+          "label": "Material",
+          "value": "PC",
+          "sort_order": 50
+        }
+      ]
+    },
+    {
+      "title": "Input",
+      "icon_key": "input",
+      "subtitle": null,
+      "media_url": null,
+      "media_alt": null,
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 20,
+      "items": [
+        {
+          "section": "Input",
+          "label": "Input",
+          "value": "100-240V ~ 50/60Hz 2.5A",
+          "sort_order": 10
+        }
+      ]
+    },
+    {
+      "title": "Output",
+      "icon_key": "output",
+      "subtitle": null,
+      "media_url": null,
+      "media_alt": null,
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 30,
+      "items": [
+        {
+          "section": "USB C1/C2",
+          "label": null,
+          "value": "5V⎓3A",
+          "sort_order": 10
+        },
+        {
+          "section": "USB C1/C2",
+          "label": null,
+          "value": "9V⎓3A",
+          "sort_order": 20
+        },
+        {
+          "section": "USB C1/C2",
+          "label": null,
+          "value": "12V⎓3A",
+          "sort_order": 30
+        },
+        {
+          "section": "USB C1/C2",
+          "label": null,
+          "value": "15V⎓3A",
+          "sort_order": 40
+        },
+        {
+          "section": "USB C1/C2",
+          "label": null,
+          "value": "20V⎓5A",
+          "sort_order": 50
+        },
+        {
+          "section": "USB C1/C2",
+          "label": null,
+          "value": "28V⎓5A (140W Max)",
+          "sort_order": 60
+        },
+        {
+          "section": "PPS",
+          "label": "PPS",
+          "value": "5V-20V⎓5A (100W max)",
+          "sort_order": 70
+        },
+        {
+          "section": "USB A",
+          "label": null,
+          "value": "5V⎓3A",
+          "sort_order": 80
+        },
+        {
+          "section": "USB A",
+          "label": null,
+          "value": "9V⎓3A",
+          "sort_order": 90
+        },
+        {
+          "section": "USB A",
+          "label": null,
+          "value": "12V⎓3A",
+          "sort_order": 100
+        }
+      ]
+    },
+    {
+      "title": "Compatibility",
+      "icon_key": "compatibility",
+      "subtitle": null,
+      "media_url": null,
+      "media_alt": null,
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 40,
+      "items": [
+        {
+          "section": "Country",
+          "label": "Country",
+          "value": "Disclaimer: Exact model dispatched will be compatible with the shipping address.",
+          "sort_order": 10
+        }
+      ]
+    },
+    {
+      "title": "In the box",
+      "icon_key": "in-the-box",
+      "subtitle": null,
+      "media_url": null,
+      "media_alt": null,
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 50,
+      "items": [
+        {
+          "section": "In the box",
+          "label": null,
+          "value": "1 x Power 140W GaN Fast Charger",
+          "sort_order": 10
+        },
+        {
+          "section": "In the box",
+          "label": null,
+          "value": "1 x safety and warranty information",
+          "sort_order": 20
+        },
+        {
+          "section": "In the box",
+          "label": null,
+          "value": "1 x USB-C to USB-C 5A cable (1.5m)",
+          "sort_order": 30
+        }
+      ]
+    }
+  ]
+}

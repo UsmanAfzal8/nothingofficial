@@ -1,0 +1,26 @@
+{
+  "checkedAt": "2026-07-27T10:06:52.609Z",
+  "apply": false,
+  "article": {
+    "queueNumber": 29,
+    "slug": "nothing-os-40-update-guide-for-pakistan-users",
+    "title": "Nothing OS 4.0 Update Guide for Pakistan Users"
+  },
+  "metrics": {
+    "words": 3004,
+    "headings": 21,
+    "links": 6,
+    "productLinks": 6,
+    "uniqueProductSlugs": [
+      "nothing-pakistan-phone-4a",
+      "nothing-pakistan-phone-3a",
+      "nothing-pakistan-phone-3"
+    ],
+    "heroImage": {
+      "status": 200,
+      "contentType": "image/webp",
+      "contentLength": 36082
+    }
+  },
+  "database": null
+}

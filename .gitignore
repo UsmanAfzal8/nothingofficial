@@ -1,4 +1,6 @@
 .next
+.open-next
+.wrangler
 *.log
 .env.local
 .env.*.local
@@ -13,4 +15,5 @@ dist
 build
 coverage
 migration-reports/
+user_data/
 supabase/.temp/

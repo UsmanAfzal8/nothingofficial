@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { ORDER_STATUS_ENUM, PAYMENT_STATUS_ENUM, type OrderStatus, type PaymentStatus } from '@/lib/models/supabase-enums'
 import { getShippingFee } from '@/lib/data/checkout-pricing'
+import { getProductDetailByHandle } from '@/lib/data/catalog-repository'
 import { getSupabaseAdminClient } from '@/lib/supabase-admin'
 
 const NO_INDEX_HEADERS = {
@@ -68,6 +69,16 @@ type PaymentMethod = 'cod' | 'bank_transfer'
 type DeliveryType = 'ship' | 'pickup'
 
 const GOVT_TAX_RATE = 0.04
+const MAX_ORDER_ITEMS = 25
+const MAX_QUANTITY_PER_ITEM = 10
+const MAX_ORDER_PAYLOAD_BYTES = 64 * 1024
+
+type RequestedOrderItem = {
+  productHandle: string
+  colorName: string | null
+  quantity: number
+  notes: string | null
+}
 
 function toTrimmedString(value: unknown): string {
   if (typeof value !== 'string') return ''
@@ -79,19 +90,6 @@ function toOptionalString(value: unknown): string | null {
   return normalized ? normalized : null
 }
 
-function toPositiveInteger(value: unknown, fallback: number): number {
-  const parsed = Number(value)
-  if (!Number.isFinite(parsed)) return fallback
-  const rounded = Math.floor(parsed)
-  return rounded > 0 ? rounded : fallback
-}
-
-function toNonNegativeNumber(value: unknown, fallback: number): number {
-  const parsed = Number(value)
-  if (!Number.isFinite(parsed)) return fallback
-  return parsed >= 0 ? parsed : fallback
-}
-
 function normalizePaymentMethod(value: unknown): PaymentMethod {
   return value === 'bank_transfer' ? 'bank_transfer' : 'cod'
 }
@@ -100,49 +98,83 @@ function normalizeDeliveryType(value: unknown): DeliveryType {
   return value === 'pickup' ? 'pickup' : 'ship'
 }
 
-function normalizeOrderItems(body: CreateOrderPayload): NormalizedOrderItem[] {
-  if (Array.isArray(body.items)) {
-    const parsedItems = body.items
-      .flatMap((entry) => {
-        if (!entry || typeof entry !== 'object') {
-          return []
-        }
+function parseRequestedOrderItems(body: CreateOrderPayload): RequestedOrderItem[] | null {
+  const entries = Array.isArray(body.items) ? body.items : [body]
 
-        const item = entry as Record<string, unknown>
-        const productName = toTrimmedString(item.productName) || 'Catalog Item'
-
-        return [
-          {
-            product_handle: toOptionalString(item.productHandle),
-            product_name: productName,
-            image_url: toOptionalString(item.imageUrl),
-            color_name: toOptionalString(item.colorName),
-            quantity: toPositiveInteger(item.quantity, 1),
-            unit_price: toNonNegativeNumber(item.unitPrice, 0),
-            currency: toTrimmedString(item.currency) || 'PKR',
-            notes: toOptionalString(item.notes),
-          },
-        ]
-      })
-      .filter((item) => item.product_name)
-
-    if (parsedItems.length > 0) {
-      return parsedItems
-    }
+  if (entries.length === 0 || entries.length > MAX_ORDER_ITEMS) {
+    return null
   }
 
-  return [
-    {
-      product_handle: toOptionalString(body.productHandle),
-      product_name: toTrimmedString(body.productName) || 'General Product Order',
-      image_url: toOptionalString(body.imageUrl),
-      color_name: toOptionalString(body.colorName),
-      quantity: toPositiveInteger(body.quantity, 1),
-      unit_price: toNonNegativeNumber(body.unitPrice, 0),
-      currency: toTrimmedString(body.currency) || 'PKR',
-      notes: toOptionalString(body.notes),
-    },
-  ]
+  const seenItems = new Set<string>()
+  const items: RequestedOrderItem[] = []
+
+  for (const entry of entries) {
+    if (!entry || typeof entry !== 'object' || Array.isArray(entry)) {
+      return null
+    }
+
+    const item = entry as Record<string, unknown>
+    const productHandle = toTrimmedString(item.productHandle)
+    const colorName = toOptionalString(item.colorName)
+    const quantity = Number(item.quantity)
+    const notes = toOptionalString(item.notes)
+    const uniqueKey = `${productHandle}:${colorName ?? ''}`
+
+    if (
+      !productHandle ||
+      productHandle.length > 160 ||
+      (colorName?.length ?? 0) > 100 ||
+      (notes?.length ?? 0) > 500 ||
+      !Number.isInteger(quantity) ||
+      quantity < 1 ||
+      quantity > MAX_QUANTITY_PER_ITEM ||
+      seenItems.has(uniqueKey)
+    ) {
+      return null
+    }
+
+    seenItems.add(uniqueKey)
+    items.push({ productHandle, colorName, quantity, notes })
+  }
+
+  return items
+}
+
+async function resolveAuthoritativeOrderItems(
+  requestedItems: RequestedOrderItem[],
+): Promise<{ items: NormalizedOrderItem[] } | { error: string }> {
+  const products = await Promise.all(
+    requestedItems.map((item) => getProductDetailByHandle(item.productHandle)),
+  )
+  const items: NormalizedOrderItem[] = []
+
+  for (const [index, requestItem] of requestedItems.entries()) {
+    const product = products[index]
+
+    if (!product || typeof product.price !== 'number' || product.price <= 0) {
+      return { error: 'One or more products are unavailable or need a current price. Refresh the cart and try again.' }
+    }
+
+    if (
+      product.availability === 'https://schema.org/OutOfStock' ||
+      (typeof product.stockQuantity === 'number' && requestItem.quantity > product.stockQuantity)
+    ) {
+      return { error: `${product.name} does not have enough stock for the requested quantity.` }
+    }
+
+    items.push({
+      product_handle: product.handle,
+      product_name: product.name,
+      image_url: product.primaryImage,
+      color_name: requestItem.colorName,
+      quantity: requestItem.quantity,
+      unit_price: product.price,
+      currency: 'PKR',
+      notes: requestItem.notes,
+    })
+  }
+
+  return { items }
 }
 
 async function saveOrderUser(
@@ -200,6 +232,11 @@ async function saveOrderUser(
 
 export async function POST(request: NextRequest) {
   try {
+    const contentLength = Number(request.headers.get('content-length') ?? 0)
+    if (Number.isFinite(contentLength) && contentLength > MAX_ORDER_PAYLOAD_BYTES) {
+      return jsonNoIndex({ error: 'Order payload is too large.' }, { status: 413 })
+    }
+
     const supabase = getSupabaseAdminClient()
     if (!supabase) {
       return jsonNoIndex(
@@ -216,9 +253,20 @@ export async function POST(request: NextRequest) {
     const district = toTrimmedString(body.district)
     const phone = toTrimmedString(body.phone)
     const postalCode = toOptionalString(body.postalCode)
-    const orderItems = normalizeOrderItems(body)
+    const requestedItems = parseRequestedOrderItems(body)
     const paymentMethod = normalizePaymentMethod(body.paymentMethod)
     const deliveryType = normalizeDeliveryType(body.deliveryType)
+
+    if (!requestedItems) {
+      return jsonNoIndex({ error: 'The cart is empty or contains an invalid product quantity.' }, { status: 400 })
+    }
+
+    const resolvedOrder = await resolveAuthoritativeOrderItems(requestedItems)
+    if ('error' in resolvedOrder) {
+      return jsonNoIndex({ error: resolvedOrder.error }, { status: 400 })
+    }
+
+    const orderItems = resolvedOrder.items
     const lineTotal = Number(orderItems.reduce((total, item) => total + item.quantity * item.unit_price, 0).toFixed(2))
     const shippingFee = getShippingFee({ subtotal: lineTotal, paymentMethod, deliveryType })
     const govtTaxAmount = paymentMethod === 'cod' ? Number((lineTotal * GOVT_TAX_RATE).toFixed(2)) : 0

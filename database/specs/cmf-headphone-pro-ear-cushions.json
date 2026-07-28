@@ -1,0 +1,78 @@
+{
+  "related_type": "product",
+  "related_id": 6,
+  "related_slug": "cmf-headphone-pro-ear-cushions",
+  "source_handle": "cmf-headphone-pro-ear-cushions",
+  "source_name": "CMF Headphone Pro Ear Cushions",
+  "source_url": "https://nothing.tech/products/cmf-headphone-pro-ear-cushions?color=Light+Green",
+  "screen_title": "Specs",
+  "spec_groups": [
+    {
+      "title": "Cushions design",
+      "icon_key": "cushions-design",
+      "subtitle": null,
+      "media_url": "https://cdn.nothingpakistan.pk/specs/cmf-headphone-pro-ear-cushions-cushions-design.jpg",
+      "media_alt": "CMF Headphone Pro Ear Cushions Cushions design",
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 10,
+      "items": [
+        {
+          "section": "Cushions dimensions",
+          "label": "Height",
+          "value": "96 mm",
+          "sort_order": 10
+        },
+        {
+          "section": "Cushions dimensions",
+          "label": "Width",
+          "value": "95.7 mm",
+          "sort_order": 20
+        },
+        {
+          "section": "Cushions dimensions",
+          "label": "Depth",
+          "value": "30 mm",
+          "sort_order": 30
+        },
+        {
+          "section": "Cushions weight",
+          "label": "Weight",
+          "value": "45g",
+          "sort_order": 40
+        },
+        {
+          "section": "Cushions material",
+          "label": "Cushions material",
+          "value": "Vegan leather",
+          "sort_order": 50
+        }
+      ]
+    },
+    {
+      "title": "Compatibility",
+      "icon_key": "compatibility",
+      "subtitle": null,
+      "media_url": null,
+      "media_alt": null,
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 20,
+      "items": []
+    },
+    {
+      "title": "In the box",
+      "icon_key": "in-the-box",
+      "subtitle": null,
+      "media_url": null,
+      "media_alt": null,
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 30,
+      "items": []
+    }
+  ]
+}

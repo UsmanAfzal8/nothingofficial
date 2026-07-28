@@ -1,0 +1,410 @@
+{
+  "related_type": "product",
+  "related_id": 16,
+  "related_slug": "ear-open",
+  "source_handle": "ear-open",
+  "source_name": "Ear (open)",
+  "source_url": "https://nothing.tech/products/ear-open?Colour=White",
+  "screen_title": "Specs",
+  "spec_groups": [
+    {
+      "title": "In the box",
+      "icon_key": "in-the-box",
+      "subtitle": null,
+      "media_url": "https://cdn.nothingpakistan.pk/specs/ear-open-in-the-box.jpg",
+      "media_alt": "Ear (open) In the box",
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 10,
+      "items": [
+        {
+          "section": "Your new audio set-up",
+          "label": null,
+          "value": "Pair of earbuds",
+          "sort_order": 10
+        },
+        {
+          "section": "Your new audio set-up",
+          "label": null,
+          "value": "Charging case",
+          "sort_order": 20
+        },
+        {
+          "section": "Your new audio set-up",
+          "label": null,
+          "value": "Type-C cable",
+          "sort_order": 30
+        },
+        {
+          "section": "Your new audio set-up",
+          "label": null,
+          "value": "Safety and warranty information",
+          "sort_order": 40
+        },
+        {
+          "section": "Your new audio set-up",
+          "label": null,
+          "value": "User guide",
+          "sort_order": 50
+        }
+      ]
+    },
+    {
+      "title": "Buds design",
+      "icon_key": "buds-design",
+      "subtitle": null,
+      "media_url": null,
+      "media_alt": null,
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 20,
+      "items": [
+        {
+          "section": "Buds dimensions",
+          "label": "Height",
+          "value": "41.4 mm",
+          "sort_order": 10
+        },
+        {
+          "section": "Buds dimensions",
+          "label": "Width",
+          "value": "51.3 mm",
+          "sort_order": 20
+        },
+        {
+          "section": "Buds dimensions",
+          "label": "Depth",
+          "value": "14.4 mm",
+          "sort_order": 30
+        },
+        {
+          "section": "Buds design",
+          "label": "Weight",
+          "value": "8.1 g",
+          "sort_order": 40
+        }
+      ]
+    },
+    {
+      "title": "Case design",
+      "icon_key": "case-design",
+      "subtitle": null,
+      "media_url": null,
+      "media_alt": null,
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 30,
+      "items": [
+        {
+          "section": "Case dimensions",
+          "label": "Height",
+          "value": "44.0 mm",
+          "sort_order": 10
+        },
+        {
+          "section": "Case dimensions",
+          "label": "Width",
+          "value": "125.9 mm",
+          "sort_order": 20
+        },
+        {
+          "section": "Case dimensions",
+          "label": "Depth",
+          "value": "19 mm",
+          "sort_order": 30
+        },
+        {
+          "section": "Case weight",
+          "label": "Weight",
+          "value": "63.8 g",
+          "sort_order": 40
+        }
+      ]
+    },
+    {
+      "title": "Sound",
+      "icon_key": "sound",
+      "subtitle": null,
+      "media_url": null,
+      "media_alt": null,
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 40,
+      "items": [
+        {
+          "section": "Drivers",
+          "label": "Drivers",
+          "value": "14.2 mm dynamic",
+          "sort_order": 10
+        },
+        {
+          "section": "Diaphragm",
+          "label": "Diaphragm",
+          "value": "Titanium-coated polyethylene terephthalate with patent-pending design",
+          "sort_order": 20
+        },
+        {
+          "section": "Tuning",
+          "label": "Tuning",
+          "value": "Nothing",
+          "sort_order": 30
+        }
+      ]
+    },
+    {
+      "title": "Battery",
+      "icon_key": "battery",
+      "subtitle": null,
+      "media_url": null,
+      "media_alt": null,
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 50,
+      "items": [
+        {
+          "section": "Battery type",
+          "label": "Battery type",
+          "value": "Rechargeable li-ion battery",
+          "sort_order": 10
+        },
+        {
+          "section": "Capacity",
+          "label": "Earbud",
+          "value": "64 mAh",
+          "sort_order": 20
+        },
+        {
+          "section": "Capacity",
+          "label": "Case",
+          "value": "635 mAh",
+          "sort_order": 30
+        },
+        {
+          "section": "Fast charging",
+          "label": "Fast charging",
+          "value": "10 minutes for 10 hours",
+          "sort_order": 40
+        },
+        {
+          "section": "Wired charging",
+          "label": "Wired charging",
+          "value": "USB Type-C",
+          "sort_order": 50
+        },
+        {
+          "section": "Playback",
+          "label": "Earbuds",
+          "value": "8 hours",
+          "sort_order": 60
+        },
+        {
+          "section": "Playback",
+          "label": "Earbuds + Case",
+          "value": "30 hours",
+          "sort_order": 70
+        },
+        {
+          "section": "Talk time",
+          "label": "Earbuds",
+          "value": "6 hours",
+          "sort_order": 80
+        },
+        {
+          "section": "Talk time",
+          "label": "Earbuds + Case",
+          "value": "24 hours",
+          "sort_order": 90
+        }
+      ]
+    },
+    {
+      "title": "Connectivity",
+      "icon_key": "connectivity",
+      "subtitle": null,
+      "media_url": null,
+      "media_alt": null,
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 60,
+      "items": [
+        {
+          "section": "Bluetooth",
+          "label": "Version",
+          "value": "5.3",
+          "sort_order": 10
+        },
+        {
+          "section": "Bluetooth",
+          "label": "Codec",
+          "value": "AAC, SBC",
+          "sort_order": 20
+        },
+        {
+          "section": "Bluetooth",
+          "label": "Profiles",
+          "value": "RFCOMM, SPP, HFP, A2DP, AVDTP, AVCTP, AVRCP",
+          "sort_order": 30
+        },
+        {
+          "section": "Android version",
+          "label": "Android version",
+          "value": "5.0 and above",
+          "sort_order": 40
+        },
+        {
+          "section": "iOS version",
+          "label": "iOS version",
+          "value": "13 and above",
+          "sort_order": 50
+        }
+      ]
+    },
+    {
+      "title": "Other features",
+      "icon_key": "other-features",
+      "subtitle": null,
+      "media_url": null,
+      "media_alt": null,
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 70,
+      "items": [
+        {
+          "section": "Other features",
+          "label": null,
+          "value": "IP54 rating for buds and case",
+          "sort_order": 10
+        },
+        {
+          "section": "Other features",
+          "label": null,
+          "value": "Pinch controls",
+          "sort_order": 20
+        },
+        {
+          "section": "Other features",
+          "label": null,
+          "value": "Google Fast Pair",
+          "sort_order": 30
+        },
+        {
+          "section": "Other features",
+          "label": null,
+          "value": "Microsoft Swift Pair",
+          "sort_order": 40
+        },
+        {
+          "section": "Other features",
+          "label": null,
+          "value": "Dual Connection",
+          "sort_order": 50
+        },
+        {
+          "section": "Other features",
+          "label": null,
+          "value": "AI Clear Voice Technology",
+          "sort_order": 60
+        },
+        {
+          "section": "Other features",
+          "label": null,
+          "value": "LED charging status",
+          "sort_order": 70
+        },
+        {
+          "section": "Other features",
+          "label": null,
+          "value": "Low Lag Mode",
+          "sort_order": 80
+        }
+      ]
+    },
+    {
+      "title": "Nothing X",
+      "icon_key": "nothing-x",
+      "subtitle": null,
+      "media_url": null,
+      "media_alt": null,
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 80,
+      "items": [
+        {
+          "section": "Android and iOS",
+          "label": null,
+          "value": "Advanced Equaliser with profile sharing",
+          "sort_order": 10
+        },
+        {
+          "section": "Android and iOS",
+          "label": null,
+          "value": "Customisable controls",
+          "sort_order": 20
+        },
+        {
+          "section": "Android and iOS",
+          "label": null,
+          "value": "Find my earbuds",
+          "sort_order": 30
+        },
+        {
+          "section": "Android and iOS",
+          "label": null,
+          "value": "Low lag mode",
+          "sort_order": 40
+        },
+        {
+          "section": "Android and iOS",
+          "label": null,
+          "value": "Dual connection",
+          "sort_order": 50
+        },
+        {
+          "section": "Android and iOS",
+          "label": null,
+          "value": "Firmware updates",
+          "sort_order": 60
+        }
+      ]
+    },
+    {
+      "title": "Sustainability",
+      "icon_key": "sustainability",
+      "subtitle": null,
+      "media_url": null,
+      "media_alt": null,
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 90,
+      "items": [
+        {
+          "section": "Lifecycle carbon footprint",
+          "label": "Lifecycle carbon footprint",
+          "value": "3.0 kg CO₂e",
+          "sort_order": 10
+        },
+        {
+          "section": "Commitments",
+          "label": null,
+          "value": "100% recycled tin solder paste",
+          "sort_order": 20
+        },
+        {
+          "section": "Commitments",
+          "label": null,
+          "value": "100% renewable energy used for final assembly",
+          "sort_order": 30
+        }
+      ]
+    }
+  ]
+}

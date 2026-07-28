@@ -1,0 +1,26 @@
+{
+  "checkedAt": "2026-07-27T10:06:48.110Z",
+  "apply": false,
+  "article": {
+    "queueNumber": 27,
+    "slug": "nothing-glyph-interface-explained-for-pakistani-buyers",
+    "title": "Nothing Glyph Interface Explained for Pakistani Buyers"
+  },
+  "metrics": {
+    "words": 3012,
+    "headings": 20,
+    "links": 6,
+    "productLinks": 6,
+    "uniqueProductSlugs": [
+      "nothing-pakistan-phone-4a",
+      "nothing-pakistan-phone-3a",
+      "nothing-pakistan-phone-3"
+    ],
+    "heroImage": {
+      "status": 200,
+      "contentType": "image/webp",
+      "contentLength": 35884
+    }
+  },
+  "database": null
+}

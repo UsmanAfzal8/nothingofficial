@@ -1,0 +1,26 @@
+{
+  "checkedAt": "2026-07-27T10:07:27.498Z",
+  "apply": false,
+  "article": {
+    "queueNumber": 55,
+    "slug": "nothing-phone-price-in-pakistan-2026-updated-guide",
+    "title": "Nothing Phone Price in Pakistan (2026 Updated Guide)"
+  },
+  "metrics": {
+    "words": 3009,
+    "headings": 36,
+    "links": 6,
+    "productLinks": 3,
+    "uniqueProductSlugs": [
+      "nothing-pakistan-phone-4a",
+      "nothing-pakistan-phone-3a",
+      "nothing-pakistan-phone-3"
+    ],
+    "heroImage": {
+      "status": 200,
+      "contentType": "image/webp",
+      "contentLength": 44354
+    }
+  },
+  "database": null
+}

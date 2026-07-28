@@ -1,0 +1,495 @@
+{
+  "related_type": "product",
+  "related_id": 18,
+  "related_slug": "headphone-a",
+  "source_handle": "headphone-a",
+  "source_name": "Headphone (a)",
+  "source_url": "https://nothing.tech/products/headphone-a?Colour=White",
+  "screen_title": "Specs",
+  "spec_groups": [
+    {
+      "title": "Headphones design",
+      "icon_key": "headphones-design",
+      "subtitle": null,
+      "media_url": "https://cdn.nothingpakistan.pk/specs/headphone-a-headphones-design.jpg",
+      "media_alt": "Headphone (a) Headphones design",
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 10,
+      "items": [
+        {
+          "section": "Headphones dimensions",
+          "label": "Height",
+          "value": "177.0 MM",
+          "sort_order": 10
+        },
+        {
+          "section": "Headphones dimensions",
+          "label": "Width",
+          "value": "78.0 MM",
+          "sort_order": 20
+        },
+        {
+          "section": "Headphones dimensions",
+          "label": "Depth",
+          "value": "190.4 MM",
+          "sort_order": 30
+        },
+        {
+          "section": "Headphones weight",
+          "label": "Weight",
+          "value": "310 G",
+          "sort_order": 40
+        }
+      ]
+    },
+    {
+      "title": "Carry pouch design",
+      "icon_key": "carry-pouch-design",
+      "subtitle": null,
+      "media_url": null,
+      "media_alt": null,
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 20,
+      "items": [
+        {
+          "section": "Carry pouch dimensions",
+          "label": "Height",
+          "value": "270 mm",
+          "sort_order": 10
+        },
+        {
+          "section": "Carry pouch dimensions",
+          "label": "Width",
+          "value": "230 mm",
+          "sort_order": 20
+        },
+        {
+          "section": "Carry pouch dimensions",
+          "label": "Depth",
+          "value": "15 mm",
+          "sort_order": 30
+        },
+        {
+          "section": "Carry pouch weight",
+          "label": "Weight",
+          "value": "30 G",
+          "sort_order": 40
+        }
+      ]
+    },
+    {
+      "title": "Sound",
+      "icon_key": "sound",
+      "subtitle": null,
+      "media_url": null,
+      "media_alt": null,
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 30,
+      "items": [
+        {
+          "section": "Drivers",
+          "label": "Drivers",
+          "value": "40 mm",
+          "sort_order": 10
+        },
+        {
+          "section": "RF",
+          "label": "RF",
+          "value": "20 Hz - 40,000 Hz",
+          "sort_order": 20
+        },
+        {
+          "section": "Diaphragm",
+          "label": null,
+          "value": "Dome material: PEN+PU",
+          "sort_order": 30
+        },
+        {
+          "section": "Diaphragm",
+          "label": null,
+          "value": "Coating: Titanium-coated",
+          "sort_order": 40
+        },
+        {
+          "section": "Tuning",
+          "label": "Tuning",
+          "value": "Nothing",
+          "sort_order": 50
+        }
+      ]
+    },
+    {
+      "title": "Battery",
+      "icon_key": "battery",
+      "subtitle": null,
+      "media_url": null,
+      "media_alt": null,
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 40,
+      "items": [
+        {
+          "section": "Battery type",
+          "label": "Battery type",
+          "value": "RECHARGEABLE LITHIUM-ION",
+          "sort_order": 10
+        },
+        {
+          "section": "Capacity",
+          "label": "Capacity",
+          "value": "1060 mAh",
+          "sort_order": 20
+        },
+        {
+          "section": "Charging",
+          "label": "Charging",
+          "value": "TYPE-C WIRED CHARGING-TO-FULL TIME 2 hours",
+          "sort_order": 30
+        },
+        {
+          "section": "Fast charging",
+          "label": null,
+          "value": "PLAYBACK WITH ANC OFF - 5 MIN CHARGE FOR 8 HOURS",
+          "sort_order": 40
+        },
+        {
+          "section": "Fast charging",
+          "label": null,
+          "value": "PLAYBACK WITH ANC ON - 5 MIN CHARGE FOR 5 HOURS",
+          "sort_order": 50
+        },
+        {
+          "section": "Playback",
+          "label": null,
+          "value": "AAC:",
+          "sort_order": 60
+        },
+        {
+          "section": "Playback",
+          "label": null,
+          "value": "Playback with ANC off: up to 135 hours",
+          "sort_order": 70
+        },
+        {
+          "section": "Playback",
+          "label": null,
+          "value": "Playback with ANC on: up to 75 hours",
+          "sort_order": 80
+        },
+        {
+          "section": "Playback",
+          "label": null,
+          "value": "LDAC:",
+          "sort_order": 90
+        },
+        {
+          "section": "Playback",
+          "label": null,
+          "value": "Playback with ANC off: up to 90 hours",
+          "sort_order": 100
+        },
+        {
+          "section": "Playback",
+          "label": null,
+          "value": "Playback with ANC on: up to 62 hours",
+          "sort_order": 110
+        },
+        {
+          "section": "Talk time",
+          "label": null,
+          "value": "ANC off: up to 72 hours",
+          "sort_order": 120
+        },
+        {
+          "section": "Talk time",
+          "label": null,
+          "value": "ANC on: up to 50 hours",
+          "sort_order": 130
+        }
+      ]
+    },
+    {
+      "title": "Noise Cancellation",
+      "icon_key": "noise-cancellation",
+      "subtitle": null,
+      "media_url": null,
+      "media_alt": null,
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 50,
+      "items": [
+        {
+          "section": "Type",
+          "label": "Type",
+          "value": "ADAPTIVE ANC",
+          "sort_order": 10
+        },
+        {
+          "section": "Depth",
+          "label": "Depth",
+          "value": "UP TO 40 dB",
+          "sort_order": 20
+        },
+        {
+          "section": "Frequency range",
+          "label": "Frequency range",
+          "value": "2000 HZ",
+          "sort_order": 30
+        },
+        {
+          "section": "Microphone quantity",
+          "label": null,
+          "value": "Total 4 mics",
+          "sort_order": 40
+        },
+        {
+          "section": "Microphone quantity",
+          "label": null,
+          "value": "2mic Hybrid ANC (single side)",
+          "sort_order": 50
+        },
+        {
+          "section": "Features",
+          "label": null,
+          "value": "TRANSPARENCY MODE",
+          "sort_order": 60
+        },
+        {
+          "section": "Features",
+          "label": null,
+          "value": "3 MIC ALGORITHM FOR CALLS",
+          "sort_order": 70
+        }
+      ]
+    },
+    {
+      "title": "Connectivity",
+      "icon_key": "connectivity",
+      "subtitle": null,
+      "media_url": null,
+      "media_alt": null,
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 60,
+      "items": [
+        {
+          "section": "Connectivity",
+          "label": "Connection range",
+          "value": "10 M",
+          "sort_order": 10
+        },
+        {
+          "section": "Connectivity",
+          "label": "Bluetooth version",
+          "value": "5.4",
+          "sort_order": 20
+        },
+        {
+          "section": "Connectivity",
+          "label": "Dual connection",
+          "value": "YES",
+          "sort_order": 30
+        },
+        {
+          "section": "Connectivity",
+          "label": "Android version",
+          "value": "Android 5.1 and above",
+          "sort_order": 40
+        },
+        {
+          "section": "Connectivity",
+          "label": "iOS version",
+          "value": "iOS 13 and above",
+          "sort_order": 50
+        },
+        {
+          "section": "Connectivity",
+          "label": "Codecs",
+          "value": "AAC, SBC, LDAC",
+          "sort_order": 60
+        }
+      ]
+    },
+    {
+      "title": "Other features",
+      "icon_key": "other-features",
+      "subtitle": null,
+      "media_url": null,
+      "media_alt": null,
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 70,
+      "items": [
+        {
+          "section": "Tech Integrations",
+          "label": null,
+          "value": "GOOGLE FAST PAIR AND MICROSOFT SWIFT PAIR⁴",
+          "sort_order": 10
+        },
+        {
+          "section": "Tech Integrations",
+          "label": null,
+          "value": "LOW LATENCY FOR RESPONSIVE USER EXPERIENCE",
+          "sort_order": 20
+        },
+        {
+          "section": "Tech Integrations",
+          "label": null,
+          "value": "LDAC AND HI-RES CERTIFIED",
+          "sort_order": 30
+        },
+        {
+          "section": "Tech Integrations",
+          "label": null,
+          "value": "LED CHARGING STATUS",
+          "sort_order": 40
+        },
+        {
+          "section": "Tech Integrations",
+          "label": null,
+          "value": "LOW LAG MODE",
+          "sort_order": 50
+        },
+        {
+          "section": "Tech Integrations",
+          "label": null,
+          "value": "IP52 DUST AND WATER RESISTANCE",
+          "sort_order": 60
+        }
+      ]
+    },
+    {
+      "title": "Controls",
+      "icon_key": "controls",
+      "subtitle": null,
+      "media_url": null,
+      "media_alt": null,
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 80,
+      "items": [
+        {
+          "section": null,
+          "label": "ON/OFF Switch",
+          "value": "SWITCH UP: POWER OFF\nSWITCH DOWN: POWER ON",
+          "sort_order": 10
+        },
+        {
+          "section": null,
+          "label": "Pairing",
+          "value": "HOLD THE BLUETOOTH PAIRING BUTTON FOR 2 SECONDS UNTIL THE WHITE LED STARTS TO BLINK",
+          "sort_order": 20
+        },
+        {
+          "section": null,
+          "label": "Roller",
+          "value": "ROLL RIGHT/LEFT: VOLUME UP/DOWN\nPRESS: PLAY/PAUSE\nPRESS & HOLD: ANC / TRANSPARENCY MODE",
+          "sort_order": 30
+        },
+        {
+          "section": null,
+          "label": "Paddle",
+          "value": "PUSH RIGHT: NEXT TRACK / ANSWER CALL\nPUSH LEFT: PREVIOUS TRACK / REJECT CALL\nHOLD RIGHT: FAST FORWARD\nHOLD LEFT: REWIND",
+          "sort_order": 40
+        },
+        {
+          "section": null,
+          "label": "Button",
+          "value": "CHANNEL HOP\nCAMERA SHUTTER\nChatGPT\nANC MODE SWITCHING\nEQ PRESET",
+          "sort_order": 50
+        },
+        {
+          "section": null,
+          "label": "LED light status",
+          "value": "LOW BATTERY (<30%): RED\nBATTERY ≥30%: WHITE\nCHARGING: WHITE LED FLASHING\nFULLY CHARGED (CABLE CONNECTED): WHITE\nPAIRING: WHITE LED FLASHING\nFACTORY RESET SUCCESSFUL: RED LED FLASHES 3 TIMES, THEN WHITE LED FLASHES",
+          "sort_order": 60
+        }
+      ]
+    },
+    {
+      "title": "Sustainability",
+      "icon_key": "sustainability",
+      "subtitle": null,
+      "media_url": null,
+      "media_alt": null,
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 90,
+      "items": [
+        {
+          "section": "Commitments",
+          "label": null,
+          "value": "Plastic - free packaging",
+          "sort_order": 10
+        },
+        {
+          "section": "Commitments",
+          "label": null,
+          "value": "100% renewable energy used in final assembly, which helps to reduce carbon footprint",
+          "sort_order": 20
+        },
+        {
+          "section": "Commitments",
+          "label": null,
+          "value": "Carbon footprint: 12.6 kg CO2e",
+          "sort_order": 30
+        }
+      ]
+    },
+    {
+      "title": "In the box",
+      "icon_key": "in-the-box",
+      "subtitle": null,
+      "media_url": "https://cdn.nothingpakistan.pk/specs/headphone-a-in-the-box.jpg",
+      "media_alt": "Headphone (a) In the box",
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 100,
+      "items": [
+        {
+          "section": "In the box",
+          "label": null,
+          "value": "Headphone*1",
+          "sort_order": 10
+        },
+        {
+          "section": "In the box",
+          "label": null,
+          "value": "Carry pouch*1",
+          "sort_order": 20
+        },
+        {
+          "section": "In the box",
+          "label": null,
+          "value": "3.5 mm audio cable (1.2M) *1",
+          "sort_order": 30
+        },
+        {
+          "section": "In the box",
+          "label": null,
+          "value": "USB-C cable (1.2M) *1 (charging & USB Audio)",
+          "sort_order": 40
+        },
+        {
+          "section": "In the box",
+          "label": null,
+          "value": "QSG*1",
+          "sort_order": 50
+        }
+      ]
+    }
+  ]
+}

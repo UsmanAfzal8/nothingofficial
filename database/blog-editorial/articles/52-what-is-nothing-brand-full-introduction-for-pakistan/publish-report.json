@@ -1,0 +1,26 @@
+{
+  "checkedAt": "2026-07-27T10:07:24.133Z",
+  "apply": false,
+  "article": {
+    "queueNumber": 52,
+    "slug": "what-is-nothing-brand-full-introduction-for-pakistan",
+    "title": "What is Nothing Brand? Full Introduction for Pakistan"
+  },
+  "metrics": {
+    "words": 3215,
+    "headings": 40,
+    "links": 5,
+    "productLinks": 3,
+    "uniqueProductSlugs": [
+      "nothing-pakistan-phone-4a",
+      "nothing-pakistan-phone-3a",
+      "nothing-pakistan-phone-3"
+    ],
+    "heroImage": {
+      "status": 200,
+      "contentType": "image/webp",
+      "contentLength": 40532
+    }
+  },
+  "database": null
+}

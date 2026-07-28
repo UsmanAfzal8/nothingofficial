@@ -1,4 +1,29 @@
 /** @type {import('next').NextConfig} */
+const contentSecurityPolicy = [
+  "default-src 'self'",
+  "base-uri 'self'",
+  "form-action 'self'",
+  "frame-ancestors 'none'",
+  "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://analytics.ahrefs.com https://va.vercel-scripts.com",
+  "style-src 'self' 'unsafe-inline'",
+  "img-src 'self' data: blob: https:",
+  "font-src 'self' data:",
+  "connect-src 'self' https: wss:",
+  "media-src 'self' blob: https:",
+  "frame-src 'self' https://www.google.com",
+  "object-src 'none'",
+  "upgrade-insecure-requests",
+].join('; ')
+
+const securityHeaders = [
+  { key: 'Content-Security-Policy', value: contentSecurityPolicy },
+  { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
+  { key: 'Strict-Transport-Security', value: 'max-age=63072000; includeSubDomains; preload' },
+  { key: 'X-Content-Type-Options', value: 'nosniff' },
+  { key: 'X-Frame-Options', value: 'DENY' },
+  { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=()' },
+]
+
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
@@ -65,6 +90,31 @@ const nextConfig = {
         permanent: true,
       },
       {
+        source: '/collections/nothing-pakistan-audio',
+        destination: '/collections/audio',
+        permanent: true,
+      },
+      {
+        source: '/collections/nothing-pakistan-cases',
+        destination: '/collections/cases',
+        permanent: true,
+      },
+      {
+        source: '/collections/nothing-pakistan-power',
+        destination: '/collections/power',
+        permanent: true,
+      },
+      {
+        source: '/collections/nothing-pakistan-watches',
+        destination: '/collections/watches',
+        permanent: true,
+      },
+      {
+        source: '/collections/nothing-pakistan-apparel',
+        destination: '/collections/apparel',
+        permanent: true,
+      },
+      {
         source: '/:path*',
         has: [
           {
@@ -86,6 +136,10 @@ const nextConfig = {
     ];
     return [
       {
+        source: '/:path*',
+        headers: securityHeaders,
+      },
+      {
         source: '/dashboard/:path*',
         headers: noindexHeaders,
       },
@@ -100,8 +154,8 @@ const nextConfig = {
     NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.SUPABASE_ANON_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
   },
   images: {
-    loader: 'custom',
-    loaderFile: './lib/cloudinary-image-loader.ts',
+    formats: ['image/avif', 'image/webp'],
+    minimumCacheTTL: 2592000,
     remotePatterns: [
       {
         protocol: 'https',

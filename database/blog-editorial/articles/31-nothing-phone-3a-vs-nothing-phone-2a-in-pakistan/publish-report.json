@@ -1,0 +1,26 @@
+{
+  "checkedAt": "2026-07-27T10:06:55.788Z",
+  "apply": false,
+  "article": {
+    "queueNumber": 31,
+    "slug": "nothing-phone-3a-vs-nothing-phone-2a-in-pakistan",
+    "title": "Nothing Phone 3a vs Nothing Phone 2a in Pakistan"
+  },
+  "metrics": {
+    "words": 3002,
+    "headings": 23,
+    "links": 3,
+    "productLinks": 3,
+    "uniqueProductSlugs": [
+      "nothing-pakistan-phone-3a",
+      "nothing-pakistan-phone-4a",
+      "nothing-pakistan-phone-3"
+    ],
+    "heroImage": {
+      "status": 200,
+      "contentType": "image/webp",
+      "contentLength": 42584
+    }
+  },
+  "database": null
+}

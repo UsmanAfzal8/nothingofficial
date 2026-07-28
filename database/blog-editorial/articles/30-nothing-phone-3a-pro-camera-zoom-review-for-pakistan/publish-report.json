@@ -1,0 +1,26 @@
+{
+  "checkedAt": "2026-07-27T10:06:53.475Z",
+  "apply": false,
+  "article": {
+    "queueNumber": 30,
+    "slug": "nothing-phone-3a-pro-camera-zoom-review-for-pakistan",
+    "title": "Nothing Phone 3a Pro Camera Zoom Review for Pakistan"
+  },
+  "metrics": {
+    "words": 3002,
+    "headings": 20,
+    "links": 6,
+    "productLinks": 6,
+    "uniqueProductSlugs": [
+      "nothing-pakistan-phone-3a",
+      "nothing-pakistan-phone-4a",
+      "nothing-pakistan-phone-3"
+    ],
+    "heroImage": {
+      "status": 200,
+      "contentType": "image/webp",
+      "contentLength": 33644
+    }
+  },
+  "database": null
+}

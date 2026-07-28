@@ -1,0 +1,26 @@
+{
+  "checkedAt": "2026-07-27T10:07:05.869Z",
+  "apply": false,
+  "article": {
+    "queueNumber": 40,
+    "slug": "what-is-cmf-by-nothing-beginner-guide",
+    "title": "What is CMF by Nothing? Beginner Guide"
+  },
+  "metrics": {
+    "words": 3032,
+    "headings": 22,
+    "links": 3,
+    "productLinks": 3,
+    "uniqueProductSlugs": [
+      "nothing-pakistan-phone-4a",
+      "nothing-pakistan-phone-3a",
+      "nothing-pakistan-phone-3"
+    ],
+    "heroImage": {
+      "status": 200,
+      "contentType": "image/webp",
+      "contentLength": 34112
+    }
+  },
+  "database": null
+}

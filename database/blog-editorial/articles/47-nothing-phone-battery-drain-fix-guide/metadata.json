@@ -1,0 +1,31 @@
+{
+  "queue_number": 47,
+  "title": "Nothing Phone Battery Drain Fix Guide",
+  "slug": "nothing-phone-battery-drain-fix-guide",
+  "meta_title": "Nothing Phone Battery Drain Fix Guide Pakistan",
+  "meta_description": "Fix Nothing Phone battery drain with this step-by-step guide to battery usage, screen, apps, signal, updates, heat, charging and service checks.",
+  "excerpt": "A practical Nothing Phone battery drain troubleshooting guide for Pakistan, explaining what to check first, how to identify the cause and when a battery needs service.",
+  "focus_keyword": "Nothing Phone battery drain fix",
+  "category": "Nothing Phone Troubleshooting",
+  "content_type": "guide",
+  "tags": ["Nothing Phone battery drain fix", "Nothing Phone battery issue", "Nothing Phone heating", "Nothing Phone charging", "Nothing OS troubleshooting", "Android battery drain", "Nothing Phone Pakistan"],
+  "author": "Nothing Pakistan Editorial Team",
+  "author_type": "brand",
+  "hero_image_url": "https://res.cloudinary.com/dklsubnzb/image/upload/v1783841647/nothing-official-store-pakistan/blogs/hero-images/nothing-phone-battery-drain-fix-guide.webp",
+  "hero_image_alt": "Nothing Phone battery drain fix and troubleshooting guide",
+  "hero_image_caption": "Editorial troubleshooting artwork; battery behaviour varies by model, software, signal, climate, usage and charger, so test the exact device safely.",
+  "faqs": [
+    {"question":"How do I fix Nothing Phone battery drain?","answer":"Check Settings battery usage, screen brightness, background apps, signal, recent updates, heat, charger and battery health before changing multiple settings at once."},
+    {"question":"Why is my Nothing Phone battery draining overnight?","answer":"Possible causes include background apps, weak signal, Bluetooth or location activity, an update process, poor standby behaviour or battery ageing."},
+    {"question":"Does a software update cause battery drain?","answer":"Battery use can temporarily increase after an update while the phone optimises and synchronises. Monitor it for a few normal days and restart if needed."},
+    {"question":"How do I check battery usage on Nothing Phone?","answer":"Open Settings and review the Battery or Battery usage screen to identify apps and system functions using the most power."},
+    {"question":"Can heat cause Nothing Phone battery drain?","answer":"Yes. Heat can increase consumption and affect charging. Move the phone to a suitable environment, stop heavy apps and avoid charging while hot."},
+    {"question":"Should I turn off 5G to save battery?","answer":"If your model and software offer the option, testing a different network mode can show whether coverage or searching is contributing to drain."},
+    {"question":"Can a bad charger cause battery drain?","answer":"A damaged or incompatible charger can create charging and heat problems. Test with a reputable compatible charger and cable."},
+    {"question":"Why does Nothing Phone drain while gaming?","answer":"Gaming uses the display, processor, graphics and network heavily. Heat, high brightness and poor signal can increase drain further."},
+    {"question":"How do I improve Nothing Phone battery life?","answer":"Reduce unnecessary brightness and background activity, manage location and Bluetooth, use stable charging and investigate the highest-use apps first."},
+    {"question":"Should I factory reset for battery drain?","answer":"A reset is a later troubleshooting step after backups, updates and app checks. It cannot repair a physically aged or damaged battery."},
+    {"question":"When should I replace a Nothing Phone battery?","answer":"Consider service when drain remains abnormal after software and charger checks, the phone shuts down unexpectedly, becomes swollen or overheats during ordinary use."},
+    {"question":"Can I keep using a Nothing Phone that gets very hot?","answer":"Stop heavy use and charging while it is hot. Let it cool safely, inspect the charger and contact support if abnormal heat continues."}
+  ]
+}

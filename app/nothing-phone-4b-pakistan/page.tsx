@@ -170,14 +170,10 @@ export default function NothingPhone4bPakistanPage() {
   const structuredData: Record<string, unknown>[] = [
     {
       '@context': 'https://schema.org',
-      '@type': 'Product',
+      '@type': 'Thing',
       name: 'Nothing Phone (4b)',
       image: [phone4bImage],
       description,
-      brand: {
-        '@type': 'Brand',
-        name: 'Nothing',
-      },
       category: 'Smartphone',
       url: buildAbsoluteUrl('/nothing-phone-4b-pakistan'),
       additionalProperty: [

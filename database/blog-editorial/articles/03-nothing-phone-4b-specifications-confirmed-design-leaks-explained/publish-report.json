@@ -1,0 +1,26 @@
+{
+  "checkedAt": "2026-07-27T10:06:14.653Z",
+  "apply": false,
+  "article": {
+    "queueNumber": 3,
+    "slug": "nothing-phone-4b-specifications-confirmed-design-leaks-explained",
+    "title": "Nothing Phone 4b Specifications: Confirmed Design and Leaks Explained"
+  },
+  "metrics": {
+    "words": 3113,
+    "headings": 19,
+    "links": 6,
+    "productLinks": 3,
+    "uniqueProductSlugs": [
+      "nothing-pakistan-phone-4b",
+      "nothing-pakistan-phone-4a",
+      "nothing-pakistan-phone-3a"
+    ],
+    "heroImage": {
+      "status": 200,
+      "contentType": "image/webp",
+      "contentLength": 35756
+    }
+  },
+  "database": null
+}

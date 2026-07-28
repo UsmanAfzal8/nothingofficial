@@ -1,0 +1,213 @@
+{
+  "related_type": "product",
+  "related_id": 20,
+  "related_slug": "nothing-labcoat",
+  "source_handle": "nothing-labcoat",
+  "source_name": "Nothing Labcoat",
+  "source_url": "https://nothing.tech/products/nothing-labcoat?Colour=White&Size=S",
+  "screen_title": "Specs",
+  "spec_groups": [
+    {
+      "title": "Design",
+      "icon_key": "design",
+      "subtitle": null,
+      "media_url": "https://cdn.nothingpakistan.pk/specs/nothing-labcoat-design.png",
+      "media_alt": "Nothing Labcoat Design",
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 10,
+      "items": [
+        {
+          "section": "Details",
+          "label": null,
+          "value": "Regular fit and thigh length",
+          "sort_order": 10
+        },
+        {
+          "section": "Details",
+          "label": null,
+          "value": "Multiple pockets with zip closures",
+          "sort_order": 20
+        },
+        {
+          "section": "Details",
+          "label": null,
+          "value": "Back bottom hem vent for mobility",
+          "sort_order": 30
+        },
+        {
+          "section": "Details",
+          "label": null,
+          "value": "Right chest pocket with multiple compartments and zip closure",
+          "sort_order": 40
+        },
+        {
+          "section": "Details",
+          "label": null,
+          "value": "Inside adjustable waist with drawstring",
+          "sort_order": 50
+        },
+        {
+          "section": "Details",
+          "label": null,
+          "value": "Hanger loop at back neck",
+          "sort_order": 60
+        }
+      ]
+    },
+    {
+      "title": "Care & materials",
+      "icon_key": "care-materials",
+      "subtitle": null,
+      "media_url": null,
+      "media_alt": null,
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 20,
+      "items": [
+        {
+          "section": "100% nylon transparent ripstop (56gsm)",
+          "label": null,
+          "value": "Machine wash at 30°C mild",
+          "sort_order": 10
+        },
+        {
+          "section": "100% nylon transparent ripstop (56gsm)",
+          "label": null,
+          "value": "Do not bleach",
+          "sort_order": 20
+        },
+        {
+          "section": "100% nylon transparent ripstop (56gsm)",
+          "label": null,
+          "value": "Line dry",
+          "sort_order": 30
+        },
+        {
+          "section": "100% nylon transparent ripstop (56gsm)",
+          "label": null,
+          "value": "No not tumble dry",
+          "sort_order": 40
+        },
+        {
+          "section": "100% nylon transparent ripstop (56gsm)",
+          "label": null,
+          "value": "Iron at max 110°C",
+          "sort_order": 50
+        },
+        {
+          "section": "100% nylon transparent ripstop (56gsm)",
+          "label": null,
+          "value": "Dry clean",
+          "sort_order": 60
+        },
+        {
+          "section": "100% nylon transparent ripstop (56gsm)",
+          "label": null,
+          "value": "Wash with like colours",
+          "sort_order": 70
+        }
+      ]
+    },
+    {
+      "title": "Size & fit",
+      "icon_key": "size-fit",
+      "subtitle": null,
+      "media_url": null,
+      "media_alt": null,
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 30,
+      "items": [
+        {
+          "section": "As shown",
+          "label": "Male model height",
+          "value": "186cm/6'1\"",
+          "sort_order": 10
+        },
+        {
+          "section": "As shown",
+          "label": "Female model height",
+          "value": "179cm/5'10 1/2\"",
+          "sort_order": 20
+        },
+        {
+          "section": "As shown",
+          "label": "Models are wearing",
+          "value": "Medium",
+          "sort_order": 30
+        },
+        {
+          "section": "Size guide (cm)",
+          "label": "Size",
+          "value": "S\nM\nL\nXL",
+          "sort_order": 40
+        },
+        {
+          "section": "Size guide (cm)",
+          "label": "Chest",
+          "value": "64\n67\n70\n73",
+          "sort_order": 50
+        },
+        {
+          "section": "Size guide (cm)",
+          "label": "Bottom",
+          "value": "53\n56\n59\n62",
+          "sort_order": 60
+        },
+        {
+          "section": "Size guide (cm)",
+          "label": "Shoulder",
+          "value": "59\n61\n63\n64.5",
+          "sort_order": 70
+        },
+        {
+          "section": "Size guide (cm)",
+          "label": "Length",
+          "value": "73\n74.5\n76\n77.5",
+          "sort_order": 80
+        },
+        {
+          "section": "Size guide (cm)",
+          "label": "Sleeve",
+          "value": "64\n65\n66\n67",
+          "sort_order": 90
+        }
+      ]
+    },
+    {
+      "title": "Sustainability",
+      "icon_key": "sustainability",
+      "subtitle": null,
+      "media_url": null,
+      "media_alt": null,
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 40,
+      "items": [
+        {
+          "section": "Sustainability",
+          "label": "Sustainability",
+          "value": "YKK Natulon zippers made from recycled materials including PET bottles. Yarn used in the tape is made from 99% post-consumer recycled material.",
+          "sort_order": 10
+        },
+        {
+          "section": "Certification",
+          "label": "Certification",
+          "value": "Global Recycled Standard (GRS)",
+          "sort_order": 20
+        },
+        {
+          "section": "Packaging",
+          "label": "Packaging",
+          "value": "100% biodegradable plant-based packaging",
+          "sort_order": 30
+        }
+      ]
+    }
+  ]
+}

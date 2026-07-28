@@ -95,7 +95,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }))
 
-  const collectionRoutes: MetadataRoute.Sitemap = collections.map((entry) => ({
+  const collectionSlugs = new Set(collections.map((entry) => entry.slug))
+  const canonicalCollections = collections.filter((entry) => {
+    const unprefixedSlug = stripNothingPakistanSlugPrefix(entry.slug)
+
+    return entry.slug === unprefixedSlug || !collectionSlugs.has(unprefixedSlug)
+  })
+
+  const collectionRoutes: MetadataRoute.Sitemap = canonicalCollections.map((entry) => ({
     url: buildAbsoluteUrl(`/collections/${entry.slug}`),
     lastModified: getLastModifiedDate(entry.updatedAt) ?? latestCatalogDate,
     changeFrequency: collectionFrequency(entry),

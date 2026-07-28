@@ -1,0 +1,26 @@
+{
+  "checkedAt": "2026-07-27T10:07:15.515Z",
+  "apply": false,
+  "article": {
+    "queueNumber": 47,
+    "slug": "nothing-phone-battery-drain-fix-guide",
+    "title": "Nothing Phone Battery Drain Fix Guide"
+  },
+  "metrics": {
+    "words": 3016,
+    "headings": 28,
+    "links": 4,
+    "productLinks": 3,
+    "uniqueProductSlugs": [
+      "nothing-pakistan-phone-4a",
+      "nothing-pakistan-phone-3a",
+      "nothing-pakistan-phone-3"
+    ],
+    "heroImage": {
+      "status": 200,
+      "contentType": "image/webp",
+      "contentLength": 38570
+    }
+  },
+  "database": null
+}

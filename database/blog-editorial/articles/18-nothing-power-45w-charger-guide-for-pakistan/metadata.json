@@ -1,0 +1,75 @@
+{
+  "queue_number": 18,
+  "title": "Nothing Power 45W Charger Guide for Pakistan",
+  "slug": "nothing-power-45w-charger-guide-for-pakistan",
+  "meta_title": "Nothing Power 45W Charger Guide Pakistan",
+  "meta_description": "Understand Nothing Power 45W compatibility, USB PD and PPS, cable choice, real charging speed, heat, authenticity and safe buying in Pakistan.",
+  "excerpt": "A practical guide to Nothing Power 45W compatibility, USB PD and PPS negotiation, cables, charging speed, temperature, authenticity and troubleshooting.",
+  "focus_keyword": "Nothing Power 45W",
+  "category": "Nothing Accessories Guides",
+  "content_type": "guide",
+  "tags": [
+    "Nothing Power 45W",
+    "Nothing charger Pakistan",
+    "USB-C charger",
+    "USB Power Delivery",
+    "PPS charger",
+    "Nothing Phone charging",
+    "charger authenticity"
+  ],
+  "author": "Nothing Pakistan Editorial Team",
+  "author_type": "brand",
+  "hero_image_url": "https://res.cloudinary.com/dklsubnzb/image/upload/v1783841586/nothing-official-store-pakistan/blogs/hero-images/nothing-power-45w-charger-guide-for-pakistan.webp",
+  "hero_image_alt": "White two-pin Nothing Power 45W charger for a Pakistan buying and compatibility guide",
+  "hero_image_caption": "Editorial charger-guide artwork from the existing blog library; plug style and supplied accessories must be verified for the exact unit offered.",
+  "faqs": [
+    {
+      "question": "What is the Nothing Power 45W charger?",
+      "answer": "Nothing Power 45W is a single-port USB-C power adapter listed for up to 45 W charging with USB Power Delivery support. The connected device negotiates the actual voltage and current."
+    },
+    {
+      "question": "Will a 45W charger force 45W into my phone?",
+      "answer": "No. Compatible USB-C charging is negotiated. The phone draws an allowed profile according to its hardware, protocol, battery level, temperature and software, up to the limits of the charger and cable."
+    },
+    {
+      "question": "Does Nothing recommend PPS for its phones?",
+      "answer": "Nothing's official support guidance says other wired chargers can be used and recommends a branded charger supporting PPS for optimal charging on applicable phones."
+    },
+    {
+      "question": "Can Nothing Power 45W charge a laptop?",
+      "answer": "It may charge compatible USB PD laptops whose required profile is within the charger's output, but many laptops need more than 45 W or may charge slowly. Check the laptop's official input requirements."
+    },
+    {
+      "question": "Can I charge earbuds and other USB-C devices with it?",
+      "answer": "A compatible device negotiates a lower supported power level; a 45 W maximum does not mean small accessories receive 45 W. Verify the device, cable and protocol."
+    },
+    {
+      "question": "Which cable should I use with a 45W USB-C charger?",
+      "answer": "Use a sound USB-C to USB-C cable rated for the required current and Power Delivery profile. A damaged, counterfeit or low-spec cable can reduce speed or create unsafe heat."
+    },
+    {
+      "question": "Why is my Nothing Phone not charging at 45W?",
+      "answer": "The model may support a lower maximum, the battery may be nearly full, temperature may be high, the cable or protocol may limit power, or the phone may be in use. Peak power is conditional and temporary."
+    },
+    {
+      "question": "Is charger warmth normal?",
+      "answer": "Some warmth is expected because AC-to-DC conversion loses energy as heat. Stop using the charger if it overheats, smells unusual, crackles, discolours, has loose pins or repeatedly interrupts charging."
+    },
+    {
+      "question": "Does faster charging damage a Nothing Phone battery?",
+      "answer": "A compatible phone manages charging power and temperature, but heat and time at high charge can affect battery ageing. Use certified equipment, ventilation and the phone's charging features."
+    },
+    {
+      "question": "Can I use a travel adapter or extension board in Pakistan?",
+      "answer": "Only use a properly rated, undamaged adapter or board with firm contacts, correct voltage support, grounding where required and relevant safety compliance. Loose sockets and counterfeit accessories are unsafe."
+    },
+    {
+      "question": "How can I check whether a Nothing charger is original?",
+      "answer": "Compare packaging, model and electrical markings, plug quality, seller invoice and product finish with trusted references. Avoid spelling errors, loose pins, suspiciously low pricing and unverifiable sellers."
+    },
+    {
+      "question": "What should I do if charging is slow or intermittent?",
+      "answer": "Stop heavy phone use, let the device cool, inspect and dry-clean ports, reseat or replace the cable, test a known compatible charger and restart. Stop immediately if there is damage, burning smell or dangerous heat."
+    }
+  ]
+}

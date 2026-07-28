@@ -1,0 +1,26 @@
+{
+  "checkedAt": "2026-07-27T10:06:59.641Z",
+  "apply": false,
+  "article": {
+    "queueNumber": 35,
+    "slug": "nothing-phone-3-price-in-pakistan-and-buying-guide",
+    "title": "Nothing Phone 3 Price in Pakistan and Buying Guide"
+  },
+  "metrics": {
+    "words": 3001,
+    "headings": 32,
+    "links": 3,
+    "productLinks": 3,
+    "uniqueProductSlugs": [
+      "nothing-pakistan-phone-3",
+      "nothing-pakistan-phone-3a",
+      "nothing-pakistan-phone-4a"
+    ],
+    "heroImage": {
+      "status": 200,
+      "contentType": "image/webp",
+      "contentLength": 33774
+    }
+  },
+  "database": null
+}

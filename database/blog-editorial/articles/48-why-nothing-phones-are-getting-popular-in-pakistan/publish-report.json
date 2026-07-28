@@ -1,0 +1,26 @@
+{
+  "checkedAt": "2026-07-27T10:07:16.836Z",
+  "apply": false,
+  "article": {
+    "queueNumber": 48,
+    "slug": "why-nothing-phones-are-getting-popular-in-pakistan",
+    "title": "Why Nothing Phones Are Getting Popular in Pakistan"
+  },
+  "metrics": {
+    "words": 3028,
+    "headings": 28,
+    "links": 3,
+    "productLinks": 3,
+    "uniqueProductSlugs": [
+      "nothing-pakistan-phone-4a",
+      "nothing-pakistan-phone-3a",
+      "nothing-pakistan-phone-3"
+    ],
+    "heroImage": {
+      "status": 200,
+      "contentType": "image/webp",
+      "contentLength": 38842
+    }
+  },
+  "database": null
+}

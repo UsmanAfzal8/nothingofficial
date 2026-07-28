@@ -1,0 +1,26 @@
+{
+  "checkedAt": "2026-07-27T10:07:26.535Z",
+  "apply": false,
+  "article": {
+    "queueNumber": 54,
+    "slug": "where-to-buy-nothing-phone-officially-in-pakistan",
+    "title": "Where to Buy Nothing Phone Officially in Pakistan"
+  },
+  "metrics": {
+    "words": 3055,
+    "headings": 38,
+    "links": 9,
+    "productLinks": 6,
+    "uniqueProductSlugs": [
+      "nothing-pakistan-phone-4a",
+      "nothing-pakistan-phone-3a",
+      "nothing-pakistan-phone-3"
+    ],
+    "heroImage": {
+      "status": 200,
+      "contentType": "image/webp",
+      "contentLength": 53058
+    }
+  },
+  "database": null
+}

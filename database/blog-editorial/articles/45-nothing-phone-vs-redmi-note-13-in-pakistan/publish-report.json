@@ -1,0 +1,26 @@
+{
+  "checkedAt": "2026-07-27T10:07:13.098Z",
+  "apply": false,
+  "article": {
+    "queueNumber": 45,
+    "slug": "nothing-phone-vs-redmi-note-13-in-pakistan",
+    "title": "Nothing Phone vs Redmi Note 13 in Pakistan"
+  },
+  "metrics": {
+    "words": 3138,
+    "headings": 30,
+    "links": 3,
+    "productLinks": 3,
+    "uniqueProductSlugs": [
+      "nothing-pakistan-phone-4a",
+      "nothing-pakistan-phone-3a",
+      "nothing-pakistan-phone-3"
+    ],
+    "heroImage": {
+      "status": 200,
+      "contentType": "image/webp",
+      "contentLength": 36734
+    }
+  },
+  "database": null
+}

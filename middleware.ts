@@ -6,7 +6,18 @@ import {
   resolveLegacyProductHandle,
 } from '@/lib/legacy-slugs'
 
-const VIRTUAL_COLLECTION_SLUGS = new Set(['shop-all', 'phones', 'chargers', 'protectors', 'earbuds'])
+const CANONICAL_COLLECTION_SLUGS = new Set([
+  'shop-all',
+  'phones',
+  'chargers',
+  'protectors',
+  'earbuds',
+  'audio',
+  'cases',
+  'power',
+  'watches',
+  'apparel',
+])
 
 function permanentRedirect(request: NextRequest, pathname: string) {
   const redirectUrl = request.nextUrl.clone()
@@ -62,7 +73,7 @@ export function middleware(request: NextRequest) {
   if (collectionMatch?.[1]) {
     const normalizedSlug = normalizeLegacySlug(collectionMatch[1])
 
-    if (normalizedSlug && !normalizedSlug.startsWith('nothing-pakistan-') && !VIRTUAL_COLLECTION_SLUGS.has(normalizedSlug)) {
+    if (normalizedSlug && !normalizedSlug.startsWith('nothing-pakistan-') && !CANONICAL_COLLECTION_SLUGS.has(normalizedSlug)) {
       return permanentRedirect(request, `/collections/nothing-pakistan-${normalizedSlug}`)
     }
   }

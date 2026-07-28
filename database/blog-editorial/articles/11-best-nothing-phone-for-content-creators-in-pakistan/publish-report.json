@@ -1,0 +1,26 @@
+{
+  "checkedAt": "2026-07-27T10:06:25.275Z",
+  "apply": false,
+  "article": {
+    "queueNumber": 11,
+    "slug": "best-nothing-phone-for-content-creators-in-pakistan",
+    "title": "Best Nothing Phone for Content Creators in Pakistan"
+  },
+  "metrics": {
+    "words": 3072,
+    "headings": 28,
+    "links": 4,
+    "productLinks": 3,
+    "uniqueProductSlugs": [
+      "nothing-pakistan-phone-3",
+      "nothing-pakistan-phone-4a",
+      "nothing-pakistan-phone-4b"
+    ],
+    "heroImage": {
+      "status": 200,
+      "contentType": "image/webp",
+      "contentLength": 35542
+    }
+  },
+  "database": null
+}

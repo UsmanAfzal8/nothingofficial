@@ -1,4 +1,5 @@
 import type { BlogContentType, OrderStatus, PaymentStatus, ProductType, RelatedType } from '@/lib/models/supabase-enums'
+import type { ComparisonFamily } from '@/lib/models/comparison'
 export type { DetailImageRelatedType, StoreImageRelatedType, StoreRelatedType } from '@/lib/models/supabase-enums'
 
 export interface SupabaseCategoryRow {
@@ -165,6 +166,7 @@ export interface SupabaseProductRow {
   created_at: string | null
   updated_at: string | null
   product_type: ProductType | null
+  comparison_family: ComparisonFamily | null
 }
 
 export interface SupabaseMobileRow {
@@ -186,6 +188,7 @@ export interface SupabaseMobileRow {
   Price: number | null
   original_price: number | null
   warranty: number | null
+  comparison_family: ComparisonFamily
 }
 
 export interface SupabaseOrderRow {

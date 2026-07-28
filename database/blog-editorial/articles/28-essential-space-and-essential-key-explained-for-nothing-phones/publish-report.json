@@ -1,0 +1,26 @@
+{
+  "checkedAt": "2026-07-27T10:06:50.160Z",
+  "apply": false,
+  "article": {
+    "queueNumber": 28,
+    "slug": "essential-space-and-essential-key-explained-for-nothing-phones",
+    "title": "Essential Space and Essential Key Explained for Nothing Phones"
+  },
+  "metrics": {
+    "words": 3016,
+    "headings": 20,
+    "links": 6,
+    "productLinks": 6,
+    "uniqueProductSlugs": [
+      "nothing-pakistan-phone-4a",
+      "nothing-pakistan-phone-3a",
+      "nothing-pakistan-phone-3"
+    ],
+    "heroImage": {
+      "status": 200,
+      "contentType": "image/webp",
+      "contentLength": 37542
+    }
+  },
+  "database": null
+}

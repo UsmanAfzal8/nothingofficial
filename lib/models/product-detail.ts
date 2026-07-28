@@ -1,4 +1,5 @@
 import type { CollectionSlug } from '@/lib/models/catalog'
+import type { ComparisonFamily } from '@/lib/models/comparison'
 
 export interface ProductDetailWidget {
   id: string
@@ -115,6 +116,7 @@ export interface ProductDetailAggregateRating {
 export interface ProductDetail {
   id: string
   entityType: 'product' | 'mobile'
+  comparisonFamily: ComparisonFamily | null
   handle: string
   name: string
   brandName: string

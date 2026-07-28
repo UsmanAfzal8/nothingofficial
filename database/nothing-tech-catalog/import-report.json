@@ -1,0 +1,223 @@
+{
+  "imported_at": "2026-07-26T21:22:48.664Z",
+  "source_url": "https://nothing.tech/collections/shop-all",
+  "products": [
+    {
+      "handle": "cmf-buds-2",
+      "related_type": "product",
+      "related_id": 1,
+      "colors": 3,
+      "images_uploaded": 11
+    },
+    {
+      "handle": "cmf-buds-2-plus",
+      "related_type": "product",
+      "related_id": 2,
+      "colors": 2,
+      "images_uploaded": 10
+    },
+    {
+      "handle": "cmf-buds-2a",
+      "related_type": "product",
+      "related_id": 3,
+      "colors": 3,
+      "images_uploaded": 11
+    },
+    {
+      "handle": "cmf-buds-pro-2",
+      "related_type": "product",
+      "related_id": 4,
+      "colors": 4,
+      "images_uploaded": 12
+    },
+    {
+      "handle": "cmf-headphone-pro",
+      "related_type": "product",
+      "related_id": 5,
+      "colors": 3,
+      "images_uploaded": 3
+    },
+    {
+      "handle": "cmf-headphone-pro-ear-cushions",
+      "related_type": "product",
+      "related_id": 6,
+      "colors": 2,
+      "images_uploaded": 2
+    },
+    {
+      "handle": "cmf-phone-1-case",
+      "related_type": "product",
+      "related_id": 7,
+      "colors": 3,
+      "images_uploaded": 6
+    },
+    {
+      "handle": "cmf-power-100w-gan",
+      "related_type": "product",
+      "related_id": 8,
+      "colors": 1,
+      "images_uploaded": 2
+    },
+    {
+      "handle": "cmf-power-140w-gan",
+      "related_type": "product",
+      "related_id": 9,
+      "colors": 1,
+      "images_uploaded": 2
+    },
+    {
+      "handle": "cmf-power-65w-gan",
+      "related_type": "product",
+      "related_id": 10,
+      "colors": 1,
+      "images_uploaded": 4
+    },
+    {
+      "handle": "cmf-watch-3-pro",
+      "related_type": "product",
+      "related_id": 11,
+      "colors": 4,
+      "images_uploaded": 8
+    },
+    {
+      "handle": "ear",
+      "related_type": "product",
+      "related_id": 12,
+      "colors": 2,
+      "images_uploaded": 4
+    },
+    {
+      "handle": "ear-3",
+      "related_type": "product",
+      "related_id": 13,
+      "colors": 2,
+      "images_uploaded": 2
+    },
+    {
+      "handle": "ear-3a",
+      "related_type": "product",
+      "related_id": 14,
+      "colors": 4,
+      "images_uploaded": 4
+    },
+    {
+      "handle": "ear-a",
+      "related_type": "product",
+      "related_id": 15,
+      "colors": 3,
+      "images_uploaded": 6
+    },
+    {
+      "handle": "ear-open",
+      "related_type": "product",
+      "related_id": 16,
+      "colors": 2,
+      "images_uploaded": 3
+    },
+    {
+      "handle": "headphone-1",
+      "related_type": "product",
+      "related_id": 17,
+      "colors": 2,
+      "images_uploaded": 4
+    },
+    {
+      "handle": "headphone-a",
+      "related_type": "product",
+      "related_id": 18,
+      "colors": 4,
+      "images_uploaded": 4
+    },
+    {
+      "handle": "nothing-hoodie",
+      "related_type": "product",
+      "related_id": 19,
+      "colors": 1,
+      "images_uploaded": 5
+    },
+    {
+      "handle": "nothing-labcoat",
+      "related_type": "product",
+      "related_id": 20,
+      "colors": 1,
+      "images_uploaded": 7
+    },
+    {
+      "handle": "nothing-overall",
+      "related_type": "product",
+      "related_id": 21,
+      "colors": 1,
+      "images_uploaded": 7
+    },
+    {
+      "handle": "nothing-tracksuit-jacket",
+      "related_type": "product",
+      "related_id": 22,
+      "colors": 1,
+      "images_uploaded": 6
+    },
+    {
+      "handle": "nothing-tracksuit-trousers",
+      "related_type": "product",
+      "related_id": 23,
+      "colors": 1,
+      "images_uploaded": 6
+    },
+    {
+      "handle": "phone-3",
+      "related_type": "mobile",
+      "related_id": 1,
+      "colors": 2,
+      "images_uploaded": 4
+    },
+    {
+      "handle": "phone-3a",
+      "related_type": "mobile",
+      "related_id": 2,
+      "colors": 3,
+      "images_uploaded": 11
+    },
+    {
+      "handle": "phone-3a-lite",
+      "related_type": "mobile",
+      "related_id": 3,
+      "colors": 2,
+      "images_uploaded": 2
+    },
+    {
+      "handle": "phone-3a-pro",
+      "related_type": "mobile",
+      "related_id": 4,
+      "colors": 2,
+      "images_uploaded": 10
+    },
+    {
+      "handle": "phone-4a",
+      "related_type": "mobile",
+      "related_id": 5,
+      "colors": 4,
+      "images_uploaded": 4
+    },
+    {
+      "handle": "phone-4a-pro",
+      "related_type": "mobile",
+      "related_id": 6,
+      "colors": 3,
+      "images_uploaded": 3
+    },
+    {
+      "handle": "phone-4b",
+      "related_type": "mobile",
+      "related_id": 7,
+      "colors": 3,
+      "images_uploaded": 3
+    }
+  ],
+  "failed": [],
+  "summary": {
+    "imported": 30,
+    "failed": 0,
+    "colors": 70,
+    "images_uploaded": 166
+  }
+}

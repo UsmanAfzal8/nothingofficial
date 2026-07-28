@@ -167,10 +167,10 @@ function buildProductSeoTitle(productDetail: ProductDetail) {
   }
 
   if (productDetail.entityType === 'mobile') {
-    return `${seoName} Price in Pakistan | PTA, Non-PTA & Accessories`
+    return `${seoName} Price in Pakistan | ${siteBrandName}`
   }
 
-  return `${seoName} Price in Pakistan | Original ${productDetail.brandName}`
+  return `${seoName} Price in Pakistan | ${siteBrandName}`
 }
 
 function buildProductSeoHeading(productDetail: ProductDetail) {
@@ -190,11 +190,11 @@ function buildProductSeoDescription(productDetail: ProductDetail) {
   }
 
   if (productDetail.entityType === 'mobile') {
-    return `${seoName} price in Pakistan${pricePhrase}. Review PTA status, non-PTA price, specs, stock, delivery, warranty support, and compatible Nothing accessories from ${siteBrandName}.`
+    return `${seoName} price in Pakistan${pricePhrase}. Review specifications, colours, variants, current availability, delivery, and compatible accessories from ${siteBrandName}.`
   }
 
   if (productDetail.priceLabel) {
-    return `Buy ${seoName} in Pakistan at ${productDetail.priceLabel}. Check original product details, availability, delivery, warranty support, and WhatsApp ordering from ${siteBrandName}.`
+    return `Explore ${seoName} in Pakistan at ${productDetail.priceLabel}. Check product details, compatibility, current availability, delivery, and ordering support from ${siteBrandName}.`
   }
 
   return (
@@ -221,9 +221,8 @@ function getFaqIntent(question: string) {
 
   if (normalized.includes('price')) return 'price'
   if (normalized.includes('where') && (normalized.includes('buy') || normalized.includes('order'))) return 'buy'
-  if (normalized.includes('pta')) return 'pta'
   if (normalized.includes('deliver')) return 'delivery'
-  if (normalized.includes('original') || normalized.includes('authentic')) return 'original'
+  if (normalized.includes('verify') || normalized.includes('authentic')) return 'verification'
   if (normalized.includes('cash on delivery') || normalized.includes('cod')) return 'cod'
 
   return null
@@ -247,14 +246,6 @@ function buildCoreProductFaqs(productDetail: ProductDetail): ProductDetailFaq[] 
     },
   ]
 
-  if (productDetail.entityType === 'mobile') {
-    sharedFaqs.push({
-      id: 'core-pta',
-      question: `Is ${name} PTA approved in Pakistan?`,
-      answer: `PTA approval and non-PTA availability for ${name} can vary by stock batch. Confirm the current status and price with ${siteBrandName} on WhatsApp before ordering.`,
-    })
-  }
-
   sharedFaqs.push(
     {
       id: 'core-delivery',
@@ -262,9 +253,9 @@ function buildCoreProductFaqs(productDetail: ProductDetail): ProductDetailFaq[] 
       answer: `Yes. ${siteBrandName} supports delivery of ${name} to Lahore, Karachi, Islamabad, Rawalpindi, Faisalabad, Multan, and other covered cities in Pakistan. Delivery and cash-on-delivery eligibility are confirmed during checkout.`,
     },
     {
-      id: 'core-original',
-      question: `Is ${name} original?`,
-      answer: `Yes. ${name} is listed as an original Nothing or CMF catalog item by ${companyLegalName} (${companyIdentifier}). Company details are available on the verification page.`,
+      id: 'core-verification',
+      question: `How can I verify the ${name} listing?`,
+      answer: `Review the model name, specifications, images, current price, and company details published on this site. ${siteBrandName} is operated by ${companyLegalName} (${companyIdentifier}); confirm any stock-batch or warranty detail with support before payment.`,
     },
   )
 
@@ -400,11 +391,6 @@ function buildProductPageFaqs(productDetail: ProductDetail) {
   return mergedFaqs
 }
 
-function getPriceValidUntil() {
-  const currentYear = new Date().getUTCFullYear()
-  return `${currentYear + 1}-12-31`
-}
-
 function buildOfferStructuredData(productDetail: ProductDetail) {
   if (typeof productDetail.price !== 'number') {
     return undefined
@@ -415,10 +401,8 @@ function buildOfferStructuredData(productDetail: ProductDetail) {
     '@id': `${productDetail.canonicalUrl}#offer`,
     priceCurrency: 'PKR',
     price: productDetail.price,
-    priceValidUntil: getPriceValidUntil(),
     availability: productDetail.availability,
     url: productDetail.canonicalUrl,
-    itemCondition: 'https://schema.org/NewCondition',
     seller: {
       '@type': 'Organization',
       '@id': buildAbsoluteUrl('/#organization'),
@@ -443,41 +427,6 @@ function buildOfferStructuredData(productDetail: ProductDetail) {
     areaServed: {
       '@type': 'Country',
       name: 'Pakistan',
-    },
-    shippingDetails: {
-      '@type': 'OfferShippingDetails',
-      shippingRate: {
-        '@type': 'MonetaryAmount',
-        value: 0,
-        currency: 'PKR',
-      },
-      shippingDestination: {
-        '@type': 'DefinedRegion',
-        addressCountry: 'PK',
-      },
-      deliveryTime: {
-        '@type': 'ShippingDeliveryTime',
-        handlingTime: {
-          '@type': 'QuantitativeValue',
-          minValue: 1,
-          maxValue: 1,
-          unitCode: 'DAY',
-        },
-        transitTime: {
-          '@type': 'QuantitativeValue',
-          minValue: 2,
-          maxValue: 3,
-          unitCode: 'DAY',
-        },
-      },
-    },
-    hasMerchantReturnPolicy: {
-      '@type': 'MerchantReturnPolicy',
-      applicableCountry: 'PK',
-      returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow',
-      merchantReturnDays: 7,
-      returnMethod: 'https://schema.org/ReturnByMail',
-      returnFees: 'https://schema.org/ReturnShippingFees',
     },
   }
 }
@@ -534,15 +483,12 @@ function buildProductStructuredData(productDetail: ProductDetail, faqs: ProductD
       name: buildProductSeoName(productDetail),
       description: buildProductSchemaDescription(productDetail),
       image: images.length > 0 ? images : undefined,
-      sku: productDetail.handle,
-      mpn: productDetail.handle,
       url: productDetail.canonicalUrl,
       brand: {
         '@type': 'Brand',
         name: productDetail.brandName,
       },
       category: 'Smartphone',
-      itemCondition: 'https://schema.org/NewCondition',
       offers: buildOfferStructuredData(productDetail),
       additionalProperty:
         productDetail.specs?.slice(0, 8).map((spec) => ({
@@ -575,15 +521,12 @@ function buildProductStructuredData(productDetail: ProductDetail, faqs: ProductD
     name: buildProductSeoName(productDetail),
     description: buildProductSchemaDescription(productDetail),
     image: images.length > 0 ? images : undefined,
-    sku: productDetail.handle,
-    mpn: productDetail.handle,
     url: productDetail.canonicalUrl,
     category: productDetail.collections.map((collection) => collection.title).join(', ') || undefined,
     brand: {
       '@type': 'Brand',
       name: productDetail.brandName,
     },
-    itemCondition: 'https://schema.org/NewCondition',
     offers: buildOfferStructuredData(productDetail),
   }
 
@@ -958,6 +901,38 @@ function PrimaryCatalogPanel({
   )
 }
 
+function CompareProductLink({
+  productDetail,
+  immersive,
+}: {
+  productDetail: ProductDetail
+  immersive: boolean
+}) {
+  if (!productDetail.comparisonFamily) return null
+
+  const params = new URLSearchParams({
+    family: productDetail.comparisonFamily,
+    left: productDetail.handle,
+  })
+
+  return (
+    <div className={immersive ? 'mx-auto mt-6 max-w-[1280px] px-4 sm:px-6 lg:px-8' : 'mt-6'}>
+      <Link
+        href={`/compare?${params.toString()}`}
+        className="group flex items-center justify-between gap-5 rounded-[22px] border border-black/10 bg-black px-5 py-5 text-white shadow-[0_18px_45px_rgba(0,0,0,0.12)] transition hover:-translate-y-0.5 hover:bg-[#1c1c1c] sm:px-7"
+      >
+        <span>
+          <span className="block text-xs uppercase tracking-[0.18em] text-white/48">Side-by-side comparison</span>
+          <span className="mt-2 block text-lg sm:text-2xl">Compare {productDetail.name}</span>
+        </span>
+        <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white text-xl text-black transition-transform group-hover:translate-x-1">
+          →
+        </span>
+      </Link>
+    </div>
+  )
+}
+
 export const revalidate = CATALOG_REVALIDATE_SECONDS
 
 export async function generateStaticParams() {
@@ -968,7 +943,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: ProductDetailPageProps): Promise<Metadata> {
   const requestedHandle = toSeoHandle(params.handle)
-  const productDetail = await getProductDetailByHandle(requestedHandle, false)
+  const productDetail = await getProductDetailByHandle(requestedHandle, true)
 
   if (!productDetail) {
     return {
@@ -987,10 +962,7 @@ export async function generateMetadata({ params }: ProductDetailPageProps): Prom
       `${buildProductSeoName(productDetail)} price in Pakistan`,
       `${buildProductSeoName(productDetail)} Pakistan`,
       `buy ${buildProductSeoName(productDetail)} in Pakistan`,
-      `${buildProductSeoName(productDetail)} official store Pakistan`,
       `${buildProductSeoName(productDetail)} ${siteBrandName}`,
-      productDetail.entityType === 'mobile' ? `${buildProductSeoName(productDetail)} PTA approved Pakistan` : null,
-      productDetail.entityType === 'mobile' ? `${buildProductSeoName(productDetail)} non PTA price Pakistan` : null,
       productDetail.entityType === 'mobile' ? `${buildProductSeoName(productDetail)} accessories Pakistan` : null,
       productDetail.entityType === 'mobile' ? `${buildProductSeoName(productDetail)} charger Pakistan` : null,
       productDetail.entityType === 'mobile' ? `${buildProductSeoName(productDetail)} protector Pakistan` : null,
@@ -1098,6 +1070,8 @@ export default async function ProductDetailPage({ params, searchParams }: Produc
             initialMediaId={initialMediaId}
           />
 
+          <CompareProductLink productDetail={productDetail} immersive={usesImmersiveHero} />
+
           {!usesImmersiveHero ? (
             <div className="mt-6">
               <ProductSpecGroupsSection groups={specGroups} />
@@ -1177,6 +1151,8 @@ export default async function ProductDetailPage({ params, searchParams }: Produc
           initialColor={initialColor}
           initialMediaId={initialMediaId}
         />
+
+        <CompareProductLink productDetail={productDetail} immersive={usesImmersiveHero} />
 
         {!usesImmersiveHero ? (
         <div className="mt-6 grid gap-6">

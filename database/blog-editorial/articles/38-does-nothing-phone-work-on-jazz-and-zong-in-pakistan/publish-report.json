@@ -1,0 +1,26 @@
+{
+  "checkedAt": "2026-07-27T10:07:04.364Z",
+  "apply": false,
+  "article": {
+    "queueNumber": 38,
+    "slug": "does-nothing-phone-work-on-jazz-and-zong-in-pakistan",
+    "title": "Does Nothing Phone Work on Jazz and Zong in Pakistan?"
+  },
+  "metrics": {
+    "words": 3000,
+    "headings": 32,
+    "links": 6,
+    "productLinks": 6,
+    "uniqueProductSlugs": [
+      "nothing-pakistan-phone-4a",
+      "nothing-pakistan-phone-3a",
+      "nothing-pakistan-phone-3"
+    ],
+    "heroImage": {
+      "status": 200,
+      "contentType": "image/webp",
+      "contentLength": 35886
+    }
+  },
+  "database": null
+}

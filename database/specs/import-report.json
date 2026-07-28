@@ -1,0 +1,218 @@
+{
+  "imported_at": "2026-07-26T21:29:20.484Z",
+  "supabase_key_role": "service_role",
+  "imported": [
+    {
+      "handle": "phone-4a-pro",
+      "related_type": "mobile",
+      "related_id": 6,
+      "groups": 14,
+      "items": 82
+    },
+    {
+      "handle": "phone-4a",
+      "related_type": "mobile",
+      "related_id": 5,
+      "groups": 14,
+      "items": 83
+    },
+    {
+      "handle": "phone-4b",
+      "related_type": "mobile",
+      "related_id": 7,
+      "groups": 14,
+      "items": 76
+    },
+    {
+      "handle": "headphone-a",
+      "related_type": "product",
+      "related_id": 18,
+      "groups": 10,
+      "items": 59
+    },
+    {
+      "handle": "ear-3a",
+      "related_type": "product",
+      "related_id": 14,
+      "groups": 12,
+      "items": 82
+    },
+    {
+      "handle": "phone-3",
+      "related_type": "mobile",
+      "related_id": 1,
+      "groups": 13,
+      "items": 82
+    },
+    {
+      "handle": "headphone-1",
+      "related_type": "product",
+      "related_id": 17,
+      "groups": 10,
+      "items": 62
+    },
+    {
+      "handle": "phone-3a-lite",
+      "related_type": "mobile",
+      "related_id": 3,
+      "groups": 12,
+      "items": 75
+    },
+    {
+      "handle": "ear-3",
+      "related_type": "product",
+      "related_id": 13,
+      "groups": 11,
+      "items": 87
+    },
+    {
+      "handle": "ear-open",
+      "related_type": "product",
+      "related_id": 16,
+      "groups": 9,
+      "items": 47
+    },
+    {
+      "handle": "phone-3a-pro",
+      "related_type": "mobile",
+      "related_id": 4,
+      "groups": 14,
+      "items": 91
+    },
+    {
+      "handle": "phone-3a",
+      "related_type": "mobile",
+      "related_id": 2,
+      "groups": 14,
+      "items": 91
+    },
+    {
+      "handle": "ear",
+      "related_type": "product",
+      "related_id": 12,
+      "groups": 10,
+      "items": 59
+    },
+    {
+      "handle": "ear-a",
+      "related_type": "product",
+      "related_id": 15,
+      "groups": 9,
+      "items": 52
+    },
+    {
+      "handle": "cmf-headphone-pro",
+      "related_type": "product",
+      "related_id": 5,
+      "groups": 10,
+      "items": 59
+    },
+    {
+      "handle": "cmf-watch-3-pro",
+      "related_type": "product",
+      "related_id": 11,
+      "groups": 10,
+      "items": 92
+    },
+    {
+      "handle": "cmf-buds-2-plus",
+      "related_type": "product",
+      "related_id": 2,
+      "groups": 11,
+      "items": 61
+    },
+    {
+      "handle": "cmf-buds-2a",
+      "related_type": "product",
+      "related_id": 3,
+      "groups": 11,
+      "items": 57
+    },
+    {
+      "handle": "cmf-buds-2",
+      "related_type": "product",
+      "related_id": 1,
+      "groups": 11,
+      "items": 61
+    },
+    {
+      "handle": "cmf-buds-pro-2",
+      "related_type": "product",
+      "related_id": 4,
+      "groups": 12,
+      "items": 62
+    },
+    {
+      "handle": "cmf-power-140w-gan",
+      "related_type": "product",
+      "related_id": 9,
+      "groups": 5,
+      "items": 20
+    },
+    {
+      "handle": "cmf-power-100w-gan",
+      "related_type": "product",
+      "related_id": 8,
+      "groups": 5,
+      "items": 19
+    },
+    {
+      "handle": "cmf-power-65w-gan",
+      "related_type": "product",
+      "related_id": 10,
+      "groups": 5,
+      "items": 23
+    },
+    {
+      "handle": "cmf-headphone-pro-ear-cushions",
+      "related_type": "product",
+      "related_id": 6,
+      "groups": 3,
+      "items": 5
+    },
+    {
+      "handle": "cmf-phone-1-case",
+      "related_type": "product",
+      "related_id": 7,
+      "groups": 2,
+      "items": 3
+    },
+    {
+      "handle": "nothing-hoodie",
+      "related_type": "product",
+      "related_id": 19,
+      "groups": 4,
+      "items": 24
+    },
+    {
+      "handle": "nothing-overall",
+      "related_type": "product",
+      "related_id": 21,
+      "groups": 4,
+      "items": 28
+    },
+    {
+      "handle": "nothing-tracksuit-jacket",
+      "related_type": "product",
+      "related_id": 22,
+      "groups": 4,
+      "items": 30
+    },
+    {
+      "handle": "nothing-tracksuit-trousers",
+      "related_type": "product",
+      "related_id": 23,
+      "groups": 4,
+      "items": 26
+    },
+    {
+      "handle": "nothing-labcoat",
+      "related_type": "product",
+      "related_id": 20,
+      "groups": 4,
+      "items": 25
+    }
+  ],
+  "skipped": [],
+  "failed": []
+}

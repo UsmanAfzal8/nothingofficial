@@ -1,0 +1,25 @@
+{
+  "checkedAt": "2026-07-27T10:06:17.300Z",
+  "apply": false,
+  "article": {
+    "queueNumber": 5,
+    "slug": "nothing-phone-4b-launch-date-pakistan-july-7-reveal-guide",
+    "title": "Nothing Phone 4b Launch Timeline and Pakistan Availability Guide"
+  },
+  "metrics": {
+    "words": 3338,
+    "headings": 23,
+    "links": 5,
+    "productLinks": 2,
+    "uniqueProductSlugs": [
+      "nothing-pakistan-phone-4b",
+      "nothing-pakistan-phone-4a"
+    ],
+    "heroImage": {
+      "status": 200,
+      "contentType": "image/webp",
+      "contentLength": 30750
+    }
+  },
+  "database": null
+}

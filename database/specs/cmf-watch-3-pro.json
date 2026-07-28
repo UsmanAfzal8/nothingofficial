@@ -1,0 +1,693 @@
+{
+  "related_type": "product",
+  "related_id": 11,
+  "related_slug": "cmf-watch-3-pro",
+  "source_handle": "cmf-watch-3-pro",
+  "source_name": "CMF Watch 3 Pro",
+  "source_url": "https://nothing.tech/products/cmf-watch-3-pro?Colour=Light+Green",
+  "screen_title": "Specs",
+  "spec_groups": [
+    {
+      "title": "Design",
+      "icon_key": "design",
+      "subtitle": null,
+      "media_url": "https://cdn.nothingpakistan.pk/specs/cmf-watch-3-pro-design.png",
+      "media_alt": "CMF Watch 3 Pro Design",
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 10,
+      "items": [
+        {
+          "section": "Dark grey & light green",
+          "label": "Height",
+          "value": "25.8 cm",
+          "sort_order": 10
+        },
+        {
+          "section": "Dark grey & light green",
+          "label": "Width",
+          "value": "4.7 cm",
+          "sort_order": 20
+        },
+        {
+          "section": "Dark grey & light green",
+          "label": "Depth",
+          "value": "1.44 cm",
+          "sort_order": 30
+        },
+        {
+          "section": "Dark grey & light green",
+          "label": "Weight",
+          "value": "51.9 g",
+          "sort_order": 40
+        },
+        {
+          "section": "Light grey",
+          "label": "Height",
+          "value": "25.8 cm",
+          "sort_order": 50
+        },
+        {
+          "section": "Light grey",
+          "label": "Width",
+          "value": "4.7 cm",
+          "sort_order": 60
+        },
+        {
+          "section": "Light grey",
+          "label": "Depth",
+          "value": "1.52 cm",
+          "sort_order": 70
+        },
+        {
+          "section": "Light grey",
+          "label": "Weight",
+          "value": "51.0 g",
+          "sort_order": 80
+        },
+        {
+          "section": "Orange",
+          "label": "Height",
+          "value": "25.8 cm",
+          "sort_order": 90
+        },
+        {
+          "section": "Orange",
+          "label": "Width",
+          "value": "4.7 cm",
+          "sort_order": 100
+        },
+        {
+          "section": "Orange",
+          "label": "Depth",
+          "value": "1.45 cm",
+          "sort_order": 110
+        },
+        {
+          "section": "Orange",
+          "label": "Weight",
+          "value": "52.4 g",
+          "sort_order": 120
+        },
+        {
+          "section": "Material",
+          "label": "Material",
+          "value": "METAL BODY + LIQUID SILICON STRAP",
+          "sort_order": 130
+        },
+        {
+          "section": "Customisation",
+          "label": "STRAPS",
+          "value": "REMOVABLE",
+          "sort_order": 140
+        }
+      ]
+    },
+    {
+      "title": "Display",
+      "icon_key": "display",
+      "subtitle": null,
+      "media_url": null,
+      "media_alt": null,
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 20,
+      "items": [
+        {
+          "section": "Display",
+          "label": "SIZE",
+          "value": "1.43’’",
+          "sort_order": 10
+        },
+        {
+          "section": "Display",
+          "label": "DISPLAY TECHNOLOGY",
+          "value": "AMOLED",
+          "sort_order": 20
+        },
+        {
+          "section": "Display",
+          "label": "SCREEN MATERIAL",
+          "value": "GLASS",
+          "sort_order": 30
+        },
+        {
+          "section": "Display",
+          "label": "RESOLUTION",
+          "value": "466 x 466 WITH 326 PPI",
+          "sort_order": 40
+        },
+        {
+          "section": "Brightness",
+          "label": "PEAK BRIGHTNESS",
+          "value": "650 NITS (TYP), up to 670 NITS",
+          "sort_order": 50
+        },
+        {
+          "section": "Refresh",
+          "label": "REFRESH RATE",
+          "value": "60 FPS",
+          "sort_order": 60
+        },
+        {
+          "section": "Watch face",
+          "label": null,
+          "value": "120+ SIGNATURE WATCH FACES WITH CUSTOMISABLE OPTIONS",
+          "sort_order": 70
+        },
+        {
+          "section": "Watch face",
+          "label": null,
+          "value": "INCLUDING DYNAMIC/INTERACTIVE AND STATIC WATCH FACES",
+          "sort_order": 80
+        }
+      ]
+    },
+    {
+      "title": "Technology",
+      "icon_key": "technology",
+      "subtitle": null,
+      "media_url": null,
+      "media_alt": null,
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 30,
+      "items": [
+        {
+          "section": "Sports",
+          "label": null,
+          "value": "SMART MOVEMENT ALGORITHM",
+          "sort_order": 10
+        },
+        {
+          "section": "Sports",
+          "label": null,
+          "value": "MY HEART RATE",
+          "sort_order": 20
+        },
+        {
+          "section": "Sports",
+          "label": null,
+          "value": "131 SPORT MODES WITH 7 SMART RECOGNITION ACTIVITIES",
+          "sort_order": 30
+        },
+        {
+          "section": "Health",
+          "label": null,
+          "value": "AUTOMATIC HEART RATE MEASUREMENT",
+          "sort_order": 40
+        },
+        {
+          "section": "Health",
+          "label": null,
+          "value": "24-HOUR HEART RATE MEASUREMENT",
+          "sort_order": 50
+        },
+        {
+          "section": "Health",
+          "label": null,
+          "value": "RESTING HEART RATE",
+          "sort_order": 60
+        },
+        {
+          "section": "Health",
+          "label": null,
+          "value": "EXERCISE HEART RATE",
+          "sort_order": 70
+        },
+        {
+          "section": "Health",
+          "label": null,
+          "value": "HEART RATE REMINDER",
+          "sort_order": 80
+        },
+        {
+          "section": "Health",
+          "label": null,
+          "value": "AVERAGE HEART RATE",
+          "sort_order": 90
+        },
+        {
+          "section": "Health",
+          "label": null,
+          "value": "ACTIVE SCORE",
+          "sort_order": 100
+        },
+        {
+          "section": "Health",
+          "label": null,
+          "value": "SLEEP DETECTION (SUPPORT ENHANCED SLEEP TRACKING)",
+          "sort_order": 110
+        },
+        {
+          "section": "Health",
+          "label": null,
+          "value": "BLOOD OXYGEN MEASUREMENT",
+          "sort_order": 120
+        },
+        {
+          "section": "Health",
+          "label": null,
+          "value": "WOMEN’S PHYSIOLOGICAL HEALTH RECORDS",
+          "sort_order": 130
+        },
+        {
+          "section": "Health",
+          "label": null,
+          "value": "BLOOD OXYGEN REMINDER",
+          "sort_order": 140
+        },
+        {
+          "section": "Health",
+          "label": null,
+          "value": "STRESS MONITORING",
+          "sort_order": 150
+        },
+        {
+          "section": "Health",
+          "label": null,
+          "value": "ALL-DAY STEP COUNT",
+          "sort_order": 160
+        },
+        {
+          "section": "Health",
+          "label": null,
+          "value": "CALORIES",
+          "sort_order": 170
+        },
+        {
+          "section": "Health",
+          "label": null,
+          "value": "DISTANCE",
+          "sort_order": 180
+        },
+        {
+          "section": "Health",
+          "label": null,
+          "value": "EXERCISE DURATION",
+          "sort_order": 190
+        },
+        {
+          "section": "Health",
+          "label": null,
+          "value": "WATER REMINDER",
+          "sort_order": 200
+        },
+        {
+          "section": "Health",
+          "label": null,
+          "value": "STAND UP REMINDER",
+          "sort_order": 210
+        }
+      ]
+    },
+    {
+      "title": "Battery",
+      "icon_key": "battery",
+      "subtitle": null,
+      "media_url": null,
+      "media_alt": null,
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 40,
+      "items": [
+        {
+          "section": "Capacity",
+          "label": "Capacity",
+          "value": "RECHARGEABLE LI-ION BATTERY",
+          "sort_order": 10
+        },
+        {
+          "section": "Capacity",
+          "label": "CAPACITY",
+          "value": "350 MAH",
+          "sort_order": 20
+        },
+        {
+          "section": "Capacity",
+          "label": "CHARGING METHOD",
+          "value": "CHARGING LINE",
+          "sort_order": 30
+        },
+        {
+          "section": "Capacity",
+          "label": "CHARGING TIME",
+          "value": "99 MINS",
+          "sort_order": 40
+        },
+        {
+          "section": "Life",
+          "label": "TYPICAL USE",
+          "value": "13 DAYS",
+          "sort_order": 50
+        },
+        {
+          "section": "Life",
+          "label": "HEAVY USE",
+          "value": "10 DAYS",
+          "sort_order": 60
+        },
+        {
+          "section": "Life",
+          "label": "AOD (ALWAYS-ON-DISPLAY) MODE + HEAVY USE",
+          "value": "4.5 DAYS",
+          "sort_order": 70
+        },
+        {
+          "section": "Life",
+          "label": "POWER SAVING MODE",
+          "value": "60 DAYS",
+          "sort_order": 80
+        },
+        {
+          "section": "Life",
+          "label": "BLUETOOTH CALLS",
+          "value": "17.9 HOURS",
+          "sort_order": 90
+        },
+        {
+          "section": "Life",
+          "label": "GPS USE",
+          "value": "17.2 HOURS",
+          "sort_order": 100
+        }
+      ]
+    },
+    {
+      "title": "Sensors & GPS",
+      "icon_key": "sensors-gps",
+      "subtitle": null,
+      "media_url": null,
+      "media_alt": null,
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 50,
+      "items": [
+        {
+          "section": "Sensors",
+          "label": null,
+          "value": "ACCELEROMETER",
+          "sort_order": 10
+        },
+        {
+          "section": "Sensors",
+          "label": null,
+          "value": "GYROSCOPE",
+          "sort_order": 20
+        },
+        {
+          "section": "Sensors",
+          "label": null,
+          "value": "AMBIENT LIGHT",
+          "sort_order": 30
+        },
+        {
+          "section": "Sensors",
+          "label": null,
+          "value": "HEART RATE & SpO₂ BLOOD OXYGEN SATURATION SENSOR",
+          "sort_order": 40
+        },
+        {
+          "section": "GPS",
+          "label": "TYPE",
+          "value": "Dual-band GPS (L1 + L5) / GLONASS / GALILEO / QZSS / BEIDOU",
+          "sort_order": 50
+        },
+        {
+          "section": "Vibration motor",
+          "label": "Vibration motor",
+          "value": "Linear motor",
+          "sort_order": 60
+        }
+      ]
+    },
+    {
+      "title": "Other features",
+      "icon_key": "other-features",
+      "subtitle": null,
+      "media_url": null,
+      "media_alt": null,
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 60,
+      "items": [
+        {
+          "section": "Other features",
+          "label": null,
+          "value": "RECORDING TRANSCRIPTION",
+          "sort_order": 10
+        },
+        {
+          "section": "Other features",
+          "label": null,
+          "value": "ESSENTIAL NEWS",
+          "sort_order": 20
+        },
+        {
+          "section": "Other features",
+          "label": null,
+          "value": "BLUETOOTH CALL",
+          "sort_order": 30
+        },
+        {
+          "section": "Other features",
+          "label": null,
+          "value": "CLOUD WATCH FACES",
+          "sort_order": 40
+        },
+        {
+          "section": "Other features",
+          "label": null,
+          "value": "PHOTO ALBUM WATCH FACES",
+          "sort_order": 50
+        },
+        {
+          "section": "Other features",
+          "label": null,
+          "value": "VIDEO WATCH FACE",
+          "sort_order": 60
+        },
+        {
+          "section": "Other features",
+          "label": null,
+          "value": "WATCH FACE STUDIO",
+          "sort_order": 70
+        },
+        {
+          "section": "Other features",
+          "label": null,
+          "value": "WATCH FACES SWITCHING",
+          "sort_order": 80
+        },
+        {
+          "section": "Other features",
+          "label": null,
+          "value": "BREATH TRAINING",
+          "sort_order": 90
+        },
+        {
+          "section": "Other features",
+          "label": null,
+          "value": "MESSAGE NOTIFICATION",
+          "sort_order": 100
+        },
+        {
+          "section": "Other features",
+          "label": null,
+          "value": "MUSIC CONTROL",
+          "sort_order": 110
+        },
+        {
+          "section": "Other features",
+          "label": null,
+          "value": "TIMER",
+          "sort_order": 120
+        },
+        {
+          "section": "Other features",
+          "label": null,
+          "value": "STOPWATCH",
+          "sort_order": 130
+        },
+        {
+          "section": "Other features",
+          "label": null,
+          "value": "ALARM CLOCK",
+          "sort_order": 140
+        },
+        {
+          "section": "Other features",
+          "label": null,
+          "value": "EMOJI MESSAGE ALARM",
+          "sort_order": 150
+        },
+        {
+          "section": "Other features",
+          "label": null,
+          "value": "WEATHER",
+          "sort_order": 160
+        },
+        {
+          "section": "Other features",
+          "label": null,
+          "value": "FIND MY PHONE",
+          "sort_order": 170
+        },
+        {
+          "section": "Other features",
+          "label": null,
+          "value": "FLASHLIGHT",
+          "sort_order": 180
+        },
+        {
+          "section": "Other features",
+          "label": null,
+          "value": "CAMERA REMOTE",
+          "sort_order": 190
+        },
+        {
+          "section": "Other features",
+          "label": null,
+          "value": "REMINDER",
+          "sort_order": 200
+        },
+        {
+          "section": "Other features",
+          "label": null,
+          "value": "VOICE ASSISTANT",
+          "sort_order": 210
+        },
+        {
+          "section": "Other features",
+          "label": null,
+          "value": "CALENDAR",
+          "sort_order": 220
+        },
+        {
+          "section": "Other features",
+          "label": null,
+          "value": "CALCULATOR",
+          "sort_order": 230
+        },
+        {
+          "section": "Other features",
+          "label": null,
+          "value": "WORLD CLOCK",
+          "sort_order": 240
+        }
+      ]
+    },
+    {
+      "title": "Connectivity",
+      "icon_key": "connectivity",
+      "subtitle": null,
+      "media_url": null,
+      "media_alt": null,
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 70,
+      "items": [
+        {
+          "section": "Bluetooth",
+          "label": "VERSION",
+          "value": "5.3",
+          "sort_order": 10
+        },
+        {
+          "section": "Android version",
+          "label": "Android version",
+          "value": "6.0 AND ABOVE",
+          "sort_order": 20
+        },
+        {
+          "section": "iOS version",
+          "label": "iOS version",
+          "value": "13 AND ABOVE",
+          "sort_order": 30
+        }
+      ]
+    },
+    {
+      "title": "App",
+      "icon_key": "app",
+      "subtitle": null,
+      "media_url": null,
+      "media_alt": null,
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 80,
+      "items": [
+        {
+          "section": "App",
+          "label": "App",
+          "value": "NOTHING X",
+          "sort_order": 10
+        }
+      ]
+    },
+    {
+      "title": "Resistance",
+      "icon_key": "resistance",
+      "subtitle": null,
+      "media_url": null,
+      "media_alt": null,
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 90,
+      "items": [
+        {
+          "section": "IP68 Certified",
+          "label": "WATER AND DUST RESISTANCE",
+          "value": "IP68",
+          "sort_order": 10
+        }
+      ]
+    },
+    {
+      "title": "In the box",
+      "icon_key": "in-the-box",
+      "subtitle": null,
+      "media_url": "https://cdn.nothingpakistan.pk/specs/cmf-watch-3-pro-in-the-box.jpg",
+      "media_alt": "CMF Watch 3 Pro In the box",
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 100,
+      "items": [
+        {
+          "section": "In the box",
+          "label": null,
+          "value": "CMF WATCH 3 PRO",
+          "sort_order": 10
+        },
+        {
+          "section": "In the box",
+          "label": null,
+          "value": "CHARGING LINE",
+          "sort_order": 20
+        },
+        {
+          "section": "In the box",
+          "label": null,
+          "value": "USER GUIDE & SAFETY",
+          "sort_order": 30
+        },
+        {
+          "section": "In the box",
+          "label": null,
+          "value": "WARRANTY INFORMATION",
+          "sort_order": 40
+        }
+      ]
+    }
+  ]
+}

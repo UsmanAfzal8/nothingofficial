@@ -1,0 +1,26 @@
+{
+  "checkedAt": "2026-07-27T10:06:23.023Z",
+  "apply": false,
+  "article": {
+    "queueNumber": 9,
+    "slug": "nothing-phone-heating-issue-fix-guide",
+    "title": "Nothing Phone Heating Issue Fix Guide"
+  },
+  "metrics": {
+    "words": 3214,
+    "headings": 21,
+    "links": 5,
+    "productLinks": 3,
+    "uniqueProductSlugs": [
+      "nothing-pakistan-phone-4a",
+      "nothing-pakistan-phone-4b",
+      "nothing-pakistan-phone-3"
+    ],
+    "heroImage": {
+      "status": 200,
+      "contentType": "image/webp",
+      "contentLength": 38124
+    }
+  },
+  "database": null
+}

@@ -51,7 +51,17 @@ const footerUtilityLinks = [
 export async function NothingFooter() {
   const [menuItems] = await Promise.all([getNavigationMenuItems()])
 
-  const headerItems = menuItems.filter((item) => !item.slug.endsWith('trending-picks'))
+  const collectionItems = menuItems.filter((item) => !item.slug.endsWith('trending-picks'))
+  const headerItems = [
+    ...collectionItems.slice(0, 2),
+    {
+      label: 'Compare',
+      href: '/compare',
+      slug: 'compare',
+      description: 'Compare Nothing and CMF products side by side.',
+    },
+    ...collectionItems.slice(2),
+  ]
   const storeLabel = 'Pakistan'
 
   return (

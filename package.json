@@ -6,9 +6,19 @@
     "dev": "next dev -p 3000",
     "dev:clean": "rm -rf .next && rm -f tsconfig.tsbuildinfo && next dev -p 3000",
     "build": "next build",
+    "build:cloudflare": "opennextjs-cloudflare build",
+    "preview:cloudflare": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
+    "deploy:cloudflare": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
     "start": "next start",
     "lint": "next lint",
     "type-check": "tsc --noEmit",
+    "catalog:discover:nothing": "node scripts/import-nothing-tech-catalog.mjs",
+    "catalog:import:nothing": "node scripts/import-nothing-tech-catalog.mjs --apply",
+    "catalog:specs:nothing": "node scripts/sync-nothing-specs.mjs --import",
+    "catalog:features:nothing": "node scripts/sync-official-shop-all-product-media-additive.mjs",
+    "blog:publish:editorial": "node scripts/publish-editorial-blog.mjs",
+    "catalog:sync:nothingshop": "node scripts/sync-nothingshop-catalog.mjs",
     "migrate:preflight": "node scripts/migrate-supabase-to-cloudinary.mjs --preflight",
     "migrate:dry-run": "node scripts/migrate-supabase-to-cloudinary.mjs --dry-run --prune-orphans --drop-skipped-media",
     "migrate:replace:safe": "node scripts/migrate-supabase-to-cloudinary.mjs --replace --confirm-replace --prune-orphans --drop-skipped-media",
@@ -18,6 +28,7 @@
     "migrate:summary:preflight": "node scripts/migrate-supabase-to-cloudinary.mjs --summary-preflight"
   },
   "dependencies": {
+    "@opennextjs/cloudflare": "1.10.1",
     "@supabase/auth-helpers-nextjs": "^0.10.0",
     "@supabase/auth-helpers-react": "^0.4.0",
     "@supabase/ssr": "^0.9.0",
@@ -38,6 +49,10 @@
     "eslint-config-next": "^14.0.0",
     "postcss": "^8.4.0",
     "tailwindcss": "^3.3.0",
-    "typescript": "^5.3.0"
+    "typescript": "^5.3.0",
+    "wrangler": "4.114.0"
+  },
+  "overrides": {
+    "fast-xml-parser": "5.10.1"
   }
 }

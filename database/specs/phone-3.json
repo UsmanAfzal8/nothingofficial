@@ -1,0 +1,672 @@
+{
+  "related_type": "mobile",
+  "related_id": 1,
+  "related_slug": "phone-3",
+  "source_handle": "phone-3",
+  "source_name": "Phone (3)",
+  "source_url": "https://nothing.tech/products/phone-3?Colour=White&Capacity=12%2B256GB",
+  "screen_title": "Specs",
+  "spec_groups": [
+    {
+      "title": "In the box",
+      "icon_key": "in-the-box",
+      "subtitle": null,
+      "media_url": "https://cdn.nothingpakistan.pk/specs/phone-3-in-the-box.jpg",
+      "media_alt": "Phone (3) In the box",
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 10,
+      "items": [
+        {
+          "section": "In the box",
+          "label": null,
+          "value": "Nothing Phone (3)",
+          "sort_order": 10
+        },
+        {
+          "section": "In the box",
+          "label": null,
+          "value": "Nothing Cable (c-c) 100 cm",
+          "sort_order": 20
+        },
+        {
+          "section": "In the box",
+          "label": null,
+          "value": "Phone (3) case",
+          "sort_order": 30
+        },
+        {
+          "section": "In the box",
+          "label": null,
+          "value": "Phone (3) screen protector (pre-applied)",
+          "sort_order": 40
+        },
+        {
+          "section": "In the box",
+          "label": null,
+          "value": "SIM tray ejector tool",
+          "sort_order": 50
+        },
+        {
+          "section": "In the box",
+          "label": null,
+          "value": "Safety information and warranty card",
+          "sort_order": 60
+        }
+      ]
+    },
+    {
+      "title": "Colours & capacity",
+      "icon_key": "colours-capacity",
+      "subtitle": null,
+      "media_url": null,
+      "media_alt": null,
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 20,
+      "items": [
+        {
+          "section": null,
+          "label": "Colours",
+          "value": "White\nBlack",
+          "sort_order": 10
+        },
+        {
+          "section": null,
+          "label": "Capacity",
+          "value": "12GB+256GB\n16GB+512GB",
+          "sort_order": 20
+        }
+      ]
+    },
+    {
+      "title": "Dimensions",
+      "icon_key": "dimensions",
+      "subtitle": null,
+      "media_url": "https://cdn.nothingpakistan.pk/specs/phone-3-dimensions.jpg",
+      "media_alt": "Phone (3) Dimensions",
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 30,
+      "items": [
+        {
+          "section": "Dimensions",
+          "label": "Height",
+          "value": "160.60 mm",
+          "sort_order": 10
+        },
+        {
+          "section": "Dimensions",
+          "label": "Width",
+          "value": "75.59 mm",
+          "sort_order": 20
+        },
+        {
+          "section": "Dimensions",
+          "label": "Depth",
+          "value": "8.99 mm",
+          "sort_order": 30
+        },
+        {
+          "section": "Dimensions",
+          "label": "Weight",
+          "value": "218 g",
+          "sort_order": 40
+        }
+      ]
+    },
+    {
+      "title": "Processor",
+      "icon_key": "processor",
+      "subtitle": null,
+      "media_url": null,
+      "media_alt": null,
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 40,
+      "items": [
+        {
+          "section": "Qualcomm Snapdragon 8S Gen 4",
+          "label": "CPU",
+          "value": "Qualcomm Snapdragon 8S Gen 4\n4 nm TSMC process\nQualcomm® Kryo™, 8-core, up to 3.21 GHz\n1 Prime core, up to 3.2 GHz  (Cortex-X4)\n7 Performance cores, up to 3.0 GHz (Cortex-A720)",
+          "sort_order": 10
+        },
+        {
+          "section": "Qualcomm Snapdragon 8S Gen 4",
+          "label": "GPU",
+          "value": "Qualcomm® Adreno™ 825",
+          "sort_order": 20
+        },
+        {
+          "section": "Qualcomm Snapdragon 8S Gen 4",
+          "label": "NPU",
+          "value": "Qualcomm® Hexagon™ NPU\nQualcomm® AI Engine",
+          "sort_order": 30
+        },
+        {
+          "section": "Qualcomm Snapdragon 8S Gen 4",
+          "label": "ISP",
+          "value": "Qualcomm Spectra™ 18-bit Triple AI ISP",
+          "sort_order": 40
+        }
+      ]
+    },
+    {
+      "title": "Camera",
+      "icon_key": "camera",
+      "subtitle": null,
+      "media_url": null,
+      "media_alt": null,
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 50,
+      "items": [
+        {
+          "section": "Main camera",
+          "label": "Resolution",
+          "value": "50 MP",
+          "sort_order": 10
+        },
+        {
+          "section": "Main camera",
+          "label": "Aperture",
+          "value": "f/1.68",
+          "sort_order": 20
+        },
+        {
+          "section": "Main camera",
+          "label": "Sensor",
+          "value": "1/1.3\"",
+          "sort_order": 30
+        },
+        {
+          "section": "Main camera",
+          "label": "Features",
+          "value": "OIS & EIS\nAuto focus, 2x2 OCL PDAF\n2x in-sensor zoom",
+          "sort_order": 40
+        },
+        {
+          "section": "Periscope camera",
+          "label": "Resolution",
+          "value": "50 MP",
+          "sort_order": 50
+        },
+        {
+          "section": "Periscope camera",
+          "label": "Aperture",
+          "value": "f/2.68",
+          "sort_order": 60
+        },
+        {
+          "section": "Periscope camera",
+          "label": "Sensor",
+          "value": "1/2.75”",
+          "sort_order": 70
+        },
+        {
+          "section": "Periscope camera",
+          "label": "Features",
+          "value": "OIS & EIS\nAutofocus\n3x optical zoom\n6x in-sensor zoom\n60x ultra zoom",
+          "sort_order": 80
+        },
+        {
+          "section": "Ultra-wide camera",
+          "label": "Resolution",
+          "value": "50 MP",
+          "sort_order": 90
+        },
+        {
+          "section": "Ultra-wide camera",
+          "label": "Aperture",
+          "value": "F/2.2",
+          "sort_order": 100
+        },
+        {
+          "section": "Ultra-wide camera",
+          "label": "Sensor",
+          "value": "1/2.76”",
+          "sort_order": 110
+        },
+        {
+          "section": "Ultra-wide camera",
+          "label": "Features",
+          "value": "114° FOV",
+          "sort_order": 120
+        },
+        {
+          "section": "Front camera",
+          "label": "Resolution",
+          "value": "50 MP",
+          "sort_order": 130
+        },
+        {
+          "section": "Front camera",
+          "label": "Aperture",
+          "value": "F/2.2",
+          "sort_order": 140
+        },
+        {
+          "section": "Front camera",
+          "label": "Sensor",
+          "value": "1/2.76\"",
+          "sort_order": 150
+        },
+        {
+          "section": "Front camera",
+          "label": "Features",
+          "value": "81.2° FOV",
+          "sort_order": 160
+        },
+        {
+          "section": "TrueLens Engine 4",
+          "label": null,
+          "value": "Ultra XDR",
+          "sort_order": 170
+        },
+        {
+          "section": "TrueLens Engine 4",
+          "label": null,
+          "value": "Auto Tone",
+          "sort_order": 180
+        },
+        {
+          "section": "TrueLens Engine 4",
+          "label": null,
+          "value": "Portrait Optimiser",
+          "sort_order": 190
+        },
+        {
+          "section": "TrueLens Engine 4",
+          "label": null,
+          "value": "Motion Capture Mode",
+          "sort_order": 200
+        },
+        {
+          "section": "TrueLens Engine 4",
+          "label": null,
+          "value": "Night Mode",
+          "sort_order": 210
+        },
+        {
+          "section": "TrueLens Engine 4",
+          "label": null,
+          "value": "Macro Mode",
+          "sort_order": 220
+        },
+        {
+          "section": "TrueLens Engine 4",
+          "label": null,
+          "value": "Action Mode",
+          "sort_order": 230
+        },
+        {
+          "section": "Video recording",
+          "label": null,
+          "value": "Ultra XDR video recording at 60 / 30 FPS",
+          "sort_order": 240
+        },
+        {
+          "section": "Video recording",
+          "label": null,
+          "value": "1080p Ultra XDR video recording at 60 / 30 FPS",
+          "sort_order": 250
+        },
+        {
+          "section": "Video recording",
+          "label": null,
+          "value": "Slo-mo at 1080p 240 / 120 FPS",
+          "sort_order": 260
+        },
+        {
+          "section": "Video recording",
+          "label": null,
+          "value": "Time lapse at 4K / 1080p",
+          "sort_order": 270
+        }
+      ]
+    },
+    {
+      "title": "Display",
+      "icon_key": "display",
+      "subtitle": null,
+      "media_url": null,
+      "media_alt": null,
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 60,
+      "items": [
+        {
+          "section": "Display",
+          "label": "Size",
+          "value": "6.67” flexible AMOLED",
+          "sort_order": 10
+        },
+        {
+          "section": "Display",
+          "label": "Screen material",
+          "value": "Corning® Gorilla® Glass 7i",
+          "sort_order": 20
+        },
+        {
+          "section": "Display",
+          "label": "Resolution",
+          "value": "1260 x 2800 (460 PPI)",
+          "sort_order": 30
+        },
+        {
+          "section": "Display",
+          "label": "Colour depth",
+          "value": "10-bit",
+          "sort_order": 40
+        },
+        {
+          "section": "Display",
+          "label": "Colors",
+          "value": "1.07 billion",
+          "sort_order": 50
+        },
+        {
+          "section": "Display",
+          "label": "Contrast ratio",
+          "value": "1,000,000:1",
+          "sort_order": 60
+        },
+        {
+          "section": "Brightness",
+          "label": "Peak brightness",
+          "value": "4500 nits",
+          "sort_order": 70
+        },
+        {
+          "section": "Brightness",
+          "label": "Outdoor brightness",
+          "value": "1600 nits",
+          "sort_order": 80
+        },
+        {
+          "section": "Brightness",
+          "label": "Typical brightness",
+          "value": "800 nits",
+          "sort_order": 90
+        },
+        {
+          "section": "Refresh",
+          "label": "Adaptive refresh rate",
+          "value": "120 Hz",
+          "sort_order": 100
+        },
+        {
+          "section": "Refresh",
+          "label": "Touch sampling rate",
+          "value": "1000 Hz",
+          "sort_order": 110
+        }
+      ]
+    },
+    {
+      "title": "Battery & charging",
+      "icon_key": "battery-charging",
+      "subtitle": null,
+      "media_url": null,
+      "media_alt": null,
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 70,
+      "items": [
+        {
+          "section": null,
+          "label": "Battery",
+          "value": "Si/C Li-Ion 5,150 mAh*\n*5500mAh (in India only)",
+          "sort_order": 10
+        },
+        {
+          "section": null,
+          "label": "Charging",
+          "value": "65 W fast charging\n15 W wireless charging\n5 W reverse wireless charging\n7.5 W reverse wired charging",
+          "sort_order": 20
+        },
+        {
+          "section": null,
+          "label": "Protocol",
+          "value": "PPS / PD3.0 / PD2.0 / QC4.0 / QC3.0 / QC2.0 / DCP / SDP / CDP / UFCS",
+          "sort_order": 30
+        }
+      ]
+    },
+    {
+      "title": "Multimedia",
+      "icon_key": "multimedia",
+      "subtitle": null,
+      "media_url": null,
+      "media_alt": null,
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 80,
+      "items": [
+        {
+          "section": null,
+          "label": "Audio Supported Formats",
+          "value": "Playback: MP3, AAC, AAC+, WMA, AMR-NB, AMR-WB, WAV, FLAC, APE, OGG, MID, M4A, IMY\nRecording: WAV, AAC, AMR",
+          "sort_order": 10
+        },
+        {
+          "section": null,
+          "label": "Video Supported Formats",
+          "value": "Playback: MKV, MOV, MP4, H.265 (HEVC), AVI, WMV, TS, 3GP, FLV,  WEBM\nRecording: MP4",
+          "sort_order": 20
+        },
+        {
+          "section": null,
+          "label": "Image Supported Formats",
+          "value": "Playback: JPEG, PNG, BMP, GIF, WEB, HEIF, HEIC, DNG\nOutput: JPEG, DNG",
+          "sort_order": 30
+        }
+      ]
+    },
+    {
+      "title": "Audio",
+      "icon_key": "audio",
+      "subtitle": null,
+      "media_url": null,
+      "media_alt": null,
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 90,
+      "items": [
+        {
+          "section": null,
+          "label": "Audio",
+          "value": "3 high-definition mics\nSymmetric stereo speakers",
+          "sort_order": 10
+        }
+      ]
+    },
+    {
+      "title": "Connectivity",
+      "icon_key": "connectivity",
+      "subtitle": null,
+      "media_url": null,
+      "media_alt": null,
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 100,
+      "items": [
+        {
+          "section": null,
+          "label": "SIM card type",
+          "value": "Nano-SIM (4FF), Dual SIM",
+          "sort_order": 10
+        },
+        {
+          "section": null,
+          "label": "e-SIM",
+          "value": "Support",
+          "sort_order": 20
+        },
+        {
+          "section": null,
+          "label": "SIM mode",
+          "value": "Dual SIM, 4G/5G DSDS/DRDSDS, CSFB/VOLTE/VONR",
+          "sort_order": 30
+        },
+        {
+          "section": null,
+          "label": "2G GSM",
+          "value": "GSM 850, 900, DCS, PCS",
+          "sort_order": 40
+        },
+        {
+          "section": null,
+          "label": "3G UMTS (WCDMA) bands",
+          "value": "UMTS B1, 2, 4, 5, 6, 8, 19",
+          "sort_order": 50
+        },
+        {
+          "section": null,
+          "label": "4G LTE bands",
+          "value": "1, 2, 3, 4, 5, 7, 8, 12, 17, 18, 19, 20, 25, 26, 28, 30, 34, 38, 39, 40, 41, 42, 48, 66, 71",
+          "sort_order": 60
+        },
+        {
+          "section": null,
+          "label": "5G NR bands",
+          "value": "n1, n2, n3, n5, n7, n8, n12, n20, n25, n28, n30, n38, n40, n41, n48, n66, n71, n77, n78 - SA/NSA",
+          "sort_order": 70
+        },
+        {
+          "section": null,
+          "label": "Wi-Fi",
+          "value": "Wi-Fi 7, 802.11 a/b/g/n/ac/ax/be, 2.4G/5G/6G Tri-band, 2x2 MIMO and MU-MIMO, Wi-Fi Direct, Hotspot",
+          "sort_order": 80
+        },
+        {
+          "section": null,
+          "label": "Bluetooth",
+          "value": "6.0",
+          "sort_order": 90
+        },
+        {
+          "section": null,
+          "label": "Location",
+          "value": "L1+L5 dual-band A-GPS, GLONASS, BDS, GALILEO, QZSS, NavIC and SBAS",
+          "sort_order": 100
+        },
+        {
+          "section": null,
+          "label": "NFC",
+          "value": "Support",
+          "sort_order": 110
+        }
+      ]
+    },
+    {
+      "title": "Design",
+      "icon_key": "design",
+      "subtitle": null,
+      "media_url": null,
+      "media_alt": null,
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 110,
+      "items": [
+        {
+          "section": null,
+          "label": "IP rated",
+          "value": "IP68, fully resistant to water and dust",
+          "sort_order": 10
+        }
+      ]
+    },
+    {
+      "title": "Sensor",
+      "icon_key": "sensor",
+      "subtitle": null,
+      "media_url": null,
+      "media_alt": null,
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 120,
+      "items": [
+        {
+          "section": "Sensor",
+          "label": null,
+          "value": "In-display fingerprint sensor",
+          "sort_order": 10
+        },
+        {
+          "section": "Sensor",
+          "label": null,
+          "value": "Accelerometer",
+          "sort_order": 20
+        },
+        {
+          "section": "Sensor",
+          "label": null,
+          "value": "Electronic compass",
+          "sort_order": 30
+        },
+        {
+          "section": "Sensor",
+          "label": null,
+          "value": "Front ambient light sensor",
+          "sort_order": 40
+        },
+        {
+          "section": "Sensor",
+          "label": null,
+          "value": "Gyroscope",
+          "sort_order": 50
+        },
+        {
+          "section": "Sensor",
+          "label": null,
+          "value": "Proximity sensor",
+          "sort_order": 60
+        },
+        {
+          "section": "Sensor",
+          "label": null,
+          "value": "X-axis linear haptic motor",
+          "sort_order": 70
+        }
+      ]
+    },
+    {
+      "title": "Operating system",
+      "icon_key": "operating-system",
+      "subtitle": null,
+      "media_url": null,
+      "media_alt": null,
+      "media_type": "image",
+      "media_position": "top",
+      "default_open": false,
+      "sort_order": 130,
+      "items": [
+        {
+          "section": null,
+          "label": "Operating system",
+          "value": "Nothing OS 4 powered by Android 16",
+          "sort_order": 10
+        },
+        {
+          "section": null,
+          "label": "Software support",
+          "value": "5 years of Android updates\n7 years of security patches\n*The Nothing Phone (3) will get updates for 7 years starting from when the device first became available on nothing.tech. This includes five years of Android updates and seven years of security updates in addition to corrective and functionality updates.",
+          "sort_order": 20
+        }
+      ]
+    }
+  ]
+}
