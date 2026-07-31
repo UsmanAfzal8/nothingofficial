@@ -24,6 +24,8 @@ type ProductDetailHeroProps = {
   priceLabel?: string | null
   originalPriceLabel?: string | null
   warrantyYears?: number | null
+  warrantyMonths?: number | null
+  warrantyPriceLabel?: string | null
   canonicalHandle: string
   initialColor?: string | null
   initialMediaId?: string | null
@@ -872,6 +874,8 @@ function StickyPurchaseCard({
   onSelectColor,
   priceLabel,
   originalPriceLabel,
+  warrantyMonths,
+  warrantyPriceLabel,
   buyHref,
   whatsappHref,
   intro,
@@ -885,6 +889,8 @@ function StickyPurchaseCard({
   onSelectColor: (mediaIndex: number) => void
   priceLabel?: string | null
   originalPriceLabel?: string | null
+  warrantyMonths?: number | null
+  warrantyPriceLabel?: string | null
   buyHref: string
   whatsappHref: string
   intro: string | null
@@ -966,6 +972,11 @@ function StickyPurchaseCard({
                   originalPriceLabel={originalPriceLabel}
                   className="mt-2 block text-center [font-family:var(--font-ndot57)] text-[0.9rem] uppercase tracking-[0.08em] text-black sm:mt-3 sm:text-[1.02rem]"
                 />
+                {warrantyMonths && warrantyPriceLabel ? (
+                  <p className="mt-2 text-center [font-family:var(--font-lettera-regular)] text-[0.6rem] uppercase tracking-[0.08em] text-black/58">
+                    {warrantyMonths}-month warranty: {formatHeroPrice(warrantyPriceLabel)}
+                  </p>
+                ) : null}
               </div>
 
               <div className="flex min-w-0 flex-col justify-center">
@@ -1020,6 +1031,8 @@ export function ProductDetailHero({
   priceLabel,
   originalPriceLabel,
   warrantyYears,
+  warrantyMonths,
+  warrantyPriceLabel,
   canonicalHandle,
   initialColor,
   initialMediaId,
@@ -1323,6 +1336,8 @@ export function ProductDetailHero({
           onSelectColor={setSelectedIndex}
           priceLabel={priceLabel}
           originalPriceLabel={originalPriceLabel}
+          warrantyMonths={warrantyMonths}
+          warrantyPriceLabel={warrantyPriceLabel}
           buyHref={buyHref}
           whatsappHref={whatsappHref}
           intro={intro}
@@ -1442,6 +1457,11 @@ export function ProductDetailHero({
                 originalPriceLabel={originalPriceLabel}
                 className="font-sans text-[1.9rem] font-medium leading-none tracking-normal text-slate-900"
               />
+              {warrantyMonths && warrantyPriceLabel ? (
+                <p className="mt-3 text-sm font-medium text-slate-700">
+                  {warrantyMonths}-month warranty price: {warrantyPriceLabel}
+                </p>
+              ) : null}
             </div>
           </div>
 

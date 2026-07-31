@@ -1,6 +1,6 @@
 export const bankDetails = {
   accountTitle: 'NOTHING PAKISTAN',
-  accountNumber: '1007384871573',
-  iban: 'PK86UNIL0109000384871573',
-  bankName: 'United Bank Limited',
+  accountNumber: '11480115690612',
+  iban: 'PK25MEZN0011480115690612',
+  bankName: 'Meezan',
 } as const

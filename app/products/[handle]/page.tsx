@@ -841,6 +841,8 @@ function PhoneAccessoriesHero({
       priceLabel={productDetail.priceLabel}
       originalPriceLabel={productDetail.originalPriceLabel}
       warrantyYears={productDetail.warrantyYears}
+      warrantyMonths={productDetail.warrantyMonths}
+      warrantyPriceLabel={productDetail.warrantyPriceLabel}
       canonicalHandle={productDetail.handle}
       initialColor={initialColor}
       initialMediaId={initialMediaId}
@@ -889,6 +891,9 @@ function PrimaryCatalogPanel({
       backgroundImages={productDetail.productBackgroundImages}
       intro={intro}
       priceLabel={productDetail.priceLabel}
+      originalPriceLabel={productDetail.originalPriceLabel}
+      warrantyMonths={productDetail.warrantyMonths}
+      warrantyPriceLabel={productDetail.warrantyPriceLabel}
       canonicalHandle={canonicalHandle}
       initialColor={initialColor}
       initialMediaId={initialMediaId}

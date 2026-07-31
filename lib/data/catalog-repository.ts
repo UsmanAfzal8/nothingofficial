@@ -41,6 +41,7 @@ import { getLegacyProductHandleCandidates } from '@/lib/legacy-slugs'
 import { siteBrandName } from '@/lib/data/site-content'
 import { getSupabaseAdminClient } from '@/lib/supabase-admin'
 import { buildAbsoluteUrl, splitSeoKeywords, stripNothingPakistanSlugPrefix, trimSeoDescription } from '@/lib/utils/seo'
+import { getProductPriceRule } from '@/lib/data/product-pricing'
 import fallbackCategories from '@/database/categories.json'
 import fallbackCategoryRelations from '@/database/category_relations.json'
 import fallbackMobiles from '@/database/mobile.json'
@@ -96,6 +97,8 @@ export type OrderProductLookupItem = {
   price: number | null
   primaryImage: string | null
   gallery: ProductDetailMedia[]
+  warrantyMonths: number | null
+  warrantyPrice: number | null
 }
 
 type CatalogSnapshot = {
@@ -593,6 +596,7 @@ function buildFallbackProductDetail(product: FallbackProductRow): ProductDetail 
   const name = normalizeProductName(product.name)
   const price = parseCatalogNumber(product.price)
   const priceLabel = formatPrice(price)
+  const priceRule = getProductPriceRule(product.slug)
   const schemaJson = product.schema_json ?? null
   const gallery = buildFallbackGallery(name, schemaJson, product.image_alt_text)
   const collections = buildFallbackCollections('product', product.product_type)
@@ -657,6 +661,11 @@ function buildFallbackProductDetail(product: FallbackProductRow): ProductDetail 
     ],
     price,
     priceLabel,
+    originalPrice: priceRule?.originalPrice ?? null,
+    originalPriceLabel: formatPrice(priceRule?.originalPrice ?? null),
+    warrantyMonths: priceRule?.warrantyMonths ?? null,
+    warrantyPrice: priceRule?.warrantyPrice ?? null,
+    warrantyPriceLabel: formatPrice(priceRule?.warrantyPrice ?? null),
     stockQuantity: product.stock_quantity,
     availability: resolveAvailability(product.stock_quantity),
     createdAt: product.created_at,
@@ -1648,6 +1657,7 @@ function buildProductCard(product: SupabaseProductRow, snapshot: CatalogSnapshot
   const name = normalizeProductName(product.name)
   const price = product.price ?? null
   const priceLabel = formatPrice(price)
+  const priceRule = getProductPriceRule(product.slug)
 
   return {
     id: `product-${product.id}`,
@@ -1659,6 +1669,11 @@ function buildProductCard(product: SupabaseProductRow, snapshot: CatalogSnapshot
     variant: mainColor?.name ?? primaryImage?.caption ?? null,
     price,
     priceLabel,
+    originalPrice: priceRule?.originalPrice ?? null,
+    originalPriceLabel: formatPrice(priceRule?.originalPrice ?? null),
+    warrantyMonths: priceRule?.warrantyMonths ?? null,
+    warrantyPrice: priceRule?.warrantyPrice ?? null,
+    warrantyPriceLabel: formatPrice(priceRule?.warrantyPrice ?? null),
     kind: 'product',
     subtitle: categories[0]?.name ?? typeLabel,
     colorName: mainColor?.name ?? (primaryImage?.color_id ? snapshot.colorsById.get(primaryImage.color_id)?.name ?? null : null),
@@ -2300,6 +2315,7 @@ function buildProductDetailFromProduct(product: SupabaseProductRow, snapshot: Ca
   const reviews = buildReviews(getProductReviews(snapshot, product.id))
   const price = product.price ?? null
   const priceLabel = formatPrice(price)
+  const priceRule = getProductPriceRule(product.slug)
   const metaDescription = buildProductMetaDescription(product, name)
   const gallery = buildGallery(name, galleryImages, snapshot, product.image_alt_text || `${name} price in Pakistan`)
   const fallbackBackgroundMedia = gallery[0] ?? null
@@ -2343,6 +2359,11 @@ function buildProductDetailFromProduct(product: SupabaseProductRow, snapshot: Ca
     widgets: buildWidgets('product', product.product_type, galleryImages, snapshot, product.stock_quantity),
     price,
     priceLabel,
+    originalPrice: priceRule?.originalPrice ?? null,
+    originalPriceLabel: formatPrice(priceRule?.originalPrice ?? null),
+    warrantyMonths: priceRule?.warrantyMonths ?? null,
+    warrantyPrice: priceRule?.warrantyPrice ?? null,
+    warrantyPriceLabel: formatPrice(priceRule?.warrantyPrice ?? null),
     stockQuantity: product.stock_quantity,
     availability: resolveAvailability(product.stock_quantity),
     createdAt: product.created_at,
@@ -3086,6 +3107,8 @@ async function getOrderProductByHandleUncached(handle: string): Promise<OrderPro
           price: fallback.price ?? null,
           primaryImage: fallback.primaryImage,
           gallery: fallback.gallery,
+          warrantyMonths: fallback.warrantyMonths ?? null,
+          warrantyPrice: fallback.warrantyPrice ?? null,
         }
       : null
   }
@@ -3181,6 +3204,7 @@ async function getOrderProductByHandleUncached(handle: string): Promise<OrderPro
     }
   })
   const primaryImage = getCatalogPrimaryImage(images)?.url ?? gallery[0]?.url ?? null
+  const priceRule = getProductPriceRule(publicHandle)
 
   return {
     handle: publicHandle,
@@ -3188,6 +3212,8 @@ async function getOrderProductByHandleUncached(handle: string): Promise<OrderPro
     price,
     primaryImage,
     gallery,
+    warrantyMonths: priceRule?.warrantyMonths ?? null,
+    warrantyPrice: priceRule?.warrantyPrice ?? null,
   }
 }
 
@@ -3198,7 +3224,7 @@ export const getProductRecommendationsByHandle = cache(getProductRecommendations
 export const getCartPriceItemsByHandles = cache(getCartPriceItemsByHandlesUncached)
 const getCachedOrderProductByHandle = unstable_cache(
   getOrderProductByHandleUncached,
-  ['order-product-lookup-v1'],
+  ['order-product-lookup-v2'],
   {
     revalidate: 60,
     tags: ['catalog-order'],

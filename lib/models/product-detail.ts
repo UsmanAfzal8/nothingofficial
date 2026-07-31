@@ -145,6 +145,9 @@ export interface ProductDetail {
   originalPrice?: number | null
   originalPriceLabel?: string | null
   warrantyYears?: number | null
+  warrantyMonths?: number | null
+  warrantyPrice?: number | null
+  warrantyPriceLabel?: string | null
   stockQuantity?: number | null
   availability: 'https://schema.org/InStock' | 'https://schema.org/OutOfStock' | 'https://schema.org/PreOrder'
   createdAt?: string | null

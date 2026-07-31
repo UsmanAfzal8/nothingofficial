@@ -91,6 +91,8 @@ export default async function OrderByHandlePage({ params, searchParams }: OrderB
     image: selectedMedia?.url ?? product.primaryImage,
     colorName: selectedMedia?.colorName ?? requestedColor,
     price: product.price,
+    warrantyMonths: product.warrantyMonths ?? null,
+    warrantyPrice: product.warrantyPrice ?? null,
   }
 
   return (

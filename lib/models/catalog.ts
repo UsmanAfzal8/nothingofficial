@@ -13,6 +13,9 @@ export interface Product {
   originalPrice?: number | null
   originalPriceLabel?: string | null
   warrantyYears?: number | null
+  warrantyMonths?: number | null
+  warrantyPrice?: number | null
+  warrantyPriceLabel?: string | null
   kind?: 'product' | 'mobile'
   sortPriority?: number | null
   subtitle?: string | null

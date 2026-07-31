@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { ORDER_STATUS_ENUM, PAYMENT_STATUS_ENUM, type OrderStatus, type PaymentStatus } from '@/lib/models/supabase-enums'
 import { getShippingFee } from '@/lib/data/checkout-pricing'
 import { getProductDetailByHandle } from '@/lib/data/catalog-repository'
+import { getProductPriceRule } from '@/lib/data/product-pricing'
 import { getSupabaseAdminClient } from '@/lib/supabase-admin'
 
 const NO_INDEX_HEADERS = {
@@ -54,6 +55,7 @@ type NormalizedOrderItem = {
   unit_price: number
   currency: string
   notes: string | null
+  include_warranty: boolean
 }
 
 type NormalizedOrderUser = {
@@ -78,6 +80,7 @@ type RequestedOrderItem = {
   colorName: string | null
   quantity: number
   notes: string | null
+  includeWarranty: boolean
 }
 
 function toTrimmedString(value: unknown): string {
@@ -118,6 +121,7 @@ function parseRequestedOrderItems(body: CreateOrderPayload): RequestedOrderItem[
     const colorName = toOptionalString(item.colorName)
     const quantity = Number(item.quantity)
     const notes = toOptionalString(item.notes)
+    const includeWarranty = item.includeWarranty === true
     const uniqueKey = `${productHandle}:${colorName ?? ''}`
 
     if (
@@ -134,7 +138,7 @@ function parseRequestedOrderItems(body: CreateOrderPayload): RequestedOrderItem[
     }
 
     seenItems.add(uniqueKey)
-    items.push({ productHandle, colorName, quantity, notes })
+    items.push({ productHandle, colorName, quantity, notes, includeWarranty })
   }
 
   return items
@@ -162,15 +166,21 @@ async function resolveAuthoritativeOrderItems(
       return { error: `${product.name} does not have enough stock for the requested quantity.` }
     }
 
+    const priceRule = getProductPriceRule(product.handle)
+    const includeWarranty = requestItem.includeWarranty && Boolean(priceRule?.warrantyMonths && priceRule.warrantyPrice)
+
     items.push({
       product_handle: product.handle,
       product_name: product.name,
       image_url: product.primaryImage,
       color_name: requestItem.colorName,
       quantity: requestItem.quantity,
-      unit_price: product.price,
+      unit_price: includeWarranty ? priceRule!.warrantyPrice! : product.price,
       currency: 'PKR',
-      notes: requestItem.notes,
+      notes: includeWarranty
+        ? `${priceRule!.warrantyMonths}-month warranty selected at ${priceRule!.warrantyPrice} PKR.`
+        : requestItem.notes,
+      include_warranty: includeWarranty,
     })
   }
 

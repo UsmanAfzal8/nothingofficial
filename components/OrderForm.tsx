@@ -14,6 +14,7 @@ import {
   COD_SHIPPING_FEE,
   getShippingFee,
 } from '@/lib/data/checkout-pricing'
+import { getProductPriceRule } from '@/lib/data/product-pricing'
 import type { CartItem } from '@/lib/models/cart'
 
 type SelectedProduct = {
@@ -22,6 +23,8 @@ type SelectedProduct = {
   image: string | null
   colorName: string | null
   price: number | null
+  warrantyMonths: number | null
+  warrantyPrice: number | null
 }
 
 type OrderFormProps = {
@@ -40,6 +43,8 @@ type CheckoutItem = {
   image: string | null
   colorName: string | null
   price: number | null
+  warrantyMonths: number | null
+  warrantyPrice: number | null
   quantity: number
 }
 
@@ -85,17 +90,23 @@ function mapProductToCheckoutItem(product: SelectedProduct): CheckoutItem {
     image: product.image,
     colorName: product.colorName,
     price: product.price,
+    warrantyMonths: product.warrantyMonths,
+    warrantyPrice: product.warrantyPrice,
     quantity: 1,
   }
 }
 
 function mapCartItemToCheckoutItem(item: CartItem): CheckoutItem {
+  const priceRule = getProductPriceRule(item.handle)
+
   return {
     handle: item.handle,
     name: item.name,
     image: item.image,
     colorName: item.colorName ?? null,
     price: item.price,
+    warrantyMonths: priceRule?.warrantyMonths ?? null,
+    warrantyPrice: priceRule?.warrantyPrice ?? null,
     quantity: item.quantity,
   }
 }
@@ -151,7 +162,7 @@ function OrderSuccessScreen({
 
 export function OrderForm({ product }: OrderFormProps) {
   const router = useRouter()
-  const { items: cartItems, subtotal: cartSubtotal, clearCart, removeItem } = useCart()
+  const { items: cartItems, clearCart, removeItem } = useCart()
   const [standaloneProductRemoved, setStandaloneProductRemoved] = useState(false)
   const [name, setName] = useState('')
   const [address, setAddress] = useState('')
@@ -162,6 +173,7 @@ export function OrderForm({ product }: OrderFormProps) {
   const [deliveryType, setDeliveryType] = useState<DeliveryType>('ship')
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('cod')
   const [mobileSummaryOpen, setMobileSummaryOpen] = useState(false)
+  const [warrantySelections, setWarrantySelections] = useState<Record<string, boolean>>({})
   const [submitState, setSubmitState] = useState<SubmitState>(initialSubmitState)
   const selectedProduct = standaloneProductRemoved ? null : product
 
@@ -193,17 +205,14 @@ export function OrderForm({ product }: OrderFormProps) {
     return []
   }, [cartItems, selectedProduct])
 
-  const checkoutSubtotal = useMemo(() => {
-    if (selectedProduct) {
-      return selectedProduct.price ?? 0
-    }
-
-    if (cartItems.length > 0) {
-      return cartSubtotal
-    }
-
-    return 0
-  }, [cartItems.length, cartSubtotal, selectedProduct])
+  const checkoutSubtotal = useMemo(
+    () => checkoutItems.reduce((total, item) => {
+      const includeWarranty = item.handle ? warrantySelections[item.handle] === true : false
+      const unitPrice = includeWarranty && typeof item.warrantyPrice === 'number' ? item.warrantyPrice : (item.price ?? 0)
+      return total + unitPrice * item.quantity
+    }, 0),
+    [checkoutItems, warrantySelections],
+  )
 
   const itemCount = getCheckoutItemCount(checkoutItems)
   const previewImage = selectedProduct?.image ?? checkoutItems[0]?.image ?? null
@@ -280,6 +289,7 @@ export function OrderForm({ product }: OrderFormProps) {
               colorName: item.colorName,
               quantity: item.quantity,
               unitPrice: item.price ?? 0,
+              includeWarranty: item.handle ? warrantySelections[item.handle] === true : false,
               currency: 'PKR',
             }))
           : []
@@ -403,7 +413,9 @@ export function OrderForm({ product }: OrderFormProps) {
             <div className="mt-6 space-y-3">
               {checkoutItems.length > 0
                 ? checkoutItems.map((item) => {
-                    const itemTotal = typeof item.price === 'number' ? item.price * item.quantity : null
+                    const includeWarranty = item.handle ? warrantySelections[item.handle] === true : false
+                    const effectivePrice = includeWarranty && typeof item.warrantyPrice === 'number' ? item.warrantyPrice : item.price
+                    const itemTotal = typeof effectivePrice === 'number' ? effectivePrice * item.quantity : null
 
                     return (
                       <div
@@ -427,7 +439,18 @@ export function OrderForm({ product }: OrderFormProps) {
                             </button>
                           </div>
                         </div>
-                        {typeof item.price === 'number' ? <p className="mt-2 text-sm text-black/48">{formatPrice(item.price)} each</p> : null}
+                        {typeof item.price === 'number' ? <p className="mt-2 text-sm text-black/48">Base price: {formatPrice(item.price)} each</p> : null}
+                        {item.handle && item.warrantyMonths && item.warrantyPrice ? (
+                          <label className="mt-3 flex cursor-pointer items-start gap-2 rounded-[5px] border border-black/12 bg-white p-3 text-sm text-black/70">
+                            <input
+                              type="checkbox"
+                              checked={includeWarranty}
+                              onChange={(event) => setWarrantySelections((current) => ({ ...current, [item.handle as string]: event.target.checked }))}
+                              className="mt-0.5 h-4 w-4"
+                            />
+                            <span>Add {item.warrantyMonths}-month warranty — {formatPrice(item.warrantyPrice)} each</span>
+                          </label>
+                        ) : null}
                       </div>
                     )
                   })
