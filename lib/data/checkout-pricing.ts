@@ -1,6 +1,8 @@
 export const COD_SHIPPING_FEE = 600
 export const BANK_TRANSFER_SHIPPING_FEE = 400
 export const BANK_TRANSFER_FREE_SHIPPING_MINIMUM = 5000
+export const GOVT_TAX_RATE = 0.06
+export const GOVT_TAX_PERCENT = 6
 
 export function getShippingFee({
   subtotal,

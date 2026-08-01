@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { GOVT_TAX_PERCENT } from '@/lib/data/checkout-pricing'
 import Link from 'next/link'
 import { notFound, redirect } from 'next/navigation'
 import { CatalogProductTile } from '@/components/CatalogProductTile'
@@ -337,7 +338,7 @@ export default async function CollectionPage({ params }: CollectionPageProps) {
                   <InterTypographyScope className="mt-4 space-y-1.5 text-[0.92rem] leading-7 text-white/92 sm:text-[1rem] lg:mt-5 lg:text-[1.02rem] lg:leading-8">
                     <p>Free Delivery ✅</p>
                     <p>No Govt Tax ✅</p>
-                    <p>We pay your 4% Govt Tax when you pay online.</p>
+                    <p>We pay your {GOVT_TAX_PERCENT}% Govt Tax when you pay online.</p>
                   </InterTypographyScope>
                   <div className="mt-5 lg:mt-6">
                     <Link

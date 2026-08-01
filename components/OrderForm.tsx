@@ -12,6 +12,8 @@ import {
   BANK_TRANSFER_FREE_SHIPPING_MINIMUM,
   BANK_TRANSFER_SHIPPING_FEE,
   COD_SHIPPING_FEE,
+  GOVT_TAX_PERCENT,
+  GOVT_TAX_RATE,
   getShippingFee,
 } from '@/lib/data/checkout-pricing'
 import { getProductPriceRule } from '@/lib/data/product-pricing'
@@ -60,7 +62,6 @@ const initialSubmitState: SubmitState = {
 const fieldClassName =
   'w-full rounded-[5px] border border-black/18 bg-white px-4 py-3 [font-family:var(--font-ntype82)] text-sm text-black outline-none transition placeholder:text-black/32 focus:border-black focus:ring-2 focus:ring-black/10'
 
-const GOVT_TAX_RATE = 0.04
 const STORE_MAP_URL = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(siteContactAddress)}`
 
 function formatPrice(value: number | null | undefined): string | null {
@@ -237,12 +238,12 @@ export function OrderForm({ product }: OrderFormProps) {
   )
   const paymentNotes =
     deliveryType === 'pickup'
-      ? 'Store pickup order: no shipping fee. 4% govt tax applied.'
+      ? `Store pickup order: no shipping fee. ${GOVT_TAX_PERCENT}% govt tax applied.`
       : paymentMethod === 'bank_transfer'
       ? shippingFee === 0
         ? 'Bank transfer: free shipping on orders of Rs 5,000 or more and 0% government tax.'
         : 'Bank transfer order below Rs 5,000: Rs 400 shipping fee and 0% government tax.'
-      : 'COD order: Rs 600 shipping fee and 4% govt tax applied.'
+      : `COD order: Rs 600 shipping fee and ${GOVT_TAX_PERCENT}% govt tax applied.`
 
   useEffect(() => {
     if (!selectedProduct && cartItems.length === 0) {
@@ -607,7 +608,7 @@ export function OrderForm({ product }: OrderFormProps) {
                           <div>
                             <p className="text-sm font-semibold uppercase tracking-[0.16em]">Cash on delivery</p>
                             <p className={`mt-2 text-sm leading-6 ${paymentMethod === 'cod' ? 'text-white/80' : 'text-black/62'}`}>
-                              Rs {COD_SHIPPING_FEE} delivery • 4% govt tax
+                              Rs {COD_SHIPPING_FEE} delivery • {GOVT_TAX_PERCENT}% govt tax
                             </p>
                           </div>
                           <span className={`inline-flex h-5 w-5 rounded-full border ${paymentMethod === 'cod' ? 'border-white bg-white' : 'border-slate-300'}`}>

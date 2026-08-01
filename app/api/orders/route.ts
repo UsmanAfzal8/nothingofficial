@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { ORDER_STATUS_ENUM, PAYMENT_STATUS_ENUM, type OrderStatus, type PaymentStatus } from '@/lib/models/supabase-enums'
-import { getShippingFee } from '@/lib/data/checkout-pricing'
+import { GOVT_TAX_PERCENT, GOVT_TAX_RATE, getShippingFee } from '@/lib/data/checkout-pricing'
 import { getProductDetailByHandle } from '@/lib/data/catalog-repository'
 import { getProductPriceRule } from '@/lib/data/product-pricing'
 import { getSupabaseAdminClient } from '@/lib/supabase-admin'
@@ -70,7 +70,6 @@ type NormalizedOrderUser = {
 type PaymentMethod = 'cod' | 'bank_transfer'
 type DeliveryType = 'ship' | 'pickup'
 
-const GOVT_TAX_RATE = 0.04
 const MAX_ORDER_ITEMS = 25
 const MAX_QUANTITY_PER_ITEM = 10
 const MAX_ORDER_PAYLOAD_BYTES = 64 * 1024
@@ -283,12 +282,12 @@ export async function POST(request: NextRequest) {
     const finalTotal = Number((lineTotal + govtTaxAmount + shippingFee).toFixed(2))
     const paymentNotes =
       deliveryType === 'pickup'
-        ? 'Store pickup order: no shipping fee. 4% govt tax applied.'
+        ? `Store pickup order: no shipping fee. ${GOVT_TAX_PERCENT}% govt tax applied.`
         : paymentMethod === 'bank_transfer'
         ? shippingFee === 0
           ? 'Bank transfer: free shipping on orders of Rs 5,000 or more and 0% government tax.'
           : 'Bank transfer order below Rs 5,000: Rs 400 shipping fee and 0% government tax.'
-        : 'COD order: Rs 600 shipping fee and 4% govt tax applied.'
+        : `COD order: Rs 600 shipping fee and ${GOVT_TAX_PERCENT}% govt tax applied.`
     const orderItemsWithNotes = orderItems.map((item) => ({
       ...item,
       notes: [item.notes, paymentNotes, `Delivery: ${deliveryType === 'pickup' ? 'Store pickup' : 'Ship to customer'}`]
