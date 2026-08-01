@@ -5,6 +5,7 @@ import test from 'node:test'
 const source = await readFile(new URL('../lib/data/product-pricing.ts', import.meta.url), 'utf8')
 
 const expected = [
+  ['nothing-pakistan-ear-open', 34499, 39499, 6, 36499],
   ['nothing-pakistan-cmf-power-65w-gan', 10999, 15999, null, null],
   ['nothing-pakistan-cmf-buds-pro-2', 16499, 21499, 6, 18499],
   ['nothing-pakistan-cmf-buds-2-plus', 14999, 19999, 6, 16999],
